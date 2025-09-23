@@ -2,7 +2,7 @@
 title: "Robina Li"
 description: "Technical Blog - Exploring algorithms, data structures, and software engineering insights"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+url: "https://robinali34.github.io" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
