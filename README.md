@@ -1,6 +1,6 @@
-# My Jekyll Blog
+# Robina Li's Technical Blog
 
-A personal blog powered by Jekyll and GitHub Pages.
+A technical blog focused on algorithms, data structures, and software engineering insights. Powered by Jekyll and GitHub Pages.
 
 ## Features
 
@@ -49,6 +49,9 @@ A personal blog powered by Jekyll and GitHub Pages.
 ### Deployment
 
 This blog is automatically deployed to GitHub Pages when you push changes to the `main` branch. The deployment is handled by GitHub Actions.
+
+**Repository**: `blog_leetcode`  
+**Live URL**: `https://robinali34.github.io/blog_leetcode/`
 
 ## Customization
 

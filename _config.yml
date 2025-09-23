@@ -1,7 +1,7 @@
 # Site settings
 title: "Robina Li"
 description: "Technical Blog - Exploring algorithms, data structures, and software engineering insights"
-baseurl: "/blog" # the subpath of your site, e.g. /blog
+baseurl: "/blog_leetcode" # the subpath of your site, e.g. /blog_leetcode
 url: "https://robinali34.github.io" # the base hostname & protocol for your site
 
 # Build settings
