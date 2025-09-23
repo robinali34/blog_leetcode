@@ -3,32 +3,53 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+  <header class="site-header">
+    <h1 class="site-title">{{ site.title | default: "Robina Li" }}</h1>
+    <p class="site-subtitle">Technical Blog</p>
+  </header>
 
-  {{ content }}
+  <section class="welcome-section">
+    <h2>Welcome to My Technical Blog</h2>
+    <p>Exploring algorithms, data structures, and software engineering insights</p>
+  </section>
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+    <section class="latest-posts">
+      <h2>Latest Posts</h2>
+      <div class="post-grid">
+        {%- for post in site.posts limit:6 -%}
+        <article class="post-card">
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <div class="post-meta">{{ post.date | date: date_format }}</div>
+          <h3 class="post-title">
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          {%- if post.excerpt -%}
+            <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</div>
+          {%- endif -%}
+          {%- if post.categories -%}
+            <div class="post-categories">
+              {%- for category in post.categories -%}
+                <span class="category-tag">{{ category }}</span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </article>
+        {%- endfor -%}
+      </div>
+      
+      {%- if site.posts.size > 6 -%}
+        <div class="view-all-posts">
+          <a href="/posts/" class="btn">View All Posts</a>
+        </div>
+      {%- endif -%}
+    </section>
   {%- endif -%}
+
+  <section class="rss-section">
+    <p class="rss-subscribe">Subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a> to stay updated</p>
+  </section>
 
 </div>

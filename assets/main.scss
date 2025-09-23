@@ -3,7 +3,160 @@
 
 @import "minima";
 
-// Custom styles can be added here
+// Custom styles for the homepage
+.home {
+  .site-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 2rem;
+    
+    .site-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .site-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 3rem;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .latest-posts {
+    margin-bottom: 3rem;
+    
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #333;
+    }
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .post-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    
+    .post-title {
+      margin-bottom: 1rem;
+      
+      .post-link {
+        color: #333;
+        text-decoration: none;
+        font-size: 1.3rem;
+        font-weight: 500;
+        
+        &:hover {
+          color: #007acc;
+        }
+      }
+    }
+    
+    .post-excerpt {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .post-categories {
+      .category-tag {
+        display: inline-block;
+        background: #f0f0f0;
+        color: #666;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.3rem;
+      }
+    }
+  }
+
+  .view-all-posts {
+    text-align: center;
+    
+    .btn {
+      display: inline-block;
+      background: #007acc;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      
+      &:hover {
+        background: #005999;
+      }
+    }
+  }
+
+  .rss-section {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid #e8e8e8;
+    
+    .rss-subscribe {
+      color: #666;
+      font-size: 0.9rem;
+      
+      a {
+        color: #007acc;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Original styles for other pages
 .site-header {
   border-top: 5px solid #424242;
   border-bottom: 1px solid #e8e8e8;
