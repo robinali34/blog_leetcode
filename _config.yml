@@ -1,7 +1,7 @@
 # Site settings
 title: "Robina Li"
 description: "Technical Blog - Exploring algorithms, data structures, and software engineering insights"
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://robinali34.github.io" # the base hostname & protocol for your site
 
 # Build settings
@@ -48,8 +48,8 @@ exclude:
 github_username: robinali34
 twitter_username: robinali34
 
-# Author information
-author:
-  name: "Robina Li"
-  email: "robina@example.com"
-  description: "Passionate about algorithms, data structures, and software engineering. Sharing knowledge and helping others understand complex technical topics."
+# # Author information
+# author:
+#   name: "Robina Li"
+#   email: "robina@example.com"
+#   description: "Passionate about algorithms, data structures, and software engineering. Sharing knowledge and helping others understand complex technical topics."
