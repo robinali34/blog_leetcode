@@ -2,7 +2,7 @@
 layout: post
 title: "C++ STL Quick Reference for LeetCode"
 date: 2025-09-23 23:33:00 -0000
-categories: leetcode algorithm C++git 
+categories: leetcode algorithm C++
 ---
 
 # 📚 C++ STL Quick Reference for LeetCode
