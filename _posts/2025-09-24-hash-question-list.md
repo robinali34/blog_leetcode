@@ -2,7 +2,7 @@
 layout: post
 title: "Hash Table Mastery List"
 date: 2025-09-24 16:00:00 -0000
-categories: leetcode algorithm interview-preparation
+categories: leetcode algorithm hash
 ---
 
 # 🧩 Hash Table Mastery List
