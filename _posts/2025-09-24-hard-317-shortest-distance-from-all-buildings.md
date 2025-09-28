@@ -7,6 +7,8 @@ categories: leetcode algorithm bfs graph
 
 # [Hard] 317. Shortest Distance from All Buildings
 
+<!-- Fixed Liquid syntax error -->
+
 This is a graph traversal problem that requires finding the optimal location to build a new building such that the total distance to all existing buildings is minimized. The key insight is using BFS from each building to calculate distances and finding the spot with minimum total distance.
 
 ## Problem Description
