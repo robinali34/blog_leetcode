@@ -692,7 +692,7 @@ printf("\n");
 ```c
 int numbers[5] = {1, 2, 3, 4, 5};  // Initialize
 int arr[10];                        // Declare only
-int matrix[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}}; // 2D array
+int matrix[3][3] = \{\{1,2,3\}, \{4,5,6\}, \{7,8,9\}\}; // 2D array
 ```
 
 ### Array Operations
