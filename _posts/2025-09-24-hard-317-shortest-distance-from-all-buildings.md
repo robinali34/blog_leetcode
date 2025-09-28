@@ -87,9 +87,9 @@ public:
 
 private:
     int bfs(vector<vector<int>>& grid, int startRow, int startCol, int totalHouses) {
-        constexpr array<pair<int, int>, 4> directions{{
-            {1, 0}, {-1, 0}, {0, 1}, {0, -1}
-        }};
+        constexpr array<pair<int, int>, 4> directions\{\{
+            \{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}
+        \}\};
 
         const int rows = grid.size();
         const int cols = grid[0].size();
@@ -179,7 +179,7 @@ public:
 
 private:
     void bfs(vector<vector<int>>& grid, vector<vector<array<int, 2>>>& distance, int row, int col) {
-        constexpr array<pair<int, int>, 4> dirs = {{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}};
+        constexpr array<pair<int, int>, 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\};
         const int rows = grid.size(), cols = grid[0].size();
         queue<pair<int, int>> q;
         q.emplace(row, col);
@@ -223,7 +223,7 @@ class Solution {
 public:
     int shortestDistance(vector<vector<int>>& grid) {
         const int rows = grid.size(), cols = grid[0].size();
-        constexpr array<pair<int, int>, 4> dirs = {{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}};
+        constexpr array<pair<int, int>, 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\};
         int emptyLandValue =0, minDist = INT_MAX;
         vector<vector<int>> total(rows, vector<int> (cols, 0));
         for (int row = 0; row < rows; row++) {
