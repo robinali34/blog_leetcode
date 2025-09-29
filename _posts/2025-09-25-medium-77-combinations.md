@@ -44,9 +44,10 @@ Output: [[1,2,3]]
 The solution uses backtracking (DFS) with the following strategy:
 
 1. **Base Case**: When the current path has k elements, add it to the result
-2. **Recursive Case**: For each number from `first_num` to n, add it to the path and recurse
-3. **Backtrack**: Remove the last element before trying the next number
-4. **Avoid Duplicates**: Start from `i + 1` in the next recursive call to ensure ascending order
+2. **Early Termination**: If not enough numbers remain to form a valid combination, return early
+3. **Recursive Case**: For each number from `first_num` to n, add it to the path and recurse
+4. **Backtrack**: Remove the last element before trying the next number
+5. **Avoid Duplicates**: Start from `i + 1` in the next recursive call to ensure ascending order
 
 ## Solution in C++
 
@@ -67,6 +68,9 @@ private:
     void dfs(const int n, const int k, vector<vector<int>> & rtn, vector<int>& path, int first_num) {
         if(path.size() == k) {
             rtn.push_back(path);
+            return;
+        }
+        if (path.size() + (n - first_num + 1) < k) {
             return;
         }
         for (int i = first_num; i <= n; i++) {
@@ -116,8 +120,9 @@ Let's trace through the solution with n = 4, k = 2:
 
 1. **Backtracking Pattern**: Add → Recurse → Remove
 2. **Avoiding Duplicates**: Use `first_num` parameter to ensure ascending order
-3. **Pruning**: Stop when `i > n` or when remaining numbers can't form a valid combination
-4. **Base Case**: When path size equals k, we have a valid combination
+3. **Early Termination**: Prune branches where `path.size() + (n - first_num + 1) < k`
+4. **Pruning**: Stop when `i > n` or when remaining numbers can't form a valid combination
+5. **Base Case**: When path size equals k, we have a valid combination
 
 ## Backtracking Template
 
