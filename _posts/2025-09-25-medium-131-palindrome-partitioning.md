@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "131. Palindrome Partitioning"
+title: "[Medium] 131. Palindrome Partitioning"
 categories: leetcode algorithm backtracking
 tags: [leetcode, medium, backtracking, palindrome, string]
 ---
 
-# 131. Palindrome Partitioning
+# [Medium] 131. Palindrome Partitioning
 
 Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
 

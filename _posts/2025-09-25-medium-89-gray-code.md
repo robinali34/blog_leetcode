@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "89. Gray Code"
+title: "[Medium] 89. Gray Code"
 categories: leetcode algorithm
 tags: [leetcode, algorithm, backtracking, recursion, bit-manipulation]
 ---
 
-# 89. Gray Code
+# [Medium] 89. Gray Code
 
 An n-bit gray code sequence is a sequence of 2^n integers where:
 
