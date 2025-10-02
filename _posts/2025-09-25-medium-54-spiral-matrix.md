@@ -94,7 +94,7 @@ public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         const int VISITED = 101;
         const int rows = matrix.size(), cols = matrix[0].size();
-        vector<vector<int>> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; // right, down, left, up
+        vector<vector<int>> dirs = \{\{0, 1\}, \{1, 0\}, \{0, -1\}, \{-1, 0\}\}; // right, down, left, up
         int dir = 0;
         vector<int> rtn;
         int row = 0, col = 0;
