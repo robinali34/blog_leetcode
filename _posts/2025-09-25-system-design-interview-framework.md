@@ -2,8 +2,7 @@
 layout: post
 title: "System Design Interview Framework: A Structured Approach"
 date: 2025-09-25 00:00:00 -0000
-categories: system-design interview-preparation frameworks
-tags: [system-design, interview, framework, scalability, architecture, problem-solving]
+categories: system-design interview-preparation frameworks architecture scalability interview framework problem-solving preparation guide methodology best-practices
 ---
 
 # System Design Interview Framework: A Structured Approach

@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "[Medium] 54. Spiral Matrix"
-categories: leetcode algorithm
-tags: [leetcode, algorithm, matrix, simulation]
+categories: leetcode algorithm matrix data-structures simulation traversal medium cpp spiral-matrix problem-solving
 ---
 
 # [Medium] 54. Spiral Matrix

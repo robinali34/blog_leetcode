@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "C++ STL: Lambda Capture Basics"
-categories: programming c++ tutorial
-tags: [c++, stl, lambda, capture, reference, value]
+categories: programming cpp tutorial reference algorithm stl functional-programming lambda capture reference value competitive-programming
 ---
 
 # C++ STL: Lambda Capture Basics

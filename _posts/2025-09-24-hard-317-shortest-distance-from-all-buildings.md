@@ -2,7 +2,7 @@
 layout: post
 title: "[Hard] 317. Shortest Distance from All Buildings"
 date: 2025-09-24 19:00:00 -0000
-categories: leetcode algorithm bfs graph
+categories: leetcode algorithm bfs graph data-structures matrix shortest-path hard cpp shortest-distance buildings problem-solving
 ---
 
 # [Hard] 317. Shortest Distance from All Buildings

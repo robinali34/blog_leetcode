@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 77. Combinations"
 date: 2025-09-25 00:00:00 -0000
-categories: leetcode algorithm backtracking
+categories: leetcode algorithm backtracking data-structures recursion medium cpp combinations dfs problem-solving
 ---
 
 # [Medium] 77. Combinations

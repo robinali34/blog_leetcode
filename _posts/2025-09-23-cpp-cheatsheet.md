@@ -2,7 +2,7 @@
 layout: post
 title: "C++ STL Quick Reference for LeetCode"
 date: 2025-09-23 23:33:00 -0000
-categories: leetcode algorithm C++
+categories: leetcode algorithm cpp data-structures reference cheat-sheet programming stl containers iterators algorithms competitive-programming
 ---
 
 # 📚 C++ STL Quick Reference for LeetCode

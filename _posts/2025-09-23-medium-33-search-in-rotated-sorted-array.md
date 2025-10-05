@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 33. Search in Rotated Sorted Array"
 date: 2025-09-23 10:00:00 -0000
-categories: leetcode algorithm binary-search
+categories: leetcode algorithm binary-search data-structures array medium cpp rotated-array search problem-solving
 ---
 
 # [Medium] 33. Search in Rotated Sorted Array

@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 48. Rotate Image"
 date: 2025-09-24 21:00:00 -0000
-categories: leetcode algorithm matrix
+categories: leetcode algorithm matrix data-structures 2d-array transformation medium cpp rotate-image in-place problem-solving
 ---
 
 # [Medium] 48. Rotate Image

@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "[Medium] 50. Pow(x, n)"
-categories: leetcode algorithm
-tags: [leetcode, algorithm, math, recursion, bit-manipulation]
+categories: leetcode algorithm math data-structures recursion bit-manipulation medium cpp pow problem-solving
 ---
 
 # [Medium] 50. Pow(x, n)

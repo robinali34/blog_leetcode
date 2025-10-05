@@ -2,7 +2,7 @@
 layout: post
 title: "C Programming Cheat Sheet"
 date: 2025-09-24 23:00:00 -0000
-categories: programming c cheat-sheet
+categories: programming c cheat-sheet reference tutorial data-structures syntax data-types pointers functions control-structures memory-management programming-fundamentals
 ---
 
 # C Programming Cheat Sheet

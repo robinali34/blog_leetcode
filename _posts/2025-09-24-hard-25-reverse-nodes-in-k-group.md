@@ -2,7 +2,7 @@
 layout: post
 title: "[Hard] 25. Reverse Nodes in k-Group"
 date: 2025-09-24 22:00:00 -0000
-categories: leetcode algorithm linked-list recursive
+categories: leetcode algorithm linked-list recursive data-structures pointers hard cpp reverse-nodes k-group recursion problem-solving
 ---
 
 # [Hard] 25. Reverse Nodes in k-Group

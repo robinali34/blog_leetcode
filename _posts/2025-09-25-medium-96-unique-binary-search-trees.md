@@ -2,8 +2,7 @@
 layout: post
 title: "[Medium] 96. Unique Binary Search Trees"
 date: 2025-09-25 00:00:00 -0000
-categories: leetcode
-tags: [algorithm, dynamic-programming, math, catalan-numbers, medium, cpp]
+categories: leetcode algorithm dynamic-programming data-structures math catalan-numbers medium cpp binary-search-trees problem-solving
 ---
 
 # [Medium] 96. Unique Binary Search Trees

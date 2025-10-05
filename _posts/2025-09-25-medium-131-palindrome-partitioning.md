@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "[Medium] 131. Palindrome Partitioning"
-categories: leetcode algorithm backtracking
-tags: [leetcode, medium, backtracking, palindrome, string]
+categories: leetcode algorithm backtracking data-structures string palindrome recursion medium cpp partitioning problem-solving
 ---
 
 # [Medium] 131. Palindrome Partitioning

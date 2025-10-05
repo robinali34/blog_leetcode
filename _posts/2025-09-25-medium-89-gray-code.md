@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "[Medium] 89. Gray Code"
-categories: leetcode algorithm
-tags: [leetcode, algorithm, backtracking, recursion, bit-manipulation]
+categories: leetcode algorithm backtracking data-structures recursion bit-manipulation medium cpp gray-code problem-solving
 ---
 
 # [Medium] 89. Gray Code

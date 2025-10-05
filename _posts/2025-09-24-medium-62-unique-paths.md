@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 62. Unique Paths"
 date: 2025-09-24 23:30:00 -0000
-categories: leetcode algorithm dynamic-programming
+categories: leetcode algorithm dynamic-programming data-structures grid combinatorics medium cpp unique-paths problem-solving
 ---
 
 # [Medium] 62. Unique Paths

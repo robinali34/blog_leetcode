@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 150. Evaluate Reverse Polish Notation"
 date: 2025-09-24 20:00:00 -0000
-categories: leetcode algorithm stack
+categories: leetcode algorithm stack data-structures mathematical-expression medium cpp reverse-polish-notation rpn problem-solving
 ---
 
 # [Medium] 150. Evaluate Reverse Polish Notation
