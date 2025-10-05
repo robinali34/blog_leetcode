@@ -14,7 +14,7 @@ show_excerpts: true
 collections:
   posts:
     output: true
-    permalink: /:categories/:year/:month/:day/:title/
+    permalink: /:year/:month/:day/:title/
 
 # Defaults
 defaults:
