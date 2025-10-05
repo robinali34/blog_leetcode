@@ -559,3 +559,8 @@ Remember: The goal isn't to design a perfect system, but to show your thought pr
 - **Communicate your thinking process clearly**
 
 With practice and preparation, you'll be ready to tackle any system design interview with confidence!
+
+## References
+
+- [System Design Interview Framework - YouTube Tutorial](https://youtu.be/L9TfZdODuFQ?si=pajZqiU16nH79aYx) - Comprehensive video guide covering the structured approach to system design interviews
+- [Advanced System Design Interview Techniques](https://youtu.be/i7twT3x5yv8?si=nE2cS_0q9wI1j-V7) - Advanced strategies and techniques for tackling complex system design problems
