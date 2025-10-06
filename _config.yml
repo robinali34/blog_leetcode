@@ -16,6 +16,10 @@ collections:
     output: true
     permalink: /:year/:month/:day/:title/
 
+# Pagination
+paginate: 10
+paginate_path: "/posts/page:num/"
+
 # Defaults
 defaults:
   - scope:
@@ -32,6 +36,7 @@ defaults:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
 
 # Exclude from processing
 exclude:

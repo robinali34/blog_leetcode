@@ -39,12 +39,56 @@ layout: default
         </article>
         {%- endfor -%}
       </div>
-      
       {%- if site.posts.size > 3 -%}
         <div class="view-all-posts">
           <a href="{{ "/posts/" | relative_url }}" class="btn">View All Posts</a>
         </div>
       {%- endif -%}
+    </section>
+  {%- endif -%}
+
+  {%- if paginator and paginator.posts -%}
+    <section class="all-posts">
+      <h2>All Posts</h2>
+      <div class="posts-list">
+        {%- for post in paginator.posts -%}
+        <article class="post-item">
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <div class="post-meta">{{ post.date | date: date_format }}</div>
+          <h3 class="post-title">
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          {%- if post.excerpt -%}
+            <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+          {%- endif -%}
+          {%- if post.categories -%}
+            <div class="post-categories">
+              {%- for category in post.categories -%}
+                <span class="category-tag">{{ category }}</span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </article>
+        {%- endfor -%}
+      </div>
+
+      <nav class="pagination" role="navigation">
+        {%- if paginator.previous_page -%}
+          <a class="newer-posts" href="{{ paginator.previous_page_path | relative_url }}">← Newer</a>
+        {%- else -%}
+          <span class="newer-posts disabled">← Newer</span>
+        {%- endif -%}
+
+        <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+        {%- if paginator.next_page -%}
+          <a class="older-posts" href="{{ paginator.next_page_path | relative_url }}">Older →</a>
+        {%- else -%}
+          <span class="older-posts disabled">Older →</span>
+        {%- endif -%}
+      </nav>
     </section>
   {%- endif -%}
 
