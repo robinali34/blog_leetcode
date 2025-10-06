@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "System Design: Client to API Gateway Connection Options"
-date: 2025-09-25 00:00:00 -0000
+date: 2025-10-04 00:00:00 -0000
 categories: system-design architecture api-gateway communication-protocols networking websocket rest grpc graphql mqtt sse protocols comparison guide best-practices
 ---
 
