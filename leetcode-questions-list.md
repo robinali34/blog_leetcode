@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "LeetCode Questions List"
+permalink: /leetcode-questions-list/
 date: 2025-10-19 12:51:31 -0700
 categories: leetcode algorithm problem-solving
 ---
