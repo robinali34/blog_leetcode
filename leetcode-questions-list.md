@@ -11,8 +11,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 31
-- **Medium:** 28 problems
+- **Total Problems:** 35
+- **Medium:** 32 problems
 - **Hard:** 3 problems
 - **Easy:** 0 problems
 
@@ -25,6 +25,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [25](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) | Reverse Nodes in k-Group | Hard | Linked List | Recursion, Iteration | 2025-09-24 |
 | [33](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) | Search in Rotated Sorted Array | Medium | Array, Binary Search | Binary Search | 2025-09-23 |
 | [48](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/) | Rotate Image | Medium | Array, Matrix | Matrix Rotation | 2025-09-24 |
+| [394](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) | Decode String | Medium | String, Stack | Stack, String Processing | 2025-10-19 |
 | [50](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-50-pow-x-n/) | Pow(x, n) | Medium | Math, Recursion | Fast Exponentiation | 2025-09-25 |
 | [54](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) | Spiral Matrix | Medium | Array, Matrix | Simulation | 2025-09-25 |
 | [62](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) | Unique Paths | Medium | Math, Dynamic Programming | DP, Combinatorics | 2025-09-24 |
@@ -40,6 +41,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [317](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) | Shortest Distance from All Buildings | Hard | BFS, Matrix | BFS, Multi-source | 2025-09-24 |
 | [406](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) | Queue Reconstruction by Height | Medium | Array, Greedy | Greedy, Sorting | 2025-10-19 |
 | [417](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) | Pacific Atlantic Water Flow | Medium | Array, DFS | DFS, BFS | 2025-10-19 |
+| [437](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) | Path Sum III | Medium | Tree, DFS | DFS, Recursion | 2025-10-19 |
 | [494](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) | Target Sum | Medium | Array, Dynamic Programming | DP, Subset Sum | 2025-10-15 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | Next Greater Element II | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [648](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) | Replace Words | Medium | String, Trie | Trie, Hash Set | 2025-10-17 |
@@ -47,18 +49,21 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [990](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) | Satisfiability of Equality Equations | Medium | Union Find, Graph | Union Find, DFS | 2025-10-04 |
 | [1124](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/) | Longest Well-Performing Interval | Medium | Array, Hash Table | Hash Map, Prefix Sum | 2025-10-16 |
 | [1242](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-1242-web-crawler-multithreaded/) | Web Crawler Multithreaded | Medium | Concurrency, Multithreading | Multithreading, BFS | 2025-09-24 |
+| [1570](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) | Dot Product of Two Sparse Vectors | Medium | Hash Map, Data Structure | Hash Map, Optimization | 2025-10-19 |
 | [1856](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) | Maximum Sum of Minimum Product | Medium | Array, Stack | Monotonic Stack, Prefix Sum | 2025-10-17 |
+| [1865](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) | Finding Pairs With a Certain Sum | Medium | Hash Map, Data Structure | Hash Map, Count Tracking | 2025-10-19 |
 | [2466](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) | Count Ways To Build Good Strings | Medium | Dynamic Programming | DP, Bottom-up, Top-down | 2025-10-16 |
 | [2799](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) | Count Complete Subarrays in an Array | Medium | Array, Sliding Window | Sliding Window, Hash Map | 2025-10-17 |
 | [794](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/) | Valid Tic-Tac-Toe State | Medium | Array, String | Simulation, Validation | 2025-09-24 |
 
 ## Problems by Difficulty
 
-### Medium (28 problems)
+### Medium (32 problems)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/08/medium-3-longest-substring-without-repeating-characters/)
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/)
 - [33. Search in Rotated Sorted Array](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/)
 - [48. Rotate Image](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/)
+- [394. Decode String](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/)
 - [50. Pow(x, n)](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-50-pow-x-n/)
 - [54. Spiral Matrix](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/)
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/)
@@ -72,6 +77,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/)
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/)
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/)
+- [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/)
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/)
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/)
@@ -79,7 +85,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/)
 - [1124. Longest Well-Performing Interval](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/)
 - [1242. Web Crawler Multithreaded](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-1242-web-crawler-multithreaded/)
+- [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/)
 - [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/)
+- [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/)
 - [2466. Count Ways To Build Good Strings](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/)
 - [2799. Count Complete Subarrays in an Array](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/)
 - [794. Valid Tic-Tac-Toe State](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/)
@@ -110,12 +118,16 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### String Processing
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/08/medium-3-longest-substring-without-repeating-characters/) - Hash Map, Two Pointers
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) - Monotonic Stack, Greedy
+- [394. Decode String](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) - Stack, String Processing
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie, Hash Set
 - [794. Valid Tic-Tac-Toe State](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/) - Simulation, Validation
 
 ### Linked List
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/) - Recursion, Iteration
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) - Recursion, Iteration
+
+### Tree & DFS
+- [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) - DFS, Recursion
 
 ### Dynamic Programming
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) - DP, Combinatorics
@@ -139,6 +151,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) - Union Find, DFS
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) - BFS, Multi-source
 
+### Data Structure Design
+- [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) - Hash Map, Optimization
+- [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) - Hash Map, Count Tracking
+
 ### Advanced Algorithms
 - [218. The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) - Sweep Line, Priority Queue
 - [1242. Web Crawler Multithreaded](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-1242-web-crawler-multithreaded/) - Multithreading, BFS
@@ -153,13 +169,14 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 1. **Dynamic Programming (DP)** - 5 problems
 2. **Monotonic Stack** - 4 problems
 3. **Binary Search** - 4 problems
-4. **Hash Map/Set** - 4 problems
-5. **DFS/BFS** - 4 problems
+4. **Hash Map/Set** - 6 problems
+5. **DFS/BFS** - 5 problems
 6. **Backtracking** - 2 problems
 7. **Sliding Window** - 2 problems
 8. **Trie** - 1 problem
 9. **Union Find** - 1 problem
 10. **Sweep Line** - 1 problem
+11. **Data Structure Design** - 2 problems
 
 ### Algorithm Patterns
 - **Array Processing:** Sliding window, two pointers, prefix sum
@@ -172,14 +189,12 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ## Recent Additions
 
 ### Latest Problems (October 2025)
+- [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) - Hash Map, Count Tracking
+- [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) - Hash Map, Optimization
+- [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) - DFS, Recursion
+- [394. Decode String](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) - Stack, String Processing
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) - DFS, BFS
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) - Greedy, Sorting
-- [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) - Monotonic Stack, Greedy
-- [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie, Hash Set
-- [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) - Monotonic Stack
-- [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
-- [2799. Count Complete Subarrays in an Array](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) - Sliding Window, Hash Map
-- [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) - Monotonic Stack, Prefix Sum
 
 ## Tips for Problem Solving
 
@@ -192,4 +207,4 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ---
 
 *Last updated: October 19, 2025*
-*Total problems solved: 31*
+*Total problems solved: 35*

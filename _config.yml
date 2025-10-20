@@ -49,6 +49,12 @@ exclude:
   - vendor/ruby/
   - README.md
 
+# Navigation
+header_pages:
+  - about.md
+  - contact.md
+  - leetcode-questions-list.md
+
 # Social links
 github_username: robinali34
 linkedin_username: robinali
