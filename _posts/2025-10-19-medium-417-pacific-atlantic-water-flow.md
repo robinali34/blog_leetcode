@@ -56,7 +56,7 @@ Use DFS from Pacific and Atlantic ocean boundaries to find all cells that can re
 class Solution {
 private:
     int m, n;
-    vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    vector<vector<int>> dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;};
 
     void dfs(vector<vector<int>>& heights, vector<vector<bool>>& visited, int row, int col) {
         visited[row][col] = true;
@@ -272,7 +272,7 @@ Where m and n are the dimensions of the grid.
 ```cpp
 class Solution {
 private:
-    vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    vector<vector<int>> dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;};
     
     void bfs(vector<vector<int>>& heights, vector<vector<bool>>& visited, queue<pair<int,int>>& q) {
         while(!q.empty()) {
