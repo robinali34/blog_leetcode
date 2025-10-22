@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 49
-- **Medium:** 45 problems
+- **Total Problems:** 55
+- **Easy:** 1 problem
+- **Medium:** 50 problems
 - **Hard:** 4 problems
-- **Easy:** 0 problems
 
 ## All LeetCode Problems
 
@@ -67,12 +67,21 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [2043](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) | Simple Bank System | Medium | Design, Data Structure | Data Structure Design | 2025-10-20 |
 | [2466](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) | Count Ways To Build Good Strings | Medium | Dynamic Programming | DP, Bottom-up, Top-down | 2025-10-16 |
 | [2799](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) | Count Complete Subarrays in an Array | Medium | Array, Sliding Window | Sliding Window, Hash Map | 2025-10-17 |
+| [1207](https://robinali34.github.io/blog_leetcode/2025/10/20/easy-1207-unique-number-of-occurrences/) | Unique Number of Occurrences | Easy | Array, Hash Table | Hash Map, Hash Set | 2025-10-20 |
+| [347](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-347-top-k-frequent-elements/) | Top K Frequent Elements | Medium | Array, Hash Table, Heap | Bucket Sort, Quickselect, Heap | 2025-10-20 |
+| [348](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-348-design-tic-tac-toe/) | Design Tic-Tac-Toe | Medium | Design, Array | Counter Optimization, State Tracking | 2025-10-20 |
+| [419](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-419-battleships-in-a-board/) | Battleships in a Board | Medium | Array, Matrix | Top-Left Corner, DFS | 2025-10-20 |
+| [545](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-545-boundary-of-binary-tree/) | Boundary of Binary Tree | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-20 |
 | [752](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-752-open-the-lock/) | Open the Lock | Medium | BFS, Shortest Path | BFS, State Space | 2025-10-20 |
 | [794](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/) | Valid Tic-Tac-Toe State | Medium | Array, String | Simulation, Validation | 2025-09-24 |
+| [973](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-973-k-closest-points-to-origin/) | K Closest Points to Origin | Medium | Array, Sorting, Heap | Sorting, Heap, Quickselect | 2025-10-20 |
 
 ## Problems by Difficulty
 
-### Medium (39 problems)
+### Easy (1 problem)
+- [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/2025/10/20/easy-1207-unique-number-of-occurrences/)
+
+### Medium (50 problems)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/08/medium-3-longest-substring-without-repeating-characters/)
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/)
 - [33. Search in Rotated Sorted Array](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/)
@@ -112,6 +121,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2466. Count Ways To Build Good Strings](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/)
 - [2799. Count Complete Subarrays in an Array](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/)
 - [794. Valid Tic-Tac-Toe State](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/)
+- [973. K Closest Points to Origin](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-973-k-closest-points-to-origin/)
 
 ### Hard (4 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
@@ -137,6 +147,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1124. Longest Well-Performing Interval](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/) - Hash Map, Prefix Sum
 - [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) - Monotonic Stack, Prefix Sum
 - [2799. Count Complete Subarrays in an Array](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) - Sliding Window, Hash Map
+- [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/2025/10/20/easy-1207-unique-number-of-occurrences/) - Hash Map, Hash Set
+- [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-347-top-k-frequent-elements/) - Bucket Sort, Quickselect, Heap
+- [419. Battleships in a Board](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-419-battleships-in-a-board/) - Top-Left Corner, DFS
+- [973. K Closest Points to Origin](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-973-k-closest-points-to-origin/) - Sorting, Heap, Quickselect
 
 ### String Processing
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/08/medium-3-longest-substring-without-repeating-characters/) - Hash Map, Two Pointers
@@ -151,6 +165,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ### Tree & DFS
 - [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) - DFS, Recursion
+- [545. Boundary of Binary Tree](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-545-boundary-of-binary-tree/) - DFS, Boundary Traversal
 - [1443. Minimum Time to Collect All Apples in a Tree](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) - DFS, Tree Traversal
 - [1650. Lowest Common Ancestor of a Binary Tree III](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) - Two Pointers, Tree Traversal
 
@@ -183,6 +198,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) - Hash Map, Optimization
 - [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) - Hash Map, Count Tracking
 - [2043. Simple Bank System](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) - Data Structure Design
+- [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
 
 ### Advanced Algorithms
 - [218. The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) - Sweep Line, Priority Queue
@@ -222,8 +238,16 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ## Recent Additions
 
 ### Latest Problems (October 2025)
+- [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/2025/10/20/easy-1207-unique-number-of-occurrences/) - Hash Map, Hash Set
+- [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
+- [419. Battleships in a Board](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-419-battleships-in-a-board/) - Top-Left Corner, DFS
+- [545. Boundary of Binary Tree](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-545-boundary-of-binary-tree/) - DFS, Boundary Traversal
+- [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-347-top-k-frequent-elements/) - Bucket Sort, Quickselect, Heap
+- [973. K Closest Points to Origin](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-973-k-closest-points-to-origin/) - Sorting, Heap, Quickselect
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
 - [133. Clone Graph](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-133-clone-graph/) - DFS, BFS, Deep Copy
+- [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-347-top-k-frequent-elements/)
+- [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-347-top-k-frequent-elements/) - Bucket Sort, Quickselect, Heap
 - [752. Open the Lock](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-752-open-the-lock/) - BFS, Shortest Path
 - [314. Binary Tree Vertical Order Traversal](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) - BFS, Vertical Order
 - [322. Coin Change](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) - DP, Unbounded Knapsack
@@ -253,5 +277,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: October 19, 2025*
-*Total problems solved: 43*
+*Last updated: October 20, 2025*
+*Total problems solved: 55*
