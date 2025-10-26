@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 58
+- **Total Problems:** 59
 - **Easy:** 1 problem
-- **Medium:** 53 problems
+- **Medium:** 54 problems
 - **Hard:** 4 problems
 
 ## All LeetCode Problems
@@ -54,6 +54,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [419](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-419-battleships-in-a-board/) | [Battleships in a Board](https://leetcode.com/problems/battleships-in-a-board/) | Medium | Array, Matrix | Top-Left Corner, DFS | 2025-10-21 |
 | [426](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) | [Convert Binary Search Tree to Sorted Doubly Linked List](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/) | Medium | Tree, Linked List, DFS | Inorder Traversal, Recursion | 2025-10-22 |
 | [437](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) | [Path Sum III](https://leetcode.com/problems/path-sum-iii/) | Medium | Tree, DFS | DFS, Recursion | 2025-10-19 |
+| [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
 | [494](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) | [Target Sum](https://leetcode.com/problems/target-sum/) | Medium | Array, Dynamic Programming | DP, Subset Sum | 2025-10-15 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
@@ -84,7 +85,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Easy (1 problem)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (53 problems)
+### Medium (54 problems)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/09/medium-3-longest-substring-without-repeating-characters/)
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/)
 - [33. Search in Rotated Sorted Array](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/)
@@ -112,6 +113,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/)
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/)
+- [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/)
 - [912. Sort an Array](https://robinali34.github.io/blog_leetcode/2025/10/06/medium-912-sort-an-array/)
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/)
 - [1124. Longest Well-Performing Interval](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/)
@@ -173,6 +175,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [426. Convert Binary Search Tree to Sorted Doubly Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) - Inorder Traversal, Recursion
 - [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) - DFS, Recursion
 - [545. Boundary of Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) - DFS, Boundary Traversal
+- [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) - Graph Conversion, DFS, Parent Pointer
 - [1443. Minimum Time to Collect All Apples in a Tree](https://robinali34.github.io/blog_leetcode/2025/10/21/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) - DFS, Tree Traversal
 - [1650. Lowest Common Ancestor of a Binary Tree III](https://robinali34.github.io/blog_leetcode/2025/10/21/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) - Two Pointers, Tree Traversal
 
@@ -198,6 +201,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ### Graph & Union Find
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) - DFS, BFS
+- [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) - Graph Conversion, DFS, Parent Pointer
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) - Union Find, DFS
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) - BFS, Multi-source
 
@@ -245,6 +249,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ## Recent Additions
 
 ### Latest Problems (October 2025)
+- [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) - Graph Conversion, DFS, Parent Pointer
 - [1249. Minimum Remove to Make Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) - Stack Validation, Parentheses
 - [426. Convert Binary Search Tree to Sorted Doubly Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) - Inorder Traversal, Recursion
 - [1094. Car Pooling](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) - Bucket Sort, Event Processing
@@ -285,5 +290,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: October 22, 2025*
-*Total problems solved: 58*
+*Last updated: October 25, 2025*
+*Total problems solved: 59*
