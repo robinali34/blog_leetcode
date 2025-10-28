@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 59
+- **Total Problems:** 61
 - **Easy:** 1 problem
-- **Medium:** 54 problems
+- **Medium:** 56 problems
 - **Hard:** 4 problems
 
 ## All LeetCode Problems
@@ -54,8 +54,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [419](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-419-battleships-in-a-board/) | [Battleships in a Board](https://leetcode.com/problems/battleships-in-a-board/) | Medium | Array, Matrix | Top-Left Corner, DFS | 2025-10-21 |
 | [426](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) | [Convert Binary Search Tree to Sorted Doubly Linked List](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/) | Medium | Tree, Linked List, DFS | Inorder Traversal, Recursion | 2025-10-22 |
 | [437](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) | [Path Sum III](https://leetcode.com/problems/path-sum-iii/) | Medium | Tree, DFS | DFS, Recursion | 2025-10-19 |
-| [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
 | [494](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) | [Target Sum](https://leetcode.com/problems/target-sum/) | Medium | Array, Dynamic Programming | DP, Subset Sum | 2025-10-15 |
+| [636](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) | [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) | Medium | Stack, Parsing | Stack, Log Parsing | 2025-10-27 |
+| [708](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) | [Insert into a Sorted Circular Linked List](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | Medium | Linked List, Circular | Two Pointers, Iteration | 2025-10-27 |
+| [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
 | [648](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) | [Replace Words](https://leetcode.com/problems/replace-words/) | Medium | String, Trie | Trie, Hash Set | 2025-10-17 |
@@ -85,7 +87,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Easy (1 problem)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (54 problems)
+### Medium (56 problems)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/09/medium-3-longest-substring-without-repeating-characters/)
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/)
 - [33. Search in Rotated Sorted Array](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/)
@@ -112,7 +114,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/)
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/)
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
+- [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/)
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/)
+- [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/)
 - [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/)
 - [912. Sort an Array](https://robinali34.github.io/blog_leetcode/2025/10/06/medium-912-sort-an-array/)
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/)
@@ -169,6 +173,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Linked List
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/) - Recursion, Iteration
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) - Recursion, Iteration
+- [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) - Two Pointers, Circular List
 
 ### Tree & DFS
 - [314. Binary Tree Vertical Order Traversal](https://robinali34.github.io/blog_leetcode/2025/10/21/medium-314-binary-tree-vertical-order-traversal/) - BFS, Level Order
@@ -196,6 +201,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [84. Largest Rectangle in Histogram](https://robinali34.github.io/blog_leetcode/2025/10/21/hard-84-largest-rectangle-in-histogram/) - Monotonic Stack
 - [150. Evaluate Reverse Polish Notation](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) - Stack
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) - Monotonic Stack, Greedy
+- [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) - Stack, Log Parsing
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) - Monotonic Stack
 - [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) - Monotonic Stack, Prefix Sum
 
@@ -249,6 +255,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ## Recent Additions
 
 ### Latest Problems (October 2025)
+- [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) - Stack, Log Parsing
+- [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) - Two Pointers, Circular List
 - [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) - Graph Conversion, DFS, Parent Pointer
 - [1249. Minimum Remove to Make Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) - Stack Validation, Parentheses
 - [426. Convert Binary Search Tree to Sorted Doubly Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) - Inorder Traversal, Recursion
@@ -290,5 +298,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: October 25, 2025*
-*Total problems solved: 59*
+*Last updated: October 27, 2025*
+*Total problems solved: 61*
