@@ -28,8 +28,8 @@ struct Compressor{
 
 | ID | Title | Link |
 |---|---|---|
-| 315 | Count of Smaller Numbers After Self | https://leetcode.com/problems/count-of-smaller-numbers-after-self/ |
-| 327 | Count of Range Sum | https://leetcode.com/problems/count-of-range-sum/ |
+| 315 | Count of Smaller Numbers After Self | [Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) |
+| 327 | Count of Range Sum | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) |
 
 ## Meet-in-the-Middle (subset sums)
 
@@ -43,8 +43,8 @@ long long countSubsets(vector<int>& a, long long T){
 
 | ID | Title | Link |
 |---|---|---|
-| 1755 | Closest Subsequence Sum | https://leetcode.com/problems/closest-subsequence-sum/ |
-| 805 | Split Array With Same Average | https://leetcode.com/problems/split-array-with-same-average/ |
+| 1755 | Closest Subsequence Sum | [Closest Subsequence Sum](https://leetcode.com/problems/closest-subsequence-sum/) |
+| 805 | Split Array With Same Average | [Split Array With Same Average](https://leetcode.com/problems/split-array-with-same-average/) |
 
 ## Manacher (Longest Palindromic Substring, O(n))
 
@@ -58,7 +58,7 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 
 | ID | Title | Link |
 |---|---|---|
-| 5 | Longest Palindromic Substring | https://leetcode.com/problems/longest-palindromic-substring/ |
+| 5 | Longest Palindromic Substring | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) |
 
 ## Z-Algorithm (Pattern occurrences)
 
@@ -68,7 +68,7 @@ vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=
 
 | ID | Title | Link |
 |---|---|---|
-| 1392 | Longest Happy Prefix | https://leetcode.com/problems/longest-happy-prefix/ |
+| 1392 | Longest Happy Prefix | [Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) |
 
 ## Bitwise Trie (Max XOR Pair)
 
@@ -81,4 +81,4 @@ struct BitTrie{ struct Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; vector<Node> t{
 
 | ID | Title | Link |
 |---|---|---|
-| 421 | Maximum XOR of Two Numbers in an Array | https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/ |
+| 421 | Maximum XOR of Two Numbers in an Array | [Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) |

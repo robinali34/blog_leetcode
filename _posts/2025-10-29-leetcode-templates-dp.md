@@ -28,8 +28,8 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 
 | ID | Title | Link |
 |---|---|---|
-| 322 | Coin Change | https://leetcode.com/problems/coin-change/ |
-| 139 | Word Break | https://leetcode.com/problems/word-break/ |
+| 322 | [Coin Change](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-medium-322-coin-change/) | [Coin Change](https://leetcode.com/problems/coin-change/) |
+| 139 | Word Break | [Word Break](https://leetcode.com/problems/word-break/) |
 
 ## 2D DP (grid/path)
 

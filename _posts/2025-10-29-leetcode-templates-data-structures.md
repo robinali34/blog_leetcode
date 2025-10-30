@@ -35,9 +35,9 @@ vector<int> nextGreater(vector<int>& a){
 
 | ID | Title | Link |
 |---|---|---|
-| 739 | Daily Temperatures | https://leetcode.com/problems/daily-temperatures/ |
-| 84 | Largest Rectangle in Histogram | https://leetcode.com/problems/largest-rectangle-in-histogram/ |
-| 503 | Next Greater Element II | https://leetcode.com/problems/next-greater-element-ii/ |
+| 739 | Daily Temperatures | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) |
+| 84 | [Largest Rectangle in Histogram](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-hard-84-largest-rectangle-in-histogram/) | [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) |
+| 503 | Next Greater Element II | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) |
 
 ## Monotonic Queue (sliding window extrema)
 
@@ -56,8 +56,8 @@ vector<int> maxWindow(const vector<int>& a, int k){
 
 | ID | Title | Link |
 |---|---|---|
-| 239 | Sliding Window Maximum | https://leetcode.com/problems/sliding-window-maximum/ |
-| 1438 | Longest Continuous Subarray With Absolute Diff <= Limit | https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/ |
+| 239 | Sliding Window Maximum | [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) |
+| 1438 | Longest Continuous Subarray With Absolute Diff <= Limit | [Longest Continuous Subarray With Absolute Diff <= Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) |
 
 ## Heap / K-way Merge
 
@@ -77,8 +77,8 @@ vector<int> mergeK(vector<vector<int>>& lists){
 
 | ID | Title | Link |
 |---|---|---|
-| 23 | Merge k Sorted Lists | https://leetcode.com/problems/merge-k-sorted-lists/ |
-| 295 | Find Median from Data Stream | https://leetcode.com/problems/find-median-from-data-stream/ |
+| 23 | Merge k Sorted Lists | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) |
+| 295 | Find Median from Data Stream | [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) |
 
 ## Union-Find (Disjoint Set Union)
 
@@ -92,9 +92,9 @@ struct DSU{
 
 | ID | Title | Link |
 |---|---|---|
-| 684 | Redundant Connection | https://leetcode.com/problems/redundant-connection/ |
-| 721 | Accounts Merge | https://leetcode.com/problems/accounts-merge/ |
-| 1319 | Number of Operations to Make Network Connected | https://leetcode.com/problems/number-of-operations-to-make-network-connected/ |
+| 684 | Redundant Connection | [Redundant Connection](https://leetcode.com/problems/redundant-connection/) |
+| 721 | Accounts Merge | [Accounts Merge](https://leetcode.com/problems/accounts-merge/) |
+| 1319 | Number of Operations to Make Network Connected | [Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) |
 
 ## Trie (Prefix Tree)
 
@@ -109,9 +109,9 @@ struct Trie{
 
 | ID | Title | Link |
 |---|---|---|
-| 208 | Implement Trie | https://leetcode.com/problems/implement-trie-prefix-tree/ |
-| 211 | Add and Search Word | https://leetcode.com/problems/design-add-and-search-words-data-structure/ |
-| 212 | Word Search II | https://leetcode.com/problems/word-search-ii/ |
+| 208 | Implement Trie | [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/) |
+| 211 | Add and Search Word | [Add and Search Word](https://leetcode.com/problems/design-add-and-search-words-data-structure/) |
+| 212 | Word Search II | [Word Search II](https://leetcode.com/problems/word-search-ii/) |
 
 ## Segment Tree (range query / point update)
 
@@ -127,8 +127,8 @@ struct Seg{ int n; vector<long long> st; Seg(int n):n(n),st(4*n,0){}
 
 | ID | Title | Link |
 |---|---|---|
-| 307 | Range Sum Query – Mutable | https://leetcode.com/problems/range-sum-query-mutable/ |
-| 732 | My Calendar III | https://leetcode.com/problems/my-calendar-iii/ |
+| 307 | Range Sum Query – Mutable | [Range Sum Query – Mutable](https://leetcode.com/problems/range-sum-query-mutable/) |
+| 732 | My Calendar III | [My Calendar III](https://leetcode.com/problems/my-calendar-iii/) |
 
 ## Fenwick Tree (Binary Indexed Tree)
 
@@ -141,5 +141,5 @@ struct BIT{ int n; vector<long long> f; BIT(int n):n(n),f(n+1,0){}
 
 | ID | Title | Link |
 |---|---|---|
-| 315 | Count of Smaller Numbers After Self | https://leetcode.com/problems/count-of-smaller-numbers-after-self/ |
-| 307 | Range Sum Query – Mutable | https://leetcode.com/problems/range-sum-query-mutable/ |
+| 315 | Count of Smaller Numbers After Self | [Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) |
+| 307 | Range Sum Query – Mutable | [Range Sum Query – Mutable](https://leetcode.com/problems/range-sum-query-mutable/) |

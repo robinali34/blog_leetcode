@@ -42,9 +42,9 @@ int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
 
 | ID | Title | Link |
 |---|---|---|
-| 200 | Number of Islands | https://leetcode.com/problems/number-of-islands/ |
-| 417 | Pacific Atlantic Water Flow | https://leetcode.com/problems/pacific-atlantic-water-flow/ |
-| 542 | 01 Matrix | https://leetcode.com/problems/01-matrix/ |
+| 200 | Number of Islands | [Number of Islands](https://leetcode.com/problems/number-of-islands/) |
+| 417 | [Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/posts/2025-10-19-medium-417-pacific-atlantic-water-flow/) | [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) |
+| 542 | 01 Matrix | [01 Matrix](https://leetcode.com/problems/01-matrix/) |
 
 ## Multi-source BFS (grids/graphs)
 

@@ -41,8 +41,8 @@ vector<vector<int>> levelOrder(TreeNode* root){
 
 | ID | Title | Link |
 |---|---|---|
-| 94 | Binary Tree Inorder Traversal | https://leetcode.com/problems/binary-tree-inorder-traversal/ |
-| 102 | Binary Tree Level Order Traversal | https://leetcode.com/problems/binary-tree-level-order-traversal/ |
+| 94 | Binary Tree Inorder Traversal | [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) |
+| 102 | Binary Tree Level Order Traversal | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) |
 
 ## LCA (Binary Lifting)
 
@@ -56,8 +56,8 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 
 | ID | Title | Link |
 |---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ |
-| 235 | Lowest Common Ancestor of a BST | https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/ |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) |
+| 235 | Lowest Common Ancestor of a BST | [Lowest Common Ancestor of a BST](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) |
 
 ## HLD (Heavy-Light Decomposition) skeleton
 

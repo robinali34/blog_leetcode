@@ -24,8 +24,8 @@ long long nCk(int n,int k){ if(k<0||k>n) return 0; return fact[n]*invfact[k]%MOD
 
 | ID | Title | Link |
 |---|---|---|
-| 62 | Unique Paths | https://leetcode.com/problems/unique-paths/ |
-| 172 | Factorial Trailing Zeroes | https://leetcode.com/problems/factorial-trailing-zeroes/ |
+| 62 | Unique Paths | [Unique Paths](https://leetcode.com/problems/unique-paths/) |
+| 172 | Factorial Trailing Zeroes | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) |
 
 ## Geometry Primitives (2D)
 
@@ -37,5 +37,5 @@ bool onSeg(const P&a,const P&b,const P&c){ return min(a.x,b.x)<=c.x&&c.x<=max(a.
 
 | ID | Title | Link |
 |---|---|---|
-| 149 | Max Points on a Line | https://leetcode.com/problems/max-points-on-a-line/ |
-| 223 | Rectangle Area | https://leetcode.com/problems/rectangle-area/ |
+| 149 | Max Points on a Line | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) |
+| 223 | Rectangle Area | [Rectangle Area](https://leetcode.com/problems/rectangle-area/) |
