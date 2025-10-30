@@ -12,49 +12,58 @@ tags: [leetcode, templates, patterns, dp, graph, sliding-window, two-pointers, b
 
 A quick reference to the most common LeetCode categories and battle‑tested C++ templates to speed up implementation.
 
+> This guide is now split into category posts:
+> - Arrays & Strings: [/posts/2025-10-29-leetcode-templates-arrays-strings/](/posts/2025-10-29-leetcode-templates-arrays-strings/)
+> - Data Structures: [/posts/2025-10-29-leetcode-templates-data-structures/](/posts/2025-10-29-leetcode-templates-data-structures/)
+> - Graph: [/posts/2025-10-29-leetcode-templates-graph/](/posts/2025-10-29-leetcode-templates-graph/)
+> - Trees: [/posts/2025-10-29-leetcode-templates-trees/](/posts/2025-10-29-leetcode-templates-trees/)
+> - Dynamic Programming: [/posts/2025-10-29-leetcode-templates-dp/](/posts/2025-10-29-leetcode-templates-dp/)
+> - Math & Geometry: [/posts/2025-10-29-leetcode-templates-math-geometry/](/posts/2025-10-29-leetcode-templates-math-geometry/)
+> - Advanced Techniques: [/posts/2025-10-29-leetcode-templates-advanced/](/posts/2025-10-29-leetcode-templates-advanced/)
+
 ## Contents
 
-- [Arrays & Strings](#arrays--strings)
-  - [Sliding Window](#sliding-window-fixedvariable)
-  - [Two Pointers](#two-pointers-sorted-arraysstrings)
-  - [Binary Search on Answer](#binary-search-on-answer-monotonic-predicate)
-  - [Prefix Sum / Difference](#prefix-sum--difference-array)
-  - [Hash Map Frequencies](#hash-map-frequencies)
-- [Data Structures](#data-structures)
-  - [Monotonic Stack](#monotonic-stack-next-greater--histogram)
-  - [Monotonic Queue](#monotonic-queue-sliding-window-max)
-  - [Heap / K-way Merge](#heap--k-way-merge)
-  - [Union-Find](#union-find-disjoint-set-union)
-  - [Trie](#trie-prefix-tree)
-  - [Segment Tree](#segment-tree-range-querypoint-update)
-  - [Fenwick Tree](#fenwick-tree-binary-indexed-tree)
-- [Graph](#graph)
-  - [BFS / Shortest Path](#bfs--shortest-path-unweighted)
-  - [Multi-source BFS](#multi-source-bfs-gridsgraphs)
-  - [BFS on Bitmask State](#bfs-on-bitmask-state-eg-visit-all-keys)
-  - [Topological Sort](#topological-sort-kahn--dfs)
-  - [Dijkstra](#dijkstra-shortest-path-with-weights--0)
-  - [0-1 BFS](#0-1-bfs-edge-weights-0-or-1)
-  - [Tarjan SCC](#tarjan-scc-strongly-connected-components)
-  - [Bridges & Articulation](#bridges-and-articulation-points-tarjan)
-- [Trees](#trees)
-  - [Traversals](#tree-traversals-iterative)
-  - [LCA](#lca-binary-lifting)
-  - [HLD](#heavy-light-decomposition-hld-skeleton)
-- [Dynamic Programming](#dynamic-programming)
-  - [1D DP](#1d-dp-knapsacklinear)
-  - [2D DP](#2d-dp-gridpath)
-  - [Digit DP](#digit-dp-count-numbers-with-property)
-  - [Bitmask DP](#bitmask-dp-tsp--subsets)
-- [Math & Geometry](#math--geometry)
-  - [Combinatorics](#math--combinatorics-nck-mod-p)
-  - [Geometry Primitives](#geometry-primitives-2d)
-- [Advanced Techniques](#advanced-techniques)
-  - [Coordinate Compression](#coordinate-compression)
-  - [Meet-in-the-Middle](#meet-in-the-middle-subset-sums)
-  - [Manacher](#manacher-longest-palindromic-substring-on)
-  - [Z-Algorithm](#z-algorithm-pattern-occurrences)
-  - [Bitwise Trie](#bitwise-trie-max-xor-pair)
+- [Arrays & Strings](#arrays--strings) – core array/string patterns
+  - [Sliding Window](#sliding-window-fixedvariable) – subarray/substring constraints
+  - [Two Pointers](#two-pointers-sorted-arraysstrings) – ends converge/partition/merge
+  - [Binary Search on Answer](#binary-search-on-answer-monotonic-predicate) – monotonic feasibility
+  - [Prefix Sum / Difference](#prefix-sum--difference-array) – range totals and updates
+  - [Hash Map Frequencies](#hash-map-frequencies) – counting/indexing by value
+- [Data Structures](#data-structures) – reusable structures for queries
+  - [Monotonic Stack](#monotonic-stack-next-greater--histogram) – next greater/histogram
+  - [Monotonic Queue](#monotonic-queue-sliding-window-max) – sliding window extrema
+  - [Heap / K-way Merge](#heap--k-way-merge) – merging streams/medians
+  - [Union-Find](#union-find-disjoint-set-union) – connectivity/components
+  - [Trie](#trie-prefix-tree) – prefix lookup
+  - [Segment Tree](#segment-tree-range-querypoint-update) – range queries/point updates
+  - [Fenwick Tree](#fenwick-tree-binary-indexed-tree) – prefix sums/inversions
+- [Graph](#graph) – traversal and shortest paths
+  - [BFS / Shortest Path](#bfs--shortest-path-unweighted) – unweighted shortest paths
+  - [Multi-source BFS](#multi-source-bfs-gridsgraphs) – simultaneous wavefronts
+  - [BFS on Bitmask State](#bfs-on-bitmask-state-eg-visit-all-keys) – state-space BFS
+  - [Topological Sort](#topological-sort-kahn--dfs) – DAG ordering/cycle detect
+  - [Dijkstra](#dijkstra-shortest-path-with-weights--0) – nonnegative weights
+  - [0-1 BFS](#0-1-bfs-edge-weights-0-or-1) – 0/1 weighted graphs
+  - [Tarjan SCC](#tarjan-scc-strongly-connected-components) – strongly connected comps
+  - [Bridges & Articulation](#bridges-and-articulation-points-tarjan) – critical edges/nodes
+- [Trees](#trees) – hierarchical structures
+  - [Traversals](#tree-traversals-iterative) – inorder/level-order
+  - [LCA](#lca-binary-lifting) – ancestor queries
+  - [HLD](#heavy-light-decomposition-hld-skeleton) – path queries
+- [Dynamic Programming](#dynamic-programming) – optimal substructure
+  - [1D DP](#1d-dp-knapsacklinear) – knapsack/linear transitions
+  - [2D DP](#2d-dp-gridpath) – grid paths/obstacles
+  - [Digit DP](#digit-dp-count-numbers-with-property) – per-digit states
+  - [Bitmask DP](#bitmask-dp-tsp--subsets) – subsets/TSP
+- [Math & Geometry](#math--geometry) – combinatorics and 2D ops
+  - [Combinatorics](#math--combinatorics-nck-mod-p) – nCk, factorials, mod math
+  - [Geometry Primitives](#geometry-primitives-2d) – cross/segments/areas
+- [Advanced Techniques](#advanced-techniques) – specialized patterns
+  - [Coordinate Compression](#coordinate-compression) – map values to ranks
+  - [Meet-in-the-Middle](#meet-in-the-middle-subset-sums) – split/merge subsets
+  - [Manacher](#manacher-longest-palindromic-substring-on) – palindromes in O(n)
+  - [Z-Algorithm](#z-algorithm-pattern-occurrences) – pattern occurrences
+  - [Bitwise Trie](#bitwise-trie-max-xor-pair) – max XOR pairs
 
 ## Arrays & Strings
 
