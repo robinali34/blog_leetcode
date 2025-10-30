@@ -8,7 +8,7 @@ nav_exclude: true
 <div class="posts-page">
   <header class="page-header">
     <h1 class="page-title">All Posts</h1>
-    <p class="page-description">Browse all blog posts</p>
+    <p class="page-description">Browse all LeetCode posts</p>
   </header>
 
   <!-- Search Section -->
@@ -21,35 +21,29 @@ nav_exclude: true
         <button class="filter-btn" data-filter="easy">Easy</button>
         <button class="filter-btn" data-filter="medium">Medium</button>
         <button class="filter-btn" data-filter="hard">Hard</button>
-        <button class="filter-btn" data-filter="system-design">System Design</button>
-        <button class="filter-btn" data-filter="algorithm">Algorithm</button>
-        <button class="filter-btn" data-filter="tutorial">Tutorial</button>
-        <button class="filter-btn" data-filter="cheat-sheet">Cheat Sheet</button>
-        <button class="filter-btn" data-filter="interview-preparation">Interview Prep</button>
-        <button class="filter-btn" data-filter="cpp">C++</button>
-        <button class="filter-btn" data-filter="programming">Programming</button>
-        <button class="filter-btn" data-filter="binary-search">Binary Search</button>
-        <button class="filter-btn" data-filter="dynamic-programming">DP</button>
-        <button class="filter-btn" data-filter="backtracking">Backtracking</button>
+        <button class="filter-btn" data-filter="array">Array</button>
+        <button class="filter-btn" data-filter="string">String</button>
+        <button class="filter-btn" data-filter="hash">Hash</button>
+        <button class="filter-btn" data-filter="hash-table">Hash Table</button>
+        <button class="filter-btn" data-filter="stack">Stack</button>
+        <button class="filter-btn" data-filter="queue">Queue</button>
+        <button class="filter-btn" data-filter="heap">Heap</button>
         <button class="filter-btn" data-filter="graph">Graph</button>
-        <button class="filter-btn" data-filter="dfs">DFS</button>
-        <button class="filter-btn" data-filter="bfs">BFS</button>
-        <button class="filter-btn" data-filter="union-find">Union Find</button>
+        <button class="filter-btn" data-filter="tree">Tree</button>
+        <button class="filter-btn" data-filter="trie">Trie</button>
         <button class="filter-btn" data-filter="linked-list">Linked List</button>
         <button class="filter-btn" data-filter="matrix">Matrix</button>
-        <button class="filter-btn" data-filter="stack">Stack</button>
-        <button class="filter-btn" data-filter="hash-table">Hash Table</button>
-        <button class="filter-btn" data-filter="simulation">Simulation</button>
-        <button class="filter-btn" data-filter="multithreading">Multithreading</button>
-        <button class="filter-btn" data-filter="concurrency">Concurrency</button>
-        <button class="filter-btn" data-filter="recursion">Recursion</button>
-        <button class="filter-btn" data-filter="bit-manipulation">Bit Manipulation</button>
-        <button class="filter-btn" data-filter="palindrome">Palindrome</button>
-        <button class="filter-btn" data-filter="string">String</button>
-        <button class="filter-btn" data-filter="meta">Meta</button>
-        <button class="filter-btn" data-filter="competitive-programming">Competitive</button>
-        <button class="filter-btn" data-filter="data-structures">Data Structures</button>
-        <button class="filter-btn" data-filter="problem-solving">Problem Solving</button>
+        <button class="filter-btn" data-filter="two pointers">Two Pointers</button>
+        <button class="filter-btn" data-filter="sliding window">Sliding Window</button>
+        <button class="filter-btn" data-filter="binary search">Binary Search</button>
+        <button class="filter-btn" data-filter="dynamic programming">Dynamic Programming</button>
+        <button class="filter-btn" data-filter="dp">DP</button>
+        <button class="filter-btn" data-filter="greedy">Greedy</button>
+        <button class="filter-btn" data-filter="backtracking">Backtracking</button>
+        <button class="filter-btn" data-filter="dfs">DFS</button>
+        <button class="filter-btn" data-filter="bfs">BFS</button>
+        <button class="filter-btn" data-filter="union find">Union Find</button>
+        <button class="filter-btn" data-filter="monotonic stack">Monotonic Stack</button>
       </div>
     </div>
     <div class="search-results-info">
@@ -108,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   let currentFilter = 'all';
   
-  // Search functionality
   function performSearch() {
     const searchTerm = searchInput.value.toLowerCase();
     let visibleCount = 0;
@@ -140,23 +133,16 @@ document.addEventListener('DOMContentLoaded', function() {
     resultsCount.textContent = `${visibleCount} posts found`;
   }
   
-  // Filter functionality
   filterButtons.forEach(btn => {
     btn.addEventListener('click', function() {
-      // Remove active class from all buttons
       filterButtons.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
       this.classList.add('active');
-      
       currentFilter = this.dataset.filter;
       performSearch();
     });
   });
   
-  // Search input event
   searchInput.addEventListener('input', performSearch);
-  
-  // Initial search
   performSearch();
 });
 </script>
