@@ -52,8 +52,8 @@ exclude:
 # Navigation
 header_pages:
   - about.md
-  - contact.md
   - leetcode-questions-list.md
+  - leetcode-templates.html
 
 # Social links
 github_username: robinali34
