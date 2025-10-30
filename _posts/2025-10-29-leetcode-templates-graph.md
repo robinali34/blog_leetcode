@@ -7,6 +7,7 @@ permalink: /posts/2025-10-29-leetcode-templates-graph/
 tags: [leetcode, templates, graph]
 ---
 
+{% raw %}
 ## Contents
 
 - [BFS / Shortest Path](#bfs--shortest-path-unweighted)
@@ -73,7 +74,7 @@ int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
 ## BFS on Bitmask State (visit all keys)
 
 ```cpp
-struct State{int u,mask;};
+struct State{int u,mask};
 int bfsMask(const vector<vector<int>>& g, int start){
     int n=g.size(); int full=(1<<n)-1; queue<State> q; vector vis(n, vector<bool>(1<<n,false));
     q.push({start, 1<<start}); vis[start][1<<start]=true; int d=0;
@@ -168,3 +169,4 @@ void dfsBr(int u,int p,const vector<vector<int>>& g){ tin2[u]=low2[u]=++timer2; 
 | ID | Title | Link |
 |---|---|---|
 | 1192 | Critical Connections in a Network | https://leetcode.com/problems/critical-connections-in-a-network/ |
+{% endraw %}
