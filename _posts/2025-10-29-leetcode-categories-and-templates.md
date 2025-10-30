@@ -7,6 +7,7 @@ permalink: /posts/2025-10-29-leetcode-categories-and-templates/
 tags: [leetcode, templates, patterns, dp, graph, sliding-window, two-pointers, binary-search]
 ---
 
+{% raw %}
 # LeetCode Categories and Solution Templates
 
 A quick reference to the most common LeetCode categories and battle‑tested C++ templates to speed up implementation.
@@ -317,8 +318,8 @@ int lca(int a, int b){
 
 | ID | Title | Link |
 |---|---|---|
-| 94 | Binary Tree Inorder Traversal | https://leetcode.com/problems/binary-tree-inorder-traversal/ |
-| 102 | Binary Tree Level Order Traversal | https://leetcode.com/problems/binary-tree-level-order-traversal/ |
+| 236 | Lowest Common Ancestor of a Binary Tree | https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ |
+| 235 | Lowest Common Ancestor of a BST | https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/ |
 
 ## HLD (Heavy-Light Decomposition) skeleton
 
@@ -501,6 +502,8 @@ vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s)
 | 847 | Shortest Path Visiting All Nodes | https://leetcode.com/problems/shortest-path-visiting-all-nodes/ |
 | 698 | Partition to K Equal Sum Subsets | https://leetcode.com/problems/partition-to-k-equal-sum-subsets/ |
 
+## Math & Geometry
+
 ## Math / Combinatorics (nCk mod P)
 
 | ID | Title | Link |
@@ -611,3 +614,4 @@ int schedule(vector<pair<int,int>>& iv){
     return cnt;
 }
 ```
+{% endraw %}
