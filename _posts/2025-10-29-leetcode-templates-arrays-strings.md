@@ -115,6 +115,24 @@ for (int x: nums) ++freq[x];
 | 359 | Logger Rate Limiter | [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/) |
 
 ## KMP (Substring Search)
+KMP is a pattern matching algorithm that finds occurrences of a pattern string P within a text string T efficiently — without re-checking characters that are already known to match.
+
+While a naive substring search checks character-by-character and backtracks when a mismatch occurs (worst case O(n * m)),
+KMP preprocesses the pattern to know how far it can safely skip ahead when mismatches happen.
+
+It does this using a “prefix function” (also called LPS — longest prefix which is also suffix).
+
+### Steps
+
+Preprocess the pattern to build the lps[] array.
+
+* lps[i] = the length of the longest proper prefix of the substring P[0..i] which is also a suffix of this substring.
+
+* Proper prefix = prefix ≠ the string itself.
+
+Use the LPS array during the search
+
+* When mismatch occurs, instead of resetting j = 0, we move j back to lps[j-1].
 
 ```cpp
 vector<int> kmpPi(const string& s){
