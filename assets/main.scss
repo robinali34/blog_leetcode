@@ -3,33 +3,46 @@
 
 @import "minima";
 
-// Override Minima theme colors to match reference site
-$brand-color: #2c3e50 !default;
-$grey-color: #7f8c8d !default;
-$grey-color-light: #bdc3c7 !default;
-$grey-color-dark: #34495e !default;
-$text-color: #2c3e50 !default;
-$background-color: #ffffff !default;
+// Giorgio Morandi inspired color palette - muted, earthy, sophisticated
+// Warm cream background, dusty pinks, muted grays, soft terracotta
+$brand-color: #8B7D6B !default;           // Muted brown-gray (main text)
+$grey-color: #9B8B7A !default;            // Warm gray-brown
+$grey-color-light: #D4C4B0 !default;      // Pale beige
+$grey-color-dark: #6B5B73 !default;       // Muted purple-gray
+$text-color: #6B5B73 !default;             // Soft purple-gray text
+$background-color: #F5F1E8 !default;      // Warm cream/ivory background
+
+// Morandi accent colors
+$morandi-beige: #C4A484 !default;         // Dusty beige
+$morandi-terracotta: #B8A082 !default;    // Soft terracotta
+$morandi-sage: #A8B5A0 !default;          // Muted sage green
+$morandi-dusty-blue: #9BA8B5 !default;   // Dusty blue-gray
+$morandi-warm-brown: #A6937F !default;   // Warm brown
+
+// Body background with Morandi cream
+body {
+  background-color: $background-color;
+}
 
 // Custom styles for the homepage
 .home {
   .site-header {
     text-align: center;
     padding: 2rem 0;
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid $morandi-beige;
     margin-bottom: 2rem;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #F5F1E8 0%, #F0EBE0 100%);
     
     .site-title {
       font-size: 2.5rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #2c3e50;
+      color: $text-color;
     }
     
     .site-subtitle {
       font-size: 1.2rem;
-      color: #7f8c8d;
+      color: $grey-color;
       margin: 0;
       font-weight: 300;
     }
@@ -43,12 +56,12 @@ $background-color: #ffffff !default;
       font-size: 2rem;
       font-weight: 400;
       margin-bottom: 1rem;
-      color: #2c3e50;
+      color: $text-color;
     }
     
     p {
       font-size: 1.1rem;
-      color: #7f8c8d;
+      color: $grey-color;
       max-width: 600px;
       margin: 0 auto;
     }
@@ -62,7 +75,7 @@ $background-color: #ffffff !default;
       font-weight: 400;
       margin-bottom: 2rem;
       text-align: center;
-      color: #2c3e50;
+      color: $text-color;
     }
   }
 
@@ -74,19 +87,22 @@ $background-color: #ffffff !default;
   }
 
   .post-card {
-    background: #ffffff;
-    border: 1px solid #ecf0f1;
+    background: #FFFFFF;
+    border: 1px solid $morandi-beige;
     border-radius: 8px;
     padding: 1.5rem;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(139, 125, 107, 0.08);
     
     &:hover {
-      box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
+      box-shadow: 0 6px 16px rgba(139, 125, 107, 0.15);
+      border-color: $morandi-terracotta;
+      transform: translateY(-2px);
     }
     
     .post-meta {
       font-size: 0.9rem;
-      color: #95a5a6;
+      color: $grey-color;
       margin-bottom: 0.5rem;
     }
     
@@ -94,19 +110,19 @@ $background-color: #ffffff !default;
       margin-bottom: 1rem;
       
       .post-link {
-        color: #2c3e50;
+        color: $text-color;
         text-decoration: none;
         font-size: 1.3rem;
         font-weight: 500;
         
         &:hover {
-          color: #3498db;
+          color: $morandi-terracotta;
         }
       }
     }
     
     .post-excerpt {
-      color: #7f8c8d;
+      color: $grey-color;
       line-height: 1.6;
       margin-bottom: 1rem;
     }
@@ -114,13 +130,19 @@ $background-color: #ffffff !default;
     .post-categories {
       .category-tag {
         display: inline-block;
-        background: #ecf0f1;
-        color: #7f8c8d;
+        background: $morandi-beige;
+        color: $text-color;
         padding: 0.2rem 0.6rem;
         border-radius: 12px;
         font-size: 0.8rem;
         margin-right: 0.5rem;
         margin-bottom: 0.3rem;
+        opacity: 0.8;
+        
+        &:hover {
+          opacity: 1;
+          background: $morandi-terracotta;
+        }
       }
     }
   }
@@ -130,16 +152,19 @@ $background-color: #ffffff !default;
     
     .btn {
       display: inline-block;
-      background: #3498db;
-      color: white;
+      background: $morandi-terracotta;
+      color: #FFFFFF;
       padding: 0.8rem 2rem;
       border-radius: 6px;
       text-decoration: none;
       font-weight: 500;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(184, 160, 130, 0.2);
       
       &:hover {
-        background: #2980b9;
+        background: $morandi-warm-brown;
+        box-shadow: 0 4px 8px rgba(184, 160, 130, 0.3);
+        transform: translateY(-1px);
       }
     }
   }
@@ -147,17 +172,18 @@ $background-color: #ffffff !default;
   .rss-section {
     text-align: center;
     padding: 2rem 0;
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid $morandi-beige;
     
     .rss-subscribe {
-      color: #7f8c8d;
+      color: $grey-color;
       font-size: 0.9rem;
       
       a {
-        color: #3498db;
+        color: $morandi-terracotta;
         text-decoration: none;
         
         &:hover {
+          color: $morandi-warm-brown;
           text-decoration: underline;
         }
       }
@@ -171,19 +197,20 @@ $background-color: #ffffff !default;
     text-align: center;
     margin-bottom: 3rem;
     padding: 2rem 0;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #F5F1E8 0%, #F0EBE0 100%);
     border-radius: 8px;
+    border: 1px solid $morandi-beige;
     
     .page-title {
       font-size: 2.5rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #2c3e50;
+      color: $text-color;
     }
     
     .page-description {
       font-size: 1.1rem;
-      color: #7f8c8d;
+      color: $grey-color;
       margin: 0;
     }
   }
@@ -200,20 +227,21 @@ $background-color: #ffffff !default;
       width: 100%;
       padding: 1rem;
       font-size: 1rem;
-      border: 2px solid #ecf0f1;
+      border: 2px solid $morandi-beige;
       border-radius: 8px;
-      background-color: #ffffff;
-      color: #2c3e50;
-      transition: border-color 0.3s ease;
+      background-color: #FFFFFF;
+      color: $text-color;
+      transition: all 0.3s ease;
       
       &:focus {
         outline: none;
-        border-color: #3498db;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        border-color: $morandi-terracotta;
+        box-shadow: 0 0 0 3px rgba(184, 160, 130, 0.15);
       }
       
       &::placeholder {
-        color: #95a5a6;
+        color: $grey-color;
+        opacity: 0.6;
       }
     }
     
@@ -226,31 +254,31 @@ $background-color: #ffffff !default;
       
       .filter-btn {
         padding: 0.5rem 1rem;
-        border: 1px solid #ecf0f1;
+        border: 1px solid $morandi-beige;
         border-radius: 20px;
-        background-color: #ffffff;
-        color: #7f8c8d;
+        background-color: #FFFFFF;
+        color: $grey-color;
         font-size: 0.9rem;
         cursor: pointer;
         transition: all 0.3s ease;
         
         &:hover {
-          background-color: #f8f9fa;
-          border-color: #3498db;
-          color: #3498db;
+          background-color: $morandi-beige;
+          border-color: $morandi-terracotta;
+          color: $text-color;
         }
         
         &.active {
-          background-color: #3498db;
-          border-color: #3498db;
-          color: #ffffff;
+          background-color: $morandi-terracotta;
+          border-color: $morandi-terracotta;
+          color: #FFFFFF;
         }
       }
     }
     
     .search-results-info {
       text-align: center;
-      color: #7f8c8d;
+      color: $grey-color;
       font-size: 0.9rem;
       margin-top: 1rem;
     }
@@ -262,20 +290,23 @@ $background-color: #ffffff !default;
   }
 
   .post-item {
-    background: #ffffff;
-    border: 1px solid #ecf0f1;
+    background: #FFFFFF;
+    border: 1px solid $morandi-beige;
     border-radius: 8px;
     padding: 2rem;
     margin-bottom: 2rem;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(139, 125, 107, 0.08);
     
     &:hover {
-      box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
+      box-shadow: 0 6px 16px rgba(139, 125, 107, 0.15);
+      border-color: $morandi-terracotta;
+      transform: translateY(-2px);
     }
     
     .post-meta {
       font-size: 0.9rem;
-      color: #95a5a6;
+      color: $grey-color;
       margin-bottom: 0.5rem;
     }
     
@@ -283,19 +314,19 @@ $background-color: #ffffff !default;
       margin-bottom: 1rem;
       
       .post-link {
-        color: #2c3e50;
+        color: $text-color;
         text-decoration: none;
         font-size: 1.5rem;
         font-weight: 500;
         
         &:hover {
-          color: #3498db;
+          color: $morandi-terracotta;
         }
       }
     }
     
     .post-excerpt {
-      color: #7f8c8d;
+      color: $grey-color;
       line-height: 1.6;
       margin-bottom: 1rem;
     }
@@ -303,13 +334,19 @@ $background-color: #ffffff !default;
     .post-categories {
       .category-tag {
         display: inline-block;
-        background: #ecf0f1;
-        color: #7f8c8d;
+        background: $morandi-beige;
+        color: $text-color;
         padding: 0.2rem 0.6rem;
         border-radius: 12px;
         font-size: 0.8rem;
         margin-right: 0.5rem;
         margin-bottom: 0.3rem;
+        opacity: 0.8;
+        
+        &:hover {
+          opacity: 1;
+          background: $morandi-terracotta;
+        }
       }
     }
   }
@@ -317,7 +354,7 @@ $background-color: #ffffff !default;
   .no-posts {
     text-align: center;
     padding: 3rem;
-    color: #7f8c8d;
+    color: $grey-color;
   }
 
   .back-to-home {
@@ -326,16 +363,19 @@ $background-color: #ffffff !default;
     
     .btn {
       display: inline-block;
-      background: #3498db;
-      color: white;
+      background: $morandi-terracotta;
+      color: #FFFFFF;
       padding: 0.8rem 2rem;
       border-radius: 6px;
       text-decoration: none;
       font-weight: 500;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(184, 160, 130, 0.2);
       
       &:hover {
-        background: #2980b9;
+        background: $morandi-warm-brown;
+        box-shadow: 0 4px 8px rgba(184, 160, 130, 0.3);
+        transform: translateY(-1px);
       }
     }
   }
@@ -343,10 +383,11 @@ $background-color: #ffffff !default;
 
 // Original styles for other pages
 .site-header {
-  border-top: 5px solid #2c3e50;
-  border-bottom: 1px solid #ecf0f1;
+  border-top: 5px solid $morandi-terracotta;
+  border-bottom: 1px solid $morandi-beige;
   min-height: 56px;
   position: relative;
+  background: linear-gradient(135deg, #F5F1E8 0%, #F0EBE0 100%);
 }
 
 .site-title {
@@ -356,7 +397,7 @@ $background-color: #ffffff !default;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left;
-  color: #2c3e50;
+  color: $text-color;
 }
 
 .site-nav {
@@ -364,10 +405,10 @@ $background-color: #ffffff !default;
   line-height: 56px;
   
   .page-link {
-    color: #7f8c8d;
+    color: $grey-color;
     
     &:hover {
-      color: #3498db;
+      color: $morandi-terracotta;
     }
   }
 }
@@ -381,7 +422,7 @@ $background-color: #ffffff !default;
   font-weight: 300;
   line-height: 1;
   letter-spacing: -1px;
-  color: #2c3e50;
+  color: $text-color;
 }
 
 .post-list {
@@ -395,35 +436,116 @@ $background-color: #ffffff !default;
 
 .post-meta {
   font-size: $small-font-size;
-  color: #95a5a6;
+  color: $grey-color;
 }
 
 .post-link {
   display: block;
   font-size: 24px;
-  color: #2c3e50;
+  color: $text-color;
   
   &:hover {
-    color: #3498db;
+    color: $morandi-terracotta;
   }
 }
 
 .post-content {
   margin-bottom: $spacing-unit;
-  color: #2c3e50;
+  color: $text-color;
 
   h2 {
     font-size: 32px;
-    color: #2c3e50;
+    color: $text-color;
   }
 
   h3 {
     font-size: 26px;
-    color: #2c3e50;
+    color: $text-color;
   }
 
   h4 {
     font-size: 20px;
-    color: #2c3e50;
+    color: $text-color;
   }
+  
+  // Code blocks with subtle Morandi background
+  pre {
+    background: #FAF8F4;
+    border: 1px solid $morandi-beige;
+    border-radius: 4px;
+  }
+  
+  // Links with Morandi colors
+  a {
+    color: $morandi-terracotta;
+    
+    &:hover {
+      color: $morandi-warm-brown;
+    }
+  }
+  
+  // Table styling
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    
+    th, td {
+      border: 1px solid $morandi-beige;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    th {
+      background: $morandi-beige;
+      color: $text-color;
+      font-weight: 600;
+    }
+    
+    tr:nth-child(even) {
+      background: rgba(196, 164, 132, 0.05);
+    }
+  }
+  
+  // Blockquotes with Morandi styling
+  blockquote {
+    border-left: 4px solid $morandi-terracotta;
+    background: rgba(196, 164, 132, 0.05);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    color: $grey-color;
+    font-style: italic;
+  }
+}
+
+// Footer styling
+.site-footer {
+  border-top: 1px solid $morandi-beige;
+  background: linear-gradient(135deg, #F5F1E8 0%, #F0EBE0 100%);
+  padding: 2rem 0;
+  
+  .footer-heading {
+    color: $text-color;
+  }
+  
+  .contact-list {
+    color: $grey-color;
+    
+    a {
+      color: $morandi-terracotta;
+      
+      &:hover {
+        color: $morandi-warm-brown;
+      }
+    }
+  }
+  
+  p {
+    color: $grey-color;
+  }
+}
+
+// Wrapper background
+.wrapper {
+  background-color: $background-color;
 }
