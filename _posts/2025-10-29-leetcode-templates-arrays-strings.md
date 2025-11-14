@@ -39,7 +39,7 @@ int longestNoRepeat(const string& s){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/09/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
 
