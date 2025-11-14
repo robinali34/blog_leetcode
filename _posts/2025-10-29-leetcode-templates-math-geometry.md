@@ -22,10 +22,10 @@ void initComb(){ fact[0]=1; for(int i=1;i<=N;++i) fact[i]=fact[i-1]*i%MOD; invfa
 long long nCk(int n,int k){ if(k<0||k>n) return 0; return fact[n]*invfact[k]%MOD*invfact[n-k]%MOD; }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 62 | Unique Paths | [Unique Paths](https://leetcode.com/problems/unique-paths/) |
-| 172 | Factorial Trailing Zeroes | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
+| 172 | Factorial Trailing Zeroes | [Link](https://leetcode.com/problems/factorial-trailing-zeroes/) | - |
 
 ## Geometry Primitives (2D)
 
@@ -35,7 +35,7 @@ long long cross(const P& a,const P& b,const P& c){ return (b.x-a.x)*(c.y-a.y)-(b
 bool onSeg(const P&a,const P&b,const P&c){ return min(a.x,b.x)<=c.x&&c.x<=max(a.x,b.x)&&min(a.y,b.y)<=c.y&&c.y<=max(a.y,b.y) && cross(a,b,c)==0; }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 149 | Max Points on a Line | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) |
-| 223 | Rectangle Area | [Rectangle Area](https://leetcode.com/problems/rectangle-area/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 149 | Max Points on a Line | [Link](https://leetcode.com/problems/max-points-on-a-line/) | - |
+| 223 | Rectangle Area | [Link](https://leetcode.com/problems/rectangle-area/) | - |

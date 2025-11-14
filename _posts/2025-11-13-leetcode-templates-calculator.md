@@ -62,9 +62,9 @@ int calculate(string s) {
 - Apply saved `sign` and add to saved `result` after `)`
 - Track current `sign` for each number
 
-| ID | Title | Link |
-|---|---|---|
-| 224 | [Basic Calculator](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) |
 
 ## Basic Calculator II (+, -, *, /)
 
@@ -146,9 +146,9 @@ int calculate(string s) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 227 | [Basic Calculator II](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) |
 
 ## Basic Calculator III (All operators + parentheses)
 
@@ -215,9 +215,9 @@ public:
 - Combine stack approach for operators with recursive approach for parentheses
 - Evaluate `*` and `/` immediately, defer `+` and `-`
 
-| ID | Title | Link |
-|---|---|---|
-| 772 | [Basic Calculator III](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ## Common Patterns
 

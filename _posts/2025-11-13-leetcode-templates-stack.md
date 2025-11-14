@@ -38,11 +38,11 @@ bool isValid(string s) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 20 | [Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-20-valid-parentheses/) | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) |
-| 921 | [Minimum Add to Make Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/) | [Minimum Add to Make Valid Parentheses](https://leetcode.com/problems/minimum-add-to-make-valid-parentheses/) |
-| 1249 | Minimum Remove to Make Valid Parentheses | [Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 20 | Valid Parentheses | [Link](https://leetcode.com/problems/valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-20-valid-parentheses/) |
+| 921 | Minimum Add to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-add-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/) |
+| 1249 | Minimum Remove to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) |
 
 ## Expression Evaluation
 
@@ -76,12 +76,12 @@ int calculate(string s) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 150 | Evaluate Reverse Polish Notation | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) |
-| 224 | [Basic Calculator](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) |
-| 227 | [Basic Calculator II](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) |
-| 772 | [Basic Calculator III](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 150 | Evaluate Reverse Polish Notation | [Link](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) |
+| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) |
+| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) |
+| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ## Nested Structure Processing
 
@@ -115,11 +115,11 @@ string decodeString(string s) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 394 | Decode String | [Decode String](https://leetcode.com/problems/decode-string/) |
-| 636 | Exclusive Time of Functions | [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) |
-| 71 | Simplify Path | [Simplify Path](https://leetcode.com/problems/simplify-path/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
+| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
+| 71 | Simplify Path | [Link](https://leetcode.com/problems/simplify-path/) | - |
 
 ## Monotonic Stack
 
@@ -142,12 +142,12 @@ vector<int> nextGreater(vector<int>& nums) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 84 | Largest Rectangle in Histogram | [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) |
-| 239 | [Sliding Window Maximum](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) | [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) |
-| 503 | Next Greater Element II | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) |
-| 316 | Remove Duplicate Letters | [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
+| 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
+| 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) |
+| 316 | Remove Duplicate Letters | [Link](https://leetcode.com/problems/remove-duplicate-letters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) |
 
 ## Stack for State Management
 
@@ -178,10 +178,10 @@ void processLogs(vector<string>& logs) {
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 636 | Exclusive Time of Functions | [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) |
-| 394 | Decode String | [Decode String](https://leetcode.com/problems/decode-string/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
 
 ## Key Patterns
 

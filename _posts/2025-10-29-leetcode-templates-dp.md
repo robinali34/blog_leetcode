@@ -26,10 +26,10 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 322 | [Coin Change](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-medium-322-coin-change/) | [Coin Change](https://leetcode.com/problems/coin-change/) |
-| 139 | Word Break | [Word Break](https://leetcode.com/problems/word-break/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
+| 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
 
 ## 2D DP (grid/path)
 
@@ -47,11 +47,11 @@ int uniquePaths(vector<vector<int>>& g){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 62 | Unique Paths | https://leetcode.com/problems/unique-paths/ |
-| 63 | Unique Paths II | https://leetcode.com/problems/unique-paths-ii/ |
-| 221 | Maximal Square | https://leetcode.com/problems/maximal-square/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | - |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | - |
 
 ## Digit DP (count numbers with property)
 
@@ -63,11 +63,11 @@ long long dfsDP(int i,int prev,bool tight,bool started){ if(i==(int)sN.size()) r
 long long solveDP(long long N){ sN=to_string(N); memset(dp,-1,sizeof dp); return dfsDP(0,-1,1,0); }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 233 | Number of Digit One | https://leetcode.com/problems/number-of-digit-one/ |
-| 902 | Numbers At Most N Given Digit Set | https://leetcode.com/problems/numbers-at-most-n-given-digit-set/ |
-| 1012 | Numbers With Repeated Digits | https://leetcode.com/problems/numbers-with-repeated-digits/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 233 | Number of Digit One | [Link](https://leetcode.com/problems/number-of-digit-one/) | - |
+| 902 | Numbers At Most N Given Digit Set | [Link](https://leetcode.com/problems/numbers-at-most-n-given-digit-set/) | - |
+| 1012 | Numbers With Repeated Digits | [Link](https://leetcode.com/problems/numbers-with-repeated-digits/) | - |
 
 ## Bitmask DP (TSP / subsets)
 
@@ -79,7 +79,7 @@ int tsp(const vector<vector<int>>& w){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 847 | Shortest Path Visiting All Nodes | https://leetcode.com/problems/shortest-path-visiting-all-nodes/ |
-| 698 | Partition to K Equal Sum Subsets | https://leetcode.com/problems/partition-to-k-equal-sum-subsets/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
+| 698 | Partition to K Equal Sum Subsets | [Link](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) | - |

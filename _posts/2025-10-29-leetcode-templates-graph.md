@@ -40,11 +40,11 @@ int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 200 | Number of Islands | [Number of Islands](https://leetcode.com/problems/number-of-islands/) |
-| 417 | [Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/posts/2025-10-19-medium-417-pacific-atlantic-water-flow/) | [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) |
-| 542 | 01 Matrix | [01 Matrix](https://leetcode.com/problems/01-matrix/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) | - |
+| 417 | Pacific Atlantic Water Flow | [Link](https://leetcode.com/problems/pacific-atlantic-water-flow/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) |
+| 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) | - |
 
 ## Multi-source BFS (grids/graphs)
 
@@ -66,10 +66,10 @@ int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 994 | Rotting Oranges | https://leetcode.com/problems/rotting-oranges/ |
-| 286 | Walls and Gates | https://leetcode.com/problems/walls-and-gates/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | - |
+| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | - |
 
 ## BFS on Bitmask State (visit all keys)
 
@@ -89,10 +89,10 @@ int bfsMask(const vector<vector<int>>& g, int start){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 864 | Shortest Path to Get All Keys | https://leetcode.com/problems/shortest-path-to-get-all-keys/ |
-| 847 | Shortest Path Visiting All Nodes | https://leetcode.com/problems/shortest-path-visiting-all-nodes/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 864 | Shortest Path to Get All Keys | [Link](https://leetcode.com/problems/shortest-path-to-get-all-keys/) | - |
+| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
 
 ## Topological Sort (Kahn)
 
@@ -109,11 +109,11 @@ vector<int> topoKahn(int n, const vector<vector<int>>& g){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 207 | Course Schedule | https://leetcode.com/problems/course-schedule/ |
-| 210 | Course Schedule II | https://leetcode.com/problems/course-schedule-ii/ |
-| 269 | Alien Dictionary | https://leetcode.com/problems/alien-dictionary/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 207 | Course Schedule | [Link](https://leetcode.com/problems/course-schedule/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) |
+| 210 | Course Schedule II | [Link](https://leetcode.com/problems/course-schedule-ii/) | - |
+| 269 | Alien Dictionary | [Link](https://leetcode.com/problems/alien-dictionary/) | - |
 
 ## Dijkstra (weights ≥ 0)
 
@@ -130,10 +130,10 @@ vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s)
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 743 | Network Delay Time | https://leetcode.com/problems/network-delay-time/ |
-| 1631 | Path With Minimum Effort | https://leetcode.com/problems/path-with-minimum-effort/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) | - |
+| 1631 | Path With Minimum Effort | [Link](https://leetcode.com/problems/path-with-minimum-effort/) | - |
 
 ## 0-1 BFS (weights 0 or 1)
 
@@ -150,10 +150,10 @@ while(!dq.empty()){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1293 | Shortest Path in a Grid with Obstacles Elimination | https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/ |
-| 847 | Shortest Path Visiting All Nodes | https://leetcode.com/problems/shortest-path-visiting-all-nodes/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1293 | Shortest Path in a Grid with Obstacles Elimination | [Link](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/) | - |
+| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
 
 ## Tarjan SCC / Bridges & Articulation
 
@@ -166,7 +166,7 @@ void dfsBr(int u,int p,const vector<vector<int>>& g){ tin2[u]=low2[u]=++timer2; 
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1192 | Critical Connections in a Network | https://leetcode.com/problems/critical-connections-in-a-network/ |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1192 | Critical Connections in a Network | [Link](https://leetcode.com/problems/critical-connections-in-a-network/) | - |
 {% endraw %}

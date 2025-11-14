@@ -37,11 +37,11 @@ int longestNoRepeat(const string& s){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 3 | [Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | /posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/ |
-| 76 | Minimum Window Substring | [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | - |
-| 424 | Longest Repeating Character Replacement | [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/09/medium-3-longest-substring-without-repeating-characters/) |
+| 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
+| 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
 
 ## Two Pointers (sorted arrays/strings)
 
@@ -57,11 +57,11 @@ bool twoSumSorted(const vector<int>& a, int target){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 15 | 3Sum | [3Sum](https://leetcode.com/problems/3sum/) |
-| 11 | Container With Most Water | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) |
-| 125 | Valid Palindrome | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
+| 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
+| 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
 
 ## Binary Search on Answer (monotonic predicate)
 
@@ -76,12 +76,12 @@ long long binsearch(long long lo, long long hi){ // [lo, hi]
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) |
-| 34 | Find First and Last Position of Element in Sorted Array | [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) |
-| 162 | Find Peak Element | [Find Peak Element](https://leetcode.com/problems/find-peak-element/) |
-| 875 | Koko Eating Bananas | [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 34 | Find First and Last Position of Element in Sorted Array | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
+| 162 | Find Peak Element | [Link](https://leetcode.com/problems/find-peak-element/) | - |
+| 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
 
 ## Prefix Sum / Difference Array
 
@@ -93,12 +93,12 @@ vector<int> prefix(const vector<int>& a){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 560 | Subarray Sum Equals K | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) |
-| 238 | Product of Array Except Self | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) |
-| 525 | Contiguous Array | [Contiguous Array](https://leetcode.com/problems/contiguous-array/) |
-| 370 | Range Addition | [Range Addition](https://leetcode.com/problems/range-addition/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
+| 238 | Product of Array Except Self | [Link](https://leetcode.com/problems/product-of-array-except-self/) | - |
+| 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) |
+| 370 | Range Addition | [Link](https://leetcode.com/problems/range-addition/) | - |
 
 ## Hash Map Frequencies
 
@@ -107,12 +107,12 @@ unordered_map<int,int> freq;
 for (int x: nums) ++freq[x];
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1 | Two Sum | [Two Sum](https://leetcode.com/problems/two-sum/) |
-| 49 | Group Anagrams | [Group Anagrams](https://leetcode.com/problems/group-anagrams/) |
-| 981 | Time Based Key-Value Store | [Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/) |
-| 359 | Logger Rate Limiter | [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1 | Two Sum | [Link](https://leetcode.com/problems/two-sum/) | - |
+| 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
+| 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
+| 359 | Logger Rate Limiter | [Link](https://leetcode.com/problems/logger-rate-limiter/) | - |
 
 ## KMP (Substring Search)
 KMP is a pattern matching algorithm that finds occurrences of a pattern string P within a text string T efficiently — without re-checking characters that are already known to match.
@@ -145,10 +145,10 @@ vector<int> kmpPi(const string& s){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 28 | Find the Index of the First Occurrence in a String | [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) |
-| 214 | Shortest Palindrome | [Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 28 | Find the Index of the First Occurrence in a String | [Link](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | - |
+| 214 | Shortest Palindrome | [Link](https://leetcode.com/problems/shortest-palindrome/) | - |
 
 ## Manacher (Longest Palindromic Substring, O(n))
 
@@ -160,9 +160,9 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 5 | Longest Palindromic Substring | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | - |
 
 ## Z-Algorithm (Pattern occurrences)
 
@@ -170,9 +170,9 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=0; for(int i=1;i<n;++i){ if(i<=r) z[i]=min(r-i+1, z[i-l]); while(i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i]; if(i+z[i]-1>r){ l=i; r=i+z[i]-1; } } return z; }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1392 | Longest Happy Prefix | [Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1392 | Longest Happy Prefix | [Link](https://leetcode.com/problems/longest-happy-prefix/) | - |
 
 ## String Rolling Hash (Rabin–Karp)
 
@@ -187,7 +187,7 @@ struct RH{
 };
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 187 | Repeated DNA Sequences | [Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) |
-| 1044 | Longest Duplicate Substring | [Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 187 | Repeated DNA Sequences | [Link](https://leetcode.com/problems/repeated-dna-sequences/) | - |
+| 1044 | Longest Duplicate Substring | [Link](https://leetcode.com/problems/longest-duplicate-substring/) | - |

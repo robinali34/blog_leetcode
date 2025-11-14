@@ -26,10 +26,10 @@ struct Compressor{
 };
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 315 | Count of Smaller Numbers After Self | [Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) |
-| 327 | Count of Range Sum | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | - |
+| 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | - |
 
 ## Meet-in-the-Middle (subset sums)
 
@@ -41,10 +41,10 @@ long long countSubsets(vector<int>& a, long long T){
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1755 | Closest Subsequence Sum | [Closest Subsequence Sum](https://leetcode.com/problems/closest-subsequence-sum/) |
-| 805 | Split Array With Same Average | [Split Array With Same Average](https://leetcode.com/problems/split-array-with-same-average/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1755 | Closest Subsequence Sum | [Link](https://leetcode.com/problems/closest-subsequence-sum/) | - |
+| 805 | Split Array With Same Average | [Link](https://leetcode.com/problems/split-array-with-same-average/) | - |
 
 ## Manacher (Longest Palindromic Substring, O(n))
 
@@ -56,9 +56,9 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 5 | Longest Palindromic Substring | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | - |
 
 ## Z-Algorithm (Pattern occurrences)
 
@@ -66,9 +66,9 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=0; for(int i=1;i<n;++i){ if(i<=r) z[i]=min(r-i+1, z[i-l]); while(i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i]; if(i+z[i]-1>r){ l=i; r=i+z[i]-1; } } return z; }
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 1392 | Longest Happy Prefix | [Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1392 | Longest Happy Prefix | [Link](https://leetcode.com/problems/longest-happy-prefix/) | - |
 
 ## Bitwise Trie (Max XOR Pair)
 
@@ -79,6 +79,6 @@ struct BitTrie{ struct Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; vector<Node> t{
 };
 ```
 
-| ID | Title | Link |
-|---|---|---|
-| 421 | Maximum XOR of Two Numbers in an Array | [Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) |
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 421 | Maximum XOR of Two Numbers in an Array | [Link](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | - |
