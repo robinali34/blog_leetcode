@@ -449,7 +449,8 @@ body {
   }
 }
 
-.post-content {
+// Legacy post-content (for non-blog view posts)
+.post-content:not(.e-content) {
   margin-bottom: $spacing-unit;
   color: $text-color;
 
@@ -467,20 +468,78 @@ body {
     font-size: 20px;
     color: $text-color;
   }
+}
+
+// Blog view post content (inside .post-wrapper)
+.post-wrapper .post-content {
+  margin-bottom: $spacing-unit;
+  color: $text-color;
+  line-height: 1.7;
+
+  h2 {
+    font-size: 2rem;
+    color: $text-color;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(196, 164, 132, 0.2);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: $text-color;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    color: $text-color;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
   
   // Code blocks with subtle Morandi background
   pre {
     background: #FAF8F4;
     border: 1px solid $morandi-beige;
-    border-radius: 4px;
+    border-radius: 6px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  code {
+    background: rgba(196, 164, 132, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: $morandi-warm-brown;
+    
+    pre & {
+      background: transparent;
+      padding: 0;
+    }
   }
   
   // Links with Morandi colors
   a {
     color: $morandi-terracotta;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
     
     &:hover {
       color: $morandi-warm-brown;
+      border-bottom-color: $morandi-terracotta;
     }
   }
   
@@ -488,11 +547,12 @@ body {
   table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    background: #FFFFFF;
     
     th, td {
       border: 1px solid $morandi-beige;
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       text-align: left;
     }
     
@@ -505,6 +565,10 @@ body {
     tr:nth-child(even) {
       background: rgba(196, 164, 132, 0.05);
     }
+    
+    tr:hover {
+      background: rgba(196, 164, 132, 0.1);
+    }
   }
   
   // Blockquotes with Morandi styling
@@ -515,6 +579,35 @@ body {
     margin: 1.5rem 0;
     color: $grey-color;
     font-style: italic;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  // Lists
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+  }
+  
+  // Horizontal rule
+  hr {
+    border: none;
+    border-top: 2px solid $morandi-beige;
+    margin: 2rem 0;
+  }
+  
+  // Strong and emphasis
+  strong {
+    color: $text-color;
+    font-weight: 600;
+  }
+  
+  em {
+    color: $grey-color;
   }
 }
 
@@ -548,4 +641,274 @@ body {
 // Wrapper background
 .wrapper {
   background-color: $background-color;
+}
+
+// Post layout with sidebar
+.post-wrapper {
+  display: flex;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+.post {
+  flex: 1;
+  min-width: 0; // Prevent flex item from overflowing
+  
+  .post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid $morandi-beige;
+    
+    .post-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: $text-color;
+      line-height: 1.2;
+      
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+    
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: $grey-color;
+      
+      .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        
+        .category-tag {
+          background: $morandi-beige;
+          color: $text-color;
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .post-content {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid $morandi-beige;
+    box-shadow: 0 2px 8px rgba(139, 125, 107, 0.08);
+    
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+    
+    // Add IDs to headings for TOC
+    h2, h3, h4 {
+      scroll-margin-top: 80px; // Offset for fixed header
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Sidebar styling
+.post-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  
+  @media (max-width: 1024px) {
+    width: 100%;
+    order: -1; // Show sidebar first on mobile
+  }
+  
+  .sidebar-section {
+    background: #FFFFFF;
+    border: 1px solid $morandi-beige;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(139, 125, 107, 0.08);
+    
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-color;
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid $morandi-beige;
+    }
+  }
+  
+  // Table of Contents
+  .table-of-contents {
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      .toc-item {
+        margin-bottom: 0.5rem;
+        
+        &.toc-h2 {
+          margin-left: 0;
+          font-weight: 500;
+        }
+        
+        &.toc-h3 {
+          margin-left: 1rem;
+          font-size: 0.9rem;
+        }
+        
+        &.toc-h4 {
+          margin-left: 2rem;
+          font-size: 0.85rem;
+        }
+        
+        .toc-link {
+          color: $grey-color;
+          text-decoration: none;
+          display: block;
+          padding: 0.5rem 0.75rem;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background: rgba(196, 164, 132, 0.1);
+            color: $morandi-terracotta;
+            transform: translateX(4px);
+          }
+          
+          &.active {
+            background: $morandi-beige;
+            color: $text-color;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+  
+  // Related Posts
+  .related-posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    .related-post-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(196, 164, 132, 0.2);
+      
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      
+      .related-post-link {
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          .related-post-title {
+            color: $morandi-terracotta;
+          }
+        }
+        
+        .related-post-title {
+          display: block;
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: $text-color;
+          margin-bottom: 0.25rem;
+          line-height: 1.4;
+        }
+        
+        .related-post-date {
+          display: block;
+          font-size: 0.8rem;
+          color: $grey-color;
+        }
+      }
+      
+      .no-related-posts {
+        color: $grey-color;
+        font-style: italic;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  // Quick Navigation
+  .quick-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .quick-nav-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      background: rgba(196, 164, 132, 0.05);
+      border: 1px solid $morandi-beige;
+      border-radius: 6px;
+      color: $text-color;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: $morandi-beige;
+        border-color: $morandi-terracotta;
+        color: $text-color;
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// Sticky sidebar on desktop
+@media (min-width: 1025px) {
+  .post-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    
+    // Custom scrollbar with Morandi colors
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(196, 164, 132, 0.1);
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $morandi-beige;
+      border-radius: 3px;
+      
+      &:hover {
+        background: $morandi-terracotta;
+      }
+    }
+  }
 }
