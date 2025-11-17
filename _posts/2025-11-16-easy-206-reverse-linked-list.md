@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Easy] 206. Reverse Linked List"
-date: 2025-11-14 00:00:00 -0800
+date: 2025-11-16 00:00:00 -0800
 categories: leetcode algorithm easy cpp linked-list recursion iteration problem-solving
 ---
 

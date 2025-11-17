@@ -2,11 +2,25 @@
 layout: default
 ---
 
-<div class="home">
-  <header class="site-header">
-    <h1 class="site-title">{{ site.title | default: "Robina Li" }}</h1>
-    <p class="site-subtitle">Technical Blog</p>
+<div class="post-container">
+  <!-- Header Navigation -->
+  <header class="post-header">
+    <div class="header-content">
+      <h1 class="site-title">
+        <a href="{{ '/' | relative_url }}">{{ site.title | default: "Robina Li" }}</a>
+      </h1>
+      <nav class="site-nav">
+        {%- for page_path in site.header_pages -%}
+          {%- assign page_obj = site.pages | where: "path", page_path | first -%}
+          {%- if page_obj -%}
+            <a href="{{ page_obj.url | relative_url }}">{{ page_obj.title | escape }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    </div>
   </header>
+
+<div class="home">
 
   <section class="welcome-section">
     <h2>Welcome to My Technical Blog</h2>
@@ -96,4 +110,5 @@ layout: default
     <p class="rss-subscribe">Subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a> to stay updated</p>
   </section>
 
+</div>
 </div>
