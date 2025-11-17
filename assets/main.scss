@@ -774,15 +774,20 @@ a {
     width: 100%;
     z-index: 100;
     box-sizing: border-box;
+    overflow: visible;
     
     @media (max-width: 768px) {
       padding: 1rem 0;
       position: sticky;
       top: 0;
+      overflow: visible;
+      min-height: auto;
     }
     
     @media (max-width: 480px) {
       padding: 0.875rem 0;
+      overflow: visible;
+      min-height: auto;
     }
     
     .header-content {
@@ -807,21 +812,24 @@ a {
       @media (max-width: 768px) {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.875rem;
+        gap: 0.75rem;
         padding: 0 1rem;
         width: 100%;
         box-sizing: border-box;
+        overflow: visible;
       }
       
       @media (max-width: 480px) {
         padding: 0 0.875rem;
-        gap: 0.75rem;
+        gap: 0.625rem;
         width: 100%;
+        overflow: visible;
       }
       
       @media (max-width: 360px) {
         padding: 0 0.75rem;
-        gap: 0.625rem;
+        gap: 0.5rem;
+        overflow: visible;
       }
       
       .site-title {
@@ -862,19 +870,22 @@ a {
         
         @media (max-width: 768px) {
           width: 100%;
-          gap: 1rem;
-          margin-top: 0;
+          gap: 0.75rem;
+          margin-top: 0.5rem;
           flex-wrap: wrap;
+          align-items: flex-start;
         }
         
         @media (max-width: 480px) {
-          gap: 0.875rem;
+          gap: 0.625rem;
           font-size: 0.9rem;
           width: 100%;
+          margin-top: 0.5rem;
+          flex-wrap: wrap;
         }
         
         @media (max-width: 360px) {
-          gap: 0.75rem;
+          gap: 0.5rem;
           font-size: 0.85rem;
         }
         
@@ -883,13 +894,27 @@ a {
           text-decoration: none;
           font-size: 0.95rem;
           font-weight: 400;
-          padding: 0;
+          padding: 0.25rem 0;
           border-radius: 0;
           transition: color 0.2s ease;
           border-bottom: 1px solid transparent;
+          white-space: nowrap;
+          display: inline-block;
+          
+          @media (max-width: 768px) {
+            font-size: 0.9rem;
+            padding: 0.2rem 0;
+          }
           
           @media (max-width: 480px) {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            padding: 0.15rem 0;
+            white-space: normal;
+            word-break: break-word;
+          }
+          
+          @media (max-width: 360px) {
+            font-size: 0.8rem;
           }
           
           &:hover {
