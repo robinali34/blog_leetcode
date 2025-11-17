@@ -3,25 +3,98 @@
 
 @import "minima";
 
-// Giorgio Morandi inspired color palette - muted, earthy, sophisticated
-// Warm cream background, dusty pinks, muted grays, soft terracotta
-$brand-color: #8B7D6B !default;           // Muted brown-gray (main text)
-$grey-color: #9B8B7A !default;            // Warm gray-brown
-$grey-color-light: #D4C4B0 !default;      // Pale beige
-$grey-color-dark: #6B5B73 !default;       // Muted purple-gray
-$text-color: #6B5B73 !default;             // Soft purple-gray text
-$background-color: #F5F1E8 !default;      // Warm cream/ivory background
+// Morandi Color Palette - Soft, Muted, Elegant
+// CSS Variables for better theming support
+:root {
+  /* Primary Morandi Colors */
+  --morandi-cream: #F5F0E8;
+  --morandi-beige: #E8E3D8;
+  --morandi-sand: #D9D4C7;
+  --morandi-gray-light: #E8E5E0;
+  --morandi-gray: #D4D1CC;
+  --morandi-gray-medium: #B8B5B0;
+  --morandi-gray-dark: #9A9792;
+  
+  /* Accent Colors */
+  --morandi-dusty-pink: #E8D5D0;
+  --morandi-pink-medium: #D4C4BF;
+  --morandi-pale-blue: #D4D8E0;
+  --morandi-blue-medium: #C4C8D0;
+  --morandi-washed-green: #D4D8D0;
+  --morandi-green-medium: #C4C8C0;
+  
+  /* Text Colors */
+  --morandi-text-dark: #5A5752;
+  --morandi-text-medium: #7A7772;
+  --morandi-text-light: #9A9792;
+  
+  /* Background Colors */
+  --morandi-bg-primary: #F5F0E8;
+  --morandi-bg-secondary: #E8E3D8;
+  --morandi-bg-card: #FFFFFF;
+  --morandi-bg-hover: #F0EBE3;
+  
+  /* Border Colors */
+  --morandi-border-light: #E8E3D8;
+  --morandi-border-medium: #D4D1CC;
+  --morandi-border-dark: #B8B5B0;
+  
+  /* Link Colors */
+  --morandi-link: #8B8680;
+  --morandi-link-hover: #6B6660;
+  --morandi-link-active: #9A9792;
+}
+
+// SCSS Variables (for compatibility with existing code)
+$brand-color: #8B8680 !default;
+$grey-color: #7A7772 !default;
+$grey-color-light: #E8E5E0 !default;
+$grey-color-dark: #9A9792 !default;
+$text-color: #5A5752 !default;
+$background-color: #F5F0E8 !default;
 
 // Morandi accent colors
-$morandi-beige: #C4A484 !default;         // Dusty beige
-$morandi-terracotta: #B8A082 !default;    // Soft terracotta
-$morandi-sage: #A8B5A0 !default;          // Muted sage green
-$morandi-dusty-blue: #9BA8B5 !default;   // Dusty blue-gray
-$morandi-warm-brown: #A6937F !default;   // Warm brown
+$morandi-beige: #E8E3D8 !default;
+$morandi-terracotta: #D4C4BF !default;
+$morandi-sage: #C4C8C0 !default;
+$morandi-dusty-blue: #C4C8D0 !default;
+$morandi-warm-brown: #9A9792 !default;
 
 // Body background with Morandi cream
 body {
-  background-color: $background-color;
+  background-color: var(--morandi-bg-primary);
+  color: var(--morandi-text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+  color: var(--morandi-text-dark);
+  font-weight: 500;
+}
+
+// Links
+a {
+  color: var(--morandi-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--morandi-link-hover);
+    text-decoration: underline;
+  }
+}
+
+// Selection
+::selection {
+  background-color: var(--morandi-dusty-pink);
+  color: var(--morandi-text-dark);
+}
+
+::-moz-selection {
+  background-color: var(--morandi-dusty-pink);
+  color: var(--morandi-text-dark);
 }
 
 // Custom styles for the homepage
@@ -507,39 +580,52 @@ body {
     line-height: 1.7;
   }
   
-  // Code blocks with subtle Morandi background
-  pre {
-    background: #FAF8F4;
-    border: 1px solid $morandi-beige;
-    border-radius: 6px;
-    padding: 1.25rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
+  // Code blocks
+  pre, code {
+    background-color: var(--morandi-beige);
+    border: 1px solid var(--morandi-border-light);
+    color: var(--morandi-text-dark);
   }
   
   code {
-    background: rgba(196, 164, 132, 0.1);
-    padding: 0.2rem 0.4rem;
+    padding: 0.2em 0.4em;
     border-radius: 3px;
     font-size: 0.9em;
-    color: $morandi-warm-brown;
+    
+    @media (max-width: 480px) {
+      font-size: 0.85em;
+      padding: 0.15rem 0.3rem;
+    }
     
     pre & {
       background: transparent;
+      border: none;
       padding: 0;
     }
   }
   
-  // Links with Morandi colors
+  pre {
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    
+    @media (max-width: 480px) {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+  }
+  
+  // Links
   a {
-    color: $morandi-terracotta;
+    color: var(--morandi-link);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
     
     &:hover {
-      color: $morandi-warm-brown;
-      border-bottom-color: $morandi-terracotta;
+      color: var(--morandi-link-hover);
+      text-decoration: underline;
     }
   }
   
@@ -547,67 +633,78 @@ body {
   table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1.5rem 0;
-    background: #FFFFFF;
+    margin: 1em 0;
+    
+    @media (max-width: 480px) {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
     
     th, td {
-      border: 1px solid $morandi-beige;
-      padding: 0.75rem 1rem;
-      text-align: left;
+      border: 1px solid var(--morandi-border-light);
+      padding: 0.5em;
+      
+      @media (max-width: 600px) {
+        padding: 0.6rem 0.8rem;
+      }
+      
+      @media (max-width: 480px) {
+        padding: 0.4rem;
+        font-size: 0.85rem;
+      }
     }
     
     th {
-      background: $morandi-beige;
-      color: $text-color;
+      background-color: var(--morandi-beige);
+      color: var(--morandi-text-dark);
       font-weight: 600;
+      
+      @media (max-width: 480px) {
+        font-size: 0.9rem;
+      }
     }
     
     tr:nth-child(even) {
-      background: rgba(196, 164, 132, 0.05);
-    }
-    
-    tr:hover {
-      background: rgba(196, 164, 132, 0.1);
+      background-color: var(--morandi-bg-primary);
     }
   }
   
-  // Blockquotes with Morandi styling
+  // Blockquotes
   blockquote {
-    border-left: 4px solid $morandi-terracotta;
-    background: rgba(196, 164, 132, 0.05);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    color: $grey-color;
-    font-style: italic;
-    border-radius: 0 4px 4px 0;
-  }
-  
-  // Lists
-  ul, ol {
-    margin: 1rem 0;
-    padding-left: 2rem;
+    border-left: 4px solid var(--morandi-border-medium);
+    background-color: var(--morandi-beige);
+    color: var(--morandi-text-medium);
+    padding: 0.5em 1em;
+    margin: 1em 0;
     
-    li {
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
+    @media (max-width: 480px) {
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
     }
   }
   
   // Horizontal rule
   hr {
     border: none;
-    border-top: 2px solid $morandi-beige;
-    margin: 2rem 0;
+    border-top: 1px solid var(--morandi-border-light);
+    margin: 2em 0;
+    
+    @media (max-width: 480px) {
+      margin: 1.5rem 0;
+    }
   }
   
   // Strong and emphasis
   strong {
-    color: $text-color;
+    color: var(--morandi-text-dark);
     font-weight: 600;
   }
   
   em {
-    color: $grey-color;
+    color: var(--morandi-text-medium);
   }
 }
 
@@ -643,141 +740,989 @@ body {
   background-color: $background-color;
 }
 
-// Post layout with sidebar
-.post-wrapper {
-  display: flex;
-  gap: 2rem;
+// Post container - full page wrapper
+.post-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 20px;
+  background-color: var(--morandi-bg-primary);
+  min-height: 100vh;
   
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    gap: 1.5rem;
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 8px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 0 6px;
+  }
+  
+  // Post header (navigation at top)
+  .post-header {
+    background-color: var(--morandi-bg-card);
+    border-bottom: 1px solid var(--morandi-border-light);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    
+    @media (max-width: 480px) {
+      padding: 0.75rem 0;
+      margin-bottom: 1rem;
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0 10px;
+      }
+      
+      @media (max-width: 480px) {
+        padding: 0 8px;
+        gap: 0.75rem;
+      }
+      
+      .site-title {
+        margin: 0;
+        font-size: 1.5rem;
+        
+        @media (max-width: 480px) {
+          font-size: 1.25rem;
+        }
+        
+        a {
+          color: var(--morandi-text-dark);
+          text-decoration: none;
+          transition: color 0.2s ease;
+          
+          &:hover {
+            color: var(--morandi-link-hover);
+            text-decoration: none;
+          }
+        }
+      }
+      
+      .site-nav {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        border: none;
+        background: none;
+        padding: 0;
+        
+        @media (max-width: 768px) {
+          width: 100%;
+          gap: 1rem;
+        }
+        
+        @media (max-width: 480px) {
+          gap: 0.75rem;
+          font-size: 0.9rem;
+        }
+        
+        a {
+          color: var(--morandi-text-medium);
+          text-decoration: none;
+          font-size: 0.95rem;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          
+          @media (max-width: 480px) {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.9rem;
+          }
+          
+          &:hover {
+            color: var(--morandi-text-dark);
+            background-color: var(--morandi-bg-hover);
+            text-decoration: none;
+          }
+        }
+      }
+    }
   }
 }
 
-.post {
-  flex: 1;
-  min-width: 0; // Prevent flex item from overflowing
+// Post layout with two sidebars
+.post-wrapper {
+  display: grid;
+  grid-template-columns: 240px 1fr 320px;
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: start;
   
-  .post-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid $morandi-beige;
+  @media (max-width: 1200px) {
+    grid-template-columns: 220px 1fr 280px;
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
     
-    .post-title {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: $text-color;
-      line-height: 1.2;
+    .post-main {
+      order: 1;
+    }
+    
+    .post-sidebar-left {
+      order: 2;
+      width: 100%;
+    }
+    
+    .post-sidebar {
+      order: 3;
+      width: 100%;
+      display: block;
+      position: relative;
+      top: 0;
+      max-height: none;
+      overflow: visible;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
+}
+
+// Left sidebar - Table of Contents
+.post-sidebar-left {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  max-height: calc(100vh - 40px);
+  align-self: start;
+  width: 100%;
+  max-width: 240px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  
+  @media (max-width: 1024px) {
+    position: static;
+    max-height: none;
+    max-width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .toc-section {
+      max-height: calc(100vh - 120px);
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: 100%;
+    
+    .toc-section {
+      max-width: 100%;
+      max-height: calc(100vh - 140px);
+      height: auto;
+    }
+  }
+}
+
+// Main content area
+.post-main {
+  min-width: 0; // Prevent grid item overflow
+  background-color: var(--morandi-bg-card);
+  border: 1px solid var(--morandi-border-light);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
+    border-radius: 6px;
+  }
+  
+  .post {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    
+    .post-header-content {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--morandi-border-light);
       
-      @media (max-width: 768px) {
-        font-size: 2rem;
+      @media (max-width: 480px) {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+      }
+      
+      .post-title {
+        font-size: 2.5rem;
+        margin: 0 0 1rem 0;
+        color: var(--morandi-text-dark);
+        line-height: 1.2;
+        font-weight: 500;
+        
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+        
+        @media (max-width: 480px) {
+          font-size: 1.75rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.3;
+        }
+      }
+      
+        .post-meta-info {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          align-items: center;
+          
+          @media (max-width: 480px) {
+            gap: 0.75rem;
+            font-size: 0.85rem;
+          }
+          
+          .post-date {
+            color: var(--morandi-text-light);
+            font-size: 0.9rem;
+            
+            @media (max-width: 480px) {
+              font-size: 0.85rem;
+            }
+          }
+          
+          .post-categories,
+          .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            
+            @media (max-width: 480px) {
+              gap: 0.4rem;
+            }
+          }
+          
+          .category-tag,
+          .tag {
+            background-color: var(--morandi-beige);
+            border: 1px solid var(--morandi-border-light);
+            color: var(--morandi-text-medium);
+            padding: 0.35rem 0.85rem;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            
+            @media (max-width: 600px) {
+              padding: 0.3rem 0.7rem;
+              font-size: 0.8rem;
+            }
+            
+            @media (max-width: 480px) {
+              padding: 0.2rem 0.5rem;
+              font-size: 0.75rem;
+              border-radius: 12px;
+            }
+            
+            &:hover {
+              background-color: var(--morandi-sand);
+              border-color: var(--morandi-border-medium);
+              transform: translateY(-1px);
+            }
+          }
+        }
+    }
+    
+    .post-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--morandi-text-dark);
+      
+      @media (max-width: 480px) {
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+      
+      @media (max-width: 360px) {
+        font-size: 0.95rem;
+      }
+      
+      // Add IDs to headings for TOC
+      h2 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--morandi-border-light);
+        color: var(--morandi-text-dark);
+        
+        @media (max-width: 480px) {
+          font-size: 1.5rem;
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
+        }
+        
+        @media (max-width: 360px) {
+          font-size: 1.35rem;
+        }
+      }
+      
+      h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--morandi-text-dark);
+        
+        @media (max-width: 480px) {
+          font-size: 1.25rem;
+          margin-top: 1.25rem;
+          margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 360px) {
+          font-size: 1.15rem;
+        }
+      }
+      
+      h4 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--morandi-text-dark);
+        
+        @media (max-width: 480px) {
+          font-size: 1.1rem;
+          margin-top: 1rem;
+        }
+      }
+      
+      p {
+        margin-bottom: 1.25rem;
+        
+        @media (max-width: 480px) {
+          margin-bottom: 1rem;
+        }
+      }
+      
+      ul, ol {
+        margin-bottom: 1.25rem;
+        padding-left: 2rem;
+        
+        @media (max-width: 480px) {
+          margin-bottom: 1rem;
+          padding-left: 1.5rem;
+        }
+        
+        li {
+          margin-bottom: 0.5rem;
+          
+          @media (max-width: 480px) {
+            margin-bottom: 0.4rem;
+          }
+        }
+      }
+      
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid var(--morandi-border-light);
+        margin: 1.5rem 0;
+        
+        @media (max-width: 480px) {
+          margin: 1rem 0;
+        }
       }
     }
     
-    .post-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: $grey-color;
+    .post-footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--morandi-border-light);
       
-      .post-categories {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+      @media (max-width: 480px) {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+      }
+      
+      .post-navigation {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
         
-        .category-tag {
-          background: $morandi-beige;
-          color: $text-color;
-          padding: 0.25rem 0.75rem;
-          border-radius: 12px;
-          font-size: 0.85rem;
-          font-weight: 500;
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+        
+        .post-nav-link {
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+          background-color: var(--morandi-bg-secondary);
+          border: 1px solid var(--morandi-border-light);
+          border-radius: 6px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          min-height: 44px; // Ensure tappable area
+          
+          @media (max-width: 480px) {
+            padding: 0.75rem;
+          }
+          
+          &:hover {
+            background-color: var(--morandi-bg-hover);
+            border-color: var(--morandi-border-medium);
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          }
+          
+          .post-nav-label {
+            font-size: 0.85rem;
+            color: var(--morandi-text-light);
+            margin-bottom: 0.25rem;
+            
+            @media (max-width: 480px) {
+              font-size: 0.8rem;
+            }
+          }
+          
+          .post-nav-title {
+            font-size: 1rem;
+            color: var(--morandi-text-dark);
+            font-weight: 500;
+            
+            @media (max-width: 480px) {
+              font-size: 0.9rem;
+            }
+          }
+          
+          &.post-nav-next {
+            text-align: right;
+            
+            @media (max-width: 768px) {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sidebar styling (shared for both left and right)
+.post-sidebar-left,
+.post-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0; // Prevent overflow
+  
+  .sidebar-section {
+    background-color: var(--morandi-bg-card);
+    border: 1px solid var(--morandi-border-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+    
+    @media (max-width: 480px) {
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    
+    @media (max-width: 360px) {
+      padding: 0.75rem;
+    }
+    
+    .sidebar-title {
+      font-size: 1.2rem;
+      margin: 0 0 1rem 0;
+      color: var(--morandi-text-dark);
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--morandi-border-light);
+      flex-shrink: 0;
+      flex-grow: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+// Table of Contents Styles
+.toc-section {
+  width: 100%;
+  max-width: 240px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 40px);
+  
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    max-height: calc(100vh - 140px);
+    height: auto;
+  }
+}
+
+.toc-nav {
+  flex: 1 1 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  max-width: 240px;
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--morandi-border-dark) var(--morandi-bg-primary);
+  
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    max-height: calc(100vh - 180px);
+  }
+  
+  @media (max-width: 480px) {
+    max-height: calc(100vh - 200px);
+    font-size: 0.85rem;
+  }
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--morandi-bg-primary);
+    border-radius: 4px;
+    margin: 4px 0;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--morandi-border-dark);
+    border-radius: 4px;
+    border: 1px solid var(--morandi-bg-primary);
+    
+    &:hover {
+      background: var(--morandi-gray-medium);
+    }
+  }
+  
+  &::-webkit-scrollbar-corner {
+    background: var(--morandi-bg-primary);
+  }
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.toc-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0.25rem 0.5rem;
+  border-left: 2px solid var(--morandi-border-light);
+  padding-left: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.toc-item {
+  margin-bottom: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  color: var(--morandi-text-medium);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
+  @media (max-width: 480px) {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.85rem;
+    min-height: 36px; // Ensure tappable area
+    display: flex;
+    align-items: center;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  &:hover {
+    background-color: var(--morandi-bg-hover);
+    color: var(--morandi-text-dark);
+    text-decoration: none;
+    padding-left: 1rem;
+  }
+  
+  &.active {
+    background-color: var(--morandi-beige);
+    color: var(--morandi-text-dark);
+    font-weight: 500;
+    border-left: 3px solid var(--morandi-border-dark);
+    padding-left: 0.9rem;
+  }
+}
+
+.toc-level-2 .toc-link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+}
+
+.toc-level-3 .toc-link {
+  font-size: 0.85rem;
+  padding-left: 1rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding-left: 0.75rem;
+  }
+}
+
+.toc-level-4 .toc-link {
+  font-size: 0.8rem;
+  padding-left: 1.5rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    padding-left: 1rem;
+  }
+}
+
+// Right sidebar specific styles
+.post-sidebar {
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  
+  @media (max-width: 1200px) {
+    display: none; // Hide on tablet
+  }
+  
+  @media (max-width: 900px) {
+    display: block; // Show on mobile, positioned at bottom via grid order
+    position: relative;
+    top: 0;
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+  }
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--morandi-bg-primary);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--morandi-border-dark);
+    border-radius: 3px;
+    
+    &:hover {
+      background: var(--morandi-gray-medium);
+    }
+  }
+  
+  // Related Posts
+  .related-posts-list,
+  .recent-posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .related-post-item,
+  .recent-post-item {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--morandi-border-light);
+    
+    @media (max-width: 480px) {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+  
+  .related-post-link,
+  .recent-post-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.5rem;
+    border-radius: 4px;
+    min-height: 44px; // Ensure tappable area
+    
+    @media (max-width: 480px) {
+      padding: 0.4rem;
+    }
+    
+    &:hover {
+      background-color: var(--morandi-bg-hover);
+      text-decoration: none;
+    }
+  }
+  
+  .related-post-title,
+  .recent-post-title {
+    font-size: 0.95rem;
+    color: var(--morandi-text-dark);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .related-post-date,
+  .recent-post-date {
+    font-size: 0.8rem;
+    color: var(--morandi-text-light);
+    
+    @media (max-width: 480px) {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .no-related-posts {
+    color: var(--morandi-text-light);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  
+  // Categories list (right sidebar)
+  .categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    .category-item {
+      margin-bottom: 0.5rem;
+      
+      .category-link {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        color: $grey-color;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        
+        &:hover {
+          background: rgba(196, 164, 132, 0.1);
+          color: $morandi-terracotta;
+          transform: translateX(4px);
         }
       }
     }
   }
   
-  .post-content {
-    background: #FFFFFF;
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid $morandi-beige;
-    box-shadow: 0 2px 8px rgba(139, 125, 107, 0.08);
+  // Recent posts list (right sidebar)
+  .recent-posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     
-    @media (max-width: 768px) {
-      padding: 1.5rem;
-    }
-    
-    // Add IDs to headings for TOC
-    h2, h3, h4 {
-      scroll-margin-top: 80px; // Offset for fixed header
-      margin-top: 2rem;
+    .recent-post-item {
       margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(196, 164, 132, 0.2);
       
-      &:first-child {
-        margin-top: 0;
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      
+      .recent-post-link {
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          .recent-post-title {
+            color: $morandi-terracotta;
+          }
+        }
+        
+        .recent-post-title {
+          display: block;
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: $text-color;
+          margin-bottom: 0.25rem;
+          line-height: 1.4;
+        }
+        
+        .recent-post-date {
+          display: block;
+          font-size: 0.8rem;
+          color: $grey-color;
+        }
       }
     }
   }
 }
 
-// Sidebar styling
+// Right sidebar - Related Posts, Categories, Recent Posts
 .post-sidebar {
-  width: 300px;
-  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
   
-  @media (max-width: 1024px) {
-    width: 100%;
-    order: -1; // Show sidebar first on mobile
+  @media (max-width: 1200px) {
+    display: none; // Hide on tablet
   }
   
-  .sidebar-section {
-    background: #FFFFFF;
-    border: 1px solid $morandi-beige;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 4px rgba(139, 125, 107, 0.08);
-    
-    .sidebar-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: $text-color;
-      margin: 0 0 1rem 0;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid $morandi-beige;
+  @media (max-width: 900px) {
+    display: block; // Show on mobile, positioned at bottom via grid order
+    position: relative;
+    top: 0;
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+  }
+  
+  @media (max-width: 600px) {
+    .sidebar-section {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      
+      .sidebar-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+      }
     }
   }
   
-  // Table of Contents
-  .table-of-contents {
+  @media (max-width: 480px) {
+    .sidebar-section {
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      
+      .sidebar-title {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+        padding-bottom: 0.4rem;
+      }
+    }
+  }
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(196, 164, 132, 0.1);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $morandi-beige;
+    border-radius: 3px;
+    
+    &:hover {
+      background: $morandi-terracotta;
+    }
+  }
+  
+  // Table of Contents (left sidebar)
+  .toc-nav {
     .toc-list {
       list-style: none;
       padding: 0;
       margin: 0;
       
+      .toc-sublist {
+        list-style: none;
+        padding-left: 1rem;
+        margin: 0.25rem 0;
+      }
+      
       .toc-item {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
         
-        &.toc-h2 {
-          margin-left: 0;
+        &.toc-level-2 {
           font-weight: 500;
         }
         
-        &.toc-h3 {
-          margin-left: 1rem;
+        &.toc-level-3 {
           font-size: 0.9rem;
+          padding-left: 0.5rem;
         }
         
-        &.toc-h4 {
-          margin-left: 2rem;
+        &.toc-level-4 {
           font-size: 0.85rem;
+          padding-left: 1rem;
         }
         
         .toc-link {
@@ -787,6 +1732,7 @@ body {
           padding: 0.5rem 0.75rem;
           border-radius: 4px;
           transition: all 0.2s ease;
+          line-height: 1.4;
           
           &:hover {
             background: rgba(196, 164, 132, 0.1);
@@ -856,58 +1802,75 @@ body {
     }
   }
   
-  // Quick Navigation
-  .quick-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  // Categories list (right sidebar)
+  .categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     
-    .quick-nav-link {
-      display: block;
-      padding: 0.75rem 1rem;
-      background: rgba(196, 164, 132, 0.05);
-      border: 1px solid $morandi-beige;
-      border-radius: 6px;
-      color: $text-color;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
+    .category-item {
+      margin-bottom: 0.5rem;
       
-      &:hover {
-        background: $morandi-beige;
-        border-color: $morandi-terracotta;
-        color: $text-color;
-        transform: translateX(4px);
+      .category-link {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        color: $grey-color;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        
+        &:hover {
+          background: rgba(196, 164, 132, 0.1);
+          color: $morandi-terracotta;
+          transform: translateX(4px);
+        }
       }
     }
   }
-}
-
-// Sticky sidebar on desktop
-@media (min-width: 1025px) {
-  .post-sidebar {
-    position: sticky;
-    top: 100px;
-    align-self: flex-start;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
+  
+  // Recent posts list (right sidebar)
+  .recent-posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     
-    // Custom scrollbar with Morandi colors
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: rgba(196, 164, 132, 0.1);
-      border-radius: 3px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: $morandi-beige;
-      border-radius: 3px;
+    .recent-post-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(196, 164, 132, 0.2);
       
-      &:hover {
-        background: $morandi-terracotta;
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      
+      .recent-post-link {
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          .recent-post-title {
+            color: $morandi-terracotta;
+          }
+        }
+        
+        .recent-post-title {
+          display: block;
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: $text-color;
+          margin-bottom: 0.25rem;
+          line-height: 1.4;
+        }
+        
+        .recent-post-date {
+          display: block;
+          font-size: 0.8rem;
+          color: $grey-color;
+        }
       }
     }
   }
