@@ -41,9 +41,11 @@ Output: []
 
 We can reverse a linked list using either an iterative approach (preferred for space efficiency) or a recursive approach (more elegant but uses stack space).
 
-### Solution 1: Iterative Approach (Recommended - C++23 Optimized)
+### Solution 1: Iterative Approach (Recommended - C++20 Optimized)
 
 ```cpp
+using namespace std;
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -56,7 +58,7 @@ We can reverse a linked list using either an iterative approach (preferred for s
  */
 class Solution {
 public:
-    [[nodiscard]] ListNode* reverseList(ListNode* head) {
+    ListNode* reverseList(ListNode* head) {
         ListNode* prev = nullptr;
         ListNode* curr = head;
         
@@ -72,12 +74,14 @@ public:
 };
 ```
 
-### Solution 2: Recursive Approach (C++23 Optimized)
+### Solution 2: Recursive Approach (C++20 Optimized)
 
 ```cpp
+using namespace std;
+
 class Solution {
 public:
-    [[nodiscard]] ListNode* reverseList(ListNode* head) {
+    ListNode* reverseList(ListNode* head) {
         // Base case: empty list or single node
         if (head == nullptr || head->next == nullptr) {
             return head;
@@ -98,9 +102,11 @@ public:
 ### Solution 3: Iterative with Explicit Null Checks
 
 ```cpp
+using namespace std;
+
 class Solution {
 public:
-    [[nodiscard]] ListNode* reverseList(ListNode* head) {
+    ListNode* reverseList(ListNode* head) {
         if (head == nullptr) {
             return nullptr;
         }
@@ -206,12 +212,12 @@ Final:
 head (now tail)
 ```
 
-## Key Optimizations (C++23)
+## Key Optimizations (C++20)
 
-1. **`[[nodiscard]]`**: Ensures return value is used
-2. **Explicit null checks**: Prevents undefined behavior
-3. **Clear variable names**: `prev`, `curr`, `next` for readability
-4. **No unnecessary operations**: Direct pointer manipulation
+1. **Explicit null checks**: Prevents undefined behavior
+2. **Clear variable names**: `prev`, `curr`, `next` for readability
+3. **No unnecessary operations**: Direct pointer manipulation
+4. **Simple and efficient**: O(1) space for iterative approach
 
 ## Complexity Analysis
 

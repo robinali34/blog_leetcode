@@ -51,34 +51,36 @@ We can solve this problem using two approaches:
 1. **Hash Map Grouping**: Group elements by their diagonal index (row + col), then iterate through diagonals in order.
 2. **BFS Traversal**: Use a queue to traverse diagonally, processing elements level by level.
 
-### Solution 1: Hash Map Grouping (C++23 Optimized)
+### Solution 1: Hash Map Grouping (C++20 Optimized)
 
 **Key Insight:** Elements on the same diagonal have the same sum of row and column indices (`row + col`). We can group all elements by this diagonal index, then iterate through diagonals in ascending order.
 
 ```cpp
+using namespace std;
+
 class Solution {
 public:
-    [[nodiscard]] vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
         unordered_map<int, vector<int>> groups;
         
         // Traverse from bottom to top to maintain diagonal order
-        for (int row = static_cast<int>(nums.size()) - 1; row >= 0; --row) {
-            for (int col = 0; col < static_cast<int>(nums[row].size()); ++col) {
-                const int diagonal = row + col;
+        for (int row = (int)nums.size() - 1; row >= 0; row--) {
+            for (int col = 0; col < (int)nums[row].size(); col++) {
+                int diagonal = row + col;
                 groups[diagonal].push_back(nums[row][col]);
             }
         }
         
         vector<int> rtn;
-        rtn.reserve(nums.size() * nums[0].size()); // Reserve space for efficiency
+        rtn.reserve(nums.size() * nums[0].size());
         
         // Process diagonals in order (0, 1, 2, ...)
         int curr = 0;
-        while (groups.contains(curr)) {
-            for (const int num : groups[curr]) {
+        while (groups.find(curr) != groups.end()) {
+            for (int num : groups[curr]) {
                 rtn.push_back(num);
             }
-            ++curr;
+            curr++;
         }
         
         return rtn;
@@ -86,51 +88,47 @@ public:
 };
 ```
 
-**C++23 Optimizations:**
-- `[[nodiscard]]` attribute to prevent ignoring return value
-- `static_cast<int>()` for explicit type conversions
-- `const` qualifier for diagonal index
-- `groups.contains(curr)` instead of `groups.find(curr) != groups.end()` (C++20)
-- `reserve()` to pre-allocate memory
-- Range-based for loop with `const int num`
+**C++20 Optimizations:**
+- `groups.find(curr) != groups.end()` for map lookup (C++20 compatible)
+- `reserve()` to pre-allocate memory for efficiency
+- Range-based for loops for cleaner iteration
 
 **How it works:**
 1. **Group by Diagonal**: For each element at `(row, col)`, calculate `diagonal = row + col` and add it to the corresponding group.
 2. **Bottom-to-Top Traversal**: We traverse rows from bottom to top so that when we process diagonals in order, elements appear in the correct sequence.
 3. **Sequential Processing**: Process diagonals starting from 0, adding all elements in each diagonal group to the result.
 
-### Solution 2: BFS Traversal (C++23 Optimized)
+### Solution 2: BFS Traversal (C++20 Optimized)
 
 **Key Insight:** We can use BFS starting from `(0, 0)` and traverse diagonally. For each cell, we explore:
 - The cell below (if in first column): `(row + 1, 0)`
 - The cell to the right: `(row, col + 1)`
 
 ```cpp
-#include <queue>
-#include <utility>
+using namespace std;
 
 class Solution {
 public:
-    [[nodiscard]] vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
-        queue<pair<int, int>> queue;
-        queue.push({0, 0});
+    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+        queue<pair<int, int>> q;
+        q.push({0, 0});
         vector<int> rtn;
         rtn.reserve(nums.size() * nums[0].size());
         
-        while (!queue.empty()) {
-            const auto [row, col] = queue.front();
-            queue.pop();
+        while (!q.empty()) {
+            auto [row, col] = q.front();
+            q.pop();
             
             rtn.push_back(nums[row][col]);
             
             // If in first column, add cell below
-            if (col == 0 && row + 1 < static_cast<int>(nums.size())) {
-                queue.push({row + 1, col});
+            if (col == 0 && row + 1 < (int)nums.size()) {
+                q.push({row + 1, col});
             }
             
             // Add cell to the right
-            if (col + 1 < static_cast<int>(nums[row].size())) {
-                queue.push({row, col + 1});
+            if (col + 1 < (int)nums[row].size()) {
+                q.push({row, col + 1});
             }
         }
         
@@ -139,12 +137,10 @@ public:
 };
 ```
 
-**C++23 Optimizations:**
-- `[[nodiscard]]` attribute
-- Structured bindings `const auto [row, col]` for pair unpacking
-- `static_cast<int>()` for explicit conversions
+**C++20 Optimizations:**
+- Structured bindings `auto [row, col]` for pair unpacking (C++17)
 - `reserve()` for memory pre-allocation
-- `const` qualifiers where appropriate
+- Simplified type casting with `(int)` instead of `static_cast<int>()`
 
 **How it works:**
 1. **Start at Origin**: Begin BFS from `(0, 0)`.

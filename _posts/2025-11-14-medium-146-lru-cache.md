@@ -47,28 +47,26 @@ lRUCache.get(4);    // return 4
 - `0 <= value <= 10^5`
 - At most `2 * 10^5` calls will be made to `get` and `put`.
 
-## Solution: Hash Map + Doubly Linked List (C++23 Optimized)
+## Solution: Hash Map + Doubly Linked List (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  
 **Space Complexity:** O(capacity)
 
 We use a combination of hash map and doubly linked list to achieve O(1) operations. The hash map stores key-to-node mappings, and the doubly linked list maintains the order of recently used items.
 
-### Solution 1: Using std::list (Recommended - C++23 Optimized)
+### Solution 1: Using list (Recommended - C++20 Optimized)
 
 ```cpp
-#include <unordered_map>
-#include <list>
-#include <utility>
+using namespace std;
 
 class LRUCache {
 private:
     int capacity_;
-    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cache_;
-    std::list<std::pair<int, int>> lru_list_;
+    unordered_map<int, list<pair<int, int>>::iterator> cache_;
+    list<pair<int, int>> lru_list_;
 
     // Helper to move node to front (most recently used)
-    void moveToFront(std::list<std::pair<int, int>>::iterator it) noexcept {
+    void moveToFront(list<pair<int, int>>::iterator it) {
         if (it != lru_list_.begin()) {
             lru_list_.splice(lru_list_.begin(), lru_list_, it);
         }
@@ -81,8 +79,8 @@ public:
         cache_.reserve(capacity_);  // Pre-allocate hash map
     }
 
-    [[nodiscard]] int get(int key) {
-        const auto it = cache_.find(key);
+    int get(int key) {
+        auto it = cache_.find(key);
         if (it == cache_.end()) {
             return -1;
         }
@@ -93,7 +91,7 @@ public:
     }
 
     void put(int key, int value) {
-        const auto it = cache_.find(key);
+        auto it = cache_.find(key);
         
         if (it != cache_.end()) {
             // Update existing key
@@ -103,7 +101,7 @@ public:
             // Add new key
             if (cache_.size() >= capacity_) {
                 // Evict least recently used (back of list)
-                const auto& [lru_key, _] = lru_list_.back();
+                auto [lru_key, _] = lru_list_.back();
                 cache_.erase(lru_key);
                 lru_list_.pop_back();
             }
@@ -116,11 +114,10 @@ public:
 };
 ```
 
-### Solution 2: Custom Doubly Linked List (C++23 Optimized)
+### Solution 2: Custom Doubly Linked List (C++20 Optimized)
 
 ```cpp
-#include <unordered_map>
-#include <memory>
+using namespace std;
 
 class LRUCache {
 private:
@@ -130,19 +127,19 @@ private:
         Node* next;
         Node* prev;
         
-        constexpr Node(int k, int v) noexcept 
+        Node(int k, int v) 
             : key(k), value(v), next(nullptr), prev(nullptr) {}
     };
 
     int capacity_;
-    std::unordered_map<int, Node*> cache_;
+    unordered_map<int, Node*> cache_;
     
     // Dummy head and tail for easier list manipulation
-    std::unique_ptr<Node> head_;
-    std::unique_ptr<Node> tail_;
+    unique_ptr<Node> head_;
+    unique_ptr<Node> tail_;
 
     // Add node right before tail (most recently used)
-    void addNode(Node* node) noexcept {
+    void addNode(Node* node) {
         Node* prev_end = tail_->prev;
         prev_end->next = node;
         node->prev = prev_end;
@@ -151,13 +148,13 @@ private:
     }
 
     // Remove node from list
-    void removeNode(Node* node) noexcept {
+    void removeNode(Node* node) {
         node->prev->next = node->next;
         node->next->prev = node->prev;
     }
 
     // Move node to end (most recently used)
-    void moveToEnd(Node* node) noexcept {
+    void moveToEnd(Node* node) {
         removeNode(node);
         addNode(node);
     }
@@ -165,8 +162,8 @@ private:
 public:
     explicit LRUCache(int capacity) 
         : capacity_(capacity)
-        , head_(std::make_unique<Node>(-1, -1))
-        , tail_(std::make_unique<Node>(-1, -1))
+        , head_(make_unique<Node>(-1, -1))
+        , tail_(make_unique<Node>(-1, -1))
     {
         head_->next = tail_.get();
         tail_->prev = head_.get();
@@ -187,8 +184,8 @@ public:
     LRUCache(const LRUCache&) = delete;
     LRUCache& operator=(const LRUCache&) = delete;
 
-    [[nodiscard]] int get(int key) {
-        const auto it = cache_.find(key);
+    int get(int key) {
+        auto it = cache_.find(key);
         if (it == cache_.end()) {
             return -1;
         }
@@ -199,7 +196,7 @@ public:
     }
 
     void put(int key, int value) {
-        const auto it = cache_.find(key);
+        auto it = cache_.find(key);
         
         if (it != cache_.end()) {
             // Update existing
@@ -278,16 +275,14 @@ public:
 };
 ```
 
-## Key Optimizations (C++23)
+## Key Optimizations (C++20)
 
-1. **`std::list::splice()`**: O(1) operation to move nodes without copying
-2. **`std::unordered_map::reserve()`**: Pre-allocates hash map to avoid rehashing
-3. **`[[nodiscard]]`**: Ensures return value from `get()` is used
-4. **`explicit` constructor**: Prevents implicit conversions
-5. **`noexcept`**: Enables better optimizations
-6. **Structured bindings**: Cleaner code with `const auto& [key, value]`
-7. **`emplace_front()`**: Constructs in-place, avoiding copies
-8. **Move semantics**: Efficient transfer of ownership
+1. **`list::splice()`**: O(1) operation to move nodes without copying
+2. **`unordered_map::reserve()`**: Pre-allocates hash map to avoid rehashing
+3. **`explicit` constructor**: Prevents implicit conversions
+4. **Structured bindings**: Cleaner code with `auto [key, value]`
+5. **`emplace_front()`**: Constructs in-place, avoiding copies
+6. **Move semantics**: Efficient transfer of ownership
 
 ## How the Algorithm Works
 

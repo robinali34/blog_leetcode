@@ -38,26 +38,23 @@ Output: ["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
 - `1 <= s.length <= 20`
 - `s` consists of digits only.
 
-## Solution: Backtracking with C++23 Optimizations
+## Solution: Backtracking with C++20 Optimizations
 
 **Time Complexity:** O(1) - At most 3^4 = 81 combinations  
 **Space Complexity:** O(1) - At most 19 characters per IP address
 
-This solution uses backtracking to try all possible ways to split the string into 4 parts. We optimize with C++23 features including `std::string_view` for efficient substring operations and early pruning.
+This solution uses backtracking to try all possible ways to split the string into 4 parts. We optimize with C++20 features including `string_view` for efficient substring operations and early pruning.
 
-### Solution 1: Optimized C++23 Version
+### Solution 1: Optimized C++20 Version
 
 ```cpp
-#include <string>
-#include <vector>
-#include <string_view>
-#include <ranges>
+using namespace std;
 
 class Solution {
 private:
     // Check if a segment is valid using string_view for efficiency
-    [[nodiscard]] constexpr bool isValid(std::string_view segment) const noexcept {
-        const auto len = segment.length();
+    bool isValid(string_view segment) {
+        int len = segment.length();
         
         // Single digit is always valid (0-9)
         if (len == 1) return true;
@@ -76,13 +73,13 @@ private:
     }
 
     void backtrack(
-        std::string_view s,
+        string_view s,
         int start,
-        std::vector<int>& dots,
-        std::vector<std::string>& result
+        vector<int>& dots,
+        vector<string>& result
     ) {
-        const int remainingLen = static_cast<int>(s.length()) - start;
-        const int remainingCnt = 4 - static_cast<int>(dots.size());
+        int remainingLen = (int)s.length() - start;
+        int remainingCnt = 4 - (int)dots.size();
 
         // Early pruning: check if remaining digits can form valid segments
         if (remainingLen > remainingCnt * 3 || remainingLen < remainingCnt) {
@@ -91,28 +88,28 @@ private:
 
         // Base case: we have 3 dots, check if remaining segment is valid
         if (dots.size() == 3) {
-            const auto lastSegment = s.substr(start);
+            auto lastSegment = s.substr(start);
             if (isValid(lastSegment)) {
                 // Build IP address efficiently
-                std::string ip;
+                string ip;
                 ip.reserve(s.length() + 3);  // Reserve space for dots
                 
                 int last = 0;
-                for (const int dot : dots) {
+                for (int dot : dots) {
                     ip.append(s.substr(last, dot));
                     last += dot;
                     ip.append(".");
                 }
                 ip.append(s.substr(start));
-                result.push_back(std::move(ip));
+                result.push_back(move(ip));
             }
             return;
         }
 
         // Try segments of length 1, 2, or 3
-        for (int curr = 1; curr <= 3 && curr <= remainingLen; ++curr) {
+        for (int curr = 1; curr <= 3 && curr <= remainingLen; curr++) {
             dots.push_back(curr);
-            const auto segment = s.substr(start, curr);
+            auto segment = s.substr(start, curr);
             if (isValid(segment)) {
                 backtrack(s, start + curr, dots, result);
             }
@@ -121,13 +118,13 @@ private:
     }
 
 public:
-    std::vector<std::string> restoreIpAddresses(std::string s) {
-        std::vector<int> dots;
+    vector<string> restoreIpAddresses(string s) {
+        vector<int> dots;
         dots.reserve(3);  // At most 3 dots
-        std::vector<std::string> result;
+        vector<string> result;
         
         // Use string_view to avoid copying
-        std::string_view sv(s);
+        string_view sv(s);
         backtrack(sv, 0, dots, result);
         
         return result;
@@ -138,14 +135,12 @@ public:
 ### Solution 2: Further Optimized with String Building
 
 ```cpp
-#include <string>
-#include <vector>
-#include <string_view>
+using namespace std;
 
 class Solution {
 private:
-    [[nodiscard]] constexpr bool isValid(std::string_view segment) const noexcept {
-        const auto len = segment.length();
+    bool isValid(string_view segment) {
+        int len = segment.length();
         if (len == 1) return true;
         if (segment[0] == '0') return false;
         if (len == 2) return true;
@@ -153,39 +148,39 @@ private:
     }
 
     void backtrack(
-        std::string_view s,
+        string_view s,
         int start,
-        std::vector<int>& segments,
-        std::vector<std::string>& result
+        vector<int>& segments,
+        vector<string>& result
     ) {
-        const int remainingLen = static_cast<int>(s.length()) - start;
-        const int remainingCnt = 4 - static_cast<int>(segments.size());
+        int remainingLen = (int)s.length() - start;
+        int remainingCnt = 4 - (int)segments.size();
 
         if (remainingLen > remainingCnt * 3 || remainingLen < remainingCnt) {
             return;
         }
 
         if (segments.size() == 3) {
-            const auto lastSegment = s.substr(start);
+            auto lastSegment = s.substr(start);
             if (isValid(lastSegment)) {
                 // Build IP more efficiently by pre-calculating size
-                std::string ip;
-                const int totalLen = static_cast<int>(s.length()) + 3;
+                string ip;
+                int totalLen = (int)s.length() + 3;
                 ip.reserve(totalLen);
                 
                 int pos = 0;
-                for (const int segLen : segments) {
+                for (int segLen : segments) {
                     ip.append(s.substr(pos, segLen));
                     pos += segLen;
                     ip += '.';
                 }
                 ip.append(s.substr(start));
-                result.push_back(std::move(ip));
+                result.push_back(move(ip));
             }
             return;
         }
 
-        for (int len = 1; len <= 3 && len <= remainingLen; ++len) {
+        for (int len = 1; len <= 3 && len <= remainingLen; len++) {
             segments.push_back(len);
             if (isValid(s.substr(start, len))) {
                 backtrack(s, start + len, segments, result);
@@ -195,25 +190,24 @@ private:
     }
 
 public:
-    std::vector<std::string> restoreIpAddresses(std::string s) {
-        std::vector<int> segments;
+    vector<string> restoreIpAddresses(string s) {
+        vector<int> segments;
         segments.reserve(3);
-        std::vector<std::string> result;
+        vector<string> result;
         
-        backtrack(std::string_view(s), 0, segments, result);
+        backtrack(string_view(s), 0, segments, result);
         return result;
     }
 };
 ```
 
-## Key Optimizations (C++23)
+## Key Optimizations (C++20)
 
-1. **`std::string_view`**: Avoids string copying when checking segments and building results
-2. **`[[nodiscard]]`**: Ensures return values are used
-3. **`constexpr` and `noexcept`**: Enables compile-time optimization and better performance
-4. **`reserve()`**: Pre-allocates memory for vectors and strings to avoid reallocations
-5. **Early Pruning**: Checks if remaining digits can form valid segments before recursing
-6. **Move Semantics**: Uses `std::move()` when pushing to result vector
+1. **`string_view`**: Avoids string copying when checking segments and building results
+2. **`reserve()`**: Pre-allocates memory for vectors and strings to avoid reallocations
+3. **Early Pruning**: Checks if remaining digits can form valid segments before recursing
+4. **Move Semantics**: Uses `move()` when pushing to result vector
+5. **Efficient String Building**: Pre-calculates size and uses `append()` for better performance
 
 ## How the Algorithm Works
 

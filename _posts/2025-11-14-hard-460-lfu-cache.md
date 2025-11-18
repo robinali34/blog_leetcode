@@ -61,7 +61,7 @@ lfu.get(4);      // return 4
 - `0 <= value <= 10^9`
 - At most `2 * 10^5` calls will be made to `get` and `put`.
 
-## Solution: Hash Map + Frequency Lists (C++23 Optimized)
+## Solution: Hash Map + Frequency Lists (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  
 **Space Complexity:** O(capacity)
@@ -72,20 +72,18 @@ We use two hash maps:
 
 When there's a tie in frequency, we use the least recently used key (front of the list).
 
-### Solution: Optimized C++23 Version
+### Solution: Optimized C++20 Version
 
 ```cpp
-#include <unordered_map>
-#include <list>
-#include <utility>
+using namespace std;
 
 class LFUCache {
 private:
     // frequency -> list of (key, value) pairs (most recent at back)
-    std::unordered_map<int, std::list<std::pair<int, int>>> frequencies_;
+    unordered_map<int, list<pair<int, int>>> frequencies_;
     
     // key -> (frequency, iterator to node in frequencies list)
-    std::unordered_map<int, std::pair<int, std::list<std::pair<int, int>>::iterator>> cache_;
+    unordered_map<int, pair<int, list<pair<int, int>>::iterator>> cache_;
     
     int capacity_;
     int min_frequency_;
@@ -97,12 +95,12 @@ private:
     }
 
     // Remove key from its current frequency list
-    void removeFromFrequency(int frequency, std::list<std::pair<int, int>>::iterator it) {
+    void removeFromFrequency(int frequency, list<pair<int, int>>::iterator it) {
         frequencies_[frequency].erase(it);
         if (frequencies_[frequency].empty()) {
             frequencies_.erase(frequency);
             if (min_frequency_ == frequency) {
-                ++min_frequency_;
+                min_frequency_++;
             }
         }
     }
@@ -116,15 +114,15 @@ public:
         frequencies_.reserve(capacity_);
     }
 
-    [[nodiscard]] int get(int key) {
-        const auto it = cache_.find(key);
+    int get(int key) {
+        auto it = cache_.find(key);
         if (it == cache_.end()) {
             return -1;
         }
 
         // Get current frequency and iterator
         auto& [freq, iter] = it->second;
-        const auto [key_val, value] = *iter;
+        auto [key_val, value] = *iter;
 
         // Remove from current frequency list
         removeFromFrequency(freq, iter);
@@ -140,7 +138,7 @@ public:
             return;
         }
 
-        const auto it = cache_.find(key);
+        auto it = cache_.find(key);
         
         if (it != cache_.end()) {
             // Update existing key
@@ -153,7 +151,7 @@ public:
         if (cache_.size() >= capacity_) {
             // Evict least frequently used (and least recently used if tie)
             // min_frequency_ list's front is the LRU item
-            const auto& [lfu_key, _] = frequencies_[min_frequency_].front();
+            auto [lfu_key, _] = frequencies_[min_frequency_].front();
             cache_.erase(lfu_key);
             frequencies_[min_frequency_].pop_front();
             
@@ -172,9 +170,7 @@ public:
 ### Alternative: More Explicit Version
 
 ```cpp
-#include <unordered_map>
-#include <list>
-#include <utility>
+using namespace std;
 
 class LFUCache {
 private:
@@ -185,10 +181,10 @@ private:
     };
 
     // frequency -> list of nodes (most recent at back)
-    std::unordered_map<int, std::list<Node>> freq_lists_;
+    unordered_map<int, list<Node>> freq_lists_;
     
     // key -> iterator in frequency list
-    std::unordered_map<int, std::list<Node>::iterator> cache_;
+    unordered_map<int, list<Node>::iterator> cache_;
     
     int capacity_;
     int min_freq_;
@@ -203,7 +199,7 @@ private:
         if (freq_lists_[old_freq].empty()) {
             freq_lists_.erase(old_freq);
             if (min_freq_ == old_freq) {
-                ++min_freq_;
+                min_freq_++;
             }
         }
 
@@ -222,8 +218,8 @@ public:
         freq_lists_.reserve(capacity_);
     }
 
-    [[nodiscard]] int get(int key) {
-        const auto it = cache_.find(key);
+    int get(int key) {
+        auto it = cache_.find(key);
         if (it == cache_.end()) {
             return -1;
         }
@@ -235,7 +231,7 @@ public:
     void put(int key, int value) {
         if (capacity_ <= 0) return;
 
-        const auto it = cache_.find(key);
+        auto it = cache_.find(key);
         
         if (it != cache_.end()) {
             // Update existing
@@ -247,7 +243,7 @@ public:
         // Evict if needed
         if (cache_.size() >= capacity_) {
             auto& lfu_list = freq_lists_[min_freq_];
-            const int lfu_key = lfu_list.front().key;
+            int lfu_key = lfu_list.front().key;
             cache_.erase(lfu_key);
             lfu_list.pop_front();
             
@@ -264,13 +260,12 @@ public:
 };
 ```
 
-## Key Optimizations (C++23)
+## Key Optimizations (C++20)
 
-1. **`std::unordered_map::reserve()`**: Pre-allocates hash maps to avoid rehashing
-2. **`[[nodiscard]]`**: Ensures return value from `get()` is used
-3. **`explicit` constructor**: Prevents implicit conversions
-4. **Structured bindings**: Cleaner code with `const auto& [key, value]`
-5. **`emplace_back()`**: Constructs in-place, avoiding copies
+1. **`unordered_map::reserve()`**: Pre-allocates hash maps to avoid rehashing
+2. **`explicit` constructor**: Prevents implicit conversions
+3. **Structured bindings**: Cleaner code with `auto [key, value]`
+4. **`emplace_back()`**: Constructs in-place, avoiding copies
 6. **Efficient list operations**: O(1) insertion and removal
 7. **Min frequency tracking**: O(1) access to least frequently used items
 
