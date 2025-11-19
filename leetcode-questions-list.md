@@ -12,8 +12,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 73
-- **Easy:** 5 problems
+- **Total Problems:** 74
+- **Easy:** 6 problems
 - **Medium:** 62 problems
 - **Hard:** 7 problems
 
@@ -40,6 +40,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [131](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/) | [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/) | Medium | Backtracking | Backtracking, DFS | 2025-09-30 |
 | [133](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-133-clone-graph/) | [Clone Graph](https://leetcode.com/problems/clone-graph/) | Medium | Graph, DFS, BFS | DFS, BFS, Deep Copy | 2025-10-20 |
 | [150](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Medium | Stack | Stack | 2025-09-24 |
+| [203](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | Linked List | Two Pointers, Dummy Node | 2025-11-18 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
 | [218](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) | [The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) | Hard | Array, Sweep Line | Sweep Line, Priority Queue | 2025-10-05 |
 | [224](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) | Medium | String, Stack, Math | Stack, Expression Evaluation | 2025-11-13 |
@@ -97,8 +98,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Problems by Difficulty
 
-### Easy (5 problems)
+### Easy (6 problems)
 - [20. Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-20-valid-parentheses/)
+- [203. Remove Linked List Elements](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/)
 - [344. Reverse String](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/)
 - [485. Max Consecutive Ones](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-485-max-consecutive-ones/)
 - [717. 1-bit and 2-bit Characters](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-717-1-bit-and-2-bit-characters/)
@@ -207,6 +209,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Linked List
 - [23. Swap Nodes in Pairs](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/) - Recursion, Iteration
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) - Recursion, Iteration
+- [203. Remove Linked List Elements](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) - Two Pointers, Dummy Node
 - [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) - Two Pointers, Circular List
 
 ### Tree & DFS
