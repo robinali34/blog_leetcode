@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 80
+- **Total Problems:** 81
 - **Easy:** 7 problems
-- **Medium:** 67 problems
+- **Medium:** 68 problems
 - **Hard:** 7 problems
 
 ## All LeetCode Problems
@@ -44,6 +44,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [133](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-133-clone-graph/) | [Clone Graph](https://leetcode.com/problems/clone-graph/) | Medium | Graph, DFS, BFS | DFS, BFS, Deep Copy | 2025-10-20 |
 | [150](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Medium | Stack | Stack | 2025-09-24 |
 | [198](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) | [House Robber](https://leetcode.com/problems/house-robber/) | Medium | Dynamic Programming | DP, Pick or Skip | 2025-11-18 |
+| [200](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-200-number-of-islands/) | [Number of Islands](https://leetcode.com/problems/number-of-islands/) | Medium | DFS, Graph, Matrix | DFS, Connected Components | 2025-11-18 |
 | [203](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | Linked List | Two Pointers, Dummy Node | 2025-11-18 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
 | [218](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) | [The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) | Hard | Array, Sweep Line | Sweep Line, Priority Queue | 2025-10-05 |
@@ -139,6 +140,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1650. Lowest Common Ancestor of a Binary Tree III](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/)
 - [150. Evaluate Reverse Polish Notation](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/)
 - [198. House Robber](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/)
+- [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-200-number-of-islands/)
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/)
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/)
@@ -186,6 +188,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [48. Rotate Image](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/) - Matrix Rotation
 - [54. Spiral Matrix](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) - Simulation
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) - DP, Combinatorics
+- [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-200-number-of-islands/) - DFS, Connected Components
 - [695. Max Area of Island](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-695-max-area-of-island/) - DFS, Connected Components
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) - Binary Search, Divide & Conquer
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
