@@ -24,7 +24,7 @@ tags: [leetcode, templates, graph]
 int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
     int m=g.size(), n=g[0].size();
     queue<pair<int,int>> q; vector<vector<int>> dist(m, vector<int>(n, -1));
-    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+    int dirs[4][2] = \{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\};
     q.push(s); dist[s.first][s.second] = 0;
     while(!q.empty()){
         auto [x,y] = q.front(); q.pop();
@@ -53,7 +53,7 @@ int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
     int m=g.size(), n=g[0].size();
     queue<pair<int,int>> q; vector<vector<int>> dist(m, vector<int>(n, -1));
     for(auto [x,y]: sources){ dist[x][y]=0; q.push({x,y}); }
-    int dirs[4][2]={{1,0},{-1,0},{0,1},{0,-1}}; int best=0;
+    int dirs[4][2]=\{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\}; int best=0;
     while(!q.empty()){
         auto [x,y]=q.front(); q.pop();
         for(auto& d: dirs){ int nx=x+d[0], ny=y+d[1];

@@ -104,7 +104,7 @@ This solution uses DFS backtracking with a visited set to track cleaned cells. T
 
 class Solution {
 private:
-    vector<vector<int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    vector<vector<int>> dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\};
     set<pair<int, int>> visited;
 
     void goBack(Robot& robot) {
@@ -192,14 +192,14 @@ Robot Path (starting at 1,3):
 2. **Visited Set**: Track cleaned cells to avoid revisiting
 3. **Backtracking**: Always return robot to previous position after exploring
 4. **goBack Function**: Turn 180°, move, turn 180° to return to previous cell
-5. **Direction Array**: `dirs = {{-1,0}, {0,1}, {1,0}, {0,-1}}` represents [up, right, down, left]
+5. **Direction Array**: `dirs = \{\{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1\}\}` represents [up, right, down, left]
 
 ## Algorithm Breakdown
 
 ### Direction Management
 
 ```cpp
-vector<vector<int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+vector<vector<int>> dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\};
 // Index: 0=up, 1=right, 2=down, 3=left
 
 int new_d = (d + i) % 4;  // Relative direction
@@ -278,7 +278,7 @@ More explicit direction management:
 class Solution {
 private:
     set<pair<int, int>> visited;
-    vector<vector<int>> dirs = {{-1,0}, {0,1}, {1,0}, {0,-1}};
+    vector<vector<int>> dirs = \{\{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1\}\};
     
     void goBack(Robot& robot) {
         robot.turnRight();
@@ -324,7 +324,7 @@ public:
 ### Direction Array
 
 ```cpp
-vector<vector<int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+vector<vector<int>> dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\};
 //                    Index:   0        1       2        3
 //                  Meaning:  up     right   down     left
 ```

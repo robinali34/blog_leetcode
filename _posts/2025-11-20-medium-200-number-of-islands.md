@@ -218,7 +218,7 @@ public:
         
         int m = grid.size(), n = grid[0].size();
         int cnt = 0;
-        vector<vector<int>> dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+        vector<vector<int>> dirs = \{\{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1\}\};
         
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
@@ -382,7 +382,7 @@ Order doesn't matter - all 4 directions must be explored.
 1. **Early Exit**: Can add early exit if all cells processed
 2. **Direction Array**: Use array for cleaner code:
    ```cpp
-   vector<vector<int>> dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+   vector<vector<int>> dirs = \{\{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1\}\};
    for(auto& dir : dirs) {
        dfs(grid, row + dir[0], col + dir[1]);
    }

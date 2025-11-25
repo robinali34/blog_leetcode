@@ -261,7 +261,7 @@ public:
         
         // Matrix: [F(n+1) F(n)  ] = [1 1]^n
         //         [F(n)   F(n-1)]   [1 0]
-        vector<vector<int>> base = {{1, 1}, {1, 0}};
+        vector<vector<int>> base = \{\{1, 1\}, \{1, 0\}\};
         vector<vector<int>> result = matrixPower(base, n);
         
         return result[0][1];

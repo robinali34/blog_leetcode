@@ -222,7 +222,7 @@ Examples: 739 Daily Temperatures; 84 Largest Rectangle in Histogram; 239 Sliding
 int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
     int m=g.size(), n=g[0].size();
     queue<pair<int,int>> q; vector<vector<int>> dist(m, vector<int>(n, -1));
-    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+    int dirs[4][2] = \{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\};
     q.push(s); dist[s.first][s.second] = 0;
     while(!q.empty()){
         auto [x,y] = q.front(); q.pop();
