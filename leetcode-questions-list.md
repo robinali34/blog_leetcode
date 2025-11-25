@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 81
+- **Total Problems:** 82
 - **Easy:** 7 problems
-- **Medium:** 68 problems
+- **Medium:** 69 problems
 - **Hard:** 7 problems
 
 ## All LeetCode Problems
@@ -72,6 +72,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [494](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) | [Target Sum](https://leetcode.com/problems/target-sum/) | Medium | Array, Dynamic Programming | DP, Subset Sum | 2025-10-15 |
 | [509](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) | [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) | Easy | Dynamic Programming, Math | DP, Bottom-Up | 2025-11-18 |
 | [525](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) | [Contiguous Array](https://leetcode.com/problems/contiguous-array/) | Medium | Array, Hash Table | Prefix Sum, Hash Map | 2025-11-04 |
+| [528](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-528-random-pick-with-weight/) | [Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) | Medium | Design, Binary Search, Prefix Sum | Prefix Sum, Binary Search | 2025-11-18 |
 | [636](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) | [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) | Medium | Stack, Parsing | Stack, Log Parsing | 2025-10-27 |
 | [708](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) | [Insert into a Sorted Circular Linked List](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | Medium | Linked List, Circular | Two Pointers, Iteration | 2025-10-27 |
 | [717](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-717-1-bit-and-2-bit-characters/) | [1-bit and 2-bit Characters](https://leetcode.com/problems/1-bit-and-2-bit-characters/) | Easy | Array, Greedy | Greedy | 2025-10-29 |
@@ -113,7 +114,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [717. 1-bit and 2-bit Characters](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-717-1-bit-and-2-bit-characters/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (67 problems)
+### Medium (69 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [18. 4Sum](https://robinali34.github.io/blog_leetcode/2025/11/04/medium-18-4sum/)
@@ -150,6 +151,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/)
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
 - [525. Contiguous Array](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/)
+- [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-528-random-pick-with-weight/)
 - [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/)
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/)
 - [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/)
@@ -276,10 +278,11 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) - BFS, Multi-source
 
 ### Data Structure Design
+- [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
+- [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-528-random-pick-with-weight/) - Prefix Sum, Binary Search
 - [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) - Hash Map, Optimization
 - [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) - Hash Map, Count Tracking
 - [2043. Simple Bank System](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) - Data Structure Design
-- [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
 
 ### Advanced Algorithms
 - [218. The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) - Sweep Line, Priority Queue
