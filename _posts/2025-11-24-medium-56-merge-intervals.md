@@ -419,7 +419,177 @@ Nested:
   └─ nested ─┘
 ```
 
+## Follow-Up: Merge Intervals from Two Arrays
+
+**Problem:** Given two arrays of intervals `arr1` and `arr2`, merge all intervals from both arrays into one merged array.
+
+**Example:**
+```
+Input: 
+  arr1 = [[1,3],[2,6],[8,10]]
+  arr2 = [[2,4],[7,9],[15,18]]
+
+Output: [[1,6],[7,10],[15,18]]
+Explanation: 
+  - [1,3] and [2,6] from arr1 merge to [1,6]
+  - [2,4] from arr2 overlaps with [1,6] → merge to [1,6]
+  - [8,10] from arr1 and [7,9] from arr2 merge to [7,10]
+  - [15,18] from arr2 is separate
+```
+
+### Solution: Combine, Sort, and Merge
+
+**Time Complexity:** O((m+n) log(m+n)) where m and n are sizes of arr1 and arr2  
+**Space Complexity:** O(m+n)
+
+The key insight is to combine both arrays, sort all intervals together, then apply the standard merge algorithm.
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> mergeTwoArrays(
+        vector<vector<int>>& arr1, 
+        vector<vector<int>>& arr2
+    ) {
+        // Combine both arrays
+        vector<vector<int>> combined;
+        combined.insert(combined.end(), arr1.begin(), arr1.end());
+        combined.insert(combined.end(), arr2.begin(), arr2.end());
+        
+        // Sort by start time
+        sort(combined.begin(), combined.end());
+        
+        // Merge overlapping intervals
+        vector<vector<int>> merged;
+        for(int i = 0; i < (int)combined.size(); i++) {
+            int left = combined[i][0], right = combined[i][1];
+            
+            if(merged.size() == 0 || merged.back()[1] < left) {
+                merged.push_back({left, right});
+            } else {
+                merged.back()[1] = max(merged.back()[1], right);
+            }
+        }
+        
+        return merged;
+    }
+};
+```
+
+### Alternative: More Efficient Approach
+
+**Time Complexity:** O(m log m + n log n + m + n)  
+**Space Complexity:** O(m + n)
+
+First merge each array individually, then merge the two merged arrays using two pointers.
+
+```cpp
+class Solution {
+private:
+    // Helper function to merge intervals in one array
+    vector<vector<int>> mergeOneArray(vector<vector<int>>& intervals) {
+        if(intervals.size() == 0) return {};
+        sort(intervals.begin(), intervals.end());
+        
+        vector<vector<int>> merged;
+        for(int i = 0; i < (int)intervals.size(); i++) {
+            int left = intervals[i][0], right = intervals[i][1];
+            if(merged.size() == 0 || merged.back()[1] < left) {
+                merged.push_back({left, right});
+            } else {
+                merged.back()[1] = max(merged.back()[1], right);
+            }
+        }
+        return merged;
+    }
+    
+public:
+    vector<vector<int>> mergeTwoArrays(
+        vector<vector<int>>& arr1, 
+        vector<vector<int>>& arr2
+    ) {
+        // Merge each array individually
+        vector<vector<int>> merged1 = mergeOneArray(arr1);
+        vector<vector<int>> merged2 = mergeOneArray(arr2);
+        
+        // Merge the two merged arrays using two pointers
+        vector<vector<int>> result;
+        int i = 0, j = 0;
+        
+        while(i < merged1.size() || j < merged2.size()) {
+            // Choose the interval with smaller start time
+            vector<int> current;
+            if(j >= merged2.size() || 
+               (i < merged1.size() && merged1[i][0] <= merged2[j][0])) {
+                current = merged1[i++];
+            } else {
+                current = merged2[j++];
+            }
+            
+            // Merge with last interval in result if overlapping
+            if(result.size() == 0 || result.back()[1] < current[0]) {
+                result.push_back(current);
+            } else {
+                result.back()[1] = max(result.back()[1], current[1]);
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### How the Two-Pointer Approach Works
+
+**Step-by-Step Example:**
+```
+arr1 (merged): [[1,6], [8,10]]
+arr2 (merged): [[2,4], [7,9], [15,18]]
+
+Step 1: Compare [1,6] and [2,4]
+  Choose [1,6] (smaller start)
+  result = [[1,6]]
+
+Step 2: Compare [8,10] and [2,4]
+  Choose [2,4] (smaller start)
+  Check: 6 >= 2 → overlap → merge
+  result.back()[1] = max(6, 4) = 6
+  result = [[1,6]]
+
+Step 3: Compare [8,10] and [7,9]
+  Choose [7,9] (smaller start)
+  Check: 6 < 7 → no overlap → add
+  result = [[1,6], [7,9]]
+
+Step 4: Compare [8,10] and [15,18]
+  Choose [8,10] (smaller start)
+  Check: 9 >= 8 → overlap → merge
+  result.back()[1] = max(9, 10) = 10
+  result = [[1,6], [7,10]]
+
+Step 5: Only [15,18] remains
+  Add [15,18]
+  result = [[1,6], [7,10], [15,18]]
+```
+
+### Complexity Comparison
+
+| Approach | Time Complexity | Space Complexity | Pros | Cons |
+|----------|----------------|------------------|------|------|
+| **Combine & Sort** | O((m+n) log(m+n)) | O(m+n) | Simple, straightforward | Sorts all intervals together |
+| **Two-Pointer Merge** | O(m log m + n log n + m + n) | O(m+n) | More efficient if arrays are pre-sorted | More complex implementation |
+
+**When to use each:**
+- **Combine & Sort**: Simpler code, good when arrays are small or unsorted
+- **Two-Pointer**: More efficient when arrays are already sorted or large
+
+### Key Insights for Follow-Up
+
+1. **Combine first**: Merge both arrays before sorting
+2. **Same merge logic**: After combining, use the same overlap detection
+3. **Two-pointer optimization**: Can merge two already-merged arrays efficiently
+4. **Pre-sorting benefit**: If arrays are pre-sorted, two-pointer is optimal
+
 ---
 
 *This problem is a classic interval merging problem that demonstrates the importance of sorting and efficient overlap detection.*
-
