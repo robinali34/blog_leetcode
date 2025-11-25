@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "[Medium] 200. Number of Islands"
-date: 2025-11-18 00:00:00 -0800
+date: 2025-11-20 00:00:00 -0800
 categories: leetcode algorithm medium cpp dfs graph matrix problem-solving
-permalink: /posts/2025-11-18-medium-200-number-of-islands/
+permalink: /posts/2025-11-20-medium-200-number-of-islands/
 tags: [leetcode, medium, dfs, graph, matrix, connected-components]
 ---
 

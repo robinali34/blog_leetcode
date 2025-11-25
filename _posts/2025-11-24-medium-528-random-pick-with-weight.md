@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "[Medium] 528. Random Pick with Weight"
-date: 2025-11-18 00:00:00 -0800
+date: 2025-11-24 00:00:00 -0800
 categories: leetcode algorithm medium cpp design binary-search prefix-sum problem-solving
-permalink: /posts/2025-11-18-medium-528-random-pick-with-weight/
+permalink: /posts/2025-11-24-medium-528-random-pick-with-weight/
 tags: [leetcode, medium, design, binary-search, prefix-sum, weighted-random]
 ---
 
@@ -479,4 +479,5 @@ public:
 ---
 
 *This problem is an excellent example of combining prefix sums with binary search to achieve efficient weighted random selection, a common pattern in system design and algorithms.*
+
 
