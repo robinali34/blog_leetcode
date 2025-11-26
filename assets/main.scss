@@ -1028,13 +1028,14 @@ a {
 // Left sidebar - Table of Contents
 .post-sidebar-left {
   position: sticky;
-  top: 100px; // Account for sticky header height
+  top: 80px; // Account for sticky header (~60-70px) + small padding
   height: fit-content;
-  max-height: calc(100vh - 120px); // Account for header + padding
+  max-height: calc(100vh - 100px); // Account for header + top offset + bottom padding
   align-self: start;
   width: 100%;
   max-width: 240px;
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1044,14 +1045,14 @@ a {
   // Large desktop - wider sidebar
   @media (min-width: 1600px) {
     max-width: 280px;
-    top: 120px;
-    max-height: calc(100vh - 140px);
+    top: 90px;
+    max-height: calc(100vh - 110px);
   }
   
   @media (min-width: 1400px) and (max-width: 1599px) {
     max-width: 260px;
-    top: 110px;
-    max-height: calc(100vh - 130px);
+    top: 85px;
+    max-height: calc(100vh - 105px);
   }
   
   @media (max-width: 1024px) {
@@ -1059,6 +1060,7 @@ a {
     max-height: none;
     max-width: 100%;
     top: 0;
+    overflow-y: visible;
   }
   
   @media (max-width: 768px) {
@@ -1504,14 +1506,14 @@ a {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 120px); // Account for header + padding
+  max-height: calc(100vh - 100px); // Account for header + top offset + bottom padding
   
   @media (min-width: 1600px) {
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 110px);
   }
   
   @media (min-width: 1400px) and (max-width: 1599px) {
-    max-height: calc(100vh - 130px);
+    max-height: calc(100vh - 105px);
   }
   
   @media (max-width: 1024px) {
