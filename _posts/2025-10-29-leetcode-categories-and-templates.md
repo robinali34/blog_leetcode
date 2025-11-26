@@ -18,6 +18,7 @@ A quick reference to the most common LeetCode categories and battle‑tested C++
 > - Stack: [/posts/2025-11-13-leetcode-templates-stack/](/posts/2025-11-13-leetcode-templates-stack/)
 > - Calculator: [/posts/2025-11-13-leetcode-templates-calculator/](/posts/2025-11-13-leetcode-templates-calculator/)
 > - Graph: [/posts/2025-10-29-leetcode-templates-graph/](/posts/2025-10-29-leetcode-templates-graph/)
+> - Backtracking: [/posts/2025-11-24-leetcode-templates-backtracking/](/posts/2025-11-24-leetcode-templates-backtracking/)
 > - Trees: [/posts/2025-10-29-leetcode-templates-trees/](/posts/2025-10-29-leetcode-templates-trees/)
 > - Dynamic Programming: [/posts/2025-10-29-leetcode-templates-dp/](/posts/2025-10-29-leetcode-templates-dp/)
 > - Math & Geometry: [/posts/2025-10-29-leetcode-templates-math-geometry/](/posts/2025-10-29-leetcode-templates-math-geometry/)
