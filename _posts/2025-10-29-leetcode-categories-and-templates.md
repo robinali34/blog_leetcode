@@ -48,6 +48,14 @@ A quick reference to the most common LeetCode categories and battle‑tested C++
   - [0-1 BFS](#0-1-bfs-edge-weights-0-or-1) – 0/1 weighted graphs
   - [Tarjan SCC](#tarjan-scc-strongly-connected-components) – strongly connected comps
   - [Bridges & Articulation](#bridges-and-articulation-points-tarjan) – critical edges/nodes
+- [DFS / Backtracking](#dfs--backtracking) – systematic exploration with pruning
+  - [Permutations](#permutations-all-arrangements) – all arrangements with/without duplicates
+  - [Combinations](#combinations-choose-k-from-n) – choose k from n elements
+  - [Subsets](#subsets-all-subsets) – power set generation
+  - [Combination Sum](#combination-sum-unboundedreuse-elements) – sum to target with reuse
+  - [Grid Backtracking](#grid-backtracking-word-search-path-finding) – 2D grid exploration
+  - [Constraint Satisfaction](#constraint-satisfaction-n-queens-sudoku) – N-Queens, Sudoku
+  - [Palindrome Partitioning](#palindrome-partitioning) – partition into palindromes
 - [Trees](#trees) – hierarchical structures
   - [Traversals](#tree-traversals-iterative) – inorder/level-order
   - [LCA](#lca-binary-lifting) – ancestor queries
@@ -246,23 +254,277 @@ int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
 
 ## DFS / Backtracking
 
+Backtracking is a systematic way to explore all possible solutions by building candidates incrementally and abandoning ("backtracking") partial candidates that cannot lead to valid solutions.
+
+### Permutations (All Arrangements)
+
+Generate all permutations of distinct elements.
+
 ```cpp
-// Subsets
-void dfs(int i, vector<int>& nums, vector<int>& cur, vector<vector<int>>& out){
-    if (i == (int)nums.size()){ out.push_back(cur); return; }
-    dfs(i+1, nums, cur, out);           // skip
-    cur.push_back(nums[i]);
-    dfs(i+1, nums, cur, out);           // take
-    cur.pop_back();
+// Permutations without duplicates
+void backtrack(vector<int>& nums, vector<int>& cur, vector<bool>& used, vector<vector<int>>& res){
+    if (cur.size() == nums.size()){
+        res.push_back(cur);
+        return;
+    }
+    for (int i = 0; i < (int)nums.size(); ++i){
+        if (used[i]) continue;
+        used[i] = true;
+        cur.push_back(nums[i]);
+        backtrack(nums, cur, used, res);
+        cur.pop_back();
+        used[i] = false;
+    }
+}
+```
+
+```cpp
+// Permutations with duplicates (avoid duplicates by sorting + skip used duplicates)
+void backtrack(vector<int>& nums, vector<int>& cur, vector<bool>& used, vector<vector<int>>& res){
+    if (cur.size() == nums.size()){
+        res.push_back(cur);
+        return;
+    }
+    for (int i = 0; i < (int)nums.size(); ++i){
+        if (used[i] || (i > 0 && nums[i] == nums[i-1] && !used[i-1])) continue;
+        used[i] = true;
+        cur.push_back(nums[i]);
+        backtrack(nums, cur, used, res);
+        cur.pop_back();
+        used[i] = false;
+    }
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
+| 46 | Permutations | https://leetcode.com/problems/permutations/ |
+| 47 | Permutations II | https://leetcode.com/problems/permutations-ii/ |
+
+### Combinations (Choose k from n)
+
+Generate all combinations of k elements from n elements.
+
+```cpp
+// Combinations C(n, k)
+void backtrack(int start, int n, int k, vector<int>& cur, vector<vector<int>>& res){
+    if (cur.size() == k){
+        res.push_back(cur);
+        return;
+    }
+    for (int i = start; i <= n; ++i){
+        cur.push_back(i);
+        backtrack(i+1, n, k, cur, res);
+        cur.pop_back();
+    }
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
+| 77 | Combinations | https://leetcode.com/problems/combinations/ |
+
+### Subsets (All Subsets)
+
+Generate all subsets (power set) of an array.
+
+```cpp
+// Subsets without duplicates
+void backtrack(int start, vector<int>& nums, vector<int>& cur, vector<vector<int>>& res){
+    res.push_back(cur);  // Add current subset
+    for (int i = start; i < (int)nums.size(); ++i){
+        cur.push_back(nums[i]);
+        backtrack(i+1, nums, cur, res);
+        cur.pop_back();
+    }
+}
+```
+
+```cpp
+// Subsets with duplicates (sort first, skip duplicates at same level)
+void backtrack(int start, vector<int>& nums, vector<int>& cur, vector<vector<int>>& res){
+    res.push_back(cur);
+    for (int i = start; i < (int)nums.size(); ++i){
+        if (i > start && nums[i] == nums[i-1]) continue;  // Skip duplicates
+        cur.push_back(nums[i]);
+        backtrack(i+1, nums, cur, res);
+        cur.pop_back();
+    }
 }
 ```
 
 | ID | Title | Link |
 |---|---|---|
 | 78 | Subsets | https://leetcode.com/problems/subsets/ |
-| 46 | Permutations | https://leetcode.com/problems/permutations/ |
+| 90 | Subsets II | https://leetcode.com/problems/subsets-ii/ |
+
+### Combination Sum (Unbounded/Reuse Elements)
+
+Find all combinations that sum to target, elements can be reused.
+
+```cpp
+// Combination Sum (can reuse same element)
+void backtrack(int start, vector<int>& candidates, int target, vector<int>& cur, vector<vector<int>>& res){
+    if (target == 0){
+        res.push_back(cur);
+        return;
+    }
+    if (target < 0) return;
+    for (int i = start; i < (int)candidates.size(); ++i){
+        cur.push_back(candidates[i]);
+        backtrack(i, candidates, target - candidates[i], cur, res);  // Can reuse: start=i
+        cur.pop_back();
+    }
+}
+```
+
+```cpp
+// Combination Sum II (each element used once, duplicates exist)
+void backtrack(int start, vector<int>& candidates, int target, vector<int>& cur, vector<vector<int>>& res){
+    if (target == 0){
+        res.push_back(cur);
+        return;
+    }
+    if (target < 0) return;
+    for (int i = start; i < (int)candidates.size(); ++i){
+        if (i > start && candidates[i] == candidates[i-1]) continue;  // Skip duplicates
+        cur.push_back(candidates[i]);
+        backtrack(i+1, candidates, target - candidates[i], cur, res);  // No reuse: start=i+1
+        cur.pop_back();
+    }
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
 | 39 | Combination Sum | https://leetcode.com/problems/combination-sum/ |
-| 77 | Combinations | https://leetcode.com/problems/combinations/ |
+| 40 | Combination Sum II | https://leetcode.com/problems/combination-sum-ii/ |
+| 216 | Combination Sum III | https://leetcode.com/problems/combination-sum-iii/ |
+
+### Grid Backtracking (Word Search, Path Finding)
+
+Backtrack on 2D grid with constraints.
+
+```cpp
+// Word Search: find if word exists in grid
+bool dfs(vector<vector<char>>& board, int i, int j, string& word, int idx){
+    if (idx == (int)word.size()) return true;
+    if (i < 0 || i >= (int)board.size() || j < 0 || j >= (int)board[0].size()) return false;
+    if (board[i][j] != word[idx]) return false;
+    
+    char temp = board[i][j];
+    board[i][j] = '#';  // Mark as visited
+    
+    int dirs[4][2] = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\};
+    for (auto& d : dirs){
+        if (dfs(board, i+d[0], j+d[1], word, idx+1)) return true;
+    }
+    
+    board[i][j] = temp;  // Backtrack
+    return false;
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
+| 79 | Word Search | https://leetcode.com/problems/word-search/ |
+| 212 | Word Search II | https://leetcode.com/problems/word-search-ii/ |
+
+### Constraint Satisfaction (N-Queens, Sudoku)
+
+Backtracking with complex constraints.
+
+```cpp
+// N-Queens: place n queens on n×n board
+void backtrack(int row, int n, vector<string>& board, vector<vector<string>>& res){
+    if (row == n){
+        res.push_back(board);
+        return;
+    }
+    for (int col = 0; col < n; ++col){
+        if (isValid(board, row, col, n)){
+            board[row][col] = 'Q';
+            backtrack(row+1, n, board, res);
+            board[row][col] = '.';
+        }
+    }
+}
+
+bool isValid(vector<string>& board, int row, int col, int n){
+    // Check column
+    for (int i = 0; i < row; ++i) if (board[i][col] == 'Q') return false;
+    // Check diagonal \
+    for (int i = row-1, j = col-1; i >= 0 && j >= 0; --i, --j)
+        if (board[i][j] == 'Q') return false;
+    // Check diagonal /
+    for (int i = row-1, j = col+1; i >= 0 && j < n; --i, ++j)
+        if (board[i][j] == 'Q') return false;
+    return true;
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
+| 51 | N-Queens | https://leetcode.com/problems/n-queens/ |
+| 52 | N-Queens II | https://leetcode.com/problems/n-queens-ii/ |
+| 37 | Sudoku Solver | https://leetcode.com/problems/sudoku-solver/ |
+
+### Palindrome Partitioning
+
+Partition string into palindromic substrings.
+
+```cpp
+// Palindrome Partitioning
+void backtrack(int start, string& s, vector<string>& cur, vector<vector<string>>& res){
+    if (start == (int)s.size()){
+        res.push_back(cur);
+        return;
+    }
+    for (int end = start; end < (int)s.size(); ++end){
+        if (isPalindrome(s, start, end)){
+            cur.push_back(s.substr(start, end-start+1));
+            backtrack(end+1, s, cur, res);
+            cur.pop_back();
+        }
+    }
+}
+
+bool isPalindrome(string& s, int l, int r){
+    while (l < r) if (s[l++] != s[r--]) return false;
+    return true;
+}
+```
+
+| ID | Title | Link |
+|---|---|---|
+| 131 | Palindrome Partitioning | https://leetcode.com/problems/palindrome-partitioning/ |
+| 132 | Palindrome Partitioning II | https://leetcode.com/problems/palindrome-partitioning-ii/ |
+
+### General Backtracking Template
+
+```cpp
+void backtrack(state, constraints, current_solution, results){
+    if (isComplete(current_solution)){
+        results.add(current_solution);
+        return;
+    }
+    
+    for (each candidate in candidates){
+        if (isValid(candidate, constraints)){
+            makeMove(candidate, current_solution);
+            backtrack(updated_state, constraints, current_solution, results);
+            undoMove(candidate, current_solution);  // Backtrack
+        }
+    }
+}
+```
+
+**Key Points:**
+- **Base Case**: When solution is complete, add to results
+- **Pruning**: Skip invalid candidates early
+- **Make Move**: Add candidate to current solution
+- **Recurse**: Explore further with updated state
+- **Backtrack**: Remove candidate to try next option
 
 ## Trees
 
