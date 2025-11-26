@@ -1028,9 +1028,9 @@ a {
 // Left sidebar - Table of Contents
 .post-sidebar-left {
   position: sticky;
-  top: 20px;
+  top: 100px; // Account for sticky header height
   height: fit-content;
-  max-height: calc(100vh - 40px);
+  max-height: calc(100vh - 120px); // Account for header + padding
   align-self: start;
   width: 100%;
   max-width: 240px;
@@ -1039,20 +1039,26 @@ a {
   flex-direction: column;
   align-items: stretch;
   box-sizing: border-box;
+  z-index: 10; // Ensure it stays above content when scrolling
   
   // Large desktop - wider sidebar
   @media (min-width: 1600px) {
     max-width: 280px;
+    top: 120px;
+    max-height: calc(100vh - 140px);
   }
   
   @media (min-width: 1400px) and (max-width: 1599px) {
     max-width: 260px;
+    top: 110px;
+    max-height: calc(100vh - 130px);
   }
   
   @media (max-width: 1024px) {
     position: static;
     max-height: none;
     max-width: 100%;
+    top: 0;
   }
   
   @media (max-width: 768px) {
@@ -1498,10 +1504,19 @@ a {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 40px);
+  max-height: calc(100vh - 120px); // Account for header + padding
+  
+  @media (min-width: 1600px) {
+    max-height: calc(100vh - 140px);
+  }
+  
+  @media (min-width: 1400px) and (max-width: 1599px) {
+    max-height: calc(100vh - 130px);
+  }
   
   @media (max-width: 1024px) {
     max-width: 100%;
+    max-height: none;
   }
   
   @media (max-width: 480px) {
