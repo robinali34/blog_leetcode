@@ -55,7 +55,7 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 
 The key insight is to traverse the tree using DFS, maintaining the current number formed by the path from root to the current node. When we reach a leaf node, we add that number to the total sum.
 
-### Solution: Recursive DFS
+### Solution 1: Recursive DFS (Preorder)
 
 ```cpp
 /**
@@ -66,28 +66,117 @@ The key insight is to traverse the tree using DFS, maintaining the current numbe
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x, left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 private:
-    int dfs(TreeNode* node, int prevSum) {
-        if(node == nullptr) return 0;
+    void preorder(TreeNode* node, int currNum, int& rootToLeaf) {
+        if (node == nullptr) return;
         
-        int sum = prevSum * 10 + node->val;
+        currNum = currNum * 10 + node->val;
         
-        if(node->left == nullptr && node->right == nullptr) {
-            return sum;
-        } else {
-            return dfs(node->left, sum) + dfs(node->right, sum);
+        if (node->left == nullptr && node->right == nullptr) {
+            rootToLeaf += currNum;
         }
+        
+        preorder(node->left, currNum, rootToLeaf);
+        preorder(node->right, currNum, rootToLeaf);
     }
+
 public:
     int sumNumbers(TreeNode* root) {
-        return dfs(root, 0);
+        int rootToLeaf = 0;
+        preorder(root, 0, rootToLeaf);
+        return rootToLeaf;
     }
 };
 ```
+
+**Key Points:**
+- Uses preorder traversal (process node, then left, then right)
+- Passes `currNum` by value (each recursive call gets its own copy)
+- Accumulates sum in `rootToLeaf` by reference
+- Only adds to sum when reaching a leaf node
+
+### Solution 2: Morris Traversal (O(1) Space)
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(1)
+
+Morris traversal allows us to traverse the tree without using a stack or recursion, achieving O(1) space complexity.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        int rootToLeaf = 0, currNum = 0;
+        int steps;
+        TreeNode* predecessor;
+        
+        while (root != nullptr) {
+            if (root->left != nullptr) {
+                // Find the inorder predecessor
+                predecessor = root->left;
+                steps = 1;
+                while (predecessor->right != nullptr && predecessor->right != root) {
+                    predecessor = predecessor->right;
+                    steps++;
+                }
+                
+                if (predecessor->right == nullptr) {
+                    // Make current node the right child of its predecessor
+                    currNum = currNum * 10 + root->val;
+                    predecessor->right = root;
+                    root = root->left;
+                } else {
+                    // Revert the changes made in the 'if' part to restore the original tree
+                    if (predecessor->left == nullptr) {
+                        rootToLeaf += currNum;
+                    }
+                    for (int i = 0; i < steps; i++) {
+                        currNum /= 10;
+                    }
+                    predecessor->right = nullptr;
+                    root = root->right;
+                }
+            } else {
+                currNum = currNum * 10 + root->val;
+                if (root->right == nullptr) {
+                    rootToLeaf += currNum;
+                }
+                root = root->right;
+            }
+        }
+        
+        return rootToLeaf;
+    }
+};
+```
+
+**How Morris Traversal Works:**
+1. **Thread Creation**: When visiting a node with a left child, find its inorder predecessor
+2. **Link Creation**: Make the current node the right child of its predecessor (creating a temporary link)
+3. **Traversal**: Move to the left child
+4. **Link Removal**: When returning to a node via the temporary link, remove it and move right
+5. **Number Tracking**: Track the current number and steps taken to backtrack correctly
+
+**Key Points:**
+- **O(1) space**: No recursion stack or explicit stack needed
+- **Temporary links**: Uses right pointers of leaf nodes to create temporary links
+- **Backtracking**: Divides `currNum` by 10 to backtrack when removing links
+- **Complex logic**: More complex but achieves optimal space complexity
 
 ## How the Algorithm Works
 
@@ -191,17 +280,19 @@ Final: 495 + 491 + 40 = 1026
 
 ## Algorithm Breakdown
 
-### Helper Function: `dfs(node, prevSum)`
+### Solution 1: Recursive Preorder
+
+#### Helper Function: `preorder(node, currNum, rootToLeaf)`
 
 ```cpp
-int dfs(TreeNode* node, int prevSum) {
-    if(node == nullptr) return 0;
+void preorder(TreeNode* node, int currNum, int& rootToLeaf) {
+    if (node == nullptr) return;
 ```
 
-**Why:** Handle null nodes gracefully. Empty subtree contributes 0 to the sum.
+**Why:** Handle null nodes gracefully. Return early if node is null.
 
 ```cpp
-    int sum = prevSum * 10 + node->val;
+    currNum = currNum * 10 + node->val;
 ```
 
 **Why:** Build the current path number by:
@@ -209,30 +300,80 @@ int dfs(TreeNode* node, int prevSum) {
 - Adding current node's value (append new digit)
 
 ```cpp
-    if(node->left == nullptr && node->right == nullptr) {
-        return sum;
+    if (node->left == nullptr && node->right == nullptr) {
+        rootToLeaf += currNum;
     }
 ```
 
-**Why:** Leaf node reached. Return the complete path number.
+**Why:** Leaf node reached. Add the complete path number to the total sum.
 
 ```cpp
-    else {
-        return dfs(node->left, sum) + dfs(node->right, sum);
-    }
+    preorder(node->left, currNum, rootToLeaf);
+    preorder(node->right, currNum, rootToLeaf);
 ```
 
-**Why:** Not a leaf. Recursively sum results from both subtrees, passing the current accumulated sum.
+**Why:** Continue traversal to both subtrees. `currNum` is passed by value, so each recursive call gets its own copy.
 
-### Main Function: `sumNumbers(root)`
+#### Main Function: `sumNumbers(root)`
 
 ```cpp
 int sumNumbers(TreeNode* root) {
-    return dfs(root, 0);
+    int rootToLeaf = 0;
+    preorder(root, 0, rootToLeaf);
+    return rootToLeaf;
 }
 ```
 
-**Why:** Start DFS from root with initial sum of 0.
+**Why:** Initialize sum to 0, start preorder traversal from root, return accumulated sum.
+
+**Key Difference from Previous Approach:**
+- Uses `void` function that accumulates result in a reference parameter
+- Passes `currNum` by value (each call gets independent copy)
+- More explicit about accumulating the sum
+
+### Solution 2: Morris Traversal
+
+#### Key Components
+
+**1. Finding Predecessor:**
+```cpp
+predecessor = root->left;
+steps = 1;
+while (predecessor->right != nullptr && predecessor->right != root) {
+    predecessor = predecessor->right;
+    steps++;
+}
+```
+- Find the rightmost node in the left subtree
+- Track number of steps for backtracking
+
+**2. Creating Temporary Link:**
+```cpp
+if (predecessor->right == nullptr) {
+    currNum = currNum * 10 + root->val;
+    predecessor->right = root;  // Create link
+    root = root->left;
+}
+```
+- Create temporary link from predecessor to current node
+- This allows us to return to current node later
+
+**3. Removing Link and Backtracking:**
+```cpp
+else {
+    if (predecessor->left == nullptr) {
+        rootToLeaf += currNum;
+    }
+    for (int i = 0; i < steps; i++) {
+        currNum /= 10;  // Backtrack number
+    }
+    predecessor->right = nullptr;  // Remove link
+    root = root->right;
+}
+```
+- When we return via temporary link, we've finished left subtree
+- Backtrack `currNum` by dividing by 10 for each step
+- Remove temporary link to restore tree structure
 
 ## Edge Cases
 
@@ -340,7 +481,8 @@ public:
 
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
-| **Recursive DFS** | O(n) | O(h) | Simple, elegant | Recursion overhead |
+| **Recursive DFS (Preorder)** | O(n) | O(h) | Simple, elegant | Recursion overhead |
+| **Morris Traversal** | O(n) | O(1) | Optimal space | Complex implementation |
 | **Iterative DFS** | O(n) | O(h) | No recursion | More code |
 | **BFS** | O(n) | O(w) | Level-order | More space for wide trees |
 
@@ -433,10 +575,91 @@ Similar problems:
 - Simple recursive implementation
 - Efficient space usage (O(h))
 
+**Morris Traversal Advantages:**
+- O(1) space complexity (optimal)
+- No recursion or explicit stack
+- Useful for memory-constrained environments
+
+**Morris Traversal Disadvantages:**
+- More complex implementation
+- Modifies tree structure temporarily (though restored)
+- Harder to understand and debug
+
 **BFS Alternative:**
 - Can work but less intuitive
 - Requires storing path information for each node
 - More space for wide trees
+
+## Morris Traversal Deep Dive
+
+### How It Works
+
+Morris traversal is a technique to traverse a binary tree without using a stack or recursion. It uses temporary links (threads) to navigate the tree.
+
+**Key Steps:**
+
+1. **If current node has left child:**
+   - Find the inorder predecessor (rightmost node in left subtree)
+   - If predecessor's right is null, create a temporary link to current node
+   - Move to left child
+   - If predecessor's right points to current, we've already visited left subtree
+   - Remove the link and move to right child
+
+2. **If current node has no left child:**
+   - Process current node
+   - Move to right child
+
+### Step-by-Step Morris Traversal: `root = [1,2,3]`
+
+```
+Initial: root = 1, currNum = 0, rootToLeaf = 0
+
+Step 1: root = 1 (has left child = 2)
+  - Find predecessor: 2 (no right child)
+  - currNum = 0 * 10 + 1 = 1
+  - Create link: 2->right = 1
+  - Move to left: root = 2
+
+Step 2: root = 2 (no left child)
+  - currNum = 1 * 10 + 2 = 12
+  - Is leaf? Yes → rootToLeaf += 12 (rootToLeaf = 12)
+  - Move to right: root = 1 (via temporary link)
+
+Step 3: root = 1 (has left child = 2, and 2->right = 1)
+  - Predecessor found with link back to 1
+  - Backtrack: currNum = 12 / 10 = 1
+  - Remove link: 2->right = nullptr
+  - Move to right: root = 3
+
+Step 4: root = 3 (no left child)
+  - currNum = 1 * 10 + 3 = 13
+  - Is leaf? Yes → rootToLeaf += 13 (rootToLeaf = 25)
+  - Move to right: root = nullptr
+
+Done: return 25
+```
+
+### Why Divide by 10?
+
+When backtracking in Morris traversal, we need to undo the number accumulation. Since we multiplied by 10 for each step down, we divide by 10 for each step back up.
+
+```
+Going down: 0 → 1 → 12
+Going up:   12 → 1 (divide by 10)
+Going down: 1 → 13
+```
+
+### When to Use Morris Traversal
+
+**Use Morris Traversal when:**
+- Memory is extremely constrained
+- Need O(1) space complexity
+- Tree structure can be temporarily modified
+
+**Use Recursive DFS when:**
+- Code simplicity is priority
+- Space is not a concern
+- Need easy-to-understand solution
 
 ## Step-by-Step Trace: `root = [4,9,0,5,1]`
 
