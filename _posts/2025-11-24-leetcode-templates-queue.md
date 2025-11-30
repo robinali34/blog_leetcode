@@ -194,13 +194,25 @@ priority_queue<int> maxHeap;
 // Min heap
 priority_queue<int, vector<int>, greater<int>> minHeap;
 
-// Custom comparator
+// Custom comparator using struct
 struct Compare {
     bool operator()(pair<int, int>& a, pair<int, int>& b) {
         return a.second > b.second; // Min heap by second element
     }
 };
 priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> pq;
+
+// Custom comparator using lambda operator
+auto cmp = [](pair<int, int>& a, pair<int, int>& b) {
+    return a.second > b.second; // Min heap by second element
+};
+priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pq(cmp);
+
+// Lambda example: Min heap by distance (for Dijkstra's algorithm)
+auto distCmp = [](pair<int, int>& a, pair<int, int>& b) {
+    return a.first > b.first; // {distance, node} - min heap by distance
+};
+priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(distCmp)> pq(distCmp);
 ```
 
 ### K-way Merge
@@ -260,6 +272,17 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 | 23 | Merge k Sorted Lists | [Link](https://leetcode.com/problems/merge-k-sorted-lists/) | - |
 | 347 | Top K Frequent Elements | [Link](https://leetcode.com/problems/top-k-frequent-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-347-top-k-frequent-elements/) |
 | 295 | Find Median from Data Stream | [Link](https://leetcode.com/problems/find-median-from-data-stream/) | - |
+| 215 | Kth Largest Element in an Array | [Link](https://leetcode.com/problems/kth-largest-element-in-an-array/) | - |
+| 973 | K Closest Points to Origin | [Link](https://leetcode.com/problems/k-closest-points-to-origin/) | - |
+| 253 | Meeting Rooms II | [Link](https://leetcode.com/problems/meeting-rooms-ii/) | - |
+| 378 | Kth Smallest Element in a Sorted Matrix | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) | - |
+| 703 | Kth Largest Element in a Stream | [Link](https://leetcode.com/problems/kth-largest-element-in-a-stream/) | - |
+| 767 | Reorganize String | [Link](https://leetcode.com/problems/reorganize-string/) | - |
+| 1046 | Last Stone Weight | [Link](https://leetcode.com/problems/last-stone-weight/) | - |
+| 1167 | Minimum Cost to Connect Sticks | [Link](https://leetcode.com/problems/minimum-cost-to-connect-sticks/) | - |
+| 621 | Task Scheduler | [Link](https://leetcode.com/problems/task-scheduler/) | - |
+| 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) | - |
+| 787 | Cheapest Flights Within K Stops | [Link](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | - |
 
 ## Circular Queue
 
