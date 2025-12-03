@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Medium] 593. Valid Square"
-date: 2025-11-16 00:00:00 -0800
+date: 2025-12-02 00:00:00 -0800
 categories: leetcode algorithm medium cpp math geometry problem-solving
 ---
 
