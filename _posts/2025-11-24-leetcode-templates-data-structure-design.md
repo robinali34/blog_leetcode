@@ -22,71 +22,120 @@ Least Recently Used cache using hash map + doubly linked list.
 
 ```cpp
 class LRUCache {
-    struct Node {
-        int key, val;
-        Node* prev, *next;
-        Node(int k, int v) : key(k), val(v), prev(nullptr), next(nullptr) {}
-    };
+private:
+    int capacity_;
+    list<int> keyList_;
+    unordered_map<int, pair<int, list<int>::iterator>> hashMap_;
     
-    int capacity;
-    unordered_map<int, Node*> cache;
-    Node* head, *tail;
-    
-    void addNode(Node* node) {
-        node->prev = head;
-        node->next = head->next;
-        head->next->prev = node;
-        head->next = node;
+    void insert(int key, int value) {
+        keyList_.push_back(key);
+        hashMap_[key] = make_pair(value, --keyList_.end());
     }
-    
-    void removeNode(Node* node) {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
-    }
-    
-    void moveToHead(Node* node) {
-        removeNode(node);
-        addNode(node);
-    }
-    
-    Node* popTail() {
-        Node* last = tail->prev;
-        removeNode(last);
-        return last;
-    }
-    
+
 public:
-    LRUCache(int capacity) : capacity(capacity) {
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
-        head->next = tail;
-        tail->prev = head;
+    LRUCache(int capacity) : capacity_(capacity) {
     }
     
     int get(int key) {
-        if (cache.find(key) == cache.end()) return -1;
-        Node* node = cache[key];
-        moveToHead(node);
-        return node->val;
+        auto it = hashMap_.find(key);
+        if(it != hashMap_.end()) {
+            keyList_.splice(keyList_.end(), keyList_, it->second.second);
+            return it->second.first;
+        }
+        return -1;
     }
     
     void put(int key, int value) {
-        if (cache.find(key) != cache.end()) {
-            Node* node = cache[key];
-            node->val = value;
-            moveToHead(node);
+        if(get(key) != -1) {
+            hashMap_[key].first = value;
+            return;
+        }
+        if(hashMap_.size() < capacity_) {
+            insert(key, value);
         } else {
-            if (cache.size() >= capacity) {
-                Node* last = popTail();
-                cache.erase(last->key);
-                delete last;
-            }
-            Node* newNode = new Node(key, value);
-            cache[key] = newNode;
-            addNode(newNode);
+            int removeKey = keyList_.front();
+            keyList_.pop_front();
+            hashMap_.erase(removeKey);
+            insert(key, value);
         }
     }
 };
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+```
+
+### Thread-Safe LRU Cache
+
+Thread-safe version using mutex for concurrent access.
+
+```cpp
+#include <mutex>
+#include <shared_mutex>
+
+class ThreadSafeLRUCache {
+private:
+    int capacity_;
+    list<int> keyList_;
+    unordered_map<int, pair<int, list<int>::iterator>> hashMap_;
+    mutable shared_mutex mtx_; // Use shared_mutex for read-write lock
+    
+    void insert(int key, int value) {
+        keyList_.push_back(key);
+        hashMap_[key] = make_pair(value, --keyList_.end());
+    }
+    
+    bool exists(int key) const {
+        return hashMap_.find(key) != hashMap_.end();
+    }
+
+public:
+    ThreadSafeLRUCache(int capacity) : capacity_(capacity) {
+    }
+    
+    int get(int key) {
+        unique_lock<shared_mutex> lock(mtx_); // Exclusive lock for read+modify
+        auto it = hashMap_.find(key);
+        if(it != hashMap_.end()) {
+            keyList_.splice(keyList_.end(), keyList_, it->second.second);
+            return it->second.first;
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        unique_lock<shared_mutex> lock(mtx_); // Exclusive lock for write
+        if(exists(key)) {
+            hashMap_[key].first = value;
+            keyList_.splice(keyList_.end(), keyList_, hashMap_[key].second);
+            return;
+        }
+        if(hashMap_.size() < capacity_) {
+            insert(key, value);
+        } else {
+            int removeKey = keyList_.front();
+            keyList_.pop_front();
+            hashMap_.erase(removeKey);
+            insert(key, value);
+        }
+    }
+    
+    size_t size() const {
+        shared_lock<shared_mutex> lock(mtx_);
+        return hashMap_.size();
+    }
+};
+
+// Example usage:
+// ThreadSafeLRUCache cache(2);
+// cache.put(1, 1);
+// cache.put(2, 2);
+// int val = cache.get(1); // returns 1
+// cache.put(3, 3); // evicts key 2
 ```
 
 | ID | Title | Link | Solution |
