@@ -132,15 +132,110 @@ public:
 
 By processing events in chronological order, we can track how many meetings are active at any moment. When a meeting starts, we need a room. When a meeting ends, we free a room.
 
+## Solution 3: Bucket Sort (Event-Based)
+
+**Time Complexity:** O(n + k) where k is the time range (10^6) → effectively O(n)  
+**Space Complexity:** O(k) where k is the maximum time value
+
+This approach uses bucket sort to create a timeline array. For each interval, we increment at start time and decrement at end time, then compute prefix sum to find maximum concurrent meetings.
+
+```cpp
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        if (intervals.size() == 0) return 0;
+        
+        const int MAX_TIME = 1000000;
+        vector<int> timeline(MAX_TIME + 1, 0);
+        
+        // Mark start and end times
+        for(auto& interval : intervals) {
+            timeline[interval[0]]++;  // Meeting starts
+            timeline[interval[1]]--;  // Meeting ends
+        }
+        
+        // Compute prefix sum to find maximum concurrent meetings
+        int maxRooms = 0;
+        int currentRooms = 0;
+        for(int i = 0; i <= MAX_TIME; i++) {
+            currentRooms += timeline[i];
+            maxRooms = max(maxRooms, currentRooms);
+        }
+        
+        return maxRooms;
+    }
+};
+```
+
+### How Solution 3 Works
+
+1. **Create timeline array**: Array of size `MAX_TIME + 1` (10^6 + 1) initialized to 0
+2. **Mark events**: 
+   - Increment at start time: `timeline[start]++`
+   - Decrement at end time: `timeline[end]--`
+3. **Compute prefix sum**: Traverse timeline, accumulating values to count concurrent meetings
+4. **Track maximum**: Keep track of maximum concurrent meetings during traversal
+
+### Key Insight
+
+This is similar to the "sweep line" approach:
+- Each time unit is a bucket
+- Start events increment the count
+- End events decrement the count
+- Prefix sum gives us concurrent meetings at each time point
+
+### When to Use Bucket Sort
+
+**Advantages:**
+- O(n) time complexity (no sorting needed)
+- Simple and intuitive
+- Good when time range is bounded and relatively small
+
+**Disadvantages:**
+- O(k) space where k is the time range (10^6 in this case)
+- Less efficient if time range is very large or sparse
+- Memory overhead if actual meetings are sparse in the time range
+
+### Optimization: Sparse Timeline
+
+If the time range is large but meetings are sparse, we can use a map instead:
+
+```cpp
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        if (intervals.size() == 0) return 0;
+        
+        map<int, int> timeline;
+        
+        for(auto& interval : intervals) {
+            timeline[interval[0]]++;  // Meeting starts
+            timeline[interval[1]]--;  // Meeting ends
+        }
+        
+        int maxRooms = 0;
+        int currentRooms = 0;
+        for(auto& [time, change] : timeline) {
+            currentRooms += change;
+            maxRooms = max(maxRooms, currentRooms);
+        }
+        
+        return maxRooms;
+    }
+};
+```
+
+This uses O(n log n) time (map insertion) but O(n) space, making it better for sparse data.
+
 ## Comparison of Approaches
 
-| Aspect | Priority Queue | Chronological Ordering |
-|--------|----------------|------------------------|
-| **Time Complexity** | O(n log n) | O(n log n) |
-| **Space Complexity** | O(n) | O(n) |
-| **Intuition** | Track active meetings | Simulate timeline |
-| **Code Complexity** | Moderate | Simpler |
-| **Extensibility** | Easy to extend | Straightforward |
+| Aspect | Priority Queue | Chronological Ordering | Bucket Sort |
+|--------|----------------|------------------------|-------------|
+| **Time Complexity** | O(n log n) | O(n log n) | O(n + k) |
+| **Space Complexity** | O(n) | O(n) | O(k) |
+| **Intuition** | Track active meetings | Simulate timeline | Event-based counting |
+| **Code Complexity** | Moderate | Simpler | Simplest |
+| **Best For** | General case | General case | Bounded, dense ranges |
 
 ## Example Walkthrough
 
@@ -184,13 +279,31 @@ Timeline:
 Maximum usedRooms = 2
 ```
 
+### Solution 3 (Bucket Sort):
+```
+Intervals: [[0,30], [5,10], [15,20]]
+
+Timeline array (showing relevant indices):
+Index:  0   5   10  15  20  30
+Value: +1  +1  -1  +1  -1  -1
+
+Prefix sum:
+Index:  0   5   10  15  20  30
+Count:  1   2   1   2   1   0
+
+Maximum count = 2
+Result: 2 rooms needed
+```
+
 ## Complexity Analysis
 
-| Operation | Priority Queue | Chronological Ordering |
-|-----------|----------------|------------------------|
-| Sorting | O(n log n) | O(n log n) |
-| Processing | O(n log n) | O(n) |
-| **Overall** | **O(n log n)** | **O(n log n)** |
+| Operation | Priority Queue | Chronological Ordering | Bucket Sort |
+|-----------|----------------|------------------------|-------------|
+| Sorting | O(n log n) | O(n log n) | N/A |
+| Processing | O(n log n) | O(n) | O(n + k) |
+| **Overall** | **O(n log n)** | **O(n log n)** | **O(n + k)** |
+
+**Note:** For bucket sort, k = 10^6 (maximum time value), so O(n + k) is effectively O(n) when n is large, but has constant factor overhead.
 
 ## Edge Cases
 
@@ -217,6 +330,11 @@ Maximum usedRooms = 2
 ### Solution 2 Optimization:
 - Can track maximum during traversal instead of storing all values
 - Two separate arrays allow independent sorting
+
+### Solution 3 Optimization:
+- For sparse time ranges, use `map<int, int>` instead of array
+- This reduces space from O(k) to O(n) but increases time to O(n log n)
+- Best when time range is bounded and meetings are dense
 
 ## Related Problems
 
