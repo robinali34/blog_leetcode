@@ -5,6 +5,7 @@ date: 2025-12-13 00:00:00 -0800
 categories: leetcode algorithm medium cpp array matrix bfs problem-solving
 ---
 
+{% raw %}
 # [Medium] 994. Rotting Oranges
 
 You are given an `m x n` grid where each cell can have one of three values:
@@ -368,3 +369,5 @@ Similar problems:
 3. **Fire Spread**: Simulate fire spreading from multiple ignition points
 4. **Virus Propagation**: Model computer virus spreading in network
 5. **Information Diffusion**: Track information spread in social networks
+
+{% endraw %}
