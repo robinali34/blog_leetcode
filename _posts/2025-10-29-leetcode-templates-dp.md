@@ -28,6 +28,7 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
 | 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
 

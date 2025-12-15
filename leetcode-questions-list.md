@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 105
+- **Total Problems:** 106
 - **Easy:** 12 problems
-- **Medium:** 84 problems
+- **Medium:** 85 problems
 - **Hard:** 10 problems
 
 ## All LeetCode Problems
@@ -62,6 +62,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [253](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/) | [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) | Medium | Array, Sorting, Priority Queue | Priority Queue, Two Pointers, Bucket Sort | 2025-12-11 |
 | [277](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) | [Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) | Medium | Graph, Two Pointers | Two-Pass, Candidate Elimination | 2025-11-24 |
 | [281](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/) | [Zigzag Iterator](https://leetcode.com/problems/zigzag-iterator/) | Medium | Design, Iterator | Two Pointers, Queue | 2025-12-10 |
+| [279](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) | [Perfect Squares](https://leetcode.com/problems/perfect-squares/) | Medium | Math, Dynamic Programming, BFS | Legendre's Theorem, DP, BFS | 2025-12-14 |
 | [286](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) | [Walls and Gates](https://leetcode.com/problems/walls-and-gates/) | Medium | Array, Matrix, BFS | Multi-source BFS | 2025-12-14 |
 | [300](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) | [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) | Medium | Array, Dynamic Programming | DP, Binary Search | 2025-10-17 |
 | [314](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) | [Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | Medium | Tree, BFS | BFS, Vertical Order | 2025-10-21 |
@@ -140,7 +141,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (84 problems)
+### Medium (85 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -177,6 +178,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [253. Meeting Rooms II](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/)
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/)
+- [279. Perfect Squares](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/)
 - [281. Zigzag Iterator](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/)
 - [286. Walls and Gates](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/)
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/)
