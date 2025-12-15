@@ -68,8 +68,8 @@ int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | - |
-| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | - |
+| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/) |
+| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) |
 
 ## BFS on Bitmask State (visit all keys)
 

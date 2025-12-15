@@ -71,6 +71,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 | 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
 | 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-18-4sum/) |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
+| 75 | Sort Colors | [Link](https://leetcode.com/problems/sort-colors/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-75-sort-colors/) |
 
 ## Sliding Window
 

@@ -102,9 +102,11 @@ void swap(int& a, int& b) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 67 | Add Binary | [Link](https://leetcode.com/problems/add-binary/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-easy-67-add-binary/) |
 | 191 | Number of 1 Bits | [Link](https://leetcode.com/problems/number-of-1-bits/) | - |
 | 231 | Power of Two | [Link](https://leetcode.com/problems/power-of-two/) | - |
 | 338 | Counting Bits | [Link](https://leetcode.com/problems/counting-bits/) | - |
+| 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/) |
 
 ## Common Bit Tricks
 

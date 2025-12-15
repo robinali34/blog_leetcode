@@ -358,5 +358,7 @@ public:
 | 348 | Design Tic-Tac-Toe | [Link](https://leetcode.com/problems/design-tic-tac-toe/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) |
 | 398 | Random Pick Index | [Link](https://leetcode.com/problems/random-pick-index/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) |
 | 2043 | Simple Bank System | [Link](https://leetcode.com/problems/simple-bank-system/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) |
+| 281 | Zigzag Iterator | [Link](https://leetcode.com/problems/zigzag-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/) |
+| 1206 | Design Skiplist | [Link](https://leetcode.com/problems/design-skiplist/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-03-hard-1206-design-skiplist/) |
 {% endraw %}
 

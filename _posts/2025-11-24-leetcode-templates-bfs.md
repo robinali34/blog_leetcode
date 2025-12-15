@@ -165,8 +165,10 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) |
 | 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) | - |
 | 317 | Shortest Distance from All Buildings | [Link](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) |
+| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/) |
 
 ## BFS for Shortest Path
 
