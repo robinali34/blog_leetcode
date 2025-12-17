@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 107
+- **Total Problems:** 108
 - **Easy:** 12 problems
-- **Medium:** 85 problems
+- **Medium:** 86 problems
 - **Hard:** 11 problems
 
 ## All LeetCode Problems
@@ -99,6 +99,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
 | [648](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) | [Replace Words](https://leetcode.com/problems/replace-words/) | Medium | String, Trie | Trie, Hash Set | 2025-10-17 |
+| [690](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-medium-690-employee-importance/) | [Employee Importance](https://leetcode.com/problems/employee-importance/) | Medium | DFS, BFS, Hash Table | DFS, Hash Map | 2025-12-16 |
 | [695](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-695-max-area-of-island/) | [Max Area of Island](https://leetcode.com/problems/max-area-of-island/) | Medium | DFS, Graph, Matrix | DFS, Connected Components | 2025-10-21 |
 | [752](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-752-open-the-lock/) | [Open the Lock](https://leetcode.com/problems/open-the-lock/) | Medium | BFS, Shortest Path | BFS, State Space | 2025-10-21 |
 | [794](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/) | [Valid Tic-Tac-Toe State](https://leetcode.com/problems/valid-tic-tac-toe-state/) | Medium | Array, String | Simulation, Validation | 2025-09-24 |
@@ -142,7 +143,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (85 problems)
+### Medium (86 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -195,6 +196,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/)
 - [647. Palindromic Substrings](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/)
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/)
+- [690. Employee Importance](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-medium-690-employee-importance/)
 - [1209. Remove All Adjacent Duplicates in String II](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1209-remove-all-adjacent-duplicates-in-string-ii/)
 - [708. Insert into a Sorted Circular Linked List](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/)
 - [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/)
