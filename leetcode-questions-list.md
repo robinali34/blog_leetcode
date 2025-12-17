@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 106
+- **Total Problems:** 107
 - **Easy:** 12 problems
 - **Medium:** 85 problems
-- **Hard:** 10 problems
+- **Hard:** 11 problems
 
 ## All LeetCode Problems
 
@@ -94,6 +94,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [708](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) | [Insert into a Sorted Circular Linked List](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | Medium | Linked List, Circular | Two Pointers, Iteration | 2025-10-27 |
 | [717](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-717-1-bit-and-2-bit-characters/) | [1-bit and 2-bit Characters](https://leetcode.com/problems/1-bit-and-2-bit-characters/) | Easy | Array, Greedy | Greedy | 2025-10-29 |
 | [772](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) | Hard | String, Stack, Math | Stack, Recursion, Expression Evaluation | 2025-11-13 |
+| [850](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) | [Rectangle Area II](https://leetcode.com/problems/rectangle-area-ii/) | Hard | Geometry, Sweep Line, Segment Tree | Sweep Line, Coordinate Compression, Segment Tree | 2025-12-16 |
 | [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
@@ -215,7 +216,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [973. K Closest Points to Origin](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/)
 - [983. Minimum Cost For Tickets](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/)
 
-### Hard (10 problems)
+### Hard (11 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
 - [84. Largest Rectangle in Histogram](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/)
@@ -225,6 +226,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [480. Sliding Window Median](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-480-sliding-window-median/)
 - [489. Robot Room Cleaner](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/)
 - [772. Basic Calculator III](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/)
+- [850. Rectangle Area II](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/)
 - [1206. Design Skiplist](https://robinali34.github.io/blog_leetcode/posts/2025-12-03-hard-1206-design-skiplist/)
 
 ## Problems by Category
