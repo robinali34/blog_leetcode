@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 108
+- **Total Problems:** 109
 - **Easy:** 12 problems
-- **Medium:** 86 problems
+- **Medium:** 87 problems
 - **Hard:** 11 problems
 
 ## All LeetCode Problems
@@ -75,6 +75,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [348](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) | [Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe/) | Medium | Design, Array | Counter Optimization, State Tracking | 2025-10-21 |
 | [394](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) | [Decode String](https://leetcode.com/problems/decode-string/) | Medium | String, Stack | Stack, String Processing | 2025-10-19 |
 | [398](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) | [Random Pick Index](https://leetcode.com/problems/random-pick-index/) | Medium | Hash Table, Reservoir Sampling | Hash Map, Preprocessing | 2025-11-24 |
+| [399](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) | [Evaluate Division](https://leetcode.com/problems/evaluate-division/) | Medium | Union Find, Graph, DFS | Weighted Union-Find, Graph DFS | 2025-12-17 |
 | [406](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) | [Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) | Medium | Array, Greedy | Greedy, Sorting | 2025-10-19 |
 | [408](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) | [Valid Word Abbreviation](https://leetcode.com/problems/valid-word-abbreviation/) | Easy | String, Two Pointers | Position Tracking, Parsing | 2025-11-24 |
 | [417](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) | [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) | Medium | Array, DFS | DFS, BFS | 2025-10-19 |
@@ -143,7 +144,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (86 problems)
+### Medium (87 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -185,6 +186,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [286. Walls and Gates](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/)
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/)
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/)
+- [399. Evaluate Division](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/)
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/)
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/)
 - [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/)
