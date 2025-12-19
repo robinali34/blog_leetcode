@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 399. Evaluate Division"
 date: 2025-12-17 00:00:00 -0800
-categories: leetcode algorithm medium cpp union-find graph dfs problem-solving
+categories: leetcode algorithm medium cpp disjoint-set graph dfs problem-solving
 ---
 
 {% raw %}

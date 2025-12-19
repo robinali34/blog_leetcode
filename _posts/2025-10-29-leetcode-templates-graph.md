@@ -16,6 +16,7 @@ tags: [leetcode, templates, graph]
 - [Topological Sort (Kahn)](#topological-sort-kahn)
 - [Dijkstra](#dijkstra-weights--0)
 - [0-1 BFS](#0-1-bfs-weights-0-or-1)
+- [Disjoint Set Union (DSU)](#disjoint-set-union-dsu)
 - [Tarjan SCC / Bridges & Articulation](#tarjan-scc--bridges--articulation)
 
 ## BFS / Shortest Path (unweighted)
@@ -169,4 +170,143 @@ void dfsBr(int u,int p,const vector<vector<int>>& g){ tin2[u]=low2[u]=++timer2; 
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 1192 | Critical Connections in a Network | [Link](https://leetcode.com/problems/critical-connections-in-a-network/) | - |
+
+## Disjoint Set Union (DSU)
+
+Disjoint Set Union (DSU), also known as Union-Find, tracks connected components efficiently.
+
+### Basic Disjoint Set
+
+```cpp
+class UnionFind {
+    vector<int> parent;
+public:
+    UnionFind(int n) : parent(n) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+    
+    void unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px != py) {
+            parent[px] = py;
+        }
+    }
+    
+    bool connected(int x, int y) {
+        return find(x) == find(y);
+    }
+};
+```
+
+### Disjoint Set with Union by Rank
+
+Union by rank keeps tree balanced for better performance.
+
+```cpp
+class UnionFind {
+    vector<int> parent, rank;
+public:
+    UnionFind(int n) : parent(n), rank(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+    
+    void unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) return;
+        
+        // Union by rank: attach smaller tree to larger tree
+        if (rank[px] < rank[py]) {
+            parent[px] = py;
+        } else if (rank[px] > rank[py]) {
+            parent[py] = px;
+        } else {
+            parent[py] = px;
+            rank[px]++;
+        }
+    }
+    
+    bool connected(int x, int y) {
+        return find(x) == find(y);
+    }
+    
+    int countComponents() {
+        unordered_set<int> roots;
+        for (int i = 0; i < parent.size(); ++i) {
+            roots.insert(find(i));
+        }
+        return roots.size();
+    }
+};
+```
+
+### Weighted Disjoint Set
+
+For problems requiring maintaining weights/ratios (e.g., Evaluate Division).
+
+```cpp
+class WeightedUnionFind {
+    unordered_map<string, pair<string, double>> weights;
+    
+    pair<string, double> find(const string& node) {
+        if(!weights.contains(node)) {
+            weights[node] = {node, 1.0};
+        }
+        auto entry = weights[node];
+        if(entry.first != node) {
+            auto parentEntry = find(entry.first);
+            weights[node] = {
+                parentEntry.first,
+                entry.second * parentEntry.second
+            };
+        }
+        return weights[node];
+    }
+    
+    void unite(const string& dividend, const string& divisor, double value) {
+        auto dividendEntry = find(dividend);
+        auto divisorEntry = find(divisor);
+        
+        string dividendRoot = dividendEntry.first;
+        string divisorRoot = divisorEntry.first;
+        
+        if(dividendRoot != divisorRoot) {
+            weights[dividendRoot] = {
+                divisorRoot,
+                divisorEntry.second * value / dividendEntry.second
+            };
+        }
+    }
+};
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 323 | Number of Connected Components in an Undirected Graph | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | - |
+| 547 | Number of Provinces | [Link](https://leetcode.com/problems/number-of-provinces/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) |
+| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | - |
+| 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) | - |
+| 990 | Satisfiability of Equality Equations | [Link](https://leetcode.com/problems/satisfiability-of-equality-equations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) |
+| 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) |
+| 1319 | Number of Operations to Make Network Connected | [Link](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) | - |
+
+### References
+
+- [LeetCode Disjoint Set LeetBook](https://leetcode.cn/leetbook/detail/disjoint-set/) - Comprehensive guide to Disjoint Set Union (DSU) with LeetCode problems
+
 {% endraw %}

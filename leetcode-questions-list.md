@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 109
+- **Total Problems:** 110
 - **Easy:** 12 problems
-- **Medium:** 87 problems
+- **Medium:** 88 problems
 - **Hard:** 11 problems
 
 ## All LeetCode Problems
@@ -75,7 +75,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [348](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) | [Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe/) | Medium | Design, Array | Counter Optimization, State Tracking | 2025-10-21 |
 | [394](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) | [Decode String](https://leetcode.com/problems/decode-string/) | Medium | String, Stack | Stack, String Processing | 2025-10-19 |
 | [398](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) | [Random Pick Index](https://leetcode.com/problems/random-pick-index/) | Medium | Hash Table, Reservoir Sampling | Hash Map, Preprocessing | 2025-11-24 |
-| [399](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) | [Evaluate Division](https://leetcode.com/problems/evaluate-division/) | Medium | Union Find, Graph, DFS | Weighted Union-Find, Graph DFS | 2025-12-17 |
+| [399](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) | [Evaluate Division](https://leetcode.com/problems/evaluate-division/) | Medium | Disjoint Set, Graph, DFS | Weighted Union-Find, Graph DFS | 2025-12-17 |
 | [406](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) | [Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) | Medium | Array, Greedy | Greedy, Sorting | 2025-10-19 |
 | [408](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) | [Valid Word Abbreviation](https://leetcode.com/problems/valid-word-abbreviation/) | Easy | String, Two Pointers | Position Tracking, Parsing | 2025-11-24 |
 | [417](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) | [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) | Medium | Array, DFS | DFS, BFS | 2025-10-19 |
@@ -99,6 +99,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
+| [547](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) | [Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | Medium | Disjoint Set, DFS, Graph | Union-Find, Connected Components | 2025-12-18 |
 | [648](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) | [Replace Words](https://leetcode.com/problems/replace-words/) | Medium | String, Trie | Trie, Hash Set | 2025-10-17 |
 | [690](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-medium-690-employee-importance/) | [Employee Importance](https://leetcode.com/problems/employee-importance/) | Medium | DFS, BFS, Hash Table | DFS, Hash Map | 2025-12-16 |
 | [695](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-695-max-area-of-island/) | [Max Area of Island](https://leetcode.com/problems/max-area-of-island/) | Medium | DFS, Graph, Matrix | DFS, Connected Components | 2025-10-21 |
@@ -110,7 +111,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [969](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/) | [Pancake Sorting](https://leetcode.com/problems/pancake-sorting/) | Medium | Array, Sorting, Greedy | Greedy, Two-Step Flip | 2025-11-18 |
 | [973](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/) | [K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | Medium | Array, Sorting, Heap | Sorting, Heap, Quickselect | 2025-10-21 |
 | [983](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) | [Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) | Medium | Dynamic Programming | DP, Bottom-Up | 2025-11-24 |
-| [990](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) | [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) | Medium | Union Find, Graph | Union Find, DFS | 2025-10-04 |
+| [990](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) | [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) | Medium | Disjoint Set, Graph | Union Find, DFS | 2025-10-04 |
 | [994](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/) | [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) | Medium | Array, Matrix, BFS | Multi-source BFS, Level Tracking | 2025-12-13 |
 | [1094](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) | [Car Pooling](https://leetcode.com/problems/car-pooling/) | Medium | Array, Sorting, Simulation | Bucket Sort, Event Processing | 2025-10-22 |
 | [1124](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/) | [Longest Well-Performing Interval](https://leetcode.com/problems/longest-well-performing-interval/) | Medium | Array, Hash Table | Hash Map, Prefix Sum | 2025-10-16 |
@@ -144,7 +145,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (87 problems)
+### Medium (88 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -194,6 +195,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
 - [525. Contiguous Array](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/)
 - [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/)
+- [547. Number of Provinces](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/)
 - [593. Valid Square](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/)
 - [636. Exclusive Time of Functions](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/)
 - [647. Palindromic Substrings](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/)
@@ -338,7 +340,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) - Monotonic Stack
 - [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) - Monotonic Stack, Prefix Sum
 
-### Graph & Union Find
+### Graph
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) - Two-Pass, Candidate Elimination
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) - DFS, BFS
 - [863. All Nodes Distance K in Binary Tree](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) - Graph Conversion, DFS, Parent Pointer
@@ -376,14 +378,14 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 7. **Sliding Window** - 2 problems
 8. **Two Pointers** - 2 problems
 9. **Trie** - 1 problem
-10. **Union Find** - 1 problem
+10. **Disjoint Set** - 1 problem
 11. **Sweep Line** - 1 problem
 12. **Data Structure Design** - 2 problems
 
 ### Algorithm Patterns
 - **Array Processing:** Sliding window, two pointers, prefix sum
 - **String Processing:** Trie, hash map, monotonic stack
-- **Graph Traversal:** DFS, BFS, Union Find
+- **Graph Traversal:** DFS, BFS, Disjoint Set
 - **Optimization:** Dynamic programming, greedy algorithms
 - **Data Structures:** Stack, queue, heap, trie
 - **Search:** Binary search, divide and conquer

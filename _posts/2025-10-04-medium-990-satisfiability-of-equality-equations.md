@@ -2,7 +2,7 @@
 layout: post
 title: "[Medium] 990. Satisfiability of Equality Equations"
 date: 2025-10-04 00:00:00 -0000
-categories: leetcode algorithm data-structures union-find graph dfs medium cpp connected-components graph-coloring disjoint-set problem-solving
+categories: leetcode algorithm data-structures disjoint-set graph dfs medium cpp connected-components graph-coloring problem-solving
 ---
 
 # [Medium] 990. Satisfiability of Equality Equations
