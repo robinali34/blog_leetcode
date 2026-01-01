@@ -291,6 +291,7 @@ bool exist(vector<vector<char>>& board, string word) {
 |---|---|---|---|
 | 79 | Word Search | [Link](https://leetcode.com/problems/word-search/) | - |
 | 212 | Word Search II | [Link](https://leetcode.com/problems/word-search-ii/) | - |
+| 425 | Word Squares | [Link](https://leetcode.com/problems/word-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-425-word-squares/) |
 | 489 | Robot Room Cleaner | [Link](https://leetcode.com/problems/robot-room-cleaner/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/) |
 
 ## Constraint Satisfaction (N-Queens, Sudoku)

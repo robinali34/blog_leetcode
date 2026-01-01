@@ -106,6 +106,7 @@ void swap(int& a, int& b) {
 | 191 | Number of 1 Bits | [Link](https://leetcode.com/problems/number-of-1-bits/) | - |
 | 231 | Power of Two | [Link](https://leetcode.com/problems/power-of-two/) | - |
 | 338 | Counting Bits | [Link](https://leetcode.com/problems/counting-bits/) | - |
+| 393 | UTF-8 Validation | [Link](https://leetcode.com/problems/utf-8-validation/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-393-utf-8-validation/) |
 | 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/) |
 
 ## Common Bit Tricks

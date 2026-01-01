@@ -31,6 +31,7 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 | 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
 | 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-487-max-consecutive-ones-ii/) |
 
 ## 2D DP (grid/path)
 
@@ -53,6 +54,8 @@ int uniquePaths(vector<vector<int>>& g){
 | 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
 | 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | - |
 | 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | - |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
 
 ## Digit DP (count numbers with property)
 

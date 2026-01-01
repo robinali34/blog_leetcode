@@ -72,6 +72,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 | 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-18-4sum/) |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
 | 75 | Sort Colors | [Link](https://leetcode.com/problems/sort-colors/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-75-sort-colors/) |
+| 360 | Sort Transformed Array | [Link](https://leetcode.com/problems/sort-transformed-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-360-sort-transformed-array/) |
 
 ## Sliding Window
 
@@ -119,6 +120,7 @@ int longestSubarray(vector<int>& nums, int k) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 209 | Minimum Size Subarray Sum | [Link](https://leetcode.com/problems/minimum-size-subarray-sum/) | - |
+| 683 | K Empty Slots | [Link](https://leetcode.com/problems/k-empty-slots/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-683-k-empty-slots/) |
 | 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | - |
 
 ## Prefix Sum
@@ -296,6 +298,7 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
 | 48 | Rotate Image | [Link](https://leetcode.com/problems/rotate-image/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/) |
 | 54 | Spiral Matrix | [Link](https://leetcode.com/problems/spiral-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) |
 | 59 | Spiral Matrix II | [Link](https://leetcode.com/problems/spiral-matrix-ii/) | - |
+| 661 | Image Smoother | [Link](https://leetcode.com/problems/image-smoother/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-661-image-smoother/) |
 
 ## Array Manipulation
 

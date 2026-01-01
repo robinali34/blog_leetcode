@@ -135,6 +135,7 @@ vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s)
 |---|---|---|---|
 | 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) | - |
 | 1631 | Path With Minimum Effort | [Link](https://leetcode.com/problems/path-with-minimum-effort/) | - |
+| 1976 | Number of Ways to Arrive at Destination | [Link](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/28/medium-1976-number-of-ways-to-arrive-at-destination/) |
 
 ## 0-1 BFS (weights 0 or 1)
 
@@ -299,7 +300,8 @@ class WeightedUnionFind {
 |---|---|---|---|
 | 323 | Number of Connected Components in an Undirected Graph | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | - |
 | 547 | Number of Provinces | [Link](https://leetcode.com/problems/number-of-provinces/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) |
-| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | - |
+| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/29/medium-684-redundant-connection/) |
+| 685 | Redundant Connection II | [Link](https://leetcode.com/problems/redundant-connection-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/hard-685-redundant-connection-ii/) |
 | 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) | - |
 | 990 | Satisfiability of Equality Equations | [Link](https://leetcode.com/problems/satisfiability-of-equality-equations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) |
 | 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) |

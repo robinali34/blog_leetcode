@@ -37,6 +37,7 @@ vector<int> nextGreater(vector<int>& a){
 |---|---|---|---|
 | 739 | Daily Temperatures | [Link](https://leetcode.com/problems/daily-temperatures/) | - |
 | 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
+| 496 | Next Greater Element I | [Link](https://leetcode.com/problems/next-greater-element-i/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/easy-496-next-greater-element-i/) |
 | 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) |
 
 ## Monotonic Queue (sliding window extrema)
@@ -92,7 +93,7 @@ struct DSU{
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | - |
+| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/29/medium-684-redundant-connection/) |
 | 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) | - |
 | 1319 | Number of Operations to Make Network Connected | [Link](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) | - |
 
@@ -143,3 +144,5 @@ struct BIT{ int n; vector<long long> f; BIT(int n):n(n),f(n+1,0){}
 |---|---|---|---|
 | 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | - |
 | 307 | Range Sum Query – Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | - |
+| 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-308-range-sum-query-2d-mutable/) |
+| 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-715-range-module/) |
