@@ -216,7 +216,7 @@ Integer division automatically rounds down:
 ### **Approach 2: Direction Array**
 - **Time**: O(m × n)
 - **Space**: O(m × n)
-- **Use direction offsets**: `int dirs[9][2] = {{-1,-1}, {-1,0}, ...}`
+- **Use direction offsets**: `int dirs[9][2] = {% raw %}{{-1,-1}, {-1,0}, ...}{% endraw %}`
 
 ### **Approach 3: In-Place with Temporary Storage**
 - **Time**: O(m × n)
