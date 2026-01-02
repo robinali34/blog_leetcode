@@ -166,6 +166,7 @@ vector<int> getModifiedArray(int length, vector<vector<int>>& updates) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) |
 | 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
 | 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) |
 | 370 | Range Addition | [Link](https://leetcode.com/problems/range-addition/) | - |
