@@ -209,11 +209,12 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 455 | Assign Cookies | [Link](https://leetcode.com/problems/assign-cookies/) | - |
-| 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | - |
+| 455 | Assign Cookies | [Link](https://leetcode.com/problems/assign-cookies/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-455-assign-cookies/) |
+| 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-860-lemonade-change/) |
 | 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | - |
 | 406 | Queue Reconstruction by Height | [Link](https://leetcode.com/problems/queue-reconstruction-by-height/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) |
 | 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | - |
+| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
 | 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | - |
 | 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | - |
 | 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | - |
@@ -224,7 +225,7 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 |---|---|---|---|
 | 763 | Partition Labels | [Link](https://leetcode.com/problems/partition-labels/) | - |
 | 621 | Task Scheduler | [Link](https://leetcode.com/problems/task-scheduler/) | - |
-| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | - |
+| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
 | 55 | Jump Game | [Link](https://leetcode.com/problems/jump-game/) | - |
 | 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) |
 | 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
