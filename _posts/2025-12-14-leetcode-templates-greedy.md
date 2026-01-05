@@ -146,6 +146,46 @@ int maxProfit(vector<int>& prices) {
     }
     return profit;
 }
+
+// Candy - Greedy with sequence tracking
+int candy(vector<int>& ratings) {
+    const int N = ratings.size();
+    int rtn = 1;
+    int inc = 1, dec = 0, pre = 1;
+    for(int i = 1; i < N; i++) {
+        if(ratings[i] >= ratings[i - 1]) {
+            dec = 0;
+            pre = ratings[i] == ratings[i - 1] ? 1: pre + 1;
+            rtn += pre;
+            inc = pre;
+        } else {
+            dec++;
+            if(dec == inc) {
+                dec++;
+            }
+            rtn += dec;
+            pre = 1;
+        }
+    }
+    return rtn;
+}
+
+// Wiggle Subsequence - Greedy with difference tracking
+int wiggleMaxLength(vector<int>& nums) {
+    const int N = nums.size();
+    if(N < 2) return N;
+    int prevDiff = nums[1] - nums[0];
+    int rtn = prevDiff != 0? 2 : 1;
+    for(int i = 2; i < N; i++) {
+        int diff = nums[i] - nums[i - 1];
+        if((diff > 0 && prevDiff <= 0) ||
+            diff < 0 && prevDiff >= 0) {
+                rtn++;
+                prevDiff = diff;
+            }
+    }
+    return rtn;
+}
 ```
 
 ## Greedy on Strings
@@ -262,6 +302,35 @@ int minCostToMoveChips(vector<int>& position) {
     return min(odd, even);  // Move minority parity to majority
 }
 
+// Two City Scheduling - Sort by cost difference
+int twoCitySchedCost(vector<vector<int>>& costs) {
+    sort(costs.begin(), costs.end(), [](auto& u, auto&v) {
+        return (u[0] - u[1] < v[0] - v[1]);
+    });
+    int total = 0;
+    const int N = costs.size() / 2;
+    for(int i = 0; i < N; i++) {
+        total += costs[i][0] + costs[i + N][1];
+    }
+    return total;
+}
+
+// Find Valid Matrix Given Row and Column Sums - Greedy two pointers
+vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+    const int N = rowSum.size(), M = colSum.size();
+    vector<vector<int>> matrix(N, vector<int>(M, 0));
+    int i = 0, j = 0;
+    while(i < N && j < M) {
+        int v = min(rowSum[i], colSum[j]);
+        matrix[i][j] = v;
+        rowSum[i] -= v;
+        colSum[j] -= v;
+        if(rowSum[i] == 0) i++;
+        if(colSum[j] == 0) j++;
+    }
+    return matrix;
+}
+
 // Queue Reconstruction by Height
 vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
     sort(people.begin(), people.end(), [](const vector<int>& a, const vector<int>& b) {
@@ -285,11 +354,11 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 | 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-860-lemonade-change/) |
 | 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-392-is-subsequence/) |
 | 406 | Queue Reconstruction by Height | [Link](https://leetcode.com/problems/queue-reconstruction-by-height/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) |
-| 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | - |
+| 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-53-maximum-subarray/) |
 | 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
 | 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/) |
 | 561 | Array Partition | [Link](https://leetcode.com/problems/array-partition/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-561-array-partition/) |
-| 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | - |
+| 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1029-two-city-scheduling/) |
 | 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/) |
 | 1710 | Maximum Units on a Truck | [Link](https://leetcode.com/problems/maximum-units-on-a-truck/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1710-maximum-units-on-a-truck/) |
 | 1217 | Minimum Cost to Move Chips to The Same Position | [Link](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/) |
@@ -308,12 +377,14 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 | 1024 | Video Stitching | [Link](https://leetcode.com/problems/video-stitching/) | - |
 | 1247 | Minimum Swaps to Make Strings Equal | [Link](https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/) |
 | 1400 | Construct K Palindrome Strings | [Link](https://leetcode.com/problems/construct-k-palindrome-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1400-construct-k-palindrome-strings/) |
+| 1605 | Find Valid Matrix Given Row and Column Sums | [Link](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1605-find-valid-matrix-given-row-and-column-sums/) |
+| 376 | Wiggle Subsequence | [Link](https://leetcode.com/problems/wiggle-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-376-wiggle-subsequence/) |
 
 ## Hard Problems
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 135 | Candy | [Link](https://leetcode.com/problems/candy/) | - |
+| 135 | Candy | [Link](https://leetcode.com/problems/candy/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/hard-135-candy/) |
 | 871 | Minimum Number of Refueling Stops | [Link](https://leetcode.com/problems/minimum-number-of-refueling-stops/) | - |
 | 818 | Race Car | [Link](https://leetcode.com/problems/race-car/) | - |
 | 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |

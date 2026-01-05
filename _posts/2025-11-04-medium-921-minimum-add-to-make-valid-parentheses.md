@@ -54,23 +54,25 @@ Explanation: Need to add 2 '(' at the beginning and 2 ')' at the end
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1)
 
-Use a counter to track unmatched opening parentheses. When we see a closing parenthesis, decrement if possible, otherwise we need to add an opening parenthesis. At the end, add closing parentheses for any remaining unmatched opening parentheses.
+Use counters to track unmatched opening and closing parentheses. When we see a closing parenthesis, match it with an existing opening if possible, otherwise we need to add an opening parenthesis. At the end, add closing parentheses for any remaining unmatched opening parentheses.
 
 ```cpp
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        int open = 0, minAdd = 0;
-        
-        for(char c: s) {
-            if(c == '(') {
-                open++;
-            } else {
-                open > 0 ? open--: minAdd++;
+        int left = 0, right = 0;
+        for(char ch: s) {
+            if(ch == '(') {
+                left++;
+            } else if (ch == ')') {
+                if(left > 0) {
+                    left--;
+                } else {
+                    right++;
+                }
             }
         }
-        
-        return minAdd + open;
+        return left + right;
     }
 };
 ```
@@ -79,23 +81,23 @@ public:
 
 ### Key Insight: Balance Tracking
 
-- **`open`**: Counts unmatched opening parentheses
-- **`minAdd`**: Counts closing parentheses we need to add
+- **`left`**: Counts unmatched opening parentheses
+- **`right`**: Counts unmatched closing parentheses (need to add opening parentheses)
 - **Greedy approach**: Match closing parentheses immediately when possible
 
 ### Step-by-Step Example: `s = "()))(("`
 
-| Step | Char | `open` | `minAdd` | Action | Reason |
-|------|------|--------|----------|--------|--------|
+| Step | Char | `left` | `right` | Action | Reason |
+|------|------|--------|---------|--------|--------|
 | Initial | - | 0 | 0 | - | - |
-| 1 | `(` | 1 | 0 | Increment `open` | New opening |
-| 2 | `)` | 0 | 0 | Decrement `open` | Matched with existing `(` |
-| 3 | `)` | 0 | 1 | Increment `minAdd` | No `(` to match, need to add one |
-| 4 | `)` | 0 | 2 | Increment `minAdd` | No `(` to match, need to add one |
-| 5 | `(` | 1 | 2 | Increment `open` | New opening |
-| 6 | `(` | 2 | 2 | Increment `open` | New opening |
+| 1 | `(` | 1 | 0 | Increment `left` | New opening |
+| 2 | `)` | 0 | 0 | Decrement `left` | Matched with existing `(` |
+| 3 | `)` | 0 | 1 | Increment `right` | No `(` to match, need to add one |
+| 4 | `)` | 0 | 2 | Increment `right` | No `(` to match, need to add one |
+| 5 | `(` | 1 | 2 | Increment `left` | New opening |
+| 6 | `(` | 2 | 2 | Increment `left` | New opening |
 
-**Final:** `minAdd = 2` (need to add 2 `(`), `open = 2` (need to add 2 `)`)  
+**Final:** `right = 2` (need to add 2 `(`), `left = 2` (need to add 2 `)`)  
 **Total:** `2 + 2 = 4`
 
 ### Visual Representation
@@ -105,70 +107,74 @@ s = "()))(("
      ( ) ) ) ( (
      0 1 2 3 4 5
      
-Step 1: '(' → open = 1
+Step 1: '(' → left = 1
   Need: 1 '(' unmatched
   
-Step 2: ')' → open = 0
+Step 2: ')' → left = 0
   Matched! Now balanced
   
-Step 3: ')' → minAdd = 1
+Step 3: ')' → right = 1
   No '(' to match → need to add 1 '('
   
-Step 4: ')' → minAdd = 2
+Step 4: ')' → right = 2
   No '(' to match → need to add 1 '('
   
-Step 5: '(' → open = 1
+Step 5: '(' → left = 1
   Need: 1 '(' unmatched
   
-Step 6: '(' → open = 2
+Step 6: '(' → left = 2
   Need: 2 '(' unmatched → need to add 2 ')'
 
-Final: minAdd = 2 (add '('), open = 2 (add ')')
+Final: right = 2 (add '('), left = 2 (add ')')
 Total: 4 additions
 ```
 
 ## Key Insights
 
-1. **Counter-Based**: Use a counter instead of stack for single bracket type
+1. **Counter-Based**: Use counters instead of stack for single bracket type
 2. **Greedy Matching**: Match closing parentheses immediately when possible
 3. **Two Types of Deficits**:
-   - **Unmatched closing**: Tracked by `minAdd` (need to add opening)
-   - **Unmatched opening**: Tracked by `open` (need to add closing)
-4. **Final Answer**: Sum of both deficits
+   - **Unmatched closing**: Tracked by `right` (need to add opening)
+   - **Unmatched opening**: Tracked by `left` (need to add closing)
+4. **Final Answer**: Sum of both deficits (`left + right`)
 
 ## Algorithm Breakdown
 
 ### 1. Initialize Counters
 ```cpp
-int open = 0, minAdd = 0;
+int left = 0, right = 0;
 ```
-- **`open`**: Tracks unmatched opening parentheses
-- **`minAdd`**: Tracks closing parentheses we need to add
+- **`left`**: Tracks unmatched opening parentheses
+- **`right`**: Tracks unmatched closing parentheses (need to add opening)
 
 ### 2. Process Opening Parentheses
 ```cpp
-if(c == '(') {
-    open++;
+if(ch == '(') {
+    left++;
 }
 ```
-- Increment `open` counter
+- Increment `left` counter
 - This represents an opening that needs to be closed later
 
 ### 3. Process Closing Parentheses
 ```cpp
-else {
-    open > 0 ? open--: minAdd++;
+else if (ch == ')') {
+    if(left > 0) {
+        left--;
+    } else {
+        right++;
+    }
 }
 ```
-- **If `open > 0`**: Match with existing opening → decrement `open`
-- **If `open == 0`**: No opening to match → increment `minAdd` (need to add an opening)
+- **If `left > 0`**: Match with existing opening → decrement `left`
+- **If `left == 0`**: No opening to match → increment `right` (need to add an opening)
 
 ### 4. Calculate Final Answer
 ```cpp
-return minAdd + open;
+return left + right;
 ```
-- **`minAdd`**: Number of opening parentheses to add (for unmatched closing)
-- **`open`**: Number of closing parentheses to add (for unmatched opening)
+- **`right`**: Number of opening parentheses to add (for unmatched closing)
+- **`left`**: Number of closing parentheses to add (for unmatched opening)
 - **Sum**: Total minimum additions needed
 
 ## Complexity Analysis
@@ -206,30 +212,33 @@ int minAddToMakeValid(string s) {
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n) - Stack can hold up to n elements
 
-### Approach 2: Two-Pass (Left to Right, Right to Left)
+### Approach 2: Stack-Based (More Verbose)
 
 ```cpp
 int minAddToMakeValid(string s) {
-    int left = 0, right = 0;
+    stack<char> st;
+    int right = 0;
     
-    // Left to right: count unmatched ')'
     for(char c: s) {
         if(c == '(') {
-            left++;
+            st.push(c);
         } else {
-            if(left > 0) left--;
-            else right++;
+            if(st.empty()) {
+                right++;  // Need to add '('
+            } else {
+                st.pop();  // Match found
+            }
         }
     }
     
-    return left + right;
+    return right + st.size();  // Add ')' for remaining '('
 }
 ```
 
 **Time Complexity:** O(n)  
-**Space Complexity:** O(1)
+**Space Complexity:** O(n) - Stack can hold up to n elements
 
-**Note:** This is essentially the same as the counter approach, just with different variable names.
+**Note:** This approach uses a stack, which is more memory-intensive than the counter approach.
 
 ### Approach 3: Dynamic Programming (Overkill)
 
@@ -257,8 +266,8 @@ int minAddToMakeValid(string s) {
 
 ## Common Mistakes
 
-1. **Only tracking one type**: Forgetting to add `open` at the end
-2. **Wrong condition**: Using `open >= 0` instead of `open > 0`
+1. **Only tracking one type**: Forgetting to add `left` at the end
+2. **Wrong condition**: Using `left >= 0` instead of `left > 0`
 3. **Not greedy**: Trying to optimize placement instead of just counting
 4. **Off-by-one errors**: In length calculations
 
@@ -268,78 +277,78 @@ int minAddToMakeValid(string s) {
 
 ```
 Step 0: Initialize
-  open = 0
-  minAdd = 0
+  left = 0
+  right = 0
 
-Step 1: c = '('
-  Opening → open = 1
-  State: open=1, minAdd=0
+Step 1: ch = '('
+  Opening → left = 1
+  State: left=1, right=0
 
-Step 2: c = ')'
-  Closing → open > 0? Yes → open = 0
-  State: open=0, minAdd=0
+Step 2: ch = ')'
+  Closing → left > 0? Yes → left = 0
+  State: left=0, right=0
 
-Step 3: c = ')'
-  Closing → open > 0? No → minAdd = 1
-  State: open=0, minAdd=1
+Step 3: ch = ')'
+  Closing → left > 0? No → right = 1
+  State: left=0, right=1
 
-Final: minAdd + open = 1 + 0 = 1 ✓
+Final: left + right = 0 + 1 = 1 ✓
 ```
 
 ### Example 2: `s = "((("`
 
 ```
 Step 0: Initialize
-  open = 0
-  minAdd = 0
+  left = 0
+  right = 0
 
-Step 1: c = '('
-  Opening → open = 1
-  State: open=1, minAdd=0
+Step 1: ch = '('
+  Opening → left = 1
+  State: left=1, right=0
 
-Step 2: c = '('
-  Opening → open = 2
-  State: open=2, minAdd=0
+Step 2: ch = '('
+  Opening → left = 2
+  State: left=2, right=0
 
-Step 3: c = '('
-  Opening → open = 3
-  State: open=3, minAdd=0
+Step 3: ch = '('
+  Opening → left = 3
+  State: left=3, right=0
 
-Final: minAdd + open = 0 + 3 = 3 ✓
+Final: left + right = 3 + 0 = 3 ✓
 ```
 
 ### Example 3: `s = "()))(("`
 
 ```
 Step 0: Initialize
-  open = 0
-  minAdd = 0
+  left = 0
+  right = 0
 
-Step 1: c = '('
-  Opening → open = 1
-  State: open=1, minAdd=0
+Step 1: ch = '('
+  Opening → left = 1
+  State: left=1, right=0
 
-Step 2: c = ')'
-  Closing → open > 0? Yes → open = 0
-  State: open=0, minAdd=0
+Step 2: ch = ')'
+  Closing → left > 0? Yes → left = 0
+  State: left=0, right=0
 
-Step 3: c = ')'
-  Closing → open > 0? No → minAdd = 1
-  State: open=0, minAdd=1
+Step 3: ch = ')'
+  Closing → left > 0? No → right = 1
+  State: left=0, right=1
 
-Step 4: c = ')'
-  Closing → open > 0? No → minAdd = 2
-  State: open=0, minAdd=2
+Step 4: ch = ')'
+  Closing → left > 0? No → right = 2
+  State: left=0, right=2
 
-Step 5: c = '('
-  Opening → open = 1
-  State: open=1, minAdd=2
+Step 5: ch = '('
+  Opening → left = 1
+  State: left=1, right=2
 
-Step 6: c = '('
-  Opening → open = 2
-  State: open=2, minAdd=2
+Step 6: ch = '('
+  Opening → left = 2
+  State: left=2, right=2
 
-Final: minAdd + open = 2 + 2 = 4 ✓
+Final: left + right = 2 + 2 = 4 ✓
 ```
 
 ## Why This Greedy Approach Works
