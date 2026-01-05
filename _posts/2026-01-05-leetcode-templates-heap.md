@@ -48,8 +48,18 @@ Min heap keeps the smallest element at the top.
 #include <queue>
 #include <vector>
 
-// Min heap (smallest element at top)
+// Min heap (smallest element at top) - using greater<>
 priority_queue<int, vector<int>, greater<int>> minHeap;
+
+// Min heap using greater<> (C++14+)
+priority_queue<int, vector<int>, greater<>> minHeap2;
+
+// Min heap using lambda comparator (decltype required)
+auto minCmp = [](int a, int b) { return a > b; };
+priority_queue<int, vector<int>, decltype(minCmp)> minHeap3(minCmp);
+
+// Note: decltype is REQUIRED for lambdas because each lambda has a unique type
+// You cannot use: priority_queue<int, vector<int>, [](auto& a, auto& b) { return a > b; }>  // ❌ Invalid
 
 // Basic operations
 minHeap.push(5);
@@ -92,6 +102,16 @@ Max heap keeps the largest element at the top (default in C++).
 
 // Max heap (largest element at top) - default
 priority_queue<int> maxHeap;
+
+// Max heap explicitly using less<> (default comparator)
+priority_queue<int, vector<int>, less<int>> maxHeap2;
+
+// Max heap using lambda comparator (decltype required)
+auto maxCmp = [](int a, int b) { return a < b; };
+priority_queue<int, vector<int>, decltype(maxCmp)> maxHeap3(maxCmp);
+
+// Note: decltype is REQUIRED for lambdas because each lambda has a unique type
+// You cannot use: priority_queue<int, vector<int>, [](auto& a, auto& b) { return a < b; }>  // ❌ Invalid
 
 // Basic operations
 maxHeap.push(5);
