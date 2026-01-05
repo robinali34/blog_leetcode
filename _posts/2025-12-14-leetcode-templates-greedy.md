@@ -164,6 +164,39 @@ bool isSubsequence(string s, string t) {
     }
     return i == s.length();
 }
+
+// Minimum Swaps to Make Strings Equal - Mismatch pairing
+int minimumSwap(string s1, string s2) {
+    int xy = 0, yx = 0;
+    for(int i = 0; i < (int) s1.length(); i++) {
+        if(s1[i] == 'x' && s2[i] == 'y') {
+            xy++;
+        } else if(s1[i] == 'y' && s2[i] == 'x') {
+            yx++;
+        }
+    }
+    if((xy + yx) % 2 == 1) {
+        return -1;  // Impossible if odd total mismatches
+    }
+    return xy / 2 + yx / 2 + xy % 2 + yx % 2;
+}
+
+// Construct K Palindrome Strings - Frequency-based greedy
+bool canConstruct(string s, int k) {
+    int right = s.length();
+    int occ[26] = {0};
+    for(char ch: s) {
+        occ[ch - 'a']++;
+    }
+    int left = 0;
+    for(int i = 0; i < 26; i++) {
+        if(occ[i] % 2 == 1) {
+            left++;
+        }
+    }
+    left = max(left, 1);
+    return left <= k && k <= right;
+}
 ```
 
 ## Greedy with Sorting
@@ -190,6 +223,45 @@ int findContentChildren(vector<int>& g, vector<int>& s) {
     return count;
 }
 
+// Array Partition - Maximize sum of minimums
+int arrayPairSum(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+    int sum = 0;
+    for(int i = 0; i < (int)nums.size(); i += 2) {
+        sum += nums[i];
+    }
+    return sum;
+}
+
+// Maximum Units on a Truck - Fractional knapsack style
+int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+    sort(boxTypes.begin(), boxTypes.end(), [](auto& u, auto& v){
+        return u[1] > v[1];  // Sort by units per box (descending)
+    });
+    int remainSize = truckSize;
+    int maximumUnits = 0;
+    for(auto& boxType: boxTypes) {
+        if(remainSize == 0) break;
+        int cnt = min(remainSize, boxType[0]);
+        maximumUnits += cnt * boxType[1];
+        remainSize -= cnt;
+    }
+    return maximumUnits;
+}
+
+// Minimum Cost to Move Chips - Parity-based greedy
+int minCostToMoveChips(vector<int>& position) {
+    int even = 0, odd = 0;
+    for(int pos : position) {
+        if(pos % 2 == 0) {
+            odd++;  // Count even positions
+        } else {
+            even++;  // Count odd positions
+        }
+    }
+    return min(odd, even);  // Move minority parity to majority
+}
+
 // Queue Reconstruction by Height
 vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
     sort(people.begin(), people.end(), [](const vector<int>& a, const vector<int>& b) {
@@ -211,13 +283,16 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 |---|---|---|---|
 | 455 | Assign Cookies | [Link](https://leetcode.com/problems/assign-cookies/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-455-assign-cookies/) |
 | 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-860-lemonade-change/) |
-| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | - |
+| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-392-is-subsequence/) |
 | 406 | Queue Reconstruction by Height | [Link](https://leetcode.com/problems/queue-reconstruction-by-height/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) |
 | 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | - |
 | 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
-| 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | - |
+| 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/) |
+| 561 | Array Partition | [Link](https://leetcode.com/problems/array-partition/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-561-array-partition/) |
 | 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | - |
-| 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | - |
+| 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/) |
+| 1710 | Maximum Units on a Truck | [Link](https://leetcode.com/problems/maximum-units-on-a-truck/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1710-maximum-units-on-a-truck/) |
+| 1217 | Minimum Cost to Move Chips to The Same Position | [Link](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/) |
 
 ## Medium Problems
 
@@ -226,11 +301,13 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 | 763 | Partition Labels | [Link](https://leetcode.com/problems/partition-labels/) | - |
 | 621 | Task Scheduler | [Link](https://leetcode.com/problems/task-scheduler/) | - |
 | 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
-| 55 | Jump Game | [Link](https://leetcode.com/problems/jump-game/) | - |
+| 55 | Jump Game | [Link](https://leetcode.com/problems/jump-game/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-55-jump-game/) |
 | 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) |
 | 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
 | 134 | Gas Station | [Link](https://leetcode.com/problems/gas-station/) | - |
 | 1024 | Video Stitching | [Link](https://leetcode.com/problems/video-stitching/) | - |
+| 1247 | Minimum Swaps to Make Strings Equal | [Link](https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/) |
+| 1400 | Construct K Palindrome Strings | [Link](https://leetcode.com/problems/construct-k-palindrome-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1400-construct-k-palindrome-strings/) |
 
 ## Hard Problems
 

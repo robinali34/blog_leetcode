@@ -41,6 +41,7 @@ int longestNoRepeat(const string& s){
 |---|---|---|---|
 | 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
+| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-392-is-subsequence/) |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
 | 616 | Add Bold Tag in String | [Link](https://leetcode.com/problems/add-bold-tag-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-616-add-bold-tag-in-string/) |
 | 681 | Next Closest Time | [Link](https://leetcode.com/problems/next-closest-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-681-next-closest-time/) |
