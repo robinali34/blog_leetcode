@@ -164,6 +164,28 @@ pq.push({3, 7});
 pq.top(); // Returns {2, 3} (smallest frequency)
 ```
 
+```cpp
+// Custom struct with comparator: min heap by cost
+struct Node {
+    int cost;
+    int id;
+};
+
+struct Compare {
+    bool operator()(const Node& a, const Node& b) {
+        return a.cost > b.cost; // Min heap (smaller cost on top)
+    }
+};
+
+priority_queue<Node, vector<Node>, Compare> pq;
+
+// Example usage
+pq.push({10, 1}); // cost 10, id 1
+pq.push({5, 2});  // cost 5, id 2
+pq.push({15, 3}); // cost 15, id 3
+pq.top(); // Returns {5, 2} (smallest cost)
+```
+
 ### Using Lambda
 
 ```cpp
@@ -356,6 +378,57 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
 }
 ```
 
+### Kth Largest Element in an Array (LC 215)
+
+**Solution 1: Min Heap (O(n log k))**
+
+Keep a min heap of size k. The top element will be the kth largest.
+
+```cpp
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<>> minHeap;
+        for(int num: nums) {
+            minHeap.push(num);
+            if(minHeap.size() > k) minHeap.pop();
+        }
+        return minHeap.top();
+    }
+};
+```
+
+**Solution 2: QuickSelect (O(n) average, O(n²) worst case)**
+
+Use partition-based selection algorithm.
+
+```cpp
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        const int N = nums.size();
+        return quickSelect(nums, 0, N - 1, N - k);
+    }
+private:
+    int quickSelect(vector<int>& nums, int l, int r, int k) {
+        if(l == r) return nums[k];
+        int pivot = nums[l], i = l - 1, j = r + 1;
+        while(i < j) {
+            do i++; while(nums[i] < pivot);
+            do j--; while(nums[j] > pivot);
+            if(i < j)
+                swap(nums[i], nums[j]);
+        }
+        if(k <= j) return quickSelect(nums, l, j, k);
+        else return quickSelect(nums, j + 1, r, k);
+    }
+};
+```
+
+**Comparison:**
+- **Heap**: O(n log k) time, O(k) space - Simple and efficient for small k
+- **QuickSelect**: O(n) average time, O(n²) worst case, O(1) space - Better for large k
+
 ## Two Heaps
 
 Maintain two heaps to find median or balance elements.
@@ -461,7 +534,7 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>& graph, int start) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 23 | Merge k Sorted Lists | [Link](https://leetcode.com/problems/merge-k-sorted-lists/) | - |
-| 215 | Kth Largest Element in an Array | [Link](https://leetcode.com/problems/kth-largest-element-in-an-array/) | - |
+| 215 | Kth Largest Element in an Array | [Link](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/05/medium-215-kth-largest-element-in-an-array/) |
 | 253 | Meeting Rooms II | [Link](https://leetcode.com/problems/meeting-rooms-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/) |
 | 295 | Find Median from Data Stream | [Link](https://leetcode.com/problems/find-median-from-data-stream/) | - |
 | 347 | Top K Frequent Elements | [Link](https://leetcode.com/problems/top-k-frequent-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-347-top-k-frequent-elements/) |
