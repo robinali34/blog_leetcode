@@ -218,215 +218,130 @@ private:
 - QuickSelect finds the element at position `k` without fully sorting
 - Only recurses on the partition containing the target element
 
-### Detailed Walkthrough: QuickSelect Example
+### Example Walkthrough
 
-Let's trace through an example to understand how QuickSelect works:
-
-**Input:** `nums = [3, 2, 1, 5, 6, 4]`, `k = 2` (find 2nd largest)
-
-**Step 1: Convert kth largest to position**
-- Array size: `N = 6`
-- 2nd largest = (6-2)th smallest = 4th smallest (0-indexed: position 4)
-- We need to find element at position 4 in sorted order
-
-**Step 2: Initial Call**
+**Input:**
 ```
-quickSelect([3,2,1,5,6,4], l=0, r=5, k=4)
+nums = [3, 2, 3, 1, 2, 4, 5, 5, 6]
+k = 4
 ```
 
-**Step 3: First Partition (l=0, r=5, k=4)**
-
-**Initial state:**
+**We search for index:**
 ```
-Array: [3, 2, 1, 5, 6, 4]
-       l=0              r=5
-       pivot = nums[0] = 3
-       i = -1, j = 6
+N - k = 9 - 4 = 5
 ```
 
-**Hoare's Partition Process:**
+**First call:**
+```
+quickSelect(nums, l=0, r=8, k=5)
+pivot = nums[0] = 3
+i = -1, j = 9 (initial)
+```
 
-1. **Move i right** until `nums[i] >= pivot`:
-   - `i = 0`: `nums[0] = 3 >= 3` ✓ (stop)
-
-2. **Move j left** until `nums[j] <= pivot`:
-   - `j = 5`: `nums[5] = 4 > 3` (continue)
-   - `j = 4`: `nums[4] = 6 > 3` (continue)
-   - `j = 3`: `nums[3] = 5 > 3` (continue)
-   - `j = 2`: `nums[2] = 1 <= 3` ✓ (stop)
-
-3. **Check if i < j**: `0 < 2` ✓, so swap:
-   ```
-   Array: [1, 2, 3, 5, 6, 4]
-          i=0      j=2
-   ```
-
-4. **Continue loop**:
-   - Move i right: `i = 1`: `nums[1] = 2 < 3` (continue)
-   - `i = 2`: `nums[2] = 3 >= 3` ✓ (stop)
-   - Move j left: `j = 1`: `nums[1] = 2 <= 3` ✓ (stop)
-   - Check: `2 < 1` ✗ (loop ends)
+**Partition process:**
+- Move i right: i=0 (nums[0]=3 >= 3)
+- Move j left: j=8 (nums[8]=6 > 3), j=7 (nums[7]=5 > 3), j=6 (nums[6]=5 > 3), j=5 (nums[5]=4 > 3), j=4 (nums[4]=2 <= 3)
+- Swap nums[0] and nums[4]
+- Continue: i=1 (nums[1]=2 < 3), i=2 (nums[2]=3 >= 3)
+- Continue: j=3 (nums[3]=1 <= 3)
+- Swap nums[2] and nums[3]
+- Continue: i=3 (nums[3]=3 >= 3)
+- Continue: j=2 (nums[2]=1 <= 3)
+- Loop ends: i=3, j=2
 
 **After partition:**
 ```
-Array: [1, 2, 3, 5, 6, 4]
-       l=0  j=1  i=2  r=5
-       
-Left partition (l to j): [1, 2]  (elements <= pivot)
-Right partition (j+1 to r): [3, 5, 6, 4]  (elements > pivot)
-Pivot position: j = 1
+[2, 2, 1, 3, 3 | 4, 5, 5, 6]
+ l=0        j=2  i=3      r=8
 ```
 
-**Step 4: Decide which partition to recurse**
-
-- `k = 4`, `j = 1`
-- Check: `k <= j`? `4 <= 1`? ✗ (False)
-- So we recurse on **right partition**: `quickSelect(nums, j+1=2, r=5, k=4)`
-
-**Step 5: Second Partition (l=2, r=5, k=4)**
-
-**State:**
 ```
-Array: [1, 2, 3, 5, 6, 4]
-              l=2      r=5
-              pivot = nums[2] = 3
-              i = 1, j = 6
+l=0, r=8, j=2, k=5
+k > j → search right side [j+1, r] = [3, 8]
 ```
 
-**Partition Process:**
+**Second call:**
+```
+quickSelect(nums, l=3, r=8, k=5)
+pivot = nums[3] = 3
+i = 2, j = 9 (initial)
+```
 
-1. Move i right: `i = 2`: `nums[2] = 3 >= 3` ✓
-2. Move j left:
-   - `j = 5`: `nums[5] = 4 > 3` (continue)
-   - `j = 4`: `nums[4] = 6 > 3` (continue)
-   - `j = 3`: `nums[3] = 5 > 3` (continue)
-   - `j = 2`: `nums[2] = 3 <= 3` ✓
-3. Check: `2 < 2` ✗ (no swap, loop ends immediately)
+**Partition process:**
+- Move i right: i=3 (nums[3]=3 >= 3)
+- Move j left: j=8 (nums[8]=6 > 3), j=7 (nums[7]=5 > 3), j=6 (nums[6]=5 > 3), j=5 (nums[5]=4 > 3), j=4 (nums[4]=3 <= 3)
+- Loop ends: i=3, j=4
 
 **After partition:**
 ```
-Array: [1, 2, 3, 5, 6, 4]
-              l=2  j=2  r=5
-              
-Left partition: [] (empty)
-Right partition: [3, 5, 6, 4]
+[2, 2, 1, 3, 3 | 4, 5, 5, 6]
+            l=3  j=4  i=5  r=8
 ```
 
-**Step 6: Decide which partition**
-
-- `k = 4`, `j = 2`
-- Check: `k <= j`? `4 <= 2`? ✗ (False)
-- Recurse on right: `quickSelect(nums, j+1=3, r=5, k=4)`
-
-**Step 7: Third Partition (l=3, r=5, k=4)**
-
-**State:**
 ```
-Array: [1, 2, 3, 5, 6, 4]
-                 l=3  r=5
-                 pivot = nums[3] = 5
-                 i = 2, j = 6
+l=3, r=8, j=4, k=5
+k > j → search right side [j+1, r] = [5, 8]
 ```
 
-**Partition Process:**
+**Third call:**
+```
+quickSelect(nums, l=5, r=8, k=5)
+pivot = nums[5] = 4
+i = 4, j = 9 (initial)
+```
 
-1. Move i right: `i = 3`: `nums[3] = 5 >= 5` ✓
-2. Move j left:
-   - `j = 5`: `nums[5] = 4 <= 5` ✓
-3. Check: `3 < 5` ✓, swap:
-   ```
-   Array: [1, 2, 3, 4, 6, 5]
-                      i=3  j=5
-   ```
-4. Continue:
-   - Move i right: `i = 4`: `nums[4] = 6 >= 5` ✓
-   - Move j left: `j = 4`: `nums[4] = 6 > 5` (continue)
-   - `j = 3`: `nums[3] = 4 <= 5` ✓
-   - Check: `4 < 3` ✗ (loop ends)
+**Partition process:**
+- Move i right: i=5 (nums[5]=4 >= 4)
+- Move j left: j=8 (nums[8]=6 > 4), j=7 (nums[7]=5 > 4), j=6 (nums[6]=5 > 4), j=5 (nums[5]=4 <= 4)
+- Loop ends: i=5, j=5
 
 **After partition:**
 ```
-Array: [1, 2, 3, 4, 6, 5]
-                 l=3  j=3  i=4  r=5
-                 
-Left partition: [4] (elements <= 5)
-Right partition: [6, 5] (elements > 5)
+[2, 2, 1, 3, 3, 4 | 5, 5, 6]
+                l=5  j=5  i=6  r=8
 ```
 
-**Step 8: Decide which partition**
-
-- `k = 4`, `j = 3`
-- Check: `k <= j`? `4 <= 3`? ✗ (False)
-- Recurse on right: `quickSelect(nums, j+1=4, r=5, k=4)`
-
-**Step 9: Fourth Partition (l=4, r=5, k=4)**
-
-**State:**
 ```
-Array: [1, 2, 3, 4, 6, 5]
-                    l=4  r=5
-                    pivot = nums[4] = 6
-                    i = 3, j = 6
+l=5, r=8, j=5, k=5
+k <= j → search left side [l, j] = [5, 5]
 ```
 
-**Partition Process:**
-
-1. Move i right: `i = 4`: `nums[4] = 6 >= 6` ✓
-2. Move j left:
-   - `j = 5`: `nums[5] = 5 <= 6` ✓
-3. Check: `4 < 5` ✓, swap:
-   ```
-   Array: [1, 2, 3, 4, 5, 6]
-                       i=4  j=5
-   ```
-4. Continue:
-   - Move i right: `i = 5`: `nums[5] = 6 >= 6` ✓
-   - Move j left: `j = 4`: `nums[4] = 5 <= 6` ✓
-   - Check: `5 < 4` ✗ (loop ends)
-
-**After partition:**
+**Base case:**
 ```
-Array: [1, 2, 3, 4, 5, 6]
-                    l=4  j=4  i=5  r=5
-                    
-Left partition: [5] (elements <= 6)
-Right partition: [6] (elements > 6)
+quickSelect(nums, l=5, r=5, k=5)
+l == r == 5
+return nums[5] = 4
 ```
 
-**Step 10: Decide which partition**
+**✅ Answer = 4**
 
-- `k = 4`, `j = 4`
-- Check: `k <= j`? `4 <= 4`? ✓ (True!)
-- Recurse on left: `quickSelect(nums, l=4, j=4, k=4)`
+### Runtime Analysis
 
-**Step 11: Base Case**
+**Why QuickSelect is O(n) Average Case:**
 
-```
-quickSelect(nums, l=4, r=4, k=4)
-Check: l == r? 4 == 4? ✓
-Return: nums[4] = 5
-```
+1. **Each Partition Step is O(m) where m is the subarray size:**
+   - **First call**: Partitions 9 elements → O(9) time
+   - **Second call**: Partitions 6 elements → O(6) time  
+   - **Third call**: Partitions 4 elements → O(4) time
+   - Each partition makes a single pass through the subarray using two pointers (i and j)
+   - Time per partition = size of subarray being partitioned
 
-**Result:** The 2nd largest element is **5** ✓
+2. **Why the total is O(n) and not O(n²):**
+   - **Key insight**: We only recurse on ONE partition (the one containing k), not both
+   - On average, each partition eliminates roughly **half** the elements
+   - The subarray sizes form a **geometric series**: n + n/2 + n/4 + n/8 + ...
+   - **Geometric series sum**: n × (1 + 1/2 + 1/4 + 1/8 + ...) = n × 2 = **O(n)**
+   - In our example: 9 + 6 + 4 = 19 ≈ 2n (where n=9)
 
-### Understanding Hoare's Partition
+3. **Why worst case is O(n²):**
+   - If pivot is always the smallest/largest element, we eliminate only 1 element per partition
+   - Subarray sizes: n + (n-1) + (n-2) + ... = n(n+1)/2 = **O(n²)**
+   - Can be avoided by randomizing the pivot selection
 
-**Key Points:**
-
-1. **Two Pointers**: `i` starts before left, `j` starts after right
-2. **Move i right**: Until finding element `>= pivot`
-3. **Move j left**: Until finding element `<= pivot`
-4. **Swap if needed**: If `i < j`, swap elements at i and j
-5. **Final position**: After loop, `j` is the last position of left partition
-6. **Partition property**: 
-   - Elements at positions `[l, j]` are `<= pivot`
-   - Elements at positions `[j+1, r]` are `> pivot`
-
-**Why this works:**
-
-- We only recurse on the partition containing our target position `k`
-- Each partition eliminates roughly half the elements on average
-- We never need to fully sort the array, just find the element at position `k`
+4. **Space Complexity:**
+   - **O(1)** extra space per recursive call (only storing l, r, k, pivot, i, j)
+   - **Recursion stack**: O(log n) average depth, O(n) worst case
+   - Total space: O(log n) average, O(n) worst case
 
 ## Comparison of Approaches
 
