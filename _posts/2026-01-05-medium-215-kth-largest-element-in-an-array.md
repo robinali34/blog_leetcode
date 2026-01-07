@@ -95,6 +95,77 @@ public:
 - **Time**: O(n log k) - Each of n elements is pushed/popped from a heap of size k
 - **Space**: O(k) - Heap stores at most k elements
 
+### Detailed Walkthrough: Min Heap Example
+
+Let's trace through an example to understand how the min heap solution works:
+
+**Input:** `nums = [3, 2, 1, 5, 6, 4]`, `k = 2` (find 2nd largest)
+
+**Goal:** Maintain a min heap of size 2 containing the 2 largest elements.
+
+**Step-by-step execution:**
+
+1. **Initialize:** `minHeap = []` (empty)
+
+2. **Process 3:**
+   - Push 3: `minHeap = [3]`
+   - Size = 1 ≤ 2, no pop needed
+   - Heap: `[3]` (top: 3)
+
+3. **Process 2:**
+   - Push 2: `minHeap = [2, 3]` (min heap: 2 at top)
+   - Size = 2 ≤ 2, no pop needed
+   - Heap: `[2, 3]` (top: 2)
+
+4. **Process 1:**
+   - Push 1: `minHeap = [1, 3, 2]` → heapify → `[1, 2, 3]`
+   - Size = 3 > 2, pop smallest: remove 1
+   - Heap: `[2, 3]` (top: 2)
+   - **Note:** We removed 1 (smallest), keeping the 2 largest so far: [2, 3]
+
+5. **Process 5:**
+   - Push 5: `minHeap = [2, 3, 5]` → heapify → `[2, 3, 5]`
+   - Size = 3 > 2, pop smallest: remove 2
+   - Heap: `[3, 5]` (top: 3)
+   - **Note:** We removed 2 (smallest), keeping the 2 largest so far: [3, 5]
+
+6. **Process 6:**
+   - Push 6: `minHeap = [3, 5, 6]` → heapify → `[3, 5, 6]`
+   - Size = 3 > 2, pop smallest: remove 3
+   - Heap: `[5, 6]` (top: 5)
+   - **Note:** We removed 3 (smallest), keeping the 2 largest so far: [5, 6]
+
+7. **Process 4:**
+   - Push 4: `minHeap = [4, 5, 6]` → heapify → `[4, 5, 6]`
+   - Size = 3 > 2, pop smallest: remove 4
+   - Heap: `[5, 6]` (top: 5)
+   - **Note:** We removed 4 (smallest), keeping the 2 largest: [5, 6]
+
+8. **Result:**
+   - Final heap: `[5, 6]` (top: 5)
+   - Return `minHeap.top()` = **5** ✓ (2nd largest)
+
+**Visual representation:**
+
+```
+After each step:
+Step 1: [3]                    → Keep: [3]
+Step 2: [2, 3]                 → Keep: [2, 3]
+Step 3: [1, 2, 3] → pop 1      → Keep: [2, 3]
+Step 4: [2, 3, 5] → pop 2      → Keep: [3, 5]
+Step 5: [3, 5, 6] → pop 3      → Keep: [5, 6]
+Step 6: [4, 5, 6] → pop 4      → Keep: [5, 6]
+
+Final: Top of heap = 5 (2nd largest)
+```
+
+**Key Insight:**
+
+- **Min heap** keeps the **smallest** element at the top
+- By maintaining exactly `k` elements, we keep the `k` largest elements
+- When size exceeds `k`, we remove the smallest (which is the top)
+- After processing all elements, the top is the `kth` largest
+
 ## Solution 2: QuickSelect
 
 ```cpp
@@ -146,6 +217,216 @@ private:
 - We're looking for the element at position `N - k` in sorted order (0-indexed)
 - QuickSelect finds the element at position `k` without fully sorting
 - Only recurses on the partition containing the target element
+
+### Detailed Walkthrough: QuickSelect Example
+
+Let's trace through an example to understand how QuickSelect works:
+
+**Input:** `nums = [3, 2, 1, 5, 6, 4]`, `k = 2` (find 2nd largest)
+
+**Step 1: Convert kth largest to position**
+- Array size: `N = 6`
+- 2nd largest = (6-2)th smallest = 4th smallest (0-indexed: position 4)
+- We need to find element at position 4 in sorted order
+
+**Step 2: Initial Call**
+```
+quickSelect([3,2,1,5,6,4], l=0, r=5, k=4)
+```
+
+**Step 3: First Partition (l=0, r=5, k=4)**
+
+**Initial state:**
+```
+Array: [3, 2, 1, 5, 6, 4]
+       l=0              r=5
+       pivot = nums[0] = 3
+       i = -1, j = 6
+```
+
+**Hoare's Partition Process:**
+
+1. **Move i right** until `nums[i] >= pivot`:
+   - `i = 0`: `nums[0] = 3 >= 3` ✓ (stop)
+
+2. **Move j left** until `nums[j] <= pivot`:
+   - `j = 5`: `nums[5] = 4 > 3` (continue)
+   - `j = 4`: `nums[4] = 6 > 3` (continue)
+   - `j = 3`: `nums[3] = 5 > 3` (continue)
+   - `j = 2`: `nums[2] = 1 <= 3` ✓ (stop)
+
+3. **Check if i < j**: `0 < 2` ✓, so swap:
+   ```
+   Array: [1, 2, 3, 5, 6, 4]
+          i=0      j=2
+   ```
+
+4. **Continue loop**:
+   - Move i right: `i = 1`: `nums[1] = 2 < 3` (continue)
+   - `i = 2`: `nums[2] = 3 >= 3` ✓ (stop)
+   - Move j left: `j = 1`: `nums[1] = 2 <= 3` ✓ (stop)
+   - Check: `2 < 1` ✗ (loop ends)
+
+**After partition:**
+```
+Array: [1, 2, 3, 5, 6, 4]
+       l=0  j=1  i=2  r=5
+       
+Left partition (l to j): [1, 2]  (elements <= pivot)
+Right partition (j+1 to r): [3, 5, 6, 4]  (elements > pivot)
+Pivot position: j = 1
+```
+
+**Step 4: Decide which partition to recurse**
+
+- `k = 4`, `j = 1`
+- Check: `k <= j`? `4 <= 1`? ✗ (False)
+- So we recurse on **right partition**: `quickSelect(nums, j+1=2, r=5, k=4)`
+
+**Step 5: Second Partition (l=2, r=5, k=4)**
+
+**State:**
+```
+Array: [1, 2, 3, 5, 6, 4]
+              l=2      r=5
+              pivot = nums[2] = 3
+              i = 1, j = 6
+```
+
+**Partition Process:**
+
+1. Move i right: `i = 2`: `nums[2] = 3 >= 3` ✓
+2. Move j left:
+   - `j = 5`: `nums[5] = 4 > 3` (continue)
+   - `j = 4`: `nums[4] = 6 > 3` (continue)
+   - `j = 3`: `nums[3] = 5 > 3` (continue)
+   - `j = 2`: `nums[2] = 3 <= 3` ✓
+3. Check: `2 < 2` ✗ (no swap, loop ends immediately)
+
+**After partition:**
+```
+Array: [1, 2, 3, 5, 6, 4]
+              l=2  j=2  r=5
+              
+Left partition: [] (empty)
+Right partition: [3, 5, 6, 4]
+```
+
+**Step 6: Decide which partition**
+
+- `k = 4`, `j = 2`
+- Check: `k <= j`? `4 <= 2`? ✗ (False)
+- Recurse on right: `quickSelect(nums, j+1=3, r=5, k=4)`
+
+**Step 7: Third Partition (l=3, r=5, k=4)**
+
+**State:**
+```
+Array: [1, 2, 3, 5, 6, 4]
+                 l=3  r=5
+                 pivot = nums[3] = 5
+                 i = 2, j = 6
+```
+
+**Partition Process:**
+
+1. Move i right: `i = 3`: `nums[3] = 5 >= 5` ✓
+2. Move j left:
+   - `j = 5`: `nums[5] = 4 <= 5` ✓
+3. Check: `3 < 5` ✓, swap:
+   ```
+   Array: [1, 2, 3, 4, 6, 5]
+                      i=3  j=5
+   ```
+4. Continue:
+   - Move i right: `i = 4`: `nums[4] = 6 >= 5` ✓
+   - Move j left: `j = 4`: `nums[4] = 6 > 5` (continue)
+   - `j = 3`: `nums[3] = 4 <= 5` ✓
+   - Check: `4 < 3` ✗ (loop ends)
+
+**After partition:**
+```
+Array: [1, 2, 3, 4, 6, 5]
+                 l=3  j=3  i=4  r=5
+                 
+Left partition: [4] (elements <= 5)
+Right partition: [6, 5] (elements > 5)
+```
+
+**Step 8: Decide which partition**
+
+- `k = 4`, `j = 3`
+- Check: `k <= j`? `4 <= 3`? ✗ (False)
+- Recurse on right: `quickSelect(nums, j+1=4, r=5, k=4)`
+
+**Step 9: Fourth Partition (l=4, r=5, k=4)**
+
+**State:**
+```
+Array: [1, 2, 3, 4, 6, 5]
+                    l=4  r=5
+                    pivot = nums[4] = 6
+                    i = 3, j = 6
+```
+
+**Partition Process:**
+
+1. Move i right: `i = 4`: `nums[4] = 6 >= 6` ✓
+2. Move j left:
+   - `j = 5`: `nums[5] = 5 <= 6` ✓
+3. Check: `4 < 5` ✓, swap:
+   ```
+   Array: [1, 2, 3, 4, 5, 6]
+                       i=4  j=5
+   ```
+4. Continue:
+   - Move i right: `i = 5`: `nums[5] = 6 >= 6` ✓
+   - Move j left: `j = 4`: `nums[4] = 5 <= 6` ✓
+   - Check: `5 < 4` ✗ (loop ends)
+
+**After partition:**
+```
+Array: [1, 2, 3, 4, 5, 6]
+                    l=4  j=4  i=5  r=5
+                    
+Left partition: [5] (elements <= 6)
+Right partition: [6] (elements > 6)
+```
+
+**Step 10: Decide which partition**
+
+- `k = 4`, `j = 4`
+- Check: `k <= j`? `4 <= 4`? ✓ (True!)
+- Recurse on left: `quickSelect(nums, l=4, j=4, k=4)`
+
+**Step 11: Base Case**
+
+```
+quickSelect(nums, l=4, r=4, k=4)
+Check: l == r? 4 == 4? ✓
+Return: nums[4] = 5
+```
+
+**Result:** The 2nd largest element is **5** ✓
+
+### Understanding Hoare's Partition
+
+**Key Points:**
+
+1. **Two Pointers**: `i` starts before left, `j` starts after right
+2. **Move i right**: Until finding element `>= pivot`
+3. **Move j left**: Until finding element `<= pivot`
+4. **Swap if needed**: If `i < j`, swap elements at i and j
+5. **Final position**: After loop, `j` is the last position of left partition
+6. **Partition property**: 
+   - Elements at positions `[l, j]` are `<= pivot`
+   - Elements at positions `[j+1, r]` are `> pivot`
+
+**Why this works:**
+
+- We only recurse on the partition containing our target position `k`
+- Each partition eliminates roughly half the elements on average
+- We never need to fully sort the array, just find the element at position `k`
 
 ## Comparison of Approaches
 
