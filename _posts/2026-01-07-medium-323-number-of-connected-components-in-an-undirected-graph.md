@@ -1,0 +1,289 @@
+---
+layout: post
+title: "323. Number of Connected Components in an Undirected Graph"
+date: 2026-01-07 00:00:00 -0700
+categories: [leetcode, medium, graph, bfs, dfs, union-find]
+permalink: /2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/
+tags: [leetcode, medium, graph, bfs, connected-components, undirected-graph]
+---
+
+# 323. Number of Connected Components in an Undirected Graph
+
+## Problem Statement
+
+You have a graph of `n` nodes labeled from `0` to `n - 1`. You are given an integer `n` and an array `edges` where `edges[i] = [ai, bi]` indicates that there is an undirected edge between nodes `ai` and `bi` in the graph.
+
+Return *the number of connected components in the graph*.
+
+## Examples
+
+**Example 1:**
+```
+Input: n = 5, edges = [[0,1],[1,2],[3,4]]
+Output: 2
+Explanation:
+0 - 1 - 2  (component 1)
+3 - 4      (component 2)
+```
+
+**Example 2:**
+```
+Input: n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]
+Output: 1
+Explanation:
+0 - 1 - 2 - 3 - 4  (single component)
+```
+
+## Constraints
+
+- `1 <= n <= 2000`
+- `1 <= edges.length <= 5000`
+- `edges[i].length == 2`
+- `0 <= ai <= bi < n`
+- `ai != bi`
+- There are no repeated edges.
+
+## Solution Approach
+
+This problem requires counting the number of **connected components** in an undirected graph. A connected component is a maximal set of nodes where every pair of nodes is connected by a path.
+
+### Key Insights:
+
+1. **Connected Components**: Groups of nodes that are reachable from each other
+2. **Graph Traversal**: Use BFS or DFS to explore all nodes in a component
+3. **Visited Tracking**: Mark visited nodes to avoid revisiting and to identify new components
+4. **Component Counting**: Each unvisited node starts a new component
+
+### Algorithm:
+
+1. **Build adjacency list**: Create graph representation from edges
+2. **Initialize visited array**: Track which nodes have been explored
+3. **For each unvisited node**:
+   - Start BFS/DFS from that node
+   - Mark all reachable nodes as visited
+   - Increment component count
+4. **Return**: Total number of components
+
+## Solution
+
+### **Solution: BFS (Breadth-First Search)**
+
+```cpp
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(n);
+        for(auto& edge: edges) {
+            adj[edge[0]].push_back(edge[1]);
+            adj[edge[1]].push_back(edge[0]);
+        }
+        int rtn = 0;
+        vector<bool> visited(n);
+        for(int i = 0; i < n; i++) {
+            if(!visited[i]) {
+                bfs(adj, i, visited);
+                rtn++;
+            }
+        }
+        return rtn;
+    }
+private:
+    void bfs(vector<vector<int>>& adj, int u, vector<bool>& visited) {
+        queue<int> q;
+        q.push(u);
+        visited[u] = true;
+        while(!q.empty()) {
+            int curr = q.front();
+            q.pop();
+            for(int successor: adj[curr]) {
+                if(!visited[successor]) {
+                    q.push(successor);
+                    visited[successor] = true;
+                }
+            }
+        }
+    }
+};
+```
+
+### **Algorithm Explanation:**
+
+1. **Build Graph (Lines 4-8)**:
+   - Create adjacency list of size `n`
+   - For each edge `[ai, bi]`, add bidirectional connections
+   - Since graph is undirected, add both `adj[ai].push_back(bi)` and `adj[bi].push_back(ai)`
+
+2. **Component Counting (Lines 9-15)**:
+   - Initialize visited array and component counter
+   - **For each node** from 0 to n-1:
+     - If node is unvisited, it starts a new component
+     - Call BFS to explore all nodes in this component
+     - Mark all reachable nodes as visited
+     - Increment component counter
+
+3. **BFS Traversal (Lines 17-28)**:
+   - **Initialize**: Create queue, push starting node, mark as visited
+   - **While queue not empty**:
+     - Remove node from front
+     - **For each neighbor**:
+       - If neighbor is unvisited, add to queue and mark as visited
+   - This explores all nodes reachable from the starting node
+
+### **Why This Works:**
+
+- **BFS explores entire component**: Starting from any node in a component, BFS visits all nodes in that component
+- **Visited tracking**: Prevents revisiting nodes and ensures each component is counted once
+- **Unvisited nodes = new components**: Each unvisited node must belong to a new component
+- **Bidirectional edges**: Adding both directions ensures we can traverse the undirected graph correctly
+
+### **Example Walkthrough:**
+
+**For `n = 5, edges = [[0,1],[1,2],[3,4]]`:**
+
+```
+Graph structure:
+0 - 1 - 2  (component 1)
+3 - 4      (component 2)
+
+Initial: visited = [false, false, false, false, false], rtn = 0
+
+Node 0 (unvisited):
+  BFS from 0:
+    Queue: [0]
+    Process 0: visited[0] = true, neighbors [1]
+    Queue: [1]
+    Process 1: visited[1] = true, neighbors [0, 2]
+    Queue: [2] (0 already visited)
+    Process 2: visited[2] = true, neighbors [1] (already visited)
+    Queue: []
+  visited = [true, true, true, false, false]
+  rtn = 1
+
+Node 1 (visited): skip
+
+Node 2 (visited): skip
+
+Node 3 (unvisited):
+  BFS from 3:
+    Queue: [3]
+    Process 3: visited[3] = true, neighbors [4]
+    Queue: [4]
+    Process 4: visited[4] = true, neighbors [3] (already visited)
+    Queue: []
+  visited = [true, true, true, true, true]
+  rtn = 2
+
+Node 4 (visited): skip
+
+Result: 2 components
+```
+
+### **Complexity Analysis:**
+
+- **Time Complexity:** O(n + m) where n is number of nodes and m is number of edges
+  - Building adjacency list: O(m)
+  - BFS visits each node once: O(n)
+  - BFS processes each edge once: O(m)
+  - Total: O(n + m)
+- **Space Complexity:** O(n + m)
+  - Adjacency list: O(n + m)
+  - Visited array: O(n)
+  - Queue: O(n) worst case (one level of nodes)
+  - Total: O(n + m)
+
+## Alternative Approaches
+
+### **Approach 2: DFS (Depth-First Search)**
+
+```cpp
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(n);
+        for(auto& edge: edges) {
+            adj[edge[0]].push_back(edge[1]);
+            adj[edge[1]].push_back(edge[0]);
+        }
+        int rtn = 0;
+        vector<bool> visited(n);
+        for(int i = 0; i < n; i++) {
+            if(!visited[i]) {
+                dfs(adj, i, visited);
+                rtn++;
+            }
+        }
+        return rtn;
+    }
+private:
+    void dfs(vector<vector<int>>& adj, int u, vector<bool>& visited) {
+        visited[u] = true;
+        for(int v: adj[u]) {
+            if(!visited[v]) {
+                dfs(adj, v, visited);
+            }
+        }
+    }
+};
+```
+
+**Comparison:**
+- **BFS**: Uses queue, iterative, level-by-level exploration
+- **DFS**: Uses recursion stack, recursive, depth-first exploration
+- **Both**: O(n + m) time and space complexity
+
+### **Approach 3: Union-Find (Disjoint Set Union)**
+
+```cpp
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        vector<int> parent(n);
+        iota(parent.begin(), parent.end(), 0);
+        
+        for(auto& edge: edges) {
+            unite(parent, edge[0], edge[1]);
+        }
+        
+        int rtn = 0;
+        for(int i = 0; i < n; i++) {
+            if(parent[i] == i) rtn++;
+        }
+        return rtn;
+    }
+private:
+    int find(vector<int>& parent, int x) {
+        if(parent[x] != x) {
+            parent[x] = find(parent, parent[x]);
+        }
+        return parent[x];
+    }
+    
+    void unite(vector<int>& parent, int a, int b) {
+        parent[find(parent, a)] = find(parent, b);
+    }
+};
+```
+
+**Advantages:**
+- **Space efficient**: O(n) space
+- **No graph building**: Works directly with edges
+- **Path compression**: Efficient find operations
+
+## Key Insights
+
+1. **Connected Components**: Groups of nodes reachable from each other
+2. **Graph Traversal**: BFS/DFS explores all nodes in a component
+3. **Visited Tracking**: Essential to avoid revisiting and count components correctly
+4. **Unvisited = New Component**: Each unvisited node starts a new component
+
+## Related Problems
+
+- [LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Same problem with adjacency matrix
+- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) - Connected components in grid
+- [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/) - Find edge that creates cycle
+- [LC 1319: Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) - Connect components
+
+---
+
+*This problem demonstrates the fundamental pattern for counting connected components using graph traversal algorithms.*
+

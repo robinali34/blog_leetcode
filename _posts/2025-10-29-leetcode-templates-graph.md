@@ -298,7 +298,7 @@ class WeightedUnionFind {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 323 | Number of Connected Components in an Undirected Graph | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | - |
+| 323 | Number of Connected Components in an Undirected Graph | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) |
 | 547 | Number of Provinces | [Link](https://leetcode.com/problems/number-of-provinces/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) |
 | 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/29/medium-684-redundant-connection/) |
 | 685 | Redundant Connection II | [Link](https://leetcode.com/problems/redundant-connection-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/hard-685-redundant-connection-ii/) |
