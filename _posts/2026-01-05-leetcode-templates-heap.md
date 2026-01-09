@@ -539,6 +539,7 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>& graph, int start) {
 | 295 | Find Median from Data Stream | [Link](https://leetcode.com/problems/find-median-from-data-stream/) | - |
 | 347 | Top K Frequent Elements | [Link](https://leetcode.com/problems/top-k-frequent-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-347-top-k-frequent-elements/) |
 | 378 | Kth Smallest Element in a Sorted Matrix | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) | - |
+| 692 | Top K Frequent Words | [Link](https://leetcode.com/problems/top-k-frequent-words/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-692-top-k-frequent-words/) |
 | 621 | Task Scheduler | [Link](https://leetcode.com/problems/task-scheduler/) | - |
 | 767 | Reorganize String | [Link](https://leetcode.com/problems/reorganize-string/) | - |
 | 973 | K Closest Points to Origin | [Link](https://leetcode.com/problems/k-closest-points-to-origin/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/) |

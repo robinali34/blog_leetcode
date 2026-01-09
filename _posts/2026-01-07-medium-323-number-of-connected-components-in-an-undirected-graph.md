@@ -64,9 +64,9 @@ This problem requires counting the number of **connected components** in an undi
    - Increment component count
 4. **Return**: Total number of components
 
-## Solution
+## Solutions
 
-### **Solution: BFS (Breadth-First Search)**
+### **Solution 1: BFS (Breadth-First Search)**
 
 ```cpp
 class Solution {
@@ -191,9 +191,7 @@ Result: 2 components
   - Queue: O(n) worst case (one level of nodes)
   - Total: O(n + m)
 
-## Alternative Approaches
-
-### **Approach 2: DFS (Depth-First Search)**
+### **Solution 2: DFS (Depth-First Search)**
 
 ```cpp
 class Solution {
@@ -226,12 +224,20 @@ private:
 };
 ```
 
-**Comparison:**
-- **BFS**: Uses queue, iterative, level-by-level exploration
-- **DFS**: Uses recursion stack, recursive, depth-first exploration
-- **Both**: O(n + m) time and space complexity
+### **Complexity Analysis:**
 
-### **Approach 3: Union-Find (Disjoint Set Union)**
+- **Time Complexity:** O(n + m) where n is number of nodes and m is number of edges
+  - Building adjacency list: O(m)
+  - DFS visits each node once: O(n)
+  - DFS processes each edge once: O(m)
+  - Total: O(n + m)
+- **Space Complexity:** O(n + m)
+  - Adjacency list: O(n + m)
+  - Visited array: O(n)
+  - Recursion stack: O(n) worst case (chain of nodes)
+  - Total: O(n + m)
+
+### **Solution 3: Union-Find (Disjoint Set Union)**
 
 ```cpp
 class Solution {
@@ -264,10 +270,60 @@ private:
 };
 ```
 
-**Advantages:**
-- **Space efficient**: O(n) space
-- **No graph building**: Works directly with edges
-- **Path compression**: Efficient find operations
+### **Algorithm Explanation:**
+
+1. **Initialize (Line 3-4)**:
+   - Create parent array of size `n`
+   - Initialize each node as its own parent using `iota()` (parent[i] = i)
+
+2. **Union Edges (Lines 6-8)**:
+   - For each edge `[a, b]`, unite nodes `a` and `b`
+   - This merges the components containing `a` and `b`
+
+3. **Count Components (Lines 10-13)**:
+   - Count nodes where `parent[i] == i`
+   - These are the root nodes, each representing one component
+
+4. **Find Operation (Lines 16-20)**:
+   - Recursively find the root of a node
+   - **Path compression**: Set `parent[x] = find(parent, parent[x])` to flatten the tree
+   - This makes future find operations faster
+
+5. **Unite Operation (Lines 22-24)**:
+   - Find roots of both nodes
+   - Set one root's parent to the other root
+   - This merges the two components
+
+### **Why This Works:**
+
+- **Union-Find groups components**: All nodes in a component share the same root
+- **Path compression**: Makes find operations nearly O(1) amortized
+- **Root counting**: Each root represents one component
+- **No graph building needed**: Works directly with edge list
+
+### **Complexity Analysis:**
+
+- **Time Complexity:** O(n × α(n) + m × α(n)) ≈ O(n + m) where α is the inverse Ackermann function
+  - **Initialization**: O(n) - setting up parent array
+  - **Union operations**: O(m × α(n)) - for each edge, find and unite operations
+    - `find()` with path compression: O(α(n)) amortized
+    - `unite()` calls `find()` twice: O(α(n)) amortized
+  - **Component counting**: O(n × α(n)) - find root for each node
+  - **Total**: O(n × α(n) + m × α(n)) ≈ O(n + m) since α(n) < 5 for practical values
+- **Space Complexity:** O(n)
+  - Parent array: O(n)
+  - No additional data structures needed
+  - Recursion stack for find: O(n) worst case, but path compression limits depth
+
+**Note:** The inverse Ackermann function α(n) grows extremely slowly. For all practical purposes, α(n) ≤ 5, making Union-Find operations effectively constant time.
+
+### **Comparison of All Solutions:**
+
+| Approach | Time Complexity | Space Complexity | Advantages |
+|----------|----------------|-----------------|------------|
+| BFS | O(n + m) | O(n + m) | Level-by-level exploration, intuitive |
+| DFS | O(n + m) | O(n + m) | Recursive, simpler code |
+| Union-Find | O(n + m) | O(n) | Most space efficient, no graph building |
 
 ## Key Insights
 
