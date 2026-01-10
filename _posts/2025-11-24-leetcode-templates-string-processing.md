@@ -117,8 +117,10 @@ void reverseString(vector<char>& s) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/) |
 | 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
 | 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/) |
+| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) |
 
 ## String Matching
 

@@ -269,6 +269,42 @@ i=5: [0,1,2,3]
 
 **Final result:** 4
 
+### Solution 1: `nums = [0,8,4,12,2]`
+
+**DP Table:**
+```
+i | nums[i] | Check j | max_pre | dp[i] | rtn | Explanation
+0 | 0       | -       | -       | 1     | 1   | Base case
+1 | 8       | j=0: 8>0| dp[0]=1 | 2     | 2   | Can extend from dp[0] (0 < 8)
+2 | 4       | j=0: 4>0| dp[0]=1 | 2     | 2   | Can extend from dp[0] (0 < 4), cannot extend from dp[1] (4 ≤ 8)
+3 | 12      | j=0: 12>0, j=1: 12>8, j=2: 12>4 | max(dp[0],dp[1],dp[2])=max(1,2,2)=2 | 3 | 3 | Can extend from dp[0], dp[1], dp[2] (0 < 12, 8 < 12, 4 < 12)
+4 | 2       | j=0: 2>0, j=1: 2≤8, j=2: 2≤4, j=3: 2≤12 | dp[0]=1 | 2 | 3 | Can extend from dp[0] (0 < 2), cannot extend from others
+```
+
+**Final result:** 3 (LIS: [0,8,12] or [0,4,12])
+
+### Solution 2: `nums = [0,8,4,12,2]`
+
+**Important Note:** The `sub` array does **NOT** represent the actual LIS sequence. It only tracks the **smallest tail element** of all increasing subsequences of each length. This allows us to potentially extend subsequences in the future.
+
+**Sub Array Evolution:**
+```
+i=0: [0]                    (Initialize: smallest tail for length 1)
+i=1: [0,8]                  (8 > 0, append: smallest tail for length 2 is 8)
+i=2: [0,4]                  (4 ≤ 8, replace 8 with 4: now smallest tail for length 2 is 4, which is better for future extensions)
+i=3: [0,4,12]               (12 > 4, append: smallest tail for length 3 is 12)
+i=4: [0,2,12]               (2 ≤ 4, replace 4 with 2: now smallest tail for length 2 is 2, which is even better)
+```
+
+**Key Insight:** 
+- `sub[i]` = smallest tail element of all increasing subsequences of length `i+1`
+- Replacing `4` with `2` doesn't mean the actual LIS is `[0,2,12]`
+- The actual LIS could be `[0,8,12]` or `[0,4,12]` (both length 3)
+- We replace to maintain the **smallest possible tail elements**, which allows future elements to extend subsequences more easily
+- The **length** of `sub` (which is 3) gives us the LIS length, not the actual sequence
+
+**Final result:** 3 (Length of sub array = LIS length)
+
 ## Alternative Approaches
 
 ### Approach 1: Recursive with Memoization
@@ -306,7 +342,7 @@ private:
 
 ## Related Problems
 
-- [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
+- [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/)
 - [354. Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/)
 - [646. Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/)
 - [334. Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/)

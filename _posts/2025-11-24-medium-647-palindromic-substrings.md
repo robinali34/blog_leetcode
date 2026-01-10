@@ -301,7 +301,7 @@ Advanced algorithm that finds all palindromes in linear time. More complex but o
 
 ## Related Problems
 
-- [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) - Find the longest palindrome (can use same technique)
+- [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) - Find the longest palindrome (can use same technique) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/)
 - [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) - Find longest palindromic subsequence (DP)
 - [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
 - [680. Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/) - Check if string can be palindrome after deleting at most one character
