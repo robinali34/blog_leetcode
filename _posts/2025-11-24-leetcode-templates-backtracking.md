@@ -289,7 +289,7 @@ bool exist(vector<vector<char>>& board, string word) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 79 | Word Search | [Link](https://leetcode.com/problems/word-search/) | - |
+| 79 | Word Search | [Link](https://leetcode.com/problems/word-search/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-79-word-search/) |
 | 212 | Word Search II | [Link](https://leetcode.com/problems/word-search-ii/) | - |
 | 351 | Android Unlock Patterns | [Link](https://leetcode.com/problems/android-unlock-patterns/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/02/medium-351-android-unlock-patterns/) |
 | 425 | Word Squares | [Link](https://leetcode.com/problems/word-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-425-word-squares/) |
@@ -371,7 +371,7 @@ bool isValid(vector<vector<char>>& board, int row, int col, char c){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 51 | N-Queens | [Link](https://leetcode.com/problems/n-queens/) | - |
+| 51 | N-Queens | [Link](https://leetcode.com/problems/n-queens/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/) |
 | 52 | N-Queens II | [Link](https://leetcode.com/problems/n-queens-ii/) | - |
 | 37 | Sudoku Solver | [Link](https://leetcode.com/problems/sudoku-solver/) | - |
 
