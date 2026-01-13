@@ -426,6 +426,39 @@ vector<vector<bool>> precomputePalindromes(string& s){
 | 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/) |
 | 132 | Palindrome Partitioning II | [Link](https://leetcode.com/problems/palindrome-partitioning-ii/) | - |
 
+## Parentheses Generation
+
+Generate all valid parentheses combinations using backtracking.
+
+```cpp
+// Generate Parentheses: generate all valid n pairs
+void backtrack(int n, int open, int close, string path, vector<string>& res){
+    if(path.size() == 2 * n){
+        res.push_back(path);
+        return;
+    }
+    if(open < n){
+        path.push_back('(');
+        backtrack(n, open + 1, close, path, res);
+        path.pop_back();
+    }
+    if(close < open){
+        path.push_back(')');
+        backtrack(n, open, close + 1, path, res);
+        path.pop_back();
+    }
+}
+```
+
+**Key constraints:**
+- `open < n`: Can add opening parenthesis if not all used
+- `close < open`: Can add closing parenthesis if there are unmatched openings
+- Base case: path length equals `2 * n`
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
+
 ## General Backtracking Template
 
 ```cpp
