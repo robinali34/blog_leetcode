@@ -374,8 +374,57 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 }
 ```
 
+### Two Deques Pattern (Middle Element Access)
+
+Use two deques to efficiently access middle elements in a queue.
+
+```cpp
+// Front Middle Back Queue: Two deques with rebalancing
+class FrontMiddleBackQueue {
+    deque<int> front_cache, back_cache;
+    
+    void rebalance() {
+        // Maintain: front_cache.size() <= back_cache.size() <= front_cache.size() + 1
+        while(front_cache.size() > back_cache.size()) {
+            back_cache.push_front(front_cache.back());
+            front_cache.pop_back();
+        }
+        while(back_cache.size() > front_cache.size() + 1) {
+            front_cache.push_back(back_cache.front());
+            back_cache.pop_front();
+        }
+    }
+    
+public:
+    void pushMiddle(int val) {
+        front_cache.push_back(val);
+        rebalance();
+    }
+    
+    int popMiddle() {
+        if(front_cache.empty() && back_cache.empty()) return -1;
+        if(front_cache.size() == back_cache.size()) {
+            int val = front_cache.back();
+            front_cache.pop_back();
+            return val;
+        } else {
+            int val = back_cache.front();
+            back_cache.pop_front();
+            return val;
+        }
+    }
+};
+```
+
+**Key points:**
+- Split queue into two halves: `front_cache` and `back_cache`
+- Maintain balance: `front_cache.size() <= back_cache.size() <= front_cache.size() + 1`
+- Middle element is `front_cache.back()` (if sizes equal) or `back_cache.front()` (if back_cache larger)
+- Rebalance after each modification
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
+| 1670 | Design Front Middle Back Queue | [Link](https://leetcode.com/problems/design-front-middle-back-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) |
 {% endraw %}
 
