@@ -275,6 +275,8 @@ Centers: 3 and 4 (both are valid MHT roots)
 
 ### **Approach 2: Two-Pass BFS (Find Diameter)**
 
+Find the longest path (diameter) in the tree, then return the middle node(s).
+
 ```cpp
 class Solution {
 public:
@@ -338,9 +340,142 @@ private:
 **Time Complexity:** O(n) - Two BFS passes  
 **Space Complexity:** O(n)
 
+### **Approach 3: Two-Pass DFS (Find Diameter)**
+
+Similar to BFS approach but using DFS to find the diameter. Uses recursion to find farthest nodes.
+
+```cpp
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if(n == 1) return {0};
+        
+        vector<vector<int>> adj(n);
+        for(auto& e: edges) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+        
+        // First DFS: Find one end of diameter
+        int farthestNode = 0;
+        int maxDist = 0;
+        vector<int> parent1(n, -1);
+        dfs(adj, 0, -1, 0, farthestNode, maxDist, parent1);
+        int u = farthestNode;
+        
+        // Second DFS: Find other end and path
+        farthestNode = u;
+        maxDist = 0;
+        vector<int> parent2(n, -1);
+        dfs(adj, u, -1, 0, farthestNode, maxDist, parent2);
+        int v = farthestNode;
+        
+        // Reconstruct path from u to v
+        vector<int> path;
+        int curr = v;
+        while(curr != -1) {
+            path.push_back(curr);
+            curr = parent2[curr];
+        }
+        
+        // Find middle node(s) of diameter
+        int len = path.size();
+        if(len % 2 == 0) {
+            return {path[len/2 - 1], path[len/2]};
+        } else {
+            return {path[len/2]};
+        }
+    }
+    
+private:
+    void dfs(vector<vector<int>>& adj, int u, int parent, int dist, 
+             int& farthestNode, int& maxDist, vector<int>& parentArr) {
+        parentArr[u] = parent;
+        
+        if(dist > maxDist) {
+            maxDist = dist;
+            farthestNode = u;
+        }
+        
+        for(int v: adj[u]) {
+            if(v == parent) continue;
+            dfs(adj, v, u, dist + 1, farthestNode, maxDist, parentArr);
+        }
+    }
+};
+```
+
+**Time Complexity:** O(n) - Two DFS passes  
+**Space Complexity:** O(n) - Recursion stack
+
+**Algorithm Explanation:**
+1. **First DFS**: Start from any node (0), find the farthest node `u` by tracking distance
+2. **Second DFS**: Start from `u`, find the farthest node `v` and build path using parent array
+3. **Find Centers**: Middle node(s) of the path from `u` to `v` are the centers
+
+**Key Points:**
+- DFS recursively explores all paths from a starting node
+- Tracks the farthest node and maximum distance encountered
+- Parent array allows path reconstruction
+
+### **Approach 4: DFS with Height Calculation**
+
+Calculate height of tree when rooted at each node, return nodes with minimum height. This is less efficient but demonstrates the problem definition directly.
+
+```cpp
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if(n == 1) return {0};
+        
+        vector<vector<int>> adj(n);
+        for(auto& e: edges) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+        
+        int minHeight = INT_MAX;
+        vector<int> result;
+        
+        // Try each node as root
+        for(int root = 0; root < n; root++) {
+            int height = dfs(adj, root, -1);
+            if(height < minHeight) {
+                minHeight = height;
+                result = {root};
+            } else if(height == minHeight) {
+                result.push_back(root);
+            }
+        }
+        
+        return result;
+    }
+    
+private:
+    int dfs(vector<vector<int>>& adj, int u, int parent) {
+        int maxHeight = 0;
+        for(int v: adj[u]) {
+            if(v == parent) continue;
+            maxHeight = max(maxHeight, dfs(adj, v, u));
+        }
+        return maxHeight + 1;
+    }
+};
+```
+
+**Time Complexity:** O(n²) - For each node, DFS takes O(n)  
+**Space Complexity:** O(n) - Recursion stack
+
+**Note:** This approach is less efficient (O(n²)) compared to peeling leaves (O(n)), but it directly implements the problem definition.
+
 **Comparison:**
-- **Peeling Leaves**: More intuitive, easier to implement
-- **Two-Pass BFS**: More complex but directly finds diameter
+
+| Approach | Time | Space | Complexity | Notes |
+|----------|------|-------|------------|-------|
+| **Peeling Leaves (BFS)** | O(n) | O(n) | Low | Most intuitive, recommended |
+| **Two-Pass BFS** | O(n) | O(n) | Medium | Directly finds diameter |
+| **Two-Pass DFS** | O(n) | O(n) | Medium | Similar to BFS, uses recursion |
+| **DFS Height Calculation** | O(n²) | O(n) | Low | Direct implementation, less efficient |
 
 ## Related Problems
 

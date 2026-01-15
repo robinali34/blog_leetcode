@@ -114,6 +114,7 @@ vector<int> topoKahn(int n, const vector<vector<int>>& g){
 |---|---|---|---|
 | 207 | Course Schedule | [Link](https://leetcode.com/problems/course-schedule/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) |
 | 210 | Course Schedule II | [Link](https://leetcode.com/problems/course-schedule-ii/) | - |
+| LCR 113 | Course Schedule II (CN) | [Link](https://leetcode.cn/problems/QA2IGt/description/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) |
 | 269 | Alien Dictionary | [Link](https://leetcode.com/problems/alien-dictionary/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) |
 | 310 | Minimum Height Trees | [Link](https://leetcode.com/problems/minimum-height-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-310-minimum-height-trees/) |
 
