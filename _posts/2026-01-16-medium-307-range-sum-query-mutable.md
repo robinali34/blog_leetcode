@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "307. Range Sum Query - Mutable"
-date: 2026-01-15 00:00:00 -0700
+date: 2026-01-16 00:00:00 -0700
 categories: [leetcode, medium, array, segment-tree, binary-indexed-tree]
-permalink: /2026/01/15/medium-307-range-sum-query-mutable/
+permalink: /2026/01/16/medium-307-range-sum-query-mutable/
 tags: [leetcode, medium, array, segment-tree, binary-indexed-tree, data-structure]
 ---
 
@@ -258,7 +258,7 @@ Step 4: Query [0, 2]
 
 ### **Approach 2: Binary Indexed Tree (Fenwick Tree)**
 
-More space-efficient alternative:
+Fenwick Tree is a more space-efficient alternative to Segment Tree. It uses O(n) space instead of O(4n) and has simpler code.
 
 ```cpp
 class NumArray {
@@ -267,20 +267,22 @@ private:
     vector<int> nums;
     int n;
     
+    // Add delta to element at index i (0-indexed)
     void add(int i, int delta) {
-        i++; // BIT is 1-indexed
+        i++; // Convert to 1-indexed
         while (i <= n) {
             BIT[i] += delta;
-            i += (i & -i); // Move to next node
+            i += (i & -i); // Move to next node (lowest set bit)
         }
     }
     
+    // Get prefix sum from [0, i] (0-indexed)
     int prefixSum(int i) {
         int sum = 0;
-        i++;
+        i++; // Convert to 1-indexed
         while (i > 0) {
             sum += BIT[i];
-            i -= (i & -i); // Move to parent
+            i -= (i & -i); // Move to parent (remove lowest set bit)
         }
         return sum;
     }
@@ -289,6 +291,7 @@ public:
     NumArray(vector<int>& nums) : nums(nums) {
         n = nums.size();
         BIT.assign(n + 1, 0);
+        // Build BIT: add each element
         for (int i = 0; i < n; i++) {
             add(i, nums[i]);
         }
@@ -306,10 +309,90 @@ public:
 };
 ```
 
-**Time Complexity:** O(n log n) build, O(log n) update/query  
-**Space Complexity:** O(n) - More space-efficient than segment tree
+### **Algorithm Explanation:**
 
-**Comparison:**
+#### **Fenwick Tree Structure:**
+
+1. **1-Indexed Array**: BIT uses 1-indexed array internally (index 0 is unused)
+2. **Lowest Set Bit**: `i & -i` extracts the lowest set bit
+   - Example: `6 & -6 = 2` (binary: `110 & 010 = 010`)
+3. **Update Path**: `i += (i & -i)` moves to next node that includes current index
+4. **Query Path**: `i -= (i & -i)` moves to parent node
+
+#### **Key Methods:**
+
+1. **add(i, delta)**: 
+   - Add `delta` to position `i` and all ancestors
+   - Traverse upward: `i += (i & -i)`
+   - Updates all nodes that include index `i` in their range
+
+2. **prefixSum(i)**:
+   - Get sum from index 0 to `i`
+   - Traverse downward: `i -= (i & -i)`
+   - Sums all nodes on path from `i` to root
+
+3. **sumRange(left, right)**:
+   - Range sum = `prefixSum(right) - prefixSum(left - 1)`
+   - Uses inclusion-exclusion principle
+
+### **How It Works:**
+
+For array `[1, 3, 5]`:
+
+```
+BIT Structure (1-indexed):
+BIT[1] = 1
+BIT[2] = 1 + 3 = 4
+BIT[3] = 5
+BIT[4] = 1 + 3 + 5 = 9 (not used for n=3)
+
+Query prefixSum(2):
+  i = 3, sum += BIT[3] = 5
+  i = 2, sum += BIT[2] = 4, total = 9
+  i = 0, stop
+  Result: 9 ✓
+```
+
+### **Example Walkthrough:**
+
+**Input:** `nums = [1, 3, 5]`
+
+```
+Step 1: Build BIT
+  add(0, 1): BIT[1] = 1
+  add(1, 3): BIT[1] = 1, BIT[2] = 4
+  add(2, 5): BIT[3] = 5, BIT[4] = 9 (if n >= 4)
+  
+Step 2: Query sumRange(0, 2)
+  prefixSum(2) = BIT[3] + BIT[2] = 5 + 4 = 9
+  prefixSum(-1) = 0
+  Result: 9 - 0 = 9 ✓
+  
+Step 3: Update index 1 to 2
+  delta = 2 - 3 = -1
+  add(1, -1):
+    BIT[1] = 1 - 1 = 0
+    BIT[2] = 4 - 1 = 3
+    
+Step 4: Query sumRange(0, 2)
+  prefixSum(2) = BIT[3] + BIT[2] = 5 + 3 = 8
+  Result: 8 - 0 = 8 ✓
+```
+
+### **Complexity Analysis:**
+
+- **Time Complexity:**
+  - **Build**: O(n log n) - Each `add` takes O(log n)
+  - **Update**: O(log n) - Traverse tree height
+  - **Query**: O(log n) - Traverse tree height
+  - **Overall**: O(n log n) build + O(k log n) for k operations
+
+- **Space Complexity:** O(n)
+  - BIT array: `n + 1` (1-indexed)
+  - Original array: `n`
+  - Overall: O(n)
+
+### **Comparison:**
 
 | Aspect | Segment Tree | Fenwick Tree |
 |--------|-------------|--------------|
@@ -317,8 +400,18 @@ public:
 | **Build Time** | O(n) | O(n log n) |
 | **Update** | O(log n) | O(log n) |
 | **Query** | O(log n) | O(log n) |
-| **Flexibility** | Supports range updates, min/max | Only prefix/range sum |
+| **Range Update** | O(log n) with lazy | Not directly supported |
+| **Min/Max Query** | Supported | Not directly supported |
 | **Code Complexity** | More verbose | Simpler |
+| **Flexibility** | High | Limited to prefix/range sum |
+
+### **When to Use Fenwick Tree:**
+
+- ✅ **Space Constraint**: When O(n) space is preferred
+- ✅ **Simple Code**: When simpler implementation is desired
+- ✅ **Prefix/Range Sum**: When only sum queries are needed
+- ❌ **Range Updates**: Not suitable for range updates
+- ❌ **Min/Max Queries**: Cannot query min/max efficiently
 
 ### **Approach 3: Naive (TLE for Large Inputs)**
 
@@ -351,7 +444,7 @@ public:
 - [LC 303: Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/) - Prefix sum (no updates)
 - [LC 308: Range Sum Query 2D - Mutable](https://leetcode.com/problems/range-sum-query-2d-mutable/) - 2D segment tree
 - [LC 850: Rectangle Area II](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) - Segment tree with coordinate compression
-- [LC 3477: Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) - Segment tree for leftmost query
+- [LC 3477: Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) - Segment tree for leftmost query
 - [LC 699: Falling Squares](https://leetcode.com/problems/falling-squares/) - Segment tree for range max updates
 
 ---

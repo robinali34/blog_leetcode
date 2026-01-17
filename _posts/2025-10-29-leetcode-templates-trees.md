@@ -12,6 +12,7 @@ tags: [leetcode, templates, trees]
 - [Traversals (iterative)](#traversals-iterative)
 - [LCA (Binary Lifting)](#lca-binary-lifting)
 - [Segment Tree](#segment-tree)
+- [Fenwick Tree (Binary Indexed Tree)](#fenwick-tree-binary-indexed-tree)
 - [HLD (Heavy-Light Decomposition)](#hld-heavy-light-decomposition-skeleton)
 
 ## Traversals (iterative)
@@ -285,13 +286,13 @@ private:
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | - |
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
 
 ### Medium
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
 | 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | - |
@@ -299,7 +300,7 @@ private:
 | 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | - |
 | 1505 | Minimum Possible Integer After at Most K Swaps | [Link](https://leetcode.com/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | - |
 | 1649 | Create Sorted Array through Instructions | [Link](https://leetcode.com/problems/create-sorted-array-through-instructions/) | - |
-| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) |
+| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) |
 
 ### Hard
 
@@ -316,6 +317,190 @@ private:
 ### References
 
 - [LeetCode: A Recursive Approach to Segment Trees, Range Sum Queries, and Lazy Propagation](https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/) - Comprehensive guide to segment trees with examples
+
+## Fenwick Tree (Binary Indexed Tree)
+
+Fenwick Tree (also known as Binary Indexed Tree or BIT) is a data structure that provides efficient methods for calculating prefix sums and updating array elements. It's more space-efficient than Segment Tree but less flexible.
+
+### Basic Fenwick Tree (1-Indexed)
+
+```cpp
+class FenwickTree {
+public:
+    FenwickTree(int size) : n(size), BIT(size + 1, 0) {}
+    
+    // Add delta to element at index i (0-indexed)
+    void add(int i, int delta) {
+        i++; // Convert to 1-indexed
+        while (i <= n) {
+            BIT[i] += delta;
+            i += (i & -i); // Move to next node
+        }
+    }
+    
+    // Get prefix sum from [0, i] (0-indexed)
+    int prefixSum(int i) {
+        int sum = 0;
+        i++; // Convert to 1-indexed
+        while (i > 0) {
+            sum += BIT[i];
+            i -= (i & -i); // Move to parent
+        }
+        return sum;
+    }
+    
+    // Get range sum from [l, r] (0-indexed)
+    int rangeSum(int l, int r) {
+        return prefixSum(r) - (l > 0 ? prefixSum(l - 1) : 0);
+    }
+    
+private:
+    int n;
+    vector<int> BIT;
+};
+```
+
+### Fenwick Tree for Range Sum Query
+
+```cpp
+class NumArray {
+private:
+    vector<int> BIT;
+    vector<int> nums;
+    int n;
+    
+    void add(int i, int delta) {
+        i++;
+        while (i <= n) {
+            BIT[i] += delta;
+            i += (i & -i);
+        }
+    }
+    
+    int prefixSum(int i) {
+        int sum = 0;
+        i++;
+        while (i > 0) {
+            sum += BIT[i];
+            i -= (i & -i);
+        }
+        return sum;
+    }
+    
+public:
+    NumArray(vector<int>& nums) : nums(nums) {
+        n = nums.size();
+        BIT.assign(n + 1, 0);
+        for (int i = 0; i < n; i++) {
+            add(i, nums[i]);
+        }
+    }
+    
+    void update(int index, int val) {
+        int delta = val - nums[index];
+        nums[index] = val;
+        add(index, delta);
+    }
+    
+    int sumRange(int left, int right) {
+        return prefixSum(right) - (left > 0 ? prefixSum(left - 1) : 0);
+    }
+};
+```
+
+### 2D Fenwick Tree
+
+```cpp
+class FenwickTree2D {
+public:
+    FenwickTree2D(int rows, int cols) 
+        : m(rows), n(cols), BIT(rows + 1, vector<int>(cols + 1, 0)) {}
+    
+    void add(int row, int col, int delta) {
+        row++; col++;
+        for (int i = row; i <= m; i += (i & -i)) {
+            for (int j = col; j <= n; j += (j & -j)) {
+                BIT[i][j] += delta;
+            }
+        }
+    }
+    
+    int prefixSum(int row, int col) {
+        int sum = 0;
+        row++; col++;
+        for (int i = row; i > 0; i -= (i & -i)) {
+            for (int j = col; j > 0; j -= (j & -j)) {
+                sum += BIT[i][j];
+            }
+        }
+        return sum;
+    }
+    
+    int rangeSum(int r1, int c1, int r2, int c2) {
+        return prefixSum(r2, c2) 
+             - prefixSum(r1 - 1, c2) 
+             - prefixSum(r2, c1 - 1) 
+             + prefixSum(r1 - 1, c1 - 1);
+    }
+    
+private:
+    int m, n;
+    vector<vector<int>> BIT;
+};
+```
+
+### Key Concepts
+
+1. **1-Indexed Array**: BIT uses 1-indexed array internally (index 0 is unused)
+2. **Lowest Set Bit**: `i & -i` extracts the lowest set bit
+3. **Update**: Add delta to node and all ancestors: `i += (i & -i)`
+4. **Query**: Sum from node to root: `i -= (i & -i)`
+5. **Space Complexity**: O(n) - More efficient than Segment Tree's O(4n)
+6. **Time Complexity**: O(log n) for both update and query
+
+### How It Works
+
+- **Tree Structure**: Each node stores sum of a range ending at that index
+- **Update Path**: When updating index `i`, update all nodes that include `i`
+- **Query Path**: When querying prefix sum up to `i`, sum all nodes on path to root
+- **Range Query**: `rangeSum(l, r) = prefixSum(r) - prefixSum(l-1)`
+
+### When to Use
+
+- **Prefix Sum Queries**: Efficient prefix sum calculations
+- **Point Updates**: Single element updates
+- **Space Constraint**: When O(n) space is preferred over O(4n)
+- **Range Sum**: When only range sum is needed (not min/max)
+- **Not Suitable For**: Range updates, min/max queries, complex range operations
+
+### Comparison: Segment Tree vs Fenwick Tree
+
+| Aspect | Segment Tree | Fenwick Tree |
+|--------|-------------|--------------|
+| **Space** | O(4n) | O(n) |
+| **Build Time** | O(n) | O(n log n) |
+| **Update** | O(log n) | O(log n) |
+| **Range Query** | O(log n) | O(log n) |
+| **Range Update** | O(log n) with lazy | Not directly supported |
+| **Min/Max Query** | Supported | Not directly supported |
+| **Code Complexity** | More verbose | Simpler |
+| **Flexibility** | High | Limited to prefix/range sum |
+
+### Example Problems
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
+| 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
+| 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) |
+| 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | - |
+| 493 | Reverse Pairs | [Link](https://leetcode.com/problems/reverse-pairs/) | - |
+| 1649 | Create Sorted Array through Instructions | [Link](https://leetcode.com/problems/create-sorted-array-through-instructions/) | - |
+
+### References
+
+- [TopCoder: Binary Indexed Trees](https://www.topcoder.com/thrive/articles/Binary%20Indexed%20Trees) - Comprehensive tutorial on Fenwick Trees
+- [GeeksforGeeks: Binary Indexed Tree](https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/) - Implementation and examples
 
 ## HLD (Heavy-Light Decomposition) skeleton
 

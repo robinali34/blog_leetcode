@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "305. Number of Islands II"
-date: 2026-01-15 00:00:00 -0700
+date: 2026-01-16 00:00:00 -0700
 categories: [leetcode, hard, array, union-find, graph]
-permalink: /2026/01/15/hard-305-number-of-islands-ii/
+permalink: /2026/01/16/hard-305-number-of-islands-ii/
 tags: [leetcode, hard, array, union-find, disjoint-set, incremental, dynamic]
 ---
 
