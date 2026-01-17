@@ -11,6 +11,7 @@ tags: [leetcode, templates, trees]
 
 - [Traversals (iterative)](#traversals-iterative)
 - [LCA (Binary Lifting)](#lca-binary-lifting)
+- [Segment Tree](#segment-tree)
 - [HLD (Heavy-Light Decomposition)](#hld-heavy-light-decomposition-skeleton)
 
 ## Traversals (iterative)
@@ -60,6 +61,237 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
 | 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 | 285 | Inorder Successor in BST | [Link](https://leetcode.com/problems/inorder-successor-in-bst/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-285-inorder-successor-in-bst/) |
+
+## Segment Tree
+
+Segment Tree is a data structure that allows efficient range queries and range updates on an array. It's particularly useful for problems involving range sum, range minimum/maximum, and range updates.
+
+**Reference:** [A Recursive Approach to Segment Trees, Range Sum Queries, and Lazy Propagation](https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/)
+
+### Basic Segment Tree (Range Sum Query)
+
+```cpp
+class SegmentTree {
+public:
+    SegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n);
+        build(nums, 1, 0, n - 1);
+    }
+    
+    void update(int index, int val) {
+        update(1, 0, n - 1, index, val);
+    }
+    
+    int query(int left, int right) {
+        return query(1, 0, n - 1, left, right);
+    }
+    
+private:
+    int n;
+    vector<int> tree;
+    
+    void build(vector<int>& nums, int node, int l, int r) {
+        if (l == r) {
+            tree[node] = nums[l];
+        } else {
+            int mid = (l + r) / 2;
+            build(nums, node * 2, l, mid);
+            build(nums, node * 2 + 1, mid + 1, r);
+            tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        }
+    }
+    
+    void update(int node, int l, int r, int idx, int val) {
+        if (l == r) {
+            tree[node] = val;
+        } else {
+            int mid = (l + r) / 2;
+            if (idx <= mid) {
+                update(node * 2, l, mid, idx, val);
+            } else {
+                update(node * 2 + 1, mid + 1, r, idx, val);
+            }
+            tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        }
+    }
+    
+    int query(int node, int l, int r, int ql, int qr) {
+        if (qr < l || ql > r) return 0;
+        if (ql <= l && r <= qr) return tree[node];
+        int mid = (l + r) / 2;
+        return query(node * 2, l, mid, ql, qr) + 
+               query(node * 2 + 1, mid + 1, r, ql, qr);
+    }
+};
+```
+
+### Segment Tree with Lazy Propagation (Range Update)
+
+```cpp
+class SegmentTreeLazy {
+public:
+    SegmentTreeLazy(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n);
+        lazy.resize(4 * n, 0);
+        build(nums, 1, 0, n - 1);
+    }
+    
+    void updateRange(int left, int right, int val) {
+        updateRange(1, 0, n - 1, left, right, val);
+    }
+    
+    int query(int left, int right) {
+        return query(1, 0, n - 1, left, right);
+    }
+    
+private:
+    int n;
+    vector<int> tree, lazy;
+    
+    void build(vector<int>& nums, int node, int l, int r) {
+        if (l == r) {
+            tree[node] = nums[l];
+        } else {
+            int mid = (l + r) / 2;
+            build(nums, node * 2, l, mid);
+            build(nums, node * 2 + 1, mid + 1, r);
+            tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        }
+    }
+    
+    void push(int node, int l, int r) {
+        if (lazy[node] != 0) {
+            tree[node] += lazy[node] * (r - l + 1);
+            if (l != r) {
+                lazy[node * 2] += lazy[node];
+                lazy[node * 2 + 1] += lazy[node];
+            }
+            lazy[node] = 0;
+        }
+    }
+    
+    void updateRange(int node, int l, int r, int ql, int qr, int val) {
+        push(node, l, r);
+        if (qr < l || ql > r) return;
+        if (ql <= l && r <= qr) {
+            lazy[node] += val;
+            push(node, l, r);
+            return;
+        }
+        int mid = (l + r) / 2;
+        updateRange(node * 2, l, mid, ql, qr, val);
+        updateRange(node * 2 + 1, mid + 1, r, ql, qr, val);
+        push(node * 2, l, mid);
+        push(node * 2 + 1, mid + 1, r);
+        tree[node] = tree[node * 2] + tree[node * 2 + 1];
+    }
+    
+    int query(int node, int l, int r, int ql, int qr) {
+        push(node, l, r);
+        if (qr < l || ql > r) return 0;
+        if (ql <= l && r <= qr) return tree[node];
+        int mid = (l + r) / 2;
+        return query(node * 2, l, mid, ql, qr) + 
+               query(node * 2 + 1, mid + 1, r, ql, qr);
+    }
+};
+```
+
+### Generic Segment Tree Template
+
+```cpp
+template<typename T, typename Merge = plus<T>>
+class SegmentTree {
+public:
+    SegmentTree(vector<T>& arr, T identity = T(), Merge merge = Merge()) 
+        : n(arr.size()), tree(4 * n), identity(identity), merge(merge) {
+        build(arr, 1, 0, n - 1);
+    }
+    
+    void update(int index, T val) {
+        update(1, 0, n - 1, index, val);
+    }
+    
+    T query(int left, int right) {
+        return query(1, 0, n - 1, left, right);
+    }
+    
+private:
+    int n;
+    vector<T> tree;
+    T identity;
+    Merge merge;
+    
+    void build(vector<T>& arr, int node, int l, int r) {
+        if (l == r) {
+            tree[node] = arr[l];
+        } else {
+            int mid = (l + r) / 2;
+            build(arr, node * 2, l, mid);
+            build(arr, node * 2 + 1, mid + 1, r);
+            tree[node] = merge(tree[node * 2], tree[node * 2 + 1]);
+        }
+    }
+    
+    void update(int node, int l, int r, int idx, T val) {
+        if (l == r) {
+            tree[node] = val;
+        } else {
+            int mid = (l + r) / 2;
+            if (idx <= mid) {
+                update(node * 2, l, mid, idx, val);
+            } else {
+                update(node * 2 + 1, mid + 1, r, idx, val);
+            }
+            tree[node] = merge(tree[node * 2], tree[node * 2 + 1]);
+        }
+    }
+    
+    T query(int node, int l, int r, int ql, int qr) {
+        if (qr < l || ql > r) return identity;
+        if (ql <= l && r <= qr) return tree[node];
+        int mid = (l + r) / 2;
+        return merge(query(node * 2, l, mid, ql, qr),
+                     query(node * 2 + 1, mid + 1, r, ql, qr));
+    }
+};
+
+// Usage examples:
+// Range Sum: SegmentTree<int> st(arr, 0);
+// Range Min: SegmentTree<int, function<int(int,int)>> st(arr, INT_MAX, [](int a, int b) { return min(a, b); });
+// Range Max: SegmentTree<int, function<int(int,int)>> st(arr, INT_MIN, [](int a, int b) { return max(a, b); });
+```
+
+### Key Concepts
+
+1. **Tree Structure**: Binary tree where each node represents a range `[l, r]`
+2. **Build**: O(n) - Construct tree from array
+3. **Point Update**: O(log n) - Update single element
+4. **Range Query**: O(log n) - Query sum/min/max over range
+5. **Lazy Propagation**: O(log n) - Defer range updates for efficiency
+6. **Space Complexity**: O(4n) - Array-based representation
+
+### When to Use
+
+- **Range Queries**: Sum, min, max, gcd over ranges
+- **Range Updates**: Add/subtract value to all elements in range
+- **Frequent Updates**: When updates and queries are interleaved
+- **Large Arrays**: When brute force is too slow
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) |
+| 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
+| 699 | Falling Squares | [Link](https://leetcode.com/problems/falling-squares/) | - |
+| 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
+| 850 | Rectangle Area II | [Link](https://leetcode.com/problems/rectangle-area-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) |
+| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) |
+
+### References
+
+- [LeetCode: A Recursive Approach to Segment Trees, Range Sum Queries, and Lazy Propagation](https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/) - Comprehensive guide to segment trees with examples
 
 ## HLD (Heavy-Light Decomposition) skeleton
 

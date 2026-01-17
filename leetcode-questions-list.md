@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 131
+- **Total Problems:** 134
 - **Easy:** 14 problems
-- **Medium:** 106 problems
-- **Hard:** 13 problems
+- **Medium:** 108 problems
+- **Hard:** 14 problems
 
 ## All LeetCode Problems
 
@@ -151,6 +151,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [1670](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) | [Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/) | Medium | Design, Deque, Data Structure | Two Deques, Rebalancing | 2026-01-13 |
 | [LCR 113](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) | [Course Schedule II (CN)](https://leetcode.cn/problems/QA2IGt/description/) | Medium | Graph, Topological Sort, DFS | DFS, Three-State Coloring | 2026-01-14 |
 | [802](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) | [Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) | Medium | Graph, DFS, Cycle Detection | DFS, Three-State Coloring | 2026-01-15 |
+| [305](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/) | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | Array, Union-Find, Graph | Union-Find, Incremental Connectivity | 2026-01-15 |
+| [307](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) | [Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) | Medium | Array, Segment Tree, Binary Indexed Tree | Segment Tree, Range Sum Query | 2026-01-15 |
+| [3477](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) | [Number of Unplaced Fruits](https://leetcode.com/problems/number-of-unplaced-fruits/) | Medium | Array, Greedy, Segment Tree | Segment Tree, Leftmost Query | 2026-01-15 |
 
 ## Problems by Difficulty
 
@@ -169,7 +172,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (106 problems)
+### Medium (108 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -258,11 +261,15 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [794. Valid Tic-Tac-Toe State](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/)
 - [973. K Closest Points to Origin](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/)
 - [983. Minimum Cost For Tickets](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/)
+- [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/)
+- [307. Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/)
+- [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/)
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/)
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
+- [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 
-### Hard (13 problems)
+### Hard (14 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
 - [51. N-Queens](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/)
@@ -270,6 +277,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [218. The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/)
 - [239. Sliding Window Maximum](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/)
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/)
+- [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/)
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/)
 - [480. Sliding Window Median](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-480-sliding-window-median/)
 - [489. Robot Room Cleaner](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/)
@@ -292,6 +300,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [64. Minimum Path Sum](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) - 2D DP, Grid Path
 - [79. Word Search](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-79-word-search/) - DFS, Backtracking
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/) - DFS, Connected Components
+- [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/) - Union-Find, Incremental Connectivity
+- [307. Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) - Segment Tree, Range Sum Query
+- [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
 - [215. Kth Largest Element in an Array](https://robinali34.github.io/blog_leetcode/2026/01/05/medium-215-kth-largest-element-in-an-array/) - Min Heap, QuickSelect
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) - Binary Search, Divide & Conquer
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
@@ -414,6 +425,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) - Topological Sort, BFS
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) - Two-Pass, Candidate Elimination
+- [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/) - Union-Find, Incremental Connectivity
 - [310. Minimum Height Trees](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-310-minimum-height-trees/) - Peeling Leaves, BFS, DFS
 - [323. Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - BFS, DFS, Union-Find
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) - BFS, Multi-source
@@ -487,6 +499,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [673. Number of Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) - DP with Count Tracking, Binary Search
 - [692. Top K Frequent Words](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-692-top-k-frequent-words/) - Hash Map, Custom Sorting
 - [721. Accounts Merge](https://robinali34.github.io/blog_leetcode/2026/01/11/medium-721-accounts-merge/) - Union-Find, Disjoint Set
+- [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/) - Union-Find, Incremental Connectivity
+- [307. Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) - Segment Tree, Range Sum Query
+- [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
 - [844. Backspace String Compare](https://robinali34.github.io/blog_leetcode/2026/01/12/easy-844-backspace-string-compare/) - Two Pointers, Backwards
 - [993. Cousins in Binary Tree](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) - BFS, Parent Tracking
@@ -539,4 +554,4 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ---
 
 *Last updated: January 15, 2026*
-*Total problems solved: 131*
+*Total problems solved: 134*
