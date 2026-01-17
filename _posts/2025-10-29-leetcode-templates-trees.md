@@ -280,14 +280,38 @@ private:
 - **Frequent Updates**: When updates and queries are interleaved
 - **Large Arrays**: When brute force is too slow
 
+### Easy
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | - |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) |
+
+### Medium
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-307-range-sum-query-mutable/) |
 | 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
+| 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
+| 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | - |
+| 731 | My Calendar II | [Link](https://leetcode.com/problems/my-calendar-ii/) | - |
+| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | - |
+| 1505 | Minimum Possible Integer After at Most K Swaps | [Link](https://leetcode.com/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | - |
+| 1649 | Create Sorted Array through Instructions | [Link](https://leetcode.com/problems/create-sorted-array-through-instructions/) | - |
+| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) |
+
+### Hard
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 218 | The Skyline Problem | [Link](https://leetcode.com/problems/the-skyline-problem/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) |
 | 699 | Falling Squares | [Link](https://leetcode.com/problems/falling-squares/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
+| 732 | My Calendar III | [Link](https://leetcode.com/problems/my-calendar-iii/) | - |
 | 850 | Rectangle Area II | [Link](https://leetcode.com/problems/rectangle-area-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) |
-| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/) |
+| 1157 | Online Majority Element In Subarray | [Link](https://leetcode.com/problems/online-majority-element-in-subarray/) | - |
+| 2407 | Longest Increasing Subsequence II | [Link](https://leetcode.com/problems/longest-increasing-subsequence-ii/) | - |
 
 ### References
 
