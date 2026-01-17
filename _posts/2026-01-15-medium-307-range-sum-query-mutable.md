@@ -72,13 +72,24 @@ This is a classic **Segment Tree** problem. We need to support:
 ### **Solution: Segment Tree (0-Indexed Array Representation)**
 
 ```cpp
-class SegmentTree{
+class NumArray {
 public:
-    SegmentTree(vector<int>& nums) {
+    NumArray(vector<int>& nums){
         n = nums.size();
         tree.resize(4 * n);
         build(0, 0, n - 1, nums);
     }
+    
+    void update(int index, int val) {
+        update(0, 0, n - 1, index, val);
+    }
+    
+    int sumRange(int left, int right) {
+        return (int)query(0, 0, n - 1, left, right);
+    }
+private:
+    vector<long long> tree;
+    int n;
 
     void build(int node, int l, int r, vector<int>& nums) {
         if(l == r) {
@@ -90,10 +101,6 @@ public:
         build(2 * node + 1, l, mid, nums);
         build(2 * node + 2, mid + 1, r, nums);
         tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
-    }
-
-    void update(int idx, int val) {
-        update(0, 0, n - 1, idx, val);
     }
 
     void update(int node, int l, int r, int idx, int val) {
@@ -110,35 +117,12 @@ public:
         tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
     }
 
-    long long query(int ql, int qr) {
-        return query(0, 0, n - 1, ql, qr);
-    }
-
     long long query(int node, int l, int r, int ql, int qr) {
         if(qr < l || r < ql) return 0;
         if(ql <= l && r <= qr) return tree[node];
         int mid = l + (r - l) / 2;
         return query(2 * node + 1, l, mid, ql, qr) + query(2* node + 2, mid + 1, r, ql, qr);
     }
-private:
-    vector<long long> tree;
-    int n;
-};
-
-class NumArray {
-public:
-    NumArray(vector<int>& nums): st(nums) {
-    }
-    
-    void update(int index, int val) {
-        st.update(index, val);
-    }
-    
-    int sumRange(int left, int right) {
-        return (int)st.query(left, right);
-    }
-private:
-    SegmentTree st;
 };
 
 /**
@@ -151,13 +135,13 @@ private:
 
 ### **Algorithm Explanation:**
 
-#### **SegmentTree Class:**
+#### **NumArray Class:**
 
 1. **Constructor (Lines 3-7)**:
    - Initialize segment tree with size `4 * n`
    - Build tree from `nums` array starting at root node (index 0)
 
-2. **build() (Lines 9-20)**:
+2. **build() (Lines 15-25)**:
    - Recursively build segment tree
    - **Base Case**: Leaf node (`l == r`) stores `nums[l]`
    - **Recursive Case**: 
@@ -165,7 +149,8 @@ private:
      - Build right subtree: `2 * node + 2` for range `[mid + 1, r]`
      - Parent node stores sum of children: `tree[node] = tree[left] + tree[right]`
 
-3. **update() (Lines 22-35)**:
+3. **update() (Lines 5-6, 27-37)**:
+   - Public method delegates to private recursive method
    - Update element at index `idx` to value `val`
    - **Base Case**: Leaf node (`l == r`) → update directly
    - **Recursive Case**: 
@@ -173,17 +158,12 @@ private:
      - Update child subtree
      - Recalculate parent: `tree[node] = tree[left] + tree[right]`
 
-4. **query() (Lines 37-45)**:
+4. **query() (Lines 8-9, 39-45)**:
+   - Public method delegates to private recursive method
    - Query sum over range `[ql, qr]`
    - **No Overlap**: `qr < l || r < ql` → return 0
    - **Complete Overlap**: `ql <= l && r <= qr` → return `tree[node]`
    - **Partial Overlap**: Query both children and sum results
-
-#### **NumArray Class:**
-
-1. **Constructor**: Initialize `SegmentTree` with `nums`
-2. **update()**: Delegate to segment tree's update method
-3. **sumRange()**: Delegate to segment tree's query method
 
 ### **Tree Structure (0-Indexed):**
 
