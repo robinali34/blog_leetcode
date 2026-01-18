@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 135
+- **Total Problems:** 136
 - **Easy:** 14 problems
-- **Medium:** 108 problems
+- **Medium:** 109 problems
 - **Hard:** 15 problems
 
 ## All LeetCode Problems
@@ -155,6 +155,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [307](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) | [Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) | Medium | Array, Segment Tree, Binary Indexed Tree | Segment Tree, Range Sum Query | 2026-01-16 |
 | [315](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) | [Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | Hard | Array, Binary Search, Fenwick Tree | Fenwick Tree, Coordinate Compression | 2026-01-17 |
 | [3477](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) | [Number of Unplaced Fruits](https://leetcode.com/problems/number-of-unplaced-fruits/) | Medium | Array, Greedy, Segment Tree | Segment Tree, Leftmost Query | 2026-01-16 |
+| [729](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) | [My Calendar I](https://leetcode.com/problems/my-calendar-i/) | Medium | Array, Binary Search, Design | Ordered Set, Interval Overlap | 2026-01-17 |
 
 ## Problems by Difficulty
 
@@ -173,7 +174,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
 
-### Medium (108 problems)
+### Medium (109 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -266,6 +267,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [307. Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/)
 - [315. Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/)
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/)
+- [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/)
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/)
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/)
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
@@ -444,6 +446,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
 - [398. Random Pick Index](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) - Hash Map, Preprocessing
 - [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) - Prefix Sum, Binary Search
+- [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) - Ordered Set, Interval Overlap
 - [1570. Dot Product of Two Sparse Vectors](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) - Hash Map, Optimization
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) - Two Deques, Rebalancing
 - [1865. Finding Pairs With a Certain Sum](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1865-finding-pairs-with-a-certain-sum/) - Hash Map, Count Tracking
@@ -506,6 +509,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [307. Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) - Segment Tree, Range Sum Query
 - [315. Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) - Fenwick Tree, Coordinate Compression
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
+- [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) - Ordered Set, Interval Overlap
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
 - [844. Backspace String Compare](https://robinali34.github.io/blog_leetcode/2026/01/12/easy-844-backspace-string-compare/) - Two Pointers, Backwards
 - [993. Cousins in Binary Tree](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) - BFS, Parent Tracking
@@ -557,5 +561,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: January 15, 2026*
-*Total problems solved: 135*
+*Last updated: January 17, 2026*
+*Total problems solved: 136*

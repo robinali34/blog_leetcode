@@ -295,7 +295,7 @@ private:
 | 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
-| 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | - |
+| 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) |
 | 731 | My Calendar II | [Link](https://leetcode.com/problems/my-calendar-ii/) | - |
 | 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | - |
 | 1505 | Minimum Possible Integer After at Most K Swaps | [Link](https://leetcode.com/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | - |
