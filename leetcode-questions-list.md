@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 139
-- **Easy:** 15 problems
-- **Medium:** 110 problems
+- **Total Problems:** 141
+- **Easy:** 16 problems
+- **Medium:** 111 problems
 - **Hard:** 16 problems
 
 ## All LeetCode Problems
@@ -55,6 +55,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [203](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | Linked List | Two Pointers, Dummy Node | 2025-11-18 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
 | [208](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | Medium | String, Design, Trie | Trie, Prefix Tree, Data Structure | 2026-01-18 |
+| [211](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-211-design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | Medium | String, Design, Trie | Trie, Wildcard Search, DFS | 2026-01-18 |
+| [2185](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-2185-counting-words-with-a-given-prefix/) | [Counting Words With a Given Prefix](https://leetcode.com/problems/counting-words-with-a-given-prefix/) | Easy | String, Array | Prefix Matching, Simulation | 2026-01-18 |
 | [218](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) | [The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) | Hard | Array, Sweep Line | Sweep Line, Priority Queue | 2025-10-05 |
 | [224](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) | Medium | String, Stack, Math | Stack, Expression Evaluation | 2025-11-13 |
 | [227](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | Medium | String, Stack, Math | Stack, Expression Evaluation | 2025-11-13 |
@@ -162,7 +164,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Problems by Difficulty
 
-### Easy (15 problems)
+### Easy (16 problems)
 - [20. Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-20-valid-parentheses/)
 - [203. Remove Linked List Elements](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/)
 - [344. Reverse String](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/)
@@ -176,9 +178,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [993. Cousins in Binary Tree](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/)
 - [1047. Remove All Adjacent Duplicates In String](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/)
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/)
+- [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (110 problems)
+### Medium (111 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -207,6 +210,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [131. Palindrome Partitioning](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/)
 - [146. LRU Cache](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-146-lru-cache/)
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/)
+- [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-211-design-add-and-search-words-data-structure/)
+- [224. Basic Calculator](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/)
 - [1443. Minimum Time to Collect All Apples in a Tree](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/)
 - [1650. Lowest Common Ancestor of a Binary Tree III](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/)
 - [1762. Buildings With an Ocean View](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/)
@@ -362,6 +367,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [408. Valid Word Abbreviation](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) - Position Tracking, Parsing
 - [647. Palindromic Substrings](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) - Expand Around Centers, Two Pointers
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Trie, Prefix Tree, Data Structure
+- [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-211-design-add-and-search-words-data-structure/) - Trie, Wildcard Search, DFS
+- [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-2185-counting-words-with-a-given-prefix/) - Prefix Matching, Simulation
 - [648. Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie, Hash Set
 - [692. Top K Frequent Words](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-692-top-k-frequent-words/) - Hash Map, Custom Sorting
 - [794. Valid Tic-Tac-Toe State](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-794-valid-tic-tac-toe-state/) - Simulation, Validation
@@ -454,6 +461,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Data Structure Design
 - [146. LRU Cache](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-146-lru-cache/) - Hash Map, Doubly Linked List
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Trie, Prefix Tree, Data Structure
+- [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-211-design-add-and-search-words-data-structure/) - Trie, Wildcard Search, DFS
 - [348. Design Tic-Tac-Toe](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-348-design-tic-tac-toe/) - Counter Optimization, State Tracking
 - [398. Random Pick Index](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) - Hash Map, Preprocessing
 - [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) - Prefix Sum, Binary Search
@@ -575,4 +583,4 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ---
 
 *Last updated: January 18, 2026*
-*Total problems solved: 139*
+*Total problems solved: 141*
