@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "2185. Counting Words With a Given Prefix"
-date: 2026-01-18 00:00:00 -0700
+date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, string, array]
-permalink: /2026/01/18/easy-2185-counting-words-with-a-given-prefix/
+permalink: /2026/01/19/easy-2185-counting-words-with-a-given-prefix/
 tags: [leetcode, easy, string, array, prefix, simulation]
 ---
 
