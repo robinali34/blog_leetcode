@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 154
+- **Total Problems:** 155
 - **Easy:** 27 problems
 - **Medium:** 113 problems
-- **Hard:** 16 problems
+- **Hard:** 17 problems
 
 ## All LeetCode Problems
 
@@ -155,6 +155,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [269](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) | [Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) | Hard | Graph, Topological Sort, String | Topological Sort, BFS | 2026-01-14 |
 | [310](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-310-minimum-height-trees/) | [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) | Medium | Graph, Tree, Topological Sort | Peeling Leaves, BFS, DFS | 2026-01-14 |
 | [323](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) | [Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | Medium | Graph, Union-Find, BFS, DFS | BFS, DFS, Union-Find | 2026-01-07 |
+| [327](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) | Hard | Array, Divide and Conquer | Merge Sort, Segment Tree, Prefix Sum | 2026-01-20 |
 | [429](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) | [N-ary Tree Level Order Traversal](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | Medium | Tree, BFS | BFS, Level Order | 2026-01-07 |
 | [673](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) | [Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | Medium | Array, Dynamic Programming | DP with Count Tracking, Binary Search | 2026-01-09 |
 | [692](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-692-top-k-frequent-words/) | [Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/) | Medium | Hash Table, Heap, Sorting | Hash Map, Custom Sorting | 2026-01-08 |
@@ -309,7 +310,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 
-### Hard (16 problems)
+### Hard (17 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
 - [51. N-Queens](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/)
@@ -318,6 +319,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [239. Sliding Window Maximum](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/)
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/)
 - [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/16/hard-305-number-of-islands-ii/)
+- [327. Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/)
 - [315. Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/)
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/)
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/)
@@ -351,6 +353,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
 - [323. Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - BFS, DFS, Union-Find
 - [324. Wiggle Sort II](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-324-wiggle-sort-ii/) - Sorting, 3-way Partition
+- [327. Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) - Merge Sort, Segment Tree, Prefix Sum
 - [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-347-top-k-frequent-elements/) - Bucket Sort, Quickselect, Heap
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) - Greedy, Sorting
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) - DFS, BFS
@@ -621,5 +624,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: January 19, 2026*
-*Total problems solved: 154*
+*Last updated: January 20, 2026*
+*Total problems solved: 155*
