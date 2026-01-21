@@ -91,41 +91,35 @@ public:
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        const int VISITED = 101;
-        const int rows = matrix.size(), cols = matrix[0].size();
-        vector<vector<int>> dirs = \{\{0, 1\}, \{1, 0\}, \{0, -1\}, \{-1, 0\}\}; // right, down, left, up
-        int dir = 0;
-        vector<int> rtn;
+        if(matrix.size() == 0 || matrix[0].size() == 0) return {};
+
+        const int ROWS = matrix.size(), COLS = matrix[0].size();
+        vector<vector<bool>> visited(ROWS, vector<bool>(COLS, false));
+        const int TOTAL = ROWS * COLS;
+        vector<int> order(TOTAL);
+
         int row = 0, col = 0;
-        
-        for(int i = 0; i < rows * cols; i++) {
-            rtn.push_back(matrix[row][col]);
-            matrix[row][col] = VISITED; // Mark as visited
-            
-            // Calculate next position
-            int nextRow = row + dirs[dir][0];
-            int nextCol = col + dirs[dir][1];
-            
-            // Check if next position is valid and not visited
-            if (nextRow >= 0 && nextRow < rows &&
-                nextCol >= 0 && nextCol < cols &&
-                matrix[nextRow][nextCol] != VISITED) {
-                    row = nextRow;
-                    col = nextCol;
-                } else {
-                    // Change direction and move
-                    dir = (dir + 1) % 4;
-                    row += dirs[dir][0];
-                    col += dirs[dir][1];
-                }
+        int dirIdx = 0;
+        for(int i = 0; i < TOTAL; i++) {
+            order[i] = matrix[row][col];
+            visited[row][col] = true;
+            int nextRow = row + DIRS[dirIdx][0], nextCol = col + DIRS[dirIdx][1];
+            if(nextRow < 0 || nextRow >= ROWS || nextCol < 0 || nextCol >= COLS || visited[nextRow][nextCol]) {
+                dirIdx = (dirIdx + 1) % 4;
+            }
+            row += DIRS[dirIdx][0];
+            col += DIRS[dirIdx][1];
         }
-        return rtn;
+        return order;
     }
+
+private:
+    const vector<vector<int>> DIRS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 };
 ```
 
 **Time Complexity:** O(m × n) - Visit each cell exactly once
-**Space Complexity:** O(1) - Only using variables for direction and position
+**Space Complexity:** O(m × n) - Visited matrix plus output array
 
 ## Step-by-Step Example (Solution 1)
 
