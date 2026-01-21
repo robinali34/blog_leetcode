@@ -87,6 +87,7 @@ public:
 
 ## Solution 2: Direction Simulation Approach
 
+{% raw %}
 ```cpp
 class Solution {
 public:
@@ -117,6 +118,7 @@ private:
     const vector<vector<int>> DIRS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 };
 ```
+{% endraw %}
 
 **Time Complexity:** O(m × n) - Visit each cell exactly once
 **Space Complexity:** O(m × n) - Visited matrix plus output array
