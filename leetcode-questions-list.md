@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 155
+- **Total Problems:** 156
 - **Easy:** 27 problems
-- **Medium:** 113 problems
+- **Medium:** 114 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -91,6 +91,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [485](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-485-max-consecutive-ones/) | [Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/) | Easy | Array | Counter | 2025-11-04 |
 | [489](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/) | [Robot Room Cleaner](https://leetcode.com/problems/robot-room-cleaner/) | Hard | DFS, Backtracking | DFS, Backtracking, Robot Navigation | 2025-11-24 |
 | [494](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) | [Target Sum](https://leetcode.com/problems/target-sum/) | Medium | Array, Dynamic Programming | DP, Subset Sum | 2025-10-15 |
+| [498](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-498-diagonal-traverse/) | [Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/) | Medium | Array, Matrix | Simulation, Direction Toggle | 2026-01-20 |
 | [509](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) | [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) | Easy | Dynamic Programming, Math | DP, Bottom-Up | 2025-11-18 |
 | [525](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) | [Contiguous Array](https://leetcode.com/problems/contiguous-array/) | Medium | Array, Hash Table | Prefix Sum, Hash Map | 2025-11-04 |
 | [528](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) | [Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) | Medium | Design, Binary Search, Prefix Sum | Prefix Sum, Binary Search | 2025-11-24 |
@@ -206,7 +207,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (113 problems)
+### Medium (114 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -256,6 +257,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/)
 - [437. Path Sum III](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/)
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/)
+- [498. Diagonal Traverse](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-498-diagonal-traverse/)
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/)
 - [525. Contiguous Array](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/)
 - [528. Random Pick with Weight](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/)
@@ -354,12 +356,14 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [323. Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - BFS, DFS, Union-Find
 - [324. Wiggle Sort II](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-324-wiggle-sort-ii/) - Sorting, 3-way Partition
 - [327. Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) - Merge Sort, Segment Tree, Prefix Sum
+- [498. Diagonal Traverse](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-498-diagonal-traverse/) - Simulation, Direction Toggle
 - [347. Top K Frequent Elements](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-347-top-k-frequent-elements/) - Bucket Sort, Quickselect, Heap
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) - Greedy, Sorting
 - [417. Pacific Atlantic Water Flow](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) - DFS, BFS
 - [419. Battleships in a Board](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-419-battleships-in-a-board/) - Top-Left Corner, DFS
 - [485. Max Consecutive Ones](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-485-max-consecutive-ones/) - Counter
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) - DP, Subset Sum
+- [498. Diagonal Traverse](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-498-diagonal-traverse/) - Simulation, Direction Toggle
 - [349. Intersection of Two Arrays](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-349-intersection-of-two-arrays/) - Hash Set, Duplicate Removal
 - [645. Set Mismatch](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-645-set-mismatch/) - Mathematical Approach, Negative Marking
 - [503. Next Greater Element II](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) - Monotonic Stack
