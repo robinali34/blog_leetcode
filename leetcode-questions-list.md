@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 156
+- **Total Problems:** 157
 - **Easy:** 27 problems
-- **Medium:** 114 problems
+- **Medium:** 115 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -38,6 +38,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [54](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) | [Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) | Medium | Array, Matrix | Simulation | 2025-09-25 |
 | [56](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/) | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Medium | Array, Sorting, Intervals | Sort and Merge | 2025-11-24 |
 | [62](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) | [Unique Paths](https://leetcode.com/problems/unique-paths/) | Medium | Math, Dynamic Programming | DP, Combinatorics | 2025-09-24 |
+| [63](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) | [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/) | Medium | Array, Dynamic Programming | DP, Space Optimization | 2026-01-21 |
 | [67](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-easy-67-add-binary/) | [Add Binary](https://leetcode.com/problems/add-binary/) | Easy | String, Math, Bit Manipulation | Two Pointers, Carry Propagation | 2025-12-11 |
 | [75](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-75-sort-colors/) | [Sort Colors](https://leetcode.com/problems/sort-colors/) | Medium | Array, Two Pointers, Sorting | Dutch National Flag, Two Pointers | 2025-12-02 |
 | [346](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-easy-346-moving-average-from-data-stream/) | [Moving Average from Data Stream](https://leetcode.com/problems/moving-average-from-data-stream/) | Easy | Queue, Sliding Window, Design | Queue, Running Sum | 2025-12-14 |
@@ -207,7 +208,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (114 problems)
+### Medium (115 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -227,6 +228,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [50. Pow(x, n)](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-50-pow-x-n/)
 - [54. Spiral Matrix](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/)
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/)
+- [63. Unique Paths II](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/)
 - [695. Max Area of Island](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-695-max-area-of-island/)
 - [75. Sort Colors](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-75-sort-colors/)
 - [77. Combinations](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-77-combinations/)
@@ -343,6 +345,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [54. Spiral Matrix](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) - Simulation
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/) - Sort and Merge
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) - DP, Combinatorics
+- [63. Unique Paths II](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) - DP, Space Optimization
 - [64. Minimum Path Sum](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) - 2D DP, Grid Path
 - [79. Word Search](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-79-word-search/) - DFS, Backtracking
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/) - DFS, Connected Components
@@ -447,6 +450,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Dynamic Programming
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) - DP, Two-Pass Greedy
 - [62. Unique Paths](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) - DP, Combinatorics
+- [63. Unique Paths II](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) - DP, Space Optimization
 - [64. Minimum Path Sum](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) - 2D DP, Grid Path
 - [96. Unique Binary Search Trees](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) - DP, Catalan Numbers
 - [198. House Robber](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) - DP, Pick or Skip

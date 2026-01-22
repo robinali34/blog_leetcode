@@ -116,6 +116,7 @@ void backtrack(int start, int n, int k, vector<int>& cur, vector<vector<int>>& r
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 77 | Combinations | [Link](https://leetcode.com/problems/combinations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-77-combinations/) |
+| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
 
 ## Subsets (All Subsets)
 
@@ -425,6 +426,8 @@ vector<vector<bool>> precomputePalindromes(string& s){
 |---|---|---|---|
 | 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/) |
 | 132 | Palindrome Partitioning II | [Link](https://leetcode.com/problems/palindrome-partitioning-ii/) | - |
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/) |
+| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) |
 
 ## Parentheses Generation
 

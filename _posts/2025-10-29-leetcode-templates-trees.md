@@ -12,6 +12,7 @@ tags: [leetcode, templates, trees]
 - [Traversals (iterative)](#traversals-iterative)
 - [LCA (Binary Lifting)](#lca-binary-lifting)
 - [Segment Tree](#segment-tree)
+- [Binary Search on Segment Tree (Tree Walking)](#binary-search-on-segment-tree-tree-walking)
 - [Fenwick Tree (Binary Indexed Tree)](#fenwick-tree-binary-indexed-tree)
 - [HLD (Heavy-Light Decomposition)](#hld-heavy-light-decomposition-skeleton)
 
@@ -45,6 +46,9 @@ vector<vector<int>> levelOrder(TreeNode* root){
 |---|---|---|---|
 | 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | - |
 | 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
+| 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
+| 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
 
 ## LCA (Binary Lifting)
 
@@ -58,10 +62,25 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | - |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+| 1650 | Lowest Common Ancestor of a Binary Tree III | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) |
 | 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 | 285 | Inorder Successor in BST | [Link](https://leetcode.com/problems/inorder-successor-in-bst/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-285-inorder-successor-in-bst/) |
+| 426 | Convert Binary Search Tree to Sorted Doubly Linked List | [Link](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) |
+| 938 | Range Sum of BST | [Link](https://leetcode.com/problems/range-sum-of-bst/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-938-range-sum-of-bst/) |
+| 100 | Same Tree | [Link](https://leetcode.com/problems/same-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-100-same-tree/) |
+| 101 | Symmetric Tree | [Link](https://leetcode.com/problems/symmetric-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-101-symmetric-tree/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-112-path-sum/) |
+| 226 | Invert Binary Tree | [Link](https://leetcode.com/problems/invert-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-226-invert-binary-tree/) |
+| 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) |
+| 129 | Sum Root to Leaf Numbers | [Link](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) |
+| 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
+| 545 | Boundary of Binary Tree | [Link](https://leetcode.com/problems/boundary-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) |
+| 993 | Cousins in Binary Tree | [Link](https://leetcode.com/problems/cousins-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) |
+| 1443 | Minimum Time to Collect All Apples in a Tree | [Link](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) |
 
 ## Segment Tree
 
@@ -263,6 +282,26 @@ private:
 // Range Sum: SegmentTree<int> st(arr, 0);
 // Range Min: SegmentTree<int, function<int(int,int)>> st(arr, INT_MAX, [](int a, int b) { return min(a, b); });
 // Range Max: SegmentTree<int, function<int(int,int)>> st(arr, INT_MIN, [](int a, int b) { return max(a, b); });
+```
+
+### Binary Search on Segment Tree (Tree Walking)
+
+Instead of doing a binary search over an index and then a segment tree query ($O(\log^2 N)$), we descend the segment tree directly to find the first element satisfying a condition in $O(\log N)$.
+
+#### Template: Find First Index >= X
+
+```cpp
+int findFirst(Node* node, int l, int r, int x) {
+    if (node->maxVal < x) return -1;
+    if (l == r) return l;
+    
+    int mid = l + (r - l) / 2;
+    int res = findFirst(node->left, l, mid, x);
+    if (res == -1) {
+        res = findFirst(node->right, mid + 1, r, x);
+    }
+    return res;
+}
 ```
 
 ### Key Concepts
