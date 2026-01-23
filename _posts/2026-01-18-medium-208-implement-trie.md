@@ -72,98 +72,47 @@ A **Trie (Prefix Tree)** is a tree-like data structure where each node represent
 ## Solution
 
 ```cpp
-class TrieNode {
-public:
-    TrieNode() {
-        for(int i = 0; i < 26; i++) {
-            links[i] = nullptr;
-        }
-        isEnd = false;
-    }
-
-    bool containsKey(char ch) const {
-        return links[ch - 'a'] != nullptr;
-    }
-
-    TrieNode* get(char ch) const {
-        return links[ch - 'a'];
-    }
-
-    TrieNode* getAt(int i) const {
-        return links[i];
-    }
-
-    void put (char ch, TrieNode* node) {
-        links[ch - 'a'] = node;
-    }
-
-    void setEnd(){
-        isEnd = true;
-    }
-
-    bool isEndofWord() const {
-        return isEnd;
-    }
-
-private:
-    TrieNode* links[26];
-    bool isEnd;
-};
-
 class Trie {
 public:
-    Trie() {
-        root = new TrieNode();
-    }
-
-    ~Trie(){
-        deleteSubtree(root);
+    Trie() : children(26), isWord(false) {
+        
     }
     
     void insert(string word) {
-        TrieNode* node = root;
-        for(int i = 0; i < (int)word.length(); i++) {
-            char curr = word[i];
-            if(!node->containsKey(curr)) {
-                node->put(curr, new TrieNode());
+        Trie* node = this;
+        for(char ch: word) {
+            ch -= 'a';
+            if(!node->children[ch]) {
+                node->children[ch] = new Trie();
             }
-            node = node->get(curr);
+            node = node->children[ch];
         }
-        node->setEnd();
+        node->isWord = true;
     }
     
     bool search(string word) {
-        TrieNode* node = searchPrefix(word);
-        return node != nullptr && node->isEndofWord();
+        Trie* node = this->searchPrefix(word);
+        return node != nullptr && node->isWord;
     }
     
     bool startsWith(string prefix) {
-        TrieNode* node = searchPrefix(prefix);
-        return node != nullptr;
+        return this->searchPrefix(prefix) != nullptr;
     }
 
 private:
-    TrieNode* root;
+    vector<Trie*> children;
+    bool isWord;
 
-    TrieNode* searchPrefix(const string& word) {
-        TrieNode* node = root;
-        for(int i = 0; i < (int)word.length(); i++) {
-            char curr = word[i];
-            if(node->containsKey(curr)){
-                node = node->get(curr);
-            } else {
+    Trie* searchPrefix(string prefix) {
+        Trie* node = this;
+        for(char ch: prefix) {
+            ch -= 'a';
+            if(!node->children[ch]) {
                 return nullptr;
             }
+            node = node->children[ch];
         }
         return node;
-    }
-
-    void deleteSubtree(TrieNode* node) {
-        if(!node) return;
-        for(int i = 0; i < 26; i++) {
-            deleteSubtree(node->getAt(i));
-        }
-        delete node;
     }
 };
 
@@ -178,41 +127,39 @@ private:
 
 ### Algorithm Explanation:
 
-#### **TrieNode Class:**
+#### **Trie Class Structure:**
 
-1. **Constructor**: Initializes 26 child pointers to `nullptr` and `isEnd` to `false`
-2. **containsKey(char ch)**: Checks if child node exists for character
-3. **get(char ch)**: Returns child node for character
-4. **getAt(int i)**: Returns child node at index (for cleanup)
-5. **put(char ch, TrieNode* node)**: Sets child node for character
-6. **setEnd()**: Marks node as end of word
-7. **isEndofWord()**: Returns whether node marks end of word
+This implementation uses a **self-referential design** where each `Trie` object represents a node in the trie. The root is the `Trie` object itself (`this`).
 
-#### **Trie Class:**
+1. **Data Members**:
+   - `vector<Trie*> children`: Array of 26 pointers (one for each lowercase letter)
+   - `bool isWord`: Flag marking if this node represents the end of a word
 
-1. **Constructor**: Creates root node
-2. **Destructor**: Recursively deletes all nodes to prevent memory leaks
+2. **Constructor**: 
+   - Initializes `children` vector with 26 `nullptr` elements
+   - Sets `isWord` to `false`
+
 3. **insert(word)**:
-   - Start from root
-   - For each character, create node if missing
-   - Traverse to next node
-   - Mark final node as end of word
+   - Start from `this` (root node)
+   - For each character in word:
+     - Convert to index: `ch -= 'a'`
+     - Create new `Trie` node if child doesn't exist
+     - Move to child node
+   - Mark final node's `isWord` as `true`
 
 4. **search(word)**:
-   - Use `searchPrefix` to find node
-   - Return `true` only if node exists AND is marked as end
+   - Use `searchPrefix` helper to find the node
+   - Return `true` only if node exists AND `isWord` is `true`
 
 5. **startsWith(prefix)**:
-   - Use `searchPrefix` to find node
-   - Return `true` if node exists (end flag not required)
+   - Use `searchPrefix` helper to find the node
+   - Return `true` if node exists (regardless of `isWord` flag)
 
-6. **searchPrefix(word)** (Helper):
-   - Traverse from root following characters
-   - Return node if path exists, `nullptr` otherwise
-
-7. **deleteSubtree(node)** (Helper):
-   - Recursively delete all children
-   - Delete current node
+6. **searchPrefix(prefix)** (Private Helper):
+   - Start from `this` (root)
+   - Traverse following each character in prefix
+   - Return `nullptr` if path doesn't exist
+   - Return the final node if path exists
 
 ### Example Walkthrough:
 
@@ -220,24 +167,26 @@ private:
 
 ```
 Step 1: insert("apple")
-  root -> 'a' -> 'p' -> 'p' -> 'l' -> 'e' (marked as end)
+  this (root) -> children['a'] -> children['p'] -> children['p'] -> children['l'] -> children['e']
+  Final node: isWord = true
   
 Step 2: search("app")
-  Traverse: root -> 'a' -> 'p' -> 'p'
-  Node exists but NOT marked as end
+  searchPrefix("app"): Traverse this -> 'a' -> 'p' -> 'p'
+  Node exists but isWord = false
   Return: false ✓
 
 Step 3: startsWith("app")
-  Traverse: root -> 'a' -> 'p' -> 'p'
-  Node exists (regardless of end flag)
+  searchPrefix("app"): Traverse this -> 'a' -> 'p' -> 'p'
+  Node exists (regardless of isWord flag)
   Return: true ✓
 
 Step 4: insert("app")
-  root -> 'a' -> 'p' -> 'p' (marked as end)
+  Traverse existing path: this -> 'a' -> 'p' -> 'p'
+  Set isWord = true on the 'p' node
   
 Step 5: search("app")
-  Traverse: root -> 'a' -> 'p' -> 'p'
-  Node exists AND marked as end
+  searchPrefix("app"): Traverse this -> 'a' -> 'p' -> 'p'
+  Node exists AND isWord = true
   Return: true ✓
 ```
 
@@ -260,13 +209,14 @@ Step 5: search("app")
 
 ## Key Insights
 
-1. **Trie Structure**: Tree where each path represents a prefix/word
-2. **End Marker**: Critical to distinguish between prefix and complete word
-3. **Shared Prefixes**: Multiple words sharing prefixes share nodes (space efficient)
-4. **Array vs Map**: Array (26 elements) is faster and uses less memory than map
-5. **Memory Management**: Destructor prevents memory leaks in C++
-6. **Helper Methods**: Encapsulate node operations for cleaner code
-7. **searchPrefix**: Reusable helper reduces code duplication
+1. **Self-Referential Design**: Each `Trie` object is itself a node, making the structure simpler
+2. **Trie Structure**: Tree where each path represents a prefix/word
+3. **End Marker (`isWord`)**: Critical to distinguish between prefix and complete word
+4. **Shared Prefixes**: Multiple words sharing prefixes share nodes (space efficient)
+5. **Array vs Map**: `vector<Trie*>` (26 elements) is faster and uses less memory than `unordered_map`
+6. **Character Indexing**: `ch -= 'a'` converts character to 0-25 index efficiently
+7. **Helper Method**: `searchPrefix` reduces code duplication between `search` and `startsWith`
+8. **Root as `this`**: The Trie object itself serves as the root, eliminating need for separate root pointer
 
 ## Edge Cases
 
@@ -280,57 +230,73 @@ Step 5: search("app")
 
 ## Common Mistakes
 
-1. **Forgetting end marker**: `search` returns true for prefixes
-2. **Not checking end in search**: `search("app")` returns true when only "apple" exists
-3. **Memory leaks**: Not implementing destructor
-4. **Index out of bounds**: Not validating character is lowercase
-5. **Null pointer**: Not checking if node exists before accessing
-6. **Incorrect traversal**: Not moving to next node in loop
+1. **Forgetting `isWord` check**: `search` returns true for prefixes if not checking `isWord`
+2. **Not checking `isWord` in search**: `search("app")` returns true when only "apple" exists
+3. **Character indexing error**: Forgetting `ch -= 'a'` before accessing `children[ch]`
+4. **Index out of bounds**: Not validating character is lowercase (0-25 range)
+5. **Null pointer access**: Not checking `if(!node->children[ch])` before accessing
+6. **Incorrect traversal**: Not updating `node = node->children[ch]` in loop
 7. **Case sensitivity**: Assuming only lowercase (problem constraint)
+8. **Using `this` incorrectly**: Forgetting that root is `this` itself, not a separate pointer
 
 ## Alternative Approaches
 
-### Using `unordered_map` for Children
+### Using Separate TrieNode Class (with Memory Management)
 
 ```cpp
 class TrieNode {
 public:
-    unordered_map<char, TrieNode*> children;
+    TrieNode* links[26];
     bool isEnd;
-    TrieNode() : isEnd(false) {}
+    TrieNode() {
+        for(int i = 0; i < 26; i++) links[i] = nullptr;
+        isEnd = false;
+    }
+};
+
+class Trie {
+    TrieNode* root;
+public:
+    Trie() { root = new TrieNode(); }
+    ~Trie() { deleteSubtree(root); }
+    // ... insert, search, startsWith with helper methods
+    void deleteSubtree(TrieNode* node) {
+        if(!node) return;
+        for(int i = 0; i < 26; i++) deleteSubtree(node->links[i]);
+        delete node;
+    }
+};
+```
+
+**Pros**: Better encapsulation, explicit memory management with destructor  
+**Cons**: More code, requires separate node class
+
+### Using `unordered_map` for Children
+
+```cpp
+class Trie {
+    unordered_map<char, Trie*> children;
+    bool isWord;
+    // ... rest of implementation
 };
 ```
 
 **Pros**: Supports any character set, more flexible  
-**Cons**: More memory overhead, slightly slower lookups
+**Cons**: More memory overhead, slightly slower lookups than array
 
-### Simplified Version (No Helper Methods)
+### Note on Memory Management
+
+The current implementation doesn't include a destructor. For production code, consider adding:
 
 ```cpp
-class Trie {
-    struct TrieNode {
-        TrieNode* children[26] = {};
-        bool isEnd = false;
-    };
-    TrieNode* root = new TrieNode();
-    
-public:
-    void insert(string word) {
-        TrieNode* node = root;
-        for(char c : word) {
-            int idx = c - 'a';
-            if(!node->children[idx])
-                node->children[idx] = new TrieNode();
-            node = node->children[idx];
-        }
-        node->isEnd = true;
+~Trie() {
+    for(Trie* child : children) {
+        if(child) delete child;
     }
-    // ... similar for search and startsWith
-};
+}
 ```
 
-**Pros**: More concise  
-**Cons**: Less encapsulation, harder to extend
+However, for LeetCode problems, this is often omitted for simplicity.
 
 ## When to Use Trie
 

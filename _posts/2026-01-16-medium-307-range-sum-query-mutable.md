@@ -262,94 +262,110 @@ Fenwick Tree is a more space-efficient alternative to Segment Tree. It uses O(n)
 
 ```cpp
 class NumArray {
-private:
-    vector<int> BIT;
-    vector<int> nums;
-    int n;
-    
-    // Add delta to element at index i (0-indexed)
-    void add(int i, int delta) {
-        i++; // Convert to 1-indexed
-        while (i <= n) {
-            BIT[i] += delta;
-            i += (i & -i); // Move to next node (lowest set bit)
-        }
-    }
-    
-    // Get prefix sum from [0, i] (0-indexed)
-    int prefixSum(int i) {
-        int sum = 0;
-        i++; // Convert to 1-indexed
-        while (i > 0) {
-            sum += BIT[i];
-            i -= (i & -i); // Move to parent (remove lowest set bit)
-        }
-        return sum;
-    }
-    
 public:
-    NumArray(vector<int>& nums) : nums(nums) {
+    NumArray(vector<int>& nums) {
         n = nums.size();
-        BIT.assign(n + 1, 0);
-        // Build BIT: add each element
-        for (int i = 0; i < n; i++) {
-            add(i, nums[i]);
+        tree.assign(n + 1, 0);
+        arr = nums;
+        for(int i = 0; i < n; i++) {
+            add(i + 1, nums[i]);
         }
     }
     
     void update(int index, int val) {
-        int delta = val - nums[index];
-        nums[index] = val;
-        add(index, delta);
+        int diff = val - arr[index];
+        arr[index] = val;
+        add(index + 1, diff);
     }
     
     int sumRange(int left, int right) {
-        return prefixSum(right) - (left > 0 ? prefixSum(left - 1) : 0);
+        return prefixSum(right + 1) - prefixSum(left);
+    }
+
+private:
+    vector<int> tree;
+    vector<int> arr;
+    int n;
+
+    int lowbit(int x) {
+        return x & (-x);
+    }
+
+    void add(int index, int val) {
+        while(index <= n) {
+            tree[index] += val;
+            index += lowbit(index);
+        }
+    }
+
+    // Prefix sum [1 .. index]
+    int prefixSum(int index) {
+        int sum = 0;
+        while(index > 0) {
+            sum += tree[index];
+            index -= lowbit(index);
+        }
+        return sum;
     }
 };
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * obj->update(index,val);
+ * int param_2 = obj->sumRange(left,right);
+ */
 ```
 
 ### **Algorithm Explanation:**
 
 #### **Fenwick Tree Structure:**
 
-1. **1-Indexed Array**: BIT uses 1-indexed array internally (index 0 is unused)
-2. **Lowest Set Bit**: `i & -i` extracts the lowest set bit
-   - Example: `6 & -6 = 2` (binary: `110 & 010 = 010`)
-3. **Update Path**: `i += (i & -i)` moves to next node that includes current index
-4. **Query Path**: `i -= (i & -i)` moves to parent node
+1. **1-Indexed Array**: Fenwick Tree uses 1-indexed array internally (index 0 is unused)
+2. **Lowest Set Bit (`lowbit`)**: `x & (-x)` extracts the lowest set bit
+   - Example: `lowbit(6) = 6 & -6 = 2` (binary: `110 & 010 = 010`)
+   - Used to traverse the tree structure
+3. **Update Path**: `index += lowbit(index)` moves to next node that includes current index
+4. **Query Path**: `index -= lowbit(index)` moves to parent node
 
 #### **Key Methods:**
 
-1. **add(i, delta)**: 
-   - Add `delta` to position `i` and all ancestors
-   - Traverse upward: `i += (i & -i)`
-   - Updates all nodes that include index `i` in their range
+1. **lowbit(x)**: 
+   - Helper function to extract the lowest set bit
+   - Used for tree traversal in both `add` and `prefixSum`
 
-2. **prefixSum(i)**:
-   - Get sum from index 0 to `i`
-   - Traverse downward: `i -= (i & -i)`
-   - Sums all nodes on path from `i` to root
+2. **add(index, val)**: 
+   - Add `val` to position `index` (1-indexed) and all ancestors
+   - Traverse upward: `index += lowbit(index)`
+   - Updates all nodes that include index `index` in their range
+   - Stops when `index > n`
 
-3. **sumRange(left, right)**:
-   - Range sum = `prefixSum(right) - prefixSum(left - 1)`
-   - Uses inclusion-exclusion principle
+3. **prefixSum(index)**:
+   - Get prefix sum from index 1 to `index` (both 1-indexed)
+   - Traverse downward: `index -= lowbit(index)`
+   - Sums all nodes on path from `index` to root
+   - Stops when `index <= 0`
+
+4. **sumRange(left, right)**:
+   - Range sum = `prefixSum(right + 1) - prefixSum(left)`
+   - Converts 0-indexed range `[left, right]` to 1-indexed prefix sums
+   - Uses inclusion-exclusion principle: sum from 1 to (right+1) minus sum from 1 to left
 
 ### **How It Works:**
 
 For array `[1, 3, 5]`:
 
 ```
-BIT Structure (1-indexed):
-BIT[1] = 1
-BIT[2] = 1 + 3 = 4
-BIT[3] = 5
-BIT[4] = 1 + 3 + 5 = 9 (not used for n=3)
+Tree Structure (1-indexed):
+tree[1] = 1
+tree[2] = 1 + 3 = 4
+tree[3] = 5
+tree[4] = 1 + 3 + 5 = 9 (not used for n=3)
 
-Query prefixSum(2):
-  i = 3, sum += BIT[3] = 5
-  i = 2, sum += BIT[2] = 4, total = 9
-  i = 0, stop
+Query prefixSum(3):
+  index = 3, sum += tree[3] = 5
+  index = 2 (3 - lowbit(3) = 3 - 1 = 2), sum += tree[2] = 4, total = 9
+  index = 0 (2 - lowbit(2) = 2 - 2 = 0), stop
   Result: 9 ✓
 ```
 
@@ -358,24 +374,27 @@ Query prefixSum(2):
 **Input:** `nums = [1, 3, 5]`
 
 ```
-Step 1: Build BIT
-  add(0, 1): BIT[1] = 1
-  add(1, 3): BIT[1] = 1, BIT[2] = 4
-  add(2, 5): BIT[3] = 5, BIT[4] = 9 (if n >= 4)
+Step 1: Build Fenwick Tree
+  Constructor: arr = [1, 3, 5], n = 3
+  add(1, 1): tree[1] = 1
+  add(2, 3): tree[1] = 1, tree[2] = 4
+  add(3, 5): tree[3] = 5
   
 Step 2: Query sumRange(0, 2)
-  prefixSum(2) = BIT[3] + BIT[2] = 5 + 4 = 9
-  prefixSum(-1) = 0
+  prefixSum(3) = tree[3] + tree[2] = 5 + 4 = 9
+  prefixSum(0) = 0
   Result: 9 - 0 = 9 ✓
   
 Step 3: Update index 1 to 2
-  delta = 2 - 3 = -1
-  add(1, -1):
-    BIT[1] = 1 - 1 = 0
-    BIT[2] = 4 - 1 = 3
+  diff = 2 - 3 = -1
+  arr[1] = 2
+  add(2, -1):
+    tree[2] = 4 - 1 = 3
+    tree[4] = ... (if n >= 4, but n=3, so stop)
     
 Step 4: Query sumRange(0, 2)
-  prefixSum(2) = BIT[3] + BIT[2] = 5 + 3 = 8
+  prefixSum(3) = tree[3] + tree[2] = 5 + 3 = 8
+  prefixSum(0) = 0
   Result: 8 - 0 = 8 ✓
 ```
 

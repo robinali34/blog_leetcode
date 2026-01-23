@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 157
+- **Total Problems:** 158
 - **Easy:** 27 problems
-- **Medium:** 115 problems
+- **Medium:** 116 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -168,6 +168,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [1624](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-1624-largest-substring-between-two-equal-characters/) | [Largest Substring Between Two Equal Characters](https://leetcode.com/problems/largest-substring-between-two-equal-characters/) | Easy | String, Hash Table | Hash Map, Character Tracking | 2026-01-19 |
 | [1670](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) | [Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/) | Medium | Design, Deque, Data Structure | Two Deques, Rebalancing | 2026-01-13 |
 | [1701](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) | [Average Waiting Time](https://leetcode.com/problems/average-waiting-time/) | Medium | Array, Simulation | Simulation, Greedy | 2026-01-19 |
+| [1801](https://robinali34.github.io/blog_leetcode/2026/01/22/medium-1801-number-of-orders-in-the-backlog/) | [Number of Orders in the Backlog](https://leetcode.com/problems/number-of-orders-in-the-backlog/) | Medium | Array, Heap, Priority Queue | Priority Queue, Greedy Matching | 2026-01-22 |
 | [LCR 113](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) | [Course Schedule II (CN)](https://leetcode.cn/problems/QA2IGt/description/) | Medium | Graph, Topological Sort, DFS | DFS, Three-State Coloring | 2026-01-14 |
 | [802](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) | [Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) | Medium | Graph, DFS, Cycle Detection | DFS, Three-State Coloring | 2026-01-15 |
 | [305](https://robinali34.github.io/blog_leetcode/2026/01/16/hard-305-number-of-islands-ii/) | [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/) | Hard | Array, Union-Find, Graph | Union-Find, Incremental Connectivity | 2026-01-16 |
@@ -208,7 +209,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (115 problems)
+### Medium (116 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -384,6 +385,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1340. Jump Game V](https://robinali34.github.io/blog_leetcode/2026/01/10/hard-1340-jump-game-v/) - DFS with Memoization
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) - Two Deques, Rebalancing
 - [1701. Average Waiting Time](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) - Simulation, Greedy
+- [1801. Number of Orders in the Backlog](https://robinali34.github.io/blog_leetcode/2026/01/22/medium-1801-number-of-orders-in-the-backlog/) - Priority Queue, Greedy Matching
 - [1762. Buildings With an Ocean View](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/) - Monotonic Stack, Greedy
 - [1856. Maximum Sum of Minimum Product](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-1856-maximum-sum-of-minimum-product/) - Monotonic Stack, Prefix Sum
 - [2799. Count Complete Subarrays in an Array](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) - Sliding Window, Hash Map

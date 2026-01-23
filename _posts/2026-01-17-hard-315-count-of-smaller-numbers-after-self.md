@@ -66,87 +66,96 @@ This problem requires counting inversions (smaller elements to the right). We ne
 ### **Solution: Fenwick Tree (Binary Indexed Tree) with Coordinate Compression**
 
 ```cpp
-class Fenwick {
-private:
-    int n;
-    vector<int> bit;
-    int lowbit(int x) { return x & -x; }
+class FrenwickTree{
 public:
-    Fenwick(int _n): n(_n), bit(n + 1, 0) {}
-    
-    // Add delta at position x (1-indexed)
-    void update(int x, int delta) {
-        for (; x <= n; x += lowbit(x)) {
-            bit[x] += delta;
+    FrenwickTree(int n): sums_(n + 1, 0){}
+
+    void update(int i, int delta) {
+        while(i < sums_.size()) {
+            sums_[i] += delta;
+            i += lowbit(i);
         }
     }
-    
-    // Sum from 1..x (1-indexed)
-    int query(int x) {
-        int s = 0;
-        for (; x > 0; x -= lowbit(x)) {
-            s += bit[x];
+
+    int query(int i) {
+        int sum = 0;
+        while(i > 0) {
+            sum += sums_[i];
+            i -= lowbit(i);
         }
-        return s;
+        return sum;
+    }
+
+private:
+    vector<int> sums_;
+
+    int lowbit(int x) {
+        return x & (-x);
     }
 };
 
 class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
-        int sz = nums.size();
-        vector<int> res(sz, 0);
-        
-        // Coordinate compression: map distinct values to [1, k]
-        vector<int> sorted(nums.begin(), nums.end());
+        // Get rank order
+        vector<int> sorted(nums);
         sort(sorted.begin(), sorted.end());
         sorted.erase(unique(sorted.begin(), sorted.end()), sorted.end());
-
-        Fenwick fw(sorted.size());
-        
-        // Process from right to left
-        for (int i = sz - 1; i >= 0; --i) {
-            // Find compressed index for nums[i]
-            int x = lower_bound(sorted.begin(), sorted.end(), nums[i]) - sorted.begin() + 1;
-            // Query how many numbers < nums[i] have been seen
-            res[i] = fw.query(x - 1);
-            // Mark nums[i] as seen
-            fw.update(x, 1);
+        unordered_map<int, int> ranks;
+        int rank = 1;
+        for(const int num: sorted) {
+            ranks[num] = rank++;
         }
-        return res;
+        vector<int> rtn;
+        // Update pre-fix sum while iterate, add ranks by 1 when encouter
+        FrenwickTree tree(ranks.size());
+        for(int i = nums.size() - 1; i >= 0; i--) {
+            rtn.push_back(tree.query(ranks[nums[i]] - 1));
+            tree.update(ranks[nums[i]], 1);
+        }
+        reverse(rtn.begin(), rtn.end());
+        return rtn;
     }
 };
 ```
 
 ### **Algorithm Explanation:**
 
-#### **Fenwick Class:**
+#### **FrenwickTree Class:**
 
-1. **Constructor**: Initialize BIT with size `n` (1-indexed array)
-2. **lowbit()**: Extract lowest set bit using `x & -x`
-3. **update(x, delta)**: Add `delta` to position `x` and all ancestors
-4. **query(x)**: Get prefix sum from 1 to `x`
+1. **Constructor**: Initialize Fenwick Tree with size `n` (1-indexed array `sums_`)
+2. **lowbit(x)**: Extract lowest set bit using `x & (-x)`
+3. **update(i, delta)**: Add `delta` to position `i` (1-indexed) and all ancestors
+   - Traverse upward: `i += lowbit(i)`
+   - Stops when `i >= sums_.size()`
+4. **query(i)**: Get prefix sum from 1 to `i` (1-indexed)
+   - Traverse downward: `i -= lowbit(i)`
+   - Stops when `i <= 0`
 
 #### **Solution Class:**
 
-1. **Coordinate Compression (Lines 20-23)**:
+1. **Coordinate Compression**:
    - Create sorted, unique array of all values
-   - Maps original values to compressed indices [1, k]
-   - Handles negative numbers and large ranges
+   - Build `unordered_map` mapping each value to its rank [1, k]
+   - Handles negative numbers and large ranges efficiently
+   - Example: `[5, 2, 6, 1]` → sorted `[1, 2, 5, 6]` → ranks: `{1:1, 2:2, 5:3, 6:4}`
 
-2. **Right-to-Left Processing (Lines 27-33)**:
-   - Process from `sz-1` down to `0`
+2. **Right-to-Left Processing**:
+   - Process from `nums.size()-1` down to `0`
    - For each element:
-     - Find compressed index `x` using binary search
-     - Query count of elements < current: `fw.query(x - 1)`
-     - Update tree: mark current element as seen
+     - Get rank: `ranks[nums[i]]`
+     - Query count of elements < current: `tree.query(ranks[nums[i]] - 1)`
+     - Push result to `rtn` vector
+     - Update tree: mark current element as seen with `tree.update(ranks[nums[i]], 1)`
+   - Reverse result array to get correct order
 
 ### **How It Works:**
 
-- **Coordinate Compression**: `[5, 2, 6, 1]` → `[1, 2, 5, 6]` → indices `[1, 2, 3, 4]`
+- **Coordinate Compression**: `[5, 2, 6, 1]` → sorted `[1, 2, 5, 6]` → ranks `{1:1, 2:2, 5:3, 6:4}`
 - **Right-to-Left**: Ensures we only count elements to the right
 - **Query Before Update**: Query counts elements already processed (to the right)
 - **Update**: Marks current element for future queries
+- **Reverse Result**: Results are collected in reverse order, then reversed at the end
 
 ### **Example Walkthrough:**
 
@@ -155,26 +164,31 @@ public:
 ```
 Step 1: Coordinate Compression
   sorted = [1, 2, 5, 6]
-  Mapping: 1→1, 2→2, 5→3, 6→4
+  ranks = {1:1, 2:2, 5:3, 6:4}
 
 Step 2: Process from right to left
-  i=3: nums[3] = 1, x = 1
-    query(0) = 0 → res[3] = 0
-    update(1, 1) → BIT[1] = 1
+  i=3: nums[3] = 1, rank = 1
+    query(0) = 0 → rtn.push_back(0)
+    update(1, 1) → sums_[1] = 1
+    rtn = [0]
     
-  i=2: nums[2] = 6, x = 4
-    query(3) = BIT[3] + BIT[2] = 0 + 1 = 1 → res[2] = 1
-    update(4, 1) → BIT[4] = 1
+  i=2: nums[2] = 6, rank = 4
+    query(3) = sums_[3] + sums_[2] = 0 + 1 = 1 → rtn.push_back(1)
+    update(4, 1) → sums_[4] = 1
+    rtn = [0, 1]
     
-  i=1: nums[1] = 2, x = 2
-    query(1) = BIT[1] = 1 → res[1] = 1
-    update(2, 1) → BIT[2] = 2
+  i=1: nums[1] = 2, rank = 2
+    query(1) = sums_[1] = 1 → rtn.push_back(1)
+    update(2, 1) → sums_[2] = 2
+    rtn = [0, 1, 1]
     
-  i=0: nums[0] = 5, x = 3
-    query(2) = BIT[2] = 2 → res[0] = 2
-    update(3, 1) → BIT[3] = 1
+  i=0: nums[0] = 5, rank = 3
+    query(2) = sums_[2] = 2 → rtn.push_back(2)
+    update(3, 1) → sums_[3] = 1
+    rtn = [0, 1, 1, 2]
 
-Result: [2, 1, 1, 0] ✓
+Step 3: Reverse result
+  reverse(rtn) → [2, 1, 1, 0] ✓
 ```
 
 ### **Complexity Analysis:**
@@ -194,10 +208,13 @@ Result: [2, 1, 1, 0] ✓
 ## Key Insights
 
 1. **Coordinate Compression**: Essential for handling negative numbers and large ranges
+   - Use `unordered_map` for O(1) rank lookup after sorting
+   - Maps distinct values to consecutive ranks [1, k]
 2. **Right-to-Left Processing**: Ensures we only count elements to the right
 3. **Fenwick Tree Efficiency**: O(log n) per operation, better than naive O(n)
 4. **Query Before Update**: Query counts already-seen elements, then mark current
-5. **Binary Search**: Use `lower_bound` for coordinate compression lookup
+5. **Result Collection**: Use `push_back` and `reverse` for cleaner code when processing backwards
+6. **Rank Mapping**: `unordered_map` provides O(1) lookup vs O(log n) binary search
 
 ## Edge Cases
 
@@ -369,59 +386,67 @@ public:
 Use an augmented BST that tracks the count of smaller elements.
 
 ```cpp
-struct Node {
-    int val;
-    int countLeft;  // Number of nodes in left subtree
-    int dup;        // Count of duplicates
-    Node* left;
-    Node* right;
-    
-    Node(int v) : val(v), countLeft(0), dup(1), left(nullptr), right(nullptr) {}
+struct Node{
+    int val, count, left_count;
+    Node *left, *right;
+    Node(int val): val(val), count(1), left_count(0), left{nullptr}, right{nullptr} {}
+    ~Node() {delete left; delete right;};
+    int less_or_equal() const{return count + left_count;};
 };
 
 class Solution {
-private:
-    int insert(Node*& root, int val) {
-        if (!root) {
-            root = new Node(val);
-            return 0;
-        }
-        
-        if (val == root->val) {
-            root->dup++;
-            return root->countLeft;
-        } else if (val < root->val) {
-            root->countLeft++;
-            return insert(root->left, val);
-        } else {
-            // val > root->val
-            return root->countLeft + root->dup + insert(root->right, val);
-        }
-    }
-    
 public:
     vector<int> countSmaller(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> res(n, 0);
-        Node* root = nullptr;
-        
-        // Process from right to left
-        for (int i = n - 1; i >= 0; i--) {
-            res[i] = insert(root, nums[i]);
+        if(nums.empty()) return {};
+        reverse(nums.begin(), nums.end());
+        unique_ptr<Node> root{new Node(nums[0])};
+        vector<int> rtn{0};
+        for(int i = 1; i < nums.size(); i++) {
+            rtn.emplace_back(insert(root.get(), nums[i]));
         }
-        
-        return res;
+        reverse(rtn.begin(), rtn.end());
+        return rtn;
+    }
+
+private:
+    int insert(Node* root, int val) {
+        if(root->val == val) {
+            root->count++;
+            return root->left_count;
+        } else if(val < root->val) {
+            root->left_count++;
+            if(!root->left) {
+                root->left = new Node(val);
+                return 0;
+            }
+            return insert(root->left, val);
+        } else {
+            if(!root->right) {
+                root->right = new Node(val);
+                return root->less_or_equal();
+            }
+            return root->less_or_equal() + insert(root->right, val);
+        }
     }
 };
 ```
 
 **Algorithm Explanation:**
-- **BST Structure**: Each node stores value, count of left subtree nodes, and duplicate count
+- **BST Structure**: Each node stores:
+  - `val`: The value stored in the node
+  - `count`: Number of duplicates of this value
+  - `left_count`: Number of nodes in left subtree
+  - `left`, `right`: Pointers to children
+- **Helper Method `less_or_equal()`**: Returns `count + left_count` (elements ≤ current node)
 - **Insert Logic**: 
-  - If value equals node: return count of left subtree
-  - If value < node: go left, increment node's countLeft
-  - If value > node: return countLeft + dup + count from right subtree
-- **Right-to-Left**: Ensures we only count elements to the right
+  - If value equals node: increment `count`, return `left_count`
+  - If value < node: increment `left_count`, go left (create node if needed)
+  - If value > node: return `less_or_equal()` + count from right subtree (create node if needed)
+- **Processing Strategy**: 
+  - Reverse input array first
+  - Process left-to-right (which corresponds to right-to-left in original)
+  - Reverse result to get correct order
+- **Memory Management**: Uses `unique_ptr` for automatic cleanup and destructor for recursive deletion
 
 **Time Complexity:** 
 - Average: O(n log n)

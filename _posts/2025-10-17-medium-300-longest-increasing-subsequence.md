@@ -305,6 +305,87 @@ i=4: [0,2,12]               (2 ≤ 4, replace 4 with 2: now smallest tail for le
 
 **Final result:** 3 (Length of sub array = LIS length)
 
+### Solution 2: `nums = [3, 10, 20, 4, 5, 6]` - Middle Replacement Demo
+
+This example demonstrates how the binary search approach replaces **middle elements** to maintain smaller tail values, enabling future extensions.
+
+**Sub Array Evolution:**
+
+```
+i=0: [3]                    (Initialize: smallest tail for length 1 is 3)
+i=1: [3,10]                 (10 > 3, append: smallest tail for length 2 is 10)
+i=2: [3,10,20]              (20 > 10, append: smallest tail for length 3 is 20)
+i=3: [3,4,20]               (4 ≤ 10, replace 10 with 4: now smallest tail for length 2 is 4)
+                             Key: Replacing 10 with 4 doesn't break the sequence!
+                             We still have length 3 subsequence [3,10,20] conceptually,
+                             but we optimize by making length 2 tail smaller (4 instead of 10)
+i=4: [3,4,5]                (5 ≤ 20, replace 20 with 5: now smallest tail for length 3 is 5)
+                             Key: Replacing 20 with 5 makes length 3 tail smaller (5 instead of 20)
+                             This allows future elements to extend more easily
+i=5: [3,4,5,6]              (6 > 5, append: smallest tail for length 4 is 6)
+                             Success! By replacing middle elements, we enabled 6 to extend
+```
+
+**Detailed Step-by-Step:**
+
+| Step | nums[i] | sub before | Comparison | Action | sub after | Explanation |
+|------|---------|------------|------------|--------|-----------|-------------|
+| 0 | 3 | [] | - | Initialize | [3] | Base case |
+| 1 | 10 | [3] | 10 > 3 | Append | [3,10] | Extend length 2 |
+| 2 | 20 | [3,10] | 20 > 10 | Append | [3,10,20] | Extend length 3 |
+| 3 | 4 | [3,10,20] | 4 ≤ 10 | Replace `sub[1]` | [3,4,20] | **Middle replacement**: Replace 10 with 4 to make length 2 tail smaller |
+| 4 | 5 | [3,4,20] | 5 ≤ 20 | Replace `sub[2]` | [3,4,5] | **Middle replacement**: Replace 20 with 5 to make length 3 tail smaller |
+| 5 | 6 | [3,4,5] | 6 > 5 | Append | [3,4,5,6] | Extend length 4 (enabled by previous replacements!) |
+
+**Key Insights:**
+
+1. **Middle Replacement Strategy:**
+   - At `i=3`: `4` replaces `10` at position 1 (middle of array)
+   - At `i=4`: `5` replaces `20` at position 2 (middle of array)
+   - These replacements don't break existing sequences; they optimize for future extensions
+
+2. **Why Replace Middle Elements?**
+   - Smaller tail values allow more future elements to extend the sequence
+   - `4 < 10` means more numbers can come after `4` than after `10`
+   - `5 < 20` means more numbers can come after `5` than after `20`
+
+3. **The Actual LIS:**
+   - The actual LIS is `[3,4,5,6]` (length 4)
+   - The `sub` array at the end `[3,4,5,6]` happens to match the actual LIS
+   - But this is coincidental - `sub` tracks smallest tails, not the actual sequence
+
+4. **Binary Search in Action:**
+   - `lower_bound([3,10,20], 4)` → finds position 1 (where 10 is)
+   - `lower_bound([3,4,20], 5)` → finds position 2 (where 20 is)
+   - Both replacements happen in the middle, not at the end
+
+**Final result:** 4 (Length of sub array = LIS length)
+
+**Visual Representation:**
+
+```
+Initial:  [3, 10, 20]
+          └─┬─┘ └─┬─┘
+            │     └─ Length 3 tail = 20
+            └─ Length 2 tail = 10
+
+After 4:  [3, 4, 20]
+          └─┬─┘ └─┬─┘
+            │     └─ Length 3 tail = 20 (unchanged)
+            └─ Length 2 tail = 4 (replaced 10 with 4)
+
+After 5:  [3, 4, 5]
+          └─┬─┘ └─┬─┘
+            │     └─ Length 3 tail = 5 (replaced 20 with 5)
+            └─ Length 2 tail = 4 (unchanged)
+
+After 6:  [3, 4, 5, 6]
+          └─┬─┘ └─┬─┘ └─┘
+            │     │     └─ Length 4 tail = 6 (new!)
+            │     └─ Length 3 tail = 5 (unchanged)
+            └─ Length 2 tail = 4 (unchanged)
+```
+
 ## Alternative Approaches
 
 ### Approach 1: Recursive with Memoization
