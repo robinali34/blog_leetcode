@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 158
+- **Total Problems:** 159
 - **Easy:** 27 problems
-- **Medium:** 116 problems
+- **Medium:** 117 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -168,6 +168,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [1624](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-1624-largest-substring-between-two-equal-characters/) | [Largest Substring Between Two Equal Characters](https://leetcode.com/problems/largest-substring-between-two-equal-characters/) | Easy | String, Hash Table | Hash Map, Character Tracking | 2026-01-19 |
 | [1670](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) | [Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/) | Medium | Design, Deque, Data Structure | Two Deques, Rebalancing | 2026-01-13 |
 | [1701](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) | [Average Waiting Time](https://leetcode.com/problems/average-waiting-time/) | Medium | Array, Simulation | Simulation, Greedy | 2026-01-19 |
+| [1233](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) | [Remove Sub-Folders from the Filesystem](https://leetcode.com/problems/remove-sub-folders-from-the-filesystem/) | Medium | Array, String, Trie, Sorting | Trie, Prefix Matching | 2026-01-23 |
 | [1801](https://robinali34.github.io/blog_leetcode/2026/01/22/medium-1801-number-of-orders-in-the-backlog/) | [Number of Orders in the Backlog](https://leetcode.com/problems/number-of-orders-in-the-backlog/) | Medium | Array, Heap, Priority Queue | Priority Queue, Greedy Matching | 2026-01-22 |
 | [LCR 113](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) | [Course Schedule II (CN)](https://leetcode.cn/problems/QA2IGt/description/) | Medium | Graph, Topological Sort, DFS | DFS, Three-State Coloring | 2026-01-14 |
 | [802](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) | [Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) | Medium | Graph, DFS, Cycle Detection | DFS, Three-State Coloring | 2026-01-15 |
@@ -209,7 +210,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (116 problems)
+### Medium (117 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -240,6 +241,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [146. LRU Cache](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-146-lru-cache/)
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/)
 - [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-211-design-add-and-search-words-data-structure/)
+- [1233. Remove Sub-Folders from the Filesystem](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) - Trie, Prefix Matching, Sorting
 - [224. Basic Calculator](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/)
 - [1443. Minimum Time to Collect All Apples in a Tree](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/)
 - [1650. Lowest Common Ancestor of a Binary Tree III](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/)
@@ -384,6 +386,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/) - Hash Map, Hash Set
 - [1340. Jump Game V](https://robinali34.github.io/blog_leetcode/2026/01/10/hard-1340-jump-game-v/) - DFS with Memoization
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) - Two Deques, Rebalancing
+- [1233. Remove Sub-Folders from the Filesystem](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) - Trie, Prefix Matching, Sorting
 - [1701. Average Waiting Time](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) - Simulation, Greedy
 - [1801. Number of Orders in the Backlog](https://robinali34.github.io/blog_leetcode/2026/01/22/medium-1801-number-of-orders-in-the-backlog/) - Priority Queue, Greedy Matching
 - [1762. Buildings With an Ocean View](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/) - Monotonic Stack, Greedy
@@ -408,6 +411,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [408. Valid Word Abbreviation](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) - Position Tracking, Parsing
 - [409. Longest Palindrome](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-409-longest-palindrome/) - Bit Manipulation, Frequency Counting
 - [647. Palindromic Substrings](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) - Expand Around Centers, Two Pointers
+- [1233. Remove Sub-Folders from the Filesystem](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) - Trie, Prefix Matching, Sorting
 - [1624. Largest Substring Between Two Equal Characters](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-1624-largest-substring-between-two-equal-characters/) - Hash Map, Character Tracking
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Trie, Prefix Tree, Data Structure
 - [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-211-design-add-and-search-words-data-structure/) - Trie, Wildcard Search, DFS
