@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 159
+- **Total Problems:** 160
 - **Easy:** 27 problems
-- **Medium:** 117 problems
+- **Medium:** 118 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -210,7 +210,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (117 problems)
+### Medium (118 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -240,6 +240,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [131. Palindrome Partitioning](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/)
 - [146. LRU Cache](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-146-lru-cache/)
 - [208. Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/)
+- [622. Design Circular Queue](https://robinali34.github.io/blog_leetcode/2026/01/24/medium-622-design-circular-queue/) - Circular Queue, Array, Linked List
 - [211. Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-211-design-add-and-search-words-data-structure/)
 - [1233. Remove Sub-Folders from the Filesystem](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) - Trie, Prefix Matching, Sorting
 - [224. Basic Calculator](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/)
@@ -386,6 +387,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1207. Unique Number of Occurrences](https://robinali34.github.io/blog_leetcode/posts/2025-10-20-easy-1207-unique-number-of-occurrences/) - Hash Map, Hash Set
 - [1340. Jump Game V](https://robinali34.github.io/blog_leetcode/2026/01/10/hard-1340-jump-game-v/) - DFS with Memoization
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) - Two Deques, Rebalancing
+- [622. Design Circular Queue](https://robinali34.github.io/blog_leetcode/2026/01/24/medium-622-design-circular-queue/) - Circular Queue, Array, Linked List
 - [1233. Remove Sub-Folders from the Filesystem](https://robinali34.github.io/blog_leetcode/2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/) - Trie, Prefix Matching, Sorting
 - [1701. Average Waiting Time](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) - Simulation, Greedy
 - [1801. Number of Orders in the Backlog](https://robinali34.github.io/blog_leetcode/2026/01/22/medium-1801-number-of-orders-in-the-backlog/) - Priority Queue, Greedy Matching
