@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 160
+- **Total Problems:** 162
 - **Easy:** 27 problems
-- **Medium:** 118 problems
+- **Medium:** 120 problems
 - **Hard:** 17 problems
 
 ## All LeetCode Problems
@@ -52,6 +52,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [146](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-146-lru-cache/) | [LRU Cache](https://leetcode.com/problems/lru-cache/) | Medium | Design, Data Structures | Hash Map, Doubly Linked List | 2025-12-02 |
 | [150](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Medium | Stack | Stack | 2025-09-24 |
 | [198](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) | [House Robber](https://leetcode.com/problems/house-robber/) | Medium | Dynamic Programming | DP, Pick or Skip | 2025-11-18 |
+| [213](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) | [House Robber II](https://leetcode.com/problems/house-robber-ii/) | Medium | Array, Dynamic Programming | DP, Circular Array | 2026-01-25 |
 | [200](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/) | [Number of Islands](https://leetcode.com/problems/number-of-islands/) | Medium | DFS, Graph, Matrix | DFS, Connected Components | 2025-11-20 |
 | [203](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | Linked List | Two Pointers, Dummy Node | 2025-11-18 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
@@ -69,6 +70,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [279](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) | [Perfect Squares](https://leetcode.com/problems/perfect-squares/) | Medium | Math, Dynamic Programming, BFS | Legendre's Theorem, DP, BFS | 2025-12-14 |
 | [286](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) | [Walls and Gates](https://leetcode.com/problems/walls-and-gates/) | Medium | Array, Matrix, BFS | Multi-source BFS | 2025-12-14 |
 | [300](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) | [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) | Medium | Array, Dynamic Programming | DP, Binary Search | 2025-10-17 |
+| [354](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-354-russian-doll-envelopes/) | [Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/) | Medium | Array, Dynamic Programming, Binary Search | LIS, Binary Search, Sorting | 2026-01-25 |
 | [314](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) | [Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | Medium | Tree, BFS | BFS, Vertical Order | 2025-10-21 |
 | [316](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) | [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/) | Medium | String, Stack | Monotonic Stack, Greedy | 2025-10-17 |
 | [317](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) | [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | Hard | BFS, Matrix | BFS, Multi-source | 2025-09-24 |
@@ -210,7 +212,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (118 problems)
+### Medium (120 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -249,6 +251,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [1762. Buildings With an Ocean View](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/)
 - [150. Evaluate Reverse Polish Notation](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/)
 - [198. House Robber](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/)
+- [213. House Robber II](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) - DP, Circular Array
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/)
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [253. Meeting Rooms II](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/)
@@ -257,6 +260,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [281. Zigzag Iterator](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/)
 - [286. Walls and Gates](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/)
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/)
+- [354. Russian Doll Envelopes](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-354-russian-doll-envelopes/) - LIS, Binary Search, Sorting
 - [316. Remove Duplicate Letters](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/)
 - [399. Evaluate Division](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/)
 - [406. Queue Reconstruction by Height](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/)
@@ -360,6 +364,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [215. Kth Largest Element in an Array](https://robinali34.github.io/blog_leetcode/2026/01/05/medium-215-kth-largest-element-in-an-array/) - Min Heap, QuickSelect
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) - Binary Search, Divide & Conquer
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
+- [354. Russian Doll Envelopes](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-354-russian-doll-envelopes/) - LIS, Binary Search, Sorting
 - [323. Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - BFS, DFS, Union-Find
 - [324. Wiggle Sort II](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-324-wiggle-sort-ii/) - Sorting, 3-way Partition
 - [327. Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) - Merge Sort, Segment Tree, Prefix Sum
@@ -462,7 +467,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [64. Minimum Path Sum](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) - 2D DP, Grid Path
 - [96. Unique Binary Search Trees](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) - DP, Catalan Numbers
 - [198. House Robber](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) - DP, Pick or Skip
+- [213. House Robber II](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) - DP, Circular Array
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
+- [354. Russian Doll Envelopes](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-354-russian-doll-envelopes/) - LIS, Binary Search, Sorting
 - [494. Target Sum](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) - DP, Subset Sum
 - [509. Fibonacci Number](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) - DP, Bottom-Up
 - [673. Number of Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) - DP with Count Tracking, Binary Search
