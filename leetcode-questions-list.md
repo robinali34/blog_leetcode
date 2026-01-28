@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 165
+- **Total Problems:** 167
 - **Easy:** 28 problems
-- **Medium:** 121 problems
-- **Hard:** 18 problems
+- **Medium:** 122 problems
+- **Hard:** 19 problems
 
 ## All LeetCode Problems
 
@@ -58,6 +58,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [203](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) | [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) | Easy | Linked List | Two Pointers, Dummy Node | 2025-11-18 |
 | [209](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | Medium | Array, Sliding Window, Binary Search | Sliding Window, Prefix Sum | 2026-01-26 |
 | [213](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) | [House Robber II](https://leetcode.com/problems/house-robber-ii/) | Medium | Array, Dynamic Programming | DP, Circular Array | 2026-01-25 |
+| [238](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Medium | Array, Prefix Sum | Left/Right Products | 2026-01-27 |
 | [327](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) | Hard | Array, Divide and Conquer | Merge Sort, Segment Tree, Prefix Sum | 2026-01-20 |
 | [862](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) | [Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | Hard | Array, Sliding Window, Deque | Monotonic Deque, Prefix Sum | 2026-01-26 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
@@ -218,7 +219,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (121 problems)
+### Medium (122 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -260,6 +261,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [213. House Robber II](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) - DP, Circular Array
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/)
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
+- [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [862. Shortest Subarray with Sum at Least K](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) - Monotonic Deque, Prefix Sum
 - [253. Meeting Rooms II](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/)
@@ -330,7 +332,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 
-### Hard (17 problems)
+### Hard (19 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
 - [51. N-Queens](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/)
@@ -342,6 +344,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [327. Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/)
 - [315. Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/)
 - [862. Shortest Subarray with Sum at Least K](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) - Monotonic Deque, Prefix Sum
+- [1136. Parallel Courses](https://robinali34.github.io/blog_leetcode/2026/01/27/hard-1136-parallel-courses/) - DFS with Memoization, Longest Path
 - [317. Shortest Distance from All Buildings](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/)
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/)
 - [480. Sliding Window Median](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-480-sliding-window-median/)
@@ -359,6 +362,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [27. Remove Element](https://robinali34.github.io/blog_leetcode/2026/01/26/easy-27-remove-element/) - Two Pointers, In-Place
 - [33. Search in Rotated Sorted Array](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) - Binary Search
 - [45. Jump Game II](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) - Greedy BFS, Level Traversal
+- [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
 - [48. Rotate Image](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/) - Matrix Rotation
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
 - [54. Spiral Matrix](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) - Simulation
@@ -520,6 +524,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ### Graph
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
+- [1136. Parallel Courses](https://robinali34.github.io/blog_leetcode/2026/01/27/hard-1136-parallel-courses/) - DFS with Memoization, Longest Path
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) - Topological Sort, BFS
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) - Two-Pass, Candidate Elimination
 - [305. Number of Islands II](https://robinali34.github.io/blog_leetcode/2026/01/15/hard-305-number-of-islands-ii/) - Union-Find, Incremental Connectivity
