@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 167
+- **Total Problems:** 168
 - **Easy:** 28 problems
-- **Medium:** 122 problems
+- **Medium:** 123 problems
 - **Hard:** 19 problems
 
 ## All LeetCode Problems
@@ -63,6 +63,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [862](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) | [Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | Hard | Array, Sliding Window, Deque | Monotonic Deque, Prefix Sum | 2026-01-26 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
 | [208](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | Medium | String, Design, Trie | Trie, Prefix Tree, Data Structure | 2026-01-18 |
+| [2080](https://robinali34.github.io/blog_leetcode/2026/01/28/medium-2080-range-frequency-queries/) | [Range Frequency Queries](https://leetcode.com/problems/range-frequency-queries/) | Medium | Array, Hash Map, Binary Search, Design | Hash Map, Binary Search | 2026-01-28 |
 | [211](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-211-design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | Medium | String, Design, Trie | Trie, Wildcard Search, DFS | 2026-01-19 |
 | [2185](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/) | [Counting Words With a Given Prefix](https://leetcode.com/problems/counting-words-with-a-given-prefix/) | Easy | String, Array | Prefix Matching, Simulation | 2026-01-19 |
 | [218](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) | [The Skyline Problem](https://leetcode.com/problems/the-skyline-problem/) | Hard | Array, Sweep Line | Sweep Line, Priority Queue | 2025-10-05 |
@@ -219,7 +220,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (122 problems)
+### Medium (123 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -262,6 +263,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/)
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
 - [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
+- [2080. Range Frequency Queries](https://robinali34.github.io/blog_leetcode/2026/01/28/medium-2080-range-frequency-queries/) - Hash Map, Binary Search
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [862. Shortest Subarray with Sum at Least K](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) - Monotonic Deque, Prefix Sum
 - [253. Meeting Rooms II](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/)
