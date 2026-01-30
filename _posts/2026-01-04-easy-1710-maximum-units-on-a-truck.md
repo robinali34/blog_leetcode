@@ -57,6 +57,20 @@ Total: 50 + 27 + 10 + 14 = 101... Actually, let me verify with the algorithm.
 - `1 <= numberOfBoxesi, numberOfUnitsPerBoxi <= 1000`
 - `1 <= truckSize <= 10^6`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Box format**: How are boxes represented? (Assumption: [numberOfBoxes, numberOfUnitsPerBox] - number of boxes and units per box)
+
+2. **Truck capacity**: What is truck capacity? (Assumption: truckSize - maximum number of boxes that can fit on truck)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total units that can be loaded on truck)
+
+4. **Return value**: What should we return? (Assumption: Integer - maximum units that can be loaded)
+
+5. **Box selection**: Can we take partial boxes? (Assumption: No - must take whole boxes, cannot break boxes)
+
 ## Solution Approach
 
 This is a classic **greedy algorithm** problem. The key insight is to prioritize boxes with the highest units per box, as this maximizes the total units we can fit in the limited truck space.

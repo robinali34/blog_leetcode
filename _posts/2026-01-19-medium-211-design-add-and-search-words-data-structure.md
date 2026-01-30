@@ -47,6 +47,20 @@ wordDictionary.search("b.."); // return True
 - `word` in `search` consist of `'.'` or lowercase English letters.
 - There will be at most `10^4` calls to `addWord` and `search`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Word dictionary**: What operations should it support? (Assumption: addWord(word) - add word, search(word) - search with wildcard support)
+
+2. **Wildcard matching**: What does '.' represent? (Assumption: '.' matches any single lowercase letter - can be any character)
+
+3. **Return value**: What should search() return? (Assumption: Boolean - true if word exists (with wildcard matching), false otherwise)
+
+4. **Word format**: What format are words? (Assumption: Lowercase English letters - per constraints)
+
+5. **Multiple matches**: Can '.' match different letters in same search? (Assumption: Yes - each '.' independently matches any letter)
+
 ## Solution Approach
 
 This problem extends [LC 208: Implement Trie](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) with **wildcard search** support. The key challenge is handling the `'.'` character which can match any letter.

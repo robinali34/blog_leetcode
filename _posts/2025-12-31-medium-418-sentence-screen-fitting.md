@@ -55,6 +55,20 @@ The character '-' signifies an empty space on the screen.
 - `1 <= sentence[i].length <= 10`
 - `1 <= rows, cols <= 2 * 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Screen layout**: How is the screen laid out? (Assumption: rows x cols grid - words are placed left to right, wrapping to next row when needed)
+
+2. **Word placement**: How are words placed? (Assumption: Words separated by single space, words don't wrap - whole word must fit on same row)
+
+3. **Sentence repetition**: Can sentence repeat? (Assumption: Yes - sentence can be repeated multiple times to fill screen)
+
+4. **Return value**: What should we return? (Assumption: Integer - number of times sentence can be fitted on screen)
+
+5. **Space handling**: How are spaces handled? (Assumption: Single space between words, spaces at end of row are allowed)
+
 ## Solution Approach
 
 This problem requires fitting a sentence on a screen row by row, where words cannot be split and must be separated by spaces. We can solve this efficiently using **dynamic programming** to precompute how many complete sentences fit starting from each word position.

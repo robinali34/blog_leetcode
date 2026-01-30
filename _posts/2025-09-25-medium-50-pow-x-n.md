@@ -37,6 +37,20 @@ Explanation: 2^-2 = 1/2^2 = 1/4 = 0.25
 - Either x is not zero or n > 0.
 - -10^4 <= x^n <= 10^4
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Negative exponent**: How should we handle negative exponents? (Assumption: x^n = 1 / x^(-n) - take reciprocal when n is negative)
+
+2. **Zero base**: What if x is 0? (Assumption: Per constraints, either x is not zero or n > 0, so 0^0 case avoided)
+
+3. **Integer exponent**: Is n always an integer? (Assumption: Yes - per constraints, n is an integer)
+
+4. **Precision**: What precision is required? (Assumption: Standard floating point precision - result fits in given range)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(log n) - use binary exponentiation, not O(n))
+
 ## Approach
 
 There are two main approaches to implement exponentiation efficiently:

@@ -54,6 +54,20 @@ In total you spent $17 and covered all the days of your travel.
 - `costs.length == 3`
 - `1 <= costs[i] <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Ticket types**: What ticket types are available? (Assumption: 1-day pass (costs[0]), 7-day pass (costs[1]), 30-day pass (costs[2]))
+
+2. **Travel days**: What are travel days? (Assumption: Array of days when we need to travel - days[i] is the day number)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum cost to cover all travel days)
+
+4. **Return value**: What should we return? (Assumption: Integer - minimum cost to cover all travel days)
+
+5. **Ticket validity**: How long are tickets valid? (Assumption: 1-day pass covers 1 day, 7-day pass covers 7 consecutive days, 30-day pass covers 30 consecutive days)
+
 ## Solution: Dynamic Programming
 
 **Time Complexity:** O(n) where n is the last travel day (at most 365)  

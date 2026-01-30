@@ -46,6 +46,20 @@ Explanation: The entire string is a valid parentheses substring.
 - `0 <= s.length <= 3 * 10^4`
 - `s[i]` is `'('`, or `')'`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Valid parentheses definition**: What makes a parentheses substring valid? (Assumption: Every opening '(' has a matching closing ')', properly nested)
+
+2. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters)
+
+3. **Empty string**: What should we return for an empty string? (Assumption: Return 0 - no valid parentheses substring)
+
+4. **Character set**: What characters can appear? (Assumption: Only '(' and ')' - per constraints)
+
+5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest valid parentheses substring)
+
 ## Solution Approaches
 
 This problem requires finding the longest valid parentheses substring. A valid parentheses substring must have matching opening and closing parentheses.

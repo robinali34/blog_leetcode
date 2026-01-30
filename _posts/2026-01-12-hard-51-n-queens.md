@@ -36,6 +36,20 @@ Output: [["Q"]]
 
 - `1 <= n <= 9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Queen attack rules**: How do queens attack each other? (Assumption: Queens attack horizontally, vertically, and diagonally - no two queens can be in same row, column, or diagonal)
+
+2. **Output format**: What should we return - all solutions or just one? (Assumption: Return all distinct solutions - list of all possible board configurations)
+
+3. **Board representation**: How should we represent the board? (Assumption: List of strings, where each string represents a row, '.' for empty, 'Q' for queen)
+
+4. **Solution uniqueness**: Are solutions considered distinct if they're rotations/reflections? (Assumption: Yes - rotations and reflections are considered distinct solutions)
+
+5. **Constraint satisfaction**: Do we need to find all solutions or can we stop after finding one? (Assumption: Find all solutions - exhaustive search required)
+
 ## Solution Approach
 
 This is a classic **backtracking with constraint satisfaction** problem. The key insight is to place queens row by row, ensuring no two queens attack each other.

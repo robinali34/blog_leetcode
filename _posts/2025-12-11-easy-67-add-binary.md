@@ -29,6 +29,20 @@ Output: "10101"
 - `a` and `b` consist only of `'0'` or `'1'` characters.
 - Each string does not contain leading zeros except for the zero itself.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Binary addition**: What are the addition rules? (Assumption: Standard binary addition - 0+0=0, 0+1=1, 1+1=10 (carry 1))
+
+2. **Input format**: How are numbers represented? (Assumption: Binary strings - "101" represents 5 in decimal)
+
+3. **Return format**: What should we return? (Assumption: Binary string representing sum of two binary numbers)
+
+4. **Leading zeros**: Should we include leading zeros? (Assumption: No - per constraints, no leading zeros except for "0" itself)
+
+5. **Carry handling**: How should we handle carry? (Assumption: Carry propagates from right to left - standard binary addition)
+
 ## Solution 1: Optimized Single Pass (Recommended)
 
 **Time Complexity:** O(max(m, n)) where m and n are lengths of a and b  

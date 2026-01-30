@@ -49,6 +49,20 @@ Explanation: Need to add 2 '(' at the beginning and 2 ')' at the end
 - `1 <= s.length <= 1000`
 - `s[i]` is either `'('` or `')'`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Valid parentheses**: What makes parentheses valid? (Assumption: Every opening '(' has matching closing ')', properly nested)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of parentheses to add to make string valid)
+
+3. **Return value**: What should we return? (Assumption: Integer - minimum number of parentheses to add)
+
+4. **Insertion positions**: Where can we add parentheses? (Assumption: Can add at any position - beginning, middle, or end)
+
+5. **Parentheses types**: What types of parentheses? (Assumption: Only '(' and ')' - no brackets or braces)
+
 ## Solution: Greedy Counter Approach
 
 **Time Complexity:** O(n)  

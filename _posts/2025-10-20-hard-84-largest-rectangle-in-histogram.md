@@ -36,6 +36,20 @@ Output: 4
 - `1 <= heights.length <= 10^5`
 - `0 <= heights[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rectangle definition**: What rectangles can we form? (Assumption: Rectangles formed by consecutive bars - width is number of consecutive bars, height is minimum bar height)
+
+2. **Rectangle area**: How is rectangle area calculated? (Assumption: width × height - number of bars × minimum bar height in range)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum area among all possible rectangles)
+
+4. **Return value**: What should we return? (Assumption: Integer representing maximum rectangle area)
+
+5. **Empty histogram**: What if histogram is empty? (Assumption: Per constraints, length >= 1, so not empty)
+
 ## Approach
 
 This is a classic **Monotonic Stack** problem. The key insight is that for each bar, we need to find the largest rectangle that can be formed with that bar as the height.

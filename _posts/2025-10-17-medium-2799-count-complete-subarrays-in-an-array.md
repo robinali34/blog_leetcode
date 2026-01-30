@@ -51,6 +51,20 @@ Explanation: The complete subarrays are the following:
 - `1 <= nums.length <= 1000`
 - `1 <= nums[i] <= 2000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Complete subarray definition**: What is a "complete subarray"? (Assumption: Subarray that contains all distinct elements present in the original array)
+
+2. **Subarray requirement**: Does subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+
+3. **Distinct elements**: How do we determine distinct elements? (Assumption: Count unique values in original array - complete subarray must contain all of them)
+
+4. **Return value**: What should we return? (Assumption: Count of complete subarrays - integer)
+
+5. **Empty subarray**: Can an empty subarray be complete? (Assumption: No - need at least one element to contain distinct values)
+
 ## Solution: Optimized Sliding Window
 
 **Time Complexity:** O(n)  

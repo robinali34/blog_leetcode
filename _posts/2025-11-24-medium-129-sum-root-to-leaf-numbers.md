@@ -48,6 +48,20 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 - `0 <= Node.val <= 9`
 - The depth of the tree will not exceed `10`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Number formation**: How are numbers formed? (Assumption: Concatenate node values along root-to-leaf path - e.g., 1->2->3 forms 123)
+
+2. **Sum calculation**: What should we sum? (Assumption: Sum all root-to-leaf numbers - sum of all path numbers)
+
+3. **Return value**: What should we return? (Assumption: Integer - sum of all root-to-leaf numbers)
+
+4. **Single node**: What if tree has one node? (Assumption: Return that node's value - single path)
+
+5. **Node values**: What is the range of node values? (Assumption: Per constraints, 0 <= Node.val <= 9 - single digits)
+
 ## Solution: DFS with Path Accumulation
 
 **Time Complexity:** O(n) where n is the number of nodes  

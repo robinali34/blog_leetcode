@@ -42,6 +42,20 @@ Output: [1]
 - `-10^4 <= nums[i] <= 10^4`
 - `1 <= k <= nums.length`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Window definition**: What is a sliding window? (Assumption: Contiguous subarray of size k that moves from left to right)
+
+2. **Maximum calculation**: What should we return for each window? (Assumption: Maximum element in the current window)
+
+3. **Return format**: What should we return? (Assumption: Array of maximums - one for each window position)
+
+4. **Window count**: How many windows are there? (Assumption: nums.length - k + 1 windows - from index 0 to nums.length - k)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - linear time using monotonic deque)
+
 ## Solution: Monotonic Deque (Decreasing Order)
 
 **Time Complexity:** O(n) - Each element is added and removed at most once  

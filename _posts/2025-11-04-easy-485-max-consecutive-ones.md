@@ -31,6 +31,20 @@ Output: 2
 - `1 <= nums.length <= 10^5`
 - `nums[i]` is either `0` or `1`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Consecutive definition**: What does "consecutive ones" mean? (Assumption: Ones that appear next to each other without any zeros in between)
+
+2. **Array modification**: Can we modify the array? (Assumption: No - just count, don't modify)
+
+3. **Empty array**: What should we return for an empty array? (Assumption: Return 0 - no consecutive ones)
+
+4. **All zeros**: What if array contains only zeros? (Assumption: Return 0 - no consecutive ones)
+
+5. **All ones**: What if array contains only ones? (Assumption: Return array length - all ones are consecutive)
+
 ## Solution: Single Pass with Counter
 
 **Time Complexity:** O(n)  

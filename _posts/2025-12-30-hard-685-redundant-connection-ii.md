@@ -50,6 +50,20 @@ The edge [2,1] should be removed.
 - `1 <= ui, vi <= n`
 - `ui != vi`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree structure**: What makes a valid tree? (Assumption: Directed tree with n nodes and n-1 edges, one root, no cycles)
+
+2. **Redundant edge**: What makes an edge redundant? (Assumption: Edge that creates cycle or gives node two parents - violates tree properties)
+
+3. **Return format**: What should we return? (Assumption: Edge to remove - [u, v] that should be removed to make valid tree)
+
+4. **Multiple redundant edges**: What if multiple edges are redundant? (Assumption: Return the last edge in edges array that can be removed)
+
+5. **Edge direction**: Are edges directed? (Assumption: Yes - edges[i] = [ui, vi] means edge from ui to vi)
+
 ## Solution Approach
 
 This problem is the **directed graph** version of LC 684. Unlike the undirected case, we need to handle two types of issues:

@@ -56,6 +56,20 @@ But the second continuation byte does not start with 10, so it is invalid.
 - `1 <= data.length <= 2 * 10^4`
 - `0 <= data[i] <= 255`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **UTF-8 encoding**: What is UTF-8 encoding? (Assumption: Variable-length encoding - 1 to 4 bytes per character, first byte indicates length)
+
+2. **Byte format**: How are bytes represented? (Assumption: Each integer represents one byte - only least significant 8 bits used)
+
+3. **Validation rules**: What makes encoding valid? (Assumption: Follow UTF-8 rules - proper byte sequences, correct continuation bytes)
+
+4. **Return value**: What should we return? (Assumption: Boolean - true if valid UTF-8 encoding, false otherwise)
+
+5. **Incomplete sequences**: What if sequence is incomplete? (Assumption: Invalid - all bytes for multi-byte character must be present)
+
 ## Solution Approach
 
 This problem requires validating UTF-8 encoding by checking bit patterns. UTF-8 has specific rules for how bytes are structured, and we need to verify the sequence follows these rules.

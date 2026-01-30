@@ -62,6 +62,20 @@ Output: []
 - The number of nodes in the tree is in the range `[0, 100]`.
 - `-100 <= Node.val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Inversion definition**: What exactly does "invert" mean? (Assumption: Swap left and right children for every node in the tree)
+
+2. **Tree modification**: Should we modify the tree in-place or return a new tree? (Assumption: Modify in-place - return the root of the modified tree)
+
+3. **Empty tree**: What should we return for an empty tree? (Assumption: Return null - no tree to invert)
+
+4. **Single node**: What happens with a tree containing only root? (Assumption: Return root unchanged - no children to swap)
+
+5. **Recursive vs iterative**: Are there any constraints on using recursion? (Assumption: No - recursion is fine, but iterative approach also works)
+
 ## Solution Approach
 
 This problem requires swapping the left and right children of every node in the tree. We can use a recursive DFS approach to traverse the tree and swap children at each node.

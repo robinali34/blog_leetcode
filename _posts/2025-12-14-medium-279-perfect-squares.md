@@ -38,6 +38,20 @@ Output: 1
 
 - `1 <= n <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Perfect square definition**: What is a perfect square? (Assumption: A number that is the square of an integer - 1, 4, 9, 16, 25, etc.)
+
+2. **Sum requirement**: Can we use the same perfect square multiple times? (Assumption: Yes - can reuse perfect squares, e.g., 4 = 1 + 1 + 1 + 1)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimize the number of perfect squares that sum to n)
+
+4. **All squares available**: Can we use any perfect square? (Assumption: Yes - can use any perfect square up to n)
+
+5. **Return value**: What should we return - count or list of squares? (Assumption: Return the minimum count - integer representing least number of perfect squares)
+
 ## Solution 1: Mathematical Approach (Legendre's Theorem) - Recommended
 
 **Time Complexity:** O(√n)  

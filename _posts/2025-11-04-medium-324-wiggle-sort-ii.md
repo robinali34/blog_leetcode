@@ -25,6 +25,20 @@ Explanation: 1 < 6 > 1 < 5 > 1 < 4
 - `1 <= nums.length <= 5 * 10^4`
 - `0 <= nums[i] <= 5000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Wiggle sort definition**: What is wiggle sort? (Assumption: nums[0] < nums[1] > nums[2] < nums[3] > ... - alternating less than and greater than)
+
+2. **Sorting requirement**: Should we sort in-place? (Assumption: Yes - modify array in-place, O(1) extra space)
+
+3. **Return value**: What should we return? (Assumption: Void - modify array in-place)
+
+4. **Uniqueness**: Can values be equal? (Assumption: Per constraints, values can be equal, but wiggle pattern requires strict inequality)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n) average using nth_element and virtual indexing)
+
 ## Solution: Median + 3-way Partition with Virtual Indexing
 
 **Time Complexity:** O(n) average (due to `nth_element`)  

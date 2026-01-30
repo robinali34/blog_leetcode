@@ -55,6 +55,20 @@ Tree p:        Tree q:
 - The number of nodes in both trees is in the range `[0, 100]`.
 - `-10^4 <= Node.val <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree equality**: What makes two trees the same? (Assumption: Same structure (same shape) AND same values at corresponding positions)
+
+2. **Empty trees**: Are two empty trees considered the same? (Assumption: Yes - both null means same tree)
+
+3. **Structure vs values**: If structure is same but values differ, are they same? (Assumption: No - both structure and values must match)
+
+4. **Tree modification**: Can we modify the trees during comparison? (Assumption: No - just compare, don't modify)
+
+5. **Return type**: Should we return boolean or something else? (Assumption: Return boolean - true if same, false otherwise)
+
 ## Solution Approach
 
 This problem requires checking if two binary trees are identical in both structure and values. We can use a recursive DFS approach to compare nodes at corresponding positions.

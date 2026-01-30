@@ -34,6 +34,20 @@ Explanation: Nodes 6, 7, and 10 are in the range [6, 10]. 6 + 7 + 10 = 23.
 - `1 <= low <= high <= 10^5`
 - All `Node.val` are **unique**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range definition**: What is the range? (Assumption: [low, high] - inclusive on both ends, sum all node values in this range)
+
+2. **BST properties**: What are BST properties? (Assumption: Left subtree < root < right subtree - can use this to prune)
+
+3. **Return value**: What should we return? (Assumption: Integer - sum of all node values in range [low, high])
+
+4. **Range boundaries**: Are boundaries inclusive? (Assumption: Yes - nodes with value equal to low or high are included)
+
+5. **Empty tree**: What if tree is empty? (Assumption: Return 0 - no nodes to sum)
+
 ## Solution: Recursive DFS with BST Pruning
 
 **Time Complexity:** O(n) worst case, but often better due to pruning  

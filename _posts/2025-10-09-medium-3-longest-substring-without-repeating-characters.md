@@ -38,6 +38,20 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 - `0 <= s.length <= 5 * 10^4`
 - `s` consists of English letters, digits, symbols and spaces.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters)
+
+2. **Character uniqueness**: What makes characters "repeating"? (Assumption: No character should appear more than once in the substring)
+
+3. **Empty string**: What should we return for an empty string? (Assumption: Return 0 - no substring exists)
+
+4. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different characters)
+
+5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest substring length)
+
 ## Solution: Sliding Window with Hash Map
 
 **Time Complexity:** O(n)  

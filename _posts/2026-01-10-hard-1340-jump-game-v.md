@@ -52,6 +52,20 @@ Explanation: Start at index 0, you can visit all the indicies.
 - `1 <= arr[i] <= 10^5`
 - `1 <= d <= arr.length`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Jump rules**: How do jumps work? (Assumption: From index i, can jump to indices in range [i-d, i+d] but only to indices with smaller values)
+
+2. **Jump direction**: Can we jump in both directions? (Assumption: Yes - can jump left or right, but only to smaller values)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum number of indices we can visit starting from any index)
+
+4. **Return value**: What should we return? (Assumption: Integer - maximum number of indices we can visit)
+
+5. **Stopping condition**: When do we stop jumping? (Assumption: When no valid jumps remain - all reachable indices have larger values)
+
 ## Solution Approach
 
 This is a **dynamic programming with memoization** problem. The key insight is that we need to find the maximum path length starting from any index, where we can only jump to indices with smaller values and must jump over all intermediate indices that are also smaller.

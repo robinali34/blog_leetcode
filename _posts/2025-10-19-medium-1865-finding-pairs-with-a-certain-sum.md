@@ -56,6 +56,20 @@ findSumPairs.count(2);  // return 1. Pair (0,0)
 - `1 <= tot <= 10^9`
 - At most `1000` calls will be made to `add` and `count` each.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Pair definition**: What constitutes a valid pair? (Assumption: Pair (i, j) where nums1[i] + nums2[j] == target - one element from each array)
+
+2. **Update operations**: What does add() do? (Assumption: Adds val to nums2[index] - modifies nums2 array)
+
+3. **Count operation**: What should count() return? (Assumption: Number of pairs (i, j) where nums1[i] + nums2[j] == target)
+
+4. **Pair uniqueness**: Can pairs be counted multiple times? (Assumption: Yes - if same pair appears multiple times, count each occurrence)
+
+5. **Return value**: What should count() return? (Assumption: Integer count of valid pairs)
+
 ## Solution: Hash Map with Count Tracking
 
 **Time Complexity:** 

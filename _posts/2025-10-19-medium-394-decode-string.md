@@ -55,6 +55,20 @@ Explanation:
 - `s` is a valid encoded string, that is always possible to decode.
 - All the integers in `s` are in the range `[1, 300]`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Encoding format**: What is the encoding format? (Assumption: "k[encoded_string]" means repeat encoded_string k times - nested encoding possible)
+
+2. **Nested encoding**: Can encodings be nested? (Assumption: Yes - "3[a2[c]]" is valid, decodes to "accaccacc")
+
+3. **Number format**: How are numbers represented? (Assumption: Positive integers - digits before '[' indicate repetition count)
+
+4. **String format**: What characters can appear in decoded string? (Assumption: Only lowercase English letters - per constraints)
+
+5. **Return format**: Should we return decoded string or count? (Assumption: Return decoded string - fully expanded string)
+
 ## Solution: Stack-Based Decoding
 
 **Time Complexity:** O(n) where n is the length of the decoded string  

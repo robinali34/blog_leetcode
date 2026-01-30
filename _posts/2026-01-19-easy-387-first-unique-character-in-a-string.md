@@ -41,6 +41,20 @@ Explanation: All characters repeat, so return -1.
 - `1 <= s.length <= 10^5`
 - `s` consists of only lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Unique definition**: What makes a character unique? (Assumption: A character that appears exactly once in the string)
+
+2. **Return value**: What should we return if no unique character exists? (Assumption: Return -1 - no unique character found)
+
+3. **Case sensitivity**: Are characters case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
+4. **Index format**: Should we return 0-indexed or 1-indexed position? (Assumption: 0-indexed - standard array indexing)
+
+5. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
+
 ## Solution Approach
 
 This problem requires finding the first character that appears exactly once. There are several approaches:

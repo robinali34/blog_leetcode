@@ -49,6 +49,20 @@ Explanation: Insert 0 between 1 (tail) and 1 (head), wrapping around.
 - List is sorted in ascending order
 - List is circular
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Circular list**: What is a circular linked list? (Assumption: Last node's next points to first node - no null next pointer)
+
+2. **Sorted order**: What does "sorted" mean? (Assumption: Values in ascending order - but may wrap around)
+
+3. **Insert position**: Where should we insert? (Assumption: Insert in correct sorted position maintaining circular order)
+
+4. **Return value**: What should we return? (Assumption: Head of the modified circular list - can be same or different)
+
+5. **Empty list**: What if list is empty? (Assumption: Create new circular list with single node)
+
 ## Solution Approaches
 
 ### Approach 1: One-Pass Insertion (Recommended)

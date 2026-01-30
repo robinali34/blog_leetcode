@@ -32,6 +32,20 @@ Explanation: [0, 1] or [1, 0] is the longest contiguous subarray with an equal n
 - `1 <= nums.length <= 10^5`
 - `nums[i]` is either `0` or `1`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Contiguous subarray**: What is a contiguous subarray? (Assumption: Subarray with consecutive elements - must be contiguous)
+
+2. **Equal count**: What does "equal number of 0s and 1s" mean? (Assumption: Subarray has same count of 0s and 1s - balanced)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum length of contiguous subarray with equal 0s and 1s)
+
+4. **Return value**: What should we return? (Assumption: Integer - maximum length of such subarray, 0 if none exists)
+
+5. **Empty subarray**: Can empty subarray be considered? (Assumption: No - need at least one element to have equal counts)
+
 ## Solution: Prefix Sum with Hash Map
 
 **Time Complexity:** O(n)  

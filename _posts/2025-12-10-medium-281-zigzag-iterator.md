@@ -37,6 +37,20 @@ Output: [1]
 - `1 <= v1.length + v2.length <= 2000`
 - `-2^31 <= v1[i], v2[i] <= 2^31 - 1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Zigzag pattern**: What is the zigzag iteration pattern? (Assumption: Alternate between v1 and v2 - take one element from v1, then one from v2, repeat)
+
+2. **Unequal lengths**: What happens when vectors have different lengths? (Assumption: Continue with remaining elements from the longer vector after shorter one is exhausted)
+
+3. **Empty vectors**: How should we handle empty vectors? (Assumption: Skip empty vectors and continue with non-empty ones)
+
+4. **Iterator interface**: What methods should the iterator support? (Assumption: next() returns next element, hasNext() checks if more elements exist)
+
+5. **Return value**: What should next() return when no elements? (Assumption: Typically throw exception or return sentinel value - but per problem, vectors are non-empty initially)
+
 ## Solution 1: Pointer-Based Approach
 
 **Time Complexity:** O(1) for `next()` and `hasNext()`  

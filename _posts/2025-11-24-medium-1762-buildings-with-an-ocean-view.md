@@ -50,6 +50,20 @@ Explanation: Only the rightmost building has an ocean view (buildings of equal h
 - `1 <= heights.length <= 10^5`
 - `1 <= heights[i] <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Ocean view definition**: What gives a building an ocean view? (Assumption: Building has ocean view if no taller building to its right blocks the view)
+
+2. **Building positions**: How are buildings positioned? (Assumption: Buildings are in a row, ocean is to the right - heights[i] is height of building at index i)
+
+3. **Return format**: What should we return? (Assumption: Array of indices of buildings with ocean view, sorted in ascending order)
+
+4. **Height comparison**: How do we check for blocking? (Assumption: Building at index i has ocean view if all buildings at indices > i have height <= heights[i])
+
+5. **Rightmost building**: Does the rightmost building always have ocean view? (Assumption: Yes - no buildings to its right to block it)
+
 ## Solution Approaches
 
 The key insight is that a building has an ocean view if it's taller than all buildings to its right. We can solve this by:

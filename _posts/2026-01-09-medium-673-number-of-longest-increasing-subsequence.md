@@ -36,6 +36,20 @@ Explanation: The longest increasing subsequence is of length 1, and there are 5 
 - `1 <= nums.length <= 2000`
 - `-10^6 <= nums[i] <= 10^6`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subsequence definition**: What is a subsequence? (Assumption: Subsequence maintains relative order but doesn't need to be contiguous - can skip elements)
+
+2. **Increasing definition**: What makes a subsequence increasing? (Assumption: Strictly increasing - each element must be greater than the previous one)
+
+3. **Count requirement**: Do we need to count all LIS or just find the length? (Assumption: Count how many longest increasing subsequences exist - not just the length)
+
+4. **Duplicate values**: How should we handle duplicate values? (Assumption: Based on "increasing", duplicates don't count - need strictly greater values)
+
+5. **Output format**: What should we return - count or list of subsequences? (Assumption: Return count - integer representing number of LIS)
+
 ## Solution Approach
 
 This is a follow-up to [LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/). Instead of just finding the length, we need to **count** how many longest increasing subsequences exist.

@@ -38,6 +38,20 @@ Output: [[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]
 - The height of the n-ary tree is less than or equal to `1000`
 - The total number of nodes is between `[0, 10^4]`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree type**: Is this a binary tree or N-ary tree? (Assumption: N-ary tree - each node can have multiple children)
+
+2. **Level definition**: How are levels defined? (Assumption: Level 0 is root, level 1 is root's children, etc. - BFS levels)
+
+3. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level, nodes in order)
+
+4. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
+
+5. **Children order**: Should children be processed in any specific order? (Assumption: Process in the order they appear in children array)
+
 ## Solution Approach
 
 This is a classic **BFS (Breadth-First Search)** problem for N-ary trees. The key insight is to:

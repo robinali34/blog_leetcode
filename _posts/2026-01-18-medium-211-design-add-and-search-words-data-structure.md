@@ -47,6 +47,20 @@ wordDictionary.search("b.."); // return True
 - `word` in `search` consist of `'.'` or lowercase English letters.
 - There will be at most `10^4` calls to `addWord` and `search`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Wildcard behavior**: What does '.' represent in search? (Assumption: '.' matches any single lowercase letter - wildcard character)
+
+2. **Exact match vs prefix**: Does search look for exact word match or prefix match? (Assumption: Exact word match - must match the entire word, not just prefix)
+
+3. **Case sensitivity**: Are word comparisons case-sensitive? (Assumption: No - only lowercase letters are used per constraints)
+
+4. **Empty string**: How should we handle empty strings? (Assumption: Based on constraints, word length >= 1, but should clarify)
+
+5. **Duplicate insertion**: What happens if we add the same word multiple times? (Assumption: Word can be added multiple times, but it's the same word in the Trie)
+
 ## Solution Approach
 
 This problem extends [LC 208: Implement Trie](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) with **wildcard search** support. The key challenge is handling the `'.'` character which can match any letter.

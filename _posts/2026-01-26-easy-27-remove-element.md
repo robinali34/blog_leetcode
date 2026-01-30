@@ -44,6 +44,20 @@ Note that the five elements can be returned in any order, and it does not matter
 - `0 <= nums[i] <= 50`
 - `0 <= val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **In-place modification**: Should we modify the array in-place or return a new array? (Assumption: Modify in-place - the problem asks to remove elements in-place)
+
+2. **Order preservation**: Do we need to preserve the relative order of remaining elements? (Assumption: The problem doesn't explicitly require order preservation, but it's typically expected)
+
+3. **Return value**: What should we return - the new length or the modified array? (Assumption: Return the new length `k`, and the first `k` elements should be the valid elements)
+
+4. **Empty array**: What should we return if the array is empty? (Assumption: Return `0`)
+
+5. **Value not present**: What if `val` doesn't exist in the array? (Assumption: Return the original length - no elements removed)
+
 ## Solution Approach
 
 This problem requires removing all occurrences of `val` from the array **in-place** and returning the count of remaining elements. The key is using **two pointers** to efficiently filter elements.

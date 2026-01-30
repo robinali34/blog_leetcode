@@ -46,6 +46,20 @@ Explanation:
 - The length of each word in `sentence` is in the range `[1, 1000]`
 - Each word in `sentence` consists of only lower-case letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Root replacement**: When should we replace a word? (Assumption: If word starts with a root from dictionary, replace with shortest matching root)
+
+2. **Shortest root**: What if multiple roots match? (Assumption: Use shortest root - lexicographically smallest if same length)
+
+3. **Word boundaries**: How are words separated? (Assumption: Words separated by spaces - standard sentence format)
+
+4. **Case sensitivity**: Are comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
+5. **Return format**: What should we return? (Assumption: Modified sentence with words replaced by roots where applicable)
+
 ## Solution 1: Hash Set with Prefix Matching
 
 **Time Complexity:** O(n * m) where n is number of words, m is average word length  

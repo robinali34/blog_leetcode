@@ -52,6 +52,20 @@ Output: [[6,8,0],
 - `0 <= rowSum[i], colSum[j] <= 10^8`
 - `sum(rowSum) == sum(colSum)`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Matrix construction**: What are the constraints for matrix values? (Assumption: All values must be non-negative integers - cannot have negative values)
+
+2. **Sum matching**: Must row and column sums match exactly? (Assumption: Yes - sum of each row must equal rowSum[i], sum of each column must equal colSum[j])
+
+3. **Matrix uniqueness**: Is there a unique solution? (Assumption: No - multiple valid matrices exist, return any valid one)
+
+4. **Matrix size**: What is the matrix size? (Assumption: m x n where m = rowSum.length, n = colSum.length)
+
+5. **Return format**: What should we return? (Assumption: Any valid matrix - 2D array satisfying row and column sum constraints)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to fill the matrix cell by cell, always placing the minimum of the remaining row sum and column sum at each position. This ensures we satisfy both constraints while making progress.

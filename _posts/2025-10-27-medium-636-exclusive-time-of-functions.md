@@ -63,6 +63,20 @@ Explanation:
 - No two end events will happen at the same timestamp
 - Each function call has a matching start and end event
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Exclusive time definition**: What is exclusive time? (Assumption: Time spent in a function excluding time spent in nested function calls)
+
+2. **Log format**: What does the log format mean? (Assumption: "function_id:start:timestamp" or "function_id:end:timestamp" - tracks function entry/exit)
+
+3. **Nested calls**: Can functions call other functions? (Assumption: Yes - functions can be nested, need to track call stack)
+
+4. **Time calculation**: How is time calculated? (Assumption: Exclusive time = total time - time spent in nested calls)
+
+5. **Return format**: What should we return? (Assumption: Array where result[i] = exclusive time of function i)
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Time Tracking (Recommended)

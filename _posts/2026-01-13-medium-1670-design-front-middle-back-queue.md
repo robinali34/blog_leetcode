@@ -56,6 +56,20 @@ q.popFront();     // return -1 -> [] (The queue is empty)
 - `1 <= val <= 10^9`
 - At most `1000` calls will be made to `pushFront`, `pushMiddle`, `pushBack`, `popFront`, `popMiddle`, and `popBack`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Middle definition**: How is "middle" defined for pushMiddle and popMiddle? (Assumption: Middle is the position at index (size // 2) - for even size, it's the right-middle element)
+
+2. **Empty queue operations**: What should pop operations return when queue is empty? (Assumption: Return -1 - standard convention for empty queue operations)
+
+3. **Queue state**: Should we track the current size separately? (Assumption: Yes - tracking size helps determine middle position efficiently)
+
+4. **Data structure choice**: What data structure should we use? (Assumption: Deque or two stacks/queues - need efficient front, middle, and back operations)
+
+5. **Operation frequency**: Are all operations equally frequent? (Assumption: Need to clarify - but should optimize for O(1) operations if possible)
+
 ## Solution Approach
 
 This problem requires implementing a queue with operations at front, middle, and back. The key challenge is efficiently accessing and modifying the middle element.

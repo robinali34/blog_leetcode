@@ -37,6 +37,20 @@ Output: []
 - `1 <= Node.val <= 50`
 - `0 <= val <= 50`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Removal operation**: What does "remove" mean? (Assumption: Remove all nodes with value equal to val from the linked list)
+
+2. **In-place requirement**: Should we remove in-place? (Assumption: Yes - modify pointers, not create new list)
+
+3. **Return value**: What should we return? (Assumption: Head of modified linked list - may be different if head was removed)
+
+4. **Empty list**: What if list is empty? (Assumption: Return nullptr - no nodes to process)
+
+5. **All nodes removed**: What if all nodes have value val? (Assumption: Return nullptr - empty list after removal)
+
 ## Solution: Dummy Node Approach
 
 **Time Complexity:** O(n) - We visit each node once  

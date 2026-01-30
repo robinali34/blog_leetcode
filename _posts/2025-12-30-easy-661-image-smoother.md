@@ -43,6 +43,20 @@ For the point (1,1): floor((50+200+100+200+50+200+100+200+100)/9) = floor(138.88
 - `1 <= m, n <= 200`
 - `0 <= img[i][j] <= 255`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Smoothing definition**: How is smoothing calculated? (Assumption: Average of all 8 surrounding cells plus the cell itself - 3x3 neighborhood)
+
+2. **Boundary handling**: How should we handle cells at the boundary? (Assumption: Only average cells that exist - fewer neighbors for boundary cells)
+
+3. **Rounding**: How should we round the average? (Assumption: Floor division - truncate to integer, rounding down)
+
+4. **In-place modification**: Should we modify the original image or create a new one? (Assumption: Create a new image - don't modify original during calculation)
+
+5. **Neighbor count**: How many neighbors does a corner cell have? (Assumption: 3 neighbors (plus itself = 4 total); edge cells have 5 neighbors (plus itself = 6 total)
+
 ## Solution Approach
 
 This problem requires applying a 3×3 smoothing filter to each cell in the image. For each cell, we calculate the average of itself and its 8 neighbors (if they exist), then round down the result.

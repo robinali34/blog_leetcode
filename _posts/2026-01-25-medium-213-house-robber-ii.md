@@ -47,6 +47,20 @@ Explanation: Rob house 2 (money = 2) or house 3 (money = 3).
 - `1 <= nums.length <= 100`
 - `0 <= nums[i] <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Circular constraint**: Since houses are arranged in a circle, what happens if we rob the first and last house? (Assumption: Cannot rob both first and last house simultaneously - they're adjacent in the circle)
+
+2. **Empty array**: What should we return if the array is empty? (Assumption: Based on constraints, array length is at least 1)
+
+3. **Single house**: What if there's only one house? (Assumption: Rob that single house, return `nums[0]`)
+
+4. **Negative values**: Can house values be negative? (Assumption: No - constraints show `0 <= nums[i]`, all non-negative)
+
+5. **Adjacent houses**: Can we rob two adjacent houses? (Assumption: No - robbing adjacent houses triggers alarm)
+
 ## Solution Approach
 
 This is a **circular version** of House Robber (LC 198). The key difference is that the first and last houses are adjacent, so we cannot rob both.

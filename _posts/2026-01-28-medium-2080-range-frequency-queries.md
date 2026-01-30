@@ -44,6 +44,20 @@ rangeFreqQuery.query(0, 11, 33); // return 2. The value 33 occurs 2 times in the
 - `0 <= left <= right < arr.length`
 - At most `10^5` calls will be made to `query`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Array mutability**: Is the array immutable after construction, or can it be modified? (Assumption: Array is immutable - only queries are performed, no updates)
+
+2. **Range inclusivity**: Are both `left` and `right` indices inclusive in the range? (Assumption: Yes, the range `[left, right]` is inclusive on both ends)
+
+3. **Value existence**: What should we return if the queried `value` doesn't exist in the array at all? (Assumption: Return `0` - zero frequency)
+
+4. **Query frequency**: What's the expected ratio of constructor calls vs query calls? (Assumption: Many queries per construction, so preprocessing is beneficial)
+
+5. **Memory constraints**: Are there any memory limitations we should consider? (Assumption: O(n) space is acceptable for preprocessing to achieve O(log n) queries)
+
 ## Solution Approach
 
 This problem requires efficiently answering multiple range frequency queries. The key insight is to preprocess the array by grouping indices by value, then use binary search to quickly count occurrences in a range.

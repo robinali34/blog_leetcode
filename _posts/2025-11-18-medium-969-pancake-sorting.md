@@ -49,6 +49,20 @@ Note that other answers, such as [3, 3], would also be accepted.
 - `1 <= arr[i] <= arr.length`
 - All integers in `arr` are unique (i.e. `arr` is a permutation of the integers from `1` to `arr.length`).
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Pancake flip**: What is a pancake flip? (Assumption: Reverse first k elements - flip(arr, k) reverses arr[0:k])
+
+2. **Sorting goal**: What are we trying to achieve? (Assumption: Sort array in ascending order using only pancake flips)
+
+3. **Return format**: What should we return? (Assumption: Array of k values - sequence of flips to sort the array)
+
+4. **Array properties**: What are the array properties? (Assumption: Permutation of [1, 2, ..., n] - unique integers from 1 to n)
+
+5. **Multiple solutions**: Are there multiple valid solutions? (Assumption: Yes - can return any valid sequence of flips)
+
 ## Solution: Greedy Approach
 
 **Time Complexity:** O(n²) - For each of n elements, we may need to search and flip  

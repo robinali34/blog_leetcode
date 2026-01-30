@@ -75,6 +75,20 @@ Explanation: Cannot have adjacent number replacements (would need to be "s5u5n")
 - `abbr` consists of lowercase English letters and digits.
 - `abbr` does not contain any leading zeros.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Abbreviation format**: What is the abbreviation format? (Assumption: Mix of letters and numbers - numbers represent skipped characters, letters represent actual characters)
+
+2. **Validation rules**: What makes an abbreviation valid? (Assumption: Abbreviation must match word exactly - numbers skip that many characters, letters must match)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if abbreviation is valid, false otherwise)
+
+4. **Leading zeros**: Are leading zeros allowed? (Assumption: No - per constraints, no leading zeros in abbreviation)
+
+5. **Number parsing**: How are numbers parsed? (Assumption: Consecutive digits form a number - skip that many characters in word)
+
 ## Solution: Single-Pass with Position Tracking
 
 **Time Complexity:** O(n) where n is the length of `abbr`  

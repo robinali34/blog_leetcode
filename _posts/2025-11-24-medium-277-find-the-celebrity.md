@@ -40,6 +40,20 @@ Explanation: There is no celebrity.
 - `graph[i][j]` is `0` or `1`.
 - `graph[i][i] == 1` (everyone knows themselves)
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Celebrity definition**: What is a celebrity? (Assumption: Person who knows nobody (except themselves) but is known by everyone)
+
+2. **Knows function**: What does knows(a, b) return? (Assumption: graph[a][b] = 1 means a knows b, 0 means a doesn't know b)
+
+3. **Return value**: What should we return? (Assumption: Integer - celebrity's index if exists, -1 if no celebrity)
+
+4. **Uniqueness**: Can there be multiple celebrities? (Assumption: No - at most one celebrity can exist)
+
+5. **Self-knowledge**: Does everyone know themselves? (Assumption: Yes - graph[i][i] = 1 per constraints)
+
 ## Solution: Two-Pass Algorithm
 
 **Time Complexity:** O(n) - makes at most 3n calls to `knows()`  

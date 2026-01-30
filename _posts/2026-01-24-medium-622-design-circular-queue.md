@@ -57,6 +57,20 @@ myCircularQueue.Rear();     // return 4
 - `0 <= value <= 1000`
 - At most `3000` calls will be made to `enQueue`, `deQueue`, `Front`, `Rear`, `isEmpty`, and `isFull`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Queue behavior**: What should happen when we try to enqueue into a full queue? (Assumption: Return `false`, don't add the element)
+
+2. **Empty queue operations**: What should `Front()` and `Rear()` return when the queue is empty? (Assumption: Return `-1` as specified in the problem)
+
+3. **Circular property**: When the queue is full and we dequeue, can we immediately enqueue at that position? (Assumption: Yes - that's the circular property, we reuse freed space)
+
+4. **Size tracking**: Should we track the current size separately or calculate it from head/tail pointers? (Assumption: Either approach works, but tracking size separately simplifies implementation)
+
+5. **Thread safety**: Do we need to handle concurrent operations? (Assumption: No - single-threaded operations are sufficient for this problem)
+
 ## Solution Approach
 
 A circular queue is a queue where the last position is connected back to the first position. This allows efficient use of space by reusing freed positions.

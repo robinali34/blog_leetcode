@@ -43,6 +43,20 @@ Output: [[2147483647]]
 - `1 <= m, n <= 250`
 - `rooms[i][j]` is `-1`, `0`, or `2^31 - 1`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Cell types**: What do the values represent? (Assumption: -1 = wall (obstacle), 0 = gate, 2^31-1 = empty room (INF))
+
+2. **Distance calculation**: How is distance calculated? (Assumption: Minimum steps from nearest gate to each empty room - BFS distance)
+
+3. **Modification requirement**: Should we modify the grid? (Assumption: Yes - replace INF values with actual distances from nearest gate)
+
+4. **Return value**: What should we return? (Assumption: Void - modify rooms array in-place)
+
+5. **Movement rules**: How can we move? (Assumption: Horizontal or vertical movement - 4 directions, cannot pass through walls)
+
 ## Solution 1: Multi-Source BFS (Recommended)
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

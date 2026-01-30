@@ -42,6 +42,20 @@ So, the score of s would be |122 - 97| + |97 - 122| = 25 + 25 = 50.
 - `2 <= s.length <= 100`
 - `s` consists only of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Score calculation**: How is the score calculated? (Assumption: Sum of absolute differences between ASCII values of adjacent characters)
+
+2. **Adjacent pairs**: Which pairs should we consider? (Assumption: All consecutive pairs - (s[0], s[1]), (s[1], s[2]), ..., (s[n-2], s[n-1]))
+
+3. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
+
+4. **Empty string**: What should we return for an empty string? (Assumption: Based on constraints, length >= 2, so empty string not possible)
+
+5. **Single character**: What if string has only one character? (Assumption: Based on constraints, length >= 2, so single character not possible)
+
 ## Solution Approach
 
 This is a straightforward **simulation** problem. We need to:

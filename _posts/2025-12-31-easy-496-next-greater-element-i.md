@@ -46,6 +46,20 @@ Explanation: The next greater element for each value of nums1 is as follows:
 - All integers in `nums1` and `nums2` are **unique**.
 - All the integers of `nums1` also appear in `nums2`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Next greater definition**: What does "next greater element" mean? (Assumption: First element to the right that is strictly greater than current element)
+
+2. **Array relationship**: How are nums1 and nums2 related? (Assumption: All elements of nums1 appear in nums2 - subset relationship)
+
+3. **Position requirement**: Must the next greater element be immediately next? (Assumption: No - can be anywhere to the right, but must be the first one found)
+
+4. **No greater element**: What should we return if no greater element exists? (Assumption: Return -1 - no next greater element found)
+
+5. **Uniqueness**: Are all integers unique? (Assumption: Yes - per constraints, all integers are unique)
+
 ## Solution Approach
 
 This problem requires finding the next greater element for each element in `nums1` within `nums2`. We can efficiently solve this using a **monotonic stack** to process `nums2` and store results in a hash map.

@@ -46,6 +46,20 @@ Explanation: The answer [[-2,4],[3,3]] would also be accepted.
 - `1 <= k <= points.length <= 10^4`
 - `-10^4 <= xi, yi <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Distance calculation**: How is distance calculated? (Assumption: Euclidean distance from origin - sqrt(x² + y²), can use squared distance for comparison)
+
+2. **K closest**: What does "k closest" mean? (Assumption: K points with smallest distances to origin)
+
+3. **Return format**: What should we return? (Assumption: Array of k closest points - can be in any order)
+
+4. **Tie-breaking**: What if multiple points have same distance? (Assumption: Return any k points - order doesn't matter)
+
+5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= points.length)
+
 ## Solution Approach
 
 ### Key Insight

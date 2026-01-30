@@ -36,6 +36,20 @@ Explanation: The maximum depth is 2, which is the path: 1 → 2.
 - The number of nodes in the tree is in the range `[0, 10^4]`.
 - `-100 <= Node.val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree type**: Is this a binary tree, BST, or general tree? (Assumption: Binary tree - each node has at most 2 children)
+
+2. **Depth definition**: How is depth defined - number of nodes or number of edges? (Assumption: Typically depth = number of nodes from root to deepest leaf, but should clarify)
+
+3. **Empty tree**: What should we return for an empty tree (null root)? (Assumption: Return 0 - no nodes means depth 0)
+
+4. **Single node**: What's the depth of a tree with only root? (Assumption: Return 1 - root node itself has depth 1)
+
+5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
+
 ## Solution Approach
 
 This problem requires finding the longest path from root to any leaf node. There are several approaches:

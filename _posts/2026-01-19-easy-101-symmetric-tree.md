@@ -46,6 +46,20 @@ Tree structure:
 - The number of nodes in the tree is in the range `[1, 1000]`.
 - `-100 <= Node.val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Symmetric definition**: What makes a tree symmetric? (Assumption: Tree is symmetric if it's a mirror image of itself - left subtree mirrors right subtree)
+
+2. **Empty tree**: Is an empty tree considered symmetric? (Assumption: Yes - empty tree is symmetric by definition)
+
+3. **Single node**: Is a tree with only root symmetric? (Assumption: Yes - single node is symmetric)
+
+4. **Value comparison**: Do we compare values or just structure? (Assumption: Both - structure must be mirror and values at mirror positions must be equal)
+
+5. **Tree modification**: Should we modify the tree or just check symmetry? (Assumption: Just check - no modification needed)
+
 ## Solution Approach
 
 This problem requires checking if a binary tree is symmetric (mirror of itself). A tree is symmetric if the left subtree is a mirror image of the right subtree.

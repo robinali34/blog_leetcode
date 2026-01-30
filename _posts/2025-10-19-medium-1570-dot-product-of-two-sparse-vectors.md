@@ -48,6 +48,20 @@ v1.dotProduct(v2) = 0*1 + 1*0 + 0*0 + 0*0 + 2*3 + 0*0 + 0*4 = 6
 - `1 <= n <= 10^5`
 - `0 <= nums1[i], nums2[i] <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Sparse vector definition**: What makes a vector "sparse"? (Assumption: Vector with many zeros - most elements are zero)
+
+2. **Dot product calculation**: How is dot product calculated? (Assumption: Sum of products of corresponding elements - sum(nums1[i] * nums2[i]))
+
+3. **Vector length**: Are vectors guaranteed to have same length? (Assumption: Yes - per constraints, n == nums1.length == nums2.length)
+
+4. **Optimization**: Should we optimize for sparse vectors? (Assumption: Yes - store only non-zero elements to save space and time)
+
+5. **Return value**: What should we return? (Assumption: Integer dot product of the two sparse vectors)
+
 ## Solution: Hash Map with Optimization
 
 **Time Complexity:** 

@@ -45,6 +45,20 @@ Since not every customer received correct change, the answer is false.
 - `1 <= bills.length <= 10^5`
 - `bills[i]` is either `5`, `10`, or `20`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Change availability**: Do we start with any change? (Assumption: Start with no change - need to make change from collected bills)
+
+2. **Change priority**: When giving change, which bills should we use first? (Assumption: Use larger bills first when possible - greedy approach, but $5 bills are most valuable for change)
+
+3. **Exact change**: Can we give exact change? (Assumption: Yes - must give exact change, cannot give more or less)
+
+4. **Bill denominations**: What bills are available? (Assumption: Only $5, $10, $20 bills - per constraints)
+
+5. **Customer order**: Are customers processed in the given order? (Assumption: Yes - process customers sequentially in the given order)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem where we need to give change optimally. The key insight is to **prioritize using larger bills** when giving change for $20, to preserve $5 bills for future $10 bills.

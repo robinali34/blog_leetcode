@@ -42,6 +42,20 @@ Output: [1,2,3]
 - `Node.left.val < Node.val < Node.right.val` (BST property)
 - `1 <= Number of Nodes <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Doubly linked list**: What is the structure? (Assumption: Each node has left (prev) and right (next) pointers, circular list)
+
+2. **Sorting order**: What order should nodes be in? (Assumption: In-order traversal order - sorted ascending by value)
+
+3. **Return value**: What should we return? (Assumption: Head of the circular doubly linked list - smallest value node)
+
+4. **Tree modification**: Can we modify the tree? (Assumption: Yes - convert in-place by modifying pointers)
+
+5. **Circular list**: Should the list be circular? (Assumption: Yes - last node's right points to first, first node's left points to last)
+
 ## Solution Approaches
 
 ### Approach 1: Inorder Traversal with Global Variables (Recommended)

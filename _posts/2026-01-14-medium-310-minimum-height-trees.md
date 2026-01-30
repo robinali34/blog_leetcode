@@ -43,6 +43,20 @@ Output: [3,4]
 - All the pairs `(ai, bi)` are distinct.
 - The given input is **guaranteed** to be a tree and there will be **no repeated** edges.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree structure**: Is the graph guaranteed to be a tree? (Assumption: Yes - per constraints, input is guaranteed to be a tree with n-1 edges)
+
+2. **Height definition**: How is tree height defined? (Assumption: Height is the number of edges in the longest path from root to any leaf)
+
+3. **Root selection**: Can we choose any node as root? (Assumption: Yes - we want to find which node(s) as root give minimum height)
+
+4. **Multiple centers**: Can there be multiple minimum height trees? (Assumption: Yes - there can be 1 or 2 center nodes that give minimum height)
+
+5. **Return format**: Should we return all possible roots or just one? (Assumption: Return all nodes that can serve as root for minimum height trees)
+
 ## Solution Approach
 
 This problem requires finding the center(s) of a tree. The key insight is that **minimum height trees have their roots at the center(s) of the longest path (diameter) in the tree**.

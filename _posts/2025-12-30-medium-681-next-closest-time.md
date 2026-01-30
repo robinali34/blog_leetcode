@@ -36,6 +36,20 @@ Explanation: The next closest time choosing from digits 2, 3, 5, 9, is 22:22. It
 - `0 <= HH < 24`
 - `0 <= MM < 60`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Time format**: What is the time format? (Assumption: "HH:MM" - 24-hour format, HH from 00-23, MM from 00-59)
+
+2. **Digit restriction**: What digits can we use? (Assumption: Only digits that appear in the input time - reuse digits from current time)
+
+3. **Next closest**: What does "next closest" mean? (Assumption: Next valid time (including next day) that uses only allowed digits)
+
+4. **Return format**: What should we return? (Assumption: String in "HH:MM" format - next closest time)
+
+5. **Wrapping**: Can time wrap to next day? (Assumption: Yes - if no valid time today, find next day's time)
+
 ## Solution Approach
 
 This problem requires finding the next closest time (including next day) that can be formed using only the digits from the current time. We can solve this by **simulating time progression** minute by minute and checking if each new time uses only allowed digits.

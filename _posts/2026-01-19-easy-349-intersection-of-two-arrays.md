@@ -34,6 +34,20 @@ Explanation: The intersection contains elements 9 and 4. Order does not matter.
 - `1 <= nums1.length, nums2.length <= 1000`
 - `0 <= nums1[i], nums2[i] <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Intersection definition**: What exactly is the intersection? (Assumption: Elements that appear in both arrays, each element appears only once in result)
+
+2. **Duplicate handling**: If an element appears multiple times in both arrays, how many times should it appear in result? (Assumption: Only once - intersection contains unique elements)
+
+3. **Order requirement**: Does the order of elements in the result matter? (Assumption: No - order doesn't matter, can return in any order)
+
+4. **Array mutability**: Can we modify the input arrays? (Assumption: No - typically we don't modify input arrays)
+
+5. **Empty arrays**: What if one or both arrays are empty? (Assumption: Return empty array - no intersection)
+
 ## Solution Approach
 
 This problem requires finding common elements between two arrays, with each element appearing only once in the result. There are several approaches:

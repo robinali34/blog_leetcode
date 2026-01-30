@@ -44,6 +44,20 @@ Output: [[4],[9,5],[3,0,1],[8,2],[7]]
 - The number of nodes in the tree is in the range `[0, 100]`.
 - `-100 <= Node.val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Vertical order definition**: What is vertical order? (Assumption: Nodes at same horizontal distance from root are in same column - left is negative, right is positive)
+
+2. **Column ordering**: How should columns be ordered? (Assumption: From leftmost to rightmost - negative to positive column indices)
+
+3. **Same column ordering**: How should nodes in same column be ordered? (Assumption: Top to bottom - level order within same column)
+
+4. **Return format**: What should we return? (Assumption: List of lists - each inner list contains nodes in one column, ordered left to right)
+
+5. **Empty tree**: What if tree is empty? (Assumption: Return empty list - no nodes to traverse)
+
 ## Solution Approach
 
 This problem requires traversing a binary tree in **vertical order** (column by column from left to right). The key insight is to assign **column indices** to nodes and group them accordingly.

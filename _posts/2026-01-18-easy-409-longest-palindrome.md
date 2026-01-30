@@ -45,6 +45,20 @@ Explanation: The longest palindrome is "bb".
 - `1 <= s.length <= 2000`
 - `s` consists of lowercase and/or uppercase English letters only.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Palindrome construction**: Can we rearrange characters to form a palindrome? (Assumption: Yes - we can rearrange characters, we're constructing the longest palindrome possible)
+
+2. **Case sensitivity**: Are uppercase and lowercase letters considered different? (Assumption: Yes - 'A' and 'a' are different characters)
+
+3. **Character frequency**: Can we use all available characters or must we use them optimally? (Assumption: Use characters optimally - pairs for sides, at most one odd-count character for center)
+
+4. **Empty string**: What should we return for an empty string? (Assumption: Return 0 - no palindrome can be formed)
+
+5. **Single character**: Can a single character form a palindrome? (Assumption: Yes - single character is a palindrome of length 1)
+
 ## Solution Approach
 
 This problem asks us to find the longest palindrome we can construct from the given characters. The key insight is:

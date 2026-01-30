@@ -42,6 +42,20 @@ To take course 1 you should have finished course 0, and to take course 0 you sho
 - `0 <= ai, bi < numCourses`
 - All the pairs `prerequisites[i]` are **unique**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Prerequisite format**: How are prerequisites represented? (Assumption: [ai, bi] means to take course ai, you must first take course bi - bi is prerequisite for ai)
+
+2. **Cycle detection**: What makes a schedule impossible? (Assumption: If there's a cycle in prerequisites - circular dependency makes it impossible)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if can finish all courses, false if cycle exists)
+
+4. **All courses**: Must we take all courses? (Assumption: Yes - need to determine if we can finish all numCourses courses)
+
+5. **No prerequisites**: What if there are no prerequisites? (Assumption: Return true - can take courses in any order)
+
 ## Solution Approach
 
 This problem is asking whether we can complete all courses given their prerequisites. This translates to checking if the **directed graph** formed by courses and prerequisites has **no cycles**.

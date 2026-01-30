@@ -40,6 +40,20 @@ You need to output 2.
 - `0 <= s.length <= 3 * 10^4`
 - `1 <= g[i], s[j] <= 2^31 - 1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Assignment rule**: Can one cookie satisfy multiple children? (Assumption: No - one cookie can only satisfy one child)
+
+2. **Cookie size requirement**: What size cookie is needed for a child? (Assumption: Cookie size must be >= child's greed factor)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximize the number of satisfied children - greedy approach)
+
+4. **Cookie reuse**: Can we use the same cookie multiple times? (Assumption: No - each cookie can only be used once)
+
+5. **Ordering**: Does the order of children or cookies matter? (Assumption: No - we can assign in any order, but sorting helps optimize)
+
 ## Solution Approach
 
 This is a classic **greedy algorithm** problem. The key insight is to use a greedy strategy: assign the smallest cookie that satisfies each child's greed factor, starting with the child with the smallest greed factor.

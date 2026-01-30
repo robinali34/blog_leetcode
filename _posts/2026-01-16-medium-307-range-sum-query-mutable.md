@@ -48,6 +48,20 @@ numArray.sumRange(0, 2); // return 1 + 2 + 5 = 8
 - `0 <= left <= right < nums.length`
 - At most `3 * 10^4` calls will be made to `update` and `sumRange`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range inclusivity**: Are both `left` and `right` indices inclusive in the range? (Assumption: Yes - range `[left, right]` is inclusive on both ends)
+
+2. **Update operation**: What does update do - replace value or add to existing? (Assumption: Replace the value at index with new value - `nums[index] = val`)
+
+3. **Index bounds**: Are indices guaranteed to be valid? (Assumption: Yes - constraints ensure `0 <= index < nums.length`)
+
+4. **Operation frequency**: What's the ratio of updates vs queries? (Assumption: Both operations are frequent, so we need O(log n) for both)
+
+5. **Data structure choice**: Can we use a simple array with O(n) queries? (Assumption: No - with many queries, we need efficient range queries, so Segment Tree or Fenwick Tree is needed)
+
 ## Solution Approach
 
 This is a classic **Segment Tree** problem. We need to support:

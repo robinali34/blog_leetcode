@@ -36,6 +36,20 @@ Output: 1
 - `-2^31 <= nums[i] <= 2^31 - 1`
 - `-10^5 <= lower <= upper <= 10^5`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range inclusivity**: Is the range `[lower, upper]` inclusive on both ends? (Assumption: Yes - subarray sum should satisfy `lower <= sum <= upper`)
+
+2. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+
+3. **Empty subarray**: Can an empty subarray be considered? (Assumption: Need to clarify - typically empty subarray has sum 0, but should confirm if it counts)
+
+4. **Integer overflow**: Can prefix sums overflow? (Assumption: Yes - need to use `long long` for prefix sums to handle large numbers)
+
+5. **Negative numbers**: Can the array contain negative numbers? (Assumption: Yes - this makes prefix sums non-monotonic, requiring advanced techniques like merge sort or segment tree)
+
 ## Solution Approach
 
 This problem requires counting the number of subarray sums that fall within a given range. The key insight is to use **prefix sums** and then count pairs of prefix sums that satisfy the condition.

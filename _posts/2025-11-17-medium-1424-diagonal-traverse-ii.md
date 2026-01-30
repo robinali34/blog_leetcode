@@ -42,6 +42,20 @@ Output: [1,2,3,4,5,6]
 - `1 <= sum(nums[i].length) <= 10^5`
 - `1 <= nums[i][j] <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Diagonal definition**: What defines a diagonal? (Assumption: Elements at same (row + col) sum are on same diagonal - diagonal index = i + j)
+
+2. **Traversal order**: What is the traversal order? (Assumption: Traverse diagonals from top-left to bottom-right, within each diagonal from bottom to top)
+
+3. **Array structure**: Can rows have different lengths? (Assumption: Yes - per constraints, nums[i].length can vary)
+
+4. **Return format**: What should we return? (Assumption: 1D array with elements in diagonal traversal order)
+
+5. **Empty array**: What if array is empty? (Assumption: Return empty array)
+
 ## Solution: Hash Map Grouping and BFS Approaches
 
 **Time Complexity:** O(n) where n is total number of elements  

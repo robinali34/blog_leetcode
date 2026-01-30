@@ -45,6 +45,20 @@ Explanation: The value -3 has 3 occurrences, 0 has 2 occurrences, 1 has 4 occurr
 - `1 <= arr.length <= 1000`
 - `-1000 <= arr[i] <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Occurrence definition**: What does "occurrence" mean? (Assumption: Number of times each value appears in the array)
+
+2. **Unique occurrences**: What makes occurrences "unique"? (Assumption: Each occurrence count appears only once - no two values have the same count)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if all occurrence counts are unique, false otherwise)
+
+4. **Empty array**: What if array is empty? (Assumption: Return true - no occurrences means all are unique)
+
+5. **Single element**: What if array has one element? (Assumption: Return true - one occurrence count is unique)
+
 ## Solution Approaches
 
 ### Approach 1: Hash Map + Hash Set (Recommended)

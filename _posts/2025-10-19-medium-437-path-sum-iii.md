@@ -39,6 +39,20 @@ Explanation: The paths that sum to 22 are:
 - `-10^9 <= Node.val <= 10^9`
 - `-1000 <= targetSum <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Path definition**: What defines a valid path? (Assumption: Path from any node to any descendant node - doesn't need to start at root or end at leaf)
+
+2. **Path sum calculation**: How is path sum calculated? (Assumption: Sum of all node values along the path)
+
+3. **Return value**: What should we return? (Assumption: Count of paths with sum equal to targetSum - integer)
+
+4. **Negative values**: Can node values and targetSum be negative? (Assumption: Yes - per constraints, both can be negative)
+
+5. **Path direction**: Can paths go upward in the tree? (Assumption: No - paths go downward from parent to child - standard tree path)
+
 ## Solution: DFS with Recursion
 
 **Time Complexity:** O(n²) where n is the number of nodes  

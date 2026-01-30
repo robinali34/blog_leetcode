@@ -29,6 +29,20 @@ Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 - 1 <= m, n <= 10
 - -100 <= matrix[i][j] <= 100
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Spiral direction**: What is the spiral order? (Assumption: Right → Down → Left → Up, repeating - clockwise spiral)
+
+2. **Matrix shape**: Can the matrix be non-square (rectangular)? (Assumption: Yes - m and n can be different)
+
+3. **Output format**: Should we return elements in spiral order? (Assumption: Yes - return 1D array with elements in spiral traversal order)
+
+4. **Empty matrix**: How should we handle an empty matrix? (Assumption: Return empty array)
+
+5. **Visited tracking**: Can we modify the matrix or need separate tracking? (Assumption: Can use visited array or modify matrix values to mark visited)
+
 ## Approach
 
 There are two main approaches to solve this problem:

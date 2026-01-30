@@ -42,6 +42,20 @@ Explanation: All the characters in s can be used to construct 4 palindromes: "t"
 - `1 <= k <= 10^5`
 - `s` consists of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Palindrome construction**: What does "construct k palindromes" mean? (Assumption: Split string s into k non-empty palindromic substrings)
+
+2. **Character usage**: Can we use each character only once? (Assumption: Yes - must use all characters from s exactly once)
+
+3. **Palindrome requirement**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
+
+4. **Return value**: What should we return? (Assumption: Boolean - true if can construct k palindromes, false otherwise)
+
+5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= s.length - can have 1 to s.length palindromes)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight about palindromes. The crucial observation is that a palindrome can have **at most one character with odd frequency** (the center character).

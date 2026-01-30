@@ -49,6 +49,20 @@ Explanation: Move chip at position 1000000000 to position 1 with cost = 1.
 - `1 <= position.length <= 100`
 - `1 <= position[i] <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Chip movement**: How do chips move? (Assumption: Move chip 2 positions costs 0, move chip 1 position costs 1 - parity-based movement)
+
+2. **Goal**: What are we trying to achieve? (Assumption: Move all chips to same position with minimum cost)
+
+3. **Return value**: What should we return? (Assumption: Integer - minimum cost to move all chips to same position)
+
+4. **Position range**: What is the range of positions? (Assumption: Per constraints, 1 <= position[i] <= 10^9 - very large range)
+
+5. **Cost calculation**: How is cost calculated? (Assumption: Moving even distance (2, 4, 6...) costs 0, moving odd distance (1, 3, 5...) costs 1)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is that moving chips by 2 positions costs 0, while moving by 1 position costs 1.

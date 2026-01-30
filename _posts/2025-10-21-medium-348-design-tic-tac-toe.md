@@ -83,6 +83,20 @@ ticTacToe.move(2, 1, 1); // return 1 (player 1 wins)
 - `0 <= row, col < n`
 - At most `n^2` calls will be made to `move`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Game rules**: What are the Tic-Tac-Toe rules? (Assumption: n×n board, players alternate, win by filling row/column/diagonal)
+
+2. **Move operation**: What does move() do? (Assumption: Places player's mark at (row, col), returns winner if game ends, 0 otherwise)
+
+3. **Win condition**: When does a player win? (Assumption: Player fills entire row, column, or diagonal with their marks)
+
+4. **Return value**: What should move() return? (Assumption: Integer - player number if they win, 0 if no winner yet)
+
+5. **Valid moves**: Are moves guaranteed valid? (Assumption: Per constraints, moves are within bounds, but should check for already occupied cells)
+
 ## Solution Approaches
 
 ### Approach 1: Naive Implementation

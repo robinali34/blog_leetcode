@@ -46,6 +46,20 @@ Output: -1
 - `1 <= a.length, b.length <= 10^4`
 - `a` and `b` consist of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Repetition definition**: What does "repeated string match" mean? (Assumption: Repeat string 'a' multiple times until 'b' becomes a substring of the repeated string)
+
+2. **Minimum repetitions**: What are we trying to find? (Assumption: Minimum number of times to repeat 'a' so that 'b' is a substring)
+
+3. **Substring matching**: Does 'b' need to be an exact substring? (Assumption: Yes - 'b' must appear as a contiguous substring in the repeated 'a')
+
+4. **No match**: What should we return if 'b' can never be a substring? (Assumption: Return -1 - impossible to form 'b' as substring)
+
+5. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
 ## Solution Approach
 
 This problem requires finding the minimum number of repetitions of string `a` such that string `b` becomes a substring. This is a **string matching problem** that can be efficiently solved using advanced algorithms like **Knuth-Morris-Pratt (KMP)** or **Rabin-Karp**.

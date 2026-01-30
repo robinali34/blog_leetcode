@@ -38,6 +38,20 @@ Explanation: The minimum depth is 5, which is the path: 2 → 3 → 4 → 5 → 
 - The number of nodes in the tree is in the range `[0, 10^5]`.
 - `-1000 <= Node.val <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Minimum depth definition**: What defines minimum depth - path to nearest leaf? (Assumption: Yes - minimum depth is the number of nodes along the shortest path from root to nearest leaf)
+
+2. **Leaf node**: What is considered a leaf node? (Assumption: A node with no children - both left and right are null)
+
+3. **Empty tree**: What should we return for an empty tree? (Assumption: Return 0 - no nodes means depth 0)
+
+4. **Skewed tree**: How should we handle a skewed tree (all nodes on one side)? (Assumption: Minimum depth equals the number of nodes in the skewed path)
+
+5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
+
 ## Solution Approach
 
 This problem requires finding the shortest path from root to any leaf node. The key difference from maximum depth is handling nodes with only one child correctly.

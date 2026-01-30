@@ -56,6 +56,20 @@ Explanation:
 - `1 <= nums.length <= 10^5`
 - `1 <= nums[i] <= 10^7`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+
+2. **Minimum product calculation**: How is minimum product calculated? (Assumption: For each subarray, find minimum value and sum, then multiply them - min(subarray) * sum(subarray))
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum value among all minimum products from all subarrays)
+
+4. **Return value**: What should we return? (Assumption: Maximum minimum product - integer, modulo 10^9 + 7)
+
+5. **Empty subarray**: Can an empty subarray be considered? (Assumption: No - subarray must be non-empty)
+
 ## Solution: Monotonic Stack with Prefix Sum
 
 **Time Complexity:** O(n) where n is the length of array  

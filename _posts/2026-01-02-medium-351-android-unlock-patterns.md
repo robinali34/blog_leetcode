@@ -49,6 +49,20 @@ The 3×3 grid is numbered as follows:
 
 - `1 <= m <= n <= 9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Pattern definition**: What is an unlock pattern? (Assumption: Sequence of distinct dots connected by lines - valid if line doesn't pass through unvisited dots)
+
+2. **Pattern length**: What length patterns should we count? (Assumption: Patterns with length between m and n inclusive)
+
+3. **Return value**: What should we return? (Assumption: Integer - number of valid unlock patterns)
+
+4. **Line rules**: What makes a line invalid? (Assumption: If line passes through an unvisited dot, pattern is invalid - must visit intermediate dots first)
+
+5. **Starting point**: Can we start from any dot? (Assumption: Yes - can start from any of the 9 dots)
+
 ## Solution Approach
 
 This problem requires counting all valid unlock patterns of length between `m` and `n`. The key challenge is handling the "jump over" rule: you cannot jump over an unvisited dot unless it's the center (dot 4).

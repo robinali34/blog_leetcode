@@ -48,6 +48,20 @@ Output: -1
 - grid[i][j] is either 0, 1, or 2
 - There will be at least one building in the grid
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Grid cell types**: What do the values represent? (Assumption: 0 = empty land, 1 = building, 2 = obstacle - cannot pass through)
+
+2. **Distance calculation**: How is distance calculated? (Assumption: Manhattan distance - sum of horizontal and vertical steps, can only move in 4 directions)
+
+3. **Reachability**: Must the empty land be reachable from all buildings? (Assumption: Yes - if cannot reach all buildings, return -1)
+
+4. **Obstacle handling**: Can we pass through obstacles? (Assumption: No - obstacles block movement, cannot build on obstacles)
+
+5. **Return value**: What should we return? (Assumption: Shortest total distance from chosen empty land to all buildings, or -1 if impossible)
+
 ## Approach
 
 There are three main approaches to solve this problem:

@@ -35,6 +35,20 @@ Output: [[1]]
 - `1 <= n <= 20`
 - `1 <= k <= n`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Combination definition**: What is a combination? (Assumption: Selection of k elements from n elements, order doesn't matter - {1,2} same as {2,1})
+
+2. **Element range**: What are the available elements? (Assumption: Numbers from 1 to n inclusive - [1, 2, ..., n])
+
+3. **Output format**: Should we return all combinations or just count? (Assumption: Return all distinct combinations - list of lists)
+
+4. **Order requirement**: Does the order of combinations matter? (Assumption: No - can return in any order, but typically lexicographic)
+
+5. **Empty combination**: Should we include empty combination? (Assumption: No - k >= 1 per constraints, so no empty combinations)
+
 ## Solution Approach
 
 This problem asks for all possible combinations of `k` numbers from `[1, n]`. Since combinations are unordered (unlike permutations), we need to ensure we don't generate duplicate combinations.

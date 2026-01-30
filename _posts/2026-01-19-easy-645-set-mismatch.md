@@ -39,6 +39,20 @@ Explanation: 1 is duplicated, 2 is missing.
 - `1 <= nums[i] <= 10^4`
 - Exactly one number appears twice, exactly one is missing.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Array properties**: What are the properties of the array? (Assumption: Array contains numbers from 1 to n, with one duplicate and one missing)
+
+2. **Output format**: What should we return - duplicate first or missing first? (Assumption: Return [duplicate, missing] - duplicate appears first)
+
+3. **Single duplicate**: Is there exactly one duplicate and one missing? (Assumption: Yes - exactly one number appears twice, one number is missing)
+
+4. **Array modification**: Can we modify the input array? (Assumption: Typically yes for space optimization, but should clarify)
+
+5. **Range**: What is the range of numbers? (Assumption: Numbers are from 1 to n, where n is array length)
+
 ## Solution Approach
 
 This problem requires finding both a duplicate and a missing number in an array that should contain numbers from 1 to n. There are several approaches:

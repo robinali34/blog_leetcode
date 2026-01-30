@@ -54,6 +54,20 @@ Output: true
 - `1 <= s.length <= 10^4`
 - `s` consists of parentheses only `'()[]{}'`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Valid parentheses definition**: What makes parentheses valid? (Assumption: Every opening bracket has matching closing bracket, properly nested - no cross-nesting)
+
+2. **Bracket types**: What bracket types are there? (Assumption: Three types - '()', '[]', '{}' - each must match its own type)
+
+3. **Nesting rules**: Can brackets be nested? (Assumption: Yes - but must be properly nested, e.g., "([])" is valid, "([)]" is not)
+
+4. **Return value**: What should we return? (Assumption: Boolean - true if valid, false otherwise)
+
+5. **Empty string**: What if string is empty? (Assumption: Return true - empty string is valid)
+
 ## Solution: Stack-Based Matching
 
 **Time Complexity:** O(n)  

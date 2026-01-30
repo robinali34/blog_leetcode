@@ -44,6 +44,20 @@ Palindromic substrings: "r", "a", "c", "e", "c", "a", "r", "ceec", "aceca", "rac
 - `1 <= s.length <= 1000`
 - `s` consists of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Substring definition**: Does substring need to be contiguous? (Assumption: Yes - substring is contiguous by definition)
+
+2. **Palindrome definition**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
+
+3. **Return value**: Should we return substrings or count? (Assumption: Return count - integer representing number of palindromic substrings)
+
+4. **Single characters**: Do single characters count? (Assumption: Yes - single character is a palindrome)
+
+5. **Duplicate substrings**: Should we count duplicate palindromes? (Assumption: Yes - if "aa" appears twice, count both occurrences)
+
 ## Solution: Expand Around Centers
 
 **Time Complexity:** O(n²)  

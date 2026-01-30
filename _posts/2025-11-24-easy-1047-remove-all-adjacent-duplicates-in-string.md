@@ -38,6 +38,20 @@ First, we remove "xx" to get "azzy". Then we remove "zz" to get "ay".
 - `1 <= s.length <= 10^5`
 - `s` consists of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Duplicate removal**: What does "adjacent duplicates" mean? (Assumption: Two identical characters next to each other - "aa" is adjacent duplicates)
+
+2. **Removal process**: How should we remove duplicates? (Assumption: Remove pairs of adjacent duplicates repeatedly until no more exist)
+
+3. **Cascading removal**: Can removal cause new duplicates? (Assumption: Yes - removing "aa" from "baa" leaves "b", removing "aa" from "aab" leaves "b")
+
+4. **Return format**: What should we return? (Assumption: Final string after all duplicate removals)
+
+5. **Empty string**: What if string becomes empty? (Assumption: Return empty string "")
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Solution

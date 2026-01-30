@@ -54,6 +54,20 @@ solution.pick(3); // Should return either index 2, 3, or 4 randomly.
 - `target` is an integer from `nums`.
 - At most `10^4` calls will be made to `pick`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Pick operation**: What does pick() do? (Assumption: Randomly selects one index where nums[index] == target, returns that index)
+
+2. **Randomness requirement**: What is the randomness requirement? (Assumption: All indices with target value should have equal probability of being selected)
+
+3. **Return value**: What should pick() return? (Assumption: Integer - randomly selected index where nums[index] == target)
+
+4. **Multiple calls**: Are pick() calls independent? (Assumption: Yes - each call is independent random selection)
+
+5. **Target existence**: Is target guaranteed to exist? (Assumption: Yes - per constraints, target is an integer from nums)
+
 ## Solution: Hash Map Preprocessing (Optimized)
 
 **Time Complexity:** O(n) preprocessing, O(1) per `pick()` call  

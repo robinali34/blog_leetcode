@@ -43,6 +43,20 @@ Output: false
 - `1 <= word.length <= 15`
 - `board` and `word` consists of only lowercase and uppercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Cell reuse**: Can we reuse the same cell multiple times in a path? (Assumption: No - each cell can be used at most once in a path)
+
+2. **Movement directions**: In which directions can we move? (Assumption: Up, down, left, right - 4 directions, no diagonals)
+
+3. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different)
+
+4. **Word matching**: Do we need exact match or can it be a subsequence? (Assumption: Exact match - contiguous path forming the exact word)
+
+5. **Starting position**: Can we start from any cell? (Assumption: Yes - can start from any cell that matches the first character of word)
+
 ## Solution Approach
 
 This is a classic **backtracking with DFS** problem on a 2D grid. The key insight is to explore all possible paths from each starting position, marking cells as visited during exploration and restoring them when backtracking.

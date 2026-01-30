@@ -36,6 +36,20 @@ Explanation: "axc" is not a subsequence of "ahbgdc" because 'x' is not found in 
 - `0 <= t.length <= 10^4`
 - `s` and `t` consist only of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subsequence definition**: What is a subsequence? (Assumption: Sequence of characters that appear in same order in t, but not necessarily contiguous)
+
+2. **Matching rules**: How do we check if s is subsequence of t? (Assumption: Match characters of s in order within t - maintain relative order)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if s is subsequence of t, false otherwise)
+
+4. **Empty strings**: What if s is empty? (Assumption: Return true - empty string is subsequence of any string)
+
+5. **Character uniqueness**: Can characters repeat? (Assumption: Yes - characters can appear multiple times, match first occurrence)
+
 ## Solution Approach
 
 This is a **two-pointer** problem that can be solved with a greedy approach. The key insight is to use two pointers to match characters of `s` in `t` while maintaining their relative order.

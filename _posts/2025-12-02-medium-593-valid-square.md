@@ -34,6 +34,20 @@ Output: true
 - `p1.length == p2.length == p3.length == p4.length == 2`
 - `-10^4 <= xi, yi <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Square definition**: What makes a valid square? (Assumption: Four points forming a square - four equal sides, four right angles, two equal diagonals)
+
+2. **Point order**: Are points given in any specific order? (Assumption: No - points can be in any order, need to determine if they form a square)
+
+3. **Degenerate cases**: Can points be collinear or form other shapes? (Assumption: Need to check - points might form rectangle, rhombus, or other shapes)
+
+4. **Return value**: What should we return? (Assumption: Boolean - true if points form a valid square, false otherwise)
+
+5. **Duplicate points**: Can there be duplicate points? (Assumption: Per problem, should check - duplicate points cannot form a square)
+
 ## Solution: Distance-Based Validation
 
 **Time Complexity:** O(1) - Constant time since we only have 4 points  

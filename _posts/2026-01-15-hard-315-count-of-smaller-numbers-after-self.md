@@ -43,6 +43,20 @@ Output: [0,0]
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Count definition**: What are we counting? (Assumption: For each nums[i], count numbers to the right that are smaller than nums[i])
+
+2. **Return format**: What should we return? (Assumption: Array of counts - result[i] = count of smaller numbers after nums[i])
+
+3. **Comparison**: How do we compare numbers? (Assumption: Standard integer comparison - nums[j] < nums[i] where j > i)
+
+4. **Return value**: What should we return? (Assumption: Array of integers - one count per element)
+
+5. **Rightmost element**: What is count for rightmost element? (Assumption: 0 - no elements to the right)
+
 ## Solution Approach
 
 This problem requires counting inversions (smaller elements to the right). We need an efficient data structure to track counts as we process elements from right to left.

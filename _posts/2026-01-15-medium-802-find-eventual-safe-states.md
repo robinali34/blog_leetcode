@@ -44,6 +44,20 @@ Explanation: Only node 4 is a terminal node, and every path starting at node 4 l
 - The graph may contain self-loops.
 - The number of edges in the graph will be in the range `[0, n * (n - 1) / 2]`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Safe state definition**: What makes a node "safe"? (Assumption: A node is safe if all paths starting from it eventually lead to a terminal node - no cycles reachable)
+
+2. **Terminal node**: What is a terminal node? (Assumption: A node with no outgoing edges - it's a sink node)
+
+3. **Graph type**: Is the graph directed or undirected? (Assumption: Directed - edges have direction, represented as adjacency list)
+
+4. **Self-loops**: Can nodes have self-loops? (Assumption: Yes - per constraints, graph may contain self-loops)
+
+5. **Cycle handling**: How should we handle cycles? (Assumption: Nodes in cycles are not safe - they can never reach a terminal node)
+
 ## Solution Approach
 
 This problem requires finding all nodes that do **not** lead to any cycle. A node is safe if all paths starting from it eventually reach a terminal node (a node with no outgoing edges).

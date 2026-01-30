@@ -28,6 +28,20 @@ Output: [["a"]]
 - 1 <= s.length <= 16
 - s contains only lowercase English letters
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Partition definition**: What is a palindrome partition? (Assumption: Split string into substrings where each substring is a palindrome)
+
+2. **Partition requirement**: Must we partition the entire string? (Assumption: Yes - use all characters, no character left out)
+
+3. **Palindrome definition**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
+
+4. **Output format**: Should we return all partitions or just count? (Assumption: Return all possible palindrome partitions - list of lists)
+
+5. **Order requirement**: Does the order of partitions matter? (Assumption: No - can return in any order)
+
 ## Approach
 
 The solution uses backtracking (DFS) with the following strategy:

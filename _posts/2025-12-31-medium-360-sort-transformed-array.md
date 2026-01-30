@@ -44,6 +44,20 @@ Sorted: [-23,-5,1,7]
 - `-100 <= nums[i], a, b, c <= 100`
 - `nums` is sorted in **ascending order**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Transformation function**: What is the transformation? (Assumption: f(x) = ax² + bx + c - quadratic function)
+
+2. **Sorting requirement**: Should we sort the transformed array? (Assumption: Yes - return sorted array of transformed values)
+
+3. **Return format**: What should we return? (Assumption: Array of transformed and sorted values)
+
+4. **Input order**: Is input array sorted? (Assumption: Yes - nums is sorted in ascending order per constraints)
+
+5. **Parabola direction**: How does parabola direction affect sorting? (Assumption: If a > 0, parabola opens upward (min at center), if a < 0, opens downward (max at center))
+
 ## Solution Approach
 
 This problem requires applying a quadratic function to each element and returning results in sorted order. The key insight is understanding how quadratic functions behave on sorted arrays.

@@ -32,6 +32,20 @@ Output: 1
 - `0 <= Node.val <= 10^9`
 - `-10^9 <= target <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Closest definition**: What does "closest" mean? (Assumption: Node value with minimum absolute difference from target - |node.val - target|)
+
+2. **BST properties**: What are BST properties? (Assumption: Left subtree < root < right subtree - can use this to prune search)
+
+3. **Return value**: What should we return? (Assumption: Integer - value of node closest to target)
+
+4. **Tie-breaking**: What if multiple nodes are equally close? (Assumption: Return any one - typically return first found)
+
+5. **Empty tree**: What if tree is empty? (Assumption: Per constraints, tree has at least 1 node)
+
 ## Solution Approach
 
 This problem requires finding the value in a BST that is closest to a given target. We can leverage the **BST property** to efficiently search for the closest value without exploring the entire tree.

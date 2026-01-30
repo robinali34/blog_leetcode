@@ -34,6 +34,20 @@ Output: 1
 
 - 1 <= n <= 19
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **BST definition**: What is a Binary Search Tree? (Assumption: Tree where left subtree < root < right subtree - BST property)
+
+2. **Node values**: What values do nodes have? (Assumption: Nodes labeled 1 to n - values from 1 to n)
+
+3. **Tree structure**: What makes trees "unique"? (Assumption: Different structures - same values but different arrangements count as different trees)
+
+4. **Return value**: Should we return trees or count? (Assumption: Return count - number of structurally unique BSTs)
+
+5. **Empty tree**: What if n is 0? (Assumption: Per constraints n >= 1, but typically empty tree counts as 1)
+
 ## Approach
 
 There are three main approaches to solve this problem:

@@ -43,6 +43,20 @@ Output: [0,0]
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **"After self" definition**: What does "smaller numbers after self" mean? (Assumption: For each element at index i, count how many elements to the right (indices > i) have smaller values)
+
+2. **Duplicate values**: How should we handle duplicate values? (Assumption: Count only strictly smaller values - if nums[j] == nums[i] and j > i, don't count it)
+
+3. **Output format**: Should we return counts for each position? (Assumption: Yes - return array where result[i] = count of smaller numbers after nums[i])
+
+4. **Array mutability**: Can the input array be modified? (Assumption: No - we need to preserve original array for counting)
+
+5. **Time complexity**: What's the expected time complexity? (Assumption: O(n log n) is optimal - need efficient data structure like Fenwick Tree or BST)
+
 ## Solution Approach
 
 This problem requires counting inversions (smaller elements to the right). We need an efficient data structure to track counts as we process elements from right to left.

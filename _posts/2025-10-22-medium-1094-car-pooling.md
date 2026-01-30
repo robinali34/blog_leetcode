@@ -50,6 +50,20 @@ Explanation:
 - `1 <= numPassengers <= 100`
 - `0 <= from < to <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Trip format**: How are trips represented? (Assumption: [numPassengers, from, to] - pick up numPassengers at location from, drop off at location to)
+
+2. **Capacity check**: What are we checking? (Assumption: Whether car can accommodate all passengers at all locations without exceeding capacity)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if all trips can be completed, false if capacity exceeded)
+
+4. **Location order**: Are locations in order? (Assumption: No - trips can be in any order, need to track passengers at each location)
+
+5. **Pickup/dropoff**: When do passengers get on/off? (Assumption: Pick up at "from" location, drop off at "to" location)
+
 ## Solution Approaches
 
 ### Approach 1: Bucket Sort with Timestamps (Recommended)

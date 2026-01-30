@@ -47,6 +47,20 @@ The product is [2,2,2,6,9,9], which is represented by [[2,3],[6,1],[9,2]].
 - `encoded1[i].length == encoded2[j].length == 2`
 - `1 <= vali, freqi <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Run-length encoding**: What is run-length encoding? (Assumption: [value, frequency] pairs - value appears frequency times consecutively)
+
+2. **Product calculation**: How is product calculated? (Assumption: Element-wise product - multiply corresponding elements from decoded arrays)
+
+3. **Array length**: Are arrays guaranteed to have same length? (Assumption: Yes - after decoding, both arrays have same length)
+
+4. **Return format**: What should we return? (Assumption: Run-length encoded result - array of [value, frequency] pairs)
+
+5. **Encoding optimization**: Should we optimize the encoding? (Assumption: Yes - combine consecutive same values in result)
+
 ## Approach
 
 The key insight is to process both encoded arrays simultaneously using two pointers, computing the product of corresponding elements and merging consecutive segments with the same value.

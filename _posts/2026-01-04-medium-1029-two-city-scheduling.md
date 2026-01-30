@@ -47,6 +47,20 @@ Output: 3086
 - `costs.length` is even
 - `1 <= aCosti, bCosti <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Scheduling requirement**: What is the scheduling requirement? (Assumption: Send exactly n people to city A and n people to city B - equal distribution)
+
+2. **Cost format**: How are costs represented? (Assumption: costs[i] = [aCosti, bCosti] - cost to send person i to city A and city B)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum total cost to send n people to each city)
+
+4. **Return value**: What should we return? (Assumption: Integer - minimum total cost)
+
+5. **Person assignment**: Can we choose which people go to which city? (Assumption: Yes - can assign any person to either city, but must have exactly n in each)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is to sort people by the **difference** between their costs to the two cities, which indicates which city is cheaper for each person.

@@ -60,6 +60,20 @@ Finally, the backlog has (10^9 - 3) + 999999994 = 1999999991 orders. So we retur
 - `1 <= price_i, amount_i <= 10^9`
 - `orderType_i` is either `0` or `1`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Order matching**: When does a buy order match with a sell order? (Assumption: Buy order matches sell order if buy price >= sell price, and vice versa - sell matches buy if sell price <= buy price)
+
+2. **Partial matching**: Can orders be partially matched, or must they be fully matched? (Assumption: Orders can be partially matched - we match the minimum of available amounts)
+
+3. **Order priority**: When multiple orders can match, which one should we match first? (Assumption: For buy orders, match with lowest sell price first; for sell orders, match with highest buy price first - greedy matching)
+
+4. **Modulo requirement**: Should the final result be modulo 10^9 + 7? (Assumption: Yes - to prevent integer overflow, return result modulo 10^9 + 7)
+
+5. **Order processing**: Are orders processed in the given order, or can we process them in any order? (Assumption: Process orders sequentially in the given order - this is a simulation problem)
+
 ## Solution Approach
 
 This problem requires efficiently matching buy and sell orders based on price conditions. We need to:

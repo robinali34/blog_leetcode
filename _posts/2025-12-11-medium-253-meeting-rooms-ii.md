@@ -28,6 +28,20 @@ Output: 1
 - `1 <= intervals.length <= 10^4`
 - `0 <= starti < endi <= 10^6`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Meeting format**: How are meetings represented? (Assumption: [start, end] intervals - start is inclusive, end is exclusive or inclusive?)
+
+2. **Overlap definition**: When do meetings overlap? (Assumption: If one meeting starts before another ends - need to clarify if [1,2] and [2,3] overlap)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of meeting rooms needed to schedule all meetings)
+
+4. **Return value**: What should we return? (Assumption: Integer - minimum number of rooms required)
+
+5. **Empty input**: What if there are no meetings? (Assumption: Return 0 - no rooms needed)
+
 ## Solution 1: Priority Queue (Min Heap)
 
 **Time Complexity:** O(n log n) - Sorting + heap operations  

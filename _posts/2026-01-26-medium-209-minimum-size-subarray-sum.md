@@ -45,6 +45,20 @@ Output: 0
 - `1 <= nums.length <= 10^5`
 - `1 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Array values**: Are all numbers positive, or can they be negative/zero? (Assumption: All numbers are positive - this enables sliding window approach)
+
+2. **No valid subarray**: What should we return if no subarray has sum >= target? (Assumption: Return `0`)
+
+3. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+
+4. **Single element**: Can a single element form a valid subarray? (Assumption: Yes - if `nums[i] >= target`, length is 1)
+
+5. **Target value**: Can target be larger than the sum of all elements? (Assumption: Yes - in this case return `0`)
+
 ## Solution Approach
 
 This problem requires finding the minimum length subarray with sum >= target. Two main approaches:

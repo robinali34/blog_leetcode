@@ -51,6 +51,20 @@ Explanation: An empty string is also valid.
 - `1 <= s.length <= 10^5`
 - `s[i]` is either `'('`, `')'`, or lowercase English letter.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Valid parentheses**: What makes parentheses valid? (Assumption: Every opening '(' has matching closing ')', properly nested)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of removals to make parentheses valid)
+
+3. **Return format**: What should we return? (Assumption: String - valid parentheses string after minimum removals)
+
+4. **Multiple solutions**: Are there multiple valid solutions? (Assumption: Yes - can return any valid string with minimum removals)
+
+5. **Non-parentheses characters**: How should we handle letters? (Assumption: Keep all letters - only remove invalid parentheses)
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Validation (Recommended)

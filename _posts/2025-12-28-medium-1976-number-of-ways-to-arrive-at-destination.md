@@ -48,6 +48,20 @@ Explanation: There is only one way to go from intersection 0 to intersection 1, 
 - There is at most one road connecting any two intersections.
 - You can reach any intersection from any other intersection.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Graph structure**: What is the graph structure? (Assumption: Undirected weighted graph - roads connect intersections with travel times)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Shortest path from intersection 0 to intersection n-1)
+
+3. **Path counting**: What should we count? (Assumption: Number of different shortest paths from 0 to n-1)
+
+4. **Return value**: What should we return? (Assumption: Integer - number of shortest paths modulo 10^9 + 7)
+
+5. **Path uniqueness**: What makes paths different? (Assumption: Different sequences of intersections - same length but different routes)
+
 ## Solution Approach
 
 This problem requires finding the **number of shortest paths** from node `0` to node `n-1` in a weighted, undirected graph. This is a classic application of **Dijkstra's algorithm** combined with **dynamic programming** to count paths.

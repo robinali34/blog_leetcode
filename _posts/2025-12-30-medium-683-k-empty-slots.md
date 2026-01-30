@@ -42,6 +42,20 @@ Explanation: No such day exists where two bulbs are on with exactly one bulb off
 - All values in `bulbs` are **unique**.
 - `0 <= k <= n`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Bulb activation**: How are bulbs activated? (Assumption: bulbs[i] represents the day when bulb at position i+1 is turned on - day 1 activates bulb at position bulbs[0])
+
+2. **K-empty slots definition**: What does "k empty slots" mean? (Assumption: Two bulbs are on with exactly k bulbs off between them - k consecutive off bulbs)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Find the earliest day when k-empty slots condition is satisfied)
+
+4. **Return value**: What should we return? (Assumption: Integer - earliest day number, or -1 if condition never satisfied)
+
+5. **Position indexing**: How are positions indexed? (Assumption: Positions are 1-indexed - n bulbs at positions 1 to n)
+
 ## Solution Approach
 
 This problem requires finding the earliest day when there exist two blooming bulbs with exactly `k` empty slots between them. We can solve this efficiently using a **sliding window approach** with position-to-day mapping.

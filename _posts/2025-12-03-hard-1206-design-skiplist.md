@@ -57,6 +57,20 @@ skiplist.search(1);   // return False, 1 has already been erased.
 - `0 <= num, target <= 20000`
 - At most `50000` calls will be made to `search`, `add`, and `erase`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Skiplist definition**: What is a skiplist? (Assumption: A probabilistic data structure with multiple levels, allowing O(log n) search, insert, and delete operations)
+
+2. **Duplicate handling**: Can the skiplist contain duplicate values? (Assumption: Yes - per examples, duplicates may exist, need to handle them)
+
+3. **Operations**: What operations should we support? (Assumption: search(target) - find if target exists, add(num) - insert num, erase(num) - remove one occurrence of num)
+
+4. **Return values**: What should operations return? (Assumption: search returns bool, add returns void, erase returns bool indicating if num was found and removed)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(log n) average case for all operations - probabilistic structure)
+
 ## Solution: Skiplist Implementation
 
 **Time Complexity:** O(log n) average for all operations  

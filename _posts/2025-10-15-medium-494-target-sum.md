@@ -42,6 +42,20 @@ Output: 1
 - `0 <= sum(nums[i]) <= 1000`
 - `-1000 <= target <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Operation definition**: What operations can we perform? (Assumption: Add '+' or '-' before each number - assign sign to each number)
+
+2. **Expression evaluation**: How is the expression evaluated? (Assumption: Sum all numbers with their assigned signs - standard arithmetic)
+
+3. **All numbers**: Must we use all numbers? (Assumption: Yes - must assign sign to every number in the array)
+
+4. **Order preservation**: Can we reorder numbers? (Assumption: No - must maintain original order, only assign signs)
+
+5. **Return value**: What should we return? (Assumption: Count of ways to assign signs to get target sum - integer)
+
 ## Solution: Dynamic Programming (Subset Sum)
 
 **Time Complexity:** O(n × sum)  

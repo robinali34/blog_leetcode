@@ -37,6 +37,20 @@ Flipping the zero at index 4 gives us [1,0,1,1,1,1] with 4 consecutive ones.
 - `1 <= nums.length <= 10^5`
 - `nums[i]` is either `0` or `1`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Flip operation**: What does "flip at most one 0" mean? (Assumption: Can change at most one 0 to 1 - can flip zero or one zero)
+
+2. **Consecutive definition**: What does "consecutive ones" mean? (Assumption: Ones that appear next to each other without any zeros in between)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum length of consecutive ones after flipping at most one 0)
+
+4. **Array modification**: Can we modify the array? (Assumption: No - just find the maximum length, don't actually modify)
+
+5. **All ones**: What if array contains only ones? (Assumption: Return array length - all ones are consecutive, no flip needed)
+
 ## Solution Approach
 
 This problem requires finding the longest sequence of consecutive 1s when we can flip at most one 0 to 1. We can solve this using **dynamic programming** with two states: one without flipping and one with at most one flip.

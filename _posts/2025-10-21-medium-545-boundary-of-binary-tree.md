@@ -56,6 +56,20 @@ Explanation:
 - The number of nodes in the tree is in the range `[0, 10^4]`
 - `-1000 <= Node.val <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Boundary definition**: What is the boundary? (Assumption: Left boundary (top to bottom), leaves (left to right), right boundary (bottom to top) - anti-clockwise)
+
+2. **Left boundary**: What is the left boundary? (Assumption: Path from root to leftmost node, excluding leaves)
+
+3. **Right boundary**: What is the right boundary? (Assumption: Path from rightmost node to root, excluding leaves and root)
+
+4. **Return format**: What should we return? (Assumption: List of node values in boundary order - anti-clockwise)
+
+5. **Empty tree**: What if tree is empty? (Assumption: Return empty list - no boundary)
+
 ## Solution Approach
 
 ### Key Insight

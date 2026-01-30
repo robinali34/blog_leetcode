@@ -46,6 +46,20 @@ Explanation: No course can be studied because there is a prerequisite cycle.
 - `prevCoursei != nextCoursei`
 - All the pairs `[prevCoursei, nextCoursei]` are **unique**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Cycle detection**: What should we return if there's a cycle in the prerequisites? (Assumption: Return `-1` - impossible to complete all courses)
+
+2. **Parallel courses**: Can we take multiple courses in the same semester if they have no prerequisites or all prerequisites are satisfied? (Assumption: Yes - we can take any number of courses in parallel as long as prerequisites are met)
+
+3. **No prerequisites**: What if a course has no prerequisites? (Assumption: It can be taken in the first semester)
+
+4. **Semester definition**: Does each semester allow taking unlimited courses, or is there a limit? (Assumption: Unlimited courses per semester, only constraint is prerequisites)
+
+5. **Graph representation**: Should we assume the graph is connected, or can there be disconnected components? (Assumption: Graph can have disconnected components - we need to process all courses)
+
 ## Solution Approach
 
 This problem requires finding the **longest path in a DAG (Directed Acyclic Graph)**. If the graph contains a cycle, it's impossible to complete all courses.

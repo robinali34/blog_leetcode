@@ -43,6 +43,20 @@ Explanation: s becomes "c" while t becomes "b".
 - `1 <= s.length, t.length <= 200`
 - `s` and `t` only contain lowercase letters and `'#'` characters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Backspace behavior**: What does '#' do? (Assumption: Backspace character - deletes the previous character in the string)
+
+2. **Comparison goal**: What are we comparing? (Assumption: Compare final strings after processing all backspaces)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if final strings are equal, false otherwise)
+
+4. **Empty string**: What if backspace deletes all characters? (Assumption: Result is empty string "")
+
+5. **Multiple backspaces**: What if there are multiple consecutive '#'? (Assumption: Each '#' deletes one character - can delete multiple characters)
+
 ## Solution Approach
 
 This problem can be solved in two ways:

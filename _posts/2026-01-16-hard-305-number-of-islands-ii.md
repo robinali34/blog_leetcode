@@ -47,6 +47,20 @@ Output: [1]
 - `0 <= ri < m`
 - `0 <= ci < n`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Island definition**: What is an island? (Assumption: Group of connected land cells (1s) - horizontally or vertically adjacent)
+
+2. **Dynamic operations**: What operations are performed? (Assumption: Add land at positions[i] = [ri, ci] - turn water (0) to land (1))
+
+3. **Return format**: What should we return? (Assumption: Array of integers - island count after each addLand operation)
+
+4. **Connection rules**: How are cells connected? (Assumption: Horizontal or vertical adjacency - not diagonal)
+
+5. **Initial state**: What is the initial state? (Assumption: Grid filled with water (0) - no islands initially)
+
 ## Solution Approach
 
 This is an **incremental/dynamic** problem where we add land cells one by one and need to track the number of islands after each addition. Unlike [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/), we can't rebuild the entire grid each time (too slow).

@@ -43,6 +43,20 @@ Output: 23
 - There will be no two consecutive operators in the input.
 - Every number and running calculation will fit in a signed 32-bit integer.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', parentheses '()' - no multiplication/division)
+
+2. **Unary operators**: How should we handle unary operators? (Assumption: '-' can be unary (negative numbers), '+' cannot be unary)
+
+3. **Parentheses**: How should parentheses be handled? (Assumption: Standard precedence - evaluate inner parentheses first)
+
+4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+
+5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+
 ## Solution 1: Stack-Based Approach
 
 **Time Complexity:** O(n)  

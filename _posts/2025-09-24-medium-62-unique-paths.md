@@ -49,6 +49,20 @@ Output: 6
 - 1 <= m, n <= 100
 - It's guaranteed that the answer will be less than or equal to 2 * 10^9
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Movement direction**: In which directions can we move? (Assumption: Only right and down - typical grid path problem constraint)
+
+2. **Starting/ending positions**: Where do we start and end? (Assumption: Start at top-left (0,0), end at bottom-right (m-1, n-1))
+
+3. **Path uniqueness**: Do we need to find all paths or just count them? (Assumption: Just count the number of unique paths, not enumerate them)
+
+4. **Grid boundaries**: Can we move outside the grid? (Assumption: No - must stay within grid bounds)
+
+5. **Return value**: What should we return? (Assumption: Number of unique paths - integer count)
+
 ## Approach
 
 The solution uses dynamic programming with the following key insights:

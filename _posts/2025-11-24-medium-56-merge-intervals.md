@@ -33,6 +33,20 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 - `intervals[i].length == 2`
 - `0 <= starti <= endi <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Typically inclusive on both ends [start, end] - need to clarify)
+
+2. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common point - [a, b] overlaps [c, d] if max(a, c) <= min(b, d))
+
+3. **Merging rule**: How should we merge overlapping intervals? (Assumption: Combine into single interval [min(start1, start2), max(end1, end2)])
+
+4. **Output format**: Should we return merged intervals or modify input? (Assumption: Return new array of merged intervals - don't modify input)
+
+5. **Order requirement**: Does the order of intervals matter? (Assumption: No - can sort first, then merge - output order doesn't matter)
+
 ## Solution: Sort and Merge
 
 **Time Complexity:** O(n log n) - dominated by sorting  

@@ -61,6 +61,20 @@ lfu.get(4);      // return 4
 - `0 <= value <= 10^9`
 - At most `2 * 10^5` calls will be made to `get` and `put`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **LFU definition**: What does "Least Frequently Used" mean? (Assumption: The item that has been accessed the fewest times - need to track access frequency)
+
+2. **Cache operations**: What operations should the cache support? (Assumption: get(key) - retrieve value, put(key, value) - insert/update, both operations update frequency)
+
+3. **Eviction policy**: When should we evict items? (Assumption: When cache is full and we need to add a new item, evict the least frequently used item, tie-break by least recently used)
+
+4. **Capacity**: What is the cache capacity? (Assumption: Fixed capacity specified in constructor - cannot exceed this limit)
+
+5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
+
 ## Solution: Hash Map + Frequency Lists (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  

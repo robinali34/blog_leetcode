@@ -39,6 +39,20 @@ Output: [0,0,9,0,0]
 - `-30 <= nums[i] <= 30`
 - The product of any prefix or suffix of `nums` is guaranteed to fit in a **32-bit** integer.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Division operator**: Can we use the division operator? (Assumption: No - the problem explicitly states we cannot use division)
+
+2. **Zero handling**: How should we handle arrays containing zeros? (Assumption: The product of prefix/suffix is guaranteed to fit in 32-bit integer, but we need to handle zeros carefully without division)
+
+3. **Output format**: Should we return a new array or modify the input array in-place? (Assumption: Return a new array `answer`)
+
+4. **Edge case - single element**: What if the array has only 2 elements? (Assumption: For `[a, b]`, return `[b, a]`)
+
+5. **Integer overflow**: Are we guaranteed that the product won't overflow, or should we handle potential overflow? (Assumption: The problem guarantees products fit in 32-bit integer, but we should still be careful with intermediate calculations)
+
 ## Solution Approach
 
 This problem requires computing the product of all elements except the current one. The key challenge is doing this in O(n) time without using division.

@@ -44,6 +44,20 @@ myCalendar.book(20, 25); // return True, The event can be booked, as the first e
 - `0 <= start < end <= 10^9`
 - At most `1000` calls will be made to `book`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Half-open interval [start, end) - start is inclusive, end is exclusive)
+
+2. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common time point - [a, b) overlaps [c, d) if max(a, c) < min(b, d))
+
+3. **Adjacent intervals**: Can two intervals be adjacent (end of one equals start of another)? (Assumption: Yes - [10, 20) and [20, 30) don't overlap, can both be booked)
+
+4. **Return value**: What should book() return? (Assumption: Return true if booking succeeds (no overlap), false if it conflicts with existing booking)
+
+5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= start < end <= 10^9 per constraints)
+
 ## Solution Approach
 
 This is an **interval overlap detection** problem. We need to efficiently check if a new interval overlaps with any existing intervals and insert it if no overlap exists.

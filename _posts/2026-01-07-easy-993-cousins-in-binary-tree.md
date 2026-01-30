@@ -48,6 +48,20 @@ Explanation: Nodes 2 and 3 are siblings (same parent), not cousins.
 - `x != y`
 - `x` and `y` are guaranteed to exist in the tree.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Cousin definition**: What are cousins? (Assumption: Nodes at same depth (level) but with different parents - not siblings)
+
+2. **Depth requirement**: What does "same depth" mean? (Assumption: Same distance from root - same level in tree)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if x and y are cousins, false otherwise)
+
+4. **Node existence**: Are x and y guaranteed to exist? (Assumption: Yes - per constraints, both nodes exist in tree)
+
+5. **Sibling check**: What if nodes are siblings? (Assumption: Return false - cousins must have different parents)
+
 ## Solution Approach
 
 This problem requires checking if two nodes are **cousins**, which means:

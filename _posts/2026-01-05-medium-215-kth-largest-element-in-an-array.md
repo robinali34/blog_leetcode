@@ -38,6 +38,20 @@ Explanation: The 4th largest element is 4.
 - `1 <= k <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Kth largest definition**: How is "kth largest" defined? (Assumption: When sorted in descending order, the element at position k-1 (1-indexed kth largest))
+
+2. **Duplicate handling**: How should we handle duplicate values? (Assumption: Duplicates are counted separately - if [3,2,3,1], 1st largest is 3, 2nd is 3, 3rd is 2)
+
+3. **Array modification**: Can we modify the input array? (Assumption: Typically yes - QuickSelect modifies array, but should clarify)
+
+4. **K validity**: Is k guaranteed to be valid? (Assumption: Yes - per constraints, 1 <= k <= nums.length)
+
+5. **Return value**: Should we return the value or the index? (Assumption: Return the value - integer representing kth largest element)
+
 ## Solution Approaches
 
 There are several approaches to solve this problem:

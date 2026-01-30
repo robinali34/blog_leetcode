@@ -43,6 +43,20 @@ Explanation:
 - `ai != bi`
 - There are no repeated edges.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Graph type**: Is the graph directed or undirected? (Assumption: Undirected - edges have no direction, represented as bidirectional)
+
+2. **Connected component definition**: What defines a connected component? (Assumption: A set of nodes where every pair of nodes is connected by a path)
+
+3. **Isolated nodes**: Are isolated nodes (no edges) considered components? (Assumption: Yes - each isolated node is its own component)
+
+4. **Node range**: What is the range of node labels? (Assumption: Nodes are labeled 0 to n-1, where n is number of nodes)
+
+5. **Return value**: What should we return - count or list of components? (Assumption: Return count - integer representing number of connected components)
+
 ## Solution Approach
 
 This problem requires counting the number of **connected components** in an undirected graph. A connected component is a maximal set of nodes where every pair of nodes is connected by a path.

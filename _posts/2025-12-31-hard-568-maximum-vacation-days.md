@@ -54,6 +54,20 @@ For each week, you only have one day off, so the maximum number of vacation days
 - `flights[i][j]` is `0` or `1`.
 - `0 <= days[i][j] <= 7`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Flight matrix**: How are flights represented? (Assumption: flights[i][j] = 1 means can fly from city i to city j, 0 means cannot)
+
+2. **Vacation days**: What are vacation days? (Assumption: days[i][j] = vacation days available in city i on week j)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total vacation days over k weeks starting from city 0)
+
+4. **Return value**: What should we return? (Assumption: Integer - maximum vacation days possible)
+
+5. **Travel rules**: When can we travel? (Assumption: Can fly between cities at start of each week, then stay for the week)
+
 ## Solution Approach
 
 This problem requires maximizing vacation days over `k` weeks by choosing which city to be in each week, subject to flight constraints. We can solve this using **dynamic programming** with a bottom-up approach.

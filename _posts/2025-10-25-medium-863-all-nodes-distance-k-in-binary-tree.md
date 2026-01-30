@@ -42,6 +42,20 @@ Output: []
 - `target` is the value of one of the nodes in the tree.
 - `k >= 0`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Distance definition**: What is distance? (Assumption: Number of edges between nodes - shortest path length)
+
+2. **Target node**: How is target specified? (Assumption: Given target node value - need to find all nodes at distance k from it)
+
+3. **Return format**: What should we return? (Assumption: List of node values at distance k from target)
+
+4. **Tree traversal**: Can we traverse in all directions? (Assumption: Yes - can go up to parent and down to children)
+
+5. **K value**: What if k is 0? (Assumption: Return target node itself - distance 0)
+
 ## Solution Approaches
 
 ### Approach 1: Convert Tree to Graph with DFS

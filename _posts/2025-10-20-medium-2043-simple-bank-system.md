@@ -60,6 +60,20 @@ bank.withdraw(10, 50);   // return false, it is invalid because account 10 does 
 - `1 <= money <= 10^12`
 - At most `10^4` calls will be made to each function `transfer`, `deposit`, and `withdraw`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Account validation**: What makes an account valid? (Assumption: Account number must be in range [1, n] where n is number of accounts)
+
+2. **Transaction validation**: When are transactions valid? (Assumption: Account exists and has sufficient balance for withdraw/transfer)
+
+3. **Operations**: What operations should we support? (Assumption: deposit(account, money), withdraw(account, money), transfer(account1, account2, money))
+
+4. **Return values**: What should operations return? (Assumption: Boolean - true if transaction successful, false if invalid)
+
+5. **Balance tracking**: How should we track balances? (Assumption: Array where balance[i] represents balance of account i+1)
+
 ## Approach
 
 This is a **Data Structure Design** problem that simulates a simple bank system. The key requirements are:

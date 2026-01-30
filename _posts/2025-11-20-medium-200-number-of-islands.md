@@ -44,6 +44,20 @@ Output: 3
 - `1 <= m, n <= 300`
 - `grid[i][j]` is `'0'` or `'1'`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Island definition**: What is an island? (Assumption: Group of connected '1's - horizontally or vertically adjacent, not diagonally)
+
+2. **Return value**: What should we return? (Assumption: Integer - count of islands in the grid)
+
+3. **Connection rules**: How are cells connected? (Assumption: Horizontal or vertical adjacency - up, down, left, right)
+
+4. **Grid modification**: Can we modify the grid? (Assumption: Yes - can mark visited cells to avoid revisiting)
+
+5. **Empty grid**: What if grid is empty? (Assumption: Return 0 - no islands exist)
+
 ## Solution: DFS with In-Place Marking
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

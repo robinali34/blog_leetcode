@@ -36,6 +36,20 @@ Total amount you can rob = 2 + 9 + 1 = 12.
 - `1 <= nums.length <= 100`
 - `0 <= nums[i] <= 400`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Robbery rules**: What are the robbery rules? (Assumption: Cannot rob two adjacent houses - must skip at least one house between robberies)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Maximum money that can be robbed without alerting police)
+
+3. **Return value**: What should we return? (Assumption: Integer - maximum money that can be robbed)
+
+4. **House values**: What do nums[i] represent? (Assumption: Amount of money in house i - positive integers)
+
+5. **Empty array**: What if array is empty? (Assumption: Return 0 - no houses to rob)
+
 ## Solution: Dynamic Programming
 
 **Time Complexity:** O(n) - Single pass through the array  

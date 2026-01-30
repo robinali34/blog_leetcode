@@ -34,6 +34,20 @@ Output: []
 - The number of nodes in the list is the range `[0, 5000]`.
 - `-5000 <= Node.val <= 5000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Reversal definition**: What does "reverse" mean? (Assumption: Reverse the order of nodes - first becomes last, last becomes first)
+
+2. **In-place requirement**: Should we reverse in-place? (Assumption: Yes - modify pointers, not create new nodes)
+
+3. **Return value**: What should we return? (Assumption: Head of reversed linked list - new head node)
+
+4. **Empty list**: What if list is empty? (Assumption: Return nullptr - no nodes to reverse)
+
+5. **Single node**: What if list has one node? (Assumption: Return same node - already reversed)
+
 ## Solution: Iterative and Recursive Approaches
 
 **Time Complexity:** O(n)  

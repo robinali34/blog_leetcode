@@ -47,6 +47,20 @@ lRUCache.get(4);    // return 4
 - `0 <= value <= 10^5`
 - At most `2 * 10^5` calls will be made to `get` and `put`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **LRU definition**: What does "Least Recently Used" mean? (Assumption: The item that hasn't been accessed for the longest time - need to track access order)
+
+2. **Cache operations**: What operations should the cache support? (Assumption: get(key) - retrieve value, put(key, value) - insert/update, both operations mark item as recently used)
+
+3. **Eviction policy**: When should we evict items? (Assumption: When cache is full and we need to add a new item, evict the least recently used item)
+
+4. **Capacity**: What is the cache capacity? (Assumption: Fixed capacity specified in constructor - cannot exceed this limit)
+
+5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
+
 ## Solution: Hash Map + Doubly Linked List (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  

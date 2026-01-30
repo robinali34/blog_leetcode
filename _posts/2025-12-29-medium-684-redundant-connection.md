@@ -42,6 +42,20 @@ Explanation: The edge [1,4] creates a cycle, so it should be removed.
 - There are no repeated edges.
 - The given graph is connected.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Redundant edge definition**: What makes an edge redundant? (Assumption: An edge that creates a cycle in an otherwise tree structure - the edge that forms the cycle)
+
+2. **Graph type**: Is the graph directed or undirected? (Assumption: Undirected - edges have no direction)
+
+3. **Tree property**: What is the base structure? (Assumption: Graph with n nodes and n edges - one extra edge makes it not a tree)
+
+4. **Return format**: What should we return if multiple redundant edges exist? (Assumption: Return the last edge in the input array that creates a cycle)
+
+5. **Edge representation**: How are edges represented? (Assumption: [ai, bi] where ai and bi are node labels, 1-indexed per constraints)
+
 ## Solution Approach
 
 This problem requires finding the edge that creates a cycle in an undirected graph. Since the graph started as a tree (connected, no cycles) and one edge was added, there is exactly one cycle. We need to find and return the redundant edge.

@@ -43,6 +43,20 @@ Explanation:
 - `1 <= s.length <= 10^4`
 - `s` consists of lowercase English letters only.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Duplicate removal**: How should we remove duplicates? (Assumption: Remove duplicate letters so each letter appears at most once)
+
+2. **Lexicographic order**: What does "lexicographically smallest" mean? (Assumption: Smallest in dictionary order - 'a' < 'b', 'ab' < 'ac')
+
+3. **Character preservation**: Can we reorder characters? (Assumption: Must maintain relative order of remaining characters - cannot completely rearrange)
+
+4. **Return format**: What should we return? (Assumption: String with duplicates removed, lexicographically smallest possible)
+
+5. **All unique**: What if string has no duplicates? (Assumption: Return string as is - already optimal)
+
 ## Solution: Monotonic Stack with Greedy Approach
 
 **Time Complexity:** O(n) where n is the length of string  

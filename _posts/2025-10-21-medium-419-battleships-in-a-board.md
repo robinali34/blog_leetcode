@@ -40,6 +40,20 @@ Output: 0
 - `1 <= m, n <= 200`
 - `board[i][j]` is either `'.'` or `'X'`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Battleship definition**: What is a battleship? (Assumption: Group of 'X' cells - horizontally or vertically adjacent, not diagonally)
+
+2. **Battleship rules**: What are the rules? (Assumption: Battleships don't touch each other - no adjacent battleships horizontally or vertically)
+
+3. **Return value**: What should we return? (Assumption: Integer - count of battleships on the board)
+
+4. **Single cell**: Can a single 'X' be a battleship? (Assumption: Yes - battleship can be 1×1)
+
+5. **Board modification**: Can we modify the board? (Assumption: Typically yes for marking visited, but should clarify)
+
 ## Solution Approaches
 
 ### Approach 1: Count Top-Left Corners (Optimal)

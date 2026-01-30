@@ -39,6 +39,20 @@ Output: 3
 - `isConnected[i][i] == 1`
 - `isConnected[i][j] == isConnected[j][i]`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Province definition**: What is a province? (Assumption: Group of directly or indirectly connected cities - connected component)
+
+2. **Connection matrix**: How is connectivity represented? (Assumption: isConnected[i][j] = 1 means cities i and j are directly connected)
+
+3. **Return value**: What should we return? (Assumption: Integer - number of provinces (connected components))
+
+4. **Self-connection**: Are cities connected to themselves? (Assumption: Yes - isConnected[i][i] = 1 per constraints)
+
+5. **Transitivity**: Is connection transitive? (Assumption: Yes - if A connects to B and B connects to C, then A connects to C)
+
 ## Solution 1: Union-Find (Disjoint Set Union) - Recommended
 
 **Time Complexity:** O(n² × α(n)) where α is the inverse Ackermann function  

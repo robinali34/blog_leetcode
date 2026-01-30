@@ -50,6 +50,20 @@ Explanation: The optimal substring is "abba" which is of length 4.
 - `1 <= s.length <= 300`
 - `s` contains only lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Substring definition**: What defines a valid substring? (Assumption: Substring between two equal characters, excluding the two equal characters themselves)
+
+2. **Length calculation**: How is length calculated - number of characters between or including endpoints? (Assumption: Number of characters between the two equal characters, not including them)
+
+3. **No valid substring**: What should we return if no character appears twice? (Assumption: Return -1 - no valid substring exists)
+
+4. **Multiple occurrences**: If a character appears more than twice, which pair should we consider? (Assumption: Consider the pair that gives the maximum length substring)
+
+5. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
+
 ## Solution Approach
 
 This problem requires finding the maximum distance between two occurrences of the same character. The key insight is:

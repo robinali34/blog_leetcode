@@ -45,6 +45,20 @@ Explanation: All cells can flow to both Pacific and Atlantic oceans.
 - `1 <= m, n <= 200`
 - `0 <= heights[i][j] <= 10^5`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Water flow rule**: How does water flow? (Assumption: Water flows from higher to lower or equal height - can flow to adjacent cells with same or lower height)
+
+2. **Ocean boundaries**: Where are the oceans located? (Assumption: Pacific Ocean is top and left edges, Atlantic Ocean is bottom and right edges)
+
+3. **Flow direction**: In which directions can water flow? (Assumption: Up, down, left, right - 4 directions, no diagonals)
+
+4. **Output format**: What should we return? (Assumption: List of coordinates [row, col] where water can flow to both oceans)
+
+5. **Cell height**: What does heights[i][j] represent? (Assumption: Height/elevation of cell at position (i, j) - water flows downhill)
+
 ## Solution: DFS from Ocean Boundaries
 
 **Time Complexity:** O(m × n) where m and n are dimensions of the grid  

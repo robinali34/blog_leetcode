@@ -73,6 +73,20 @@ From the top left corner, its position is one row below and three columns right.
 - `room[row][col] == 1`
 - All the empty cells can be visited from the starting position.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Robot operations**: What operations can the robot perform? (Assumption: move(), turnLeft(), turnRight(), clean() - can move forward, turn, and clean current cell)
+
+2. **Room structure**: How is the room structured? (Assumption: Grid with walls (1) and empty cells (0) - robot starts at unknown position)
+
+3. **Goal**: What are we trying to achieve? (Assumption: Clean all empty cells in the room using DFS backtracking)
+
+4. **Return value**: What should we return? (Assumption: Void - modify room state through clean() calls)
+
+5. **Position tracking**: Can we track robot position? (Assumption: No - must use relative movement and backtracking to explore all cells)
+
 ## Solution: DFS Backtracking
 
 **Time Complexity:** O(N - O) where N is number of cells and O is number of obstacles  

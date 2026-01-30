@@ -47,6 +47,20 @@ Explanation: Both players win at the same time.
 - board[i].length == 3
 - board[i][j] is either 'X', 'O', or ' '
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Game rules**: What are the tic-tac-toe rules? (Assumption: X goes first, players alternate, game ends when someone wins or board is full)
+
+2. **Win condition**: How does a player win? (Assumption: Three in a row horizontally, vertically, or diagonally)
+
+3. **Valid state**: What makes a board state valid? (Assumption: State is reachable through valid gameplay - X count equals O count or X count = O count + 1)
+
+4. **Multiple winners**: Can both players win simultaneously? (Assumption: No - per examples, if both win, state is invalid)
+
+5. **Return value**: What should we return? (Assumption: Boolean - true if board state is valid, false otherwise)
+
 ## Approach
 
 The solution involves checking several conditions:

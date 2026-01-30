@@ -47,6 +47,20 @@ Output: [["baba","abat","baba","atan"],["baba","abat","baba","atal"]]
 - `words[i]` consists of only lowercase English letters.
 - All `words[i]` have the same length.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Word square definition**: What is a word square? (Assumption: N×N grid where kth row and kth column read the same word)
+
+2. **Square size**: What is the size of the square? (Assumption: N×N where N is the length of words)
+
+3. **Return format**: What should we return? (Assumption: List of all valid word squares - list of lists)
+
+4. **Word reuse**: Can we use the same word multiple times? (Assumption: Yes - same word can appear multiple times in square)
+
+5. **Order requirement**: Does order of squares matter? (Assumption: No - can return in any order)
+
 ## Solution Approach
 
 This problem requires constructing word squares where each row and corresponding column read the same string. We can solve this using **backtracking** combined with a **Trie** data structure to efficiently find words matching required prefixes.

@@ -51,6 +51,20 @@ Explanation: We cannot assign values to satisfy all equations.
 - `equations[i][2]` is `'='`
 - `equations[i][3]` is a lowercase letter
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Equation format**: What is the equation format? (Assumption: "a==b" means a equals b, "a!=b" means a not equals b)
+
+2. **Variable assignment**: What values can variables have? (Assumption: Any integer values - just need to satisfy all equations)
+
+3. **Transitivity**: Are equality relations transitive? (Assumption: Yes - if a==b and b==c, then a==c)
+
+4. **Contradiction**: What makes equations unsatisfiable? (Assumption: If we derive both a==b and a!=b from the equations)
+
+5. **Return value**: What should we return? (Assumption: Boolean - true if all equations can be satisfied, false otherwise)
+
 ## Approach
 
 This problem can be solved using two main approaches:

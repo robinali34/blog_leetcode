@@ -35,6 +35,20 @@ Output: [1,2,3,4]
 - `1 <= m * n <= 10^4`
 - `-10^5 <= mat[i][j] <= 10^5`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Traversal direction**: What is the starting direction and how does it alternate? (Assumption: Start going up-right, then alternate between up-right and down-left)
+
+2. **Boundary handling**: What happens when we hit a boundary? (Assumption: Change direction and adjust position - up-right becomes down-left when hitting top or right edge)
+
+3. **Matrix shape**: Can the matrix be non-square (rectangular)? (Assumption: Yes - m and n can be different)
+
+4. **Output format**: Should we return a 1D array with all elements? (Assumption: Yes - return elements in diagonal traversal order as a 1D array)
+
+5. **Empty matrix**: How should we handle an empty matrix? (Assumption: Return empty array)
+
 ## Solution Approach (Direction Simulation)
 
 We simulate moving along diagonals with two directions:

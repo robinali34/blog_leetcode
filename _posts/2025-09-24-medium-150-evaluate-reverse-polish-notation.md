@@ -45,6 +45,20 @@ Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5 = 22
 - 1 <= tokens.length <= 10^4
 - tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200]
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **RPN definition**: What is Reverse Polish Notation? (Assumption: Postfix notation - operators come after operands, e.g., "2 3 +" means 2 + 3)
+
+2. **Evaluation order**: How is the expression evaluated? (Assumption: Process left to right, when operator encountered, apply to two most recent operands)
+
+3. **Division handling**: How should we handle division? (Assumption: Integer division - truncate toward zero, e.g., 13/5 = 2)
+
+4. **Valid expression**: Is the expression guaranteed to be valid? (Assumption: Yes - per problem statement, expression is always valid)
+
+5. **Return value**: What should we return? (Assumption: Integer result of evaluating the RPN expression)
+
 ## Approach
 
 The solution uses a stack-based approach:

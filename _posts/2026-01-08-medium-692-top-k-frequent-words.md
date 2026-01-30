@@ -39,6 +39,20 @@ Explanation: "the", "is", "sunny" and "day" are the four most frequent words, wi
 - `words[i]` consists of lowercase English letters.
 - `k` is in the range `[1, The number of unique words[i]]`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tie-breaking**: When words have the same frequency, how should we break ties? (Assumption: Sort lexicographically - alphabetical order)
+
+2. **Frequency calculation**: How is frequency calculated? (Assumption: Count occurrences of each word in the input array)
+
+3. **Case sensitivity**: Are word comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
+4. **Output format**: Should we return k words or all words with same frequency? (Assumption: Return exactly k words - top k most frequent)
+
+5. **Word uniqueness**: Can the same word appear multiple times in result? (Assumption: No - each word appears once in the result, sorted by frequency then lexicographically)
+
 ## Solution Approach
 
 This problem is similar to [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/), but with two key differences:

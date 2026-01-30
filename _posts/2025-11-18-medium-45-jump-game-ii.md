@@ -42,6 +42,20 @@ Jump 1 step from index 0 to 1, then 3 steps to the last index.
 - `0 <= nums[i] <= 1000`
 - It's guaranteed that you can reach `nums[n - 1]`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Jump definition**: How do jumps work? (Assumption: From index i, can jump to any index from i+1 to i+nums[i] inclusive)
+
+2. **Minimum jumps**: What are we optimizing for? (Assumption: Minimum number of jumps to reach the last index)
+
+3. **Reachability**: Is it guaranteed we can reach the end? (Assumption: Yes - per constraints, guaranteed to reach nums[n-1])
+
+4. **Starting position**: Where do we start? (Assumption: Start at index 0 - first element)
+
+5. **Jump count**: Does staying at same position count as a jump? (Assumption: No - must move forward, each jump advances position)
+
 ## Solution: Greedy BFS Approach
 
 **Time Complexity:** O(n) - Single pass through the array  

@@ -60,6 +60,20 @@ Explanation:
 - `s1.length == s2.length`
 - `s1[i], s2[i]` is `'x'` or `'y'`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Swap operation**: What does a swap do? (Assumption: Swap characters at same index in both strings - swap s1[i] with s2[i])
+
+2. **Goal**: What are we trying to achieve? (Assumption: Make both strings equal using minimum number of swaps)
+
+3. **Return value**: What should we return? (Assumption: Integer - minimum swaps needed, or -1 if impossible)
+
+4. **Impossibility**: When is it impossible? (Assumption: If total count of 'x' or 'y' is odd - cannot make strings equal)
+
+5. **Swap efficiency**: Can one swap fix multiple mismatches? (Assumption: Yes - strategic swaps can fix multiple mismatches efficiently)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is about pairing mismatches efficiently.

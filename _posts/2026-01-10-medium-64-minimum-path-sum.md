@@ -38,6 +38,20 @@ Explanation: The path is 1 → 2 → 3 → 6.
 - `1 <= m, n <= 200`
 - `0 <= grid[i][j] <= 200`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Movement direction**: In which directions can we move? (Assumption: Only right and down - typical grid path problem constraint)
+
+2. **Starting/ending cells**: Where do we start and end? (Assumption: Start at top-left (0,0), end at bottom-right (m-1, n-1))
+
+3. **Path sum**: What should we include in the path sum? (Assumption: Sum includes both starting and ending cells - all cells along the path)
+
+4. **Grid boundaries**: Can we move outside the grid? (Assumption: No - must stay within grid bounds)
+
+5. **Negative values**: Can grid values be negative? (Assumption: Based on constraints, values are >= 0, but should clarify if negative values are possible)
+
 ## Solution Approach
 
 This is a classic **2D dynamic programming** problem. The key insight is that to reach cell `(i, j)`, we can only come from `(i-1, j)` (top) or `(i, j-1)` (left). We choose the path with minimum cost.

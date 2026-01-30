@@ -63,6 +63,20 @@ Output: 1
 - `p != q`
 - `p` and `q` will exist in the tree.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree type**: Is this a binary tree, BST, or general tree? (Assumption: Binary tree - not necessarily a BST, nodes can have any values)
+
+2. **Node existence**: Are we guaranteed that both p and q exist in the tree? (Assumption: Yes - constraints guarantee both nodes exist)
+
+3. **LCA definition**: Can a node be its own ancestor? (Assumption: Yes - if p is ancestor of q, then p is the LCA)
+
+4. **Duplicate values**: Can nodes have duplicate values? (Assumption: No - all node values are unique per constraints)
+
+5. **Return value**: Should we return the node itself or its value? (Assumption: Return the node (TreeNode*) - typical LCA problem requirement)
+
 ## Solution Approach
 
 This problem requires finding the lowest common ancestor of two nodes in a binary tree. The LCA is the deepest node that has both `p` and `q` as descendants.

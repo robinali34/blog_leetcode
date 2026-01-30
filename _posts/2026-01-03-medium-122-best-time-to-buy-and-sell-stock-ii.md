@@ -47,6 +47,20 @@ Explanation: There is no way to make a positive profit, so we never buy the stoc
 - `1 <= prices.length <= 3 * 10^4`
 - `0 <= prices[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Transaction rules**: What are the transaction rules? (Assumption: Can buy and sell multiple times, but must sell before buying again - can hold at most one share)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total profit from all transactions)
+
+3. **Return value**: What should we return? (Assumption: Integer - maximum profit possible)
+
+4. **Multiple transactions**: Can we make multiple transactions? (Assumption: Yes - can buy and sell as many times as we want)
+
+5. **No transaction**: What if we never buy? (Assumption: Profit is 0 - no transactions made)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is that we can capture all positive price differences (gains) by buying and selling on consecutive days whenever the price increases.

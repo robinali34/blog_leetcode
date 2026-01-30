@@ -48,6 +48,20 @@ Explanation: The longest wiggle subsequence is [1, 2] or [1, 9] with difference 
 - `1 <= nums.length <= 1000`
 - `0 <= nums[i] <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Wiggle definition**: What makes a sequence "wiggle"? (Assumption: Differences between consecutive elements alternate between positive and negative - up-down-up or down-up-down pattern)
+
+2. **Subsequence definition**: Does subsequence need to be contiguous? (Assumption: No - subsequence maintains relative order but can skip elements)
+
+3. **Length requirement**: What is the minimum length of a wiggle subsequence? (Assumption: Length 1 is valid, length 2 is valid if numbers differ)
+
+4. **Equal values**: What if consecutive elements are equal? (Assumption: Equal values break the wiggle pattern - need to skip them or clarify handling)
+
+5. **Return value**: Should we return the length or the subsequence itself? (Assumption: Return the length - integer representing longest wiggle subsequence length)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to count the number of times the difference between consecutive elements changes sign. We only need to track when the sign alternates, not the actual values.

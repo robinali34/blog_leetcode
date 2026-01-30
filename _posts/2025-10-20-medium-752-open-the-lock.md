@@ -51,6 +51,20 @@ Explanation: We cannot reach the target without getting stuck in a deadend.
 - `target.length == 4`
 - target and deadends[i] consist of digits only.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Lock state**: What is the lock state? (Assumption: 4-digit combination lock - each wheel can be 0-9, starting at "0000")
+
+2. **Wheel movement**: How can we move wheels? (Assumption: Turn one wheel one position up or down - "0000" can become "1000" or "9000")
+
+3. **Deadends**: What are deadends? (Assumption: States we cannot visit - if we reach a deadend, we're stuck)
+
+4. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of moves to reach target from "0000")
+
+5. **Return value**: What should we return? (Assumption: Integer - minimum moves, or -1 if target unreachable)
+
 ## Solution Approach
 
 This is a **shortest path problem** that can be solved using **BFS**. We need to find the minimum number of moves to reach the target from "0000" while avoiding deadends.

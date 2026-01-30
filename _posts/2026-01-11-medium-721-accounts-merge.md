@@ -41,6 +41,20 @@ Output: [["Ethan","Ethan0@m.co","Ethan4@m.co","Ethan5@m.co"],["Gabe","Gabe0@m.co
 - `1 <= accounts[i][0].length <= 10`
 - `accounts[i][j]` for `j > 0` is a valid email.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Merging rule**: When should accounts be merged? (Assumption: Two accounts belong to the same person if they share at least one common email)
+
+2. **Name handling**: What if accounts have different names but share emails? (Assumption: If emails match, they're the same person - use the name from first account or clarify)
+
+3. **Email uniqueness**: Can the same email appear in multiple accounts? (Assumption: Yes - that's how we identify accounts to merge)
+
+4. **Output format**: How should merged accounts be formatted? (Assumption: List with name first, then sorted unique emails)
+
+5. **Transitive merging**: If A shares email with B, and B shares email with C, should A, B, C all be merged? (Assumption: Yes - transitive closure - use Union-Find to handle this)
+
 ## Solution Approach
 
 This is a **Union-Find (Disjoint Set Union)** problem. The key insight is that emails belonging to the same account should be grouped together, and if two accounts share any email, they should be merged.

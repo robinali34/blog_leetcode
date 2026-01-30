@@ -44,6 +44,20 @@ Explanation: The order is invalid, so return "".
 - `1 <= words[i].length <= 100`
 - `words[i]` consists of only lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Ordering inference**: How do we infer character order from words? (Assumption: Compare adjacent words - first differing character gives ordering constraint)
+
+2. **Invalid ordering**: What makes an ordering invalid? (Assumption: If there's a cycle in the ordering constraints - circular dependency)
+
+3. **Missing characters**: What if some characters don't appear in any word? (Assumption: Need to clarify - typically all characters appear, but should confirm)
+
+4. **Prefix handling**: How should we handle words where one is prefix of another? (Assumption: If word1 is prefix of word2, word1 should come first - but this might indicate invalid input)
+
+5. **Return format**: What should we return if ordering is invalid? (Assumption: Return empty string "" - no valid ordering exists)
+
 ## Solution Approach
 
 This problem requires finding the lexicographic order of characters in an alien language. The key insight is that the sorted word list gives us **ordering constraints** between characters, which we can model as a **directed graph** and solve using **topological sort**.

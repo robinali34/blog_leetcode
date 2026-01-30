@@ -44,6 +44,20 @@ Output: 3
 - `-10^5 <= nums[i] <= 10^5`
 - `1 <= k <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subarray definition**: What is a subarray? (Assumption: Contiguous elements - must be consecutive elements)
+
+2. **Sum requirement**: What does "sum at least k" mean? (Assumption: Sum of subarray elements >= k - greater than or equal to k)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Shortest subarray length with sum >= k)
+
+4. **Return value**: What should we return? (Assumption: Integer - length of shortest subarray, or -1 if no such subarray exists)
+
+5. **Negative numbers**: Can array contain negative numbers? (Assumption: Yes - per constraints, nums[i] can be negative)
+
 ## Solution Approach
 
 This problem is similar to [LC 209: Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/), but with a critical difference: **the array can contain negative numbers**.

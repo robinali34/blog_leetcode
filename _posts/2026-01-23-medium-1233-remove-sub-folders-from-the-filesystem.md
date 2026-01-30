@@ -53,6 +53,20 @@ Explanation: None of the folders are subfolders of another folder.
 - `folder[i]` always starts with `'/'`
 - Each folder name is **unique**
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subfolder definition**: What exactly defines a subfolder? (Assumption: Folder A is a subfolder of folder B if A's path starts with B's path followed by '/', e.g., "/a/b" is subfolder of "/a")
+
+2. **Path format**: Are all paths absolute (starting with '/')? (Assumption: Yes - all paths start with '/' and don't have trailing '/')
+
+3. **Case sensitivity**: Are folder names case-sensitive? (Assumption: Yes - only lowercase letters are allowed per constraints)
+
+4. **Empty folders**: Can there be empty folder paths? (Assumption: No - minimum length is 2, so at least "/a" format)
+
+5. **Duplicate folders**: Can the same folder path appear multiple times? (Assumption: Based on constraints, folder names are unique, so no duplicates)
+
 ## Solution Approach
 
 This problem requires identifying and removing folder paths that are subfolders of other folders. A folder is a subfolder if its path is a prefix of another folder's path.

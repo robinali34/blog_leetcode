@@ -47,6 +47,20 @@ Output: 1
 - `p != q`
 - `p` and `q` will exist in the tree.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **LCA definition**: What is Lowest Common Ancestor? (Assumption: Deepest node that is ancestor of both p and q - common ancestor closest to the nodes)
+
+2. **Node structure**: What information do nodes have? (Assumption: Node has val, parent pointer - can traverse upward, not just downward)
+
+3. **Self-ancestor**: Can a node be its own ancestor? (Assumption: Yes - per examples, node can be LCA of itself and another node)
+
+4. **Return value**: What should we return? (Assumption: Node pointer to the LCA of p and q)
+
+5. **Tree type**: Is this a binary tree? (Assumption: Yes - binary tree, but with parent pointers instead of just child pointers)
+
 ## Approach
 
 This is a variation of the **Lowest Common Ancestor (LCA)** problem where each node has a reference to its parent. The key insight is to use the **two-pointer technique** similar to finding the intersection of two linked lists.

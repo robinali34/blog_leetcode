@@ -39,6 +39,20 @@ Explanation: The answer is 10^18 modulo (10^9 + 7), which is 49.
 - `xi1 <= xi2`
 - `yi1 <= yi2`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rectangle representation**: How are rectangles represented? (Assumption: [x1, y1, x2, y2] - bottom-left and top-right corners, half-open intervals)
+
+2. **Overlapping areas**: How should we handle overlapping rectangles? (Assumption: Count overlapping area only once - union of rectangles, not sum)
+
+3. **Modulo requirement**: Should the result be modulo 10^9 + 7? (Assumption: Yes - per problem statement, return modulo 10^9 + 7)
+
+4. **Rectangle boundaries**: Are boundaries inclusive or exclusive? (Assumption: Typically half-open [x1, x2) x [y1, y2) - need to clarify)
+
+5. **Return value**: What should we return? (Assumption: Total area covered by union of all rectangles, modulo 10^9 + 7)
+
 ## Solution 1: Sweep Line with Coordinate Compression
 
 **Time Complexity:** O(n² log n) - Sorting events + O(n) per event for coverage calculation  

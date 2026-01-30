@@ -42,6 +42,20 @@ Output: []
 - The number of nodes in the tree is in the range `[0, 2000]`.
 - `-1000 <= Node.val <= 1000`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Level definition**: How are levels defined? (Assumption: Level 0 is root, level 1 is root's children, etc. - BFS levels)
+
+2. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level, nodes in left-to-right order)
+
+3. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
+
+4. **Traversal order**: Should nodes at the same level be in any specific order? (Assumption: Left to right - process left child before right child)
+
+5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
+
 ## Solution Approach
 
 This is a classic **BFS (Breadth-First Search)** problem. The key insight is to:

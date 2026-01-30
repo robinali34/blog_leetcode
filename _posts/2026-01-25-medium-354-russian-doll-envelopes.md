@@ -43,6 +43,20 @@ Explanation: No envelope can fit into another envelope.
 - `envelopes[i].length == 2`
 - `1 <= wi, hi <= 10^5`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Fitting condition**: For envelope A to fit inside envelope B, do both width and height need to be strictly smaller? (Assumption: Yes - both `w1 < w2` AND `h1 < h2` must be true)
+
+2. **Equal dimensions**: What if two envelopes have the same width or height? (Assumption: They cannot nest - need strictly smaller dimensions)
+
+3. **Rotation**: Can we rotate envelopes (swap width and height)? (Assumption: No - envelopes cannot be rotated)
+
+4. **Multiple nesting**: Can we nest multiple envelopes? (Assumption: Yes - we want the maximum number of envelopes that can be nested)
+
+5. **Empty result**: What should we return if no envelopes can be nested? (Assumption: Return `1` - at least one envelope can be considered as a "nest")
+
 ## Solution Approach
 
 This problem is a **2D version of the Longest Increasing Subsequence (LIS)** problem. We need to find the longest chain of envelopes where each envelope can fit inside the next.

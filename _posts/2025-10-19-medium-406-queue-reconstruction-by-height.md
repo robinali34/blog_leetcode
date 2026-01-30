@@ -46,6 +46,20 @@ Person 5 has height 6 with no one taller or equal in front of them.
 - `0 <= ki < people.length`
 - It is guaranteed that the queue can be reconstructed.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Person representation**: How are people represented? (Assumption: [height, k] where height is person's height, k is number of people taller or equal in front)
+
+2. **Reconstruction rule**: What does k mean? (Assumption: k people with height >= current person's height must be in front)
+
+3. **Uniqueness**: Is there a unique solution? (Assumption: Per problem statement, guaranteed to reconstruct - solution exists)
+
+4. **Return format**: What should we return? (Assumption: Reconstructed queue - array of people in correct order)
+
+5. **Tie-breaking**: How should we handle people with same height? (Assumption: People with same height count toward k - "taller or equal")
+
 ## Solution: Greedy Sorting with List Insertion
 
 **Time Complexity:** O(n²) where n is the number of people  

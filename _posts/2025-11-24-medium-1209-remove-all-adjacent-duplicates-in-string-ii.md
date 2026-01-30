@@ -50,6 +50,20 @@ Finally delete "ii", get "ps"
 - `2 <= k <= 10^4`
 - `s` only contains lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Duplicate removal**: What does "k adjacent duplicates" mean? (Assumption: Remove k consecutive identical characters - e.g., "aaa" with k=3 removes all three)
+
+2. **Removal process**: How should we remove duplicates? (Assumption: Remove k consecutive duplicates repeatedly until no more exist)
+
+3. **Cascading removal**: Can removal cause new duplicates? (Assumption: Yes - removing duplicates can create new k-length duplicates)
+
+4. **Return format**: What should we return? (Assumption: Final string after all duplicate removals)
+
+5. **K value**: What is the range of k? (Assumption: Per constraints, 2 <= k <= 10^4 - k is at least 2)
+
 ## Solution Approaches
 
 This problem extends [LC 1047](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) to handle `k` consecutive duplicates instead of pairs. We need to track character **counts**, not just characters.

@@ -39,6 +39,20 @@ movingAverage.next(5); // return 6.0 = (10 + 3 + 5) / 3
 - `-10^5 <= val <= 10^5`
 - At most `10^4` calls will be made to `next`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Moving average definition**: What is a moving average? (Assumption: Average of the last size elements - sliding window average)
+
+2. **Window size**: What is the window size? (Assumption: Fixed size specified in constructor - only consider last size elements)
+
+3. **New values**: What happens when we add a new value? (Assumption: Oldest value is removed if window is full, new value is added)
+
+4. **Return value**: What should next() return? (Assumption: Double - average of current window of size elements)
+
+5. **Initial window**: What if we have fewer than size elements? (Assumption: Average all available elements until window is full)
+
 ## Solution 1: Queue with Running Sum (Recommended)
 
 **Time Complexity:** O(1) per `next()` call  

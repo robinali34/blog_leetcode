@@ -46,6 +46,20 @@ Output: [2.00000,3.00000,3.00000,3.00000,2.00000,3.00000,2.00000]
 - `1 <= k <= nums.length <= 10^5`
 - `-2^31 <= nums[i] <= 2^31 - 1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Sliding window**: What is a sliding window? (Assumption: Contiguous subarray of size k that moves from left to right)
+
+2. **Median calculation**: How is median calculated? (Assumption: For odd k, middle element; for even k, average of two middle elements)
+
+3. **Return format**: What should we return? (Assumption: Array of medians - one for each window position)
+
+4. **Window count**: How many windows are there? (Assumption: nums.length - k + 1 windows - from index 0 to nums.length - k)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n log k) - maintain sorted window using balanced BST or heaps)
+
 ## Solution 1: Two Multisets (Two-Heaps Pattern)
 
 **Time Complexity:** O(n log k) - Each insertion/deletion is O(log k)  

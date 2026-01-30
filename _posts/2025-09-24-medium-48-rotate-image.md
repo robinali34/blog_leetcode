@@ -32,6 +32,20 @@ Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
 - 1 <= n <= 20
 - -1000 <= matrix[i][j] <= 1000
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rotation direction**: Which direction should we rotate? (Assumption: Clockwise 90 degrees - typical matrix rotation)
+
+2. **Matrix type**: Is the matrix square? (Assumption: Yes - per constraints, n x n matrix)
+
+3. **In-place modification**: Should we modify the matrix in-place? (Assumption: Yes - modify matrix in-place, O(1) extra space)
+
+4. **Rotation angle**: What is the rotation angle? (Assumption: 90 degrees clockwise - standard matrix rotation)
+
+5. **Element movement**: How do elements move? (Assumption: Element at (i, j) moves to (j, n-1-i) after 90° clockwise rotation)
+
 ## Approach
 
 There are two main approaches to solve this problem:

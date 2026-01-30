@@ -52,6 +52,20 @@ Output: [0.50000,2.00000,-1.00000,-1.00000]
 - `1 <= Cj.length, Dj.length <= 5`
 - `Ai, Bi, Cj, Dj` consist of lower case English letters and digits.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Division representation**: How are divisions represented? (Assumption: equations[i] = [Ai, Bi] means Ai / Bi = values[i])
+
+2. **Query format**: What are we querying? (Assumption: queries[j] = [Cj, Dj] means find Cj / Dj)
+
+3. **Unknown variables**: What if variables are unknown? (Assumption: Return -1.0 - cannot determine the division)
+
+4. **Return format**: What should we return? (Assumption: Array of doubles - results for each query)
+
+5. **Transitivity**: Are divisions transitive? (Assumption: Yes - if a/b = x and b/c = y, then a/c = x*y)
+
 ## Solution 1: Union-Find with Weighted Edges (Recommended)
 
 **Time Complexity:** O((E + Q) × α(n)) where E = equations, Q = queries, n = variables  

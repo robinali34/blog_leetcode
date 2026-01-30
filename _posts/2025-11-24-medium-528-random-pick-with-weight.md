@@ -53,6 +53,20 @@ solution.pickIndex(); // return 0. The probability of returning 0 is 1/4 = 0.25.
 - `1 <= w[i] <= 10^5`
 - `pickIndex` will be called at most `10^4` times.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Weight definition**: What does "weight" mean? (Assumption: Probability weight - higher weight means higher probability of being picked)
+
+2. **Pick operation**: What should pickIndex() return? (Assumption: Random index based on weights - index i has probability w[i] / sum(w))
+
+3. **Weight values**: Can weights be zero or negative? (Assumption: Per constraints, weights are positive integers - no zero or negative)
+
+4. **Return value**: What should we return? (Assumption: Integer index from 0 to n-1, randomly selected based on weights)
+
+5. **Randomness**: Should picks be independent? (Assumption: Yes - each call to pickIndex() is independent random selection)
+
 ## Solution: Prefix Sum + Binary Search
 
 **Time Complexity:** 

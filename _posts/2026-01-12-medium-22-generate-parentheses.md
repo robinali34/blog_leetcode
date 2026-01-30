@@ -31,6 +31,20 @@ Output: ["()"]
 
 - `1 <= n <= 8`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Valid parentheses**: What makes a parentheses string valid? (Assumption: Every opening '(' has a matching closing ')', and they're properly nested)
+
+2. **Output format**: Should we return all valid combinations or just count them? (Assumption: Return all distinct valid combinations - list of strings)
+
+3. **Order requirement**: Does the order of results matter? (Assumption: No - can return in any order, but typically lexicographic order)
+
+4. **Parentheses type**: Are we only dealing with one type of parentheses? (Assumption: Yes - only '(' and ')', not other types like '[]' or '{}')
+
+5. **String length**: What is the length of each valid string? (Assumption: 2n - exactly n opening and n closing parentheses)
+
 ## Solution Approach
 
 This is a classic **backtracking** problem. The key insight is to build valid parentheses strings by making choices at each step: add `'('` or `')'`, while ensuring the string remains valid.

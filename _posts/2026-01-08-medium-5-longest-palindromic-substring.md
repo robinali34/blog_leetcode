@@ -41,6 +41,20 @@ Output: "a"
 - `1 <= s.length <= 1000`
 - `s` consist of only digits and English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Palindrome definition**: What makes a string a palindrome? (Assumption: Reads the same forwards and backwards - symmetric string)
+
+2. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters from the original string)
+
+3. **Multiple palindromes**: What if there are multiple palindromes of the same maximum length? (Assumption: Return any one of them - typically the first one found)
+
+4. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different characters)
+
+5. **Single character**: Is a single character considered a palindrome? (Assumption: Yes - single character is a palindrome of length 1)
+
 ## Solution Approaches
 
 There are several approaches to solve this problem:

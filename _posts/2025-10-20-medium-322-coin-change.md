@@ -44,6 +44,20 @@ Output: 0
 - `1 <= coins[i] <= 2^31 - 1`
 - `0 <= amount <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Coin usage**: Can we use each coin multiple times? (Assumption: Yes - unlimited supply of each coin denomination)
+
+2. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of coins needed to make up the amount)
+
+3. **Impossible case**: What if amount cannot be made? (Assumption: Return -1 - no combination of coins can make the amount)
+
+4. **Zero amount**: What if amount is 0? (Assumption: Return 0 - no coins needed)
+
+5. **Return value**: What should we return? (Assumption: Integer - minimum number of coins, or -1 if impossible)
+
 ## Solution Approach
 
 This is a classic **Dynamic Programming** problem that asks for the minimum number of coins needed to make a given amount. Since we can use each coin unlimited times, this is an **unbounded knapsack** problem.

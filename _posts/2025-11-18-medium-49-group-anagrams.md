@@ -39,6 +39,20 @@ Output: [["a"]]
 - `0 <= strs[i].length <= 100`
 - `strs[i]` consists of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Anagram definition**: What is an anagram? (Assumption: Words with same characters in different order - same character frequencies)
+
+2. **Grouping rule**: How should we group anagrams? (Assumption: Group strings that are anagrams of each other together)
+
+3. **Return format**: What should we return? (Assumption: List of groups - each group contains anagrams)
+
+4. **Order requirement**: Does order of groups matter? (Assumption: No - can return in any order)
+
+5. **Single character**: Do single characters count as anagrams? (Assumption: Yes - "a" is anagram of "a")
+
 ## Solution: Character Count Key Approach
 
 **Time Complexity:** O(N * K) where N is the number of strings and K is the maximum length of a string  

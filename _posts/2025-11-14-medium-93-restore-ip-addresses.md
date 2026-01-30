@@ -38,6 +38,20 @@ Output: ["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
 - `1 <= s.length <= 20`
 - `s` consists of digits only.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **IP address format**: What is a valid IP address? (Assumption: Four parts separated by dots, each part is 0-255, no leading zeros except "0")
+
+2. **Restoration**: What does "restore" mean? (Assumption: Insert dots to split string into four valid IP address parts)
+
+3. **Return format**: What should we return? (Assumption: List of all valid IP addresses - strings with dots inserted)
+
+4. **Leading zeros**: How should we handle leading zeros? (Assumption: Not allowed - "01" is invalid, "0" is valid)
+
+5. **All combinations**: Should we return all valid IPs? (Assumption: Yes - return all possible valid IP addresses)
+
 ## Solution: Backtracking with C++20 Optimizations
 
 **Time Complexity:** O(1) - At most 3^4 = 81 combinations  

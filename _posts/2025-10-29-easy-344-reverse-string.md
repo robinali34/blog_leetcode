@@ -11,6 +11,20 @@ tags: [leetcode, easy, two-pointers, string]
 
 Reverse the array of characters in-place using O(1) extra memory.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **In-place requirement**: Can we use extra space? (Assumption: O(1) extra memory only - cannot use additional array)
+
+2. **Modification**: Should we modify the input array? (Assumption: Yes - reverse in-place, modify the original array)
+
+3. **Return value**: What should we return? (Assumption: Void - modify array in-place, no return value)
+
+4. **Character set**: What characters can be in the array? (Assumption: Any characters - letters, digits, symbols)
+
+5. **Empty array**: What if array is empty? (Assumption: No operation needed - empty array is already reversed)
+
 ## Approach
 
 Two pointers at the ends swap characters and converge toward the center.

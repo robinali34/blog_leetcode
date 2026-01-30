@@ -41,6 +41,20 @@ public:
 };
 ```
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Character encoding**: What are 1-bit and 2-bit characters? (Assumption: 1-bit character is '0', 2-bit character is '10' or '11' - encoding rules)
+
+2. **Last character**: What are we checking? (Assumption: Whether the last character is a 1-bit character - ends with '0')
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if last character is 1-bit, false if 2-bit)
+
+4. **Parsing rules**: How do we parse the bits? (Assumption: Parse left to right - if bit is 1, it's start of 2-bit character, if 0, it's 1-bit character)
+
+5. **Valid encoding**: Is the encoding guaranteed valid? (Assumption: Yes - bits form valid sequence of 1-bit and 2-bit characters)
+
 ## Complexity
 
 - Time: O(n) — single pass

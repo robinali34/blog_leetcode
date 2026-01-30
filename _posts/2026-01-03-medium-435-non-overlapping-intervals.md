@@ -43,6 +43,20 @@ Explanation: You don't need to remove any of the intervals since they're already
 - `intervals[i].length == 2`
 - `-5 * 10^4 <= starti < endi <= 5 * 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common point - [a, b] overlaps [c, d] if max(a, c) <= min(b, d))
+
+2. **Interval boundaries**: Are boundaries inclusive or exclusive? (Assumption: Typically inclusive on both ends [start, end] - need to clarify)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of intervals to remove so remaining intervals are non-overlapping)
+
+4. **Return value**: What should we return? (Assumption: Integer - minimum number of intervals to remove)
+
+5. **Tie-breaking**: If multiple intervals overlap, which should we remove? (Assumption: Greedy approach - remove interval with later end time to maximize remaining space)
+
 ## Solution Approach
 
 This is a classic **greedy interval scheduling** problem. The key insight is to **sort intervals by end time** and greedily keep intervals that don't overlap with the last kept interval.

@@ -33,6 +33,20 @@ Output: [0,1,2]
 - `1 <= n <= 300`
 - `nums[i]` is either `0`, `1`, or `2`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Color representation**: What do 0, 1, 2 represent? (Assumption: 0 = red, 1 = white, 2 = blue - need to sort in this order)
+
+2. **Sorting requirement**: What order should colors be in? (Assumption: All 0s first, then all 1s, then all 2s - ascending order)
+
+3. **In-place requirement**: Should we sort in-place? (Assumption: Yes - modify array in-place, O(1) extra space)
+
+4. **Return value**: What should we return? (Assumption: Void - modify array in-place)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - single pass using Dutch National Flag algorithm)
+
 ## Solution: Dutch National Flag Algorithm (Two Pointers)
 
 **Time Complexity:** O(n) - Single pass through the array  

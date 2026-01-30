@@ -36,6 +36,20 @@ The second 3's next greater number is 4.
 - `1 <= nums.length <= 10^4`
 - `-10^9 <= nums[i] <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Circular array**: What does "circular" mean? (Assumption: After reaching the end, wrap around to the beginning - array is treated as circular)
+
+2. **Next greater definition**: What does "next greater element" mean? (Assumption: First element to the right (wrapping around) that is strictly greater than current element)
+
+3. **No greater element**: What should we return if no greater element exists? (Assumption: Return -1 - no next greater element found)
+
+4. **Duplicate values**: How should we handle duplicate values? (Assumption: Need strictly greater - equal values don't count)
+
+5. **Array modification**: Can we modify the input array? (Assumption: No - just find next greater elements, don't modify)
+
 ## Solution: Monotonic Stack
 
 **Time Complexity:** O(n)  

@@ -42,6 +42,20 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+
+2. **Empty subarray**: Can an empty subarray be considered? (Assumption: No - subarray must be non-empty, at least one element)
+
+3. **Negative values**: Can the array contain negative numbers? (Assumption: Yes - per constraints, values can be negative)
+
+4. **Return value**: Should we return the sum or the subarray itself? (Assumption: Return the maximum sum - integer value)
+
+5. **All negative**: What if all numbers are negative? (Assumption: Return the least negative number - the maximum element)
+
 ## Solution Approach
 
 This is a classic **Kadane's Algorithm** problem, which can be solved using either **greedy** or **dynamic programming** approach. The key insight is to decide at each position whether to extend the previous subarray or start a new one.

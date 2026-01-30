@@ -43,6 +43,20 @@ numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
 - `0 <= left <= right < nums.length`
 - At most `10^4` calls will be made to `sumRange`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range format**: How are ranges represented? (Assumption: [left, right] - inclusive on both ends, sum elements from index left to right)
+
+2. **Query operation**: What does sumRange do? (Assumption: Returns sum of elements in range [left, right] inclusive)
+
+3. **Return value**: What should sumRange return? (Assumption: Integer - sum of elements in specified range)
+
+4. **Array modification**: Can the array be modified? (Assumption: No - array is immutable, only queries are allowed)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(1) per query using prefix sums, O(n) preprocessing)
+
 ## Solution Approach
 
 This problem requires efficiently answering multiple range sum queries on an immutable array. The key insight is to use **prefix sums** to answer each query in O(1) time.

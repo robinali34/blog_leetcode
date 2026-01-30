@@ -31,6 +31,20 @@ int bs_on_answer(int left, int right) {
 }
 ```
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rotated array definition**: What does "rotated" mean? (Assumption: Array was originally sorted but rotated at some pivot point - e.g., [4,5,6,7,0,1,2] is rotated)
+
+2. **Array properties**: Is the array guaranteed to have no duplicates? (Assumption: Yes - per problem statement, all values are unique)
+
+3. **Return value**: What should we return if target not found? (Assumption: Return -1 - target not in array)
+
+4. **Time complexity**: What time complexity is expected? (Assumption: O(log n) - binary search approach)
+
+5. **Array modification**: Can we modify the array? (Assumption: No - just search, don't modify)
+
 ## Solution in C++
 
 ```cpp

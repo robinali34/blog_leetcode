@@ -45,6 +45,20 @@ Output: 5
 - All the integers in the expression are non-negative integers in the range `[0, 2^31 - 1]`.
 - The answer is guaranteed to fit in a 32-bit integer.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', multiplication '*', division '/' - no parentheses)
+
+2. **Operator precedence**: What is the precedence? (Assumption: Standard - multiplication and division before addition and subtraction)
+
+3. **Division handling**: How should division be handled? (Assumption: Integer division - truncate toward zero)
+
+4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+
+5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+
 ## Solution 1: Stack-Based Approach
 
 **Time Complexity:** O(n)  

@@ -41,6 +41,20 @@ Output: [0,1]
 
 - 1 <= n <= 16
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Gray code definition**: What is Gray code? (Assumption: Sequence where consecutive numbers differ by exactly one bit - binary representation differs by one bit)
+
+2. **Starting value**: What should the sequence start with? (Assumption: Typically starts with 0 - first number is 0)
+
+3. **Sequence length**: How many numbers should be in the sequence? (Assumption: 2^n numbers - all n-bit Gray codes)
+
+4. **Uniqueness**: Is there a unique Gray code sequence? (Assumption: No - multiple valid sequences exist, return any valid one)
+
+5. **Return format**: What should we return? (Assumption: List of integers representing Gray code sequence)
+
 ## Approach
 
 There are several approaches to generate Gray codes:

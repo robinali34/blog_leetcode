@@ -51,6 +51,20 @@ Explanation: This an empty graph, it does not contain any nodes.
 - There are no repeated edges and no self-loops in the graph.
 - The graph is connected and undirected.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Clone definition**: What does "clone" mean? (Assumption: Create a deep copy - new nodes with same values and structure, but different memory addresses)
+
+2. **Graph type**: Is the graph directed or undirected? (Assumption: Undirected - edges are bidirectional, represented as neighbors list)
+
+3. **Node structure**: What information does each node contain? (Assumption: Node has val and list of neighbors - need to clone both)
+
+4. **Empty graph**: How should we handle null/empty graph? (Assumption: Return null - no graph to clone)
+
+5. **Cycle handling**: How should we handle cycles? (Assumption: Use visited map to avoid infinite loops - track cloned nodes)
+
 ## Solution Approach
 
 This problem requires creating a **deep copy** of a graph, meaning we need to create new nodes with the same structure and relationships as the original graph.

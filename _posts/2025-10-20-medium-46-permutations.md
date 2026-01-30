@@ -41,6 +41,20 @@ Output: [[1]]
 - `-10 <= nums[i] <= 10`
 - All the integers of `nums` are **unique**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Permutation definition**: What is a permutation? (Assumption: All possible arrangements of array elements - order matters)
+
+2. **Element uniqueness**: Are all elements unique? (Assumption: Yes - per constraints, all integers are unique)
+
+3. **Output format**: Should we return all permutations or just count? (Assumption: Return all distinct permutations - list of lists)
+
+4. **Array modification**: Can we modify the input array? (Assumption: Typically yes for backtracking, but should clarify)
+
+5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
+
 ## Approach
 
 This is a classic **backtracking** problem that requires generating all possible permutations of a given array. There are two main approaches:

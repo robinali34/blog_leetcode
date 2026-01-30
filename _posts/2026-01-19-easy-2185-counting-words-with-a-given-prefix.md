@@ -39,6 +39,20 @@ Explanation: There are no strings that contain "code" as a prefix.
 - `1 <= words[i].length, pref.length <= 100`
 - `words[i]` and `pref` consist of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Prefix definition**: What is a prefix? (Assumption: Characters at the beginning of a string - word starts with prefix)
+
+2. **Matching rule**: How do we check if word has prefix? (Assumption: Word must start with exact prefix string - first len(pref) characters match)
+
+3. **Return value**: What should we return? (Assumption: Integer - count of words that have the given prefix)
+
+4. **Case sensitivity**: Are comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
+5. **Empty prefix**: What if prefix is empty? (Assumption: Per constraints, pref.length >= 1, so not empty)
+
 ## Solution Approach
 
 This is a straightforward **simulation** problem. We need to:

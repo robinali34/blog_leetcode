@@ -35,6 +35,20 @@ Explanation: You will always arrive at index 3. Its maximum jump length is 0, wh
 - `1 <= nums.length <= 10^4`
 - `0 <= nums[i] <= 10^5`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Jump definition**: How do jumps work? (Assumption: From index i, can jump to any index from i+1 to i+nums[i] inclusive)
+
+2. **Reachability**: What are we checking? (Assumption: Whether we can reach the last index starting from index 0)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if can reach last index, false otherwise)
+
+4. **Starting position**: Where do we start? (Assumption: Start at index 0 - first element)
+
+5. **Zero values**: What if nums[i] is 0? (Assumption: Cannot jump forward from that position - stuck unless already past it)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to track the **rightmost reachable position** as we iterate through the array. If we can reach an index, we can potentially reach further positions from there.

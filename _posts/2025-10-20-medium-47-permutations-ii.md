@@ -34,6 +34,20 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 - `1 <= nums.length <= 8`
 - `-10 <= nums[i] <= 10`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Permutation definition**: What is a permutation? (Assumption: All possible arrangements of array elements - order matters)
+
+2. **Duplicate handling**: How should we handle duplicate elements? (Assumption: Avoid duplicate permutations - if [1,1,2], don't generate [1,1,2] twice)
+
+3. **Output format**: Should we return all permutations or just count? (Assumption: Return all distinct permutations - list of lists)
+
+4. **Array modification**: Can we modify the input array? (Assumption: Typically yes for backtracking, but should clarify)
+
+5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
+
 ## Approach
 
 This is an extension of **LC 46 Permutations** that handles **duplicate elements**. The key challenge is avoiding duplicate permutations when the input contains repeated numbers.

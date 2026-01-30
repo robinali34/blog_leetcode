@@ -42,6 +42,20 @@ Output: []
 - The number of nodes in the tree is in the range `[0, 2000]`.
 - `-100 <= Node.val <= 100`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Zigzag pattern**: What is the zigzag pattern? (Assumption: Level 0 left-to-right, level 1 right-to-left, level 2 left-to-right, alternating)
+
+2. **Level definition**: How are levels numbered? (Assumption: Level 0 is root, level 1 is root's children, etc.)
+
+3. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level in zigzag order)
+
+4. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
+
+5. **Starting direction**: Which direction should level 0 use? (Assumption: Left-to-right - even levels go left-to-right, odd levels go right-to-left)
+
 ## Solution Approach
 
 This problem is a variation of **level-order traversal** (BFS) where we alternate the direction of traversal at each level. The key insight is to:

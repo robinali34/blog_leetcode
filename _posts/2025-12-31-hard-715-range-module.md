@@ -43,6 +43,20 @@ rangeModule.queryRange(16, 17); // Returns true (the number 16 in [16, 17) is st
 - `1 <= left < right <= 10^9`
 - At most `10^4` calls will be made to `addRange`, `queryRange`, and `removeRange`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range format**: Are ranges inclusive or exclusive? (Assumption: Half-open interval [left, right) - left is inclusive, right is exclusive)
+
+2. **Overlapping ranges**: How should we handle overlapping ranges when adding? (Assumption: Merge overlapping ranges - union of all tracked ranges)
+
+3. **Partial removal**: What happens when removing a range that partially overlaps tracked ranges? (Assumption: Remove only the overlapping portion - split ranges if needed)
+
+4. **Query definition**: What does queryRange check? (Assumption: Returns true if every number in [left, right) is being tracked)
+
+5. **Range boundaries**: What's the valid range for left and right? (Assumption: 1 <= left < right <= 10^9 per constraints)
+
 ## Solution Approach
 
 This problem requires efficiently managing intervals (ranges) with support for adding, querying, and removing. We can use a **sorted map** (like `std::map` in C++) to store non-overlapping intervals, where keys are start points and values are end points.

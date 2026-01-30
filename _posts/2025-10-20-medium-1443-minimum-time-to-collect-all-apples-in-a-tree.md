@@ -48,6 +48,20 @@ Output: 0
 - `fromi < toi`
 - `hasApple.length == n`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tree structure**: What is the tree structure? (Assumption: Undirected tree with n nodes, edges connect nodes - standard tree)
+
+2. **Apple collection**: How do we collect apples? (Assumption: Must visit nodes with apples - hasApple[i] = true means node i has apple)
+
+3. **Time calculation**: How is time calculated? (Assumption: 2 seconds per edge traversed - need to count unique edges)
+
+4. **Starting position**: Where do we start? (Assumption: Start at node 0 - root of the tree)
+
+5. **Return value**: What should we return? (Assumption: Minimum time in seconds to collect all apples and return to start)
+
 ## Approach
 
 This problem can be solved using either **DFS** or **BFS** approaches. The key insight is that we only need to visit subtrees that contain apples or lead to apples.

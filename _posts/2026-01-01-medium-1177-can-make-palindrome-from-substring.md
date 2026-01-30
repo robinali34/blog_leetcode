@@ -46,6 +46,20 @@ Output: [false,true]
 - `0 <= k <= s.length`
 - `s` consists of lowercase English letters.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Palindrome construction**: What does "can make palindrome" mean? (Assumption: Can rearrange characters and replace at most k characters to form a palindrome)
+
+2. **Substring queries**: What are we querying? (Assumption: For each query [left, right, k], check if substring s[left:right+1] can become palindrome with at most k replacements)
+
+3. **Return format**: What should we return? (Assumption: Array of booleans - true if substring can become palindrome, false otherwise)
+
+4. **Character replacement**: What can we replace characters with? (Assumption: Any lowercase English letter - can change any character)
+
+5. **Rearrangement**: Can we rearrange characters? (Assumption: Yes - can rearrange characters freely before replacing)
+
 ## Solution Approach
 
 This problem requires checking if a substring can be rearranged and have at most `k` characters replaced to form a palindrome. The key insight is that a palindrome can have **at most one character with odd frequency** (the center character).

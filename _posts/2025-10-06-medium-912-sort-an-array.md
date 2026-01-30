@@ -30,6 +30,20 @@ Output: [0,0,1,1,2,5]
 - `1 <= nums.length <= 5 * 10^4`
 - `-5 * 10^4 <= nums[i] <= 5 * 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Sorting algorithm**: Can we use built-in sort? (Assumption: Problem asks to implement sorting algorithm - need to implement manually)
+
+2. **Sort order**: What order should we sort in? (Assumption: Ascending order - smallest to largest)
+
+3. **Stability**: Does sort need to be stable? (Assumption: Not specified, but stable sort is preferred - maintain relative order of equal elements)
+
+4. **In-place sorting**: Should we sort in-place? (Assumption: Can modify input array - typically O(n) space for merge sort)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n log n) - optimal comparison-based sorting)
+
 ## Solution 1: Merge Sort
 
 **Time Complexity:** O(n log n)  

@@ -37,6 +37,20 @@ Output: [1]
 - The number of nodes in the list is in the range [0, 100]
 - 0 <= Node.val <= 100
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Swap definition**: What does "swap nodes in pairs" mean? (Assumption: Swap every two adjacent nodes - swap 1st and 2nd, 3rd and 4th, etc.)
+
+2. **Odd length**: What if list has odd number of nodes? (Assumption: Last node remains unchanged - only swap pairs)
+
+3. **In-place modification**: Should we modify the list in-place? (Assumption: Yes - modify existing list, return head of modified list)
+
+4. **Node values vs nodes**: Do we swap values or nodes themselves? (Assumption: Swap nodes themselves - change pointers, not just values)
+
+5. **Return value**: What should we return? (Assumption: Head of the modified linked list)
+
 ## Template in C++
 
 ### ListNode definition

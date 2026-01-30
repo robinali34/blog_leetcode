@@ -45,6 +45,20 @@ Thus, the total importance value of employee 5 is -3.
 - One employee has at most one direct leader and may have several subordinates.
 - The IDs in `employees[i].subordinates` are valid IDs.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Employee structure**: How are employees represented? (Assumption: [id, importance, subordinates] - id, importance value, list of subordinate IDs)
+
+2. **Total importance**: How is total importance calculated? (Assumption: Employee's importance + sum of all direct and indirect subordinates' importance)
+
+3. **Return value**: What should we return? (Assumption: Integer - total importance of employee and all subordinates)
+
+4. **Employee existence**: Is the given employee ID guaranteed to exist? (Assumption: Yes - per problem statement)
+
+5. **Subordinate hierarchy**: Can subordinates have their own subordinates? (Assumption: Yes - need to recursively calculate all levels)
+
 ## Solution 1: DFS with Hash Map (Recommended)
 
 **Time Complexity:** O(n) - Visit each employee once  

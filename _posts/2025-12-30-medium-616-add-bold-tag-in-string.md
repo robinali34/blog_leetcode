@@ -37,6 +37,20 @@ Explanation: The substrings "aaa" and "aab" overlap, so they are wrapped togethe
 - `s` and `words[i]` consist of English letters and digits.
 - All the values of `words` are **unique**.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Bold tag format**: What is the bold tag format? (Assumption: `<b>text</b>` - wrap matching substrings with bold tags)
+
+2. **Matching rules**: What substrings should be bolded? (Assumption: All substrings in s that match any word in words array)
+
+3. **Overlapping substrings**: How should overlapping substrings be handled? (Assumption: Merge overlapping/consecutive bold regions into single bold tag)
+
+4. **Return format**: What should we return? (Assumption: String with bold tags added around matching substrings)
+
+5. **Case sensitivity**: Is matching case-sensitive? (Assumption: Per constraints, English letters - typically case-sensitive unless specified)
+
 ## Solution Approach
 
 This problem requires identifying all substrings in `s` that match any word in `words`, and wrapping them with bold tags. The key challenge is handling **overlapping** and **consecutive** substrings by merging them into a single bold tag.

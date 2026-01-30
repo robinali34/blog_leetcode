@@ -47,6 +47,20 @@ myCalendarThree.book(25, 55); // return 3
 - `0 <= startTime < endTime <= 10^9`
 - At most `400` calls will be made to `book`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **K-booking definition**: What does "k-booking" mean? (Assumption: At most k events can overlap at any time point - k is the maximum concurrent bookings)
+
+2. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Half-open interval [start, end) - start is inclusive, end is exclusive)
+
+3. **Return value**: What should book() return? (Assumption: Return the maximum k (maximum number of overlapping events) after this booking)
+
+4. **Overlap counting**: How do we count overlapping events? (Assumption: Count how many events are active at any point in time - use sweep line or difference array)
+
+5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= startTime < endTime <= 10^9 per constraints)
+
 ## Solution Approach
 
 This problem requires finding the **maximum number of overlapping intervals** after each booking. Unlike [LC 729: My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) which only checks for any overlap, we need to count and track the maximum overlap.

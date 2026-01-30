@@ -55,6 +55,20 @@ Target = 20 not found in matrix
 - All the integers in each column are sorted in ascending order.
 - `-10^9 <= target <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Matrix properties**: What are the matrix properties? (Assumption: Each row sorted left-to-right, each column sorted top-to-bottom - not fully sorted)
+
+2. **Search target**: What are we searching for? (Assumption: Find if target value exists in the matrix)
+
+3. **Return value**: What should we return? (Assumption: Boolean - true if target found, false otherwise)
+
+4. **Time complexity**: What time complexity is expected? (Assumption: O(m + n) - linear time using matrix properties)
+
+5. **Duplicate values**: Can matrix contain duplicates? (Assumption: Yes - per constraints, no restriction on duplicates)
+
 ## Solution 1: Binary Search per Row
 
 **Time Complexity:** O(m log n)  

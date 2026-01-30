@@ -39,6 +39,20 @@ Explanation: The longest increasing subsequence is [7], therefore the length is 
 - `1 <= nums.length <= 2500`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Subsequence definition**: What is a subsequence? (Assumption: Sequence that maintains relative order but doesn't need to be contiguous - can skip elements)
+
+2. **Increasing definition**: What makes a subsequence increasing? (Assumption: Strictly increasing - each element must be greater than the previous one)
+
+3. **Return value**: Should we return the subsequence or just length? (Assumption: Return length - integer representing longest increasing subsequence length)
+
+4. **Duplicate values**: How should we handle duplicate values? (Assumption: Based on "increasing", duplicates don't count - need strictly greater values)
+
+5. **Empty array**: What if array is empty? (Assumption: Return 0 - no subsequence exists)
+
 ## Solution 1: Dynamic Programming
 
 **Time Complexity:** O(n²)  

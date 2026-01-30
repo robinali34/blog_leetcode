@@ -51,6 +51,20 @@ numMatrix.sumRegion(2, 1, 4, 3); // return 10 (i.e sum of the right red rectangl
 - `0 <= col1 <= col2 < n`
 - At most `10^4` calls will be made to `update` and `sumRegion`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range format**: How are ranges represented? (Assumption: [row1, col1, row2, col2] - rectangle from (row1, col1) to (row2, col2) inclusive)
+
+2. **Update operation**: What does update do? (Assumption: Updates matrix[row][col] to new value val)
+
+3. **Sum calculation**: How is sum calculated? (Assumption: Sum of all elements in the rectangle range)
+
+4. **Return value**: What should sumRegion return? (Assumption: Integer - sum of elements in specified rectangle)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(log m * log n) for both operations using 2D Fenwick Tree or Segment Tree)
+
 ## Solution Approach
 
 This problem requires efficiently handling both **updates** and **range sum queries** on a 2D matrix. We can use **row prefix sums** to optimize range queries while allowing efficient updates.

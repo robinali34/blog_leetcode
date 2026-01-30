@@ -38,6 +38,20 @@ Explanation: The optimal pairing is (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5
 - `nums.length == 2 * n`
 - `-10^4 <= nums[i] <= 10^4`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Pairing requirement**: Must we pair all elements? (Assumption: Yes - array length is 2n, so we form exactly n pairs)
+
+2. **Pair sum calculation**: How is the sum calculated? (Assumption: Sum of minimum values from each pair - min(pair1) + min(pair2) + ... + min(pairN))
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximize the sum of minimums from pairs)
+
+4. **Pairing strategy**: Can we choose which elements to pair? (Assumption: Yes - we can arrange pairs optimally to maximize the sum)
+
+5. **Element reuse**: Can an element be used in multiple pairs? (Assumption: No - each element appears exactly once)
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is that to maximize the sum of minimums, we should pair the smallest numbers together, so that larger numbers are "saved" for other pairs.

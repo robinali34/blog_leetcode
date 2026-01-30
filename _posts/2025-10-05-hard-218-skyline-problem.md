@@ -45,6 +45,20 @@ Output: [[0,3],[5,0]]
 - `1 <= heighti <= 2^31 - 1`
 - `buildings` is sorted by `lefti` in non-decreasing order.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Skyline definition**: What is a skyline? (Assumption: Outline formed by buildings - highest point at each x-coordinate)
+
+2. **Building representation**: How are buildings represented? (Assumption: [left, right, height] - building spans from left to right with given height)
+
+3. **Key points**: What are key points? (Assumption: Points where skyline height changes - [x, height] coordinates)
+
+4. **Overlapping buildings**: How should we handle overlapping buildings? (Assumption: Take maximum height at each x-coordinate - skyline is union of building heights)
+
+5. **Return format**: What should we return? (Assumption: List of key points [x, height] where skyline changes, sorted by x)
+
 ## Approach
 
 This is a classic sweep line algorithm problem. The key insight is to process all building edges (start and end points) in sorted order and maintain the current maximum height at each position.

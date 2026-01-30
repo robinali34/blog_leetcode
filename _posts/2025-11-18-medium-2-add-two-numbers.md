@@ -41,6 +41,20 @@ Explanation: 9999999 + 9999 = 10009998
 - `0 <= Node.val <= 9`
 - It is guaranteed that the list represents a number that does not have leading zeros.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Number representation**: How are numbers represented? (Assumption: Each node contains a single digit, most significant digit is head, least significant is tail - reverse order)
+
+2. **Carry handling**: How should we handle carry? (Assumption: If sum of two digits >= 10, carry 1 to next position)
+
+3. **Different lengths**: What if lists have different lengths? (Assumption: Treat missing digits as 0 - pad shorter list with zeros)
+
+4. **Leading zeros**: Can result have leading zeros? (Assumption: No - per constraints, no leading zeros in input, result shouldn't have them either)
+
+5. **Return format**: Should we return a new list or modify existing? (Assumption: Return new linked list - don't modify input lists)
+
 ## Solution: Recursive Approach
 
 **Time Complexity:** O(max(m, n)) where m and n are the lengths of l1 and l2  

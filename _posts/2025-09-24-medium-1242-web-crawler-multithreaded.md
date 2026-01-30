@@ -55,6 +55,20 @@ Output: ["http://news.google.com"]
 - startUrl is one of the urls
 - All URLs have the same hostname
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Crawling scope**: What URLs should we crawl? (Assumption: Only URLs with the same hostname as startUrl - per constraints, all URLs have same hostname)
+
+2. **Thread safety**: Do we need thread-safe operations? (Assumption: Yes - multithreaded environment, need synchronization for shared state)
+
+3. **URL format**: What constitutes a valid URL? (Assumption: Standard URL format, startUrl is guaranteed to be in urls list)
+
+4. **Duplicate handling**: How should we handle duplicate URLs? (Assumption: Each URL should be crawled only once - need to track visited URLs)
+
+5. **Return format**: What should we return? (Assumption: List of all URLs that can be reached from startUrl with same hostname)
+
 ## Approach
 
 The solution involves:

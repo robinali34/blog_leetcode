@@ -45,6 +45,20 @@ Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
 
 - `0 <= n <= 30`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Fibonacci definition**: What is the Fibonacci sequence? (Assumption: F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2) for n > 1)
+
+2. **Base cases**: What are the base cases? (Assumption: F(0) = 0, F(1) = 1 - standard Fibonacci)
+
+3. **Return value**: What should we return? (Assumption: Integer - F(n) - nth Fibonacci number)
+
+4. **Input range**: What is the range of n? (Assumption: Per constraints, 0 <= n <= 30 - small range)
+
+5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - linear time with DP, O(2^n) naive recursion)
+
 ## Solution: Dynamic Programming (Bottom-Up)
 
 **Time Complexity:** O(n) - Single pass through the array  

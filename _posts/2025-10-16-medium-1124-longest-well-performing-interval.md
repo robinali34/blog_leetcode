@@ -36,6 +36,20 @@ Explanation: All intervals have more non-tiring days than tiring days.
 - `1 <= hours.length <= 10^4`
 - `0 <= hours[i] <= 16`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Well-performing definition**: What makes an interval "well-performing"? (Assumption: Number of tiring days (hours[i] > 8) is strictly greater than number of non-tiring days)
+
+2. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Inclusive on both ends - [i, j] includes both endpoints)
+
+3. **Return value**: What should we return? (Assumption: Length of longest well-performing interval - integer)
+
+4. **Empty array**: What if no well-performing interval exists? (Assumption: Return 0 - no valid interval)
+
+5. **Single element**: Can a single day be well-performing? (Assumption: No - need comparison, so minimum length is 2 if possible)
+
 ## Solution: Hash Map with Prefix Sum
 
 **Time Complexity:** O(n)  

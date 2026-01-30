@@ -42,6 +42,20 @@ Output: [1,2,3,4,5]
 - 1 <= k <= n <= 5000
 - 0 <= Node.val <= 1000
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **K-group definition**: What does "reverse nodes in k-group" mean? (Assumption: Reverse every k consecutive nodes - if k=3, reverse first 3, then next 3, etc.)
+
+2. **Remaining nodes**: What if remaining nodes are less than k? (Assumption: Leave them as is - don't reverse if fewer than k nodes remain)
+
+3. **In-place modification**: Should we modify the list in-place? (Assumption: Yes - modify the existing list, return head of modified list)
+
+4. **K value**: What is the range of k? (Assumption: 1 <= k <= n, where n is number of nodes)
+
+5. **Return value**: What should we return? (Assumption: Head of the modified linked list)
+
 ## Approach
 
 The solution uses a recursive approach:

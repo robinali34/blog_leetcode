@@ -49,6 +49,20 @@ Output: -12
 - `s` consists of digits, `'+'`, `'-'`, `'*'`, `'/'`, `'('`, `')'`, and `' '`.
 - `s` is a valid expression.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', multiplication '*', division '/', parentheses '()')
+
+2. **Operator precedence**: What is the precedence? (Assumption: Standard - parentheses first, then multiplication/division, then addition/subtraction)
+
+3. **Division handling**: How should division be handled? (Assumption: Integer division - truncate toward zero)
+
+4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+
+5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+
 ## Solution 1: Recursive Approach
 
 **Time Complexity:** O(n)  

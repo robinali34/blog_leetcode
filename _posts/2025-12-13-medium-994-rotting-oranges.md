@@ -47,6 +47,20 @@ Explanation: Since there are no fresh oranges at minute 0, the answer is just 0.
 - `1 <= m, n <= 10`
 - `grid[i][j]` is `0`, `1`, or `2`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Cell types**: What do the values represent? (Assumption: 0 = empty cell, 1 = fresh orange, 2 = rotten orange)
+
+2. **Rotting process**: How do oranges rot? (Assumption: Rotten oranges rot adjacent fresh oranges (up, down, left, right) each minute)
+
+3. **Return value**: What should we return? (Assumption: Integer - minimum minutes until no fresh oranges remain, or -1 if impossible)
+
+4. **All rotten**: What if all oranges are already rotten? (Assumption: Return 0 - no time needed)
+
+5. **No fresh oranges**: What if there are no fresh oranges? (Assumption: Return 0 - nothing to rot)
+
 ## Solution 1: Multi-Source BFS with Level Marker (Recommended)
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

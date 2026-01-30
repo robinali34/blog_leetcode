@@ -38,6 +38,20 @@ Output: [1]
 - `k` is in the range `[1, the number of unique elements in the array]`
 - It is **guaranteed** that the answer is **unique**
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Frequency calculation**: How is frequency calculated? (Assumption: Count occurrences of each element in the array)
+
+2. **Tie-breaking**: When elements have the same frequency, how should we break ties? (Assumption: Return any k elements - order doesn't matter, per problem statement answer is unique)
+
+3. **K validity**: Is k guaranteed to be valid? (Assumption: Yes - per constraints, k is in range [1, number of unique elements])
+
+4. **Return format**: Should we return k elements or all elements with same frequency? (Assumption: Return exactly k elements - top k most frequent)
+
+5. **Element uniqueness**: Can the same element appear multiple times in result? (Assumption: No - each element appears once in the result)
+
 ## Solution Approaches
 
 ### Approach 1: Bucket Sort (Optimal)

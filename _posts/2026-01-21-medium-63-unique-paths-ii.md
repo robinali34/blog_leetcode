@@ -49,6 +49,20 @@ Explanation: The starting cell is blocked, so no path exists.
 - `1 <= m, n <= 100`
 - `obstacleGrid[i][j]` is `0` or `1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Obstacle representation**: How are obstacles represented in the grid? (Assumption: `1` represents an obstacle, `0` represents an empty cell)
+
+2. **Starting/ending cells**: Can the start or end cell be an obstacle? (Assumption: If start or end is obstacle, return 0 - no path exists)
+
+3. **Movement direction**: In which directions can we move? (Assumption: Only right and down - typical grid path problem constraint)
+
+4. **Path uniqueness**: Do we need to find all unique paths or just count them? (Assumption: Just count the number of unique paths, not enumerate them)
+
+5. **Grid boundaries**: Can we move outside the grid boundaries? (Assumption: No - must stay within grid bounds [0, m-1] x [0, n-1])
+
 ## Solution Approach
 
 This is a **2D dynamic programming** problem similar to Unique Paths (LC 62), but with obstacles blocking certain cells. The key insight is that if a cell contains an obstacle, there are 0 ways to reach it.

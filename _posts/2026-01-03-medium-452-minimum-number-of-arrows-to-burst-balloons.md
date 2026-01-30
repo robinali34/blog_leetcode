@@ -49,6 +49,20 @@ Explanation: The balloons can be burst by 2 arrows:
 - `points[i].length == 2`
 - `-2^31 <= xstart < xend <= 2^31 - 1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Balloon representation**: How are balloons represented? (Assumption: [xstart, xend] - horizontal span of balloon)
+
+2. **Arrow shooting**: How do arrows work? (Assumption: Arrow shot at x-coordinate bursts all balloons that span that x-coordinate)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of arrows needed to burst all balloons)
+
+4. **Return value**: What should we return? (Assumption: Integer - minimum number of arrows)
+
+5. **Overlapping balloons**: Can one arrow burst multiple balloons? (Assumption: Yes - if balloons overlap, one arrow can burst all overlapping balloons)
+
 ## Solution Approach
 
 This is a **greedy interval scheduling** problem similar to "Non-overlapping Intervals". The key insight is to **sort balloons by end coordinate** and shoot arrows at the end of each group of overlapping balloons.

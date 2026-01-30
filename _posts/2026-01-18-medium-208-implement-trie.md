@@ -46,6 +46,20 @@ trie.search("app");     // return True
 - `word` and `prefix` consist only of lowercase English letters.
 - At most `3 * 10^4` calls **in total** will be made to `insert`, `search`, and `startsWith`.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Character set**: What characters can appear in words? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
+
+2. **Empty string**: How should we handle empty strings for `search` and `startsWith`? (Assumption: Based on constraints, length is at least 1, but we should clarify if empty string is considered a valid word)
+
+3. **Duplicate insertion**: What happens if we insert the same word multiple times? (Assumption: The word should still be searchable - we can mark it as a word each time or just once)
+
+4. **Prefix vs exact match**: For `startsWith`, should it return true for the exact word itself? (Assumption: Yes - a word is considered to start with itself)
+
+5. **Memory constraints**: Are there any space complexity requirements? (Assumption: O(ALPHABET_SIZE * N * M) where N is number of words and M is average length)
+
 ## Solution Approach
 
 A **Trie (Prefix Tree)** is a tree-like data structure where each node represents a character. The path from root to any node represents a prefix, and nodes can be marked to indicate the end of a word.

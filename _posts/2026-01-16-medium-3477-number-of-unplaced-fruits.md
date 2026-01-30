@@ -54,6 +54,20 @@ Result: 0 unplaced fruits
 - `1 <= fruits[i] <= 10^9`
 - `1 <= baskets[j] <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Placement rule**: What is the rule for placing fruits in baskets? (Assumption: Place each fruit in the leftmost basket with capacity >= fruit size)
+
+2. **One fruit per basket**: Can a basket hold multiple fruits or just one? (Assumption: One fruit per basket - each basket can hold at most one fruit)
+
+3. **Basket capacity**: What does basket capacity represent? (Assumption: Maximum size of fruit that can be placed in that basket)
+
+4. **Fruit order**: Are fruits processed in the given order? (Assumption: Yes - process fruits sequentially in the given order)
+
+5. **Return value**: What should we return - count of unplaced fruits or list of unplaced fruits? (Assumption: Return count of unplaced fruits - integer)
+
 ## Solution Approach
 
 This is a **greedy matching** problem where we need to find the leftmost available basket for each fruit. The challenge is to do this efficiently for large inputs.

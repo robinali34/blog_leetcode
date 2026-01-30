@@ -41,6 +41,20 @@ Output: 0
 - `1 <= m, n <= 50`
 - `grid[i][j]` is either `0` or `1`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Island definition**: What is an island? (Assumption: Group of connected 1s - horizontally or vertically adjacent, not diagonally)
+
+2. **Area calculation**: How is area calculated? (Assumption: Number of 1s in the island - count of connected land cells)
+
+3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum area among all islands)
+
+4. **Return value**: What should we return? (Assumption: Integer - maximum area of an island, 0 if no islands)
+
+5. **Empty grid**: What if grid is empty? (Assumption: Return 0 - no islands exist)
+
 ## Approach
 
 This is a classic **Connected Components** problem that can be solved using **Depth-First Search (DFS)**. The key insight is to:

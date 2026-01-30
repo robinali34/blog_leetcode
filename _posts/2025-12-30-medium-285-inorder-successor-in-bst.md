@@ -36,6 +36,20 @@ Explanation: There is no in-order successor of the node 6, so the answer is null
 - `-10^5 <= Node.val <= 10^5`
 - All Nodes will have unique values.
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **In-order successor definition**: What is an in-order successor? (Assumption: Node with smallest value greater than given node's value - next node in in-order traversal)
+
+2. **BST properties**: What are BST properties? (Assumption: Left subtree < root < right subtree - can use this to navigate)
+
+3. **Return value**: What should we return? (Assumption: Pointer to successor node, or nullptr if no successor exists)
+
+4. **Node reference**: How is target node given? (Assumption: Given node pointer p - need to find its successor)
+
+5. **Rightmost node**: What if node is rightmost? (Assumption: Return nullptr - no successor exists)
+
 ## Solution Approach
 
 This problem requires finding the in-order successor of a given node in a BST. The in-order successor is the node with the smallest value greater than the given node's value.

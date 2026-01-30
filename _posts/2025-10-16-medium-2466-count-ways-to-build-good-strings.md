@@ -42,6 +42,20 @@ Explanation: The good strings are "00", "11", "000", "110", and "011".
 - `1 <= low <= high <= 10^5`
 - `1 <= zero, one <= high`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Good string definition**: What is a "good string"? (Assumption: Binary string that can be built by appending "0" zero times and "1" one times - length must be between low and high)
+
+2. **String construction**: How are strings built? (Assumption: Start with empty string, append "0" zero times or "1" one times repeatedly)
+
+3. **Length requirement**: What length range should strings have? (Assumption: Length between low and high inclusive - [low, high])
+
+4. **Return value**: What should we return? (Assumption: Count of ways to build good strings - integer, modulo 10^9 + 7)
+
+5. **Empty string**: Is empty string considered? (Assumption: No - strings must have length >= low, so empty string not included)
+
 ## Solution 1: Bottom-Up Dynamic Programming
 
 **Time Complexity:** O(high)  

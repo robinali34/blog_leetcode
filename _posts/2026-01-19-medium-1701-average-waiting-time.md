@@ -51,6 +51,20 @@ So the average waiting time = (2 + 6 + 4 + 2) / 4 = 3.25000.
 - `1 <= arrival_i, time_i <= 10^4`
 - `arrival_i <= arrival_{i+1}` (arrival times are sorted in non-decreasing order)
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Single server**: Is there only one chef/server processing orders? (Assumption: Yes - single server queue system)
+
+2. **Order processing**: Are orders processed in arrival order or can they be reordered? (Assumption: Process in arrival order - FIFO queue)
+
+3. **Waiting time definition**: How is waiting time calculated? (Assumption: Waiting time = finish_time - arrival_time, includes both waiting and service time)
+
+4. **Chef availability**: What happens if the chef is idle when a customer arrives? (Assumption: Chef starts immediately - no waiting, but service time still counts)
+
+5. **Precision**: What precision is required for the average? (Assumption: Return as double with appropriate precision - typically 5 decimal places)
+
 ## Solution Approach
 
 This problem simulates a single-server queue system where customers arrive and wait for service. The key is to track when the chef becomes available and calculate waiting time for each customer.

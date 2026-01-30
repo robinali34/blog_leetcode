@@ -40,6 +40,20 @@ rotate 2 steps to the right: [3,99,-1,-100]
 - `-2^31 <= nums[i] <= 2^31 - 1`
 - `0 <= k <= 10^9`
 
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rotation direction**: Which direction should we rotate - left or right? (Assumption: Rotate right by k positions - elements move to the right)
+
+2. **In-place modification**: Should we modify the array in-place or return a new array? (Assumption: Modify in-place - O(1) extra space requirement)
+
+3. **K larger than array size**: What if k is larger than the array length? (Assumption: Use modulo - `k % nums.length` to handle this case)
+
+4. **Edge case - k = 0**: What should happen if k is 0? (Assumption: Array remains unchanged)
+
+5. **Negative k**: Can k be negative? (Assumption: Based on constraints, k >= 0, but should clarify if negative k means left rotation)
+
 ## Solution 1: Brute Force Rotation (Simulate k Steps)
 
 This solution rotates the array by 1 step, `k` times.
