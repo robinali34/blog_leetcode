@@ -20,16 +20,101 @@ A technical blog focused on algorithms, data structures, and software engineerin
 
 ### Local Development
 
-1. Clone this repository
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd blog_leetcode
+   ```
+
 2. Install dependencies:
    ```bash
    bundle install
    ```
-3. Serve the site locally:
+
+3. Build the site (optional, to check for errors):
    ```bash
-   bundle exec jekyll serve
+   bundle exec jekyll build
    ```
-4. Open your browser to `http://localhost:4000`
+
+4. Serve the site locally on port 4000:
+   ```bash
+   bundle exec jekyll serve --host 0.0.0.0 --port 4000
+   ```
+   
+   Or with live reload and incremental build (recommended for development):
+   ```bash
+   bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental
+   ```
+
+5. Open your browser to:
+   - Local access: `http://localhost:4000/blog_leetcode/`
+   - Network access: `http://0.0.0.0:4000/blog_leetcode/`
+
+### Local Testing Commands
+
+**Basic serve:**
+```bash
+bundle exec jekyll serve
+```
+
+**Serve on specific host and port:**
+```bash
+bundle exec jekyll serve --host 0.0.0.0 --port 4000
+```
+
+**Serve with live reload (auto-refresh on file changes):**
+```bash
+bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload
+```
+
+**Serve with incremental build (faster rebuilds):**
+```bash
+bundle exec jekyll serve --host 0.0.0.0 --port 4000 --incremental
+```
+
+**Serve with all features (recommended for development):**
+```bash
+bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental
+```
+
+**Build for production:**
+```bash
+JEKYLL_ENV=production bundle exec jekyll build
+```
+
+**Check for build errors:**
+```bash
+bundle exec jekyll build --trace
+```
+
+**Clean and rebuild:**
+```bash
+bundle exec jekyll clean && bundle exec jekyll build
+```
+
+**Stop the server:**
+Press `Ctrl+C` in the terminal where Jekyll is running
+
+### Quick Start Script
+
+For convenience, a bash script is provided to automate the local testing process:
+
+```bash
+./local-test.sh
+```
+
+This script will:
+- Check for required dependencies
+- Install/update bundle dependencies if needed
+- Clean previous builds
+- Build the site
+- Start the Jekyll server on port 4000 with live reload
+- Automatically open your browser to the local site
+
+**Note:** Make sure the script is executable:
+```bash
+chmod +x local-test.sh
+```
 
 ### Adding New Posts
 

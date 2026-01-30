@@ -221,10 +221,10 @@ struct Node {
 
 class Solution {
 /*
-前缀和 pre
+Prefix sum pre
 pre[j] - upper <= pre[i] <= pre[j] - lower
-树状数组
-线段树动态开点 减少开点 不用delete
+Fenwick Tree (Binary Indexed Tree)
+Segment Tree with dynamic allocation - reduce allocations, no delete needed
 */
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {

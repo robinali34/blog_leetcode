@@ -7,8 +7,7 @@ permalink: /about/
 ## About
 
 Welcome to my technical blog!
-I am a fan of Software design, enjoying the career advance my knowledge in it and keep challanging myself with something new from time to time.
-Here, you will find my path in algorithms, data structures, and software engineering Learning & practice; insights on coding challenges, technical concepts; and my journey in software development.
+I’m passionate about software design and continuously growing my career by expanding my knowledge and challenging myself with new ideas. Here, I share my journey through algorithms, data structures, and software engineering—along with insights from coding challenges, technical concepts, and hands-on learning.
 Have fun~
 
 ## What You'll Find Here

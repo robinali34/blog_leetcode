@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "LCR 113. Course Schedule II (课程表 II)"
+title: "LCR 113. Course Schedule II"
 date: 2026-01-14 00:00:00 -0700
 categories: [leetcode, medium, graph, topological-sort, dfs]
 permalink: /2026/01/14/medium-lcr113-course-schedule-ii/
 tags: [leetcode, medium, graph, topological-sort, dfs, cycle-detection]
 ---
 
-# LCR 113. Course Schedule II (课程表 II)
+# LCR 113. Course Schedule II
 
 ## Problem Statement
 
