@@ -1418,7 +1418,7 @@ a {
     margin: 0;
   }
   
-  // Post header (navigation at top)
+  // Post header (navigation at top) - Mobile-friendly redesign
   .post-header {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 252, 248, 0.98) 100%);
     border-bottom: 1px solid rgba(224, 230, 219, 0.6);
@@ -1439,23 +1439,25 @@ a {
     -webkit-backdrop-filter: blur(20px);
     
     @media (max-width: 768px) {
-      padding: 0.25rem 0;
+      padding: 0;
       position: static !important;
       top: auto;
       overflow: visible;
       min-height: auto;
       box-shadow: 0 2px 10px rgba(122, 144, 120, 0.06);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: none;
     }
     
     @media (max-width: 480px) {
-      padding: 0.25rem 0;
+      padding: 0;
       position: static !important;
       top: auto;
       overflow: visible;
       min-height: auto;
-      box-shadow: 0 1px 8px rgba(122, 144, 120, 0.05);
-      margin-bottom: 0.5rem;
+      box-shadow: none;
+      margin-bottom: 1rem;
+      border-bottom: none;
       z-index: auto;
     }
     
@@ -1478,11 +1480,12 @@ a {
         padding: 0 1.5rem;
       }
       
+      // Mobile: Simple vertical stack layout
       @media (max-width: 768px) {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0 !important;
-        padding: 0.25rem 1rem !important;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.75rem 1rem !important;
         width: 100% !important;
         box-sizing: border-box;
         overflow: visible;
@@ -1491,8 +1494,8 @@ a {
       }
       
       @media (max-width: 480px) {
-        padding: 0.25rem 0.875rem !important;
-        gap: 0 !important;
+        padding: 0.75rem 0.875rem !important;
+        gap: 0;
         width: 100% !important;
         overflow: visible;
         max-width: 100%;
@@ -1500,8 +1503,8 @@ a {
       }
       
       @media (max-width: 360px) {
-        padding: 0.25rem 0.75rem !important;
-        gap: 0 !important;
+        padding: 0.75rem 0.75rem !important;
+        gap: 0;
         overflow: visible;
         max-width: 100%;
         margin-bottom: 0;
@@ -1516,7 +1519,7 @@ a {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        line-height: 1;
+        line-height: 1.2;
         word-wrap: break-word;
         overflow-wrap: break-word;
         max-width: 100%;
@@ -1525,33 +1528,30 @@ a {
         
         @media (max-width: 768px) {
           font-size: 1.5rem;
-          line-height: 1;
-          margin-bottom: 0 !important;
-          margin-top: 0 !important;
-          padding-bottom: 0 !important;
-          padding-top: 0 !important;
+          line-height: 1.2;
+          margin: 0;
+          padding: 0;
           width: 100%;
           display: block;
+          margin-bottom: 0.75rem;
         }
         
         @media (max-width: 480px) {
           font-size: 1.25rem;
-          line-height: 1;
-          margin-bottom: 0 !important;
-          margin-top: 0 !important;
-          padding-bottom: 0 !important;
-          padding-top: 0 !important;
+          line-height: 1.2;
+          margin: 0;
+          padding: 0;
           width: 100%;
           display: block;
+          margin-bottom: 0.75rem;
         }
         
         @media (max-width: 360px) {
           font-size: 1.125rem;
-          line-height: 1;
-          margin-bottom: 0 !important;
-          margin-top: 0 !important;
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
+          line-height: 1.2;
+          margin: 0;
+          padding: 0;
+          margin-bottom: 0.75rem;
         }
         
         a {
@@ -1561,11 +1561,11 @@ a {
           background-clip: text;
           text-decoration: none;
           transition: all 0.3s ease;
-          display: block;
+          display: inline-block;
           word-wrap: break-word;
           overflow-wrap: break-word;
           max-width: 100%;
-          line-height: 1;
+          line-height: inherit;
           margin: 0;
           padding: 0;
           
@@ -1586,44 +1586,45 @@ a {
         align-items: center;
         width: auto;
         
+        // Mobile: Horizontal scrollable navigation
         @media (max-width: 768px) {
           width: 100% !important;
-          gap: 0.5rem;
-          margin-top: 0.25rem !important;
-          margin-bottom: 0 !important;
-          flex-wrap: wrap;
-          align-items: flex-start;
           display: flex !important;
-          overflow-x: hidden;
-          clear: both;
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          gap: 0.75rem;
+          margin: 0;
+          padding: 0.5rem 0;
+          padding-bottom: 0.25rem;
+          scrollbar-width: thin;
+          scrollbar-color: var(--morandi-gray-medium) transparent;
+          
+          &::-webkit-scrollbar {
+            height: 4px;
+          }
+          
+          &::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          
+          &::-webkit-scrollbar-thumb {
+            background-color: var(--morandi-gray-medium);
+            border-radius: 2px;
+          }
         }
         
         @media (max-width: 480px) {
-          gap: 0.4rem;
-          font-size: 0.9rem;
-          width: 100% !important;
-          margin-top: 0.25rem !important;
-          margin-bottom: 0 !important;
-          flex-wrap: wrap;
-          display: flex !important;
-          overflow-x: hidden;
-          clear: both;
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
+          gap: 0.6rem;
+          padding: 0.5rem 0;
+          padding-bottom: 0.25rem;
         }
         
         @media (max-width: 360px) {
-          gap: 0.35rem;
-          font-size: 0.85rem;
-          width: 100% !important;
-          overflow-x: hidden;
-          clear: both;
-          margin-bottom: 0 !important;
-          margin-top: 0.25rem !important;
-          padding-top: 0 !important;
-          display: flex !important;
+          gap: 0.5rem;
+          padding: 0.5rem 0;
+          padding-bottom: 0.25rem;
         }
         
         a {
@@ -1642,43 +1643,31 @@ a {
           flex-shrink: 0;
           min-width: fit-content;
           
+          // Mobile: Horizontal scrollable pill buttons
           @media (max-width: 768px) {
             font-size: 0.875rem;
-            padding: 0.4rem 0.75rem;
-            white-space: normal;
-            word-break: break-word;
-            flex: 0 1 auto;
-            max-width: 100%;
+            padding: 0.5rem 1rem;
+            white-space: nowrap;
+            word-break: keep-all;
+            flex: 0 0 auto;
             line-height: 1.4;
-            margin-bottom: 0.25rem;
+            margin: 0;
+            background: rgba(224, 230, 219, 0.2);
+            border: 1px solid rgba(224, 230, 219, 0.4);
+            border-radius: 20px;
+            min-width: auto;
           }
           
           @media (max-width: 480px) {
             font-size: 0.8rem;
-            padding: 0.45rem 0.5rem;
-            white-space: normal;
-            word-break: break-word;
-            line-height: 1.4;
-            flex: 0 1 calc(50% - 0.2rem);
-            max-width: calc(50% - 0.2rem);
-            text-align: center;
-            margin-bottom: 0.5rem;
-            min-height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0.45rem 0.875rem;
+            border-radius: 18px;
           }
           
           @media (max-width: 360px) {
             font-size: 0.75rem;
-            padding: 0.4rem 0.45rem;
-            flex: 0 1 calc(50% - 0.175rem);
-            max-width: calc(50% - 0.175rem);
-            margin-bottom: 0.5rem;
-            min-height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0.4rem 0.75rem;
+            border-radius: 16px;
           }
           
           &::before {
@@ -1704,6 +1693,12 @@ a {
             
             &::before {
               width: 80%;
+            }
+            
+            @media (max-width: 768px) {
+              background: rgba(224, 230, 219, 0.3);
+              border-color: var(--morandi-link);
+              transform: none;
             }
           }
         }
