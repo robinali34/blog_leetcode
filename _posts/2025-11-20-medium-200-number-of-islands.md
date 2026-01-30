@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty grid**: What if grid is empty? (Assumption: Return 0 - no islands exist)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each cell, if it's land ('1'), increment island count and mark all connected land cells as visited using DFS or BFS. Use a separate visited array to track which cells have been processed. This approach works but requires O(m × n) extra space for the visited array.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use DFS with in-place marking: instead of a separate visited array, mark visited cells by changing '1' to '0' or another marker. This eliminates the need for extra space. However, we need to be careful not to modify the grid if that's not allowed (but the problem allows modification).
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use DFS with in-place marking: iterate through the grid. When we find a '1', increment island count and perform DFS to mark all connected '1's as visited (change to '0' or '2'). This achieves O(m × n) time (each cell visited once) with O(1) extra space (if we modify the grid) or O(m × n) space for recursion stack. The key insight is that we can use the grid itself to mark visited cells, eliminating the need for a separate visited array and achieving optimal space complexity.
+
 ## Solution: DFS with In-Place Marking
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

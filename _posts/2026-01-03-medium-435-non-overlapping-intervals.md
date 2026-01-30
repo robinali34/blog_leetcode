@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tie-breaking**: If multiple intervals overlap, which should we remove? (Assumption: Greedy approach - remove interval with later end time to maximize remaining space)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible combinations of intervals to keep. For each subset of intervals, check if they are non-overlapping, and find the subset with maximum size. The number of removals is n - max_size. This approach has exponential time complexity O(2^n), which is infeasible for n up to 10^5. The challenge is exploring all possible combinations efficiently.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming: sort intervals by start time, then dp[i] = maximum number of non-overlapping intervals we can keep ending at or before interval i. For each interval, find the last interval that doesn't overlap with it using binary search, and update dp[i] = max(dp[i-1], dp[last_non_overlapping] + 1). This gives O(n log n) time complexity, which works but can be simplified further with a greedy approach.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a greedy approach: sort intervals by end time. Greedily keep intervals that don't overlap with the last kept interval. The key insight is that if we want to maximize the number of intervals we keep, we should always choose the interval with the earliest end time among overlapping intervals, as it leaves the most room for future intervals. This reduces the problem to a simple greedy selection: sort by end time O(n log n), then one pass O(n) to count how many we can keep. The number of removals is n - count_kept. This achieves O(n log n) time, which is optimal for the sorting step.
+
 ## Solution Approach
 
 This is a classic **greedy interval scheduling** problem. The key insight is to **sort intervals by end time** and greedily keep intervals that don't overlap with the last kept interval.

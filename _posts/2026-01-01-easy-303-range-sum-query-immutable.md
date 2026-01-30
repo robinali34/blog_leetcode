@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(1) per query using prefix sums, O(n) preprocessing)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+For each query, iterate through the range [left, right] and sum all elements. This approach has O(n) time per query where n is the range size, which is too slow for many queries. With up to 10^4 queries, this becomes O(10^4 × n), which is inefficient.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Precompute all possible range sums and store them in a 2D table. For each pair (i, j), store the sum of elements from i to j. This allows O(1) queries but requires O(n²) space and O(n²) preprocessing time, which is too expensive for large arrays.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use prefix sums: precompute prefix[i] = sum of elements from 0 to i-1. Then range sum from left to right is prefix[right+1] - prefix[left]. This achieves O(1) query time with O(n) preprocessing time and O(n) space, which is optimal. The key insight is that range sums can be computed from prefix sums using simple subtraction, eliminating the need to iterate through ranges for each query.
+
 ## Solution Approach
 
 This problem requires efficiently answering multiple range sum queries on an immutable array. The key insight is to use **prefix sums** to answer each query in O(1) time.

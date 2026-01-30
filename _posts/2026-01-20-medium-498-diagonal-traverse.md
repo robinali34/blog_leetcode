@@ -49,6 +49,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty matrix**: How should we handle an empty matrix? (Assumption: Return empty array)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Identify all diagonals (elements with same (row + col) sum). For each diagonal, collect elements and append to result, reversing order for even-indexed diagonals. This requires identifying diagonal groups, which can be done by grouping elements by (row + col) sum. However, the traversal order and direction changes need careful handling.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use BFS starting from (0,0). Process diagonals level by level, where each level represents elements with the same (row + col) sum. For each level, collect elements and reverse if needed based on diagonal index. This works but requires careful level tracking and direction management.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a hash map to group elements by diagonal index (row + col). Iterate through the matrix, adding each element to its diagonal bucket. Then iterate through diagonals in order (0, 1, 2, ...), and for each diagonal, reverse the order if diagonal index is even (for upward direction). This achieves O(m × n) time where m and n are matrix dimensions, and O(m × n) space for the hash map, which is optimal since we must visit all elements. Alternatively, simulate the traversal directly by tracking current position and direction, but the hash map approach is simpler and more intuitive.
+
 ## Solution Approach (Direction Simulation)
 
 We simulate moving along diagonals with two directions:

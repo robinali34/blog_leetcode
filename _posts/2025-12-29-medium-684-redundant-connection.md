@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Edge representation**: How are edges represented? (Assumption: [ai, bi] where ai and bi are node labels, 1-indexed per constraints)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find redundant edge. Let me check each edge to see if removing it breaks connectivity."
+
+**Naive Solution**: For each edge, remove it and check if graph remains connected. If removing edge breaks connectivity, it's not redundant.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats connectivity checks
+- Doesn't leverage Union-Find
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use Union-Find. The first edge that connects already-connected components is redundant."
+
+**Improved Solution**: Use Union-Find. Process edges in order. If edge connects already-connected components, it's redundant. Return first such edge.
+
+**Complexity**: O(n × α(n)) time, O(n) space
+
+**Improvements**:
+- Union-Find efficiently checks connectivity
+- O(n × α(n)) is nearly linear
+- Handles all cases correctly
+- Much more efficient
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Union-Find approach is optimal. Can also use DFS for cycle detection."
+
+**Best Solution**: Union-Find is optimal. Process edges, when find(u) == find(v), edge is redundant. Alternative: DFS to find cycle, return last edge in cycle.
+
+**Complexity**: O(n × α(n)) time, O(n) space
+
+**Key Realizations**:
+1. Union-Find is perfect for connectivity problems
+2. O(n × α(n)) is nearly linear - very efficient
+3. First edge connecting connected components is redundant
+4. DFS alternative exists but Union-Find is cleaner
+
 ## Solution Approach
 
 This problem requires finding the edge that creates a cycle in an undirected graph. Since the graph started as a tree (connected, no cycles) and one edge was added, there is exactly one cycle. We need to find and return the redundant edge.

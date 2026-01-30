@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to evaluate expression. Let me parse and compute manually."
+
+**Naive Solution**: Parse expression, convert to postfix notation, evaluate using stack.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Two-pass approach (infix to postfix, then evaluate)
+- More complex than needed
+- Doesn't leverage operator precedence directly
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use stack to handle operator precedence. Process * and / immediately, + and - later."
+
+**Improved Solution**: Use stack to store numbers. When encountering * or /, pop and compute immediately. When + or -, push number with sign. At end, sum all numbers in stack.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Handles operator precedence correctly
+- Single pass through expression
+- Stack enables correct evaluation order
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Can optimize to O(1) space by processing * and / immediately, tracking running sum."
+
+**Best Solution**: Process * and / immediately, maintain running sum for + and -. Use variables to track current number and last number. This achieves O(1) space.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Process high-precedence operators immediately
+2. O(n) time is optimal - single pass
+3. O(1) space is possible with careful tracking
+4. Stack alternative uses O(n) space but is clearer
+
 ## Solution 1: Stack-Based Approach
 
 **Time Complexity:** O(n)  

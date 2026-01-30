@@ -45,6 +45,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **String length**: What is the length of each valid string? (Assumption: 2n - exactly n opening and n closing parentheses)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to generate parentheses. Let me try all possible combinations."
+
+**Naive Solution**: Generate all possible strings of length 2n with n '(' and n ')', check if each is valid.
+
+**Complexity**: O(2^(2n) × n) time, O(2n) space
+
+**Issues**:
+- Exponential time complexity
+- Generates many invalid strings
+- Very inefficient
+- Doesn't leverage backtracking
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use backtracking to build valid strings incrementally, pruning invalid branches."
+
+**Improved Solution**: Use backtracking. At each step, add '(' if count < n, add ')' if closing count < opening count. Prune invalid branches early.
+
+**Complexity**: O(4^n / √n) time (Catalan number), O(n) space
+
+**Improvements**:
+- Backtracking prunes invalid branches
+- Much better than brute-force
+- Only generates valid strings
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Backtracking approach is optimal. Can optimize with iterative approach but backtracking is clearer."
+
+**Best Solution**: Backtracking approach is optimal. Track opening and closing counts. Add '(' when opening < n, add ')' when closing < opening. This ensures validity at each step.
+
+**Complexity**: O(4^n / √n) time, O(n) space
+
+**Key Realizations**:
+1. Backtracking is natural for generation problems
+2. Pruning invalid branches is key optimization
+3. O(4^n / √n) is optimal - Catalan number
+4. Constraint checking ensures validity
+
 ## Solution Approach
 
 This is a classic **backtracking** problem. The key insight is to build valid parentheses strings by making choices at each step: add `'('` or `')'`, while ensuring the string remains valid.

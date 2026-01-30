@@ -55,6 +55,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Valid encoding**: Is the encoding guaranteed valid? (Assumption: Yes - bits form valid sequence of 1-bit and 2-bit characters)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Parse the entire array from left to right, tracking which characters we've consumed. When we reach the end, check if the last consumed character was 1-bit or 2-bit. This requires maintaining state about parsing progress, which can be complex.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a pointer that moves through the array. If current bit is 1, consume 2 bits (2-bit character). If current bit is 0, consume 1 bit (1-bit character). Track the position and check if we end exactly at the last element (1-bit) or go past it (2-bit). This works but requires careful pointer management.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a simple observation: parse from left to right. If we encounter 1, it must be a 2-bit character, so skip 2 positions. If we encounter 0, it's a 1-bit character, so skip 1 position. If we end exactly at the last index (bits.length - 1), the last character is 1-bit. If we would go past the end, the last character is 2-bit. Alternatively, check if the second-to-last bit is 1: if bits[n-2] == 1, then bits[n-2] and bits[n-1] form a 2-bit character, so last is 2-bit. Otherwise, last is 1-bit. This achieves O(n) time with O(1) space, which is optimal.
+
 ## Complexity
 
 - Time: O(n) — single pass

@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single character**: Do single characters count as anagrams? (Assumption: Yes - "a" is anagram of "a")
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each string, compare it with all other strings to check if they are anagrams. To check if two strings are anagrams, sort both strings and compare, or count character frequencies. Group strings that are anagrams together. This approach has O(n² × m log m) complexity where n is the number of strings and m is the average length, which is too slow for large inputs.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Sort each string and use the sorted string as a key to group anagrams. Use a hash map where the key is the sorted string and the value is a list of original strings. This reduces comparison time but still requires sorting each string, giving O(n × m log m) time complexity. This works well but can be optimized further by avoiding sorting.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use character frequency as the key instead of sorting. For each string, count the frequency of each character and create a key (e.g., "a2b1c3" for "aabccc"). Use this key to group anagrams in a hash map. This avoids sorting and achieves O(n × m) time complexity where m is the average string length. Alternatively, use a tuple or array of 26 integers as the key. The key insight is that anagrams have the same character frequencies, so frequency counts serve as a perfect grouping key without the overhead of sorting.
+
 ## Solution: Character Count Key Approach
 
 **Time Complexity:** O(N * K) where N is the number of strings and K is the maximum length of a string  

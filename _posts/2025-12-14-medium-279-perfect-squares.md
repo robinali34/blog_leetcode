@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return - count or list of squares? (Assumption: Return the minimum count - integer representing least number of perfect squares)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum perfect squares. Let me try all possible combinations."
+
+**Naive Solution**: Recursively try all combinations of perfect squares that sum to n, return minimum count.
+
+**Complexity**: O(√n^n) worst case time, O(√n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many redundant combinations
+- Very inefficient for large n
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This is similar to coin change. I can use dynamic programming."
+
+**Improved Solution**: DP where dp[i] = minimum perfect squares needed for i. For each i, try all perfect squares ≤ i and take minimum.
+
+**Complexity**: O(n × √n) time, O(n) space
+
+**Improvements**:
+- Polynomial time instead of exponential
+- Correctly finds minimum
+- Much more efficient than brute-force
+- Can be optimized further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DP is good, but can also use BFS for shortest path or mathematical theorem for some cases."
+
+**Best Solution**: DP approach is optimal for general case. Can also use BFS treating as shortest path problem, or Legendre's theorem for mathematical optimization in some cases.
+
+**Complexity**: O(n × √n) time, O(n) space
+
+**Key Realizations**:
+1. DP is natural approach - similar to coin change
+2. O(n × √n) time is reasonable for n ≤ 10^4
+3. BFS alternative treats it as graph shortest path
+4. Mathematical theorems can optimize but DP is more general
+
 ## Solution 1: Mathematical Approach (Legendre's Theorem) - Recommended
 
 **Time Complexity:** O(√n)  

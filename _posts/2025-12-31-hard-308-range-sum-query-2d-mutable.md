@@ -65,6 +65,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(log m * log n) for both operations using 2D Fenwick Tree or Segment Tree)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Store the matrix as-is. For `update`, simply modify `matrix[row][col] = val` in O(1) time. For `sumRegion`, iterate through all cells in the rectangle and sum them up, which takes O(rows × cols) time. This approach is simple but inefficient for queries, especially with many query operations.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use 2D prefix sums: precompute a 2D prefix sum array where `prefix[i][j]` represents the sum of the rectangle from (0,0) to (i,j). This allows O(1) range queries using inclusion-exclusion. However, each update requires recomputing all prefix sums from the updated cell to the end, which takes O(rows × cols) time. This is better for query-heavy scenarios but still slow for updates.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use row prefix sums: maintain a prefix sum array for each row separately. For `update`, only recompute the prefix sums for the affected row from the updated column onwards, taking O(cols) time. For `sumRegion`, sum up the row ranges using prefix sum differences, taking O(rows) time. This balances update and query costs. Alternatively, use a 2D Fenwick Tree or Segment Tree for O(log m × log n) for both operations, but the row prefix sum approach is simpler to implement and provides good performance for typical use cases.
+
 ## Solution Approach
 
 This problem requires efficiently handling both **updates** and **range sum queries** on a 2D matrix. We can use **row prefix sums** to optimize range queries while allowing efficient updates.

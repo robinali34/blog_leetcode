@@ -50,6 +50,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Character uniqueness**: Can characters repeat? (Assumption: Yes - characters can appear multiple times, match first occurrence)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Try all possible ways to match characters of s in t. Use recursive approach: for each character in s, try to find it in t, and recursively check if remaining characters of s form a subsequence of remaining characters of t. This approach has exponential complexity as we explore all possible matching positions.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use two pointers: one for s and one for t. For each character in s, find its first occurrence in t starting from the current position. If found, advance both pointers; if not found, return false. This requires scanning t for each character in s, giving O(m × n) time where m and n are string lengths.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use greedy two-pointer approach: maintain pointer i for s and j for t. For each character s[i], find its first occurrence in t starting from j. If found, advance both pointers. If we finish s (i reaches end), return true. If we finish t before s, return false. This achieves O(n) time where n is length of t, which is optimal since we must scan t at least once. The key insight is that we should greedily match characters in order, taking the first available match in t, which ensures we don't miss valid subsequences.
+
 ## Solution Approach
 
 This is a **two-pointer** problem that can be solved with a greedy approach. The key insight is to use two pointers to match characters of `s` in `t` while maintaining their relative order.

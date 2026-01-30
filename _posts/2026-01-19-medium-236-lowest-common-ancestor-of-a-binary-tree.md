@@ -77,6 +77,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: Should we return the node itself or its value? (Assumption: Return the node (TreeNode*) - typical LCA problem requirement)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each node in the tree, check if both p and q are descendants of that node. The LCA is the deepest such node. To check if a node is a descendant, use DFS to search the subtree. This approach requires O(n) time per node to check descendants, giving O(n²) overall complexity, which is too slow.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Find paths from root to p and root to q. Compare the paths to find the last common node. This requires two DFS traversals to find paths (O(n) each), then comparing paths (O(h) where h is height). This works but requires storing paths, using O(h) space, and the path-finding logic can be complex.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use recursive DFS: for each node, recursively search left and right subtrees. If both subtrees return non-null (meaning p and q were found in different subtrees), current node is LCA. If one subtree returns non-null and current node is p or q, current node is LCA. Otherwise, return the non-null result (or null if both null). This achieves O(n) time with O(h) space for recursion stack, which is optimal. The key insight is that LCA is the node where p and q appear in different subtrees, or where one of them is the node itself and the other is in a subtree.
+
 ## Solution Approach
 
 This problem requires finding the lowest common ancestor of two nodes in a binary tree. The LCA is the deepest node that has both `p` and `q` as descendants.

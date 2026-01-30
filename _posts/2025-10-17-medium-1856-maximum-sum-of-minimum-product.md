@@ -70,6 +70,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty subarray**: Can an empty subarray be considered? (Assumption: No - subarray must be non-empty)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find maximum sum × minimum. Let me check all possible subarrays."
+
+**Naive Solution**: Check all possible subarrays, for each compute sum and minimum, calculate product, track maximum.
+
+**Complexity**: O(n³) time, O(1) space
+
+**Issues**:
+- O(n³) time - very inefficient
+- Repeats computation for overlapping subarrays
+- Doesn't leverage any optimization
+- Can be optimized significantly
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can fix minimum value and find maximum sum subarray with that minimum."
+
+**Improved Solution**: For each element as minimum, find maximum sum subarray where this element is minimum. Use prefix sum to compute sums efficiently.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- O(n²) time is better
+- Prefix sum enables O(1) sum queries
+- Still O(n²) for checking all subarrays
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use monotonic stack to find range where each element is minimum."
+
+**Best Solution**: Use monotonic stack to find left and right boundaries where each element is minimum. Use prefix sum for range sums. For each element, compute sum × minimum for its range.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Monotonic stack finds minimum ranges efficiently
+2. Prefix sum enables O(1) range sum queries
+3. O(n) time is optimal - process each element once
+4. O(n) space for stack and prefix sum is necessary
+
 ## Solution: Monotonic Stack with Prefix Sum
 
 **Time Complexity:** O(n) where n is the length of array  

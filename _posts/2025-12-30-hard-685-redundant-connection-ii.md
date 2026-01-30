@@ -64,6 +64,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Edge direction**: Are edges directed? (Assumption: Yes - edges[i] = [ui, vi] means edge from ui to vi)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Try removing each edge and check if the resulting graph is a valid tree (connected, no cycles, n-1 edges). Use DFS or BFS to check connectivity and cycle detection. This approach requires O(n) time per edge removal check, giving O(n²) overall complexity, which works but can be optimized.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use Union-Find to detect cycles. Process edges in order, and if adding an edge creates a cycle (both endpoints already connected), that edge is redundant. However, this problem is more complex because the graph is directed and we need to handle cases where a node has two parents. Need to identify candidate edges: edges that create cycles or edges that give a node two parents.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Handle two cases: (1) A node has two parents: identify the two edges that give the same node two parents. Try removing each and check if the result is valid. (2) No node has two parents: use Union-Find to find the edge that creates a cycle (similar to LC 684). Process edges in order, and the last edge that creates a cycle is the answer. This achieves O(n × α(n)) time where α is inverse Ackermann, which is optimal. The key insight is that in a directed tree, there can be at most one node with two parents, and we need to handle this case specially before applying standard cycle detection.
+
 ## Solution Approach
 
 This problem is the **directed graph** version of LC 684. Unlike the undirected case, we need to handle two types of issues:

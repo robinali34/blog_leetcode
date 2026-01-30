@@ -62,6 +62,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Data structure choice**: Can we use a simple array with O(n) queries? (Assumption: No - with many queries, we need efficient range queries, so Segment Tree or Fenwick Tree is needed)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Store the array as-is. For `update`, simply modify `nums[index] = val` in O(1) time. For `sumRange`, iterate through the range `[left, right]` and sum all elements, which takes O(n) time. This approach is simple but inefficient for queries, especially with many query operations.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use prefix sums: precompute a prefix sum array where `prefix[i]` represents the sum of elements from index 0 to i. This allows O(1) range queries using `prefix[right] - prefix[left-1]`. However, each update requires recomputing all prefix sums from the updated index to the end, which takes O(n) time. This is better for query-heavy scenarios but still slow for updates.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use Fenwick Tree (Binary Indexed Tree) or Segment Tree: both support O(log n) updates and O(log n) range queries. Fenwick Tree is simpler to implement and uses less space. The key operations are: `update(index, val)` updates the tree in O(log n), and `sumRange(left, right)` computes range sum in O(log n) by querying prefix sums. This achieves O(log n) for both operations, which is optimal for this problem structure. The key insight is that we need a data structure that supports efficient point updates and range queries, which Fenwick Tree or Segment Tree provides.
+
 ## Solution Approach
 
 This is a classic **Segment Tree** problem. We need to support:

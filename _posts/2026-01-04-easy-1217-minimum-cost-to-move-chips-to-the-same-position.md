@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Cost calculation**: How is cost calculated? (Assumption: Moving even distance (2, 4, 6...) costs 0, moving odd distance (1, 3, 5...) costs 1)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Try moving all chips to each possible position, calculate the cost for each target position, and return the minimum. For each target position, sum the costs: cost 0 for chips already at that position, cost 1 for chips at positions with same parity (even/odd), cost 1 for chips at positions with different parity (but need to move via intermediate position). This approach works but requires checking all positions, giving O(n × m) complexity where n is number of positions and m is number of chips.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Recognize that moving chips between positions with same parity (both even or both odd) costs 0 (can move 2 positions at a time for free). Moving chips between different parities costs 1. So we only need to consider two target positions: all even positions or all odd positions. Count chips at even positions and odd positions, then choose the target with fewer chips (move those to the other parity).
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Count chips at even-indexed positions and odd-indexed positions. Since moving within same parity is free, we can consolidate all chips to one parity for free. Then we only need to move chips from the less populated parity to the more populated one, which costs 1 per chip. The answer is min(count_even, count_odd). This achieves O(n) time where n is number of chips, which is optimal. The key insight is that parity (even/odd) is the only factor that matters - chips at positions with same parity can be consolidated for free, and we only pay to move chips between parities.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is that moving chips by 2 positions costs 0, while moving by 1 position costs 1.

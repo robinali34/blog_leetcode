@@ -70,6 +70,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should count() return? (Assumption: Integer count of valid pairs)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find pairs with certain sum. Let me check all possible pairs."
+
+**Naive Solution**: For each count() call, iterate through nums1 and nums2, count pairs where nums1[i] + nums2[j] == target.
+
+**Complexity**: O(m × n) per count() call, O(1) space
+
+**Issues**:
+- O(m × n) per query is inefficient
+- Repeats work for repeated queries
+- Doesn't leverage hash map
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use hash map to store nums2 frequencies, then for each nums1 element, lookup complement."
+
+**Improved Solution**: Store nums2 frequencies in hash map. For count(), iterate nums1, for each element lookup (target - nums1[i]) in map, add frequency to count.
+
+**Complexity**: O(m) per count() call, O(n) space
+
+**Improvements**:
+- Hash map enables O(1) lookup
+- O(m) per query is much better
+- Handles add() efficiently by updating map
+- Correctly counts all pairs
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Hash map approach is optimal. Update map on add() calls."
+
+**Best Solution**: Maintain hash map of nums2 frequencies. On add(), update frequency. On count(), iterate nums1 and sum frequencies of complements.
+
+**Complexity**: O(1) add(), O(m) count(), O(n) space
+
+**Key Realizations**:
+1. Hash map is perfect for frequency tracking
+2. O(m) per count() is optimal - must check nums1
+3. O(1) add() is optimal - just update map
+4. Space O(n) is necessary for frequency map
+
 ## Solution: Hash Map with Count Tracking
 
 **Time Complexity:** 

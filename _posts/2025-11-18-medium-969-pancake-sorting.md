@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Multiple solutions**: Are there multiple valid solutions? (Assumption: Yes - can return any valid sequence of flips)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible sequences of flips: for each position, try flipping at positions 2, 3, ..., n. Use BFS or DFS to explore all possible flip sequences until we find one that sorts the array. This approach has exponential time complexity and is impractical even for small arrays.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a greedy approach: work from the end of the array. For each position from n-1 down to 0, find the largest unsorted element, flip it to the top, then flip it to its correct position. This reduces the problem size by one each iteration. However, we need to track which elements are already in their correct positions to avoid unnecessary flips.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use greedy algorithm with position tracking: for each position `i` from n-1 down to 0, if `arr[i] != i+1` (element not in correct position), find where `i+1` is located, flip it to the top (position 0), then flip it to position `i`. This ensures each element is placed correctly in at most 2 flips. The algorithm runs in O(n²) time: O(n) positions, each requiring O(n) to find the element. The key insight is that we can sort the array by placing elements one by one from the end, and pancake flips allow us to move any element to any position efficiently.
+
 ## Solution: Greedy Approach
 
 **Time Complexity:** O(n²) - For each of n elements, we may need to search and flip  

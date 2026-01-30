@@ -65,6 +65,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Boolean - true if all equations can be satisfied, false otherwise)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if equations are satisfiable. Let me try assigning values to variables."
+
+**Naive Solution**: Try all possible value assignments to variables, check if all equations are satisfied.
+
+**Complexity**: O(26^n) time where n is number of variables, O(n) space
+
+**Issues**:
+- Exponential time - completely infeasible
+- Tries many invalid assignments
+- Very inefficient
+- Doesn't leverage equation structure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Equality equations create equivalence classes. Variables connected by == must have same value."
+
+**Improved Solution**: Use Union-Find to group variables connected by equality. Then check if any inequality connects variables in same group.
+
+**Complexity**: O(n × α(n)) time where α is inverse Ackermann, O(n) space
+
+**Improvements**:
+- Union-Find efficiently groups variables
+- O(n × α(n)) is nearly linear
+- Correctly handles equivalence classes
+- Much more efficient than brute-force
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Union-Find is optimal. Can also use graph coloring/DFS as alternative."
+
+**Best Solution**: Union-Find is optimal approach. First process all equality equations to build groups, then check inequality equations for conflicts. Alternative: graph coloring with DFS.
+
+**Complexity**: O(n × α(n)) time, O(n) space
+
+**Key Realizations**:
+1. Union-Find is perfect for equivalence classes
+2. O(n × α(n)) is nearly linear - very efficient
+3. Two-phase approach: build groups, then check conflicts
+4. Graph coloring is alternative but Union-Find is cleaner
+
 ## Approach
 
 This problem can be solved using two main approaches:

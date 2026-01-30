@@ -62,6 +62,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Path uniqueness**: What makes paths different? (Assumption: Different sequences of intersections - same length but different routes)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use DFS to explore all paths from node 0 to node n-1. Keep track of the current path and total time. When reaching node n-1, record the time. After exploring all paths, find the minimum time and count how many paths have that minimum time. This approach has exponential time complexity O(2^V) in worst case, which is too slow for graphs with many nodes.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use BFS with distance tracking: perform BFS from node 0, tracking the shortest distance to each node. When multiple paths reach a node with the same distance, increment a counter. However, BFS only works for unweighted graphs. For weighted graphs, we need Dijkstra's algorithm. Use Dijkstra's to find shortest distances, then use DFS or DP to count paths with shortest distance. This requires two passes and careful implementation.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Combine Dijkstra's algorithm with path counting in a single pass: use a priority queue to find shortest paths, maintaining both `shortestTime[i]` (shortest distance) and `pathCount[i]` (number of shortest paths). When exploring neighbors, if we find a shorter path, update the distance and reset the count. If we find an equal path, accumulate the count. This achieves O((V + E) log V) time complexity, which is optimal for finding shortest paths in weighted graphs. The key insight is that we can count paths during Dijkstra's execution by tracking how many ways we can reach each node with the shortest distance.
+
 ## Solution Approach
 
 This problem requires finding the **number of shortest paths** from node `0` to node `n-1` in a weighted, undirected graph. This is a classic application of **Dijkstra's algorithm** combined with **dynamic programming** to count paths.

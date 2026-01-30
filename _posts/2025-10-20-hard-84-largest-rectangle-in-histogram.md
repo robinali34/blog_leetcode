@@ -50,6 +50,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty histogram**: What if histogram is empty? (Assumption: Per constraints, length >= 1, so not empty)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to find largest rectangle. Let me check all possible rectangles."
+
+**Naive Solution**: For each bar, try all possible widths (extend left and right), compute area, track maximum.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats work for finding boundaries
+- Doesn't leverage monotonic stack
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can use DP to find left and right boundaries where current bar is minimum."
+
+**Improved Solution**: For each bar, find leftmost and rightmost positions where it's minimum. Use DP or two passes to compute boundaries.
+
+**Complexity**: O(n²) worst case, O(n) space
+
+**Improvements**:
+- Better structure than brute-force
+- Still O(n²) in worst case
+- Can optimize boundary finding
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "I can use monotonic stack to find boundaries efficiently."
+
+**Best Solution**: Use monotonic stack to find left and right boundaries where each bar is minimum. Stack stores indices. When bar is smaller than stack top, pop and compute area.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Monotonic stack is perfect for "next smaller" problems
+2. O(n) time is optimal - each bar processed once
+3. Stack efficiently finds boundaries
+4. O(n) space for stack is necessary
+
 ## Approach
 
 This is a classic **Monotonic Stack** problem. The key insight is that for each bar, we need to find the largest rectangle that can be formed with that bar as the height.

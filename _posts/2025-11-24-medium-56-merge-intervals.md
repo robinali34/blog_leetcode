@@ -47,6 +47,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Order requirement**: Does the order of intervals matter? (Assumption: No - can sort first, then merge - output order doesn't matter)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to merge intervals. Let me check all pairs of intervals."
+
+**Naive Solution**: Check all pairs of intervals, merge overlapping ones, repeat until no more merges possible.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Issues**:
+- O(n²) time - inefficient
+- May need multiple passes
+- Doesn't leverage sorting
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can sort intervals by start time, then merge adjacent overlapping intervals."
+
+**Improved Solution**: Sort intervals by start time. Traverse sorted intervals, merge with previous if overlapping.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- Sorting enables single-pass merging
+- O(n log n) time is much better
+- Handles all cases correctly
+- Clean and intuitive
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Sort and merge approach is optimal. Can optimize space by modifying in-place."
+
+**Best Solution**: Sort intervals by start time. Traverse and merge: if current overlaps with last merged interval, update end; otherwise add new interval.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Sorting is key insight
+2. O(n log n) time is optimal for sorting approach
+3. Single pass after sorting is efficient
+4. O(n) space for result is necessary
+
 ## Solution: Sort and Merge
 
 **Time Complexity:** O(n log n) - dominated by sorting  

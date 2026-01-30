@@ -65,6 +65,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Precision**: What precision is required for the average? (Assumption: Return as double with appropriate precision - typically 5 decimal places)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Simulate the queue system step by step. Maintain a timeline and process each customer arrival and service completion as events. Track when each customer arrives, when service starts, and when service ends. Calculate waiting time for each customer and compute the average. This approach works but requires careful event management and can be complex to implement correctly.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Process customers sequentially. Maintain a current time variable. For each customer, if they arrive after the current time, the chef starts immediately at arrival time. If they arrive before the current time, they wait until the chef finishes previous orders. Update current time and accumulate waiting times. This simplifies the simulation by processing in order, avoiding event scheduling complexity.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a single pass through customers. Maintain the chef's finish time. For each customer, the start time is max(arrival_time, chef_finish_time). The finish time is start_time + order_time. Waiting time is finish_time - arrival_time. Accumulate total waiting time and divide by number of customers. This achieves O(n) time with O(1) space. The key insight is that we don't need to simulate events - we can compute start and finish times directly based on the chef's availability and customer arrivals.
+
 ## Solution Approach
 
 This problem simulates a single-server queue system where customers arrive and wait for service. The key is to track when the chef becomes available and calculate waiting time for each customer.

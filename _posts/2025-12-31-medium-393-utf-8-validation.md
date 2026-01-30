@@ -70,6 +70,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Incomplete sequences**: What if sequence is incomplete? (Assumption: Invalid - all bytes for multi-byte character must be present)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Process the array sequentially. For each byte, check if it starts with `0` (1-byte), `110` (2-byte), `1110` (3-byte), or `11110` (4-byte) by converting to binary string and checking prefixes. Then validate that the following bytes start with `10`. This approach works but string operations are inefficient and error-prone.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use bit manipulation with hardcoded checks: for each byte, check specific bit patterns using bitwise operations. Check if byte matches `0xxxxxxx`, `110xxxxx`, `1110xxxx`, or `11110xxx` by comparing with masks. Then validate continuation bytes by checking if they match `10xxxxxx`. This is more efficient but requires careful handling of bit masks and edge cases.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use bit masks and helper functions: define `MASK1 = 0x80` (checks bit 7) and `MASK2 = 0xC0` (checks bits 7-6). Create `getBytes()` function that counts leading 1s to determine character length (1-4 bytes). Create `isValid()` function that checks if a byte is a valid continuation byte (must start with `10`). Process the array sequentially: for each character, get its byte count, ensure enough bytes are available, validate continuation bytes, and advance the pointer. This achieves O(n) time with O(1) space, which is optimal. The key insight is using bit masks to efficiently check UTF-8 patterns without string conversions.
+
 ## Solution Approach
 
 This problem requires validating UTF-8 encoding by checking bit patterns. UTF-8 has specific rules for how bytes are structured, and we need to verify the sequence follows these rules.

@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return - count or list of components? (Assumption: Return count - integer representing number of connected components)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use DFS or BFS to traverse the graph. Start from an unvisited node, mark all reachable nodes as visited. Count how many times we need to start a new traversal (one for each connected component). This approach has O(V + E) time, which is actually optimal, but we can optimize the implementation.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use Union-Find (Disjoint Set Union): initialize each node as its own component. For each edge, union the two nodes if they're in different components. The number of components equals the number of distinct roots. This achieves O(V + E × α(V)) time where α is the inverse Ackermann function, which is nearly constant.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use Union-Find with path compression and union by rank: maintain a DSU data structure. Initialize with V components (one per node). For each edge, if the two nodes are in different components, union them and decrement component count. After processing all edges, return the component count. This achieves O(V + E × α(V)) ≈ O(V + E) amortized time, which is optimal. The key insight is that Union-Find efficiently tracks connected components as edges are added, and we can maintain the count incrementally.
+
 ## Solution Approach
 
 This problem requires counting the number of **connected components** in an undirected graph. A connected component is a maximal set of nodes where every pair of nodes is connected by a path.

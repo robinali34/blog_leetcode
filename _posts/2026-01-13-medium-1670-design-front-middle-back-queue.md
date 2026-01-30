@@ -70,6 +70,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Operation frequency**: Are all operations equally frequent? (Assumption: Need to clarify - but should optimize for O(1) operations if possible)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use a single array or list. For pushMiddle, insert at middle position (shifting elements). For popMiddle, remove from middle position (shifting elements). This approach works but pushMiddle and popMiddle operations require O(n) time to shift elements, which is inefficient for frequent operations.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use two deques or lists: one for the front half and one for the back half. Maintain balance between them so that the middle is always at the boundary. When pushing to middle, add to the end of front deque. When popping from middle, remove from end of front deque. However, maintaining balance when sizes differ requires careful management and potentially moving elements between deques.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use two deques: frontDeque and backDeque. Maintain the invariant that frontDeque.size() == backDeque.size() or frontDeque.size() == backDeque.size() + 1. For pushMiddle, add to front of backDeque (or end of frontDeque depending on sizes). For popMiddle, remove from end of frontDeque. After each operation, rebalance if needed. This achieves O(1) amortized time for all operations. The key insight is that by maintaining two deques with balanced sizes, we can access the middle element efficiently, and rebalancing (moving one element) is O(1).
+
 ## Solution Approach
 
 This problem requires implementing a queue with operations at front, middle, and back. The key challenge is efficiently accessing and modifying the middle element.

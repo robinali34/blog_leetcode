@@ -57,6 +57,77 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Range boundaries**: What's the valid range for left and right? (Assumption: 1 <= left < right <= 10^9 per constraints)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to track ranges. Let me use a simple list and check/merge manually."
+
+**Naive Solution**: Store all intervals in an unsorted list. For each operation, linearly scan through all intervals to find overlaps, then manually merge or split.
+
+**Complexity**: O(n) per operation, O(n^2) worst case for merging
+
+**Issues**:
+- O(n) per operation - linear scan through all intervals
+- O(n^2) worst case when merging requires checking all pairs
+- No efficient way to find overlapping intervals
+- Complex merge/split logic with many edge cases
+- Doesn't scale well for many operations
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I need sorted intervals for efficient operations. A sorted vector with binary search can help find positions quickly."
+
+**Improved Solution**: Maintain intervals in a sorted vector. Use binary search to find insertion points, but still need O(n) for vector insertions/deletions.
+
+**Complexity**: O(log n) search + O(n) insertion/deletion per operation
+
+**Improvements**:
+- Binary search reduces search time to O(log n)
+- Still O(n) for insertions/deletions due to vector shifting
+- Better than brute-force but not optimal
+- Query becomes O(log n) which is good
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "A sorted map (TreeMap) provides O(log n) operations and efficient merging. It handles insertions/deletions efficiently."
+
+**Best Solution**: Use `std::map` to store intervals sorted by start point. Use `upper_bound()` to find insertion points, then merge or split intervals as needed.
+
+**Complexity**: O(k log n) per operation where k = number of intervals affected
+
+**Key Realizations**:
+1. `std::map` provides O(log n) operations and automatic sorting
+2. `upper_bound()` efficiently finds insertion points in O(log n)
+3. Merge logic handles overlapping intervals elegantly by extending boundaries
+4. Split logic handles partial overlaps correctly by truncating/creating intervals
+5. O(k log n) complexity where k is number of intervals affected (typically small)
+6. Much more efficient than linear approaches for many operations
+
+## Solution Structure Breakdown
+
+### Evolution from Naive to Optimized
+
+**Naive Approach** (List-based):
+- **Structure**: Store intervals in unsorted list, linear scan
+- **Complexity**: O(n) per operation, O(n^2) worst case
+- **Limitation**: No efficient way to find/merge intervals
+
+**Semi-Optimized Approach** (Sorted Vector):
+- **Structure**: Maintain sorted vector, binary search for position
+- **Complexity**: O(log n) search + O(n) insertion/deletion
+- **Improvement**: Faster search, but still O(n) for modifications
+
+**Optimized Approach** (Sorted Map):
+- **Structure**: `std::map` for automatic sorting and O(log n) operations
+- **Complexity**: O(k log n) where k = intervals affected
+- **Enhancement**: Efficient merge/split operations
+
+### Code Structure Comparison
+
+| Approach | Data Structure | Search | Insert/Delete | Merge Logic |
+|----------|---------------|--------|---------------|-------------|
+| **Naive** | Unsorted list | O(n) | O(1) | O(n^2) |
+| **Semi-Opt** | Sorted vector | O(log n) | O(n) | O(n) |
+| **Optimized** | Sorted map | O(log n) | O(log n) | O(k log n) |
+
 ## Solution Approach
 
 This problem requires efficiently managing intervals (ranges) with support for adding, querying, and removing. We can use a **sorted map** (like `std::map` in C++) to store non-overlapping intervals, where keys are start points and values are end points.
@@ -76,7 +147,149 @@ This problem requires efficiently managing intervals (ranges) with support for a
 
 ## Solution
 
-### **Solution: Map-Based Interval Management**
+### **Solution 1: Brute-Force List-Based Approach**
+
+**Time Complexity:** O(n) per operation, O(n^2) worst case for merging  
+**Space Complexity:** O(n)
+
+Store all intervals in an unsorted list and linearly scan for operations.
+
+```cpp
+class RangeModule {
+private:
+    vector<pair<int, int>> intervals;
+    
+    void mergeIntervals() {
+        if (intervals.empty()) return;
+        sort(intervals.begin(), intervals.end());
+        vector<pair<int, int>> merged;
+        merged.push_back(intervals[0]);
+        
+        for (int i = 1; i < intervals.size(); i++) {
+            if (merged.back().second >= intervals[i].first) {
+                merged.back().second = max(merged.back().second, intervals[i].second);
+            } else {
+                merged.push_back(intervals[i]);
+            }
+        }
+        intervals = merged;
+    }
+    
+public:
+    RangeModule() {
+        
+    }
+    
+    void addRange(int left, int right) {
+        intervals.push_back({left, right});
+        mergeIntervals();  // O(n log n) + O(n)
+    }
+    
+    bool queryRange(int left, int right) {
+        for (auto& [l, r] : intervals) {
+            if (l <= left && right <= r) return true;
+        }
+        return false;
+    }
+    
+    void removeRange(int left, int right) {
+        vector<pair<int, int>> newIntervals;
+        for (auto& [l, r] : intervals) {
+            if (r <= left || l >= right) {
+                newIntervals.push_back({l, r});
+            } else {
+                if (l < left) newIntervals.push_back({l, left});
+                if (r > right) newIntervals.push_back({right, r});
+            }
+        }
+        intervals = newIntervals;
+    }
+};
+```
+
+**Note**: This approach is inefficient due to O(n) operations and O(n^2) worst case merging.
+
+### **Solution 2: Sorted Vector with Binary Search**
+
+**Time Complexity:** O(log n) search + O(n) insertion/deletion per operation  
+**Space Complexity:** O(n)
+
+Maintain sorted intervals using a vector with binary search for finding positions.
+
+```cpp
+class RangeModule {
+private:
+    vector<pair<int, int>> intervals;  // Kept sorted
+    
+    int findInsertPos(int left) {
+        int low = 0, high = intervals.size();
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (intervals[mid].first <= left) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+    
+public:
+    RangeModule() {
+        
+    }
+    
+    void addRange(int left, int right) {
+        int pos = findInsertPos(left);  // O(log n)
+        intervals.insert(intervals.begin() + pos, {left, right});  // O(n)
+        // Merge overlapping intervals - O(n)
+        mergeIntervals();
+    }
+    
+    bool queryRange(int left, int right) {
+        int pos = findInsertPos(left);  // O(log n)
+        if (pos > 0) {
+            auto& prev = intervals[pos - 1];
+            if (prev.first <= left && right <= prev.second) return true;
+        }
+        return false;
+    }
+    
+    void removeRange(int left, int right) {
+        // Find and remove/split intervals - O(n)
+        vector<pair<int, int>> newIntervals;
+        for (auto& [l, r] : intervals) {
+            if (r <= left || l >= right) {
+                newIntervals.push_back({l, r});
+            } else {
+                if (l < left) newIntervals.push_back({l, left});
+                if (r > right) newIntervals.push_back({right, r});
+            }
+        }
+        intervals = newIntervals;
+    }
+    
+private:
+    void mergeIntervals() {
+        if (intervals.empty()) return;
+        vector<pair<int, int>> merged;
+        merged.push_back(intervals[0]);
+        
+        for (int i = 1; i < intervals.size(); i++) {
+            if (merged.back().second >= intervals[i].first) {
+                merged.back().second = max(merged.back().second, intervals[i].second);
+            } else {
+                merged.push_back(intervals[i]);
+            }
+        }
+        intervals = merged;
+    }
+};
+```
+
+**Note**: Better than brute-force with O(log n) search, but still O(n) for insertions/deletions.
+
+### **Solution 3: Map-Based Interval Management (Recommended)**
 
 ```cpp
 class RangeModule {

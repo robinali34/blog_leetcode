@@ -45,6 +45,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Array modification**: Can we modify the array? (Assumption: No - just search, don't modify)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to search in rotated array. Let me try linear search first."
+
+**Naive Solution**: Linear search through entire array to find target.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- Doesn't leverage sorted property
+- O(n) time when O(log n) is possible
+- Inefficient for large arrays
+- Not optimal solution
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "The array is sorted but rotated. I can find the pivot point, then search in appropriate half."
+
+**Improved Solution**: Find pivot point where rotation occurs (where nums[i] > nums[i+1]), then perform binary search in the appropriate half (left or right of pivot).
+
+**Complexity**: O(n) to find pivot + O(log n) to search = O(n) time, O(1) space
+
+**Improvements**:
+- Leverages sorted property
+- Still O(n) due to pivot finding
+- Better than linear search but not optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can do binary search directly by determining which half is sorted and contains target."
+
+**Best Solution**: Modified binary search. At each step, determine which half is sorted. If target is in sorted half, search there; otherwise search the other half.
+
+**Complexity**: O(log n) time, O(1) space
+
+**Key Realizations**:
+1. Modified binary search works despite rotation
+2. Key is determining which half is sorted
+3. O(log n) time is optimal
+4. O(1) space is optimal
+
 ## Solution in C++
 
 ```cpp

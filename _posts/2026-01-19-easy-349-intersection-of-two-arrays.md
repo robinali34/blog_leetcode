@@ -48,6 +48,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty arrays**: What if one or both arrays are empty? (Assumption: Return empty array - no intersection)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+For each element in the first array, check if it exists in the second array by scanning linearly. Add matching elements to the result, but check for duplicates before adding. This approach has O(n × m) time complexity where n and m are array lengths, which is inefficient. Duplicate checking adds additional overhead.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Sort both arrays, then use two pointers to find common elements. Since arrays are sorted, we can advance pointers based on comparison. This reduces time to O(n log n + m log m) for sorting plus O(n + m) for comparison. However, we still need to handle duplicates in the result, which requires additional checks or a set to track seen elements.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a hash set to store elements from the first array. Then iterate through the second array, check if each element exists in the set, and if so, add it to the result and remove it from the set (to avoid duplicates). This achieves O(n + m) average time complexity with O(min(n, m)) space for the hash set. The key insight is using a hash set for O(1) average lookup time and removing elements after adding to the result to ensure uniqueness without additional duplicate checks.
+
 ## Solution Approach
 
 This problem requires finding common elements between two arrays, with each element appearing only once in the result. There are several approaches:

@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= startTime < endTime <= 10^9 per constraints)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Maintain a list of all booked intervals. For each booking, add the interval and scan all time points to find the maximum overlap. This requires checking every existing interval against the new one, and for each time point, count how many intervals contain it. This approach has O(n²) complexity per booking, which is too slow for up to 400 calls.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use a difference array (sweep line technique). For each booking [start, end), increment a counter at start and decrement at end. Then scan through all time points to find the maximum prefix sum, which represents the maximum overlap. However, with coordinates up to 10^9, we need coordinate compression. This reduces to O(n log n) per booking for sorting and scanning, but can be optimized further.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use a map (ordered map) to store time points and their delta values (+1 for start, -1 for end). When booking, update the map at start and end positions. Then iterate through the map entries in sorted order, maintaining a running sum. The maximum running sum during iteration is the answer. This achieves O(n log n) per booking where n is the number of existing bookings, but the map automatically handles coordinate compression and sorting. Alternatively, use a segment tree with lazy propagation for range updates, but the map approach is simpler and sufficient for the constraint of 400 calls.
+
 ## Solution Approach
 
 This problem requires finding the **maximum number of overlapping intervals** after each booking. Unlike [LC 729: My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) which only checks for any overlap, we need to count and track the maximum overlap.

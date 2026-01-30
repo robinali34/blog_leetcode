@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Memory constraints**: Are there any space complexity requirements? (Assumption: O(ALPHABET_SIZE * N * M) where N is number of words and M is average length)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Store all words in a list or set. For search, check if word exists in the list. For startsWith, iterate through all words and check if any starts with the prefix. This approach has O(n × m) time for search and O(n × m) for startsWith where n is number of words and m is average length, which is too slow for many operations.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a hash set for exact word search (O(1) average), but for prefix search, still need to iterate through all words. Alternatively, maintain a sorted list and use binary search for prefix matching, but this still requires checking multiple words. The challenge is efficiently finding all words with a given prefix.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a Trie (prefix tree) data structure. Each node represents a character, and paths from root to nodes represent prefixes. Insert: traverse/create path character by character, mark end nodes as complete words. Search: traverse path, check if end node is marked as word. StartsWith: traverse path, check if path exists. This achieves O(m) time per operation where m is word/prefix length, and O(ALPHABET_SIZE × total_characters) space. The key insight is that Trie naturally organizes words by their prefixes, allowing efficient prefix-based operations without scanning all words.
+
 ## Solution Approach
 
 A **Trie (Prefix Tree)** is a tree-like data structure where each node represents a character. The path from root to any node represents a prefix, and nodes can be marked to indicate the end of a word.

@@ -60,6 +60,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum repetitions. Let me try repeating string a and checking if b is substring."
+
+**Naive Solution**: Repeat string a multiple times, check if b is substring using simple string matching. Try repetitions from 1 to some upper bound.
+
+**Complexity**: O(n × m) per repetition check, where n = len(a), m = len(b)
+
+**Issues**:
+- Simple substring matching is inefficient
+- May need many repetitions
+- Doesn't leverage string matching algorithms
+- Timeout for large strings
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use KMP algorithm for efficient substring matching, or optimize repetition checking."
+
+**Improved Solution**: Use KMP algorithm for substring matching. Repeat a until length >= b, then check if b is substring. Can also use Rabin-Karp for alternative.
+
+**Complexity**: O(n + m) per check with KMP, but need multiple repetitions
+
+**Improvements**:
+- KMP makes substring matching efficient
+- Still need to determine upper bound for repetitions
+- Much faster than naive matching
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can determine upper bound: need at most ceil(m/n) + 1 repetitions. Use KMP for matching."
+
+**Best Solution**: Calculate upper bound: need at most ceil(len(b)/len(a)) + 1 repetitions. Use KMP algorithm for efficient substring matching. Can also use Rabin-Karp as alternative.
+
+**Complexity**: O(n + m) time with KMP, O(n + m) space
+
+**Key Realizations**:
+1. Upper bound is ceil(m/n) + 1 repetitions
+2. KMP algorithm is optimal for substring matching
+3. O(n + m) time is optimal for string matching
+4. Rabin-Karp is alternative with similar complexity
+
 ## Solution Approach
 
 This problem requires finding the minimum number of repetitions of string `a` such that string `b` becomes a substring. This is a **string matching problem** that can be efficiently solved using advanced algorithms like **Knuth-Morris-Pratt (KMP)** or **Rabin-Karp**.

@@ -64,6 +64,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Pickup/dropoff**: When do passengers get on/off? (Assumption: Pick up at "from" location, drop off at "to" location)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each location from 0 to the maximum location, calculate how many passengers are in the car at that location. For each location, iterate through all trips: if trip.from <= location < trip.to, add passengers. Check if total exceeds capacity at any location. This approach has O(max_location × trips) complexity, which can be slow if locations span a large range.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a difference array (sweep line technique). For each trip, increment passenger count at "from" location and decrement at "to" location. Then iterate through locations in order, maintaining a running sum of passengers. Check if running sum exceeds capacity at any point. This reduces to O(max_location + trips) time, which is better but still depends on the location range.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a map (ordered map) to store location → delta passenger changes. For each trip, add +passengers at "from" and -passengers at "to". Then iterate through map entries in sorted order, maintaining a running sum. Check if running sum exceeds capacity. This achieves O(trips log trips) time for sorting events plus O(trips) for processing. The map automatically handles coordinate compression and sorting, making it efficient even for sparse location ranges. Alternatively, if location range is small, use an array directly.
+
 ## Solution Approaches
 
 ### Approach 1: Bucket Sort with Timestamps (Recommended)

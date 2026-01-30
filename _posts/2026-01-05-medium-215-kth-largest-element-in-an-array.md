@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: Should we return the value or the index? (Assumption: Return the value - integer representing kth largest element)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find kth largest. Let me sort the array."
+
+**Naive Solution**: Sort array in descending order, return element at index k-1.
+
+**Complexity**: O(n log n) time, O(1) space
+
+**Issues**:
+- O(n log n) time when O(n) is possible
+- Sorts entire array when only need kth element
+- Doesn't leverage partial sorting
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use min-heap of size k to track k largest elements."
+
+**Improved Solution**: Use min-heap of size k. For each element, if heap size < k, add; else if element > heap top, replace top. Heap top is kth largest.
+
+**Complexity**: O(n log k) time, O(k) space
+
+**Improvements**:
+- O(n log k) time is better than O(n log n)
+- Heap efficiently maintains k largest
+- O(k) space is better than O(n)
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "QuickSelect can achieve O(n) average time."
+
+**Best Solution**: QuickSelect (partition from quicksort) can achieve O(n) average time. Partition array, if pivot is at kth position, return it; otherwise recurse on appropriate partition.
+
+**Complexity**: O(n) average, O(n²) worst case, O(1) space
+
+**Key Realizations**:
+1. QuickSelect is optimal for kth element
+2. O(n) average time is best possible
+3. Min-heap is simpler but O(n log k)
+4. QuickSelect modifies array
+
 ## Solution Approaches
 
 There are several approaches to solve this problem:

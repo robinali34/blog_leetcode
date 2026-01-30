@@ -51,6 +51,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All nodes removed**: What if all nodes have value val? (Assumption: Return nullptr - empty list after removal)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to remove nodes. Let me traverse and remove nodes with matching value."
+
+**Naive Solution**: Traverse list, when finding node with val, remove it by updating previous node's next pointer.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- Need to handle head removal specially
+- Complex pointer manipulation
+- Error-prone edge cases
+- Can be simplified
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use dummy node to simplify head removal handling."
+
+**Improved Solution**: Use dummy node before head. Traverse list, remove nodes with val by updating pointers. Dummy node handles head removal uniformly.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- Dummy node simplifies logic
+- Handles head removal uniformly
+- Cleaner code
+- O(1) space is optimal
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Dummy node approach is optimal. Can also use recursive approach."
+
+**Best Solution**: Dummy node approach is optimal. Dummy node eliminates special case for head removal. Traverse and remove nodes with val.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Dummy node is key technique for linked list problems
+2. O(n) time is optimal - must visit each node
+3. O(1) space is optimal
+4. Handles all edge cases elegantly
+
 ## Solution: Dummy Node Approach
 
 **Time Complexity:** O(n) - We visit each node once  

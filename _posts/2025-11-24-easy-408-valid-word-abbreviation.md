@@ -89,6 +89,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Number parsing**: How are numbers parsed? (Assumption: Consecutive digits form a number - skip that many characters in word)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Expand the abbreviation: parse the abbreviation, convert numbers to skipped characters, and reconstruct the full string. Then compare the reconstructed string with the original word character by character. This approach works but requires building an intermediate string, which uses extra space.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use two pointers: one for the word and one for the abbreviation. Parse the abbreviation character by character. When encountering a digit, parse the number and advance the word pointer by that amount. When encountering a letter, compare with the current word character. This avoids building an intermediate string but requires careful handling of number parsing and boundary checks.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use single-pass with position tracking: maintain pointers `i` for word and `j` for abbreviation. While both pointers are valid, if `abbr[j]` is a digit, parse the number (handling consecutive digits) and advance `i` by that amount. If `abbr[j]` is a letter, compare with `word[i]` and advance both pointers. After processing, check if both pointers reached the end. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we can validate the abbreviation by simulating the expansion process without actually building the expanded string.
+
 ## Solution: Single-Pass with Position Tracking
 
 **Time Complexity:** O(n) where n is the length of `abbr`  

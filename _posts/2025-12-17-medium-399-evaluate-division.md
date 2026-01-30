@@ -66,6 +66,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Transitivity**: Are divisions transitive? (Assumption: Yes - if a/b = x and b/c = y, then a/c = x*y)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each query, try to find a direct path from numerator to denominator using the given equations. Use DFS or BFS to explore all possible paths, multiplying values along the path. If no path exists, return -1. This approach works but may explore many paths inefficiently, especially if the graph is large or queries are repeated.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Build a graph where nodes are variables and edges are division relationships with weights. For each query, use DFS or BFS to find a path from source to target, accumulating the product of edge weights. Cache results for repeated queries. This improves efficiency but still requires path finding for each query, which can be O(V + E) per query.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use Union-Find with weighted edges. For each equation a/b = value, union a and b while maintaining weights. Store weight[a] = value of a relative to its root. When querying a/b, if they're in the same component, calculate (weight[a] / root) / (weight[b] / root) = a/b. This achieves O((E + Q) × α(V)) time where α is inverse Ackermann (effectively constant). Alternatively, use graph DFS with memoization. The key insight is that Union-Find naturally handles transitivity and provides O(1) amortized queries after preprocessing, making it optimal for multiple queries.
+
 ## Solution 1: Union-Find with Weighted Edges (Recommended)
 
 **Time Complexity:** O((E + Q) × α(n)) where E = equations, Q = queries, n = variables  

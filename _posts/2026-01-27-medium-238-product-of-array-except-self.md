@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Integer overflow**: Are we guaranteed that the product won't overflow, or should we handle potential overflow? (Assumption: The problem guarantees products fit in 32-bit integer, but we should still be careful with intermediate calculations)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each position i, calculate the product of all other elements by iterating through the array and multiplying all elements except nums[i]. This straightforward approach has O(n²) time complexity, which is too slow for large arrays. The challenge is avoiding division while computing products efficiently.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Calculate the total product of all elements, then for each position i, divide by nums[i] to get the product except self. However, the problem explicitly forbids using division. Alternatively, use two arrays: one storing prefix products (product of all elements before i) and another storing suffix products (product of all elements after i). Then multiply prefix[i] × suffix[i] for each position. This achieves O(n) time with O(n) space.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use the output array itself to store prefix products in the first pass. Then, in a second pass from right to left, maintain a running suffix product and multiply it with the prefix product already stored in the output array. This achieves O(n) time with O(1) extra space (excluding the output array). The key insight is reusing the output array to store intermediate results, eliminating the need for separate prefix and suffix arrays.
+
 ## Solution Approach
 
 This problem requires computing the product of all elements except the current one. The key challenge is doing this in O(n) time without using division.

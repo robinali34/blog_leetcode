@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Graph representation**: Should we assume the graph is connected, or can there be disconnected components? (Assumption: Graph can have disconnected components - we need to process all courses)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Try all possible course orderings and find the minimum number of semesters needed. For each semester, try all combinations of courses that can be taken (all prerequisites satisfied). This approach has exponential complexity and is infeasible. The challenge is that we need to find the optimal parallelization strategy.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use topological sort with level tracking. Process courses level by level, where each level represents courses that can be taken in parallel (all prerequisites satisfied). Use BFS: start with courses having no prerequisites (level 0), then courses whose prerequisites are all completed (level 1), and so on. Count the number of levels. However, this doesn't directly give the minimum semesters if we can take multiple courses per semester - we need to track the longest path.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use DFS with memoization to find the longest path from each node. For each course, recursively find the longest path from its prerequisites, then add 1. Memoize results to avoid recomputation. The answer is the maximum longest path length across all courses. Alternatively, use topological sort with dynamic programming: process nodes in topological order, and for each node, dp[node] = 1 + max(dp[prerequisite]). The maximum dp value is the answer. This achieves O(V + E) time complexity, which is optimal. The key insight is that the problem reduces to finding the longest path in a DAG, where we can take all courses at the same level in parallel, so the critical path determines the minimum semesters.
+
 ## Solution Approach
 
 This problem requires finding the **longest path in a DAG (Directed Acyclic Graph)**. If the graph contains a cycle, it's impossible to complete all courses.

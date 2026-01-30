@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Rearrangement**: Can we rearrange characters? (Assumption: Yes - can rearrange characters freely before replacing)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each query, extract the substring, count character frequencies, and check if it can form a palindrome. To check palindromicity after rearrangement: count how many characters have odd frequency. We need at most one odd-frequency character for a palindrome. With k replacements, we can fix up to k pairs of odd frequencies. This approach works but requires O(m × q) time where m is substring length and q is number of queries, which can be slow for many queries.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Precompute prefix frequency arrays. For each position, maintain a frequency array counting characters from start to that position. For a query [left, right], calculate frequencies as prefix[right+1] - prefix[left]. Then count odd frequencies and check if odd_count <= 2*k + 1. This reduces substring extraction overhead but still requires O(26 × q) time to process frequencies for each query.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use prefix XOR arrays with bit manipulation. Since we only care about odd/even frequencies (not exact counts), use a bitmask where each bit represents whether a character has odd frequency. Precompute prefix XOR: prefix[i] = XOR of all characters from 0 to i-1. For query [left, right], XOR = prefix[right+1] XOR prefix[left] gives the parity mask. Count set bits (odd-frequency characters) and check if count <= 2*k + 1. This achieves O(n + q) time complexity, optimal for this problem. The key insight is that XOR naturally tracks parity changes, eliminating the need for full frequency counting.
+
 ## Solution Approach
 
 This problem requires checking if a substring can be rearranged and have at most `k` characters replaced to form a palindrome. The key insight is that a palindrome can have **at most one character with odd frequency** (the center character).

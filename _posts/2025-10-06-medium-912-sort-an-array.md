@@ -44,6 +44,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n log n) - optimal comparison-based sorting)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to sort array. Let me use bubble sort or selection sort."
+
+**Naive Solution**: Use simple O(n²) sorting algorithms like bubble sort or selection sort.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time is too slow for large arrays
+- Doesn't meet O(n log n) requirement
+- Very inefficient
+- Not optimal solution
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I should use O(n log n) sorting algorithm. Merge sort or quick sort."
+
+**Improved Solution**: Implement merge sort - divide array into halves, sort recursively, merge sorted halves.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- O(n log n) time meets requirement
+- Stable sorting algorithm
+- Handles all cases correctly
+- Can be optimized further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Merge sort is optimal. Can also use heap sort or counting sort for specific cases."
+
+**Best Solution**: Merge sort is optimal for general case. Can also use heap sort (O(1) space) or counting sort (O(n+k) for small range).
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Merge sort is standard O(n log n) algorithm
+2. O(n log n) time is optimal for comparison-based sorting
+3. O(n) space for merge sort is acceptable
+4. Alternative algorithms exist for specific cases
+
 ## Solution 1: Merge Sort
 
 **Time Complexity:** O(n log n)  

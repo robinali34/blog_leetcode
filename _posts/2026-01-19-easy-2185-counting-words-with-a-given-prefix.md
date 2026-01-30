@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty prefix**: What if prefix is empty? (Assumption: Per constraints, pref.length >= 1, so not empty)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+For each word in the array, check if it starts with the prefix by comparing character by character. Count how many words match. This straightforward approach has O(n × m) time complexity where n is the number of words and m is the prefix length. This works but can be optimized if we need to answer multiple prefix queries.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Sort the words array, then use binary search to find the range of words that start with the prefix. However, binary search on prefixes requires careful implementation to find the correct range. Alternatively, use a trie data structure if we need to answer many prefix queries, but for a single query, this adds overhead.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Simply iterate through the words array and check if each word starts with the prefix using string comparison (substring check or character-by-character comparison up to prefix length). This achieves O(n × m) time which is optimal for a single query since we must check each word. For multiple queries, a trie would be better, but for a single query, the simple linear scan is the most efficient approach. The key insight is that for one-time queries, preprocessing overhead (like building a trie) isn't worth it.
+
 ## Solution Approach
 
 This is a straightforward **simulation** problem. We need to:

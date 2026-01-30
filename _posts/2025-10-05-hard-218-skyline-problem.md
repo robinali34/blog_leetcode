@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: List of key points [x, height] where skyline changes, sorted by x)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to find skyline. Let me check height at each x-coordinate."
+
+**Naive Solution**: For each x-coordinate, check all buildings that cover it, find maximum height. Add point when height changes.
+
+**Complexity**: O(n × W) time where W is width range, O(n) space
+
+**Issues**:
+- Very inefficient for large coordinate ranges
+- W can be up to 2^31
+- Doesn't leverage building structure
+- Timeout for large inputs
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can use sweep line algorithm. Process building start/end events, track active buildings."
+
+**Improved Solution**: Create events for building start and end. Sort events by x-coordinate. Use map/priority queue to track active building heights. Update skyline when max height changes.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- Sweep line is natural approach
+- O(n log n) time is much better
+- Handles all cases correctly
+- Still can be optimized
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Sweep line with priority queue is optimal. Can optimize with coordinate compression if needed."
+
+**Best Solution**: Sweep line with priority queue (max-heap) for active buildings. Process events sorted by x. When building starts, add to heap. When ends, mark for removal. Track max height changes.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Sweep line is key technique for interval problems
+2. Priority queue efficiently tracks max height
+3. O(n log n) time is optimal for sorting events
+4. Lazy removal from heap is efficient
+
 ## Approach
 
 This is a classic sweep line algorithm problem. The key insight is to process all building edges (start and end points) in sorted order and maintain the current maximum height at each position.

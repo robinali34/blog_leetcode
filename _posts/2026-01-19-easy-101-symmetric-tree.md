@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tree modification**: Should we modify the tree or just check symmetry? (Assumption: Just check - no modification needed)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Convert the tree to a string representation (e.g., using preorder traversal) for both left and right subtrees, then compare the strings. Alternatively, collect all nodes at each level and check if each level is symmetric. This approach is straightforward but inefficient, requiring O(n) space for string storage and O(n) time for comparison.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use BFS to traverse level by level. For each level, collect all node values (including nulls for missing children) and check if the level array is symmetric. This maintains the level-order structure but requires storing entire levels, which uses O(n) space. The logic for handling null nodes and comparing levels can be complex.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use recursive DFS with a helper function that compares two subtrees as mirrors. For the root, check if left and right subtrees are mirrors. For two nodes to be mirrors: their values must be equal, the left child of one must mirror the right child of the other, and vice versa. This approach uses O(h) space for recursion stack where h is the height, and O(n) time to visit all nodes. The recursive solution is elegant and naturally handles the mirror property without extra data structures.
+
 ## Solution Approach
 
 This problem requires checking if a binary tree is symmetric (mirror of itself). A tree is symmetric if the left subtree is a mirror image of the right subtree.

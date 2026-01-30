@@ -46,6 +46,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty subarray**: Can empty subarray be considered? (Assumption: No - need at least one element to have equal counts)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Check all possible contiguous subarrays: for each starting position, try all ending positions, count 0s and 1s in each subarray, and track the maximum length where counts are equal. This approach has O(n³) time complexity: O(n²) subarrays, each requiring O(n) to count 0s and 1s, which is too slow for large arrays.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use prefix sums to optimize counting: maintain prefix sums for 0s and 1s. For each subarray [i, j], compute the count of 0s and 1s in O(1) using prefix sums. This reduces time to O(n²) but is still too slow for large inputs.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Convert to prefix sum problem: replace 0s with -1 and 1s with +1. A subarray has equal 0s and 1s if and only if its sum is 0. Use a hash map to track the first occurrence of each prefix sum. When we encounter a prefix sum we've seen before, the subarray between those positions has sum 0. This achieves O(n) time with O(n) space, which is optimal. The key insight is that equal counts of 0s and 1s translates to a sum of 0 when we map 0→-1 and 1→+1, allowing us to use prefix sum techniques.
+
 ## Solution: Prefix Sum with Hash Map
 
 **Time Complexity:** O(n)  

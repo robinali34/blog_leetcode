@@ -57,6 +57,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to evaluate expression. Let me parse and compute manually."
+
+**Naive Solution**: Parse expression manually, handle parentheses by recursive evaluation, compute step by step.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Complex parsing logic
+- Hard to handle nested parentheses
+- Error-prone
+- Doesn't leverage stack structure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use stack to handle parentheses and operator precedence."
+
+**Improved Solution**: Use stack to track signs and numbers. When encountering '(', push current result and sign. When ')', pop and combine.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack naturally handles parentheses
+- Cleaner parsing logic
+- Handles nested parentheses correctly
+- O(n) time is optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Stack-based approach is optimal. Track sign and number separately."
+
+**Best Solution**: Stack-based approach is optimal. Use stack to track signs for parentheses. Process numbers and operators, handle unary minus. Stack enables correct evaluation order.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Stack is perfect for nested structures
+2. Sign tracking handles unary operations
+3. O(n) time is optimal - single pass
+4. O(n) space for stack is necessary
+
 ## Solution 1: Stack-Based Approach
 
 **Time Complexity:** O(n)  

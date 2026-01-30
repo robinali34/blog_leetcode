@@ -59,6 +59,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Case sensitivity**: Are 'a' and 'A' different? (Assumption: Yes - per constraints, case matters, lowercase and uppercase are different)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Count the frequency of each character using a hash map. Then, for each character, add all pairs (count / 2) * 2 to the result. If any character has an odd count, add 1 for the center. This straightforward approach works but uses O(k) space where k is the number of unique characters.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a frequency array of size 128 (covering ASCII) instead of a hash map. This eliminates hash map overhead and provides direct array access. The logic remains the same: count frequencies, sum pairs, and add 1 if any odd count exists. This improves constant factors but still uses O(1) space relative to input size (fixed 128 integers).
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use bit manipulation to track character frequencies efficiently. Use two integers as bit masks (one for lowercase a-z, one for uppercase A-Z). For each character, toggle its corresponding bit. When a bit transitions from 1 to 0, we've found a pair → add 2 to the result. After processing all characters, if any bits remain set (indicating odd counts), add 1 for the center. This achieves O(1) space using only two integers, making it the most space-efficient solution while maintaining O(n) time complexity.
+
 ## Solution Approach
 
 This problem asks us to find the longest palindrome we can construct from the given characters. The key insight is:

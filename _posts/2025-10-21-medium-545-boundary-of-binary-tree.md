@@ -70,6 +70,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty tree**: What if tree is empty? (Assumption: Return empty list - no boundary)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Traverse the tree three times: first pass to collect left boundary (excluding leaves), second pass to collect all leaves, third pass to collect right boundary (excluding leaves and root, in reverse order). Combine the three lists. This approach works but requires multiple traversals and careful handling of duplicates (root appears in left boundary, leaves might appear in boundaries).
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a single DFS traversal with flags to identify boundary nodes: mark nodes as left boundary, right boundary, or leaf during traversal. However, identifying leftmost and rightmost nodes requires tracking the path and comparing positions, which adds complexity. We still need to handle duplicates carefully.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Separate the problem into three parts: (1) Left boundary: traverse from root following left children, if no left child follow right child, stop at leaf. (2) Leaves: use DFS to collect all leaves in left-to-right order. (3) Right boundary: traverse from root following right children, if no right child follow left child, stop at leaf, then reverse the list. Combine the three parts, ensuring no duplicates (root appears once, leaves appear once, right boundary excludes root and leaves). This achieves O(n) time with O(h) space for recursion, which is optimal. The key insight is that we can solve each part independently and combine them, avoiding complex boundary detection logic.
+
 ## Solution Approach
 
 ### Key Insight

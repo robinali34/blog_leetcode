@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Cycle handling**: How should we handle cycles? (Assumption: Nodes in cycles are not safe - they can never reach a terminal node)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each node, check if it's part of a cycle by doing DFS starting from that node. If DFS encounters a node that's already in the current path (back edge), there's a cycle and the node is unsafe. This approach requires O(n × (V + E)) time as we check each node, which is too slow for large graphs.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use DFS with coloring: mark nodes as white (unvisited), gray (currently in path), or black (processed). If we encounter a gray node during DFS, we found a cycle. All nodes in the cycle and nodes that can reach the cycle are unsafe. However, identifying all unsafe nodes requires careful tracking of which nodes can reach cycles.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use reverse graph + topological sort: reverse all edges, then nodes with no outgoing edges (sinks) in the original graph become sources in the reversed graph. Use topological sort starting from these sources. All nodes reachable from sources in the reversed graph are safe (they eventually reach a terminal node). Alternatively, use DFS with memoization: for each node, check if all paths lead to terminal nodes. Nodes that can reach cycles are unsafe. The reverse graph approach is cleaner: safe nodes are those that can reach terminal nodes, which is equivalent to being reachable from terminal nodes in the reversed graph.
+
 ## Solution Approach
 
 This problem requires finding all nodes that do **not** lead to any cycle. A node is safe if all paths starting from it eventually reach a terminal node (a node with no outgoing edges).

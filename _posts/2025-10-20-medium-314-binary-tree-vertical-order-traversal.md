@@ -58,6 +58,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty tree**: What if tree is empty? (Assumption: Return empty list - no nodes to traverse)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to traverse tree vertically. Let me try level-order traversal and group by column."
+
+**Naive Solution**: Perform level-order traversal, assign column numbers, group nodes by column, sort columns.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Issues**:
+- O(n log n) due to sorting
+- Doesn't maintain top-to-bottom order within columns
+- More complex than needed
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use BFS with column tracking. Track column for each node during traversal."
+
+**Improved Solution**: Use BFS with queue storing (node, column). Use map to group nodes by column. Process nodes level by level to maintain top-to-bottom order.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- BFS maintains level order
+- Column tracking enables grouping
+- O(n) time is optimal
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "BFS with column map is optimal. Use map to track column → list of values."
+
+**Best Solution**: BFS with column tracking. Queue stores (node, column). Map groups nodes by column. Process level by level to maintain top-to-bottom order within columns.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. BFS is perfect for level-order traversal
+2. Column tracking enables vertical grouping
+3. O(n) time is optimal - visit each node once
+4. Map efficiently groups by column
+
 ## Solution Approach
 
 This problem requires traversing a binary tree in **vertical order** (column by column from left to right). The key insight is to assign **column indices** to nodes and group them accordingly.

@@ -59,6 +59,44 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Customer order**: Are customers processed in the given order? (Assumption: Yes - process customers sequentially in the given order)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to give change. Let me track all bills and try different combinations."
+
+**Naive Solution**: Track all bills received, when giving change try all possible combinations of bills to make exact change.
+
+**Complexity**: O(n × 2^k) time where k is number of bill types, O(n) space
+
+**Issues**:
+- Overcomplicated - tries unnecessary combinations
+- Doesn't leverage the fact that we prefer smaller bills
+- Inefficient for large inputs
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I should use greedy approach - prefer giving larger bills first, or track counts of each bill type."
+
+**Improved Solution**: Track count of $5 and $10 bills. When giving change for $10, use one $5. For $20, prefer one $10 and one $5 over three $5s.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- Greedy approach is optimal
+- Simple count tracking
+- O(1) space - only track two counts
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The greedy count-based approach is already optimal. No further optimization needed."
+
+**Best Solution**: Track counts of $5 and $10 bills. Use greedy strategy for change: prefer $10+$5 for $20, otherwise use $5s.
+
+**Key Realizations**:
+1. Greedy approach works because we want to preserve smaller bills
+2. Only need to track $5 and $10 counts ($20 not needed for change)
+3. O(n) time is optimal - must process each customer
+4. O(1) space is optimal - only need two counters
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem where we need to give change optimally. The key insight is to **prioritize using larger bills** when giving change for $20, to preserve $5 bills for future $10 bills.

@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use a simple array or vector to store key-value pairs, maintaining insertion order. For get(), search linearly through the array, move the accessed item to the end, and return its value. For put(), check if key exists (linear search), update if found, otherwise append. When capacity is exceeded, remove the first element. This approach has O(n) time complexity for both operations, which doesn't meet the O(1) requirement.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a hash map for O(1) lookups, but maintain access order using a separate list or array. When accessing an element, remove it from its current position and append to the end. However, removing from the middle of an array is O(n), so this still doesn't achieve O(1) operations. Alternatively, use a linked list for O(1) removal, but finding the node to remove requires O(n) traversal unless we store pointers.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Combine a hash map with a doubly linked list. The hash map stores key → (value, iterator) pairs, where the iterator points to the node in the linked list. The linked list maintains access order (front = LRU, back = MRU). For get(), look up in hash map O(1), move node to end using splice() O(1). For put(), check existence O(1), update value O(1), and if needed, remove front node O(1) and add to end O(1). This achieves O(1) for both operations by leveraging the hash map for lookups and the doubly linked list for maintaining order with O(1) node movement.
+
 ## Solution: Hash Map + Doubly Linked List
 
 **Time Complexity:** O(1) for both `get` and `put`  

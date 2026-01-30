@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty string**: What if string becomes empty? (Assumption: Return empty string "")
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to remove adjacent duplicates. Let me scan and remove pairs repeatedly."
+
+**Naive Solution**: Repeatedly scan string, remove adjacent duplicate pairs, repeat until no more duplicates.
+
+**Complexity**: O(n²) worst case, O(n) space
+
+**Issues**:
+- O(n²) time - multiple passes
+- String manipulation is expensive
+- Doesn't leverage stack structure
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use stack to track characters. When duplicate found, pop from stack."
+
+**Improved Solution**: Use stack. For each character, if matches stack top, pop; otherwise push. Stack naturally handles cascading removals.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack handles cascading removals naturally
+- O(n) time - single pass
+- Clean and intuitive
+- Can optimize space
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Can use string as stack or two pointers to optimize space."
+
+**Best Solution**: Stack approach is optimal. Can use string as stack (modify in-place) or two pointers to simulate stack, reducing space.
+
+**Complexity**: O(n) time, O(n) space (can optimize to O(1) with two pointers)
+
+**Key Realizations**:
+1. Stack is perfect for matching/removal problems
+2. O(n) time is optimal - single pass
+3. Stack handles cascading removals elegantly
+4. Space can be optimized with two pointers
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Solution

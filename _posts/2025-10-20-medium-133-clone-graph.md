@@ -65,6 +65,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Cycle handling**: How should we handle cycles? (Assumption: Use visited map to avoid infinite loops - track cloned nodes)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to clone a graph. Let me try creating nodes first, then connecting them."
+
+**Naive Solution**: Two-pass approach: first pass create all nodes, second pass connect edges. But need to map original nodes to cloned nodes.
+
+**Complexity**: O(V + E) time, O(V) space
+
+**Issues**:
+- Two passes needed
+- Need to maintain mapping between original and cloned nodes
+- More complex than necessary
+- Doesn't handle cycles naturally
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DFS/BFS with a visited map that stores cloned nodes. This handles cycles naturally."
+
+**Improved Solution**: Use DFS or BFS traversal. For each node, create clone if not already cloned, then recursively clone neighbors. Use hash map to track cloned nodes and avoid cycles.
+
+**Complexity**: O(V + E) time, O(V) space
+
+**Improvements**:
+- Single pass with recursion/iteration
+- Naturally handles cycles through visited map
+- Clean and intuitive approach
+- Works for both DFS and BFS
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DFS is more elegant for this problem. Let me refine the implementation."
+
+**Best Solution**: DFS with hash map storing cloned nodes. When visiting a node, create clone if needed, then recursively clone all neighbors. Map ensures each node is cloned exactly once.
+
+**Key Realizations**:
+1. DFS/BFS both work, DFS is more elegant
+2. Hash map is essential for cycle detection and node mapping
+3. O(V + E) time is optimal - must visit all nodes and edges
+4. O(V) space is optimal - need to store all cloned nodes
+
 ## Solution Approach
 
 This problem requires creating a **deep copy** of a graph, meaning we need to create new nodes with the same structure and relationships as the original graph.

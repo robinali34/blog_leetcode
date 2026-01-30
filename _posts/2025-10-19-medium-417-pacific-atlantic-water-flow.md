@@ -59,6 +59,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Cell height**: What does heights[i][j] represent? (Assumption: Height/elevation of cell at position (i, j) - water flows downhill)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find cells that can reach both oceans. Let me check each cell individually."
+
+**Naive Solution**: For each cell, perform DFS/BFS to check if it can reach Pacific and Atlantic oceans separately.
+
+**Complexity**: O(m × n × (m + n)) time, O(m × n) space
+
+**Issues**:
+- Repeats work for cells in same connected component
+- Very inefficient - exponential worst case
+- Doesn't leverage the fact that water flows from oceans inward
+- Timeout for large grids
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Instead of starting from each cell, I can start from ocean boundaries and work inward."
+
+**Improved Solution**: Start DFS/BFS from all Pacific boundary cells, mark reachable cells. Then start from all Atlantic boundary cells, mark reachable cells. Find intersection of both sets.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Improvements**:
+- Much more efficient - only two traversals
+- Leverages water flow direction (from oceans)
+- Each cell visited at most twice
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use two visited sets or a single traversal with two flags per cell."
+
+**Best Solution**: Use two boolean matrices (or sets) to track cells reachable from Pacific and Atlantic. Perform DFS/BFS from each ocean boundary, then find intersection. Can optimize by using single traversal with flags.
+
+**Key Realizations**:
+1. Starting from boundaries is key insight
+2. Two traversals (one per ocean) is optimal approach
+3. O(m × n) time is optimal - must check all cells
+4. Can use union of two sets or intersection of reachable sets
+5. DFS/BFS both work, BFS might be slightly more intuitive
+
 ## Solution: DFS from Ocean Boundaries
 
 **Time Complexity:** O(m × n) where m and n are dimensions of the grid  

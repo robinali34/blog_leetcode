@@ -57,6 +57,43 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Neighbor count**: How many neighbors does a corner cell have? (Assumption: 3 neighbors (plus itself = 4 total); edge cells have 5 neighbors (plus itself = 6 total)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to smooth each pixel. Let me check all neighbors for each cell."
+
+**Naive Solution**: For each cell, check all 8 neighbors plus itself, sum values, divide by count. Handle boundaries by checking if indices are valid.
+
+**Complexity**: O(m × n × 9) = O(m × n) time, O(m × n) space
+
+**Issues**:
+- Lots of boundary checking
+- Repetitive neighbor access
+- Can be optimized but logic is correct
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use nested loops with offsets to check neighbors more systematically."
+
+**Improved Solution**: For each cell, use nested loops with offsets [-1, 0, 1] for both row and column. Count valid neighbors and sum their values.
+
+**Complexity**: O(m × n × 9) = O(m × n) time, O(m × n) space
+
+**Improvements**:
+- More systematic neighbor checking
+- Cleaner code structure
+- Still O(m × n) which is optimal
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The approach is already optimal. Can optimize by precomputing neighbor offsets or using helper function."
+
+**Best Solution**: Use offset-based neighbor checking. Precompute valid neighbor offsets or use helper function for clarity. O(m × n) is optimal since we must process each cell.
+
+**Key Realizations**:
+1. O(m × n) time is optimal - must process each cell
+2. O(m × n) space is optimal - need result matrix
+3. Offset-based neighbor checking is clean
+4. Boundary checking is necessary and handled naturally
+
 ## Solution Approach
 
 This problem requires applying a 3×3 smoothing filter to each cell in the image. For each cell, we calculate the average of itself and its 8 neighbors (if they exist), then round down the result.

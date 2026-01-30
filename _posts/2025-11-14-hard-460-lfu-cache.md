@@ -75,6 +75,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Use a hash map to store key-value pairs and a separate hash map to track access frequencies. For eviction, scan all entries to find the one with minimum frequency, and if there are ties, find the least recently used among them. This requires O(n) time for eviction, which doesn't meet the O(1) requirement. The challenge is efficiently finding the minimum frequency and handling ties.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Maintain a min-heap (priority queue) keyed by frequency, with a secondary timestamp for tie-breaking. However, updating frequencies requires removing and re-inserting elements in the heap, which is O(log n). Additionally, finding and removing arbitrary elements from a heap is inefficient. Alternatively, maintain separate lists for each frequency level (like LFU buckets), but updating frequencies still requires moving nodes between lists, which can be complex.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use a hash map storing key → (value, frequency, iterator) and maintain a map of frequency → doubly linked list of keys. Each frequency level has its own list maintaining LRU order. When accessing a key, remove it from its current frequency list and add it to the (frequency+1) list. For eviction, find the minimum frequency (tracked separately), remove the LRU node from that frequency's list. This achieves O(1) operations: hash map lookup O(1), list removal O(1), list insertion O(1). The key insight is combining frequency-based organization with LRU ordering within each frequency level.
+
 ## Solution: Hash Map + Frequency Lists (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  

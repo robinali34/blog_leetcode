@@ -71,6 +71,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Box selection**: Can we take partial boxes? (Assumption: No - must take whole boxes, cannot break boxes)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Try all possible combinations of boxes that fit within truck capacity. For each combination, calculate total units and track the maximum. This approach has exponential complexity as we try all subsets of boxes, which is infeasible for large inputs.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use dynamic programming: dp[i][capacity] = maximum units using first i box types with given capacity. This requires O(n × capacity) time and space, which works but can be optimized further since we can take multiple boxes of the same type.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use greedy approach: sort boxes by units per box in descending order. Greedily take boxes with highest units per box first until truck capacity is reached. This works because if we have capacity for one more box, we should always choose the box with highest units per box. This achieves O(n log n) time for sorting plus O(n) for selection, which is optimal. The key insight is that this is a fractional knapsack-like problem where we want to maximize value (units) given weight constraint (box count), and greedy works perfectly when we can't break items but want to maximize value-to-weight ratio.
+
 ## Solution Approach
 
 This is a classic **greedy algorithm** problem. The key insight is to prioritize boxes with the highest units per box, as this maximizes the total units we can fit in the limited truck space.

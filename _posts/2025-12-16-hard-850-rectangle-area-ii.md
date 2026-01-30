@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Total area covered by union of all rectangles, modulo 10^9 + 7)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+For each rectangle, mark all covered cells in a 2D grid. However, coordinates can be up to 10^9, making this approach infeasible due to memory constraints. Alternatively, iterate through all pairs of rectangles, calculate their intersections, and use inclusion-exclusion principle. This becomes exponentially complex with many rectangles and doesn't scale well.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use a sweep line algorithm: sweep vertically along the y-axis and track horizontal coverage at each y-coordinate. For each y-value, maintain an array tracking which x-segments are covered. When processing events (rectangle start/end), update coverage counts and calculate area incrementally. Use coordinate compression to map large x-coordinates to indices. This reduces the problem to manageable size but still requires O(n) time per event to update coverage, resulting in O(n² log n) overall complexity.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Enhance the sweep line approach with a Segment Tree for efficient range updates. Instead of updating coverage counts in an array (O(n) per event), use a segment tree that supports range updates in O(log n) time. The segment tree tracks coverage counts and calculates total covered length efficiently. This reduces the time complexity to O(n log n) - optimal for this problem. The key insight is that we need range updates (increment/decrement coverage for x-intervals) and range queries (total covered length), which segment trees handle efficiently.
+
 ## Solution 1: Sweep Line with Coordinate Compression
 
 **Time Complexity:** O(n² log n) - Sorting events + O(n) per event for coverage calculation  

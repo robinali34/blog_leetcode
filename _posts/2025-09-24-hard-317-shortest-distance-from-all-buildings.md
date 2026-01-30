@@ -62,6 +62,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Shortest total distance from chosen empty land to all buildings, or -1 if impossible)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to find shortest distance. Let me try each empty land position."
+
+**Naive Solution**: For each empty land cell, perform BFS to all buildings, sum distances, find minimum.
+
+**Complexity**: O(m × n × B) time where B is building count, O(m × n) space
+
+**Issues**:
+- O(m × n × B) time - inefficient
+- Repeats BFS for each empty land
+- Doesn't leverage reverse BFS
+- Can be optimized significantly
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can BFS from each building to all empty lands, accumulate distances."
+
+**Improved Solution**: For each building, perform BFS to all reachable empty lands, accumulate distances. Find empty land with minimum total distance.
+
+**Complexity**: O(B × m × n) time, O(m × n) space
+
+**Improvements**:
+- BFS from buildings is more efficient
+- Accumulates distances correctly
+- Still O(B × m × n) but better structure
+- Can optimize further
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "BFS from buildings with distance accumulation is optimal. Can optimize with grid modification."
+
+**Best Solution**: BFS from each building, accumulate distances in distance matrix. Use grid modification to track reachability. Find empty land reachable from all buildings with minimum distance.
+
+**Complexity**: O(B × m × n) time, O(m × n) space
+
+**Key Realizations**:
+1. BFS from buildings is key insight
+2. Distance accumulation enables efficient computation
+3. Grid modification tracks reachability
+4. O(B × m × n) time is optimal for this approach
+
 ## Approach
 
 There are three main approaches to solve this problem:

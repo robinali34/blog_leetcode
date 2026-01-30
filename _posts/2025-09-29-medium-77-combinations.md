@@ -53,6 +53,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty combination**: Should we include empty combination? (Assumption: No - k >= 1 per constraints, so no empty combinations)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to generate combinations. Let me try all possible selections."
+
+**Naive Solution**: Generate all possible k-element selections from [1..n], filter duplicates.
+
+**Complexity**: O(C(n,k) × k) time, O(C(n,k) × k) space
+
+**Issues**:
+- Generates duplicates that need filtering
+- Doesn't leverage ordering constraint
+- Inefficient duplicate handling
+- More complex than needed
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use backtracking with ordering constraint to avoid duplicates naturally."
+
+**Improved Solution**: Use backtracking (DFS). For each position, try numbers from current number+1 to n. This ensures ascending order and avoids duplicates.
+
+**Complexity**: O(C(n,k) × k) time, O(k) space
+
+**Improvements**:
+- Avoids duplicates naturally through ordering
+- Backtracking is natural for combinations
+- O(k) space for recursion stack
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Backtracking with ordering constraint is optimal. Can optimize with early termination."
+
+**Best Solution**: Backtracking with ordering constraint is optimal. Start from current+1 in each recursive call to ensure ascending order. Early termination when not enough numbers remain.
+
+**Complexity**: O(C(n,k) × k) time, O(k) space
+
+**Key Realizations**:
+1. Backtracking is natural approach for combinations
+2. Ordering constraint prevents duplicates
+3. O(C(n,k) × k) time is optimal - must generate all combinations
+4. O(k) space is optimal for recursion stack
+
 ## Approach
 
 The solution uses backtracking (DFS) with the following strategy:

@@ -48,6 +48,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single node**: What if list has one node? (Assumption: Return same node - already reversed)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to reverse the list. Let me think about the simplest approach."
+
+**Naive Solution**: Collect all node values into an array, then rebuild the list by assigning values in reverse order.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Uses O(n) extra space for array
+- Modifies node values instead of pointers
+- Not truly "in-place" reversal
+- Doesn't demonstrate understanding of pointer manipulation
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can reverse pointers without extra space, but need to track previous node."
+
+**Improved Solution**: Use three pointers (prev, curr, next) to reverse links iteratively. Save next node before reversing link, then advance pointers.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- O(1) space complexity - true in-place reversal
+- Modifies pointers directly, not values
+- Handles edge cases (empty list, single node)
+- Demonstrates pointer manipulation skills
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The iterative approach is already optimal. Let me verify edge cases and consider recursive alternative."
+
+**Best Solution**: Refine the three-pointer iterative approach with cleaner code structure. Consider recursive approach as alternative (though uses O(n) stack space).
+
+**Key Realizations**:
+1. Three-pointer technique is optimal for iterative approach
+2. Recursive approach exists but uses O(n) stack space
+3. Iterative is preferred for production code due to space efficiency
+4. Both approaches are valid, but iterative is more practical
+
 ## Solution: Iterative and Recursive Approaches
 
 **Time Complexity:** O(n)  
@@ -55,7 +94,39 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 We can reverse a linked list using either an iterative approach (preferred for space efficiency) or a recursive approach (more elegant but uses stack space).
 
-### Solution 1: Iterative Approach (Recommended - C++20 Optimized)
+### Solution 1: Brute-Force Approach (Array Collection)
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(n)
+
+Collect all node values into an array, then rebuild the list by assigning values in reverse order.
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head) return nullptr;
+        
+        vector<int> values;
+        ListNode* curr = head;
+        while (curr) {
+            values.push_back(curr->val);
+            curr = curr->next;
+        }
+        
+        curr = head;
+        for (int i = values.size() - 1; i >= 0; i--) {
+            curr->val = values[i];
+            curr = curr->next;
+        }
+        return head;
+    }
+};
+```
+
+**Note**: This approach modifies node values instead of pointers, which is not ideal for interview purposes.
+
+### Solution 2: Iterative Approach (Recommended - C++20 Optimized)
 
 ```cpp
 using namespace std;
@@ -247,9 +318,36 @@ head (now tail)
 - **Better performance**: No function call overhead
 - **Easier to understand**: Linear flow
 
+## Solution Structure Breakdown
+
+### Evolution from Naive to Optimized
+
+**Naive Approach** (Brute-Force):
+- **Structure**: Collect values → Rebuild list
+- **Complexity**: O(n) time, O(n) space
+- **Limitation**: Not true in-place reversal
+
+**Semi-Optimized Approach** (Three Pointers):
+- **Structure**: Track prev, curr, next → Reverse links iteratively
+- **Complexity**: O(n) time, O(1) space
+- **Improvement**: True in-place reversal
+
+**Optimized Approach** (Final):
+- **Structure**: Same as semi-optimized (already optimal)
+- **Complexity**: O(n) time, O(1) space
+- **Enhancement**: Cleaner code, better edge case handling
+
+### Code Structure Comparison
+
+| Approach | Key Operations | Space Usage | Production Ready |
+|----------|---------------|-------------|------------------|
+| **Naive** | Array collection + rebuild | O(n) array | ❌ |
+| **Semi-Opt** | Three-pointer reversal | O(1) pointers | ✅ |
+| **Optimized** | Three-pointer (refined) | O(1) pointers | ✅ |
+
 ## Algorithm Breakdown
 
-### Iterative Approach
+### Iterative Approach (Optimal)
 
 ```cpp
 ListNode* reverseList(ListNode* head) {
@@ -267,7 +365,12 @@ ListNode* reverseList(ListNode* head) {
 }
 ```
 
-### Recursive Approach
+**Key Steps**:
+1. Initialize `prev = nullptr`, `curr = head`
+2. For each node: save next, reverse link, advance pointers
+3. Return `prev` as new head
+
+### Recursive Approach (Alternative)
 
 ```cpp
 ListNode* reverseList(ListNode* head) {
@@ -286,6 +389,12 @@ ListNode* reverseList(ListNode* head) {
     return newHead;
 }
 ```
+
+**Key Steps**:
+1. Base case: empty or single node
+2. Recursively reverse rest of list
+3. Reverse current node's link
+4. Return new head from recursion
 
 ## Edge Cases
 

@@ -97,6 +97,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Valid moves**: Are moves guaranteed valid? (Assumption: Per constraints, moves are within bounds, but should check for already occupied cells)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+After each move, check all rows, columns, and diagonals to see if any are completely filled by one player. This requires checking O(n) rows, O(n) columns, and 2 diagonals after each move, giving O(n) time per move. This works but can be optimized.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Maintain counts for each row, column, and diagonal. For each move, increment the count for the corresponding row, column, and potentially diagonals. Check if any count equals n. However, need to handle both players: use positive counts for player 1 and negative counts for player 2, or maintain separate counts for each player.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Maintain arrays for row counts, column counts, and two diagonal counts. For player 1, increment counts; for player 2, decrement counts (or use separate arrays). After each move, check if the absolute value of any count equals n. This achieves O(1) time per move with O(n) space, which is optimal. The key insight is that we only need to check the row, column, and diagonals affected by the current move, and maintaining running counts allows O(1) checking instead of scanning entire rows/columns.
+
 ## Solution Approaches
 
 ### Approach 1: Naive Implementation

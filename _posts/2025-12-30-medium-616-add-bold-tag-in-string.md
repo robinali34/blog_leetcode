@@ -51,6 +51,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Case sensitivity**: Is matching case-sensitive? (Assumption: Per constraints, English letters - typically case-sensitive unless specified)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each word in the words array, find all occurrences in string `s` using string search. Mark all matching positions as bold. Then iterate through `s` and add `<b>` tags around marked regions. This approach works but requires careful handling of overlapping regions and merging consecutive bold regions.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a boolean array to mark bold positions: create an array `bold[i]` indicating if character `i` should be bold. For each word, find all occurrences and mark corresponding positions. Then iterate through `s` and add bold tags when entering or leaving bold regions. This simplifies the logic but still requires O(n × m × L) time where n is string length, m is number of words, and L is average word length.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use interval merging: for each word, find all occurrences and create intervals [start, end). Merge overlapping and consecutive intervals. Then iterate through the string and add bold tags at interval boundaries. Alternatively, use a boolean array to mark bold positions, then build the result string by tracking when we enter/exit bold regions. This achieves O(n × m × L) time for finding matches and O(n) time for building the result, which is efficient enough for the constraints. The key insight is that we can merge intervals to handle overlapping regions, then build the result string in a single pass.
+
 ## Solution Approach
 
 This problem requires identifying all substrings in `s` that match any word in `words`, and wrapping them with bold tags. The key challenge is handling **overlapping** and **consecutive** substrings by merging them into a single bold tag.

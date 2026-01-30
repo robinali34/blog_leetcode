@@ -55,6 +55,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+For each character in the string, scan through the entire string to count how many times it appears. Return the index of the first character that appears exactly once. This approach has O(n²) time complexity where n is the string length, which is inefficient for large strings.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a hash map or frequency array to count the frequency of each character in one pass. Then, iterate through the string again to find the first character with frequency 1. This reduces time complexity to O(n) with O(k) space where k is the number of unique characters (26 for lowercase letters). This works well but can be optimized further for space.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use bit manipulation to track character frequencies efficiently. Use two integers as bit masks: one to track characters that have appeared once, and another to track characters that have appeared multiple times. For each character, toggle its bit in the "once" mask. If the bit was already set, move it to the "multiple" mask. After processing, iterate through the string again and return the index of the first character whose bit is set in "once" but not in "multiple". This achieves O(n) time with O(1) space using only two integers, making it the most space-efficient solution.
+
 ## Solution Approach
 
 This problem requires finding the first character that appears exactly once. There are several approaches:

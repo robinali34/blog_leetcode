@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Circular list**: Should the list be circular? (Assumption: Yes - last node's right points to first, first node's left points to last)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Perform in-order traversal to collect all nodes in a list. Then iterate through the list and connect each node to the next node, and connect the last node to the first to make it circular. This approach works but requires O(n) extra space for the list.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use in-order traversal with a previous pointer: perform in-order traversal, maintaining a pointer to the previously visited node. Connect previous to current and current to previous as we traverse. After traversal, connect the last node to the first. This uses O(1) extra space but requires careful pointer management.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use in-order traversal with global previous pointer: perform in-order traversal, maintaining a global `prev` pointer. For each node, set `prev->right = current` and `current->left = prev`, then update `prev = current`. After traversal, connect the last node (prev) to the first node (head) to make it circular. This achieves O(n) time with O(h) space for recursion (or O(1) with iterative traversal), which is optimal. The key insight is that in-order traversal visits nodes in sorted order, and we can build the doubly linked list incrementally by connecting nodes as we visit them.
+
 ## Solution Approaches
 
 ### Approach 1: Inorder Traversal with Global Variables (Recommended)

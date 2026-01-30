@@ -50,6 +50,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Negative numbers**: Can the array contain negative numbers? (Assumption: Yes - this makes prefix sums non-monotonic, requiring advanced techniques like merge sort or segment tree)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to count range sums. Let me check all possible subarrays."
+
+**Naive Solution**: Check all possible subarrays, compute sum, count those in range [lower, upper].
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats sum computation for overlapping subarrays
+- Doesn't leverage prefix sum
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can use prefix sum to compute subarray sums efficiently, but need to count pairs."
+
+**Improved Solution**: Build prefix sum array. For each j, count i < j where prefix[j] - prefix[i] is in [lower, upper]. This requires counting prefix[i] in range [prefix[j]-upper, prefix[j]-lower].
+
+**Complexity**: O(n²) time with prefix sum, O(n) space
+
+**Improvements**:
+- Prefix sum enables O(1) subarray sum queries
+- Still O(n²) for checking all pairs
+- Better structure than brute-force
+- Can optimize further
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "I can use merge sort or segment tree to count pairs efficiently."
+
+**Best Solution**: Use merge sort on prefix sums. During merge, count pairs where prefix[i] is in range [prefix[j]-upper, prefix[j]-lower]. Alternative: Segment Tree with coordinate compression.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Prefix sum transformation is key insight
+2. Merge sort enables efficient pair counting
+3. O(n log n) time is optimal
+4. Segment Tree is alternative approach
+
 ## Solution Approach
 
 This problem requires counting the number of subarray sums that fall within a given range. The key insight is to use **prefix sums** and then count pairs of prefix sums that satisfy the condition.

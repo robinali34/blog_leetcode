@@ -61,6 +61,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Boolean - true if board state is valid, false otherwise)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if board is valid. Let me check all winning conditions and count pieces."
+
+**Naive Solution**: Check all 8 winning lines (3 rows, 3 columns, 2 diagonals), count X's and O's, check if counts are valid.
+
+**Complexity**: O(1) time, O(1) space
+
+**Issues**:
+- May miss edge cases
+- Need to check multiple conditions
+- Logic can be complex
+- Need to handle all invalid cases
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I need to check: count difference (X - O should be 0 or 1), and at most one winner."
+
+**Improved Solution**: Count X's and O's, check if difference is valid (0 or 1). Check all winning lines, ensure at most one winner. If X wins, count difference must be 1. If O wins, count difference must be 0.
+
+**Complexity**: O(1) time, O(1) space
+
+**Improvements**:
+- Systematic checking of all conditions
+- Handles all edge cases
+- Clear logic flow
+- O(1) time is optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The approach is already optimal. Let me refine the condition checking logic."
+
+**Best Solution**: Check count difference first (must be 0 or 1). Then check winners: if both win, invalid. If X wins, must have count difference 1. If O wins, must have count difference 0.
+
+**Complexity**: O(1) time, O(1) space
+
+**Key Realizations**:
+1. Count difference check is first validation
+2. Winner checking must consider count difference
+3. O(1) time is optimal - fixed size board
+4. All conditions must be checked systematically
+
 ## Approach
 
 The solution involves checking several conditions:

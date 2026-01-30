@@ -54,6 +54,44 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Ordering**: Does the order of children or cookies matter? (Assumption: No - we can assign in any order, but sorting helps optimize)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to assign cookies to children. Let me try all possible assignments."
+
+**Naive Solution**: Try all possible cookie-to-child assignments, count valid ones. Use nested loops or backtracking.
+
+**Complexity**: O(n × m) or exponential time, O(1) space
+
+**Issues**:
+- Very inefficient for large inputs
+- Doesn't leverage greedy property
+- Overcomplicated for this problem
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I should match smallest cookie to smallest child first. This is a greedy approach."
+
+**Improved Solution**: Sort both arrays. Use two pointers to match smallest available cookie to smallest unsatisfied child greed factor.
+
+**Complexity**: O(n log n + m log m) time, O(1) space
+
+**Improvements**:
+- Greedy matching is optimal
+- Sorting enables efficient matching
+- Two-pointer technique is clean
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The greedy two-pointer approach is already optimal. Sorting is necessary for correctness."
+
+**Best Solution**: Sort both arrays, use greedy matching with two pointers. This maximizes number of satisfied children.
+
+**Key Realizations**:
+1. Greedy approach is optimal for this problem
+2. Sorting enables efficient O(n + m) matching after sort
+3. Two-pointer technique is elegant
+4. O(n log n) sorting dominates time complexity
+
 ## Solution Approach
 
 This is a classic **greedy algorithm** problem. The key insight is to use a greedy strategy: assign the smallest cookie that satisfies each child's greed factor, starting with the child with the smallest greed factor.

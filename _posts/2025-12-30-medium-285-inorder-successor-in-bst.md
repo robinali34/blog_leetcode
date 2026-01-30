@@ -50,6 +50,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Rightmost node**: What if node is rightmost? (Assumption: Return nullptr - no successor exists)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Perform an in-order traversal of the BST, collect all nodes in a list, find the given node in the list, and return the next node. This approach works but requires O(n) time and O(n) space for the traversal, which is inefficient.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use in-order traversal with early termination: traverse the BST in-order, track the previous node. When we encounter the target node, return the next node we visit. However, we still need to traverse potentially the entire tree, and handling the case where the target is the rightmost node requires special care.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use BST properties: if the target node has a right child, the successor is the leftmost node in its right subtree. If the target node doesn't have a right child, the successor is the lowest ancestor whose left subtree contains the target node. Traverse from root to target, keeping track of the last node where we went left (this is the potential successor). This achieves O(h) time where h is the height of the tree, which is O(log n) for balanced BSTs. The key insight is leveraging BST properties: the successor is either in the right subtree (if it exists) or is an ancestor where we took a left turn.
+
 ## Solution Approach
 
 This problem requires finding the in-order successor of a given node in a BST. The in-order successor is the node with the smallest value greater than the given node's value.

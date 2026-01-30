@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Children order**: Should children be processed in any specific order? (Assumption: Process in the order they appear in children array)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to traverse N-ary tree level by level. Let me use DFS with level tracking."
+
+**Naive Solution**: Use DFS with level tracking. Store nodes by level in map, then convert to result.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- DFS doesn't naturally maintain level order
+- Need to sort levels or use map
+- Doesn't leverage BFS naturally
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "BFS naturally processes nodes level by level, works for N-ary trees too."
+
+**Improved Solution**: Use BFS (queue). Process nodes level by level. For each node, add all children to queue. Process all nodes at current level before next level.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- BFS naturally maintains level order
+- Works for N-ary trees (multiple children)
+- O(n) time is optimal
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "BFS approach is optimal. Track level size to process level by level."
+
+**Best Solution**: BFS approach is optimal. Use queue, track level size, process all nodes at current level, add all children to queue for next level.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. BFS is perfect for level-order traversal
+2. Works for both binary and N-ary trees
+3. O(n) time is optimal - visit each node once
+4. Level size tracking enables level-by-level processing
+
 ## Solution Approach
 
 This is a classic **BFS (Breadth-First Search)** problem for N-ary trees. The key insight is to:

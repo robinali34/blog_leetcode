@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to traverse tree level by level. Let me use DFS and track levels."
+
+**Naive Solution**: Use DFS with level tracking. Store nodes by level in map, then convert to result.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- DFS doesn't naturally maintain level order
+- Need to sort levels or use map
+- Doesn't leverage BFS naturally
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "BFS naturally processes nodes level by level."
+
+**Improved Solution**: Use BFS (queue). Process nodes level by level. For each level, process all nodes at that level, add to result.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- BFS naturally maintains level order
+- O(n) time is optimal
+- Clean and intuitive
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "BFS approach is optimal. Track level size to process level by level."
+
+**Best Solution**: BFS approach is optimal. Use queue, track level size, process all nodes at current level before moving to next level.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. BFS is perfect for level-order traversal
+2. O(n) time is optimal - visit each node once
+3. Level size tracking enables level-by-level processing
+4. O(n) space for queue is necessary
+
 ## Solution Approach
 
 This is a classic **BFS (Breadth-First Search)** problem. The key insight is to:

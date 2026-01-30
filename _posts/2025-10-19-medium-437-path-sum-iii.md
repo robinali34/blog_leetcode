@@ -53,6 +53,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Path direction**: Can paths go upward in the tree? (Assumption: No - paths go downward from parent to child - standard tree path)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find paths with target sum. Let me check all possible paths."
+
+**Naive Solution**: For each node, check all paths starting from that node, count paths with target sum.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Issues**:
+- O(n²) time - checks many paths
+- Repeats work for overlapping paths
+- Doesn't leverage prefix sum
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DFS with prefix sum tracking. Track sum from root to current node."
+
+**Improved Solution**: Use DFS with prefix sum. For each node, check if any prefix sum difference equals target. Use hash map to track prefix sums.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Prefix sum enables efficient checking
+- O(n) time - single DFS pass
+- Hash map tracks prefix sums
+- Handles all paths correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DFS with prefix sum hash map is optimal. Backtrack map updates."
+
+**Best Solution**: DFS with prefix sum hash map. Track running sum, check if (current_sum - target) exists in map. Backtrack map updates when leaving subtree.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Prefix sum is key technique for path sum problems
+2. Hash map enables O(1) lookup
+3. O(n) time is optimal - visit each node once
+4. Backtracking ensures correct counting
+
 ## Solution: DFS with Recursion
 
 **Time Complexity:** O(n²) where n is the number of nodes  

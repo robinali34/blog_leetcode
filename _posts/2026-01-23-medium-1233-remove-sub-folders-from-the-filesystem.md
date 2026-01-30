@@ -67,6 +67,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Duplicate folders**: Can the same folder path appear multiple times? (Assumption: Based on constraints, folder names are unique, so no duplicates)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each folder path, check if it's a subfolder of any other folder by checking if any other path is a prefix of it. Remove all folders that are subfolders of others. This requires comparing each folder with every other folder, giving O(n² × m) complexity where n is the number of folders and m is the average path length. This is too slow for large inputs.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Sort the folder paths lexicographically. After sorting, if a folder is a subfolder of another, its parent must appear before it in the sorted order. Iterate through sorted paths, and for each path, check if it starts with the previous path followed by '/'. If yes, it's a subfolder and should be removed. This reduces complexity to O(n log n + n × m) for sorting and checking, which is better but can be optimized further.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a Trie data structure to efficiently check prefix relationships. Insert all folder paths into a trie, marking nodes that represent complete folder paths. When inserting, if we encounter a node already marked as a complete path, the current path is a subfolder and should be skipped. Alternatively, after building the trie, traverse it and collect only paths that are not subfolders. This achieves O(n × m) time complexity where m is the average path length, as we process each character once. The trie naturally handles prefix checking efficiently, making it the optimal approach for this problem.
+
 ## Solution Approach
 
 This problem requires identifying and removing folder paths that are subfolders of other folders. A folder is a subfolder if its path is a prefix of another folder's path.

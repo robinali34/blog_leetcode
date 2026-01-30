@@ -68,6 +68,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Travel rules**: When can we travel? (Assumption: Can fly between cities at start of each week, then stay for the week)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Use DFS to explore all possible paths: for each week, try staying in the current city or flying to any reachable city. Recursively explore all possibilities and track the maximum vacation days. This approach has exponential time complexity O(n^k) where n is the number of cities and k is the number of weeks, which is too slow for the constraints.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use DFS with memoization: memoize results for (city, week) pairs. For each state, compute the maximum vacation days achievable from that city starting at that week. However, we need to consider that we can stay in a city or fly to reachable cities. The state space is O(n × k), and each state requires checking O(n) cities, giving O(n² × k) time complexity.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use dynamic programming with bottom-up approach: `dp[city][week]` represents the maximum vacation days achievable ending at `city` for `week`. Process weeks from end to beginning (or beginning to end). For each city and week, consider staying in the city or flying from other cities (if flight exists). This achieves O(n² × k) time complexity, which is optimal for this problem structure. Alternatively, we can optimize space by using 1D DP arrays since we only need previous week's results. The key insight is that this is a classic DP problem with state (city, week) and transitions based on flight availability and vacation days.
+
 ## Solution Approach
 
 This problem requires maximizing vacation days over `k` weeks by choosing which city to be in each week, subject to flight constraints. We can solve this using **dynamic programming** with a bottom-up approach.

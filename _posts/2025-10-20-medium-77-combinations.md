@@ -49,6 +49,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty combination**: Should we include empty combination? (Assumption: No - k >= 1 per constraints, so no empty combinations)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Generate all possible subsets of size k from numbers 1 to n. Use nested loops or recursive generation of all combinations. This approach works but generates many invalid combinations and requires filtering, leading to exponential time complexity. The challenge is efficiently generating only valid combinations without duplicates.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use backtracking: build combinations incrementally. Start with an empty combination, and for each number, decide whether to include it or not. However, this still explores all possibilities. Better: use backtracking with constraint that we only consider numbers greater than the last chosen number (to avoid duplicates and maintain order). This prunes many invalid paths but still has exponential complexity in the worst case.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use backtracking with proper pruning: start from number 1, and for each position in the combination, try numbers from (last_chosen + 1) to n. This ensures combinations are generated in lexicographic order without duplicates. When the combination reaches size k, add it to results. Backtrack by removing the last element and trying the next number. This achieves optimal time complexity O(C(n,k) × k) where C(n,k) is the binomial coefficient, which is the best possible since we must generate all combinations. The key insight is maintaining the "start from last_chosen + 1" constraint to avoid duplicates and ensure proper ordering.
+
 ## Solution Approach
 
 This problem asks for all possible combinations of `k` numbers from `[1, n]`. Since combinations are unordered (unlike permutations), we need to ensure we don't generate duplicate combinations.

@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Grid boundaries**: Can we move outside the grid boundaries? (Assumption: No - must stay within grid bounds [0, m-1] x [0, n-1])
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible paths from start to end using recursive DFS. At each cell, try moving right and down (if valid and not obstacle). Count all paths that reach the destination. This approach has exponential complexity as we explore all possible paths, which is too slow for large grids.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming with memoization: dp[i][j] = number of paths from (0,0) to (i,j). Base cases: dp[0][0] = 1 if not obstacle, 0 otherwise. First row and column can only come from one direction. For other cells: if obstacle, dp[i][j] = 0; otherwise, dp[i][j] = dp[i-1][j] + dp[i][j-1]. This requires O(m × n) time and space, which works well.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use bottom-up DP with space optimization. Since we only need the previous row to compute the current row, we can use a 1D array instead of 2D. Maintain dp[j] representing paths to current row, column j. Update: if obstacle, dp[j] = 0; otherwise, dp[j] += dp[j-1] (from left) and inherit from above (previous dp[j]). This achieves O(m × n) time with O(n) space, which is optimal for space. The key insight is that we only need the previous row's values to compute the current row, allowing space optimization from O(m × n) to O(n).
+
 ## Solution Approach
 
 This is a **2D dynamic programming** problem similar to Unique Paths (LC 62), but with obstacles blocking certain cells. The key insight is that if a cell contains an obstacle, there are 0 ways to reach it.

@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Negative numbers**: Can array contain negative numbers? (Assumption: Yes - per constraints, nums[i] can be negative)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Try all possible subarrays by checking all pairs of start and end indices. For each subarray, calculate its sum and track the shortest one with sum >= k. This approach has O(n²) time complexity for checking all subarrays and O(n) for calculating each sum, giving O(n³) overall. For arrays up to 50,000 elements, this is too slow.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use prefix sums to calculate subarray sums in O(1) time. Precompute prefix[i] = sum of nums[0...i-1]. Then subarray sum from i to j is prefix[j+1] - prefix[i]. For each starting index i, find the smallest ending index j such that prefix[j+1] - prefix[i] >= k. This reduces to O(n²) time complexity, which is still too slow for large inputs. The challenge is that negative numbers prevent using simple two-pointer or sliding window techniques.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use a monotonic deque with prefix sums. Maintain a deque of prefix sum indices in increasing order of prefix sum values. For each prefix sum, remove indices from the front whose prefix sums are too small (can't form valid subarrays), and remove indices from the back whose prefix sums are larger (they're worse candidates since we want the shortest subarray). The key insight is that if prefix[i] <= prefix[j] and i < j, then i is always a better starting point than j. This achieves O(n) time complexity because each index is added and removed at most once. The monotonic deque maintains candidates efficiently, handling negative numbers correctly.
+
 ## Solution Approach
 
 This problem is similar to [LC 209: Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/), but with a critical difference: **the array can contain negative numbers**.

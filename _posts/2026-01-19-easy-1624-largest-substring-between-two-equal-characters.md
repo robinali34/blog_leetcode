@@ -64,6 +64,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+For each character in the string, find all its occurrences. For each pair of occurrences, calculate the length of substring between them. Track the maximum length found. This approach requires O(n²) comparisons where n is string length, as we check all pairs of positions for each character.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a hash map to store the first and last occurrence of each character. For each character, calculate the distance between first and last occurrence. Track the maximum distance. This reduces to O(n) time for a single pass to build the map, then O(k) to check all characters where k is the number of unique characters (at most 26).
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a single pass: maintain a hash map storing the first occurrence index of each character. As we iterate through the string, if we encounter a character we've seen before, calculate the distance from the first occurrence to the current position (excluding both endpoints). Update the maximum. This achieves O(n) time with O(k) space where k is the number of unique characters. The key insight is that we only need the first occurrence of each character to calculate the maximum substring length ending at the current position.
+
 ## Solution Approach
 
 This problem requires finding the maximum distance between two occurrences of the same character. The key insight is:

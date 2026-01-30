@@ -57,6 +57,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Multiple backspaces**: What if there are multiple consecutive '#'? (Assumption: Each '#' deletes one character - can delete multiple characters)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to compare strings after backspaces. Let me build final strings first."
+
+**Naive Solution**: Process each string to build final string after backspaces, then compare.
+
+**Complexity**: O(n + m) time, O(n + m) space
+
+**Issues**:
+- Uses O(n + m) extra space
+- Two passes needed
+- Doesn't leverage two-pointer technique
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can process strings from right to left, skipping characters deleted by backspaces."
+
+**Improved Solution**: Process strings from right to left. When encountering '#', skip next character. Compare characters as we go.
+
+**Complexity**: O(n + m) time, O(1) space
+
+**Improvements**:
+- O(1) space - no extra strings needed
+- Right-to-left processing handles backspaces naturally
+- Single pass comparison
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Right-to-left two-pointer approach is optimal."
+
+**Best Solution**: Right-to-left two-pointer approach is optimal. Process both strings from end. When encountering '#', skip characters. Compare characters directly.
+
+**Complexity**: O(n + m) time, O(1) space
+
+**Key Realizations**:
+1. Right-to-left processing is key insight
+2. O(n + m) time is optimal - must process each character
+3. O(1) space is optimal
+4. Two-pointer technique enables direct comparison
+
 ## Solution Approach
 
 This problem can be solved in two ways:

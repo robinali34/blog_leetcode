@@ -62,6 +62,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Sibling check**: What if nodes are siblings? (Assumption: Return false - cousins must have different parents)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Find the parent and depth of node x, then find the parent and depth of node y. Check if they have the same depth but different parents. To find parent and depth, use DFS or BFS to traverse the tree, tracking parent and depth for each node. This approach works but requires two traversals or careful tracking during one traversal.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use BFS level by level. For each level, check if both x and y are present. If they are in the same level, check if they have different parents. However, tracking parents during BFS requires storing parent information, which adds complexity. Alternatively, use DFS to find both nodes and their properties in one pass.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a single DFS or BFS traversal. For each node, track its depth and parent. When we find x, store its depth and parent. When we find y, store its depth and parent. After traversal, check if depths are equal and parents are different. This achieves O(n) time to visit all nodes and O(h) space for recursion/queue, which is optimal. The key insight is that we can find both nodes' properties in a single traversal by tracking depth and parent information as we explore the tree.
+
 ## Solution Approach
 
 This problem requires checking if two nodes are **cousins**, which means:

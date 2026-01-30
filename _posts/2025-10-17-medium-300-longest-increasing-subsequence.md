@@ -53,6 +53,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty array**: What if array is empty? (Assumption: Return 0 - no subsequence exists)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find longest increasing subsequence. Let me try all possible subsequences."
+
+**Naive Solution**: Generate all possible subsequences, check if each is increasing, track maximum length.
+
+**Complexity**: O(2^n × n) time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Generates many invalid subsequences
+- Very inefficient
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. Length of LIS ending at i depends on LIS ending at previous positions."
+
+**Improved Solution**: Use DP where dp[i] = length of LIS ending at index i. For each i, check all previous positions j where nums[j] < nums[i], take maximum dp[j] + 1.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Leverages optimal substructure
+- O(n²) time instead of exponential
+- Correctly finds LIS length
+- Can be optimized further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use binary search with patience sorting to achieve O(n log n) time."
+
+**Best Solution**: Use binary search with patience sorting. Maintain array of smallest tail values for each LIS length. For each number, find position to replace using binary search. This achieves O(n log n) time.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. DP is natural approach but O(n²)
+2. Binary search optimization achieves O(n log n)
+3. Patience sorting is key technique
+4. O(n log n) time is optimal
+
 ## Solution 1: Dynamic Programming
 
 **Time Complexity:** O(n²)  

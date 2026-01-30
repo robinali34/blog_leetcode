@@ -42,6 +42,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty input**: What if there are no meetings? (Assumption: Return 0 - no rooms needed)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum rooms. Let me check all possible room assignments."
+
+**Naive Solution**: Try all possible ways to assign meetings to rooms, find minimum number of rooms needed.
+
+**Complexity**: Exponential time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid assignments
+- Very inefficient
+- Doesn't leverage interval properties
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can sort meetings by start time, then use greedy approach with priority queue."
+
+**Improved Solution**: Sort meetings by start time. Use min-heap to track end times of active meetings. For each meeting, if earliest end <= current start, reuse room; else need new room.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- Sorting enables chronological processing
+- Min-heap efficiently tracks room availability
+- O(n log n) time is much better
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Min-heap approach is optimal. Can also use chronological ordering with two pointers."
+
+**Best Solution**: Min-heap approach is optimal. Sort by start time, use min-heap for end times. Alternative: chronological ordering with start/end events, track active meetings.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Sorting is key insight
+2. Min-heap tracks room availability efficiently
+3. O(n log n) time is optimal for sorting approach
+4. Chronological ordering is alternative approach
+
 ## Solution 1: Priority Queue (Min Heap)
 
 **Time Complexity:** O(n log n) - Sorting + heap operations  

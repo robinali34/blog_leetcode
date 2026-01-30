@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: Should we return all possible roots or just one? (Assumption: Return all nodes that can serve as root for minimum height trees)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each node, calculate the height of the tree when that node is the root (using BFS or DFS). Return the node(s) with minimum height. This approach requires O(n) time per node to calculate height, giving O(n²) overall complexity, which is too slow for large trees.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use the fact that minimum height trees have roots at the "center" of the tree. Find the diameter of the tree (longest path), and the center nodes of the diameter are the roots. However, finding the diameter requires two BFS passes, and identifying center nodes requires additional processing. This approach works but can be complex to implement correctly.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use topological sort (leaf removal): repeatedly remove leaf nodes (nodes with degree 1) until 1 or 2 nodes remain. These remaining nodes are the roots of minimum height trees. The key insight is that leaves contribute to tree height, so removing them iteratively reveals the center. This achieves O(n) time complexity. Alternatively, use two BFS passes to find diameter endpoints, then find the center of the diameter. The topological approach is simpler and more intuitive: keep removing leaves until the "core" remains, which naturally identifies the optimal roots.
+
 ## Solution Approach
 
 This problem requires finding the center(s) of a tree. The key insight is that **minimum height trees have their roots at the center(s) of the longest path (diameter) in the tree**.

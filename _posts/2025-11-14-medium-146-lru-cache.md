@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use a hash map to store key-value pairs and a list/array to track access order. For `get`, search the list to find the key, move it to the end, and return the value. For `put`, add/update the hash map and move the key to the end of the list. When capacity is exceeded, remove the first element from the list. This approach has O(n) time for `get` operations due to list searching, which doesn't meet the O(1) requirement.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a hash map and a doubly linked list: hash map stores key-to-node mappings, doubly linked list maintains access order. For `get`, use hash map to find the node in O(1), move it to the end of the list. For `put`, add/update hash map, add node to end of list, remove head if capacity exceeded. However, implementing a doubly linked list from scratch requires careful pointer management and can be error-prone.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use hash map + `std::list`: hash map stores `key -> iterator` mappings, `std::list` maintains access order with pairs `(key, value)`. For `get`, use hash map to get iterator in O(1), use `splice` to move node to end in O(1). For `put`, if key exists, update value and move to end. If new key, add to end and remove head if capacity exceeded. This achieves O(1) for both operations using standard library containers. The key insight is that `std::list::splice` allows O(1) node movement, and hash map provides O(1) lookup, combining to achieve O(1) operations.
+
 ## Solution: Hash Map + Doubly Linked List (C++20 Optimized)
 
 **Time Complexity:** O(1) for both `get` and `put`  

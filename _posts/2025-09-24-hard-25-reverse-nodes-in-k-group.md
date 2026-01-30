@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Head of the modified linked list)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to reverse nodes in k-groups. Let me collect values, rearrange, rebuild list."
+
+**Naive Solution**: Collect all node values, rearrange in k-groups, rebuild linked list.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Uses O(n) extra space
+- Modifies values instead of pointers
+- Not truly in-place
+- Doesn't demonstrate pointer manipulation
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can reverse k nodes at a time by manipulating pointers. Need to track group boundaries."
+
+**Improved Solution**: Traverse list, reverse each group of k nodes by manipulating pointers. Track previous group's tail to connect groups.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- O(1) space - true in-place operation
+- Manipulates pointers directly
+- Handles group boundaries correctly
+- More complex than simple reversal
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Recursive or iterative approach. Recursive is cleaner, iterative is more space-efficient."
+
+**Best Solution**: Recursive approach: reverse first k nodes, recursively reverse remaining list, connect. Iterative approach: use loop to process each group, reverse and connect.
+
+**Complexity**: O(n) time, O(n/k) space recursive, O(1) space iterative
+
+**Key Realizations**:
+1. Pointer manipulation is key skill
+2. Group boundary handling is crucial
+3. Recursive is cleaner but uses stack space
+4. Iterative is more space-efficient
+
 ## Approach
 
 The solution uses a recursive approach:

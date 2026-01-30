@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Value not present**: What if `val` doesn't exist in the array? (Assumption: Return the original length - no elements removed)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Create a new array, iterate through the original array, and copy only elements that are not equal to `val` to the new array. Return the size of the new array. This approach uses O(n) extra space and requires O(n) time. However, the problem requires in-place modification, so this doesn't meet the requirement.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use two pointers from both ends: use `left` pointer starting from the beginning and `right` pointer from the end. When `nums[left] == val`, swap it with `nums[right]` and decrement `right`. Otherwise, increment `left`. This approach modifies the array in-place but doesn't preserve the relative order of remaining elements, which may not be acceptable.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use two pointers moving in the same direction: `curr` scans through all elements, and `last` tracks the position where the next valid element should be placed. When `nums[curr] != val`, copy it to `nums[last]` and increment `last`. This achieves O(n) time with O(1) space, maintains relative order, and modifies the array in-place. The key insight is that we can overwrite elements at the `last` position since we've already processed them, allowing in-place modification without extra space.
+
 ## Solution Approach
 
 This problem requires removing all occurrences of `val` from the array **in-place** and returning the count of remaining elements. The key is using **two pointers** to efficiently filter elements.

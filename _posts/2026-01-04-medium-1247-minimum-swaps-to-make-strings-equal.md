@@ -74,6 +74,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Swap efficiency**: Can one swap fix multiple mismatches? (Assumption: Yes - strategic swaps can fix multiple mismatches efficiently)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible sequences of swaps to make strings equal. Use BFS or DFS to explore all swap sequences, tracking the minimum number of swaps needed. This approach has exponential complexity as we explore all possible swap sequences, which is infeasible for long strings.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Identify positions where s1[i] != s2[i]. Count mismatches: positions where s1 has 'x' but s2 has 'y', and positions where s1 has 'y' but s2 has 'x'. If counts don't match, return -1. Otherwise, each swap fixes two mismatches. However, determining the minimum number of swaps requires careful pairing logic.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Count mismatches: positions where s1[i] != s2[i]. Among these, count how many have (s1[i], s2[i]) = ('x', 'y') and how many have ('y', 'x'). If counts don't match (not both even or both odd), return -1. Otherwise, each swap fixes one pair: swapping two ('x','y') positions or two ('y','x') positions fixes 2 mismatches. Swapping one ('x','y') and one ('y','x') fixes 2 mismatches. The minimum swaps is (count_xy + count_yx + 1) / 2. This achieves O(n) time with O(1) space, which is optimal.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is about pairing mismatches efficiently.

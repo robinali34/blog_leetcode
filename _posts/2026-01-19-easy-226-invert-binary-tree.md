@@ -76,6 +76,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Recursive vs iterative**: Are there any constraints on using recursion? (Assumption: No - recursion is fine, but iterative approach also works)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Create a new tree with the same structure but swapped children. Traverse the original tree, and for each node, create a new node with left and right children swapped. This approach works but requires O(n) extra space for the new tree and O(n) time to build it. Since we're modifying in-place, this isn't necessary.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use iterative BFS with a queue. Process nodes level by level, swapping left and right children for each node, then enqueue both children. This approach uses O(w) space where w is the maximum width of the tree, and O(n) time. It works well but requires maintaining a queue data structure.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use recursive DFS: for each node, recursively invert the left and right subtrees, then swap the left and right children of the current node. Base case: if node is null, return null. This approach uses O(h) space for the recursion stack where h is the height, and O(n) time to visit all nodes. The recursive solution is elegant, naturally handles the tree structure, and modifies the tree in-place without extra data structures beyond the call stack.
+
 ## Solution Approach
 
 This problem requires swapping the left and right children of every node in the tree. We can use a recursive DFS approach to traverse the tree and swap children at each node.

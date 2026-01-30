@@ -55,6 +55,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single character**: Is a single character considered a palindrome? (Assumption: Yes - single character is a palindrome of length 1)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Check all possible substrings to see if they are palindromes. For each starting position i and ending position j, check if s[i:j+1] is a palindrome by comparing characters from both ends. Keep track of the longest palindrome found. This approach has O(n³) time complexity (O(n²) substrings × O(n) palindrome check), which is too slow for strings up to 1000 characters.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming: dp[i][j] = true if substring s[i:j+1] is a palindrome. Fill the DP table: base case is single characters and pairs, then for longer substrings, check if s[i] == s[j] and dp[i+1][j-1] is true. This reduces palindrome checking to O(1) per substring, giving O(n²) time complexity with O(n²) space. This works but can be optimized further.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use the "expand around center" approach: for each possible center (character or gap between characters), expand outward while characters match. There are 2n-1 centers (n characters + n-1 gaps). For each center, expand and track the longest palindrome. This achieves O(n²) time with O(1) space. Alternatively, use Manacher's algorithm for O(n) time, but it's more complex. The expand-around-center approach is simpler and sufficient for most cases, providing a good balance between complexity and performance.
+
 ## Solution Approaches
 
 There are several approaches to solve this problem:

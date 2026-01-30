@@ -63,6 +63,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Number of unique paths - integer count)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to count paths. Let me try all possible paths using DFS/backtracking."
+
+**Naive Solution**: Use DFS/backtracking to explore all possible paths from start to end, count successful paths.
+
+**Complexity**: O(2^(m+n)) worst case time, O(m+n) space
+
+**Issues**:
+- Exponential time complexity
+- Explores many redundant paths
+- Very inefficient for large grids
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. I can use dynamic programming - paths to (i,j) = paths to (i-1,j) + paths to (i,j-1)."
+
+**Improved Solution**: DP where dp[i][j] = number of paths to reach (i,j). dp[i][j] = dp[i-1][j] + dp[i][j-1]. Base case: dp[0][0] = 1.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Improvements**:
+- Polynomial time instead of exponential
+- Correctly counts all paths
+- Can optimize space to O(min(m,n))
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DP is optimal. Can optimize space to O(n) using single row, or use combinatorial formula."
+
+**Best Solution**: DP approach is optimal. Can optimize space to O(min(m,n)) using single array. Alternatively, use combinatorial formula: C(m+n-2, m-1) = (m+n-2)! / ((m-1)! × (n-1)!) but DP is more intuitive.
+
+**Complexity**: O(m × n) time, O(min(m,n)) space
+
+**Key Realizations**:
+1. DP is natural approach - optimal substructure
+2. O(m × n) time is optimal for DP approach
+3. Space can be optimized to O(min(m,n))
+4. Combinatorial formula exists but DP is clearer
+
 ## Approach
 
 The solution uses dynamic programming with the following key insights:

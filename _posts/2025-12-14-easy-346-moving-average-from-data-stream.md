@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Initial window**: What if we have fewer than size elements? (Assumption: Average all available elements until window is full)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Maintain an array or list of all values. For each next() call, calculate the sum of the last size elements and divide by the count. This requires O(size) time per call to sum the elements, which is acceptable for small sizes but not optimal. The space complexity is O(n) where n is the total number of calls, which grows unbounded.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a fixed-size circular array to maintain only the last size elements. When adding a new value, overwrite the oldest value using modulo arithmetic. For each next() call, sum all elements in the array and divide. This reduces space to O(size) but still requires O(size) time per call to calculate the sum, which can be optimized further.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a queue to maintain the sliding window and a running sum variable. When adding a new value, add it to the queue and the sum. If the queue size exceeds the window size, remove the oldest element from both the queue and subtract it from the sum. The average is simply sum / queue.size(). This achieves O(1) time per operation: adding/removing from queue is O(1), updating sum is O(1), and calculating average is O(1). The space complexity is O(size) for the queue, which is optimal.
+
 ## Solution 1: Queue with Running Sum (Recommended)
 
 **Time Complexity:** O(1) per `next()` call  

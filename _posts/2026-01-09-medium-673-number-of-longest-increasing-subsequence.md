@@ -50,6 +50,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Output format**: What should we return - count or list of subsequences? (Assumption: Return count - integer representing number of LIS)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to count LIS. Let me generate all subsequences and count longest ones."
+
+**Naive Solution**: Generate all possible subsequences, check if each is increasing, find maximum length, count subsequences with that length.
+
+**Complexity**: O(2^n × n) time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Generates many invalid subsequences
+- Very inefficient
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DP to track both length and count of LIS ending at each position."
+
+**Improved Solution**: Use DP where dp[i] = length of LIS ending at i, count[i] = number of LIS ending at i. For each i, check previous positions j where nums[j] < nums[i], update length and count.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Leverages optimal substructure
+- O(n²) time instead of exponential
+- Tracks both length and count
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DP approach is optimal. Can optimize with binary search but more complex."
+
+**Best Solution**: DP approach is optimal. Track length and count separately. For each position, find all previous positions that can extend LIS, sum their counts if they have maximum length.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Key Realizations**:
+1. DP is natural approach - optimal substructure
+2. Track both length and count
+3. O(n²) time is optimal for DP approach
+4. Sum counts for positions with maximum length
+
 ## Solution Approach
 
 This is a follow-up to [LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/). Instead of just finding the length, we need to **count** how many longest increasing subsequences exist.

@@ -55,6 +55,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: List of integers representing Gray code sequence)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to generate Gray code. Let me try all possible sequences and check which ones are valid."
+
+**Naive Solution**: Generate all possible sequences of 2^n numbers, check if each consecutive pair differs by exactly one bit.
+
+**Complexity**: O(2^n × 2^n!) time, O(2^n) space
+
+**Issues**:
+- Exponential factorial time - completely infeasible
+- Checks many invalid sequences
+- Very inefficient
+- Doesn't leverage Gray code properties
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Gray codes have recursive structure. I can build them recursively using mirroring."
+
+**Improved Solution**: Use recursive mirror construction. For n-bit Gray code, take (n-1)-bit Gray code, mirror it, and prepend 0 to first half and 1 to second half.
+
+**Complexity**: O(2^n) time, O(2^n) space
+
+**Improvements**:
+- Leverages recursive structure
+- O(2^n) time is optimal
+- Clean recursive approach
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Can use iterative mirror construction or mathematical formula for direct generation."
+
+**Best Solution**: Iterative mirror construction is optimal. Can also use mathematical formula: i ^ (i >> 1) for each i from 0 to 2^n-1, which directly generates Gray code.
+
+**Complexity**: O(2^n) time, O(2^n) space
+
+**Key Realizations**:
+1. Recursive/iterative mirror construction is natural
+2. Mathematical formula exists for direct generation
+3. O(2^n) time is optimal - must generate 2^n numbers
+4. O(2^n) space is optimal - need to store result
+
 ## Approach
 
 There are several approaches to generate Gray codes:

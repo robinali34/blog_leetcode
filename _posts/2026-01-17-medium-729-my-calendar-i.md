@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= start < end <= 10^9 per constraints)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Store all booked intervals in a list. For each `book(start, end)` call, check if the new interval overlaps with any existing interval. If no overlap, add it to the list and return true. Otherwise, return false. This approach has O(n) time per booking where n is the number of existing bookings, which is acceptable for small n but slow for many bookings.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Maintain intervals in a sorted list or set. When booking, use binary search to find the insertion position. Check overlap with the previous and next intervals only. This reduces overlap checking to O(1) after O(log n) binary search, giving O(log n) time per booking. However, insertion into a sorted list is O(n) in worst case.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a sorted data structure like `std::map` or `std::set`: store intervals as pairs `(start, end)` in sorted order. For each booking, use `lower_bound` to find the first interval with start >= new_start. Check overlap with this interval and the previous interval. If no overlap, insert and return true. This achieves O(log n) time per booking using balanced BST, which is optimal. The key insight is that we only need to check overlap with at most two intervals (the one that starts after our interval and the one that starts before), making binary search efficient.
+
 ## Solution Approach
 
 This is an **interval overlap detection** problem. We need to efficiently check if a new interval overlaps with any existing intervals and insert it if no overlap exists.

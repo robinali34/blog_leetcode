@@ -87,6 +87,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Position tracking**: Can we track robot position? (Assumption: No - must use relative movement and backtracking to explore all cells)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Use DFS to explore all reachable cells. For each cell, try all four directions. However, without knowing the room boundaries, we need to track visited cells to avoid infinite loops. The challenge is that we don't know the room layout, so we must explore systematically. Use a visited set to track cleaned cells and their coordinates relative to the starting position.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use DFS with backtracking: explore in one direction until hitting a wall, then backtrack and try other directions. Maintain a visited set using relative coordinates (since we don't know absolute coordinates). When hitting a wall, turn right (or use right-hand rule) to continue exploration. However, ensuring we visit all cells requires careful direction management and backtracking.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use DFS with relative coordinate tracking. Start at (0,0) relative to initial position. For each cell, mark as visited and cleaned. Try all four directions: if move() succeeds, recursively explore that cell, then backtrack by moving back and turning to maintain orientation. Use a visited set with relative coordinates. The key is proper backtracking: after exploring a direction, move back to maintain the robot's position, ensuring we can explore all reachable areas. This achieves optimal exploration of all reachable cells. The insight is that we need to maintain both position tracking (relative coordinates) and orientation tracking (current direction) to ensure complete exploration and proper backtracking.
+
 ## Solution: DFS Backtracking
 
 **Time Complexity:** O(N - O) where N is number of cells and O is number of obstacles  

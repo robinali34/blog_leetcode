@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Starting position**: Can we start from any cell? (Assumption: Yes - can start from any cell that matches the first character of word)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible paths starting from each cell that matches the first character. Use recursive backtracking to explore all 4 directions from each cell. Mark visited cells to avoid cycles, then unmark when backtracking. This approach works but can be inefficient if not optimized, potentially exploring many invalid paths. The time complexity is O(m × n × 4^L) where L is the word length, which can be slow for large boards.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Add early termination: if the current path cannot possibly form the word (remaining characters don't match), backtrack immediately. Also, use a visited set or boolean array to track visited cells more efficiently. Prune paths that are clearly invalid. However, the worst-case complexity remains exponential, though average case improves significantly with pruning.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use DFS with backtracking and careful visited tracking. Mark the current cell as visited before recursion, then unmark after backtracking (to allow reuse in different paths). Add early termination when the current character doesn't match. Use in-place modification of the board (marking with a special character) to avoid extra space, or use a separate visited array. The key optimization is proper backtracking: mark visited before exploring, unmark after exploring, ensuring all paths are considered while avoiding cycles. This achieves the best possible time complexity for this problem, with O(m × n × 4^L) worst case but much better average case with pruning.
+
 ## Solution Approach
 
 This is a classic **backtracking with DFS** problem on a 2D grid. The key insight is to explore all possible paths from each starting position, marking cells as visited during exploration and restoring them when backtracking.

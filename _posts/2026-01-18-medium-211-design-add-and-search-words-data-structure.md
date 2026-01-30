@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Duplicate insertion**: What happens if we add the same word multiple times? (Assumption: Word can be added multiple times, but it's the same word in the Trie)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Store all words in a list or set. For search, if the word contains no wildcards, check if it exists in the set. If it contains wildcards, try all possible combinations by replacing '.' with each possible character and check each combination. This approach has exponential complexity for words with many wildcards, which is too slow.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a Trie for exact word searches (O(m) where m is word length). For wildcard searches, use DFS on the Trie: when encountering '.', try all possible children. This reduces the search space compared to brute force but still requires exploring multiple paths in the Trie for wildcard characters.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a Trie data structure. Insert: traverse/create path character by character, mark end nodes. Search: use recursive DFS. For regular characters, follow the corresponding child. For '.', recursively try all children. This achieves O(m) time for insertion and O(26^d × m) worst-case time for search where d is number of wildcards, but average case is much better. The key insight is that Trie naturally handles prefix matching, and DFS handles wildcard exploration efficiently by pruning invalid paths early.
+
 ## Solution Approach
 
 This problem extends [LC 208: Implement Trie](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) with **wildcard search** support. The key challenge is handling the `'.'` character which can match any letter.

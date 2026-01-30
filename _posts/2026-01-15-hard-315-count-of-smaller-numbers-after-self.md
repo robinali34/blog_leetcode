@@ -57,6 +57,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Rightmost element**: What is count for rightmost element? (Assumption: 0 - no elements to the right)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to count smaller numbers after each element. Let me check all pairs."
+
+**Naive Solution**: For each element, scan rightward to count smaller numbers.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats work for similar elements
+- Doesn't leverage sorting or advanced structures
+- Can be optimized significantly
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can use merge sort to count inversions, or process from right to left with sorted structure."
+
+**Improved Solution**: Process from right to left. Maintain sorted structure (BST or sorted array) of seen elements. For each element, count smaller elements in structure, then insert element.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- O(n log n) time is much better
+- Right-to-left processing is key insight
+- Sorted structure enables efficient counting
+- Can optimize further
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Fenwick Tree or Segment Tree enables O(log n) counting and updates."
+
+**Best Solution**: Use Fenwick Tree (Binary Indexed Tree) or Segment Tree. Process from right to left. For each element, query count of smaller elements, update tree, insert element.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Key Realizations**:
+1. Right-to-left processing is key insight
+2. Fenwick Tree enables efficient range queries
+3. O(n log n) time is optimal
+4. Coordinate compression may be needed for large values
+
 ## Solution Approach
 
 This problem requires counting inversions (smaller elements to the right). We need an efficient data structure to track counts as we process elements from right to left.

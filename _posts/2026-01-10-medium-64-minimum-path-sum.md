@@ -52,6 +52,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Negative values**: Can grid values be negative? (Assumption: Based on constraints, values are >= 0, but should clarify if negative values are possible)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible paths from top-left to bottom-right. Use recursive DFS: at each cell, try moving right and down, recursively calculate minimum path sum from each direction, and return the minimum plus current cell value. This approach has exponential time complexity O(2^(m+n)) as it explores all paths, which is too slow for large grids.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use memoization with recursive DFS. Store results for each cell (i, j) representing the minimum path sum from (i, j) to bottom-right. When computing, check if result is already memoized before recursing. This reduces time to O(m × n) as each cell is computed once, but still uses O(m × n) space for memoization plus O(m + n) for recursion stack.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use dynamic programming with bottom-up approach. Create a DP table where dp[i][j] = minimum path sum from (0,0) to (i,j). Base cases: dp[0][0] = grid[0][0], first row and column can only come from one direction. For other cells: dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1]). Space can be optimized to O(min(m,n)) by using only one row/column since we only need previous row values. This achieves O(m × n) time with O(min(m,n)) space, which is optimal.
+
 ## Solution Approach
 
 This is a classic **2D dynamic programming** problem. The key insight is that to reach cell `(i, j)`, we can only come from `(i-1, j)` (top) or `(i, j-1)` (left). We choose the path with minimum cost.

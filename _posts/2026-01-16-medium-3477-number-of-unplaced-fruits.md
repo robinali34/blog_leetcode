@@ -68,6 +68,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return - count of unplaced fruits or list of unplaced fruits? (Assumption: Return count of unplaced fruits - integer)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Start with a straightforward solution: for each fruit, scan all baskets from left to right to find the first available basket with capacity >= fruit quantity. Use a boolean array to track which baskets are already used. This approach is simple but has O(n × m) time complexity, which is too slow for large inputs (up to 10^5).
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Optimize the basket search using a sorted data structure. Sort baskets by capacity and use a balanced BST or multiset to maintain unused baskets. However, maintaining the "leftmost" property becomes tricky since we need to preserve original index order, not just capacity order. This approach improves query time but still requires careful handling of the leftmost constraint.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a Segment Tree to efficiently find the leftmost index with capacity >= fruit quantity. Build a segment tree storing maximum capacity in each range. For each fruit, query the tree to find the leftmost basket that can hold it, then update the tree to mark that basket as used (set capacity to 0). This achieves O(n log m) time complexity, which is optimal for this problem. The segment tree naturally handles the leftmost property by checking the left child first during queries.
+
 ## Solution Approach
 
 This is a **greedy matching** problem where we need to find the leftmost available basket for each fruit. The challenge is to do this efficiently for large inputs.

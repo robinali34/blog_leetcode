@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= s.length - can have 1 to s.length palindromes)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible ways to split the string into k palindromic substrings. Use backtracking: try placing a cut at each position, check if the current substring is a palindrome, and recursively try to form k-1 palindromes from the remaining string. This approach has exponential time complexity and is too slow for strings up to 10^5 characters. The challenge is that checking palindromes and exploring all partitions is computationally expensive.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming to check if we can partition the string into k palindromes. Precompute a palindrome table (isPalindrome[i][j]) to check if substring s[i:j] is a palindrome in O(1). Then use DP: dp[i][k] = true if we can partition s[0:i] into k palindromes. However, this still requires exploring many partitions and has O(n² × k) complexity, which may be too slow for large inputs.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a key mathematical insight: each palindrome can have at most one character with odd frequency (the center). Count how many characters in the string have odd frequency. We need at least that many palindromes (one for each odd-frequency character). The maximum number of palindromes we can create is the string length (one character per palindrome). If k is between the minimum and maximum, it's possible; otherwise, it's not. This reduces the problem to a simple frequency counting problem with O(n) time complexity. The key insight is that we don't need to actually construct the palindromes - we just need to check if it's mathematically possible based on character frequencies.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight about palindromes. The crucial observation is that a palindrome can have **at most one character with odd frequency** (the center character).

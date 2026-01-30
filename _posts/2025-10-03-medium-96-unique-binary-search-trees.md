@@ -48,6 +48,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty tree**: What if n is 0? (Assumption: Per constraints n >= 1, but typically empty tree counts as 1)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to count unique BSTs. Let me try generating all possible BSTs and count them."
+
+**Naive Solution**: Recursively generate all possible BST structures for n nodes, count distinct structures.
+
+**Complexity**: O(C(n) × n) time where C(n) is Catalan number, O(C(n) × n) space
+
+**Issues**:
+- Generates all trees which is expensive
+- Catalan numbers grow exponentially
+- Very inefficient
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. Number of BSTs with n nodes depends on root choice and left/right subtree sizes."
+
+**Improved Solution**: Use DP. For n nodes, try each node as root. If root is i, left subtree has i-1 nodes, right has n-i nodes. dp[n] = sum(dp[i-1] × dp[n-i]) for i from 1 to n.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Leverages optimal substructure
+- O(n²) time instead of exponential
+- Correctly counts all unique BSTs
+- Much more efficient
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DP is optimal. Can also use Catalan number formula for direct calculation."
+
+**Best Solution**: DP approach is optimal. Can also use Catalan number formula: C(n) = (2n)! / ((n+1)! × n!), but DP is more intuitive and easier to implement.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Key Realizations**:
+1. DP is natural approach - optimal substructure
+2. O(n²) time is optimal for DP approach
+3. Catalan numbers give direct formula
+4. DP is more intuitive than formula
+
 ## Approach
 
 There are three main approaches to solve this problem:

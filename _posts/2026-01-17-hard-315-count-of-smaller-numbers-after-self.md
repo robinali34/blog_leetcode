@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What's the expected time complexity? (Assumption: O(n log n) is optimal - need efficient data structure like Fenwick Tree or BST)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+For each element nums[i], scan all elements after it (nums[i+1] to nums[n-1]) and count how many are smaller. This straightforward approach has O(n²) time complexity, which is too slow for arrays up to 10^5 elements.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Process from right to left, maintaining a sorted data structure (like a balanced BST or sorted list) of elements seen so far. For each element, insert it into the sorted structure and count how many elements are smaller. Using a balanced BST gives O(n log n) time, but implementing a balanced BST is complex. Alternatively, use a Fenwick Tree or Segment Tree for efficient range queries.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use merge sort with counting: during the merge process, when merging two sorted halves, count inversions. When an element from the right half is smaller than an element from the left half, all remaining elements in the left half are larger, so we can count them. Alternatively, use Fenwick Tree (Binary Indexed Tree): process from right to left, for each element, query how many smaller elements have been inserted, then insert the current element. This achieves O(n log n) time with O(n) space, which is optimal. The key insight is that we need to count elements that appear after the current element and are smaller, which can be done efficiently using merge sort inversion counting or Fenwick Tree range queries.
+
 ## Solution Approach
 
 This problem requires counting inversions (smaller elements to the right). We need an efficient data structure to track counts as we process elements from right to left.

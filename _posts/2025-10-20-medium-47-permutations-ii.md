@@ -48,6 +48,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to generate all permutations. Let me use standard permutation generation and filter duplicates."
+
+**Naive Solution**: Generate all permutations using standard backtracking, then filter out duplicates using a set.
+
+**Complexity**: O(n! × n) time, O(n! × n) space
+
+**Issues**:
+- Generates many duplicate permutations
+- Inefficient - creates all permutations then filters
+- Wastes computation on duplicates
+- Doesn't prevent duplicates during generation
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can prevent duplicates during generation by skipping duplicate elements at same position."
+
+**Improved Solution**: Sort array first. During backtracking, skip duplicate elements at current position if previous duplicate wasn't used.
+
+**Complexity**: O(n! × n) time worst case, but much better in practice due to pruning, O(n) space
+
+**Improvements**:
+- Prevents duplicates during generation
+- Prunes invalid branches early
+- More efficient than filtering afterwards
+- Still generates all valid permutations
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The backtracking with duplicate skipping is optimal. Can also use next_permutation for iterative approach."
+
+**Best Solution**: Sort array, use backtracking with visited array and duplicate skipping logic. When choosing element at current position, skip if same as previous and previous wasn't used.
+
+**Complexity**: O(n! × n) time worst case, O(n) space
+
+**Key Realizations**:
+1. Sorting enables efficient duplicate detection
+2. Skip duplicates at same position to avoid duplicate permutations
+3. Backtracking is natural approach for permutation generation
+4. Can also use iterative next_permutation approach
+
 ## Approach
 
 This is an extension of **LC 46 Permutations** that handles **duplicate elements**. The key challenge is avoiding duplicate permutations when the input contains repeated numbers.

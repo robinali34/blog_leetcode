@@ -43,6 +43,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Carry handling**: How should we handle carry? (Assumption: Carry propagates from right to left - standard binary addition)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to add binary numbers. Let me convert to decimal, add, convert back."
+
+**Naive Solution**: Convert both binary strings to integers, add them, convert result back to binary string.
+
+**Complexity**: O(m + n) time, O(1) space
+
+**Issues**:
+- May overflow for large numbers
+- Doesn't work for very long strings
+- Not the intended approach
+- Loses binary manipulation practice
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I should add digit by digit from right to left, handling carry."
+
+**Improved Solution**: Process strings from right to left. Add corresponding digits along with carry. Build result string from right to left, reverse at end.
+
+**Complexity**: O(max(m, n)) time, O(max(m, n)) space
+
+**Improvements**:
+- Digit-by-digit addition is correct
+- Handles carry properly
+- Works with binary strings directly
+- O(max(m, n)) time is optimal
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Digit-by-digit approach is optimal. Can optimize carry calculation."
+
+**Best Solution**: Process from right to left, add digits with carry. Use (a + b + carry) % 2 for result digit, (a + b + carry) / 2 for new carry. Build result efficiently.
+
+**Complexity**: O(max(m, n)) time, O(max(m, n)) space
+
+**Key Realizations**:
+1. Digit-by-digit addition is correct approach
+2. O(max(m, n)) time is optimal
+3. Carry propagation is straightforward
+4. Handle different string lengths naturally
+
 ## Solution 1: Optimized Single Pass (Recommended)
 
 **Time Complexity:** O(max(m, n)) where m and n are lengths of a and b  

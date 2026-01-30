@@ -71,6 +71,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(log n) average case for all operations - probabilistic structure)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to implement skiplist. Let me use sorted array or linked list."
+
+**Naive Solution**: Use sorted array for search/insert/erase. Binary search for O(log n) search, but insert/erase are O(n).
+
+**Complexity**: O(log n) search, O(n) insert/erase, O(n) space
+
+**Issues**:
+- O(n) insert/erase is inefficient
+- Doesn't meet O(log n) requirement for all operations
+- Array shifting is expensive
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "Skiplist uses multiple levels of linked lists with probabilistic promotion."
+
+**Improved Solution**: Implement skiplist with multiple levels. Each node has probability 0.5 to be promoted to next level. Search/insert/erase traverse levels from top to bottom.
+
+**Complexity**: O(log n) average case for all operations, O(n) space
+
+**Improvements**:
+- Probabilistic structure enables O(log n) operations
+- Multiple levels enable fast search
+- Handles all operations efficiently
+- More complex than simple structures
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Skiplist implementation with proper level management is optimal."
+
+**Best Solution**: Skiplist with multiple levels. Use coin flip (probability 0.5) to determine node levels. Search/insert/erase traverse from top level down, maintaining proper links.
+
+**Complexity**: O(log n) average case, O(n) space
+
+**Key Realizations**:
+1. Probabilistic structure is key to efficiency
+2. Multiple levels enable logarithmic operations
+3. O(log n) average case is optimal for skiplist
+4. Proper level management is crucial
+
 ## Solution: Skiplist Implementation
 
 **Time Complexity:** O(log n) average for all operations  

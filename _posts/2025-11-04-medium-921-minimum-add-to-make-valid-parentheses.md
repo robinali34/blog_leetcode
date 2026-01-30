@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Parentheses types**: What types of parentheses? (Assumption: Only '(' and ')' - no brackets or braces)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try adding different combinations of parentheses and check if the resulting string is valid. This requires trying all possible ways to add parentheses, which has exponential complexity. For each combination, validate the parentheses string, which takes O(n) time. This is too slow for large strings.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a stack to identify unmatched parentheses. Track opening and closing parentheses: if we encounter ')' without a matching '(', we need to add '('. If we finish with unmatched '(', we need to add ')'. Count unmatched opening and closing parentheses. However, determining the minimum additions requires careful tracking.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a balance counter: traverse the string, increment balance for '(', decrement for ')'. If balance becomes negative (more ')' than '('), we need to add '(', so increment a counter and reset balance to 0. After processing, add balance number of ')' to close remaining '(' parentheses. The answer is the sum of additions needed. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we only need to track the balance (net opening parentheses) and handle negative balance (excess closing parentheses) immediately.
+
 ## Solution: Greedy Counter Approach
 
 **Time Complexity:** O(n)  

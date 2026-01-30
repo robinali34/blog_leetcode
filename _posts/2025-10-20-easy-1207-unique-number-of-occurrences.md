@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single element**: What if array has one element? (Assumption: Return true - one occurrence count is unique)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to check if occurrence counts are unique. Let me count occurrences manually."
+
+**Naive Solution**: Count occurrences of each value manually, then check if all counts are unique by comparing all pairs.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Manual comparison is error-prone
+- Doesn't leverage hash set
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use hash map to count occurrences, then check uniqueness."
+
+**Improved Solution**: Use hash map to count occurrences. Then check if all counts are unique by comparing counts or using another data structure.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Hash map enables efficient counting
+- O(n) time is much better
+- Still need to check uniqueness
+- Can optimize uniqueness check
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Use hash set to check uniqueness of counts."
+
+**Best Solution**: Use hash map to count occurrences, then use hash set to check if all counts are unique. If set size equals map size, all counts are unique.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Hash map for counting is standard
+2. Hash set for uniqueness check is elegant
+3. O(n) time is optimal - must process each element
+4. O(n) space is optimal for both structures
+
 ## Solution Approaches
 
 ### Approach 1: Hash Map + Hash Set (Recommended)

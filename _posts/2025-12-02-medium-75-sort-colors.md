@@ -47,6 +47,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - single pass using Dutch National Flag algorithm)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Count the frequency of 0s, 1s, and 2s in the array. Then overwrite the array: first write all 0s, then all 1s, then all 2s. This approach requires two passes: one to count and one to write. It works but doesn't achieve the optimal single-pass solution and uses O(1) extra space for counters.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use two pointers: one for the boundary between 0s and 1s, another for the boundary between 1s and 2s. Iterate through the array, swapping elements to place them in the correct region. However, managing three regions with two pointers can be tricky and error-prone. Need to be careful about the order of swaps and pointer movements.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use the Dutch National Flag algorithm with three pointers: `left` (end of 0s), `mid` (current element), and `right` (start of 2s). Maintain invariants: [0, left] contains 0s, [left+1, mid-1] contains 1s, [mid, right-1] is being processed, [right, n-1] contains 2s. If nums[mid] == 0, swap with left+1 and advance both. If nums[mid] == 1, advance mid. If nums[mid] == 2, swap with right-1 and decrement right. This achieves O(n) time with O(1) space in a single pass, which is optimal.
+
 ## Solution: Dutch National Flag Algorithm (Two Pointers)
 
 **Time Complexity:** O(n) - Single pass through the array  

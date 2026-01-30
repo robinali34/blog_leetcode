@@ -51,6 +51,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(log n) - use binary exponentiation, not O(n))
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to compute x^n. Let me multiply x by itself n times."
+
+**Naive Solution**: Multiply x by itself n times using a loop.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- O(n) time - too slow for large n
+- Doesn't leverage binary exponentiation
+- Timeout for large exponents
+- Not optimal solution
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use binary exponentiation: x^n = (x^(n/2))² if n is even, x × (x^((n-1)/2))² if n is odd."
+
+**Improved Solution**: Recursive binary exponentiation. If n is even, compute x^(n/2) recursively and square it. If odd, compute x^((n-1)/2), square it, multiply by x.
+
+**Complexity**: O(log n) time, O(log n) space
+
+**Improvements**:
+- O(log n) time - much better
+- Leverages divide-and-conquer
+- Handles negative exponents correctly
+- Still uses recursion stack
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Can use iterative approach with bit manipulation to avoid recursion stack."
+
+**Best Solution**: Iterative binary exponentiation using bit manipulation. Process bits of n, multiply result by x^(2^k) when k-th bit is set. This avoids recursion stack.
+
+**Complexity**: O(log n) time, O(1) space
+
+**Key Realizations**:
+1. Binary exponentiation is key technique
+2. O(log n) time is optimal
+3. Iterative avoids O(log n) stack space
+4. Bit manipulation makes it elegant
+
 ## Approach
 
 There are two main approaches to implement exponentiation efficiently:

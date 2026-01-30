@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Range**: What is the range of numbers? (Assumption: Numbers are from 1 to n, where n is array length)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Use a hash set to track seen numbers. Iterate through the array, if a number is already in the set, it's the duplicate. After iteration, find the missing number by checking which number from 1 to n is not in the set. This approach uses O(n) extra space and O(n) time.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use the array itself for marking: since numbers are from 1 to n, we can use the array indices. For each number, mark the corresponding index as negative (or use a different marking scheme). The duplicate will be detected when we try to mark an already-marked index. The missing number is the index that remains unmarked. This uses O(1) extra space but modifies the input array.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use mathematical approach: calculate the expected sum S = n×(n+1)/2 and actual sum. The difference gives us duplicate - missing. Also calculate expected sum of squares and actual sum of squares. Use these two equations to solve for duplicate and missing. Alternatively, use the marking approach with O(1) space if array modification is allowed. The mathematical approach achieves O(n) time with O(1) space without modifying the array, which is optimal. The key insight is leveraging the properties that we have exactly one duplicate and one missing, allowing us to use mathematical relationships to find both.
+
 ## Solution Approach
 
 This problem requires finding both a duplicate and a missing number in an array that should contain numbers from 1 to n. There are several approaches:

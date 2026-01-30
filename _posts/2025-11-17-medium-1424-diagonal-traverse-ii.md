@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty array**: What if array is empty? (Assumption: Return empty array)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Traverse the 2D array row by row, and for each element, calculate its diagonal index (row + col). Store elements in a 2D structure indexed by diagonal, then flatten the result. However, since rows have different lengths, we need to handle out-of-bounds carefully. This approach works but requires extra space to store elements by diagonal, and the traversal order needs careful handling to get the correct bottom-to-top order within each diagonal.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use BFS starting from (0,0). For each diagonal level, process all elements at that level. Maintain a queue of (row, col) pairs, and for each level, collect all elements with the same (row + col) sum. However, BFS naturally processes level by level, but we need to process diagonals in order and within each diagonal from bottom to top, which requires additional sorting or careful queue management.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a hash map to group elements by their diagonal index (row + col). Iterate through the 2D array, adding each element to its corresponding diagonal bucket. Then, iterate through diagonals in order (0, 1, 2, ...), and for each diagonal, iterate through rows from bottom to top (larger row index first) to get the correct traversal order. This achieves O(n) time where n is the total number of elements, and O(n) space for the hash map. The key insight is that diagonal index = row + col uniquely identifies each diagonal, and within each diagonal, processing rows in reverse order gives the bottom-to-top traversal we need.
+
 ## Solution: Hash Map Grouping and BFS Approaches
 
 **Time Complexity:** O(n) where n is total number of elements  

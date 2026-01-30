@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty list**: What if list is empty? (Assumption: Create new circular list with single node)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Traverse the entire circular list to find the insertion point. Start from head and traverse until we find the correct position (where current value <= insertVal <= next value, or we've completed a full cycle). Handle edge cases: empty list, single node, inserting at boundaries. This approach works but requires careful handling of the circular nature and edge cases.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Find the maximum node (or minimum node) to identify where the list "wraps around". Then determine if insertVal should be inserted before or after the wrap point. However, this adds complexity in finding the wrap point and handling various cases. The logic can become convoluted with multiple edge cases.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a single pass with careful edge case handling. Traverse the list looking for a valid insertion point: where current <= insertVal <= next (normal case), or where we've passed the maximum (current > next and insertVal > current or insertVal < next). Handle empty list and single node separately. The key insight is that in a sorted circular list, there's always a valid insertion point: either in the middle of the sequence, or at the wrap-around point. This achieves O(n) time which is optimal since we may need to traverse the entire list in the worst case.
+
 ## Solution Approaches
 
 ### Approach 1: One-Pass Insertion (Recommended)

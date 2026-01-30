@@ -62,6 +62,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Node values**: What is the range of node values? (Assumption: Per constraints, 0 <= Node.val <= 9 - single digits)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Find all root-to-leaf paths, convert each path to a number, and sum all numbers. Use DFS to collect all paths, storing each path as a list of values. Then for each path, convert to number and sum. This requires O(n × h) space to store all paths where h is height, and O(n × h) time to process them.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use DFS with backtracking: maintain current path sum as we traverse. When reaching a leaf, add the current number to total sum. Backtrack by removing the last digit. This avoids storing all paths but still requires careful backtracking logic to maintain the correct number representation.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use recursive DFS passing the current number down the tree. For each node, update current number = current × 10 + node.val. When reaching a leaf, return the current number. For internal nodes, return sum of left subtree + sum of right subtree. This achieves O(n) time to visit all nodes and O(h) space for recursion stack, which is optimal. The key insight is that we don't need to store paths - we can build the number incrementally as we traverse and accumulate sums at leaf nodes.
+
 ## Solution: DFS with Path Accumulation
 
 **Time Complexity:** O(n) where n is the number of nodes  

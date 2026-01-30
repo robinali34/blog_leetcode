@@ -42,6 +42,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Order requirement**: Does the order of partitions matter? (Assumption: No - can return in any order)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to partition string into palindromes. Let me try all possible partitions."
+
+**Naive Solution**: Generate all possible ways to partition string, check if each substring is palindrome, collect valid partitions.
+
+**Complexity**: O(2^n × n) time, O(2^n × n) space
+
+**Issues**:
+- Exponential time - tries all partitions
+- Repeats palindrome checking for same substrings
+- Very inefficient
+- Doesn't leverage memoization
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use backtracking with memoization for palindrome checking."
+
+**Improved Solution**: Use backtracking to try all partitions. For each position, try all possible palindrome substrings starting there. Memoize palindrome checks to avoid recomputation.
+
+**Complexity**: O(2^n × n) time worst case, O(n²) space
+
+**Improvements**:
+- Memoization reduces palindrome checking
+- Backtracking explores all partitions
+- Still exponential but better than brute-force
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Backtracking with memoized palindrome checking is optimal. Can optimize palindrome check with DP."
+
+**Best Solution**: Backtracking with DP for palindrome checking. Precompute palindrome table using DP, then use backtracking to generate all valid partitions.
+
+**Complexity**: O(2^n × n) time worst case, O(n²) space
+
+**Key Realizations**:
+1. Backtracking is natural for generating all partitions
+2. DP palindrome checking optimizes repeated checks
+3. O(2^n) time is inherent - exponential number of partitions
+4. O(n²) space for palindrome table is acceptable
+
 ## Approach
 
 The solution uses backtracking (DFS) with the following strategy:

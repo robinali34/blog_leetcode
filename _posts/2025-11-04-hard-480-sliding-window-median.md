@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n log k) - maintain sorted window using balanced BST or heaps)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+For each window position, extract the window, sort it, find the median, and add to result. This approach has O(n × k log k) time complexity: O(n) windows, each requiring O(k log k) to sort, which is too slow for large inputs.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Maintain a sorted data structure (like a multiset or balanced BST) for the current window. When sliding the window, remove the leftmost element and add the new rightmost element, then find the median. This reduces time to O(n log k) since each insertion/deletion takes O(log k). However, finding the median in a balanced BST requires tracking the size or using iterators, which adds complexity.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use two multisets (two-heaps pattern): maintain a small multiset (for smaller half) and a large multiset (for larger half). Keep them balanced so the median is easily accessible. When sliding the window, remove the outgoing element and add the incoming element, rebalancing if needed. This achieves O(n log k) time: O(n) windows, each requiring O(log k) for insert/delete operations. The key insight is that maintaining two balanced heaps/multisets allows O(1) median access while supporting efficient insertions and deletions as the window slides.
+
 ## Solution 1: Two Multisets (Two-Heaps Pattern)
 
 **Time Complexity:** O(n log k) - Each insertion/deletion is O(log k)  

@@ -52,6 +52,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All combinations**: Should we return all valid IPs? (Assumption: Yes - return all possible valid IP addresses)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible ways to insert three dots into the string. For each combination of three positions, split the string into four parts and check if each part is a valid IP segment (0-255, no leading zeros). This requires checking C(n-1, 3) combinations where n is string length, which is O(n³) combinations, each requiring validation. This works but is inefficient.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use backtracking: try placing dots one at a time. For each dot position, validate the current segment before proceeding. If a segment is invalid, backtrack immediately. This prunes invalid branches early, reducing the search space significantly. However, the worst-case complexity is still exponential, though average case improves with pruning.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use backtracking with careful validation. Place dots sequentially, ensuring each segment is valid (1-3 digits, 0-255, no leading zeros except "0"). Use early termination: if remaining characters cannot form valid segments (too few or too many), backtrack. Track the number of segments placed (need exactly 4). This achieves optimal time complexity by exploring only valid paths. The key optimizations are: validating segments immediately, checking if remaining string can form valid segments, and using backtracking to avoid exploring invalid combinations.
+
 ## Solution: Backtracking with C++20 Optimizations
 
 **Time Complexity:** O(1) - At most 3^4 = 81 combinations  

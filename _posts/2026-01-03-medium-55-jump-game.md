@@ -49,6 +49,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Zero values**: What if nums[i] is 0? (Assumption: Cannot jump forward from that position - stuck unless already past it)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if I can reach the end. Let me try all possible paths."
+
+**Naive Solution**: Use DFS/BFS to explore all possible jump paths from start to end.
+
+**Complexity**: O(2^n) worst case time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Explores many redundant paths
+- Very inefficient
+- Doesn't leverage greedy property
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DP to track reachability from each position."
+
+**Improved Solution**: Use DP where dp[i] = true if position i is reachable. For each position, mark all reachable positions as true.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- O(n²) time instead of exponential
+- Correctly finds reachability
+- Still can be optimized
+- Better than brute-force
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use greedy approach - track rightmost reachable position."
+
+**Best Solution**: Greedy approach. Track rightmost reachable position. For each position, if it's reachable, update rightmost position. If rightmost < current position, cannot reach.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Greedy approach is optimal
+2. O(n) time is optimal - single pass
+3. O(1) space is optimal
+4. Track rightmost reachable position is key insight
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to track the **rightmost reachable position** as we iterate through the array. If we can reach an index, we can potentially reach further positions from there.

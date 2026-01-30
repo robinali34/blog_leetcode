@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **No transaction**: What if we never buy? (Assumption: Profit is 0 - no transactions made)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible combinations of buy and sell days. For each possible sequence of transactions (buy, sell, buy, sell, ...), calculate the total profit. This requires exploring all possible transaction sequences, which has exponential complexity. The challenge is determining the optimal sequence of buy/sell decisions.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming: dp[i][holding] = maximum profit up to day i, where holding indicates whether we own stock. For each day, decide to buy, sell, or hold. This requires tracking state (holding or not) and has O(n) time with O(n) space. However, we can optimize further since we only need previous day's state.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use greedy approach: capture every price increase. If price[i+1] > price[i], buy on day i and sell on day i+1 (or equivalently, add price[i+1] - price[i] to profit). This works because we can make unlimited transactions, so we should capture every opportunity to profit. This achieves O(n) time with O(1) space. The key insight is that the maximum profit equals the sum of all positive price differences between consecutive days, since we can make a transaction for each price increase.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is that we can capture all positive price differences (gains) by buying and selling on consecutive days whenever the price increases.

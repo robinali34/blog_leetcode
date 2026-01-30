@@ -55,6 +55,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Generate all possible arrangements by trying all positions for each element. Use nested loops or recursive generation without pruning. This approach works but generates duplicates and has exponential complexity. The challenge is ensuring all permutations are generated exactly once.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use backtracking: build permutations incrementally. For each position, try each unused element. Use a visited set or boolean array to track which elements have been used. When permutation is complete (all positions filled), add to results. Backtrack by unmarking elements. This avoids duplicates but still explores all possibilities.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use backtracking with in-place swapping. Instead of maintaining a separate array and visited set, swap elements in the original array. For position i, swap elements at positions i and j (where j >= i), recursively generate permutations for position i+1, then swap back. This achieves O(n! × n) time (n! permutations, each taking O(n) to build) with O(n) space for recursion stack. The key insight is that swapping allows us to use the array itself to track the current permutation state, eliminating the need for extra visited tracking.
+
 ## Approach
 
 This is a classic **backtracking** problem that requires generating all possible permutations of a given array. There are two main approaches:

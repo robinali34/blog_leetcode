@@ -50,6 +50,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single element**: Can a single day be well-performing? (Assumption: No - need comparison, so minimum length is 2 if possible)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find longest well-performing interval. Let me check all possible intervals."
+
+**Naive Solution**: Check all possible intervals [i, j], for each count tiring vs non-tiring days, track maximum length where tiring > non-tiring.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient for large n
+- Repeats counting for overlapping intervals
+- Doesn't leverage prefix sum property
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use prefix sum. Convert to +1/-1 array, then find longest interval with sum > 0."
+
+**Improved Solution**: Convert hours to +1 (tiring) and -1 (non-tiring). Use prefix sum. Find longest interval [i, j] where prefix[j] - prefix[i-1] > 0.
+
+**Complexity**: O(n²) time with prefix sum, O(n) space
+
+**Improvements**:
+- Prefix sum simplifies counting
+- Still O(n²) for checking all intervals
+- Better than brute-force counting
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use hash map to track first occurrence of each prefix sum, then find longest interval."
+
+**Best Solution**: Use prefix sum with hash map. Track first occurrence of each prefix sum value. For each position, if current prefix sum > 0, interval [0, i] is valid. Otherwise, find smallest prefix sum < current to maximize interval length.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Prefix sum transformation is key insight
+2. Hash map tracks first occurrence efficiently
+3. O(n) time is optimal - single pass
+4. O(n) space for hash map is necessary
+
 ## Solution: Hash Map with Prefix Sum
 
 **Time Complexity:** O(n)  

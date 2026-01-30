@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **K value**: What if k is 0? (Assumption: Return target node itself - distance 0)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+First, find the target node using DFS. Then, from the target node, perform BFS to find all nodes at distance k. However, this only finds nodes in the subtree rooted at target. To find nodes in other parts of the tree, we need to traverse upward to parents, which requires parent pointers or a second pass to build parent mapping.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Build a parent map: first traverse the tree to build a mapping from each node to its parent. Then, from the target node, perform BFS considering both children and parent. This allows us to traverse in all directions (up and down) to find nodes at distance k. This works but requires two passes: one to build parent map, one to do BFS.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use BFS with parent map: first find the target node and build parent mapping in one DFS pass. Then perform BFS from target, treating the tree as an undirected graph (can go to children or parent). Use a visited set to avoid revisiting nodes. This achieves O(n) time with O(n) space, which is optimal. The key insight is that we can treat the binary tree as an undirected graph for BFS, allowing us to traverse both up (to parents) and down (to children) to find all nodes at distance k.
+
 ## Solution Approaches
 
 ### Approach 1: Convert Tree to Graph with DFS

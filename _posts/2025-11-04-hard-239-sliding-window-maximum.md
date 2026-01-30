@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - linear time using monotonic deque)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+For each window position, scan through all k elements in that window to find the maximum. This straightforward approach has O(n × k) time complexity, which becomes O(n²) when k ≈ n. For n up to 10^5, this is too slow. The challenge is that we're recalculating the maximum for overlapping windows inefficiently.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use a balanced BST or multiset to maintain elements in the current window. When sliding the window, remove the leftmost element and add the rightmost element, then query the maximum. This gives O(n log k) time complexity, which is better but not optimal. Alternatively, use a max-heap, but removing arbitrary elements (the leftmost element leaving the window) is inefficient in a heap, requiring O(k) time to find and remove.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use a monotonic deque (double-ended queue) that maintains indices of elements in decreasing order of their values. The front of the deque always contains the index of the maximum element in the current window. When adding a new element, remove all indices from the back whose values are smaller (they can never be the maximum). When the front index is outside the window, remove it. This achieves O(n) time because each element is added and removed at most once. The key insight is that if a new element is larger than previous elements, those previous elements can never be the maximum in any future window containing the new element, so we can safely remove them.
+
 ## Solution: Monotonic Deque (Decreasing Order)
 
 **Time Complexity:** O(n) - Each element is added and removed at most once  

@@ -50,6 +50,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Array modification**: Can we modify the input array? (Assumption: No - just find next greater elements, don't modify)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find next greater element in circular array. Let me check all elements after current."
+
+**Naive Solution**: For each element, scan forward (wrapping around) to find first greater element.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats work for similar elements
+- Doesn't leverage monotonic stack
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use monotonic stack like LC 496, but need to handle circular property."
+
+**Improved Solution**: Use monotonic stack. Process array twice (or use modulo indexing) to handle circular property. Stack stores indices of elements waiting for next greater.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Monotonic stack is efficient
+- Handles circular property correctly
+- O(n) time is much better
+- Single pass with proper indexing
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Process array twice or use modulo indexing. Stack approach is optimal."
+
+**Best Solution**: Monotonic stack with circular handling. Process indices from 0 to 2n-1 using modulo. Stack stores indices. When current element > stack top, update result and pop.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Monotonic stack is perfect for "next greater" problems
+2. Circular property handled by processing twice or modulo
+3. O(n) time is optimal - each element processed once
+4. O(n) space for stack is necessary
+
 ## Solution: Monotonic Stack
 
 **Time Complexity:** O(n)  

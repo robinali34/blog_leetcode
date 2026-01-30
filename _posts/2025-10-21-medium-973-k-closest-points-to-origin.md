@@ -60,6 +60,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= points.length)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Calculate the distance from origin for each point, sort all points by distance, and return the first k points. This approach has O(n log n) time complexity due to sorting, which works but is not optimal when k is much smaller than n.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a max-heap of size k: iterate through all points, calculate distances, and maintain a max-heap of the k smallest distances. When the heap size exceeds k, remove the maximum element. After processing all points, return the k points in the heap. This achieves O(n log k) time, which is better than sorting when k << n.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use quickselect (partial sorting): use a partition-based algorithm similar to quicksort to find the k-th smallest distance. Partition the array so that the first k elements are the k smallest distances. Then return these k points. This achieves O(n) average time with O(1) space (if we modify the array in-place), which is optimal. Alternatively, the max-heap approach with O(n log k) is simpler to implement and has better worst-case guarantees. The key insight is that we don't need full sorting - we only need the k smallest elements, which can be found more efficiently.
+
 ## Solution Approach
 
 ### Key Insight

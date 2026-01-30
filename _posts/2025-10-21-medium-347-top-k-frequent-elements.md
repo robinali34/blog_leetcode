@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Element uniqueness**: Can the same element appear multiple times in result? (Assumption: No - each element appears once in the result)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find top k frequent elements. Let me count frequencies and sort."
+
+**Naive Solution**: Count frequency of each element, sort by frequency, return top k elements.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Issues**:
+- O(n log n) time when O(n log k) is possible
+- Sorts all elements when only need top k
+- Doesn't leverage heap
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use min-heap of size k to track top k elements."
+
+**Improved Solution**: Count frequencies, use min-heap of size k. For each element, if heap size < k, add; else if frequency > heap top, replace top.
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Improvements**:
+- O(n log k) time is better than O(n log n)
+- Heap efficiently maintains top k
+- Handles all cases correctly
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Min-heap approach is optimal. Can also use bucket sort for specific cases."
+
+**Best Solution**: Min-heap approach is optimal. Count frequencies, use min-heap of size k to maintain top k frequent elements. Alternative: bucket sort if frequency range is small.
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Key Realizations**:
+1. Heap is perfect for top-k problems
+2. O(n log k) time is optimal for heap approach
+3. Min-heap of size k maintains top k efficiently
+4. Bucket sort alternative exists for small ranges
+
 ## Solution Approaches
 
 ### Approach 1: Bucket Sort (Optimal)

@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Position indexing**: How are positions indexed? (Assumption: Positions are 1-indexed - n bulbs at positions 1 to n)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each day, simulate turning on the bulb at that position. Then scan through all positions to check if there exist two turned-on bulbs with exactly k empty slots between them. This requires checking all pairs of turned-on bulbs, which is O(n²) per day, leading to O(n³) overall complexity. This is too slow for n up to 2×10^4.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Maintain a boolean array tracking which bulbs are on. For each new bulb turned on, check if it forms a k-empty slot pattern with existing bulbs. We can check left and right neighbors: if a bulb is on at position i-k-1 or i+k+1, check if all positions between them are off. This reduces to O(n) per day, giving O(n²) overall, which is still too slow for large inputs.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a sliding window approach with position-to-day mapping. Create an array `day[i]` representing the day when bulb at position i is turned on. For a valid k-empty slot pattern between positions i and j (where j = i + k + 1), all bulbs between them must be turned on AFTER both i and j. Check for each valid window [i, i+k+1]: if `max(day[i], day[i+k+1]) < min(day[i+1...i+k])`, then this window is valid. Track the minimum day when a valid window is found. This achieves O(n) time complexity by checking each window once, making it optimal for this problem.
+
 ## Solution Approach
 
 This problem requires finding the earliest day when there exist two blooming bulbs with exactly `k` empty slots between them. We can solve this efficiently using a **sliding window approach** with position-to-day mapping.

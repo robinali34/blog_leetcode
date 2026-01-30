@@ -58,6 +58,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Duplicate substrings**: Should we count duplicate palindromes? (Assumption: Yes - if "aa" appears twice, count both occurrences)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to count palindromic substrings. Let me check all possible substrings."
+
+**Naive Solution**: Check all possible substrings, for each check if it's palindrome, count valid ones.
+
+**Complexity**: O(n³) time, O(1) space
+
+**Issues**:
+- O(n³) time - very inefficient
+- Repeats palindrome checking for overlapping substrings
+- Doesn't leverage palindrome properties
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DP to check palindromes efficiently, or expand around centers."
+
+**Improved Solution**: Use DP table to check palindromes. dp[i][j] = true if s[i..j] is palindrome. Fill table and count true values.
+
+**Complexity**: O(n²) time, O(n²) space
+
+**Improvements**:
+- DP eliminates redundant palindrome checks
+- O(n²) time is much better
+- Handles all cases correctly
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Expand around centers is more space-efficient than DP."
+
+**Best Solution**: Expand around centers. For each center (character or between characters), expand outward while palindromic. Count all palindromes found.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Key Realizations**:
+1. Expand around centers is elegant approach
+2. O(n²) time is optimal - must check all centers
+3. O(1) space is optimal
+4. Handles odd and even length palindromes
+
 ## Solution: Expand Around Centers
 
 **Time Complexity:** O(n²)  

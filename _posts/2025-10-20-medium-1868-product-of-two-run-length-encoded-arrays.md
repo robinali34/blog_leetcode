@@ -61,6 +61,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Encoding optimization**: Should we optimize the encoding? (Assumption: Yes - combine consecutive same values in result)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to compute product. Let me decode both arrays, multiply, then encode."
+
+**Naive Solution**: Decode both run-length encoded arrays to full arrays, multiply element-wise, encode result back.
+
+**Complexity**: O(n × m) time where n, m are total lengths, O(n + m) space
+
+**Issues**:
+- Decoding uses extra space
+- Doesn't leverage run-length encoding
+- Inefficient for large arrays
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can process run-length encoded arrays directly without decoding."
+
+**Improved Solution**: Use two pointers for both encoded arrays. Process segments, compute products, handle frequency matching.
+
+**Complexity**: O(k1 + k2) time where k1, k2 are encoded lengths, O(k1 + k2) space
+
+**Improvements**:
+- Processes encoded arrays directly
+- O(k1 + k2) time is much better
+- Handles frequency matching correctly
+- Can optimize encoding
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Process segments directly and combine consecutive same values in result."
+
+**Best Solution**: Two-pointer approach processing segments directly. When segments have same frequency, compute product. When frequencies differ, handle partial matches. Combine consecutive same values in result.
+
+**Complexity**: O(k1 + k2) time, O(k1 + k2) space
+
+**Key Realizations**:
+1. Two-pointer technique processes encoded arrays efficiently
+2. Handle frequency matching carefully
+3. O(k1 + k2) time is optimal
+4. Combine consecutive values to optimize encoding
+
 ## Approach
 
 The key insight is to process both encoded arrays simultaneously using two pointers, computing the product of corresponding elements and merging consecutive segments with the same value.

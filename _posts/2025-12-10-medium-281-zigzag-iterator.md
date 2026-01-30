@@ -51,6 +51,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should next() return when no elements? (Assumption: Typically throw exception or return sentinel value - but per problem, vectors are non-empty initially)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Store both vectors and maintain two separate indices. Alternate between vectors by checking which one has more elements remaining. When one vector is exhausted, continue with the other. This approach works but becomes complex when handling edge cases like empty vectors or different lengths. The logic for cycling through vectors and tracking positions can be error-prone.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a single array to store all elements in zigzag order during initialization. Flatten the vectors by interleaving elements: take one from v1, one from v2, repeat until both are exhausted. Then implement a simple iterator over this flattened array. This simplifies next() and hasNext() to O(1) operations, but uses O(n) extra space and requires preprocessing time.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a queue-based approach that stores (vector_index, element_index) pairs. Initialize by adding the first position of each non-empty vector to the queue. For next(), pop from the queue, return the element, and if that vector has more elements, push the next position back into the queue. This naturally maintains zigzag order, handles empty vectors gracefully, and easily extends to k vectors. Time complexity is O(1) per operation, and space is O(k) where k is the number of vectors, making it both efficient and extensible.
+
 ## Solution 1: Pointer-Based Approach
 
 **Time Complexity:** O(1) for `next()` and `hasNext()`  

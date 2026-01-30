@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Person assignment**: Can we choose which people go to which city? (Assumption: Yes - can assign any person to either city, but must have exactly n in each)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible ways to select n people for city A (and remaining n for city B). For each selection, calculate the total cost and find the minimum. This requires checking C(2n, n) combinations, which has exponential complexity and is infeasible for large n.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming: dp[i][a_count] = minimum cost to assign first i people with a_count going to city A. For each person, decide to send to city A or B. This requires O(n²) time and space, which works but can be optimized further.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use greedy approach: calculate the "savings" for each person if sent to city A instead of B (costB - costA). Sort people by savings in descending order. Send the first n people (with highest savings) to city A, and the rest to city B. This works because we want to maximize savings by sending people with highest cost difference to the cheaper city. This achieves O(n log n) time for sorting plus O(n) for calculation, which is optimal. The key insight is that the problem reduces to: send n people to city A where sending them to A saves the most money compared to sending them to B.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is to sort people by the **difference** between their costs to the two cities, which indicates which city is cheaper for each person.

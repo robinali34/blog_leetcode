@@ -51,6 +51,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Head of the modified linked list)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to swap nodes in pairs. Let me collect values, swap them, then rebuild list."
+
+**Naive Solution**: Collect all node values into array, swap pairs in array, rebuild linked list with swapped values.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Uses O(n) extra space
+- Modifies values instead of pointers
+- Not truly in-place
+- Doesn't demonstrate pointer manipulation
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can swap nodes by manipulating pointers directly. Need to track previous node to reconnect."
+
+**Improved Solution**: Use dummy node to handle head swap. Traverse list, for each pair, swap nodes by updating pointers. Track previous node to reconnect after swap.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- O(1) space - true in-place operation
+- Manipulates pointers directly
+- Handles edge cases with dummy node
+- Demonstrates linked list skills
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The iterative pointer manipulation is optimal. Can also use recursive approach for elegance."
+
+**Best Solution**: Iterative approach with dummy node is optimal. Can also use recursive approach which is more elegant but uses O(n) stack space.
+
+**Complexity**: O(n) time, O(1) space iterative, O(n) space recursive
+
+**Key Realizations**:
+1. Pointer manipulation is key skill
+2. Dummy node simplifies head handling
+3. O(1) space iterative is preferred
+4. Recursive alternative exists but uses stack space
+
 ## Template in C++
 
 ### ListNode definition

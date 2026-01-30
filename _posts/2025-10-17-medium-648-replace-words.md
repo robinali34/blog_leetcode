@@ -60,6 +60,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: Modified sentence with words replaced by roots where applicable)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to replace words with roots. Let me check each word against all dictionary roots."
+
+**Naive Solution**: For each word in sentence, check all dictionary roots to find shortest prefix match.
+
+**Complexity**: O(m × n × k) time where m = words, n = dictionary size, k = average word length, O(m × k) space
+
+**Issues**:
+- O(m × n × k) time - inefficient
+- Repeats prefix checking
+- Doesn't leverage prefix structure
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use hash set for dictionary and check prefixes efficiently."
+
+**Improved Solution**: Store dictionary in hash set. For each word, check all prefixes from shortest to longest, replace with first matching root.
+
+**Complexity**: O(m × k²) time, O(n × k) space
+
+**Improvements**:
+- Hash set enables O(1) lookup
+- O(m × k²) is better than O(m × n × k)
+- Still checks all prefixes
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use Trie to efficiently find shortest matching prefix."
+
+**Best Solution**: Build Trie from dictionary. For each word, traverse Trie to find shortest matching root. Trie enables efficient prefix matching without checking all prefixes.
+
+**Complexity**: O(n × k + m × k) time, O(n × k) space
+
+**Key Realizations**:
+1. Trie is perfect for prefix matching
+2. O(n × k + m × k) time is optimal
+3. Trie space is O(n × k) for dictionary
+4. Much more efficient than hash set approach
+
 ## Solution 1: Hash Set with Prefix Matching
 
 **Time Complexity:** O(n * m) where n is number of words, m is average word length  

@@ -68,6 +68,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Target existence**: Is target guaranteed to exist? (Assumption: Yes - per constraints, target is an integer from nums)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each `pick(target)` call, scan the array to find all indices where `nums[i] == target`, store them in a list, then randomly select one index from the list. This approach has O(n) time per `pick()` call, which is inefficient if `pick()` is called many times.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Preprocess the array once: build a hash map mapping each value to a list of indices where it appears. For `pick(target)`, get the list of indices from the hash map and randomly select one. This reduces `pick()` to O(1) average time (assuming random selection is O(1)), but requires O(n) space and O(n) preprocessing time.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use hash map preprocessing with reservoir sampling: preprocess to build `value -> [indices]` mapping. For `pick(target)`, use the hash map to get indices in O(1), then randomly select one index. Alternatively, if we want to avoid preprocessing, we can use reservoir sampling: scan the array once per `pick()` call, maintaining a random candidate. However, preprocessing is more efficient for multiple calls. The preprocessing approach achieves O(1) average time per `pick()` call with O(n) preprocessing time and O(n) space, which is optimal for this use case.
+
 ## Solution: Hash Map Preprocessing (Optimized)
 
 **Time Complexity:** O(n) preprocessing, O(1) per `pick()` call  

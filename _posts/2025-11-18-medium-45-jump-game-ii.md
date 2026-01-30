@@ -56,6 +56,46 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Jump count**: Does staying at same position count as a jump? (Assumption: No - must move forward, each jump advances position)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum jumps. Let me try all possible jump sequences."
+
+**Naive Solution**: Use BFS/DFS to explore all possible jump paths from start to end, return minimum depth.
+
+**Complexity**: O(2^n) worst case time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Explores many redundant paths
+- Very inefficient for large arrays
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use dynamic programming - minimum jumps to reach index i depends on previous indices."
+
+**Improved Solution**: DP array where dp[i] = minimum jumps to reach index i. For each index, update all reachable indices.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Polynomial time instead of exponential
+- Correctly finds minimum jumps
+- Still has room for optimization
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use greedy BFS - track the farthest reachable position at each jump level."
+
+**Best Solution**: Greedy BFS approach. Track current jump's farthest reach, next jump's farthest reach. When current jump ends, increment jump count and update boundaries.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Greedy BFS is optimal - O(n) time
+2. Only need to track jump boundaries, not all paths
+3. O(1) space - only need a few variables
+4. Much more efficient than DP or brute-force
+
 ## Solution: Greedy BFS Approach
 
 **Time Complexity:** O(n) - Single pass through the array  

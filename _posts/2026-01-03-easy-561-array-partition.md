@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Element reuse**: Can an element be used in multiple pairs? (Assumption: No - each element appears exactly once)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to maximize sum of minimums. Let me try all possible pairings."
+
+**Naive Solution**: Try all possible ways to pair 2n elements into n pairs, compute sum of minimums, find maximum.
+
+**Complexity**: O((2n)! / (2^n × n!)) time, O(n) space
+
+**Issues**:
+- Factorial time complexity
+- Tries many invalid pairings
+- Very inefficient
+- Doesn't leverage sorting property
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "To maximize sum of minimums, I should pair smallest elements together."
+
+**Improved Solution**: Sort array. Pair smallest two elements, next smallest two, etc. Sum minimums from each pair.
+
+**Complexity**: O(n log n) time, O(1) space
+
+**Improvements**:
+- Sorting enables optimal pairing
+- O(n log n) time is much better
+- Greedy approach is correct
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Sorting and pairing adjacent elements is optimal."
+
+**Best Solution**: Sort array, pair elements at indices (0,1), (2,3), ..., (2n-2, 2n-1). Sum minimums (which are elements at even indices after sorting).
+
+**Complexity**: O(n log n) time, O(1) space
+
+**Key Realizations**:
+1. Sorting is key insight
+2. Pairing smallest elements maximizes sum of minimums
+3. O(n log n) time is optimal for sorting approach
+4. Greedy approach works perfectly
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is that to maximize the sum of minimums, we should pair the smallest numbers together, so that larger numbers are "saved" for other pairs.

@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Initial state**: What is the initial state? (Assumption: Grid filled with water (0) - no islands initially)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+After each `addLand` operation, run BFS/DFS from all land cells to count connected components (islands). This approach has O(m × n × k) time complexity where k is the number of operations, which is too slow for large grids and many operations.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use Union-Find (Disjoint Set Union) with incremental updates: when adding a land cell, check its four neighbors. If a neighbor is land, union the current cell with that neighbor's component. Track the number of components and update it as unions occur. This reduces time to O(k × α(m×n)) per operation where α is the inverse Ackermann function, which is nearly constant.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use Union-Find with path compression and union by rank: maintain a DSU data structure. When adding land at position (r, c), increment island count. Check four neighbors: if a neighbor is land and belongs to a different component, union them and decrement island count. Use path compression and union by rank for optimal performance. This achieves O(k × α(m×n)) ≈ O(k) amortized time, which is optimal. The key insight is that Union-Find efficiently handles dynamic connectivity queries, and we can maintain the island count incrementally as we add land cells.
+
 ## Solution Approach
 
 This is an **incremental/dynamic** problem where we add land cells one by one and need to track the number of islands after each addition. Unlike [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/), we can't rebuild the entire grid each time (too slow).

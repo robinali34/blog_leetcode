@@ -69,6 +69,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Space handling**: How are spaces handled? (Assumption: Single space between words, spaces at end of row are allowed)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Simulate each row character by character: for each row, try to fit words one by one, checking if each word fits with a space. When a word doesn't fit, move to the next row. Count how many complete sentences fit across all rows. This approach has O(rows × cols) time complexity, which is too slow for large inputs.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Concatenate the sentence into a single string with spaces, then simulate row by row by tracking a pointer in the concatenated string. For each row, try to fit as many characters as possible, wrapping to the next row when needed. Count complete sentences. This reduces some overhead but still requires O(rows × cols) time in worst case.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use dynamic programming to precompute results: for each starting word position, compute how many complete sentences fit in one row and which word starts the next row. Store these in `dp[i]` and `next[i]` arrays. Then simulate rows using these precomputed values. This achieves O(N × cols + rows) time: O(N × cols) for precomputation and O(rows) for simulation. The key insight is that starting positions repeat (since sentences repeat), so we can reuse precomputed results instead of recalculating for each row.
+
 ## Solution Approach
 
 This problem requires fitting a sentence on a screen row by row, where words cannot be split and must be separated by spaces. We can solve this efficiently using **dynamic programming** to precompute how many complete sentences fit starting from each word position.

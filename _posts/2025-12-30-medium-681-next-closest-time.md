@@ -50,6 +50,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Wrapping**: Can time wrap to next day? (Assumption: Yes - if no valid time today, find next day's time)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Generate all possible times using only digits from the input time. Check each time in chronological order starting from the input time, wrapping to the next day if needed. Return the first valid time found. This approach works but requires generating many combinations and checking validity, which is inefficient.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Extract all unique digits from the input time. Generate all valid HH:MM combinations using these digits. Sort them chronologically and find the next time after the input. Handle wrapping to the next day. This reduces the search space but still requires generating and validating many combinations.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Simulate time progression: start from the input time and increment by one minute. For each time, check if all digits are from the allowed set. Continue until we find a valid time or wrap around to the next day. This achieves O(24 × 60) = O(1440) worst-case time, which is efficient. Alternatively, we can generate all valid times first and then find the next one, but simulation is simpler. The key insight is that there are only 1440 minutes in a day, so we can simulate minute by minute efficiently.
+
 ## Solution Approach
 
 This problem requires finding the next closest time (including next day) that can be formed using only the digits from the current time. We can solve this by **simulating time progression** minute by minute and checking if each new time uses only allowed digits.

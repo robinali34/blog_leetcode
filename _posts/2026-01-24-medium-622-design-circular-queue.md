@@ -71,6 +71,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Thread safety**: Do we need to handle concurrent operations? (Assumption: No - single-threaded operations are sufficient for this problem)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use a regular array and maintain front and rear pointers. When the array is full, shift all elements to make room, or resize the array. This approach is simple but enqueue/dequeue operations become O(n) due to shifting, which doesn't meet the O(1) requirement. Alternatively, use a linked list, but maintaining the fixed capacity constraint requires tracking size.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a linked list with a fixed capacity. Maintain head and tail pointers, and track the current size. When enqueuing, add to tail if not full. When dequeuing, remove from head. This achieves O(1) operations but requires dynamic memory allocation for each node. The circular property isn't naturally maintained since we're using a linear linked list structure.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a fixed-size array with front and rear indices, implementing true circular behavior using modulo arithmetic. Use a sentinel value or a size counter to distinguish between empty and full states (since front == rear can mean either). Enqueue: add at rear, increment rear mod capacity. Dequeue: remove from front, increment front mod capacity. All operations are O(1) with O(k) space. The key insight is using modulo arithmetic to wrap around the array indices, creating a circular buffer without actual circular data structure, and using a size counter or sentinel to handle the empty/full ambiguity.
+
 ## Solution Approach
 
 A circular queue is a queue where the last position is connected back to the first position. This allows efficient use of space by reusing freed positions.

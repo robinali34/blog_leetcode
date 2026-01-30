@@ -46,6 +46,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty tree**: What if tree is empty? (Assumption: Per constraints, tree has at least 1 node)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Traverse the entire tree (inorder, preorder, or postorder) and collect all node values. Then find the value with minimum absolute difference from the target. This approach visits all nodes regardless of BST properties, giving O(n) time and O(n) space for storing values. It works but doesn't leverage BST properties for optimization.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use BST properties: if target < node value, search left subtree; if target > node value, search right subtree. Track the closest value seen so far. This reduces the search space but still may need to explore both subtrees in some cases. Time complexity is O(h) where h is height, but worst case is still O(n) for unbalanced trees.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use iterative or recursive traversal that leverages BST properties. At each node, update the closest value if current node is closer. Then, based on target comparison, decide to go left or right (can prune one subtree). Continue until reaching a leaf or null. This achieves O(h) time complexity where h is height, and O(1) space for iterative or O(h) for recursive. The key insight is that BST properties allow us to prune half the search space at each step, similar to binary search, making this optimal.
+
 ## Solution Approach
 
 This problem requires finding the value in a BST that is closest to a given target. We can leverage the **BST property** to efficiently search for the closest value without exploring the entire tree.

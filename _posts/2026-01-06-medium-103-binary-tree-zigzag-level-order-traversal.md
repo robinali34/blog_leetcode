@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Starting direction**: Which direction should level 0 use? (Assumption: Left-to-right - even levels go left-to-right, odd levels go right-to-left)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Perform level-order traversal (BFS), collect all nodes level by level. Then reverse every other level (odd-indexed levels) to achieve zigzag order. This approach works but requires storing all levels and then reversing, which uses extra space and time.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use BFS with a flag to track direction: perform level-order traversal, but when adding nodes to the result for odd levels, insert them in reverse order or use a deque to add from the front. This avoids the need to reverse entire levels but requires careful handling of the direction flag.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use BFS with level tracking: perform standard BFS, but for each level, check if it's an odd level. If odd, reverse the level's nodes before adding to result. Alternatively, use a deque and add nodes from the front for odd levels. This achieves O(n) time (visit each node once) with O(n) space for the queue and result, which is optimal. The key insight is that we can achieve zigzag order by reversing the order of nodes at odd levels during BFS, without needing to modify the traversal itself.
+
 ## Solution Approach
 
 This problem is a variation of **level-order traversal** (BFS) where we alternate the direction of traversal at each level. The key insight is to:

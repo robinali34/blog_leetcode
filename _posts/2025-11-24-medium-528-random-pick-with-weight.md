@@ -67,6 +67,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Randomness**: Should picks be independent? (Assumption: Yes - each call to pickIndex() is independent random selection)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to pick index with probability proportional to weight. Let me expand array."
+
+**Naive Solution**: Expand array: for weight w[i], add index i to array w[i] times. Randomly pick from expanded array.
+
+**Complexity**: O(sum(weights)) space, O(1) pickIndex() time
+
+**Issues**:
+- O(sum(weights)) space - very inefficient
+- Doesn't scale for large weights
+- Wastes memory
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use prefix sum to represent cumulative weights, then binary search."
+
+**Improved Solution**: Build prefix sum array. Generate random number in [0, total_weight). Binary search to find which range it falls into.
+
+**Complexity**: O(n) space, O(log n) pickIndex() time
+
+**Improvements**:
+- Prefix sum enables efficient range lookup
+- O(n) space instead of O(sum(weights))
+- O(log n) pickIndex() is efficient
+- Scales well
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Prefix sum + binary search is optimal. Can optimize binary search implementation."
+
+**Best Solution**: Prefix sum + binary search is optimal. Build prefix sum in constructor. pickIndex() generates random number, binary searches prefix sum to find index.
+
+**Complexity**: O(n) space, O(log n) pickIndex() time
+
+**Key Realizations**:
+1. Prefix sum is key technique for weighted random
+2. Binary search enables O(log n) lookup
+3. O(n) space is optimal
+4. O(log n) pickIndex() is optimal
+
 ## Solution: Prefix Sum + Binary Search
 
 **Time Complexity:** 

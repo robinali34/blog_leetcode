@@ -55,6 +55,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Transitive merging**: If A shares email with B, and B shares email with C, should A, B, C all be merged? (Assumption: Yes - transitive closure - use Union-Find to handle this)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each account, check against all other accounts to see if they share any email. If they do, merge them by combining their email lists. Repeat until no more merges are possible. This approach has O(n² × m) complexity where n is the number of accounts and m is the average number of emails per account, which is too slow. The transitive closure requirement makes this even more complex, as we need multiple passes.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a hash map from email to account index. For each account, check if any of its emails already exist in the map. If yes, merge the current account into the existing one. This handles direct matches but doesn't handle transitive relationships efficiently. For example, if account A shares email with B, and B shares email with C, we might not merge A and C correctly without additional passes or a more sophisticated data structure.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use Union-Find (Disjoint Set Union) to group emails that belong to the same person. Create a mapping from email to a unique index, and use Union-Find to union all emails within the same account, and also union emails that appear in multiple accounts. After all union operations, group emails by their root parent. For each group, retrieve the account name (from the first account containing any email in that group) and sort the emails. This achieves O(n × m × α(n)) complexity where α is the inverse Ackermann function (effectively constant). The key insight is using Union-Find to handle transitive relationships automatically - if email1 and email2 are in account A, and email2 and email3 are in account B, Union-Find will correctly group all three emails together.
+
 ## Solution Approach
 
 This is a **Union-Find (Disjoint Set Union)** problem. The key insight is that emails belonging to the same account should be grouped together, and if two accounts share any email, they should be merged.

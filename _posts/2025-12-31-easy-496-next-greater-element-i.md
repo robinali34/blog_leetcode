@@ -60,6 +60,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Uniqueness**: Are all integers unique? (Assumption: Yes - per constraints, all integers are unique)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to find next greater element. Let me search linearly for each element."
+
+**Naive Solution**: For each element in nums1, find its position in nums2, then scan rightward to find first greater element.
+
+**Complexity**: O(m × n) time, O(1) space
+
+**Issues**:
+- O(m × n) time complexity
+- Linear search for each element
+- Doesn't leverage any preprocessing
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can preprocess nums2 to build a map of next greater elements, then query nums1."
+
+**Improved Solution**: Build hash map from nums2: for each element, find its next greater element and store. Then query nums1 elements from the map.
+
+**Complexity**: O(m + n²) time, O(n) space
+
+**Improvements**:
+- Preprocessing reduces query time
+- Still O(n²) for building map
+- Better than brute-force for many queries
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "I can use monotonic stack to build the next greater map in O(n) time."
+
+**Best Solution**: Use monotonic decreasing stack to process nums2. For each element, pop smaller elements and record next greater. Build map in O(n), query in O(m).
+
+**Complexity**: O(m + n) time, O(n) space
+
+**Key Realizations**:
+1. Monotonic stack is perfect for "next greater" problems
+2. O(m + n) time is optimal
+3. O(n) space for map is necessary
+4. Stack approach processes nums2 in single pass
+
 ## Solution Approach
 
 This problem requires finding the next greater element for each element in `nums1` within `nums2`. We can efficiently solve this using a **monotonic stack** to process `nums2` and store results in a hash map.

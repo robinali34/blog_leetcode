@@ -45,6 +45,44 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All ones**: What if array contains only ones? (Assumption: Return array length - all ones are consecutive)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to find the longest consecutive ones. Let me check all possible subarrays."
+
+**Naive Solution**: Check all possible subarrays, count consecutive ones in each, return maximum.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- Checks redundant subarrays
+- Inefficient for large arrays
+- More complex than needed
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can traverse once and track current consecutive count, updating maximum as I go."
+
+**Improved Solution**: Single pass through array. Maintain current consecutive count and maximum count. Reset current count when encountering 0.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- Single pass - optimal time complexity
+- O(1) space - no extra data structures
+- Simple and efficient
+- Handles all edge cases
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The single-pass approach is already optimal. Let me verify edge cases."
+
+**Best Solution**: Single-pass with counter is optimal. No further optimization needed.
+
+**Key Realizations**:
+1. Single pass is optimal - can't do better than O(n)
+2. O(1) space is optimal - no extra storage needed
+3. Simple counter approach is elegant and efficient
+4. Handles all edge cases naturally
+
 ## Solution: Single Pass with Counter
 
 **Time Complexity:** O(n)  

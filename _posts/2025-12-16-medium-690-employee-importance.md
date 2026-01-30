@@ -59,6 +59,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Subordinate hierarchy**: Can subordinates have their own subordinates? (Assumption: Yes - need to recursively calculate all levels)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Build a tree structure from the employee list. Then traverse the tree starting from the given employee ID, visiting all nodes in the subtree. Sum up the importance values of all visited employees. This approach works but requires building the tree structure first, which adds complexity. The traversal itself is straightforward but needs proper tree construction.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a hash map to quickly look up employees by ID. Use BFS with a queue: start with the given employee, add it to queue. Process queue: for each employee, add its importance to total, then add all subordinates to queue. Continue until queue is empty. This avoids building an explicit tree structure and processes employees level by level.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use DFS with a hash map for employee lookup. Create a hash map from employee ID to employee object for O(1) lookup. Use recursive DFS: for the given employee, return its importance plus the sum of recursively calculated importance of all subordinates. This achieves O(n) time where n is the total number of employees (we visit each once) and O(h) space for recursion stack where h is the height. The recursive solution is elegant and naturally handles the tree structure without explicit tree building.
+
 ## Solution 1: DFS with Hash Map (Recommended)
 
 **Time Complexity:** O(n) - Visit each employee once  

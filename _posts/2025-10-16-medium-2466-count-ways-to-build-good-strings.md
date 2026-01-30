@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty string**: Is empty string considered? (Assumption: No - strings must have length >= low, so empty string not included)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to count ways to build strings. Let me try all possible string constructions."
+
+**Naive Solution**: Recursively try all possible ways to build strings by appending "0" zero times or "1" one times, count valid strings.
+
+**Complexity**: O(2^high) time, O(high) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid strings
+- Very inefficient
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. Number of ways to build string of length n depends on ways to build shorter strings."
+
+**Improved Solution**: Use DP where dp[i] = number of ways to build string of length i. dp[i] = dp[i-zero] + dp[i-one] (if valid).
+
+**Complexity**: O(high) time, O(high) space
+
+**Improvements**:
+- Leverages optimal substructure
+- O(high) time instead of exponential
+- Correctly counts all ways
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DP approach is optimal. Can use bottom-up or top-down with memoization."
+
+**Best Solution**: DP approach is optimal. Bottom-up builds from smaller lengths to larger. Sum dp[i] for i from low to high.
+
+**Complexity**: O(high) time, O(high) space
+
+**Key Realizations**:
+1. DP is natural approach - optimal substructure
+2. O(high) time is optimal
+3. Bottom-up or top-down both work
+4. Sum range [low, high] for final answer
+
 ## Solution 1: Bottom-Up Dynamic Programming
 
 **Time Complexity:** O(high)  

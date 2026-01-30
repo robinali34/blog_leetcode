@@ -62,6 +62,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Minimum time in seconds to collect all apples and return to start)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to collect all apples. Let me try all possible paths."
+
+**Naive Solution**: Try all possible paths to collect apples, find minimum time path.
+
+**Complexity**: Exponential time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many redundant paths
+- Very inefficient
+- Doesn't leverage tree structure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DFS to traverse tree, only visit subtrees that contain apples."
+
+**Improved Solution**: Use DFS to traverse tree. For each node, check if subtree contains apples. If yes, must visit that subtree. Count edges that need to be traversed.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- DFS naturally traverses tree
+- Only visits necessary subtrees
+- O(n) time is optimal
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DFS approach is optimal. Count edges that need traversal (subtrees with apples)."
+
+**Best Solution**: DFS approach is optimal. For each node, check if subtree has apples. If subtree has apples, must traverse edge to that subtree. Return 2 × number of edges that need traversal.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. DFS is natural for tree problems
+2. Only traverse edges to subtrees with apples
+3. O(n) time is optimal - visit each node once
+4. Each edge traversed twice (to and from)
+
 ## Approach
 
 This problem can be solved using either **DFS** or **BFS** approaches. The key insight is that we only need to visit subtrees that contain apples or lead to apples.

@@ -52,6 +52,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest substring length)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find longest substring. Let me check all possible substrings."
+
+**Naive Solution**: Check all possible substrings, for each check if it has no repeating characters, track maximum length.
+
+**Complexity**: O(n³) time, O(n) space
+
+**Issues**:
+- O(n³) time - very inefficient
+- Checks many redundant substrings
+- Repeats character checking for overlapping substrings
+- Doesn't leverage sliding window property
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use sliding window. Expand window until duplicate found, then shrink from left."
+
+**Improved Solution**: Use sliding window with two pointers. Expand right pointer, when duplicate found, move left pointer until duplicate removed. Track maximum window size.
+
+**Complexity**: O(n) time, O(min(n, charset)) space
+
+**Improvements**:
+- O(n) time - much better
+- Sliding window avoids redundant checks
+- Hash map/set tracks characters in window
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The sliding window approach is already optimal. Can optimize by storing last occurrence index."
+
+**Best Solution**: Sliding window with hash map storing last occurrence index of each character. When duplicate found, jump left pointer to last occurrence + 1. This avoids unnecessary shrinking.
+
+**Complexity**: O(n) time, O(min(n, charset)) space
+
+**Key Realizations**:
+1. Sliding window is optimal approach
+2. O(n) time is optimal - must check each character
+3. Storing last occurrence optimizes left pointer movement
+4. O(min(n, charset)) space is optimal
+
 ## Solution: Sliding Window with Hash Map
 
 **Time Complexity:** O(n)  

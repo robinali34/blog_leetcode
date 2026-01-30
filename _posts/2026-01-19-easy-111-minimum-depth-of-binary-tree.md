@@ -52,6 +52,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Use DFS to explore all paths from root to leaves, track the depth of each path, and return the minimum depth found. This approach works but explores all paths, which may be inefficient for large trees.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use BFS (level-order traversal): traverse the tree level by level, return the depth when we encounter the first leaf node. BFS naturally finds the shortest path, so the first leaf we encounter will be at minimum depth. This achieves O(n) time in worst case but can be faster if the minimum depth is small.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use BFS with early termination: perform level-order traversal, increment depth at each level. When we encounter a leaf node (node with no children), return the current depth immediately. This achieves O(n) time in worst case but O(min_depth) time in best case, which is optimal. Alternatively, use DFS with proper handling: for each node, if it's a leaf, return 1. Otherwise, recursively find minimum depth of left and right subtrees, but handle the case where one subtree is null (should use the non-null subtree's depth). The key insight is that BFS naturally finds the shortest path, making it ideal for finding minimum depth.
+
 ## Solution Approach
 
 This problem requires finding the shortest path from root to any leaf node. The key difference from maximum depth is handling nodes with only one child correctly.

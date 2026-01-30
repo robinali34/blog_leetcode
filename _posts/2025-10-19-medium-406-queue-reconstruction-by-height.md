@@ -60,6 +60,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tie-breaking**: How should we handle people with same height? (Assumption: People with same height count toward k - "taller or equal")
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to reconstruct queue. Let me try all possible orderings."
+
+**Naive Solution**: Generate all possible permutations of people, check which satisfies all k constraints.
+
+**Complexity**: O(n! × n²) time, O(n) space
+
+**Issues**:
+- Factorial time complexity
+- Checks many invalid orderings
+- Very inefficient
+- Doesn't leverage sorting property
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can sort by height first, then insert people based on k value."
+
+**Improved Solution**: Sort people by height (descending), then by k (ascending). Insert each person at position k in result list.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Sorting reduces search space
+- O(n²) time instead of factorial
+- Greedy insertion is correct
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Greedy sorting with insertion is optimal. Sorting ensures correct relative order."
+
+**Best Solution**: Sort by height descending, then k ascending. Insert each person at index k. This works because taller people don't affect k of shorter people.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Key Realizations**:
+1. Sorting by height is key insight
+2. Insertion at index k is correct
+3. O(n²) time is optimal for insertion approach
+4. Greedy approach works because of height ordering
+
 ## Solution: Greedy Sorting with List Insertion
 
 **Time Complexity:** O(n²) where n is the number of people  

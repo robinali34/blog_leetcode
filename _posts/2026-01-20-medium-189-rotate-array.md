@@ -54,6 +54,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Negative k**: Can k be negative? (Assumption: Based on constraints, k >= 0, but should clarify if negative k means left rotation)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Create a new array, copy elements to their rotated positions. Then copy back to original array. This requires O(n) extra space, which doesn't meet the O(1) space requirement. Alternatively, rotate one position at a time, repeating k times, but this has O(n × k) time complexity, which is too slow for large k.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a temporary array to store the last k elements, shift the first n-k elements right by k positions, then place the stored elements at the beginning. This requires O(k) extra space. Alternatively, use reverse operations: reverse entire array, then reverse first k elements and last n-k elements separately. However, need to handle k > n by using k % n.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use reverse operations: first reverse the entire array, then reverse the first k elements, and finally reverse the last n-k elements. This achieves O(n) time with O(1) extra space, which is optimal. The key insight is that rotating right by k is equivalent to: reverse all, then reverse first k, then reverse last n-k. This elegant approach requires only three reverse operations and no extra space beyond a few variables.
+
 ## Solution 1: Brute Force Rotation (Simulate k Steps)
 
 This solution rotates the array by 1 step, `k` times.

@@ -65,6 +65,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Integer - minimum moves, or -1 if target unreachable)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum moves. Let me try all possible sequences."
+
+**Naive Solution**: Try all possible lock combinations, find shortest path from "0000" to target avoiding deadends.
+
+**Complexity**: Exponential time, O(1) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid paths
+- Very inefficient
+- Doesn't leverage BFS
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This is a shortest path problem. I can use BFS to find minimum moves."
+
+**Improved Solution**: Use BFS starting from "0000". For each state, generate all 8 possible next states (4 wheels × 2 directions). Skip deadends and visited states.
+
+**Complexity**: O(10^4) time worst case (10000 states), O(10^4) space
+
+**Improvements**:
+- BFS finds shortest path
+- O(10^4) time is much better than exponential
+- Handles deadends correctly
+- Visited tracking prevents cycles
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "BFS approach is optimal. Use queue and visited set."
+
+**Best Solution**: BFS is optimal. Use queue for BFS, visited set to track explored states. Generate next states by rotating each wheel up/down. Return depth when target found.
+
+**Complexity**: O(10^4) time, O(10^4) space
+
+**Key Realizations**:
+1. BFS is perfect for shortest path problems
+2. O(10^4) time is optimal - at most 10000 states
+3. Visited set prevents revisiting
+4. Generate next states systematically
+
 ## Solution Approach
 
 This is a **shortest path problem** that can be solved using **BFS**. We need to find the minimum number of moves to reach the target from "0000" while avoiding deadends.

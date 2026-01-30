@@ -69,6 +69,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return type**: Should we return boolean or something else? (Assumption: Return boolean - true if same, false otherwise)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Convert both trees to string representations using preorder traversal (including null markers), then compare the strings. Alternatively, collect all nodes from both trees into arrays and compare the arrays. This approach is straightforward but requires O(n) extra space for string/array storage and O(n) time for conversion and comparison.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use iterative traversal (BFS or DFS with stack) to compare nodes level by level or in preorder. Maintain two queues/stacks, one for each tree, and compare corresponding nodes. This avoids string conversion but still requires O(h) space for the traversal stack/queue where h is the height. The logic for synchronizing traversal of both trees can be complex.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use recursive DFS: compare root values, then recursively check if left subtrees are same and right subtrees are same. Base cases: if both nodes are null, return true; if one is null and the other isn't, return false. This approach uses O(h) space for recursion stack (where h is height) and O(n) time to visit all nodes. The recursive solution is elegant, naturally handles tree structure, and doesn't require extra data structures beyond the call stack.
+
 ## Solution Approach
 
 This problem requires checking if two binary trees are identical in both structure and values. We can use a recursive DFS approach to compare nodes at corresponding positions.

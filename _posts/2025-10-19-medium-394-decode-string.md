@@ -69,6 +69,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: Should we return decoded string or count? (Assumption: Return decoded string - fully expanded string)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to decode string. Let me process manually from innermost brackets."
+
+**Naive Solution**: Find innermost brackets, decode them, replace in string, repeat until no brackets remain.
+
+**Complexity**: O(n²) worst case, O(n) space
+
+**Issues**:
+- Multiple passes through string
+- String manipulation is expensive
+- O(n²) worst case
+- Doesn't leverage stack structure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Nested brackets form a stack structure. I can use stack to process brackets."
+
+**Improved Solution**: Use stack to track current string and repeat count. When encountering '[', push current string and count. When encountering ']', pop and repeat.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack naturally handles nesting
+- Single pass through string
+- O(n) time is much better
+- Handles all nesting levels correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Stack approach is optimal. Can optimize string building."
+
+**Best Solution**: Stack-based approach is optimal. Use stack to store [current_string, repeat_count] pairs. Process characters, build strings, handle nesting naturally.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Stack is perfect for nested structures
+2. O(n) time is optimal - single pass
+3. O(n) space for stack is necessary
+4. Handles arbitrary nesting depth
+
 ## Solution: Stack-Based Decoding
 
 **Time Complexity:** O(n) where n is the length of the decoded string  

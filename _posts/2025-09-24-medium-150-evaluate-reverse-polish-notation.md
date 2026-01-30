@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Integer result of evaluating the RPN expression)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to evaluate RPN expression. Let me parse and compute manually."
+
+**Naive Solution**: Parse expression, manually track operands and operators, compute step by step without using stack structure.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Complex parsing logic
+- Doesn't leverage stack structure naturally
+- Hard to handle operator precedence correctly
+- More error-prone
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "RPN is designed for stack evaluation. When I see an operator, pop two operands, compute, push result."
+
+**Improved Solution**: Use stack. Traverse tokens left to right. If token is number, push to stack. If operator, pop two operands, compute, push result.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack naturally models RPN evaluation
+- Clean and intuitive
+- Handles all operators correctly
+- O(n) time is optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Stack approach is already optimal. Can optimize space by using vector as stack or handle edge cases better."
+
+**Best Solution**: Stack-based evaluation is optimal. Can use vector as stack for better cache locality, but std::stack is clearer. Handle integer division truncation correctly.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Stack is perfect data structure for RPN
+2. O(n) time is optimal - must process each token
+3. O(n) space is optimal - worst case all numbers before operators
+4. Integer division truncation is important detail
+
 ## Approach
 
 The solution uses a stack-based approach:

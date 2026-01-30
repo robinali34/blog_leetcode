@@ -48,6 +48,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Duplicate points**: Can there be duplicate points? (Assumption: Per problem, should check - duplicate points cannot form a square)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if points form square. Let me try all possible orderings."
+
+**Naive Solution**: Try all possible ways to order 4 points, check if they form square by verifying sides and angles.
+
+**Complexity**: O(4!) = O(24) time, O(1) space
+
+**Issues**:
+- Checks many invalid orderings
+- Complex geometric calculations
+- Doesn't leverage distance properties
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Square has specific distance properties: 4 equal sides, 2 equal diagonals."
+
+**Improved Solution**: Calculate all 6 pairwise distances. Square should have: 4 equal side lengths, 2 equal diagonal lengths, sides != diagonals.
+
+**Complexity**: O(1) time, O(1) space
+
+**Improvements**:
+- Leverages distance properties
+- O(1) time - constant time check
+- Handles all geometric cases
+- Clean and efficient
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Distance-based validation is optimal. Check for exactly 2 unique distances (sides and diagonals)."
+
+**Best Solution**: Calculate all pairwise distances. Valid square has exactly 2 unique distances: 4 sides (equal) and 2 diagonals (equal), with diagonal > side.
+
+**Complexity**: O(1) time, O(1) space
+
+**Key Realizations**:
+1. Distance properties are key insight
+2. O(1) time is optimal - fixed 4 points
+3. Check for exactly 2 unique distances
+4. Handle edge cases (collinear points, etc.)
+
 ## Solution: Distance-Based Validation
 
 **Time Complexity:** O(1) - Constant time since we only have 4 points  

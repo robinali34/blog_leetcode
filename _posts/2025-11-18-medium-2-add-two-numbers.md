@@ -55,6 +55,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: Should we return a new list or modify existing? (Assumption: Return new linked list - don't modify input lists)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to add two numbers represented as linked lists. Let me convert them to integers first."
+
+**Naive Solution**: Convert both linked lists to integers, add them, then convert result back to linked list.
+
+**Complexity**: O(n) time, O(1) space (but may overflow)
+
+**Issues**:
+- Integer overflow for large numbers (lists can be up to 100 nodes)
+- Doesn't work for very large numbers
+- Not the intended approach for linked list manipulation
+- Loses the linked list structure advantage
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I should process digits one by one, maintaining carry. This avoids overflow and works with linked lists naturally."
+
+**Improved Solution**: Traverse both lists simultaneously, add corresponding digits along with carry. Create new nodes for result. Handle different list lengths by treating missing digits as 0.
+
+**Complexity**: O(max(m, n)) time, O(max(m, n)) space
+
+**Improvements**:
+- No integer overflow issues
+- Works with linked list structure
+- Handles different lengths naturally
+- Processes digits in correct order
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The digit-by-digit approach is optimal. Let me refine it to handle edge cases and consider recursive alternative."
+
+**Best Solution**: Iterative digit-by-digit addition with carry propagation. Can also use recursive approach for elegance, but iterative is more space-efficient.
+
+**Key Realizations**:
+1. Digit-by-digit addition is the correct approach
+2. Carry propagation is straightforward
+3. O(max(m, n)) time and space is optimal
+4. Both iterative and recursive approaches work well
+
 ## Solution: Recursive Approach
 
 **Time Complexity:** O(max(m, n)) where m and n are the lengths of l1 and l2  

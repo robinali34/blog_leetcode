@@ -68,6 +68,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty string**: What if string is empty? (Assumption: Return true - empty string is valid)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to check if parentheses are valid. Let me think about counting opening and closing brackets."
+
+**Naive Solution**: Count opening and closing brackets of each type. Check if counts match and if they're properly nested by scanning multiple times.
+
+**Complexity**: O(n) time, O(1) space (but incorrect logic)
+
+**Issues**:
+- Simple counting doesn't handle nesting order correctly
+- Can't distinguish between "([)]" (invalid) and "([])" (valid) with just counts
+- Doesn't track the order of bracket types
+- Fails for nested structures
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I need to track the order of opening brackets. A stack can help maintain the order."
+
+**Improved Solution**: Use a stack to track opening brackets. When encountering a closing bracket, check if it matches the most recent opening bracket. If stack is empty at the end, all brackets are matched.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Correctly handles nesting order
+- Tracks bracket type matching
+- Single pass through string
+- Handles all edge cases properly
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "The stack approach is already optimal. Let me verify edge cases and consider if we can optimize space."
+
+**Best Solution**: Stack-based approach is optimal. Space can't be reduced below O(n) worst case (e.g., all opening brackets). Consider using a counter for single bracket type, but stack is needed for multiple types.
+
+**Key Realizations**:
+1. Stack is the natural data structure for matching problems
+2. O(n) space is necessary for worst case
+3. Single pass O(n) time is optimal
+4. Stack approach handles all bracket types elegantly
+
 ## Solution: Stack-Based Matching
 
 **Time Complexity:** O(n)  

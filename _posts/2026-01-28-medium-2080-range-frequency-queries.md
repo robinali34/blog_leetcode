@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Memory constraints**: Are there any memory limitations we should consider? (Assumption: O(n) space is acceptable for preprocessing to achieve O(log n) queries)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each query, iterate through the range [left, right] and count how many elements equal `value`. This approach has O(n) time per query, which is too slow if there are many queries.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Preprocess: build a hash map mapping each value to a list of indices where it appears. For each query, use binary search to find how many indices in the list fall within [left, right]. This achieves O(log n) per query after O(n) preprocessing, but requires O(n) space to store indices for each value.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use hash map + sorted lists: preprocess by building `value -> sorted list of indices` mapping. For each query, get the sorted list for the value, use binary search to find the count of indices in range [left, right]. This achieves O(log n) per query with O(n) preprocessing time and O(n) space. The key insight is that we can preprocess once to organize data by value, then use binary search for efficient range queries.
+
 ## Solution Approach
 
 This problem requires efficiently answering multiple range frequency queries. The key insight is to preprocess the array by grouping indices by value, then use binary search to quickly count occurrences in a range.

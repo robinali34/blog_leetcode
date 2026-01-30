@@ -53,6 +53,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Transitivity**: Is connection transitive? (Assumption: Yes - if A connects to B and B connects to C, then A connects to C)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each city, check all other cities to see if they're connected directly or indirectly. Use a visited array and for each unvisited city, perform DFS/BFS to mark all connected cities. Count how many times we need to start a new DFS/BFS (each represents a province). This approach works but requires careful tracking of visited cities and may have redundant checks.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use DFS: for each unvisited city, perform DFS to mark all cities in its province as visited. Count the number of DFS calls (each represents one province). This avoids redundant checks by using a visited array. Time complexity is O(n²) where n is the number of cities, as we may check all connections. This works well but can be optimized with Union-Find for better average performance.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use Union-Find (Disjoint Set Union) to group connected cities. For each connection in the matrix, union the two cities. After processing all connections, count the number of distinct roots (each root represents a province). Union-Find achieves O(n² × α(n)) time where α is the inverse Ackermann function (effectively constant), making it very efficient. Alternatively, DFS/BFS also works in O(n²) time. The key insight is that provinces are connected components, and Union-Find naturally groups them efficiently, especially when we need to process connections incrementally.
+
 ## Solution 1: Union-Find (Disjoint Set Union) - Recommended
 
 **Time Complexity:** O(n² × α(n)) where α is the inverse Ackermann function  

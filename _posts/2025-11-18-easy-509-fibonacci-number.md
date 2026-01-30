@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - linear time with DP, O(2^n) naive recursion)
 
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to compute Fibonacci. Let me use recursive definition directly."
+
+**Naive Solution**: Recursive function: F(n) = F(n-1) + F(n-2) with base cases F(0)=0, F(1)=1.
+
+**Complexity**: O(2^n) time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Recomputes same values many times
+- Very inefficient
+- Doesn't leverage memoization
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use memoization to cache computed values."
+
+**Improved Solution**: Use recursion with memoization. Store computed Fibonacci values in hash map/array to avoid recomputation.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Memoization eliminates recomputation
+- O(n) time is much better
+- Still uses recursion stack
+- Can optimize space
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "I can use iterative DP to avoid recursion stack."
+
+**Best Solution**: Iterative DP (bottom-up). Use two variables to track F(n-1) and F(n-2), compute F(n) iteratively.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. DP is natural approach for Fibonacci
+2. O(n) time is optimal
+3. O(1) space is optimal with iterative approach
+4. Bottom-up avoids recursion overhead
+
 ## Solution: Dynamic Programming (Bottom-Up)
 
 **Time Complexity:** O(n) - Single pass through the array  

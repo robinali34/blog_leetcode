@@ -60,6 +60,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest valid parentheses substring)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to find longest valid substring. Let me check all possible substrings."
+
+**Naive Solution**: Check all possible substrings, for each check if valid parentheses, track maximum length.
+
+**Complexity**: O(n³) time, O(n) space
+
+**Issues**:
+- O(n³) time - very inefficient
+- Repeats validity checking for overlapping substrings
+- Doesn't leverage stack or DP
+- Can be optimized significantly
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can use stack to track valid parentheses, or use DP to track valid lengths."
+
+**Improved Solution**: Use stack to track unmatched opening parentheses. When encountering ')', if stack not empty, pop and calculate length. Track maximum length.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack naturally handles parentheses matching
+- O(n) time is much better
+- Handles all cases correctly
+- Can optimize further
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Stack approach is optimal. Can also use DP with two passes."
+
+**Best Solution**: Stack approach is optimal. Use stack storing indices. When ')', pop and calculate length from stack top (or -1 if empty). Alternative: DP with two passes (left-to-right and right-to-left).
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Stack is perfect for parentheses matching
+2. O(n) time is optimal - single pass
+3. Index tracking enables length calculation
+4. DP alternative exists but stack is clearer
+
 ## Solution Approaches
 
 This problem requires finding the longest valid parentheses substring. A valid parentheses substring must have matching opening and closing parentheses.

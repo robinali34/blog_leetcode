@@ -66,7 +66,21 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 4. **Return value**: What should we return? (Assumption: Integer - minimum cost to cover all travel days)
 
-5. **Ticket validity**: How long are tickets valid? (Assumption: 1-day pass covers 1 day, 7-day pass covers 7 consecutive days, 30-day pass covers 30 consecutive days)
+5. **Ticket validity**: How long are tickets valid? (Assumption: 1-day pass covers 1 day, 7-day pass covers 30 consecutive days, 30-day pass covers 30 consecutive days)
+
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible combinations of ticket purchases. For each travel day, decide which ticket to buy (1-day, 7-day, or 30-day), considering which future days are covered. Use recursive exploration without memoization. This approach has exponential time complexity as we explore all combinations, which is infeasible for many travel days.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming with memoization. For each day, try buying each ticket type and recursively solve for remaining uncovered days. Memoize results to avoid recomputation. However, the state space can be large if we track which days are covered. Alternatively, use dp[day] = minimum cost to cover all travel days from day onwards, but need to handle ticket validity periods carefully.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use dynamic programming where dp[i] = minimum cost to cover all travel days from days[i] onwards. For each travel day, try buying each ticket type: 1-day covers days[i], 7-day covers next 7 days, 30-day covers next 30 days. Find the next uncovered travel day after ticket expires, and use dp[next_uncovered]. This achieves O(n) time where n is the number of travel days, as we process each day once. The key insight is that we only need to consider travel days (not all calendar days), and we can use binary search or linear scan to find the next uncovered day efficiently.
 
 ## Solution: Dynamic Programming
 

@@ -50,6 +50,51 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Constraint satisfaction**: Do we need to find all solutions or can we stop after finding one? (Assumption: Find all solutions - exhaustive search required)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to place n queens on n×n board. Let me try all possible placements."
+
+**Naive Solution**: Generate all possible queen placements (n² choose n combinations), then check if each configuration satisfies constraints.
+
+**Complexity**: O(C(n², n) × n²) time, O(n²) space
+
+**Issues**:
+- Exponential number of combinations
+- Redundant constraint checking
+- Very inefficient for n > 4
+- Doesn't prune invalid partial solutions early
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I can place queens row by row, checking constraints as I go. This prunes invalid branches early."
+
+**Improved Solution**: Use backtracking with row-by-row placement. For each row, try placing queen in each column, check constraints (column, diagonal, anti-diagonal), then recurse to next row.
+
+**Complexity**: O(n!) worst case, but much better in practice due to pruning
+
+**Improvements**:
+- Early pruning of invalid configurations
+- Row-by-row placement reduces search space
+- Constraint checking becomes O(1) with proper tracking
+- Much faster than brute-force
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "I can optimize constraint checking using boolean arrays instead of checking board each time."
+
+**Best Solution**: Use backtracking with boolean arrays to track:
+- Columns: which columns are occupied
+- Diagonals: track using `row - col` (constant for each diagonal)
+- Anti-diagonals: track using `row + col` (constant for each anti-diagonal)
+
+**Complexity**: O(n!) worst case, but heavily pruned in practice
+
+**Key Realizations**:
+1. Backtracking is the natural approach for constraint satisfaction
+2. Row-by-row placement guarantees no row conflicts
+3. Boolean arrays make constraint checking O(1)
+4. Diagonal tracking using arithmetic is elegant
+5. Early pruning makes it feasible for n ≤ 9
+
 ## Solution Approach
 
 This is a classic **backtracking with constraint satisfaction** problem. The key insight is to place queens row by row, ensuring no two queens attack each other.

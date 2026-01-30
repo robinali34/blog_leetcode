@@ -77,6 +77,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: Array where result[i] = exclusive time of function i)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to track function execution times. Let me parse logs and calculate times manually."
+
+**Naive Solution**: Parse all logs, track start/end times for each function, manually calculate exclusive time by subtracting nested function times.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Complex nested function tracking
+- Hard to calculate exclusive time correctly
+- Doesn't leverage stack structure naturally
+- Error-prone implementation
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Function calls form a stack structure. I can use a stack to track active functions."
+
+**Improved Solution**: Use stack to track active function calls. When function starts, push to stack. When ends, pop and calculate duration, subtract from parent's time.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Stack naturally models function call hierarchy
+- Easier to track nested calls
+- Cleaner logic for exclusive time calculation
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The stack approach is optimal. Let me refine the time calculation logic."
+
+**Best Solution**: Stack-based approach with careful time calculation. Track previous timestamp to calculate durations correctly. When function ends, subtract its time from parent's accumulated time.
+
+**Complexity**: O(n) time, O(n) space
+
+**Key Realizations**:
+1. Stack is perfect for nested function calls
+2. O(n) time is optimal - must process each log entry
+3. O(n) space for stack is necessary for nested calls
+4. Careful timestamp tracking is crucial for correctness
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Time Tracking (Recommended)

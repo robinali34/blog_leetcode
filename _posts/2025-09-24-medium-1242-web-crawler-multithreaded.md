@@ -69,6 +69,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: List of all URLs that can be reached from startUrl with same hostname)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to crawl web pages. Let me start from startUrl and follow links sequentially."
+
+**Naive Solution**: Start from startUrl, fetch HTML, extract URLs, filter by hostname, recursively crawl each URL sequentially.
+
+**Complexity**: O(n) time where n is number of URLs, O(n) space
+
+**Issues**:
+- Sequential crawling is slow
+- Doesn't leverage multithreading
+- Not optimal for concurrent operations
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use BFS/DFS with thread pool to crawl URLs concurrently."
+
+**Improved Solution**: Use BFS/DFS with thread pool. Maintain queue of URLs to crawl. Use multiple threads to fetch URLs concurrently. Track visited URLs to avoid duplicates.
+
+**Complexity**: O(n) time with better concurrency, O(n) space
+
+**Improvements**:
+- Concurrent crawling is faster
+- Thread pool manages threads efficiently
+- Handles visited URLs correctly
+- Better utilizes resources
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "BFS with thread pool and proper synchronization is optimal."
+
+**Best Solution**: BFS with thread pool. Use queue for URLs to crawl, visited set for tracking. Use thread pool to fetch URLs concurrently. Synchronize access to shared data structures.
+
+**Complexity**: O(n) time with concurrency, O(n) space
+
+**Key Realizations**:
+1. BFS is natural for web crawling
+2. Thread pool enables concurrent fetching
+3. Synchronization is crucial for thread safety
+4. Visited tracking prevents infinite loops
+
 ## Approach
 
 The solution involves:

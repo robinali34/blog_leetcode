@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Order requirement**: Does order of squares matter? (Assumption: No - can return in any order)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Try all possible combinations of words to form N×N squares. For each combination, check if it forms a valid word square (kth row equals kth column). This approach has exponential time complexity O(W^N) where W is the number of words and N is the word length, which is too slow even for small inputs.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use backtracking with early pruning: build the square row by row. For each row, only consider words that match the required prefix (formed by the current column of previous rows). Use a hash map to group words by prefix for faster lookup. This reduces the search space significantly but still requires checking many combinations.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use backtracking with Trie: build a Trie from all words, storing word indices at each node. When building row `i`, we need words that start with the prefix formed by column `i` of previous rows. Use the Trie to efficiently find all words matching a given prefix. This achieves much better performance: O(W × N) to build Trie, and backtracking with Trie pruning significantly reduces the search space. The key insight is that Trie allows O(prefix_length) prefix matching instead of checking all words, making the solution efficient enough for the constraints.
+
 ## Solution Approach
 
 This problem requires constructing word squares where each row and corresponding column read the same string. We can solve this using **backtracking** combined with a **Trie** data structure to efficiently find words matching required prefixes.

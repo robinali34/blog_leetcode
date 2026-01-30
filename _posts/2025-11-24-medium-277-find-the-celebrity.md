@@ -54,6 +54,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Self-knowledge**: Does everyone know themselves? (Assumption: Yes - graph[i][i] = 1 per constraints)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each person i, check if they are a celebrity: verify that knows(i, j) is false for all j != i, and knows(j, i) is true for all j != i. This requires O(n²) calls to the knows() function, which is inefficient. The challenge is that we need to check all pairs of relationships.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use the fact that if knows(a, b) is true, then a cannot be a celebrity (they know someone). If knows(a, b) is false, then b cannot be a celebrity (not known by a). Use this to eliminate candidates: start with candidate 0, and for each person i, if knows(candidate, i), then candidate cannot be celebrity, so set candidate = i. After one pass, we have a potential celebrity candidate.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a two-pass algorithm: First pass finds a candidate by elimination. Start with candidate = 0. For each person i from 1 to n-1, if knows(candidate, i), then candidate cannot be celebrity (knows someone), so set candidate = i. Second pass verifies the candidate: check that candidate doesn't know anyone (except themselves) and everyone knows the candidate. This achieves O(n) calls to knows() function, which is optimal. The key insight is that the elimination property allows us to find the only possible candidate in one pass, then verify in a second pass.
+
 ## Solution: Two-Pass Algorithm
 
 **Time Complexity:** O(n) - makes at most 3n calls to `knows()`  

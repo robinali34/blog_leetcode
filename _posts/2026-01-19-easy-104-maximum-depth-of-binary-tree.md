@@ -50,6 +50,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Use BFS to traverse level by level, counting the number of levels. Alternatively, use DFS to explore all paths and track the maximum depth reached. This straightforward approach works but may require maintaining additional state or using extra space for level tracking.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use iterative BFS with a queue, processing nodes level by level. Maintain a depth counter and increment it after processing each level. This requires O(n) time and O(w) space where w is the maximum width. Alternatively, use iterative DFS with a stack, maintaining depth for each node, but this is more complex.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use recursive DFS: for each node, recursively find the maximum depth of left and right subtrees, then return 1 + max(left_depth, right_depth). Base case: if node is null, return 0. This achieves O(n) time to visit all nodes and O(h) space for recursion stack where h is height, which is optimal. The recursive solution is elegant and naturally handles the tree structure without extra data structures beyond the call stack.
+
 ## Solution Approach
 
 This problem requires finding the longest path from root to any leaf node. There are several approaches:

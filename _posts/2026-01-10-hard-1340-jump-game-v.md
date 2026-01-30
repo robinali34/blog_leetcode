@@ -66,6 +66,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Stopping condition**: When do we stop jumping? (Assumption: When no valid jumps remain - all reachable indices have larger values)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+For each starting index, use DFS to explore all valid jumps. From each index, try jumping left and right up to distance `d`, but only to indices with smaller values. Recursively explore all paths and return the maximum path length. This approach has exponential time complexity O(2^n) in worst case, which is too slow for arrays up to 1000 elements.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Use DFS with memoization: for each starting index, compute the maximum number of indices we can visit and cache the result. When we encounter the same index again, return the cached value. However, we need to be careful about the jump constraints: we can only jump to indices with smaller values, and we must jump over all intermediate indices (they must also be smaller). This reduces redundant calculations but still requires careful implementation of the jump constraints.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use DFS with memoization and proper constraint checking: for each index, recursively explore valid jumps. When jumping from index `i` to index `j`, ensure `arr[i] > arr[j]` and `arr[i] > arr[k]` for all `k` between `i` and `j`. Use memoization to cache results for each starting index. This achieves O(n²) time complexity: O(n) starting positions, each requiring O(n) to explore jumps. The key insight is that the problem has overlapping subproblems (multiple paths can reach the same index), so memoization significantly reduces computation.
+
 ## Solution Approach
 
 This is a **dynamic programming with memoization** problem. The key insight is that we need to find the maximum path length starting from any index, where we can only jump to indices with smaller values and must jump over all intermediate indices that are also smaller.

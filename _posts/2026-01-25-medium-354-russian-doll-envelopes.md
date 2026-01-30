@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty result**: What should we return if no envelopes can be nested? (Assumption: Return `1` - at least one envelope can be considered as a "nest")
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible sequences of envelopes and check which sequences form valid nesting chains. For each envelope, recursively try to nest other envelopes inside it. This approach has exponential time complexity O(2^n), which is infeasible for n up to 5000. The challenge is that we need to find the longest increasing subsequence in 2D space.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Sort envelopes by width, then use dynamic programming: dp[i] = maximum nesting chain ending at envelope i. For each envelope i, check all previous envelopes j where envelope j can fit inside envelope i, and update dp[i] = max(dp[j]) + 1. This gives O(n²) time complexity, which works but can be optimized further. The challenge is handling the case where multiple envelopes have the same width (they can't nest each other).
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Sort envelopes by width in ascending order, and for envelopes with the same width, sort by height in descending order. Then, find the longest increasing subsequence (LIS) based on height. The descending order for same widths ensures that envelopes with the same width don't nest each other (since we need strictly smaller dimensions). Use binary search to find the LIS efficiently, similar to the patience sorting algorithm. This achieves O(n log n) time complexity, which is optimal. The key insight is reducing the 2D problem to 1D LIS by sorting on one dimension and handling ties carefully.
+
 ## Solution Approach
 
 This problem is a **2D version of the Longest Increasing Subsequence (LIS)** problem. We need to find the longest chain of envelopes where each envelope can fit inside the next.

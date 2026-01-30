@@ -74,6 +74,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Order processing**: Are orders processed in the given order, or can we process them in any order? (Assumption: Process orders sequentially in the given order - this is a simulation problem)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Maintain two lists (one for buy orders, one for sell orders). For each incoming order, iterate through the opposite list to find matching orders. When matching, remove matched orders from the list. This approach is straightforward but has O(n²) complexity since for each order we might scan all existing orders. With up to 10^5 orders, this becomes too slow.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use sorted data structures (like sorted vectors or balanced BSTs) to maintain buy and sell orders. Buy orders should be sorted in descending order of price (highest first), and sell orders in ascending order of price (lowest first). When matching, we can quickly find the best matching order, but updating the data structure after partial matches still requires careful handling. Insertion and removal operations are O(log n), giving O(n log n) overall complexity.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use two priority queues (heaps): a max-heap for buy orders (highest price first) and a min-heap for sell orders (lowest price first). For each incoming order, try to match with orders from the opposite heap. When matching, remove fully matched orders and update partially matched orders. Priority queues provide O(log n) insertion and O(1) access to the best matching order. The key insight is that we only need the best (highest buy or lowest sell) order at any time, which priority queues provide efficiently. This achieves O(n log n) time complexity, which is optimal for this problem.
+
 ## Solution Approach
 
 This problem requires efficiently matching buy and sell orders based on price conditions. We need to:

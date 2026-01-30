@@ -58,6 +58,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return if ordering is invalid? (Assumption: Return empty string "" - no valid ordering exists)
 
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to find character ordering. Let me try all possible orderings and check if they're valid."
+
+**Naive Solution**: Generate all possible character orderings (permutations), check if each satisfies the word order constraints.
+
+**Complexity**: O(26! × n × m) time, O(26) space
+
+**Issues**:
+- Factorial time complexity - completely infeasible
+- Checks many invalid orderings
+- Very inefficient
+- Doesn't leverage graph structure
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "This is a topological sort problem. Build a graph from word comparisons, then do topological sort."
+
+**Improved Solution**: Build directed graph: compare adjacent words to find first differing characters, add edge. Then perform topological sort using DFS or Kahn's algorithm.
+
+**Complexity**: O(n × m + V + E) time where V = unique chars, E = edges, O(V + E) space
+
+**Improvements**:
+- Graph-based approach is correct
+- Topological sort finds valid ordering
+- Much more efficient than brute-force
+- Handles cycles (invalid ordering) naturally
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "Topological sort with cycle detection. Use Kahn's algorithm or DFS with cycle detection."
+
+**Best Solution**: Build graph from word comparisons. Use Kahn's algorithm (BFS-based) or DFS with cycle detection for topological sort. Return empty string if cycle detected or result size < V.
+
+**Complexity**: O(n × m + V + E) time, O(V + E) space
+
+**Key Realizations**:
+1. This is a topological sort problem
+2. Graph building from word comparisons is key
+3. Cycle detection indicates invalid ordering
+4. Kahn's algorithm or DFS both work well
+
 ## Solution Approach
 
 This problem requires finding the lexicographic order of characters in an alien language. The key insight is that the sorted word list gives us **ordering constraints** between characters, which we can model as a **directed graph** and solve using **topological sort**.

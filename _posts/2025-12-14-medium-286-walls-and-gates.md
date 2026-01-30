@@ -57,6 +57,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Movement rules**: How can we move? (Assumption: Horizontal or vertical movement - 4 directions, cannot pass through walls)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each empty room (INF value), run BFS to find the nearest gate. Update the room with the distance found. This approach has O(m × n × (m × n)) time complexity in worst case, which is too slow for large grids.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Start BFS from each gate separately, updating distances as we go. However, this still requires multiple BFS passes, and we need to track the minimum distance across all gates for each room, which adds complexity.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use multi-source BFS: initialize the queue with all gates (distance 0). Perform BFS from all gates simultaneously. When visiting a room, if the current distance is smaller than the stored value, update it and add neighbors to the queue. This achieves O(m × n) time - we visit each cell at most once. The key insight is that BFS naturally finds shortest paths, and starting from all gates simultaneously ensures each room gets the distance from its nearest gate in a single pass.
+
 ## Solution 1: Multi-Source BFS (Recommended)
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

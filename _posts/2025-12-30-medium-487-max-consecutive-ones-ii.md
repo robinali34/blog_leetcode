@@ -51,6 +51,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All ones**: What if array contains only ones? (Assumption: Return array length - all ones are consecutive, no flip needed)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find maximum consecutive ones. Let me try flipping each 0."
+
+**Naive Solution**: For each 0, flip it to 1, find maximum consecutive ones, track maximum across all flips.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats consecutive ones counting
+- Doesn't leverage sliding window
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use sliding window that allows at most one 0."
+
+**Improved Solution**: Use sliding window with two pointers. Expand right pointer, when encountering second 0, shrink left pointer until window contains at most one 0.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- Sliding window avoids redundant counting
+- O(n) time is much better
+- Handles at most one flip correctly
+- Clean and efficient
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Sliding window approach is optimal. Track last zero position."
+
+**Best Solution**: Sliding window approach is optimal. Track last zero position. When encountering second zero, move left pointer to after last zero. Window always contains at most one zero.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Sliding window is perfect for consecutive problems
+2. O(n) time is optimal - single pass
+3. Track last zero position for efficient shrinking
+4. O(1) space is optimal
+
 ## Solution Approach
 
 This problem requires finding the longest sequence of consecutive 1s when we can flip at most one 0 to 1. We can solve this using **dynamic programming** with two states: one without flipping and one with at most one flip.

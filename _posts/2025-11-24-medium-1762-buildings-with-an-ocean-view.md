@@ -64,6 +64,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Rightmost building**: Does the rightmost building always have ocean view? (Assumption: Yes - no buildings to its right to block it)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+For each building, check all buildings to its right to see if any building is taller or equal. If no taller building exists to the right, the building has an ocean view. This approach has O(n²) time complexity, which is inefficient for large arrays.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Traverse from right to left, maintaining the maximum height seen so far. For each building, if its height is greater than the maximum seen, it has an ocean view. Update the maximum. This achieves O(n) time with O(1) extra space. However, we need to collect indices in increasing order, which may require storing them and sorting, or processing in reverse and reversing the result.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a monotonic stack (decreasing order). Traverse from right to left: for each building, pop all buildings from the stack that are shorter than or equal to the current building (they're blocked). If the stack is empty after popping, the current building has an ocean view. Push the current building onto the stack. Alternatively, traverse right to left maintaining maximum height, and collect indices of buildings taller than the maximum. Reverse the result to get increasing order. This achieves O(n) time with O(n) space in worst case. The key insight is that a building has an ocean view if and only if no building to its right is taller, which can be determined by tracking the maximum height seen from right to left.
+
 ## Solution Approaches
 
 The key insight is that a building has an ocean view if it's taller than all buildings to its right. We can solve this by:

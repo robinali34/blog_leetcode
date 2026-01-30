@@ -55,6 +55,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty grid**: What if grid is empty? (Assumption: Return 0 - no islands exist)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find max island area. Let me check all cells and count connected 1s."
+
+**Naive Solution**: For each cell, if it's 1, try to count connected 1s by checking neighbors recursively without tracking visited.
+
+**Complexity**: O(m × n × (m × n)) worst case, O(m × n) space
+
+**Issues**:
+- Revisits cells multiple times
+- Very inefficient
+- Doesn't track visited cells
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use DFS/BFS to explore each island, mark visited cells to avoid revisiting."
+
+**Improved Solution**: Use DFS/BFS to explore each island. Mark visited cells (set to 0 or use visited array). Count cells in each island, track maximum.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Improvements**:
+- Visited tracking prevents revisiting
+- O(m × n) time is optimal
+- DFS/BFS explores islands correctly
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DFS with grid modification is optimal. Modify grid in-place to mark visited."
+
+**Best Solution**: DFS approach is optimal. For each unvisited 1, perform DFS to count island size. Mark visited cells by setting to 0 (modify grid in-place) to avoid revisiting.
+
+**Complexity**: O(m × n) time, O(m × n) space (recursion stack)
+
+**Key Realizations**:
+1. DFS/BFS is natural for connected components
+2. In-place modification saves space
+3. O(m × n) time is optimal - visit each cell once
+4. O(m × n) space for recursion stack is necessary
+
 ## Approach
 
 This is a classic **Connected Components** problem that can be solved using **Depth-First Search (DFS)**. The key insight is to:

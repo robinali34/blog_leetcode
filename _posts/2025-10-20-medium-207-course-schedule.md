@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **No prerequisites**: What if there are no prerequisites? (Assumption: Return true - can take courses in any order)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if courses can be scheduled. Let me try all possible orderings."
+
+**Naive Solution**: Try all possible course orderings, check if any satisfies prerequisites.
+
+**Complexity**: O(n!) time, O(n) space
+
+**Issues**:
+- Factorial time complexity
+- Tries many invalid orderings
+- Very inefficient
+- Doesn't leverage graph structure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This is a cycle detection problem. If graph has cycle, cannot schedule."
+
+**Improved Solution**: Build directed graph from prerequisites. Use DFS to detect cycles. If cycle found, return false; otherwise return true.
+
+**Complexity**: O(V + E) time, O(V + E) space
+
+**Improvements**:
+- Graph-based approach is correct
+- Cycle detection solves problem
+- O(V + E) time is much better
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "DFS with three states (unvisited, visiting, visited) efficiently detects cycles."
+
+**Best Solution**: Build graph, use DFS with three states. If node is visiting (in current path), cycle detected. If visited, skip. If unvisited, mark as visiting, recurse, mark as visited.
+
+**Complexity**: O(V + E) time, O(V + E) space
+
+**Key Realizations**:
+1. Cycle detection is key insight
+2. Three-state DFS efficiently detects cycles
+3. O(V + E) time is optimal
+4. Topological sort is alternative approach
+
 ## Solution Approach
 
 This problem is asking whether we can complete all courses given their prerequisites. This translates to checking if the **directed graph** formed by courses and prerequisites has **no cycles**.

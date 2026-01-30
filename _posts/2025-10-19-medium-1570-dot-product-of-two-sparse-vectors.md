@@ -62,6 +62,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Integer dot product of the two sparse vectors)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to compute dot product. Let me multiply corresponding elements and sum."
+
+**Naive Solution**: Iterate through all indices, multiply nums1[i] × nums2[i], sum results.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- O(n) time even when vectors are sparse
+- Processes many zero elements unnecessarily
+- Doesn't leverage sparsity
+- Can be optimized for sparse vectors
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Vectors are sparse. I should only process non-zero elements."
+
+**Improved Solution**: Store non-zero elements with their indices in hash map. For dot product, iterate through one map, lookup corresponding index in other map.
+
+**Complexity**: O(k) time where k = number of non-zero elements, O(k) space
+
+**Improvements**:
+- Only processes non-zero elements
+- O(k) time is much better than O(n) for sparse vectors
+- Hash map enables efficient lookup
+- Handles sparsity correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Hash map approach is optimal. Can optimize by iterating through smaller map."
+
+**Best Solution**: Store non-zero elements in hash map (index → value). For dot product, iterate through one map, lookup in other map. Choose smaller map to iterate for efficiency.
+
+**Complexity**: O(min(k1, k2)) time, O(k1 + k2) space
+
+**Key Realizations**:
+1. Hash map is perfect for sparse vectors
+2. O(min(k1, k2)) time is optimal
+3. Only processes non-zero elements
+4. Much more efficient than O(n) for sparse vectors
+
 ## Solution: Hash Map with Optimization
 
 **Time Complexity:** 

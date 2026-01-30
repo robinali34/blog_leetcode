@@ -54,6 +54,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Board modification**: Can we modify the board? (Assumption: Typically yes for marking visited, but should clarify)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Use DFS or BFS to find all connected components of 'X' cells. Count each connected component as one battleship. This approach works but requires O(m × n) extra space for visited tracking and O(m × n) time.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use DFS with in-place marking: mark visited cells by changing 'X' to another character. This eliminates the need for a separate visited array. However, we still need to traverse all cells and perform DFS for each battleship.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Count only the top-left cell of each battleship: since battleships don't touch each other, we can identify a battleship by its top-left cell (the cell that has no 'X' above it and no 'X' to its left). Iterate through the board, and for each 'X' cell, check if it's a top-left cell. If yes, increment battleship count. This achieves O(m × n) time with O(1) space, which is optimal. The key insight is that we don't need to traverse entire battleships - we can identify them by their top-left corners, which is more efficient.
+
 ## Solution Approaches
 
 ### Approach 1: Count Top-Left Corners (Optimal)

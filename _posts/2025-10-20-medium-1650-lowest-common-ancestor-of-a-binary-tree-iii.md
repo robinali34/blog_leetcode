@@ -61,6 +61,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Tree type**: Is this a binary tree? (Assumption: Yes - binary tree, but with parent pointers instead of just child pointers)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find LCA. Let me find paths from root to both nodes, then find common ancestor."
+
+**Naive Solution**: Find path from root to p, path from root to q, find last common node in both paths.
+
+**Complexity**: O(n) time, O(n) space
+
+**Issues**:
+- Requires finding root first
+- Needs to store paths
+- Doesn't leverage parent pointers
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use parent pointers to traverse upward from both nodes."
+
+**Improved Solution**: Traverse upward from p to root, store visited nodes. Then traverse upward from q, first common node is LCA.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Leverages parent pointers
+- O(n) time is good
+- Still uses O(n) space for visited set
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use two-pointer technique - make both pointers travel same distance."
+
+**Best Solution**: Use two-pointer technique. Find depths of p and q. Move deeper pointer up to same depth. Then move both pointers up until they meet at LCA.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Parent pointers enable upward traversal
+2. Two-pointer technique eliminates need for visited set
+3. O(n) time is optimal
+4. O(1) space is optimal
+
 ## Approach
 
 This is a variation of the **Lowest Common Ancestor (LCA)** problem where each node has a reference to its parent. The key insight is to use the **two-pointer technique** similar to finding the intersection of two linked lists.

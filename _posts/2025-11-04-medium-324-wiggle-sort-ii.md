@@ -39,6 +39,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Time complexity**: What time complexity is expected? (Assumption: O(n) average using nth_element and virtual indexing)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Sort the array, then rearrange elements: place larger half in odd positions and smaller half in even positions. However, this may not satisfy the strict inequality requirement (nums[0] < nums[1] > nums[2] < nums[3]...). Need to handle duplicates carefully to avoid equal adjacent elements.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Sort the array and use two pointers: one starting from middle, one from end. Interleave elements: place smaller elements at even indices and larger elements at odd indices. However, with duplicates, we need to ensure strict inequalities. May need to reverse one half or use a more sophisticated interleaving strategy.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use three-way partition (similar to Dutch National Flag) to find the median, then use virtual indexing to place elements. Alternatively, sort the array, then interleave by placing larger half in reverse order at odd indices and smaller half in reverse order at even indices. The key insight is that by reversing one half, we ensure that adjacent elements from the same half are separated, maintaining the wiggle property. This achieves O(n log n) time for sorting plus O(n) for rearrangement, which is optimal for the general case. For O(n) time, use quickselect to find median, then three-way partition with virtual indexing.
+
 ## Solution: Median + 3-way Partition with Virtual Indexing
 
 **Time Complexity:** O(n) average (due to `nth_element`)  

@@ -64,6 +64,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **K value**: What is the range of k? (Assumption: Per constraints, 2 <= k <= 10^4 - k is at least 2)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Repeatedly scan the string for k consecutive identical characters and remove them. Continue until no more removals are possible. This approach may require multiple passes, and in worst case, each pass takes O(n) time, potentially requiring O(n/k) passes, giving O(n²/k) overall complexity, which is inefficient.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a stack to track characters and their counts. For each character, if it matches the top of stack, increment count. If count reaches k, pop k elements. Otherwise, push the character with count 1. This handles removals more efficiently but still requires processing the string character by character.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use a stack storing pairs of (character, count). For each character, if stack is empty or top character differs, push (char, 1). If top character matches, increment count. If count reaches k, pop from stack. After processing all characters, reconstruct the string from the stack. This achieves O(n) time with O(n) space, which is optimal. The key insight is that a stack naturally handles the "last k characters" property, and by tracking counts, we can efficiently remove k consecutive duplicates in a single pass.
+
 ## Solution Approaches
 
 This problem extends [LC 1047](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) to handle `k` consecutive duplicates instead of pairs. We need to track character **counts**, not just characters.

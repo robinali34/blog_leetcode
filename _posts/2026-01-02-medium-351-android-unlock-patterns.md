@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Starting point**: Can we start from any dot? (Assumption: Yes - can start from any of the 9 dots)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Generate all possible sequences of dots with lengths between m and n. For each sequence, check if it forms a valid pattern by verifying that lines between consecutive dots don't pass through unvisited dots. This requires checking all permutations, which has exponential complexity. The challenge is efficiently checking if a line passes through an unvisited dot.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use backtracking: start from each dot, recursively try all unvisited dots. Before moving to a new dot, check if the line passes through any unvisited dot (if so, skip). Use a visited set to track visited dots. This prunes invalid paths early but still explores many paths. The key is correctly identifying when a line passes through an unvisited dot (e.g., moving from corner to opposite corner passes through center).
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use backtracking with a jump table. Precompute which dots are "between" other dots (e.g., 1 and 3 have 2 between them). When moving from dot a to dot b, if there's a dot c between them and c is unvisited, the move is invalid. Use DFS with backtracking: for each pattern length from m to n, count valid patterns starting from each dot. Memoization can help if patterns are repeated. This achieves optimal time complexity by exploring only valid paths. The key insight is precomputing the "between" relationships to make validity checks O(1).
+
 ## Solution Approach
 
 This problem requires counting all valid unlock patterns of length between `m` and `n`. The key challenge is handling the "jump over" rule: you cannot jump over an unvisited dot unless it's the center (dot 4).

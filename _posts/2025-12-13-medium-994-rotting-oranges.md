@@ -61,6 +61,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **No fresh oranges**: What if there are no fresh oranges? (Assumption: Return 0 - nothing to rot)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Simulate minute by minute: for each minute, find all fresh oranges adjacent to rotten oranges and mark them as rotten. Repeat until no more fresh oranges can rot. Count the number of minutes. This approach works but requires scanning the entire grid each minute, giving O(m × n × minutes) complexity, which can be inefficient if many minutes are needed.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use BFS starting from all rotten oranges simultaneously (multi-source BFS). Add all rotten oranges to the queue initially. Process level by level, where each level represents one minute. For each level, process all oranges, rot adjacent fresh oranges, and add them to the next level. This reduces redundant scanning but still requires careful level tracking.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use multi-source BFS with a level marker (sentinel value or separate level tracking). Initialize queue with all rotten oranges. Use a sentinel value (like -1) to mark level boundaries, or process level-by-level by tracking queue size before processing. For each level, process all nodes, rot adjacent fresh oranges, and add them to the queue. Track minutes as levels. After BFS completes, check if any fresh oranges remain (return -1) or return the number of minutes. This achieves O(m × n) time complexity, visiting each cell at most once, which is optimal.
+
 ## Solution 1: Multi-Source BFS with Level Marker (Recommended)
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  

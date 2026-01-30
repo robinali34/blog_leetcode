@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All negative**: What if all numbers are negative? (Assumption: Return the least negative number - the maximum element)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find maximum subarray sum. Let me check all possible subarrays."
+
+**Naive Solution**: Check all possible subarrays, compute sum, track maximum.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats sum computation for overlapping subarrays
+- Doesn't leverage Kadane's algorithm
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use prefix sum to compute subarray sums efficiently."
+
+**Improved Solution**: Build prefix sum array. For each ending position, find minimum prefix sum before it. Maximum subarray sum = current prefix - minimum prefix.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Prefix sum enables O(1) subarray sum queries
+- O(n) time is optimal
+- Still uses O(n) space
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Kadane's algorithm achieves O(1) space."
+
+**Best Solution**: Kadane's algorithm. Track maximum sum ending at current position. If current sum < 0, reset to 0. Track global maximum.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Kadane's algorithm is optimal
+2. O(n) time is optimal - single pass
+3. O(1) space is optimal
+4. Reset to 0 when sum becomes negative is key insight
+
 ## Solution Approach
 
 This is a classic **Kadane's Algorithm** problem, which can be solved using either **greedy** or **dynamic programming** approach. The key insight is to decide at each position whether to extend the previous subarray or start a new one.

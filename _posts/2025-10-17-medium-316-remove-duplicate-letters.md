@@ -57,6 +57,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **All unique**: What if string has no duplicates? (Assumption: Return string as is - already optimal)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to remove duplicates. Let me try all possible ways to remove characters."
+
+**Naive Solution**: Try all possible ways to remove duplicate characters, check which gives lexicographically smallest result.
+
+**Complexity**: Exponential time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid combinations
+- Very inefficient
+- Doesn't leverage greedy property
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use greedy approach. For each position, choose lexicographically smallest character that can be placed."
+
+**Improved Solution**: Use greedy with frequency counting. Count character frequencies. For each position, try placing smallest possible character that still allows remaining characters to be placed.
+
+**Complexity**: O(n²) time, O(n) space
+
+**Improvements**:
+- Greedy approach is correct
+- O(n²) time is better than exponential
+- Handles lexicographic ordering
+- Can be optimized further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use monotonic stack to efficiently maintain lexicographic order while ensuring all characters are included."
+
+**Best Solution**: Use monotonic stack with frequency counting. Track character frequencies and whether character is in stack. For each character, while stack top is larger and can be removed (frequency > 0), pop it. Push current character.
+
+**Complexity**: O(n) time, O(1) space (26 characters)
+
+**Key Realizations**:
+1. Monotonic stack maintains lexicographic order
+2. Frequency counting ensures all characters included
+3. O(n) time is optimal - single pass
+4. O(1) space - fixed alphabet size
+
 ## Solution: Monotonic Stack with Greedy Approach
 
 **Time Complexity:** O(n) where n is the length of string  

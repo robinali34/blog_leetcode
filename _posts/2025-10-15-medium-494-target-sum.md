@@ -56,6 +56,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Count of ways to assign signs to get target sum - integer)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to assign signs. Let me try all possible sign assignments."
+
+**Naive Solution**: Try all 2^n possible ways to assign + or - to each number, count how many sum to target.
+
+**Complexity**: O(2^n) time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries all combinations
+- Very inefficient for large n
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. Number of ways to get target depends on ways to get smaller sums."
+
+**Improved Solution**: Use DP with memoization. dp[i][sum] = number of ways to get sum using first i numbers. Recurrence: dp[i][sum] = dp[i-1][sum-nums[i]] + dp[i-1][sum+nums[i]].
+
+**Complexity**: O(n × S) time where S is sum range, O(n × S) space
+
+**Improvements**:
+- Leverages optimal substructure
+- Polynomial time instead of exponential
+- Correctly counts all ways
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Can transform to subset sum problem. Find ways to partition into two subsets with difference = target."
+
+**Best Solution**: Transform to subset sum: find ways to assign signs so sum = target. This is equivalent to finding ways to partition into two subsets with difference = target. Use DP with space optimization.
+
+**Complexity**: O(n × S) time, O(S) space
+
+**Key Realizations**:
+1. DP is natural approach - optimal substructure
+2. Transformation to subset sum simplifies problem
+3. O(n × S) time is optimal for DP approach
+4. Space can be optimized to O(S)
+
 ## Solution: Dynamic Programming (Subset Sum)
 
 **Time Complexity:** O(n × sum)  

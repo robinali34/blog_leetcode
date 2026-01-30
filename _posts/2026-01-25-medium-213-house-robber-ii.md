@@ -61,6 +61,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Adjacent houses**: Can we rob two adjacent houses? (Assumption: No - robbing adjacent houses triggers alarm)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to maximize robbery. Let me try all possible house combinations."
+
+**Naive Solution**: Try all possible ways to select houses (no two adjacent), find maximum sum.
+
+**Complexity**: O(2^n) time, O(n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid combinations
+- Very inefficient
+- Doesn't leverage optimal substructure
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "This has optimal substructure. Maximum robbery depends on previous houses, but circular constraint complicates."
+
+**Improved Solution**: Use DP similar to LC 198, but handle circular constraint. Try two cases: rob houses [0..n-2] and [1..n-1], take maximum.
+
+**Complexity**: O(n) time, O(n) space
+
+**Improvements**:
+- Leverages optimal substructure
+- O(n) time instead of exponential
+- Handles circular constraint correctly
+- Can optimize space
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Two-case DP approach is optimal. Can optimize space to O(1)."
+
+**Best Solution**: Two-case DP: case1 = rob houses [0..n-2], case2 = rob houses [1..n-1]. Use standard House Robber DP for each case, take maximum.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Circular constraint requires two cases
+2. DP is natural approach - optimal substructure
+3. O(n) time is optimal
+4. O(1) space is possible with optimization
+
 ## Solution Approach
 
 This is a **circular version** of House Robber (LC 198). The key difference is that the first and last houses are adjacent, so we cannot rob both.

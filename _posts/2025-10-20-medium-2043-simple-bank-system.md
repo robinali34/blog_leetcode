@@ -74,6 +74,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Balance tracking**: How should we track balances? (Assumption: Array where balance[i] represents balance of account i+1)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to implement bank operations. Let me use simple data structures."
+
+**Naive Solution**: Use array to store balances. For each operation, validate account numbers and perform operation with basic checks.
+
+**Complexity**: O(1) per operation, O(n) space
+
+**Issues**:
+- Basic approach is correct
+- Need proper validation
+- Handle edge cases
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I need to validate account numbers and check balances before operations."
+
+**Improved Solution**: Use array for balances. Validate account numbers (1-indexed). Check balance >= amount for withdraw/transfer. Update balances atomically.
+
+**Complexity**: O(1) per operation, O(n) space
+
+**Improvements**:
+- Proper validation prevents errors
+- Atomic operations ensure consistency
+- O(1) operations are efficient
+- Handles all cases correctly
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Array-based approach is already optimal. Ensure proper validation."
+
+**Best Solution**: Array-based approach is optimal. Validate account indices (1-indexed, so check 1 <= account <= n). Validate balances before operations. Update balances correctly.
+
+**Complexity**: O(1) per operation, O(n) space
+
+**Key Realizations**:
+1. Array is perfect for balance tracking
+2. O(1) operations are optimal
+3. Proper validation is crucial
+4. Handle 1-indexed accounts correctly
+
 ## Approach
 
 This is a **Data Structure Design** problem that simulates a simple bank system. The key requirements are:

@@ -58,6 +58,75 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: What should we return? (Assumption: Integer - minimum number of coins, or -1 if impossible)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum coins. Let me try all combinations recursively."
+
+**Naive Solution**: Recursively explore all possible coin combinations. For each amount, try every coin and recursively solve for the remaining amount.
+
+**Complexity**: O(S^n) time, O(S) space where S = amount, n = number of coins
+
+**Issues**:
+- Exponential time complexity - explores all combinations
+- Recomputes same subproblems repeatedly (e.g., amount-1 solved multiple times)
+- Will timeout for large amounts
+- No optimization - pure brute-force exploration
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I'm solving the same subproblems multiple times. Memoization can help avoid recomputation."
+
+**Improved Solution**: Add memoization table to cache results of subproblems. When solving for an amount, check if already computed before recursing.
+
+**Complexity**: O(S × n) time, O(S) space
+
+**Improvements**:
+- O(S × n) time complexity - each amount computed once
+- Avoids recomputation through memoization
+- Still uses recursion stack space O(S)
+- Significant improvement over brute-force
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Bottom-up DP eliminates recursion overhead and is more intuitive. Build solution from base case upward."
+
+**Best Solution**: Use bottom-up dynamic programming. Initialize dp[0] = 0, then for each amount from 1 to target, try all coins and take minimum.
+
+**Complexity**: O(S × n) time, O(S) space
+
+**Key Realizations**:
+1. Bottom-up DP is cleaner and avoids stack overflow risk
+2. Use `amount + 1` as impossible value (greater than any valid solution)
+3. Build solution from smaller amounts to larger amounts
+4. Optimal substructure: `dp[i] = min(dp[i - coin] + 1)` for all valid coins
+5. More intuitive than top-down - can visualize the table filling process
+
+## Solution Structure Breakdown
+
+### Evolution from Naive to Optimized
+
+**Naive Approach** (Recursive):
+- **Structure**: Try all coin combinations recursively
+- **Complexity**: O(S^n) time, O(S) space (stack)
+- **Limitation**: Exponential time, recomputes subproblems
+
+**Semi-Optimized Approach** (Top-Down DP):
+- **Structure**: Recursive + memoization cache
+- **Complexity**: O(S × n) time, O(S) space
+- **Improvement**: Eliminates recomputation, still uses recursion
+
+**Optimized Approach** (Bottom-Up DP):
+- **Structure**: Iterative DP building from base case
+- **Complexity**: O(S × n) time, O(S) space
+- **Enhancement**: No recursion overhead, clearer logic
+
+### Code Structure Comparison
+
+| Approach | Pattern | Time | Space | Clarity |
+|----------|---------|------|-------|---------|
+| **Naive** | Recursive exploration | O(S^n) | O(S) | Low |
+| **Semi-Opt** | Memoized recursion | O(S×n) | O(S) | Medium |
+| **Optimized** | Bottom-up DP | O(S×n) | O(S) | High |
+
 ## Solution Approach
 
 This is a classic **Dynamic Programming** problem that asks for the minimum number of coins needed to make a given amount. Since we can use each coin unlimited times, this is an **unbounded knapsack** problem.
@@ -78,7 +147,75 @@ This is a classic **Dynamic Programming** problem that asks for the minimum numb
 
 ## Solution
 
-### **Solution: Dynamic Programming (Bottom-Up)**
+### **Solution 1: Brute-Force Recursive Approach**
+
+**Time Complexity:** O(S^n) where S = amount, n = number of coins  
+**Space Complexity:** O(S) for recursion stack
+
+Recursively explore all possible coin combinations.
+
+```cpp
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        
+        int minCoins = INT_MAX;
+        for (int coin : coins) {
+            int result = coinChange(coins, amount - coin);
+            if (result != -1) {
+                minCoins = min(minCoins, result + 1);
+            }
+        }
+        
+        return minCoins == INT_MAX ? -1 : minCoins;
+    }
+};
+```
+
+**Note**: This approach will timeout for large amounts due to exponential time complexity.
+
+### **Solution 2: Top-Down DP with Memoization**
+
+**Time Complexity:** O(S × n)  
+**Space Complexity:** O(S) for memoization and recursion stack
+
+Add memoization to cache results and avoid recomputation.
+
+```cpp
+class Solution {
+private:
+    vector<int> memo;
+    
+    int dfs(vector<int>& coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        if (memo[amount] != -1) return memo[amount];
+        
+        int minCoins = INT_MAX;
+        for (int coin : coins) {
+            int result = dfs(coins, amount - coin);
+            if (result != -1) {
+                minCoins = min(minCoins, result + 1);
+            }
+        }
+        
+        memo[amount] = (minCoins == INT_MAX) ? -1 : minCoins;
+        return memo[amount];
+    }
+    
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        memo.assign(amount + 1, -1);
+        return dfs(coins, amount);
+    }
+};
+```
+
+**Note**: Better than brute-force but still uses recursion stack space.
+
+### **Solution 3: Dynamic Programming (Bottom-Up) - Recommended**
 
 ```cpp
 class Solution {

@@ -61,6 +61,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Multiple matches**: Can '.' match different letters in same search? (Assumption: Yes - each '.' independently matches any letter)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to support word search with wildcards. Let me use hash set and check all words."
+
+**Naive Solution**: Store words in hash set. For search with wildcards, check all words to see if they match pattern.
+
+**Complexity**: O(1) addWord(), O(n × m) search() where n is word count, m is word length, O(n × m) space
+
+**Issues**:
+- O(n × m) search is inefficient
+- Checks all words for each search
+- Doesn't leverage prefix structure
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use Trie to efficiently search with wildcards using DFS."
+
+**Improved Solution**: Build Trie from words. For search, use DFS to traverse Trie. When encountering '.', try all children. When encountering letter, follow that child.
+
+**Complexity**: O(m) addWord(), O(m × 26^d) search() where d is number of wildcards, O(n × m) space
+
+**Improvements**:
+- Trie enables prefix matching
+- DFS handles wildcards naturally
+- Much better than hash set
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Trie with DFS is optimal. Wildcard matching inherently requires exploring multiple paths."
+
+**Best Solution**: Trie with DFS is optimal. Build Trie in addWord(). In search(), use DFS: for '.', try all children; for letter, follow specific child. Memoization can help but DFS is clear.
+
+**Complexity**: O(m) addWord(), O(m × 26^d) search(), O(n × m) space
+
+**Key Realizations**:
+1. Trie is perfect for prefix matching
+2. DFS naturally handles wildcard matching
+3. O(m × 26^d) is inherent for wildcard search
+4. Trie space is O(n × m) for all words
+
 ## Solution Approach
 
 This problem extends [LC 208: Implement Trie](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) with **wildcard search** support. The key challenge is handling the `'.'` character which can match any letter.

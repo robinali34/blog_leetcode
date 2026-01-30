@@ -58,6 +58,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Parabola direction**: How does parabola direction affect sorting? (Assumption: If a > 0, parabola opens upward (min at center), if a < 0, opens downward (max at center))
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Apply the transformation f(x) = ax² + bx + c to each element, then sort the resulting array. This straightforward approach has O(n log n) time complexity for sorting, which works but can be optimized further by leveraging the properties of the quadratic function.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Recognize that the transformation is a quadratic function. If a > 0, the function has a minimum (parabola opens upward), so values are smallest near the vertex and increase toward both ends. If a < 0, the function has a maximum (parabola opens downward), so values are largest near the vertex and decrease toward both ends. Use two pointers from both ends, comparing transformed values. However, handling the vertex and determining the merge order requires careful logic.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use two pointers technique based on the sign of 'a'. If a >= 0 (parabola opens upward), transformed values are smallest at the ends and largest in the middle. Use two pointers starting from both ends, merge in descending order (largest first), then reverse. If a < 0 (parabola opens downward), transformed values are largest at the ends and smallest in the middle. Use two pointers merging in ascending order (smallest first). This achieves O(n) time with O(n) space, which is optimal since we must process all elements. The key insight is that the quadratic transformation preserves the relative ordering from the ends (for a >= 0) or reverses it (for a < 0), allowing linear-time merging.
+
 ## Solution Approach
 
 This problem requires applying a quadratic function to each element and returning results in sorted order. The key insight is understanding how quadratic functions behave on sorted arrays.

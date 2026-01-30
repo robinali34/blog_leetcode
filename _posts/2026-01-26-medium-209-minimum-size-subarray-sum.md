@@ -59,6 +59,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Target value**: Can target be larger than the sum of all elements? (Assumption: Yes - in this case return `0`)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find minimum subarray. Let me check all possible subarrays."
+
+**Naive Solution**: Check all possible subarrays, compute sum, find minimum length where sum >= target.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Issues**:
+- O(n²) time - inefficient
+- Repeats sum computation for overlapping subarrays
+- Doesn't leverage prefix sum or sliding window
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use prefix sum to compute subarray sums efficiently, then binary search."
+
+**Improved Solution**: Build prefix sum array. For each starting position, binary search for minimum ending position where sum >= target.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Improvements**:
+- Prefix sum enables O(1) sum queries
+- Binary search reduces search space
+- O(n log n) time is better
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can use sliding window since all numbers are positive."
+
+**Best Solution**: Use sliding window. Expand right pointer until sum >= target, then shrink left pointer to minimize length while maintaining sum >= target.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Sliding window is perfect for positive numbers
+2. O(n) time is optimal - single pass
+3. O(1) space is optimal
+4. Positive numbers enable monotonic property
+
 ## Solution Approach
 
 This problem requires finding the minimum length subarray with sum >= target. Two main approaches:

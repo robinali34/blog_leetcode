@@ -43,6 +43,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Visited tracking**: Can we modify the matrix or need separate tracking? (Assumption: Can use visited array or modify matrix values to mark visited)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to traverse matrix in spiral. Let me try all directions manually."
+
+**Naive Solution**: Manually track current position and direction, move step by step, check boundaries manually.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Issues**:
+- Complex boundary checking
+- Error-prone direction changes
+- Doesn't leverage systematic approach
+- Hard to handle edge cases
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use direction vectors and visited tracking. When hit boundary or visited cell, change direction."
+
+**Improved Solution**: Use direction vectors [right, down, left, up]. Track visited cells. Move in current direction until boundary or visited cell, then change direction.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Improvements**:
+- Systematic direction handling
+- Cleaner boundary checking
+- Handles all cases correctly
+- Still uses visited array
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Can use boundary tracking instead of visited array to save space."
+
+**Best Solution**: Track boundaries (top, bottom, left, right). Traverse right, then down, then left, then up, updating boundaries after each direction. This avoids visited array.
+
+**Complexity**: O(m × n) time, O(1) space
+
+**Key Realizations**:
+1. Boundary tracking avoids visited array
+2. O(m × n) time is optimal - must visit each cell
+3. O(1) space is optimal with boundary tracking
+4. Direction vectors make code cleaner
+
 ## Approach
 
 There are two main approaches to solve this problem:

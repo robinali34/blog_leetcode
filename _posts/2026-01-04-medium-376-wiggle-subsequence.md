@@ -62,6 +62,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return value**: Should we return the length or the subsequence itself? (Assumption: Return the length - integer representing longest wiggle subsequence length)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible subsequences and check which ones are wiggle sequences. For each subsequence, verify it alternates between increasing and decreasing. This approach has exponential complexity as we try all 2^n subsequences, which is infeasible for large arrays.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use dynamic programming: dp[i][direction] = longest wiggle subsequence ending at index i with given direction (up or down). For each position, check all previous positions and update dp based on whether we can extend the wiggle sequence. This requires O(n²) time and O(n) space, which works but can be optimized further.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use greedy approach: track the current direction (up or down) and the last element in the wiggle sequence. For each new element, if it continues the wiggle pattern (e.g., was going up, now going down), extend the sequence. If it breaks the pattern, decide whether to replace the last element (if it's better) or skip. Alternatively, count the number of direction changes: whenever the difference changes sign (positive to negative or vice versa), we have a wiggle. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we only need to track the last direction and the last value, not all previous states.
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to count the number of times the difference between consecutive elements changes sign. We only need to track when the sign alternates, not the actual values.

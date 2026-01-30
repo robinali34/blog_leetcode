@@ -69,6 +69,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Duplicate values**: Can matrix contain duplicates? (Assumption: Yes - per constraints, no restriction on duplicates)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to search in 2D matrix. Let me check every cell."
+
+**Naive Solution**: Check every cell in the matrix to find target.
+
+**Complexity**: O(m × n) time, O(1) space
+
+**Issues**:
+- Doesn't leverage sorted property
+- O(m × n) time when better is possible
+- Inefficient for large matrices
+- Not optimal solution
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "Each row is sorted. I can binary search each row."
+
+**Improved Solution**: For each row, perform binary search to find target.
+
+**Complexity**: O(m × log n) time, O(1) space
+
+**Improvements**:
+- Leverages row-wise sorting
+- O(m × log n) is better than O(m × n)
+- Still not optimal
+- Doesn't leverage column sorting
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can start from top-right corner and eliminate row or column at each step."
+
+**Best Solution**: Start from top-right corner. If target > current, eliminate current row (move down). If target < current, eliminate current column (move left). This leverages both row and column sorting.
+
+**Complexity**: O(m + n) time, O(1) space
+
+**Key Realizations**:
+1. Starting from corner is key insight
+2. O(m + n) time is optimal - visit at most m+n cells
+3. Eliminates row or column at each step
+4. Works because of sorted rows and columns
+
 ## Solution 1: Binary Search per Row
 
 **Time Complexity:** O(m log n)  

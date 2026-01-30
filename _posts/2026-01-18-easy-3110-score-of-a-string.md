@@ -56,6 +56,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Single character**: What if string has only one character? (Assumption: Based on constraints, length >= 2, so single character not possible)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Iterate through the string, for each adjacent pair, calculate the absolute difference of their ASCII values and add to a running sum. This straightforward approach has O(n) time complexity, which is already optimal. However, we can consider if there's a more elegant implementation.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use a single loop with index i from 0 to n-2, calculate abs(s[i] - s[i+1]) for each pair. This is essentially the same as the brute-force but written more concisely. The time complexity remains O(n), which is optimal.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use a single pass: iterate through the string with index i from 0 to n-2, calculate the absolute difference between s[i] and s[i+1], and accumulate the sum. This achieves O(n) time with O(1) space, which is optimal. The problem is straightforward and doesn't require complex optimizations - the key is understanding that we need to process all adjacent pairs exactly once.
+
 ## Solution Approach
 
 This is a straightforward **simulation** problem. We need to:

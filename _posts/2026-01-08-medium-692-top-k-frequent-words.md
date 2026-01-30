@@ -53,6 +53,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Word uniqueness**: Can the same word appear multiple times in result? (Assumption: No - each word appears once in the result, sorted by frequency then lexicographically)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find top k frequent words. Let me count frequencies and sort."
+
+**Naive Solution**: Count frequency of each word, sort by frequency (descending) then lexicographically, return top k.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Issues**:
+- O(n log n) time when O(n log k) is possible
+- Sorts all words when only need top k
+- Doesn't leverage heap
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use min-heap of size k to track top k words, with custom comparator."
+
+**Improved Solution**: Count frequencies, use min-heap of size k with custom comparator (frequency then lexicographic). For each word, if heap size < k, add; else if word is more frequent or same frequency but lexicographically smaller, replace top.
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Improvements**:
+- O(n log k) time is better than O(n log n)
+- Heap efficiently maintains top k
+- Custom comparator handles tie-breaking
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Min-heap with custom comparator is optimal. Sort result at end for correct order."
+
+**Best Solution**: Min-heap approach is optimal. Count frequencies, use min-heap of size k. After processing, extract and sort heap elements for final result (frequency descending, then lexicographic).
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Key Realizations**:
+1. Heap is perfect for top-k problems
+2. Custom comparator handles tie-breaking
+3. O(n log k) time is optimal for heap approach
+4. Final sort ensures correct order
+
 ## Solution Approach
 
 This problem is similar to [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/), but with two key differences:

@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Overlapping balloons**: Can one arrow burst multiple balloons? (Assumption: Yes - if balloons overlap, one arrow can burst all overlapping balloons)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible arrow positions. For each balloon, we could shoot an arrow at any x-coordinate within its span. Try all combinations of arrow positions and find the minimum number needed. This approach has exponential complexity and is infeasible. The challenge is that we need to find the optimal set of arrow positions that cover all balloons.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a greedy approach: sort balloons by start position. For each balloon, if it doesn't overlap with the current arrow position, shoot a new arrow at its end position (or start position). However, choosing where to shoot the arrow (start vs end) requires careful consideration. Shooting at the end position maximizes the chance of hitting overlapping balloons.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Sort balloons by end position. Greedily shoot arrows: for the first balloon, shoot an arrow at its end position. For subsequent balloons, if they start after the current arrow position, they're already burst. Otherwise, shoot a new arrow at the current balloon's end position. This ensures we always shoot at the rightmost position that can burst the current balloon, maximizing overlap coverage. This achieves O(n log n) time for sorting plus O(n) for processing, which is optimal. The key insight is that sorting by end position and shooting at end positions maximizes the number of balloons each arrow can burst.
+
 ## Solution Approach
 
 This is a **greedy interval scheduling** problem similar to "Non-overlapping Intervals". The key insight is to **sort balloons by end coordinate** and shoot arrows at the end of each group of overlapping balloons.

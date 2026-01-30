@@ -48,6 +48,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty tree**: What if tree is empty? (Assumption: Return 0 - no nodes to sum)
 
+## Interview Deduction Process (10 minutes)
+
+**Step 1: Brute-Force Approach (2 minutes)**
+
+Traverse the entire BST (inorder, preorder, or postorder) and sum all node values that fall within the range [low, high]. This approach visits all nodes regardless of BST properties, giving O(n) time complexity. It works but doesn't leverage BST properties to prune unnecessary branches.
+
+**Step 2: Semi-Optimized Approach (3 minutes)**
+
+Use BST properties: if node value < low, skip left subtree (all values will be < low). If node value > high, skip right subtree (all values will be > high). Only traverse subtrees that might contain values in range. This reduces the search space but still requires visiting nodes in the valid range.
+
+**Step 3: Optimized Solution (5 minutes)**
+
+Use recursive DFS with BST pruning. For each node, if node value < low, only search right subtree. If node value > high, only search left subtree. Otherwise, add node value to sum and search both subtrees. This achieves O(h + k) time where h is height and k is number of nodes in range. In balanced BST, this is O(log n + k), which is optimal. The key insight is that BST properties allow us to prune entire subtrees that cannot contain values in the target range, significantly reducing the search space.
+
 ## Solution: Recursive DFS with BST Pruning
 
 **Time Complexity:** O(n) worst case, but often better due to pruning  

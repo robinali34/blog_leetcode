@@ -65,6 +65,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Non-parentheses characters**: How should we handle letters? (Assumption: Keep all letters - only remove invalid parentheses)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try removing different combinations of parentheses and check if the resulting string is valid. This requires trying all subsets of parentheses to remove, which has exponential complexity. For each combination, validate the parentheses string, which takes O(n) time. This is too slow for large strings.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use a stack to identify unmatched parentheses. First pass: mark all unmatched opening and closing parentheses. Second pass: build result string excluding marked characters. However, identifying which parentheses to remove requires careful tracking. Alternatively, count opening and closing parentheses, but handling the minimum removal constraint is tricky.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use two passes: First pass (left to right): track balance, mark excess closing parentheses for removal. Second pass (right to left): track balance, mark excess opening parentheses for removal. Then build result string excluding marked characters. This achieves O(n) time with O(n) space. Alternatively, use a single pass with a stack to track indices of problematic parentheses, then remove them. The key insight is that we can identify invalid parentheses in two passes: excess closing parentheses are identified going left-to-right, and excess opening parentheses going right-to-left.
+
 ## Solution Approaches
 
 ### Approach 1: Stack-Based Validation (Recommended)

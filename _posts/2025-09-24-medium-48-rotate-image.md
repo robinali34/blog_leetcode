@@ -46,6 +46,45 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Element movement**: How do elements move? (Assumption: Element at (i, j) moves to (j, n-1-i) after 90° clockwise rotation)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to rotate matrix. Let me create new matrix and copy elements to new positions."
+
+**Naive Solution**: Create new matrix, copy each element from (i, j) to (j, n-1-i) in new matrix.
+
+**Complexity**: O(n²) time, O(n²) space
+
+**Issues**:
+- Uses O(n²) extra space
+- Not in-place as required
+- Simple but doesn't meet space constraint
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can rotate in-place by swapping elements in cycles. Each element moves in a 4-cycle."
+
+**Improved Solution**: Rotate in cycles of 4 elements. For each cycle, swap elements: (i,j) → (j,n-1-i) → (n-1-i,n-1-j) → (n-1-j,i) → (i,j).
+
+**Complexity**: O(n²) time, O(1) space
+
+**Improvements**:
+- O(1) space - true in-place rotation
+- Handles all elements correctly
+- More complex than transpose approach
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Transpose + reflect is more intuitive than cycle rotation."
+
+**Best Solution**: Two-step approach: transpose matrix (swap (i,j) with (j,i)), then reflect each row (reverse each row). This is more intuitive than cycle rotation.
+
+**Complexity**: O(n²) time, O(1) space
+
+**Key Realizations**:
+1. Transpose + reflect is elegant approach
+2. O(n²) time is optimal - must process each element
+3. O(1) space is optimal for in-place rotation
+4. Two-step approach is clearer than cycle rotation
+
 ## Approach
 
 There are two main approaches to solve this problem:

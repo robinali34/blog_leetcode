@@ -50,6 +50,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Empty array**: What if array is empty? (Assumption: Return 0 - no houses to rob)
 
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible combinations of houses to rob: for each house, decide whether to rob it or skip it, ensuring we never rob two adjacent houses. Use recursion to explore all possibilities and return the maximum money. This approach has exponential time complexity O(2^n), which is too slow for large arrays.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Use recursion with memoization: for each position, compute the maximum money we can rob starting from that position. Memoize results to avoid recomputing the same subproblems. This reduces time to O(n) with O(n) space for memoization, but recursion overhead and stack space can be significant.
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Use dynamic programming with bottom-up approach: `dp[i]` represents the maximum money we can rob from houses 0 to i. For each house i, we can either rob it (add nums[i] to dp[i-2]) or skip it (use dp[i-1]). The recurrence is `dp[i] = max(dp[i-1], dp[i-2] + nums[i])`. We can optimize space to O(1) by only keeping track of the last two values. This achieves O(n) time with O(1) space, which is optimal. The key insight is that this is a classic DP problem with overlapping subproblems, and we can solve it iteratively without recursion.
+
 ## Solution: Dynamic Programming
 
 **Time Complexity:** O(n) - Single pass through the array  

@@ -63,6 +63,20 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
 
+## Interview Deduction Process (30 minutes)
+
+**Step 1: Brute-Force Approach (8 minutes)**
+
+Use a recursive descent parser: parse the expression by handling parentheses recursively. For each level, evaluate expressions inside parentheses first, then replace them with their results. Handle operator precedence by doing multiple passes: first evaluate all multiplications/divisions, then all additions/subtractions. This approach works but requires multiple passes and can be inefficient, especially with deeply nested parentheses.
+
+**Step 2: Semi-Optimized Approach (10 minutes)**
+
+Convert the infix expression to postfix (RPN) using the shunting yard algorithm, then evaluate the postfix expression. This handles operator precedence correctly but requires two passes: one for conversion and one for evaluation. The conversion step uses a stack to handle operators and parentheses, which adds complexity. Alternatively, use two stacks (operands and operators) and evaluate on-the-fly, but managing operator precedence with two stacks can be tricky.
+
+**Step 3: Optimized Solution (12 minutes)**
+
+Use a single-pass approach with recursion for parentheses and a stack for operator precedence. When encountering '(', recursively evaluate the subexpression. For operators, use a stack to maintain operators in order of precedence: when encountering a lower-precedence operator, evaluate all higher-precedence operators first. Alternatively, use a cleaner approach: maintain a stack of numbers and signs, processing multiplication/division immediately and addition/subtraction by maintaining a running result. This achieves O(n) time with O(n) space for the recursion stack, handling nested parentheses naturally through recursion and operator precedence through immediate evaluation of high-precedence operations.
+
 ## Solution 1: Recursive Approach
 
 **Time Complexity:** O(n)  

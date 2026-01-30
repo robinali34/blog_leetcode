@@ -66,6 +66,47 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 5. **Return format**: What should we return? (Assumption: Any valid matrix - 2D array satisfying row and column sum constraints)
 
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to construct matrix. Let me try all possible values for each cell."
+
+**Naive Solution**: Try all possible values for each matrix cell, check if row and column sums match.
+
+**Complexity**: Exponential time, O(m × n) space
+
+**Issues**:
+- Exponential time complexity
+- Tries many invalid matrices
+- Very inefficient
+- Doesn't leverage greedy property
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use greedy approach - fill cells one by one, satisfying constraints."
+
+**Improved Solution**: Fill matrix greedily. For each cell (i, j), set value to min(rowSum[i], colSum[j]). Update remaining row and column sums.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Improvements**:
+- Greedy approach is correct
+- O(m × n) time is optimal
+- Handles all cases correctly
+- Simple and efficient
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Greedy approach is optimal. Fill cells row by row or column by column."
+
+**Best Solution**: Greedy approach is optimal. Fill matrix row by row. For each cell, set to min(remaining rowSum, remaining colSum). Update both sums.
+
+**Complexity**: O(m × n) time, O(m × n) space
+
+**Key Realizations**:
+1. Greedy approach works perfectly
+2. O(m × n) time is optimal - must fill each cell
+3. O(m × n) space is necessary for result matrix
+4. Min of remaining sums ensures validity
+
 ## Solution Approach
 
 This is a **greedy algorithm** problem. The key insight is to fill the matrix cell by cell, always placing the minimum of the remaining row sum and column sum at each position. This ensures we satisfy both constraints while making progress.
