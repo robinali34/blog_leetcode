@@ -1502,25 +1502,45 @@ a {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        flex-shrink: 0;
         
         @media (max-width: 768px) {
-          font-size: 1.625rem;
+          font-size: 1.5rem;
+          line-height: 1.3;
+          margin-bottom: 0.5rem;
+          width: 100%;
         }
         
         @media (max-width: 480px) {
-          font-size: 1.375rem;
+          font-size: 1.25rem;
+          line-height: 1.3;
+          margin-bottom: 0.5rem;
+          width: 100%;
+        }
+        
+        @media (max-width: 360px) {
+          font-size: 1.125rem;
+          line-height: 1.3;
         }
         
         a {
-          background: linear-gradient(135deg, var(--morandi-text-dark) 0%, var(--morandi-warm-brown) 100%);
+          background: linear-gradient(135deg, var(--morandi-text-dark) 0%, var(--morandi-link) 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
           text-decoration: none;
           transition: all 0.3s ease;
+          display: block;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          max-width: 100%;
           
           &:hover {
-            transform: scale(1.05);
+            transform: none;
             text-decoration: none;
           }
         }
@@ -1538,26 +1558,29 @@ a {
         
         @media (max-width: 768px) {
           width: 100% !important;
-          gap: 0.75rem;
+          gap: 0.5rem;
           margin-top: 0.5rem;
           flex-wrap: wrap;
           align-items: flex-start;
           display: flex;
+          overflow-x: hidden;
         }
         
         @media (max-width: 480px) {
-          gap: 0.625rem;
+          gap: 0.4rem;
           font-size: 0.9rem;
           width: 100% !important;
           margin-top: 0.5rem;
           flex-wrap: wrap;
           display: flex;
+          overflow-x: hidden;
         }
         
         @media (max-width: 360px) {
-          gap: 0.5rem;
+          gap: 0.35rem;
           font-size: 0.85rem;
           width: 100% !important;
+          overflow-x: hidden;
         }
         
         a {
@@ -1573,22 +1596,38 @@ a {
           position: relative;
           background: rgba(224, 230, 219, 0.1);
           border: 1px solid transparent;
+          flex-shrink: 0;
+          min-width: fit-content;
           
           @media (max-width: 768px) {
-            font-size: 0.9rem;
-            padding: 0.4rem 0.875rem;
+            font-size: 0.875rem;
+            padding: 0.4rem 0.75rem;
+            white-space: normal;
+            word-break: break-word;
+            flex: 0 1 auto;
+            max-width: 100%;
+            line-height: 1.4;
+            margin-bottom: 0.25rem;
           }
           
           @media (max-width: 480px) {
-            font-size: 0.85rem;
-            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.625rem;
             white-space: normal;
             word-break: break-word;
+            line-height: 1.4;
+            flex: 0 1 calc(50% - 0.2rem);
+            max-width: calc(50% - 0.2rem);
+            text-align: center;
+            margin-bottom: 0.25rem;
           }
           
           @media (max-width: 360px) {
-            font-size: 0.8rem;
-            padding: 0.3rem 0.625rem;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.5rem;
+            flex: 0 1 calc(50% - 0.175rem);
+            max-width: calc(50% - 0.175rem);
+            margin-bottom: 0.25rem;
           }
           
           &::before {
@@ -1831,6 +1870,10 @@ a {
         line-height: 1.2;
         font-weight: 400;
         letter-spacing: -0.5px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        max-width: 100%;
         
         @media (min-width: 1600px) {
           font-size: 3.25rem;
@@ -1845,17 +1888,21 @@ a {
         }
         
         @media (max-width: 768px) {
-          font-size: 2.25rem;
+          font-size: 2rem;
+          line-height: 1.3;
+          margin-bottom: 1.25rem;
         }
         
         @media (max-width: 480px) {
-          font-size: 2rem;
-          margin-bottom: 1.25rem;
-          line-height: 1.3;
+          font-size: 1.75rem;
+          margin-bottom: 1rem;
+          line-height: 1.35;
+          word-break: break-word;
         }
         
         @media (max-width: 360px) {
-          font-size: 1.75rem;
+          font-size: 1.5rem;
+          line-height: 1.4;
         }
       }
       
@@ -1974,15 +2021,21 @@ a {
         padding-bottom: 0.5rem;
         border-bottom: 2px solid var(--morandi-border-light);
         color: var(--morandi-text-dark);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
         
         @media (max-width: 480px) {
           font-size: 1.5rem;
           margin-top: 1.5rem;
           margin-bottom: 0.75rem;
+          line-height: 1.4;
+          word-break: break-word;
         }
         
         @media (max-width: 360px) {
           font-size: 1.35rem;
+          line-height: 1.4;
         }
       }
       
@@ -1990,15 +2043,20 @@ a {
         margin-top: 1.5rem;
         margin-bottom: 0.75rem;
         color: var(--morandi-text-dark);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
         
         @media (max-width: 480px) {
           font-size: 1.25rem;
           margin-top: 1.25rem;
           margin-bottom: 0.5rem;
+          line-height: 1.4;
+          word-break: break-word;
         }
         
         @media (max-width: 360px) {
           font-size: 1.15rem;
+          line-height: 1.4;
         }
       }
       
@@ -2006,18 +2064,25 @@ a {
         margin-top: 1.5rem;
         margin-bottom: 0.5rem;
         color: var(--morandi-text-dark);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
         
         @media (max-width: 480px) {
           font-size: 1.1rem;
           margin-top: 1rem;
+          line-height: 1.4;
+          word-break: break-word;
         }
       }
       
       p {
         margin-bottom: 1.25rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
         
         @media (max-width: 480px) {
           margin-bottom: 1rem;
+          line-height: 1.7;
         }
       }
       
@@ -2927,7 +2992,7 @@ pre {
   }
 }
 
-// Mobile-specific improvements
+// Mobile-specific improvements - Fix text overlapping
 @media (max-width: 768px) {
   // Improve touch targets
   a, button {
@@ -2941,18 +3006,119 @@ pre {
   .post-container {
     padding-left: 0;
     padding-right: 0;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
   
-  // Prevent text overflow
+  // Prevent text overflow and overlapping
   * {
     word-wrap: break-word;
     overflow-wrap: break-word;
+    box-sizing: border-box;
+  }
+  
+  // Fix header content overflow
+  .header-content {
+    overflow-x: hidden;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  // Fix navigation links - prevent overlapping
+  .site-nav {
+    width: 100% !important;
+    overflow-x: hidden;
+    
+    a {
+      max-width: 100%;
+      overflow: hidden;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+  }
+  
+  // Fix post titles and headings
+  .post-title,
+  .site-title,
+  h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    line-height: 1.3;
   }
   
   // Larger tap targets for mobile
   .post-card,
   .post-item {
     padding: 1.5rem;
+  }
+}
+
+// Extra small mobile devices - Additional fixes
+@media (max-width: 480px) {
+  // Ensure all text elements wrap properly
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  .post-container {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  // Navigation links - two columns layout to prevent overlap
+  .site-nav {
+    a {
+      flex: 0 1 calc(50% - 0.2rem);
+      max-width: calc(50% - 0.2rem);
+      text-align: center;
+      margin-bottom: 0.25rem;
+      padding: 0.35rem 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  // Titles - ensure they don't overlap
+  .post-title {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 1rem;
+  }
+  
+  .site-title {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  // Ensure all text wraps
+  p, li, td, th {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 }
 
