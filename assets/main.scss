@@ -1600,6 +1600,7 @@ a {
           padding-bottom: 0.25rem;
           scrollbar-width: thin;
           scrollbar-color: var(--morandi-gray-medium) transparent;
+          align-items: center;
           
           &::-webkit-scrollbar {
             height: 4px;
@@ -1656,18 +1657,29 @@ a {
             border: 1px solid rgba(224, 230, 219, 0.4);
             border-radius: 20px;
             min-width: auto;
+            max-width: none;
+            overflow: visible;
+            text-overflow: clip;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
           }
           
           @media (max-width: 480px) {
             font-size: 0.8rem;
             padding: 0.45rem 0.875rem;
             border-radius: 18px;
+            white-space: nowrap;
+            overflow: visible;
           }
           
           @media (max-width: 360px) {
             font-size: 0.75rem;
             padding: 0.4rem 0.75rem;
             border-radius: 16px;
+            white-space: nowrap;
+            overflow: visible;
           }
           
           &::before {
