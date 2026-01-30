@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 168
+- **Total Problems:** 169
 - **Easy:** 28 problems
-- **Medium:** 123 problems
+- **Medium:** 124 problems
 - **Hard:** 19 problems
 
 ## All LeetCode Problems
@@ -187,6 +187,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [3477](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) | [Number of Unplaced Fruits](https://leetcode.com/problems/number-of-unplaced-fruits/) | Medium | Array, Greedy, Segment Tree | Segment Tree, Leftmost Query | 2026-01-16 |
 | [729](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) | [My Calendar I](https://leetcode.com/problems/my-calendar-i/) | Medium | Array, Binary Search, Design | Ordered Set, Interval Overlap | 2026-01-17 |
 | [732](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) | [My Calendar III](https://leetcode.com/problems/my-calendar-iii/) | Hard | Array, Binary Search, Design, Segment Tree | Sweep Line, Segment Tree, Maximum Overlap | 2026-01-18 |
+| [739](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | Array, Stack, Monotonic Stack | Monotonic Stack, Right-to-Left Jumping | 2026-01-29 |
 | [3110](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/) | [Score of a String](https://leetcode.com/problems/score-of-a-string/) | Easy | String, Array | Simulation, ASCII | 2026-01-18 |
 
 ## Problems by Difficulty
@@ -220,7 +221,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (123 problems)
+### Medium (124 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -329,6 +330,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/)
 - [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/)
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/)
+- [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/)
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/)
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/)
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
@@ -613,6 +615,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
 - [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) - Ordered Set, Interval Overlap
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) - Sweep Line, Segment Tree, Maximum Overlap
+- [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) - Monotonic Stack, Right-to-Left Jumping
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
 - [844. Backspace String Compare](https://robinali34.github.io/blog_leetcode/2026/01/12/easy-844-backspace-string-compare/) - Two Pointers, Backwards
 - [993. Cousins in Binary Tree](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) - BFS, Parent Tracking
@@ -665,5 +668,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: January 20, 2026*
-*Total problems solved: 155*
+*Last updated: January 29, 2026*
+*Total problems solved: 169*
