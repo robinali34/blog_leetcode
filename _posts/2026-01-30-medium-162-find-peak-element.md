@@ -123,6 +123,77 @@ public:
 - If `nums[mid] < nums[mid + 1]`, the array is increasing from `mid` to `mid + 1`. Since `nums[n] = -∞`, there must be a peak somewhere to the right (the array must eventually decrease or end).
 - If `nums[mid] >= nums[mid + 1]`, then either `mid` is a peak (if `nums[mid] > nums[mid - 1]`), or there's a peak to the left. We can safely set `right = mid` because we know a peak exists in `[left, mid]`.
 
+### Sample Test Case Run:
+
+**Input:** `nums = [1,2,3,1]`
+
+```
+Initial: left = 0, right = 3
+
+Iteration 1:
+  mid = 0 + (3 - 0) / 2 = 1
+  nums[1] = 2, nums[2] = 3
+  Since nums[1] < nums[2] (2 < 3), peak must be to the right
+  left = mid + 1 = 2
+  Search range: [2, 3]
+
+Iteration 2:
+  mid = 2 + (3 - 2) / 2 = 2
+  nums[2] = 3, nums[3] = 1
+  Since nums[2] > nums[3] (3 > 1), peak is at mid or to the left
+  right = mid = 2
+  Search range: [2, 2]
+
+Loop condition: left (2) < right (2) is false, exit loop
+
+Return: left = 2
+```
+
+**Verification:** `nums[2] = 3` is greater than both neighbors:
+- `nums[1] = 2 < 3` ✓
+- `nums[3] = 1 < 3` ✓
+
+**Output:** `2` ✓
+
+---
+
+**Another Example:** `nums = [1,2,1,3,5,6,4]`
+
+```
+Initial: left = 0, right = 6
+
+Iteration 1:
+  mid = 0 + (6 - 0) / 2 = 3
+  nums[3] = 3, nums[4] = 5
+  Since nums[3] < nums[4] (3 < 5), peak must be to the right
+  left = mid + 1 = 4
+  Search range: [4, 6]
+
+Iteration 2:
+  mid = 4 + (6 - 4) / 2 = 5
+  nums[5] = 6, nums[6] = 4
+  Since nums[5] > nums[6] (6 > 4), peak is at mid or to the left
+  right = mid = 5
+  Search range: [4, 5]
+
+Iteration 3:
+  mid = 4 + (5 - 4) / 2 = 4
+  nums[4] = 5, nums[5] = 6
+  Since nums[4] < nums[5] (5 < 6), peak must be to the right
+  left = mid + 1 = 5
+  Search range: [5, 5]
+
+Loop condition: left (5) < right (5) is false, exit loop
+
+Return: left = 5
+```
+
+**Verification:** `nums[5] = 6` is greater than both neighbors:
+- `nums[4] = 5 < 6` ✓
+- `nums[6] = 4 < 6` ✓
+
+**Output:** `5` ✓
+
 ## Complexity Analysis
 
 - **Time Complexity**: O(log n) - Binary search eliminates half of the search space at each step
