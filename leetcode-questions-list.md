@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 169
+- **Total Problems:** 170
 - **Easy:** 28 problems
-- **Medium:** 124 problems
+- **Medium:** 125 problems
 - **Hard:** 19 problems
 
 ## All LeetCode Problems
@@ -187,6 +187,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [3477](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) | [Number of Unplaced Fruits](https://leetcode.com/problems/number-of-unplaced-fruits/) | Medium | Array, Greedy, Segment Tree | Segment Tree, Leftmost Query | 2026-01-16 |
 | [729](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) | [My Calendar I](https://leetcode.com/problems/my-calendar-i/) | Medium | Array, Binary Search, Design | Ordered Set, Interval Overlap | 2026-01-17 |
 | [732](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) | [My Calendar III](https://leetcode.com/problems/my-calendar-iii/) | Hard | Array, Binary Search, Design, Segment Tree | Sweep Line, Segment Tree, Maximum Overlap | 2026-01-18 |
+| [162](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) | [Find Peak Element](https://leetcode.com/problems/find-peak-element/) | Medium | Array, Binary Search | Binary Search | 2026-01-30 |
 | [739](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | Array, Stack, Monotonic Stack | Monotonic Stack, Right-to-Left Jumping | 2026-01-29 |
 | [3110](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/) | [Score of a String](https://leetcode.com/problems/score-of-a-string/) | Easy | String, Array | Simulation, ASCII | 2026-01-18 |
 
@@ -221,7 +222,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (124 problems)
+### Medium (125 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -265,6 +266,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
 - [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
 - [2080. Range Frequency Queries](https://robinali34.github.io/blog_leetcode/2026/01/28/medium-2080-range-frequency-queries/) - Hash Map, Binary Search
+- [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/)
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
 - [862. Shortest Subarray with Sum at Least K](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) - Monotonic Deque, Prefix Sum
 - [253. Meeting Rooms II](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/)
@@ -381,6 +383,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [315. Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) - Fenwick Tree, Coordinate Compression
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
 - [215. Kth Largest Element in an Array](https://robinali34.github.io/blog_leetcode/2026/01/05/medium-215-kth-largest-element-in-an-array/) - Min Heap, QuickSelect
+- [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) - Binary Search
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) - Binary Search, Divide & Conquer
 - [300. Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) - DP, Binary Search
 - [354. Russian Doll Envelopes](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-354-russian-doll-envelopes/) - LIS, Binary Search, Sorting
@@ -615,6 +618,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) - Segment Tree, Greedy
 - [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) - Ordered Set, Interval Overlap
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) - Sweep Line, Segment Tree, Maximum Overlap
+- [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) - Binary Search
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) - Monotonic Stack, Right-to-Left Jumping
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
 - [844. Backspace String Compare](https://robinali34.github.io/blog_leetcode/2026/01/12/easy-844-backspace-string-compare/) - Two Pointers, Backwards
@@ -668,5 +672,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: January 29, 2026*
-*Total problems solved: 169*
+*Last updated: January 30, 2026*
+*Total problems solved: 170*
