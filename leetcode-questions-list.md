@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 173
+- **Total Problems:** 176
 - **Easy:** 29 problems
-- **Medium:** 127 problems
-- **Hard:** 19 problems
+- **Medium:** 129 problems
+- **Hard:** 20 problems
 
 ## All LeetCode Problems
 
@@ -30,6 +30,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [27](https://robinali34.github.io/blog_leetcode/2026/01/26/easy-27-remove-element/) | [Remove Element](https://leetcode.com/problems/remove-element/) | Easy | Array, Two Pointers | Two Pointers, In-Place | 2026-01-26 |
 | [32](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) | [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) | Hard | String, Dynamic Programming | DP, Two-Pass Greedy | 2025-11-24 |
 | [33](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) | [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) | Medium | Array, Binary Search | Binary Search | 2025-09-23 |
+| [325](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) | [Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/) | Medium | Array, Hash Table, Prefix Sum | Prefix Sum, Hash Map | 2026-02-01 |
 | [45](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | Medium | Array, Greedy | Greedy BFS, Level Traversal | 2025-11-18 |
 | [46](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-46-permutations/) | [Permutations](https://leetcode.com/problems/permutations/) | Medium | Backtracking, Recursion | Backtracking, STL | 2025-10-21 |
 | [47](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-47-permutations-ii/) | [Permutations II](https://leetcode.com/problems/permutations-ii/) | Medium | Backtracking, Recursion, Duplicates | Backtracking, STL | 2025-10-21 |
@@ -59,6 +60,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [209](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | Medium | Array, Sliding Window, Binary Search | Sliding Window, Prefix Sum | 2026-01-26 |
 | [213](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) | [House Robber II](https://leetcode.com/problems/house-robber-ii/) | Medium | Array, Dynamic Programming | DP, Circular Array | 2026-01-25 |
 | [238](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Medium | Array, Prefix Sum | Left/Right Products | 2026-01-27 |
+| [560](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | Medium | Array, Hash Table, Prefix Sum | Prefix Sum, Hash Map | 2026-02-01 |
 | [327](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) | Hard | Array, Divide and Conquer | Merge Sort, Segment Tree, Prefix Sum | 2026-01-20 |
 | [862](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) | [Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | Hard | Array, Sliding Window, Deque | Monotonic Deque, Prefix Sum | 2026-01-26 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
@@ -225,7 +227,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (127 problems)
+### Medium (129 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -269,6 +271,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/)
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
 - [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
+- [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
+- [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [2080. Range Frequency Queries](https://robinali34.github.io/blog_leetcode/2026/01/28/medium-2080-range-frequency-queries/) - Hash Map, Binary Search
 - [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/)
 - [240. Search a 2D Matrix II](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/)
@@ -343,8 +347,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 
-### Hard (19 problems)
+### Hard (20 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
+- [44. Wildcard Matching](https://robinali34.github.io/blog_leetcode/2026/02/01/hard-44-wildcard-matching/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
 - [51. N-Queens](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/)
 - [84. Largest Rectangle in Histogram](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/)
@@ -630,7 +635,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) - Sweep Line, Segment Tree, Maximum Overlap
 - [34. Find First and Last Position of Element in Sorted Array](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-34-find-first-and-last-position-of-element-in-sorted-array/) - Lower Bound, Upper Bound
 - [35. Search Insert Position](https://robinali34.github.io/blog_leetcode/2026/01/30/easy-35-search-insert-position/) - Lower Bound
+- [44. Wildcard Matching](https://robinali34.github.io/blog_leetcode/2026/02/01/hard-44-wildcard-matching/) - Two Pointers, Greedy, Regex
 - [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) - Binary Search
+- [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
+- [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) - Binary Search, Hash Map
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) - Monotonic Stack, Right-to-Left Jumping
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
@@ -685,5 +693,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: January 30, 2026*
-*Total problems solved: 173*
+*Last updated: February 1, 2026*
+*Total problems solved: 176*
