@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 176
+- **Total Problems:** 177
 - **Easy:** 29 problems
-- **Medium:** 129 problems
+- **Medium:** 130 problems
 - **Hard:** 20 problems
 
 ## All LeetCode Problems
@@ -130,6 +130,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [938](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-938-range-sum-of-bst/) | [Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/) | Easy | Tree, BST, DFS | DFS, BST Pruning | 2025-11-24 |
 | [969](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/) | [Pancake Sorting](https://leetcode.com/problems/pancake-sorting/) | Medium | Array, Sorting, Greedy | Greedy, Two-Step Flip | 2025-11-18 |
 | [973](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/) | [K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | Medium | Array, Sorting, Heap | Sorting, Heap, Quickselect | 2025-10-21 |
+| [974](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) | [Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/) | Medium | Array, Hash Table, Prefix Sum | Prefix Modulo, Array | 2026-02-02 |
 | [981](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) | [Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/) | Medium | Hash Table, Binary Search, Design | Binary Search, Hash Map, Lower Bound | 2026-01-30 |
 | [983](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) | [Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) | Medium | Dynamic Programming | DP, Bottom-Up | 2025-11-24 |
 | [990](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) | [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) | Medium | Disjoint Set, Graph | Union Find, DFS | 2025-10-04 |
@@ -227,7 +228,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (129 problems)
+### Medium (130 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -306,6 +307,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [912. Sort an Array](https://robinali34.github.io/blog_leetcode/2025/10/06/medium-912-sort-an-array/)
 - [921. Minimum Add to Make Parentheses Valid](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/)
 - [969. Pancake Sorting](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/)
+- [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/)
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/)
 - [990. Satisfiability of Equality Equations](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/)
 - [994. Rotting Oranges](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/)
@@ -639,6 +641,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) - Binary Search
 - [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
+- [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) - Binary Search, Hash Map
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) - Monotonic Stack, Right-to-Left Jumping
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) - DFS, Three-State Coloring, Cycle Detection
@@ -693,5 +696,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 1, 2026*
-*Total problems solved: 176*
+*Last updated: February 2, 2026*
+*Total problems solved: 177*
