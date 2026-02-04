@@ -96,7 +96,7 @@ This is a classic shortest path problem. We need to find the shortest distance f
 1. **Shortest Path Problem**: Find shortest paths from a single source (node k) to all destinations
 2. **Dijkstra's Algorithm**: Optimal choice since all edge weights are non-negative
 3. **Maximum Distance**: The answer is the maximum shortest distance, representing when the last node receives the signal
-4. **Unreachable Nodes**: If any node has distance INT_MAX, return -1
+4. **Unreachable Nodes**: If any node has distance LLONG_MAX, return -1
 
 ## Solution 1: Dijkstra's Algorithm with Adjacency Matrix
 
@@ -104,38 +104,59 @@ This is a classic shortest path problem. We need to find the shortest distance f
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<vector<int>> adj(n, vector<int>(n, INT_MAX));
-        for(auto& t: times) adj[t[0] - 1][t[1] - 1] = t[2];
+        // Build adjacency matrix
+        // Initialize with "infinity" (LLONG_MAX)
+        vector<vector<long long>> adj(n, vector<long long>(n, LLONG_MAX));
+        for(auto &t : times) {
+            int u = t[0]-1, v = t[1]-1, w = t[2];
+            adj[u][v] = w;  // edge from u to v
+        }
 
-        vector<long long> dist(n, INT_MAX);
-        dist[k - 1] = 0;
-        vector<bool> used(n, false);
+        // Distance array
+        vector<long long> dist(n, LLONG_MAX);
+        dist[k-1] = 0;
+
+        // Visited array
+        vector<bool> visited(n, false);
+
+        // Dijkstra main loop (without priority queue)
         for(int i = 0; i < n; i++) {
-            int x = -1;
-            for(int y = 0; y < n; y++) {
-                if(!used[y] && (x == -1 || dist[y] < dist[x])) {
-                    x = y;
+            // Pick the unvisited node with the smallest distance
+            long long minDist = LLONG_MAX;
+            int u = -1;
+            for(int j = 0; j < n; j++) {
+                if(!visited[j] && dist[j] < minDist) {
+                    minDist = dist[j];
+                    u = j;
                 }
             }
-            used[x] = true;
-            for(int y = 0; y < n; y++) {
-                dist[y] = min(dist[y], dist[x] + adj[x][y]);
+
+            if(u == -1) break; // all remaining nodes are unreachable
+            visited[u] = true;
+
+            // Relax neighbors
+            for(int v = 0; v < n; v++) {
+                if(adj[u][v] != LLONG_MAX && dist[u] + adj[u][v] < dist[v]) {
+                    dist[v] = dist[u] + adj[u][v];
+                }
             }
         }
-        int rtn = *max_element(dist.begin(), dist.end());
-        return rtn == INT_MAX ? -1: (int)rtn;
+
+        // Get the maximum distance
+        long long ans = *max_element(dist.begin(), dist.end());
+        return ans == LLONG_MAX ? -1 : (int)ans;
     }
 };
 ```
 
 ### Algorithm Breakdown:
 
-1. **Build Adjacency Matrix**: Create `n×n` matrix where `adj[i][j]` represents edge weight from node i to node j
-2. **Initialize**: Set `dist[k-1] = 0` (source node), all others to `INT_MAX`
+1. **Build Adjacency Matrix**: Create `n×n` matrix where `adj[i][j]` represents edge weight from node i to node j, initialized with `LLONG_MAX`
+2. **Initialize**: Set `dist[k-1] = 0` (source node), all others to `LLONG_MAX`
 3. **Dijkstra's Algorithm**: For n iterations:
-   - Find unvisited node `x` with minimum distance
-   - Mark `x` as visited
-   - Relax edges: Update distances to all neighbors of `x`
+   - Find unvisited node `u` with minimum distance (linear scan)
+   - Mark `u` as visited
+   - Relax edges: Update distances to all neighbors of `u` if a shorter path is found
 4. **Result**: Return maximum distance, or -1 if any node is unreachable
 
 ### Why This Works:
@@ -143,15 +164,22 @@ public:
 - **Dijkstra's Property**: Always processes the node with minimum distance first
 - **Greedy Choice**: Once a node is processed, its distance is final (non-negative weights guarantee this)
 - **Relaxation**: Updates distances to neighbors if a shorter path is found
+- **Early Termination**: If `u == -1`, all remaining nodes are unreachable, so we can break early
 
 ### Complexity Analysis:
 
 - **Time Complexity**: O(n²) - For each of n nodes, we scan all n nodes to find minimum
 - **Space Complexity**: O(n²) - Adjacency matrix
 
-## Solution 3: BFS with Queue (Incorrect for Weighted Graphs)
+## Solution 2: Adjacency List - Version A: BFS (Without Dijkstra)
 
-**Note:** This solution uses BFS with a regular queue, which does **not** guarantee shortest paths in weighted graphs. It may work for some test cases but is incorrect in general. Dijkstra's algorithm (Solutions 1 and 2) is the correct approach.
+This solution uses BFS with a regular queue. While BFS doesn't guarantee shortest paths in general weighted graphs, **it works correctly for this problem** because:
+
+1. **We update distances whenever a shorter path is found** - The key is the condition `if (d < dist[to])`
+2. **We re-queue nodes when their distance improves** - This allows us to explore all possible paths
+3. **Eventually converges** - Since we only update when finding shorter paths, the algorithm will eventually find all shortest paths, though it may process nodes multiple times
+
+**Note:** This approach is less efficient than Dijkstra's algorithm but is simpler to implement and works correctly for this problem.
 
 ```cpp
 class Solution {
@@ -160,7 +188,7 @@ public:
         vector<vector<pair<int, int>>> adj(n);
         for(auto& t: times) adj[t[0] - 1].emplace_back(t[1] - 1, t[2]);
 
-        vector<long long> dist(n, INT_MAX);
+        vector<long long> dist(n, LLONG_MAX);
         dist[k - 1] = 0;
         queue<int> q;
         q.push(k - 1);
@@ -168,34 +196,35 @@ public:
             int node = q.front();
             q.pop();
             for(auto& next: adj[node]) {
-                int to = next.first, d = dist[node] + next.second;
+                int to = next.first;
+                long long d = dist[node] + next.second;
                 if (d < dist[to]) {
                     dist[to] = d;
                     q.emplace(to);
                 }
             }
         }
-        int rtn = *max_element(dist.begin(), dist.end());
-        return rtn == INT_MAX ? -1 : rtn;
+        long long rtn = *max_element(dist.begin(), dist.end());
+        return rtn == LLONG_MAX ? -1 : (int)rtn;
     }
 };
 ```
 
-### Why This Is Incorrect:
+### Why This Works:
 
-- **BFS Property**: BFS processes nodes level by level, which works for unweighted graphs
-- **Weighted Graphs**: With weights, the first path found may not be the shortest
-- **Example**: If we have edges `A->B (weight 3)` and `A->C->B (weight 1+1=2)`, BFS might process `A->B` first and set `dist[B]=3`, then later find the shorter path `A->C->B` with `dist[B]=2`, but it may not update correctly
-- **Correct Approach**: Use Dijkstra's algorithm (priority queue) to always process the node with minimum distance first
+- **Distance Update**: We only update `dist[to]` when we find a shorter path (`d < dist[to]`)
+- **Re-queuing**: When a node's distance improves, we add it back to the queue to explore paths from it
+- **Convergence**: Eventually, all shortest paths will be found, though nodes may be processed multiple times
+- **Correctness**: Unlike standard BFS, this version continues until no more distance improvements are possible
 
 ### Complexity Analysis:
 
-- **Time Complexity**: O(n*m) worst case - May process nodes multiple times
+- **Time Complexity**: O(n*m) worst case - May process nodes multiple times (each edge can be relaxed multiple times)
 - **Space Complexity**: O(n+m) - Adjacency list and queue
 
-## Solution 2: Dijkstra's Algorithm with Adjacency List and Min-Heap (Optimal)
+## Solution 3: Adjacency List - Version B: Dijkstra with Min-Heap (Optimal)
 
-**This is already the optimal implementation!** Solution 2 uses a min-heap (priority queue with `greater<>` comparator) and is the best practical approach for this problem.
+**This is the optimal implementation!** This solution uses Dijkstra's algorithm with a min-heap (priority queue with `greater<>` comparator) and is the best practical approach for this problem.
 
 ```cpp
 class Solution {
@@ -204,26 +233,28 @@ public:
         vector<vector<pair<int, int>>> adj(n);
         for(auto& t: times) adj[t[0] - 1].emplace_back(t[1] - 1, t[2]);
 
-        vector<long long> dist(n, INT_MAX);
+        vector<long long> dist(n, LLONG_MAX);
         dist[k - 1] = 0;
         // Min-heap: priority_queue with greater<> comparator
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> q;
+        priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<>> q;
         q.emplace(0, k - 1);
         while(!q.empty()) {
             auto node = q.top();
             q.pop();
-            int time = node.first, x = node.second;
+            long long time = node.first;
+            int x = node.second;
             if(dist[x] < time) continue; // Skip outdated entries (lazy deletion)
             for(auto& next: adj[x]) {
-                int y = next.first, d = dist[x] + next.second;
+                int y = next.first;
+                long long d = dist[x] + next.second;
                 if(d < dist[y]) {
                     dist[y] = d;
                     q.emplace(d, y);
                 }
             }
         }
-        int rtn = *max_element(dist.begin(), dist.end());
-        return rtn == INT_MAX ? -1: (int)rtn;
+        long long rtn = *max_element(dist.begin(), dist.end());
+        return rtn == LLONG_MAX ? -1 : (int)rtn;
     }
 };
 ```
@@ -231,10 +262,10 @@ public:
 ### Algorithm Breakdown:
 
 1. **Build Adjacency List**: Create list of neighbors for each node with edge weights
-2. **Initialize**: Set `dist[k-1] = 0`, push `(0, k-1)` to priority queue
-3. **Dijkstra's Algorithm**: While queue is not empty:
+2. **Initialize**: Set `dist[k-1] = 0`, push `(0, k-1)` to min-heap
+3. **Dijkstra's Algorithm**: While heap is not empty:
    - Pop node `x` with minimum distance
-   - Skip if already processed (distance outdated)
+   - Skip if already processed (distance outdated - lazy deletion)
    - Relax edges: For each neighbor `y`, update distance if shorter path found
 4. **Result**: Return maximum distance, or -1 if any node is unreachable
 
@@ -260,32 +291,32 @@ public:
 
 **Input:** `times = [[2,1,1],[2,3,1],[3,4,1]]`, `n = 4`, `k = 2`
 
-**Solution 2 Execution:**
+**Solution 3 Execution:**
 
 ```
-Initial: dist = [INT_MAX, 0, INT_MAX, INT_MAX], q = [(0, 1)]
+Initial: dist = [LLONG_MAX, 0, LLONG_MAX, LLONG_MAX], q = [(0, 1)]
 
 Iteration 1:
   Pop: (0, 1) - node 2 (0-indexed: node 1)
   dist[1] = 0
   Neighbors of node 2:
-    - Node 1 (0-indexed: node 0): dist[0] = min(INT_MAX, 0+1) = 1, push (1, 0)
-    - Node 3 (0-indexed: node 2): dist[2] = min(INT_MAX, 0+1) = 1, push (1, 2)
+    - Node 1 (0-indexed: node 0): dist[0] = min(LLONG_MAX, 0+1) = 1, push (1, 0)
+    - Node 3 (0-indexed: node 2): dist[2] = min(LLONG_MAX, 0+1) = 1, push (1, 2)
   q = [(1, 0), (1, 2)]
-  dist = [1, 0, 1, INT_MAX]
+  dist = [1, 0, 1, LLONG_MAX]
 
 Iteration 2:
   Pop: (1, 0) - node 1
   dist[0] = 1
   Neighbors of node 1: None
   q = [(1, 2)]
-  dist = [1, 0, 1, INT_MAX]
+  dist = [1, 0, 1, LLONG_MAX]
 
 Iteration 3:
   Pop: (1, 2) - node 3
   dist[2] = 1
   Neighbors of node 3:
-    - Node 4 (0-indexed: node 3): dist[3] = min(INT_MAX, 1+1) = 2, push (2, 3)
+    - Node 4 (0-indexed: node 3): dist[3] = min(LLONG_MAX, 1+1) = 2, push (2, 3)
   q = [(2, 3)]
   dist = [1, 0, 1, 2]
 
@@ -313,16 +344,16 @@ Return: 2 ✓
 **Another Example:** `times = [[1,2,1]]`, `n = 2`, `k = 2`
 
 ```
-Initial: dist = [INT_MAX, INT_MAX], q = [(0, 1)] (node 2, 0-indexed: node 1)
+Initial: dist = [LLONG_MAX, LLONG_MAX], q = [(0, 1)] (node 2, 0-indexed: node 1)
 
 Iteration 1:
   Pop: (0, 1) - node 2
   dist[1] = 0
   Neighbors of node 2: None
   q = []
-  dist = [INT_MAX, 0]
+  dist = [LLONG_MAX, 0]
 
-Result: max(dist) = max(INT_MAX, 0) = INT_MAX
+Result: max(dist) = max(LLONG_MAX, 0) = LLONG_MAX
 Return: -1 ✓
 ```
 
@@ -339,9 +370,13 @@ Return: -1 ✓
 - **Time Complexity**: O(n²) - For each of n nodes, scan all n nodes to find minimum
 - **Space Complexity**: O(n²) - Adjacency matrix
 
-### Solution 2 (Adjacency List + Priority Queue):
-- **Time Complexity**: O((n+m)log n) - Each edge processed once, priority queue operations
-- **Space Complexity**: O(n+m) - Adjacency list and priority queue
+### Solution 2 (Adjacency List + BFS):
+- **Time Complexity**: O(n*m) worst case - May process nodes multiple times
+- **Space Complexity**: O(n+m) - Adjacency list and queue
+
+### Solution 3 (Adjacency List + Min-Heap):
+- **Time Complexity**: O((n+m)log n) - Each edge processed once, min-heap operations are O(log n)
+- **Space Complexity**: O(n+m) - Adjacency list and min-heap
 
 ## Key Insights
 
@@ -350,7 +385,7 @@ Return: -1 ✓
    - Adjacency matrix: Better for dense graphs (O(n²) time)
    - Adjacency list + min-heap: Better for sparse graphs (O((n+m)log n) time) - **This is already optimal!**
 3. **Maximum Distance**: The answer is the maximum shortest distance, not the sum
-4. **Unreachable Detection**: Check if any distance remains INT_MAX
+4. **Unreachable Detection**: Check if any distance remains LLONG_MAX
 5. **Lazy Deletion**: In min-heap version, skip outdated entries (`if(dist[x] < time) continue`) - this avoids expensive decrease-key operations
 6. **BFS Limitation**: BFS with a regular queue does NOT work correctly for weighted graphs - always use Dijkstra's algorithm for shortest paths with weights
 7. **Min-Heap Implementation**: `priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>>` creates a min-heap where the smallest distance is at the top
@@ -360,10 +395,10 @@ Return: -1 ✓
 | Approach | Time Complexity | Space Complexity | Correctness | Best For |
 |----------|----------------|------------------|-------------|----------|
 | Adjacency Matrix | O(n²) | O(n²) | ✓ Correct | Dense graphs (many edges) |
+| Adjacency List + BFS | O(n*m) | O(n+m) | ✓ Correct | Simple implementation, works but less efficient |
 | Adjacency List + Min-Heap | O((n+m)log n) | O(n+m) | ✓ Correct | Sparse graphs (few edges) - **Optimal!** |
-| BFS with Queue | O(n*m) | O(n+m) | ✗ Incorrect | **Not recommended** - Use Dijkstra instead |
 
-**Note:** The "Adjacency List + Min-Heap" approach (Solution 2) is already the optimal practical implementation. While Fibonacci heap theoretically achieves O(n log n + m), the binary min-heap (priority_queue) is faster in practice due to lower constant factors.
+**Note:** The "Adjacency List + Min-Heap" approach (Solution 3) is the optimal practical implementation. While Fibonacci heap theoretically achieves O(n log n + m), the binary min-heap (priority_queue) is faster in practice due to lower constant factors.
 
 ## Related Problems
 
