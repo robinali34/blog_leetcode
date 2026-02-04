@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 177
+- **Total Problems:** 179
 - **Easy:** 29 problems
-- **Medium:** 130 problems
-- **Hard:** 20 problems
+- **Medium:** 131 problems
+- **Hard:** 21 problems
 
 ## All LeetCode Problems
 
@@ -47,6 +47,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [77](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-77-combinations/) | [Combinations](https://leetcode.com/problems/combinations/) | Medium | Backtracking, Recursion | Backtracking, DFS | 2025-10-20 |
 | [84](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/) | [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) | Hard | Stack, Monotonic Stack | Monotonic Stack | 2025-10-21 |
 | [89](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-89-gray-code/) | [Gray Code](https://leetcode.com/problems/gray-code/) | Medium | Math, Bit Manipulation | Bit Manipulation | 2025-09-25 |
+| [843](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/) | [Guess the Word](https://leetcode.com/problems/guess-the-word/) | Hard | Array, String, Interactive, Minmax | Elimination Strategy, Filtering | 2026-02-02 |
 | [96](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) | [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/) | Medium | Math, Dynamic Programming | DP, Catalan Numbers | 2025-10-03 |
 | [129](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) | [Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | Medium | Tree, DFS | DFS, Path Accumulation | 2025-11-24 |
 | [131](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/) | [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/) | Medium | Backtracking | Backtracking, DFS | 2025-09-30 |
@@ -194,6 +195,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [34](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-34-find-first-and-last-position-of-element-in-sorted-array/) | [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | Medium | Array, Binary Search | Lower Bound, Upper Bound | 2026-01-30 |
 | [162](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) | [Find Peak Element](https://leetcode.com/problems/find-peak-element/) | Medium | Array, Binary Search | Binary Search | 2026-01-30 |
 | [739](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | Array, Stack, Monotonic Stack | Monotonic Stack, Right-to-Left Jumping | 2026-01-29 |
+| [743](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) | [Network Delay Time](https://leetcode.com/problems/network-delay-time/) | Medium | Graph, Shortest Path, Dijkstra | Dijkstra's Algorithm | 2026-02-03 |
 | [3110](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/) | [Score of a String](https://leetcode.com/problems/score-of-a-string/) | Easy | String, Array | Simulation, ASCII | 2026-01-18 |
 
 ## Problems by Difficulty
@@ -228,7 +230,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (130 problems)
+### Medium (131 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -344,15 +346,17 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [729. My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/)
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/)
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/)
+- [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/)
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/)
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/)
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
 - [3477. Number of Unplaced Fruits](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-3477-number-of-unplaced-fruits/)
 
-### Hard (20 problems)
+### Hard (21 problems)
 - [25. Reverse Nodes in k-Group](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/)
 - [44. Wildcard Matching](https://robinali34.github.io/blog_leetcode/2026/02/01/hard-44-wildcard-matching/)
 - [32. Longest Valid Parentheses](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/)
+- [843. Guess the Word](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/)
 - [51. N-Queens](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/)
 - [84. Largest Rectangle in Histogram](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/)
 - [218. The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/)
@@ -545,6 +549,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ### Graph
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
+- [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
 - [1136. Parallel Courses](https://robinali34.github.io/blog_leetcode/2026/01/27/hard-1136-parallel-courses/) - DFS with Memoization, Longest Path
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) - Topological Sort, BFS
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) - Two-Pass, Candidate Elimination
@@ -641,6 +646,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [162. Find Peak Element](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) - Binary Search
 - [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
+- [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
+- [843. Guess the Word](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/) - Elimination Strategy, Filtering
 - [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) - Binary Search, Hash Map
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) - Monotonic Stack, Right-to-Left Jumping
@@ -696,5 +703,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 2, 2026*
-*Total problems solved: 177*
+*Last updated: February 3, 2026*
+*Total problems solved: 179*
