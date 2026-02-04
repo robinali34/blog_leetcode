@@ -193,7 +193,9 @@ public:
 - **Time Complexity**: O(n*m) worst case - May process nodes multiple times
 - **Space Complexity**: O(n+m) - Adjacency list and queue
 
-## Solution 2: Dijkstra's Algorithm with Adjacency List and Priority Queue
+## Solution 2: Dijkstra's Algorithm with Adjacency List and Min-Heap (Optimal)
+
+**This is already the optimal implementation!** Solution 2 uses a min-heap (priority queue with `greater<>` comparator) and is the best practical approach for this problem.
 
 ```cpp
 class Solution {
@@ -204,14 +206,14 @@ public:
 
         vector<long long> dist(n, INT_MAX);
         dist[k - 1] = 0;
-        // use priority queue to find min distance point
+        // Min-heap: priority_queue with greater<> comparator
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> q;
         q.emplace(0, k - 1);
         while(!q.empty()) {
             auto node = q.top();
             q.pop();
             int time = node.first, x = node.second;
-            if(dist[x] < time) continue;
+            if(dist[x] < time) continue; // Skip outdated entries (lazy deletion)
             for(auto& next: adj[x]) {
                 int y = next.first, d = dist[x] + next.second;
                 if(d < dist[y]) {
@@ -238,14 +240,21 @@ public:
 
 ### Why This Works:
 
-- **Priority Queue**: Efficiently finds node with minimum distance in O(log n) time
-- **Lazy Deletion**: Skip outdated entries with `if(dist[x] < time) continue`
+- **Min-Heap (Priority Queue)**: `priority_queue` with `greater<>` comparator creates a min-heap, efficiently finding the node with minimum distance in O(log n) time
+- **Lazy Deletion**: Skip outdated entries with `if(dist[x] < time) continue` - this avoids expensive heap updates
 - **Adjacency List**: More space-efficient for sparse graphs
+- **Optimal Implementation**: This is already the optimal practical implementation for Dijkstra's algorithm
 
 ### Complexity Analysis:
 
-- **Time Complexity**: O((n+m)log n) - Each edge is processed once, priority queue operations are O(log n)
-- **Space Complexity**: O(n+m) - Adjacency list and priority queue
+- **Time Complexity**: O((n+m)log n) - Each edge is processed once, min-heap operations (insert/extract-min) are O(log n)
+- **Space Complexity**: O(n+m) - Adjacency list and min-heap
+
+### Further Optimization Notes:
+
+- **Theoretical Optimization**: Fibonacci heap can achieve O(n log n + m) time complexity, but it's not practical due to high constant factors and complexity
+- **Current Implementation**: The binary min-heap (priority_queue) is already optimal for practical purposes
+- **Lazy Deletion**: The `if(dist[x] < time) continue` check is crucial - it allows us to avoid expensive decrease-key operations by simply adding duplicate entries and skipping outdated ones
 
 ### Sample Test Case Run:
 
@@ -339,19 +348,22 @@ Return: -1 ✓
 1. **Dijkstra's Algorithm**: Optimal for single-source shortest paths with non-negative weights
 2. **Data Structure Choice**: 
    - Adjacency matrix: Better for dense graphs (O(n²) time)
-   - Adjacency list + priority queue: Better for sparse graphs (O((n+m)log n) time)
+   - Adjacency list + min-heap: Better for sparse graphs (O((n+m)log n) time) - **This is already optimal!**
 3. **Maximum Distance**: The answer is the maximum shortest distance, not the sum
 4. **Unreachable Detection**: Check if any distance remains INT_MAX
-5. **Lazy Deletion**: In priority queue version, skip outdated entries for efficiency
+5. **Lazy Deletion**: In min-heap version, skip outdated entries (`if(dist[x] < time) continue`) - this avoids expensive decrease-key operations
 6. **BFS Limitation**: BFS with a regular queue does NOT work correctly for weighted graphs - always use Dijkstra's algorithm for shortest paths with weights
+7. **Min-Heap Implementation**: `priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>>` creates a min-heap where the smallest distance is at the top
 
 ## Comparison of Approaches
 
 | Approach | Time Complexity | Space Complexity | Correctness | Best For |
 |----------|----------------|------------------|-------------|----------|
 | Adjacency Matrix | O(n²) | O(n²) | ✓ Correct | Dense graphs (many edges) |
-| Adjacency List + PQ | O((n+m)log n) | O(n+m) | ✓ Correct | Sparse graphs (few edges) |
+| Adjacency List + Min-Heap | O((n+m)log n) | O(n+m) | ✓ Correct | Sparse graphs (few edges) - **Optimal!** |
 | BFS with Queue | O(n*m) | O(n+m) | ✗ Incorrect | **Not recommended** - Use Dijkstra instead |
+
+**Note:** The "Adjacency List + Min-Heap" approach (Solution 2) is already the optimal practical implementation. While Fibonacci heap theoretically achieves O(n log n + m), the binary min-heap (priority_queue) is faster in practice due to lower constant factors.
 
 ## Related Problems
 
