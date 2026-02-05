@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 179
+- **Total Problems:** 180
 - **Easy:** 29 problems
-- **Medium:** 131 problems
+- **Medium:** 132 problems
 - **Hard:** 21 problems
 
 ## All LeetCode Problems
@@ -196,6 +196,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [162](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-162-find-peak-element/) | [Find Peak Element](https://leetcode.com/problems/find-peak-element/) | Medium | Array, Binary Search | Binary Search | 2026-01-30 |
 | [739](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Medium | Array, Stack, Monotonic Stack | Monotonic Stack, Right-to-Left Jumping | 2026-01-29 |
 | [743](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) | [Network Delay Time](https://leetcode.com/problems/network-delay-time/) | Medium | Graph, Shortest Path, Dijkstra | Dijkstra's Algorithm | 2026-02-03 |
+| [787](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) | [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | Medium | Graph, Shortest Path, Bellman-Ford, DP | Bellman-Ford, BFS, Dijkstra | 2026-02-04 |
 | [3110](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/) | [Score of a String](https://leetcode.com/problems/score-of-a-string/) | Easy | String, Array | Simulation, ASCII | 2026-01-18 |
 
 ## Problems by Difficulty
@@ -230,7 +231,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [2185. Counting Words With a Given Prefix](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/)
 - [3110. Score of a String](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/)
 
-### Medium (131 problems)
+### Medium (132 problems)
 - [2. Add Two Numbers](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/)
 - [3. Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/)
 - [56. Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/)
@@ -347,6 +348,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [732. My Calendar III](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/)
 - [739. Daily Temperatures](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/)
 - [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/)
+- [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/)
 - [802. Find Eventual Safe States](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/)
 - [1670. Design Front Middle Back Queue](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/)
 - [LCR 113. Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/)
@@ -550,6 +552,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 ### Graph
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
 - [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
+- [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) - Bellman-Ford, BFS, Dijkstra
 - [1136. Parallel Courses](https://robinali34.github.io/blog_leetcode/2026/01/27/hard-1136-parallel-courses/) - DFS with Memoization, Longest Path
 - [269. Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) - Topological Sort, BFS
 - [277. Find the Celebrity](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) - Two-Pass, Candidate Elimination
@@ -647,6 +650,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
+- [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) - Bellman-Ford, BFS, Dijkstra
 - [843. Guess the Word](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/) - Elimination Strategy, Filtering
 - [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) - Binary Search, Hash Map
@@ -703,5 +707,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 3, 2026*
-*Total problems solved: 179*
+*Last updated: February 4, 2026*
+*Total problems solved: 180*
