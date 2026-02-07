@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 181
-- **Easy:** 29 problems
-- **Medium:** 133 problems
+- **Total Problems:** 183
+- **Easy:** 30 problems
+- **Medium:** 134 problems
 - **Hard:** 21 problems
 
 ## All LeetCode Problems
@@ -74,6 +74,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [227](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | Medium | String, Stack, Math | Stack, Expression Evaluation | 2025-11-13 |
 | [239](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) | [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) | Hard | Array, Sliding Window, Deque | Monotonic Deque | 2025-11-04 |
 | [240](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) | [Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/) | Medium | Array, Binary Search | Binary Search, Divide & Conquer | 2025-10-07 |
+| [252](https://robinali34.github.io/blog_leetcode/2026/02/06/easy-252-meeting-rooms/) | [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) | Easy | Array, Sorting, Intervals | Sort, Consecutive Overlap Check | 2026-02-06 |
 | [253](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-medium-253-meeting-rooms-ii/) | [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) | Medium | Array, Sorting, Priority Queue | Priority Queue, Two Pointers, Bucket Sort | 2025-12-11 |
 | [277](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) | [Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) | Medium | Graph, Two Pointers | Two-Pass, Candidate Elimination | 2025-11-24 |
 | [281](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/) | [Zigzag Iterator](https://leetcode.com/problems/zigzag-iterator/) | Medium | Design, Iterator | Two Pointers, Queue | 2025-12-10 |
@@ -154,6 +155,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [2043](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) | [Simple Bank System](https://leetcode.com/problems/simple-bank-system/) | Medium | Design, Data Structure | Data Structure Design | 2025-10-21 |
 | [2466](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) | [Count Ways To Build Good Strings](https://leetcode.com/problems/count-ways-to-build-good-strings/) | Medium | Dynamic Programming | DP, Bottom-up, Top-down | 2025-10-16 |
 | [2799](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) | [Count Complete Subarrays in an Array](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | Medium | Array, Sliding Window | Sliding Window, Hash Map | 2025-10-17 |
+| [3439](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/) | [Reschedule Meetings for Maximum Free Time I](https://leetcode.com/problems/reschedule-meetings-for-maximum-free-time-i/) | Medium | Array, Intervals, Sliding Window | Prefix Sum, Sliding Window | 2026-02-06 |
 | [5](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/) | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | Medium | String, Two Pointers | Expand Around Center, Manacher's Algorithm | 2026-01-08 |
 | [22](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) | [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) | Medium | Backtracking, String | Backtracking, DFS | 2026-01-12 |
 | [51](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/) | [N-Queens](https://leetcode.com/problems/n-queens/) | Hard | Backtracking, Recursion | Backtracking, Constraint Satisfaction | 2026-01-12 |
@@ -275,6 +277,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [213. House Robber II](https://robinali34.github.io/blog_leetcode/2026/01/25/medium-213-house-robber-ii/) - DP, Circular Array
 - [200. Number of Islands](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/)
 - [209. Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode/2026/01/26/medium-209-minimum-size-subarray-sum/) - Sliding Window, Prefix Sum
+- [3439. Reschedule Meetings for Maximum Free Time I](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/) - Prefix Sum, Sliding Window
 - [238. Product of Array Except Self](https://robinali34.github.io/blog_leetcode/2026/01/27/medium-238-product-of-array-except-self/) - Left/Right Products
 - [325. Maximum Size Subarray Sum Equals k](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) - Prefix Sum, Hash Map
 - [560. Subarray Sum Equals K](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-560-subarray-sum-equals-k/) - Prefix Sum, Hash Map
@@ -654,6 +657,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
 - [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) - Bellman-Ford, BFS, Dijkstra
 - [843. Guess the Word](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/) - Elimination Strategy, Filtering
+- [252. Meeting Rooms](https://robinali34.github.io/blog_leetcode/2026/02/06/easy-252-meeting-rooms/) - Sort, Consecutive Overlap Check
+- [3439. Reschedule Meetings for Maximum Free Time I](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/) - Prefix Sum, Sliding Window
 - [1109. Corporate Flight Bookings](https://robinali34.github.io/blog_leetcode/2026/02/05/medium-1109-corporate-flight-bookings/) - Difference Array, partial_sum
 - [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
 - [981. Time Based Key-Value Store](https://robinali34.github.io/blog_leetcode/2026/01/30/medium-981-time-based-key-value-store/) - Binary Search, Hash Map
@@ -710,5 +715,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 5, 2026*
-*Total problems solved: 181*
+*Last updated: February 6, 2026*
+*Total problems solved: 183*
