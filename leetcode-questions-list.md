@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 183
+- **Total Problems:** 186
 - **Easy:** 30 problems
-- **Medium:** 134 problems
+- **Medium:** 137 problems
 - **Hard:** 21 problems
 
 ## All LeetCode Problems
@@ -109,6 +109,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [509](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) | [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) | Easy | Dynamic Programming, Math | DP, Bottom-Up | 2025-11-18 |
 | [525](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) | [Contiguous Array](https://leetcode.com/problems/contiguous-array/) | Medium | Array, Hash Table | Prefix Sum, Hash Map | 2025-11-04 |
 | [528](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) | [Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) | Medium | Design, Binary Search, Prefix Sum | Prefix Sum, Binary Search | 2025-11-24 |
+| [532](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-532-k-diff-pairs-in-an-array/) | [K-diff Pairs in an Array](https://leetcode.com/problems/k-diff-pairs-in-an-array/) | Medium | Array, Hash Table | Hash Map, Frequency / Set | 2026-02-06 |
 | [593](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/) | [Valid Square](https://leetcode.com/problems/valid-square/) | Medium | Math, Geometry | Distance Calculation, Set | 2025-12-02 |
 | [636](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) | [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/) | Medium | Stack, Parsing | Stack, Log Parsing | 2025-10-27 |
 | [645](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-645-set-mismatch/) | [Set Mismatch](https://leetcode.com/problems/set-mismatch/) | Easy | Array, Hash Table, Math | Mathematical Approach, Negative Marking | 2026-01-19 |
@@ -119,6 +120,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [772](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) | [Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) | Hard | String, Stack, Math | Stack, Recursion, Expression Evaluation | 2025-11-13 |
 | [850](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) | [Rectangle Area II](https://leetcode.com/problems/rectangle-area-ii/) | Hard | Geometry, Sweep Line, Segment Tree | Sweep Line, Coordinate Compression, Segment Tree | 2025-12-16 |
 | [863](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) | [All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | Medium | Tree, DFS, BFS | Graph Conversion, DFS, Parent Pointer | 2025-10-25 |
+| [875](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-875-koko-eating-bananas/) | [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | Medium | Array, Binary Search | Binary Search on Answer | 2026-02-06 |
 | [503](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) | [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | Medium | Array, Stack | Monotonic Stack | 2025-10-17 |
 | [545](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) | [Boundary of Binary Tree](https://leetcode.com/problems/boundary-of-binary-tree/) | Medium | Tree, DFS | DFS, Boundary Traversal | 2025-10-21 |
 | [547](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) | [Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | Medium | Disjoint Set, DFS, Graph | Union-Find, Connected Components | 2025-12-18 |
@@ -146,6 +148,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [1242](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-1242-web-crawler-multithreaded/) | [Web Crawler Multithreaded](https://leetcode.com/problems/web-crawler-multithreaded/) | Medium | Concurrency, Multithreading | Multithreading, BFS | 2025-09-24 |
 | [1249](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) | [Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | Medium | String, Stack | Stack Validation, Parentheses | 2025-10-22 |
 | [1443](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) | [Minimum Time to Collect All Apples in a Tree](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | Medium | Tree, DFS, BFS | DFS, Tree Traversal | 2025-10-21 |
+| [1488](https://robinali34.github.io/blog_leetcode/2026/02/07/medium-1488-avoid-flood-in-the-city/) | [Avoid Flood in The City](https://leetcode.com/problems/avoid-flood-in-the-city/) | Medium | Array, Greedy, Set | Greedy, Sorted Set, lower_bound | 2026-02-07 |
 | [1570](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-1570-dot-product-of-two-sparse-vectors/) | [Dot Product of Two Sparse Vectors](https://leetcode.com/problems/dot-product-of-two-sparse-vectors/) | Medium | Hash Map, Data Structure | Hash Map, Optimization | 2025-10-19 |
 | [1650](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) | [Lowest Common Ancestor of a Binary Tree III](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) | Medium | Tree, Binary Tree, LCA | Two Pointers, Tree Traversal | 2025-10-21 |
 | [1762](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/) | [Buildings With an Ocean View](https://leetcode.com/problems/buildings-with-an-ocean-view/) | Medium | Array, Stack | Monotonic Stack, Greedy | 2025-11-24 |
@@ -658,6 +661,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) - Bellman-Ford, BFS, Dijkstra
 - [843. Guess the Word](https://robinali34.github.io/blog_leetcode/2026/02/02/hard-843-guess-the-word/) - Elimination Strategy, Filtering
 - [252. Meeting Rooms](https://robinali34.github.io/blog_leetcode/2026/02/06/easy-252-meeting-rooms/) - Sort, Consecutive Overlap Check
+- [532. K-diff Pairs in an Array](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-532-k-diff-pairs-in-an-array/) - Hash Map, Frequency / Set
+- [875. Koko Eating Bananas](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-875-koko-eating-bananas/) - Binary Search on Answer
+- [1488. Avoid Flood in The City](https://robinali34.github.io/blog_leetcode/2026/02/07/medium-1488-avoid-flood-in-the-city/) - Greedy, Sorted Set, lower_bound
 - [3439. Reschedule Meetings for Maximum Free Time I](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/) - Prefix Sum, Sliding Window
 - [1109. Corporate Flight Bookings](https://robinali34.github.io/blog_leetcode/2026/02/05/medium-1109-corporate-flight-bookings/) - Difference Array, partial_sum
 - [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
@@ -715,5 +721,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 6, 2026*
-*Total problems solved: 183*
+*Last updated: February 7, 2026*
+*Total problems solved: 186*
