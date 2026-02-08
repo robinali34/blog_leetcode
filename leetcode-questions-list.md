@@ -12,9 +12,9 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 186
+- **Total Problems:** 187
 - **Easy:** 30 problems
-- **Medium:** 137 problems
+- **Medium:** 138 problems
 - **Hard:** 21 problems
 
 ## All LeetCode Problems
@@ -66,6 +66,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 | [862](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) | [Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | Hard | Array, Sliding Window, Deque | Monotonic Deque, Prefix Sum | 2026-01-26 |
 | [207](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) | [Course Schedule](https://leetcode.com/problems/course-schedule/) | Medium | Graph, Topological Sort | Topological Sort, Cycle Detection | 2025-10-21 |
 | [208](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | Medium | String, Design, Trie | Trie, Prefix Tree, Data Structure | 2026-01-18 |
+| [210](https://robinali34.github.io/blog_leetcode/2026/02/08/medium-210-course-schedule-ii/) | [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) | Medium | Graph, Topological Sort | DFS Three-State, Kahn's Algorithm | 2026-02-08 |
 | [2080](https://robinali34.github.io/blog_leetcode/2026/01/28/medium-2080-range-frequency-queries/) | [Range Frequency Queries](https://leetcode.com/problems/range-frequency-queries/) | Medium | Array, Hash Map, Binary Search, Design | Hash Map, Binary Search | 2026-01-28 |
 | [211](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-211-design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | Medium | String, Design, Trie | Trie, Wildcard Search, DFS | 2026-01-19 |
 | [2185](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-2185-counting-words-with-a-given-prefix/) | [Counting Words With a Given Prefix](https://leetcode.com/problems/counting-words-with-a-given-prefix/) | Easy | String, Array | Prefix Matching, Simulation | 2026-01-19 |
@@ -559,6 +560,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ### Graph
 - [207. Course Schedule](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) - Topological Sort, Cycle Detection
+- [210. Course Schedule II](https://robinali34.github.io/blog_leetcode/2026/02/08/medium-210-course-schedule-ii/) - DFS Three-State, Kahn's Algorithm
 - [743. Network Delay Time](https://robinali34.github.io/blog_leetcode/2026/02/03/medium-743-network-delay-time/) - Dijkstra's Algorithm
 - [787. Cheapest Flights Within K Stops](https://robinali34.github.io/blog_leetcode/2026/02/04/medium-787-cheapest-flights-within-k-stops/) - Bellman-Ford, BFS, Dijkstra
 - [1136. Parallel Courses](https://robinali34.github.io/blog_leetcode/2026/01/27/hard-1136-parallel-courses/) - DFS with Memoization, Longest Path
@@ -664,6 +666,7 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 - [532. K-diff Pairs in an Array](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-532-k-diff-pairs-in-an-array/) - Hash Map, Frequency / Set
 - [875. Koko Eating Bananas](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-875-koko-eating-bananas/) - Binary Search on Answer
 - [1488. Avoid Flood in The City](https://robinali34.github.io/blog_leetcode/2026/02/07/medium-1488-avoid-flood-in-the-city/) - Greedy, Sorted Set, lower_bound
+- [210. Course Schedule II](https://robinali34.github.io/blog_leetcode/2026/02/08/medium-210-course-schedule-ii/) - DFS Three-State, Kahn's Algorithm
 - [3439. Reschedule Meetings for Maximum Free Time I](https://robinali34.github.io/blog_leetcode/2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/) - Prefix Sum, Sliding Window
 - [1109. Corporate Flight Bookings](https://robinali34.github.io/blog_leetcode/2026/02/05/medium-1109-corporate-flight-bookings/) - Difference Array, partial_sum
 - [974. Subarray Sums Divisible by K](https://robinali34.github.io/blog_leetcode/2026/02/02/medium-974-subarray-sums-divisible-by-k/) - Prefix Modulo, Array
@@ -721,5 +724,5 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ---
 
-*Last updated: February 7, 2026*
-*Total problems solved: 186*
+*Last updated: February 8, 2026*
+*Total problems solved: 187*
