@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Graph"
+title: "Algorithm Templates: Graph"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates graph
 permalink: /posts/2025-10-29-leetcode-templates-graph/
@@ -8,32 +8,44 @@ tags: [leetcode, templates, graph]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for graph traversal, shortest paths, and topological sort. 0-indexed unless noted.
+
 ## Contents
 
-- [BFS / Shortest Path](#bfs--shortest-path-unweighted)
-- [Multi-source BFS](#multi-source-bfs-gridsgraphs)
-- [BFS on Bitmask State](#bfs-on-bitmask-state-visit-all-keys)
-- [Topological Sort (Kahn)](#topological-sort-kahn)
-- [Dijkstra](#dijkstra-weights--0)
-- [0-1 BFS](#0-1-bfs-weights-0-or-1)
-- [Disjoint Set Union (DSU)](#disjoint-set-union-dsu)
-- [Tarjan SCC / Bridges & Articulation](#tarjan-scc--bridges--articulation)
+- [BFS (unweighted)](#bfs-unweighted)
+- [Multi-source BFS](#multi-source-bfs)
+- [BFS with state (bitmask)](#bfs-with-state-bitmask)
+- [Topological sort (Kahn)](#topological-sort-kahn)
+- [Topological sort (DFS)](#topological-sort-dfs)
+- [Dijkstra](#dijkstra)
+- [0-1 BFS](#0-1-bfs)
+- [Bellman-Ford (k edges)](#bellman-ford-k-edges)
+- [Tarjan (SCC / bridges)](#tarjan-scc--bridges)
+- [DSU](#dsu)
 
-## BFS / Shortest Path (unweighted)
+---
+
+## BFS (unweighted)
+
+Grid: 4-directional. Use for shortest path when all edges have weight 1.
 
 ```cpp
-int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
-    int m=g.size(), n=g[0].size();
-    queue<pair<int,int>> q; vector<vector<int>> dist(m, vector<int>(n, -1));
-    int dirs[4][2] = \{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\};
-    q.push(s); dist[s.first][s.second] = 0;
-    while(!q.empty()){
-        auto [x,y] = q.front(); q.pop();
-        if (make_pair(x,y) == t) return dist[x][y];
-        for (auto& d: dirs){
-            int nx=x+d[0], ny=y+d[1];
-            if (nx>=0&&nx<m&&ny>=0&&ny<n && g[nx][ny] != '#' && dist[nx][ny]==-1){
-                dist[nx][ny] = dist[x][y] + 1; q.push({nx,ny});
+int bfs_grid(const vector<string>& g, int si, int sj, int ti, int tj) {
+    int m = g.size(), n = g[0].size();
+    vector<vector<int>> dist(m, vector<int>(n, -1));
+    queue<pair<int,int>> q;
+    q.push({si, sj});
+    dist[si][sj] = 0;
+    const int dirs[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    while (!q.empty()) {
+        auto [i, j] = q.front();
+        q.pop();
+        if (i == ti && j == tj) return dist[i][j];
+        for (auto& d : dirs) {
+            int ni = i + d[0], nj = j + d[1];
+            if (ni >= 0 && ni < m && nj >= 0 && nj < n && g[ni][nj] != '#' && dist[ni][nj] == -1) {
+                dist[ni][nj] = dist[i][j] + 1;
+                q.push({ni, nj});
             }
         }
     }
@@ -41,25 +53,37 @@ int bfsGrid(vector<string>& g, pair<int,int> s, pair<int,int> t){
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) | - |
-| 417 | Pacific Atlantic Water Flow | [Link](https://leetcode.com/problems/pacific-atlantic-water-flow/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-417-pacific-atlantic-water-flow/) |
-| 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) | - |
+| ID | Title | Link |
+|----|--------|------|
+| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) |
+| 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) |
 
-## Multi-source BFS (grids/graphs)
+---
+
+## Multi-source BFS
+
+Start from multiple nodes (distance 0). Same as BFS with initial queue containing all sources.
 
 ```cpp
-int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
-    int m=g.size(), n=g[0].size();
-    queue<pair<int,int>> q; vector<vector<int>> dist(m, vector<int>(n, -1));
-    for(auto [x,y]: sources){ dist[x][y]=0; q.push({x,y}); }
-    int dirs[4][2]=\{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\}; int best=0;
-    while(!q.empty()){
-        auto [x,y]=q.front(); q.pop();
-        for(auto& d: dirs){ int nx=x+d[0], ny=y+d[1];
-            if(nx>=0&&nx<m&&ny>=0&&ny<n && g[nx][ny] != '#' && dist[nx][ny]==-1){
-                dist[nx][ny]=dist[x][y]+1; best=max(best, dist[nx][ny]); q.push({nx,ny});
+int multi_bfs(const vector<string>& g, const vector<pair<int,int>>& sources) {
+    int m = g.size(), n = g[0].size();
+    vector<vector<int>> dist(m, vector<int>(n, -1));
+    queue<pair<int,int>> q;
+    for (auto [i, j] : sources) {
+        dist[i][j] = 0;
+        q.push({i, j});
+    }
+    const int dirs[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    int best = 0;
+    while (!q.empty()) {
+        auto [i, j] = q.front();
+        q.pop();
+        for (auto& d : dirs) {
+            int ni = i + d[0], nj = j + d[1];
+            if (ni >= 0 && ni < m && nj >= 0 && nj < n && g[ni][nj] != '#' && dist[ni][nj] == -1) {
+                dist[ni][nj] = dist[i][j] + 1;
+                best = max(best, dist[ni][nj]);
+                q.push({ni, nj});
             }
         }
     }
@@ -67,253 +91,291 @@ int multiSourceBfs(vector<string>& g, vector<pair<int,int>> sources){
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/) |
-| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) |
+| ID | Title | Link |
+|----|--------|------|
+| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) |
+| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) |
 
-## BFS on Bitmask State (visit all keys)
+---
+
+## BFS with state (bitmask)
+
+State = (node, mask). Use when “visit all keys” or “visit all nodes” is part of the goal.
 
 ```cpp
-struct State{int u,mask};
-int bfsMask(const vector<vector<int>>& g, int start){
-    int n=g.size(); int full=(1<<n)-1; queue<State> q; vector vis(n, vector<bool>(1<<n,false));
-    q.push({start, 1<<start}); vis[start][1<<start]=true; int d=0;
-    while(!q.empty()){
-        int sz=q.size();
-        while(sz--){ auto [u,mask]=q.front(); q.pop(); if(mask==full) return d;
-            for(int v: g[u]){ int m2=mask|(1<<v); if(!vis[v][m2]){ vis[v][m2]=true; q.push({v,m2}); } }
+int bfs_mask(int n, const vector<vector<int>>& g, int start) {
+    int full = (1 << n) - 1;
+    vector<vector<bool>> vis(n, vector<bool>(1 << n, false));
+    queue<pair<int,int>> q;
+    q.push({start, 1 << start});
+    vis[start][1 << start] = true;
+    for (int d = 0; !q.empty(); d++) {
+        int sz = q.size();
+        while (sz--) {
+            auto [u, mask] = q.front();
+            q.pop();
+            if (mask == full) return d;
+            for (int v : g[u]) {
+                int m2 = mask | (1 << v);
+                if (!vis[v][m2]) {
+                    vis[v][m2] = true;
+                    q.push({v, m2});
+                }
+            }
         }
-        ++d;
     }
     return -1;
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 864 | Shortest Path to Get All Keys | [Link](https://leetcode.com/problems/shortest-path-to-get-all-keys/) | - |
-| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
+| ID | Title | Link |
+|----|--------|------|
+| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) |
+| 864 | Shortest Path to Get All Keys | [Link](https://leetcode.com/problems/shortest-path-to-get-all-keys/) |
 
-## Topological Sort (Kahn)
+---
+
+## Topological sort (Kahn)
+
+Indegree-based. Edge (u, v) means u before v. Returns order or empty if cycle.
 
 ```cpp
-vector<int> topoKahn(int n, const vector<vector<int>>& g){
-    vector<int> indeg(n); for(int u=0;u<n;++u) for(int v:g[u]) ++indeg[v];
-    queue<int> q; for(int i=0;i<n;++i) if(!indeg[i]) q.push(i);
+vector<int> topo_kahn(int n, const vector<vector<int>>& g) {
+    vector<int> indeg(n);
+    for (int u = 0; u < n; u++)
+        for (int v : g[u]) indeg[v]++;
+    queue<int> q;
+    for (int i = 0; i < n; i++)
+        if (indeg[i] == 0) q.push(i);
     vector<int> order;
-    while(!q.empty()){ int u=q.front(); q.pop(); order.push_back(u);
-        for(int v:g[u]) if(--indeg[v]==0) q.push(v);
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        order.push_back(u);
+        for (int v : g[u])
+            if (--indeg[v] == 0) q.push(v);
     }
-    if ((int)order.size()!=n) order.clear();
+    return (int)order.size() == n ? order : vector<int>{};
+}
+```
+
+| ID | Title | Link |
+|----|--------|------|
+| 207 | Course Schedule | [Link](https://leetcode.com/problems/course-schedule/) |
+| 210 | Course Schedule II | [Link](https://leetcode.com/problems/course-schedule-ii/) |
+| 269 | Alien Dictionary | [Link](https://leetcode.com/problems/alien-dictionary/) |
+
+---
+
+## Topological sort (DFS)
+
+Three colors: 0 unvisited, 1 visiting, 2 done. Push to order when finishing. Reverse = topo order. Back edge (neighbor color 1) = cycle.
+
+```cpp
+vector<int> topo_dfs(int n, const vector<vector<int>>& g) {
+    vector<int> color(n, 0), order;
+    bool ok = true;
+    function<void(int)> dfs = [&](int u) {
+        color[u] = 1;
+        for (int v : g[u]) {
+            if (color[v] == 0) dfs(v);
+            else if (color[v] == 1) ok = false;
+        }
+        color[u] = 2;
+        order.push_back(u);
+    };
+    for (int i = 0; i < n; i++)
+        if (color[i] == 0) dfs(i);
+    if (!ok) return {};
+    reverse(order.begin(), order.end());
     return order;
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 207 | Course Schedule | [Link](https://leetcode.com/problems/course-schedule/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-207-course-schedule/) |
-| 210 | Course Schedule II | [Link](https://leetcode.com/problems/course-schedule-ii/) | - |
-| LCR 113 | Course Schedule II (CN) | [Link](https://leetcode.cn/problems/QA2IGt/description/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) |
-| 269 | Alien Dictionary | [Link](https://leetcode.com/problems/alien-dictionary/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) |
-| 310 | Minimum Height Trees | [Link](https://leetcode.com/problems/minimum-height-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-310-minimum-height-trees/) |
-| 802 | Find Eventual Safe States | [Link](https://leetcode.com/problems/find-eventual-safe-states/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/15/medium-802-find-eventual-safe-states/) |
+| ID | Title | Link |
+|----|--------|------|
+| 802 | Find Eventual Safe States | [Link](https://leetcode.com/problems/find-eventual-safe-states/) |
 
-## Dijkstra (weights ≥ 0)
+---
+
+## Dijkstra
+
+Nonnegative weights. Adjacency list: g[u] = [(v, w), ...]. Returns distances from source s.
 
 ```cpp
-vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s){
-    const long long INF = (1LL<<60);
-    vector<long long> dist(n, INF); dist[s]=0;
-    using P=pair<long long,int>; priority_queue<P, vector<P>, greater<P>> pq; pq.push({0,s});
-    while(!pq.empty()){
-        auto [d,u]=pq.top(); pq.pop(); if(d!=dist[u]) continue;
-        for(auto [v,w]: g[u]) if(dist[v]>d+w){ dist[v]=d+w; pq.push({dist[v],v}); }
+vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s) {
+    const long long INF = 1LL << 60;
+    vector<long long> dist(n, INF);
+    dist[s] = 0;
+    using P = pair<long long, int>;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    pq.push({0, s});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d != dist[u]) continue;
+        for (auto [v, w] : g[u]) {
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
+                pq.push({dist[v], v});
+            }
+        }
     }
     return dist;
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) | - |
-| 1631 | Path With Minimum Effort | [Link](https://leetcode.com/problems/path-with-minimum-effort/) | - |
-| 1976 | Number of Ways to Arrive at Destination | [Link](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/28/medium-1976-number-of-ways-to-arrive-at-destination/) |
+| ID | Title | Link |
+|----|--------|------|
+| 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) |
+| 1976 | Number of Ways to Arrive at Destination | [Link](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/) |
 
-## 0-1 BFS (weights 0 or 1)
+---
+
+## 0-1 BFS
+
+Weights 0 or 1. Deque: push front for 0, back for 1. O(V + E).
 
 ```cpp
-deque<int> dq; vector<int> dist(n, 1e9); dist[s]=0; dq.push_front(s);
-while(!dq.empty()){
-    int u=dq.front(); dq.pop_front();
-    for(auto [v,w]: g[u]){
-        int nd = dist[u] + w; // w in {0,1}
-        if (nd < dist[v]){
-            dist[v]=nd; if (w==0) dq.push_front(v); else dq.push_back(v);
+vector<int> bfs01(int n, const vector<vector<pair<int,int>>>& g, int s) {
+    vector<int> dist(n, 1e9);
+    dist[s] = 0;
+    deque<int> dq;
+    dq.push_front(s);
+    while (!dq.empty()) {
+        int u = dq.front();
+        dq.pop_front();
+        for (auto [v, w] : g[u]) {
+            int nd = dist[u] + w;
+            if (nd < dist[v]) {
+                dist[v] = nd;
+                if (w == 0) dq.push_front(v);
+                else dq.push_back(v);
+            }
         }
     }
+    return dist;
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 1293 | Shortest Path in a Grid with Obstacles Elimination | [Link](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/) | - |
-| 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
+---
 
-## Tarjan SCC / Bridges & Articulation
+## Bellman-Ford (k edges)
+
+Relax all edges up to k times. Use when path length (number of edges) is limited.
 
 ```cpp
-int timer2; vector<int> tin2, low2; vector<pair<int,int>> bridges;
-void dfsBr(int u,int p,const vector<vector<int>>& g){ tin2[u]=low2[u]=++timer2; int child=0; bool isAP=false;
-    for(int v:g[u]) if(v!=p){ if(!tin2[v]){ ++child; dfsBr(v,u,g); low2[u]=min(low2[u], low2[v]); if(low2[v]>tin2[u]) bridges.push_back({u,v}); if(p!=-1 && low2[v]>=tin2[u]) isAP=true; }
-        else low2[u]=min(low2[u], tin2[v]); }
-    if(p==-1 && child>1) isAP=true;
+vector<long long> bellman_ford_k(int n, const vector<array<int,3>>& edges, int src, int k) {
+    const long long INF = 1LL << 60;
+    vector<long long> dist(n, INF);
+    dist[src] = 0;
+    for (int i = 0; i <= k; i++) {
+        vector<long long> ndist = dist;
+        for (auto& e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            if (dist[u] != INF && dist[u] + w < ndist[v])
+                ndist[v] = dist[u] + w;
+        }
+        dist = move(ndist);
+    }
+    return dist;
 }
 ```
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 1192 | Critical Connections in a Network | [Link](https://leetcode.com/problems/critical-connections-in-a-network/) | - |
+| ID | Title | Link |
+|----|--------|------|
+| 787 | Cheapest Flights Within K Stops | [Link](https://leetcode.com/problems/cheapest-flights-within-k-stops/) |
 
-## Disjoint Set Union (DSU)
+---
 
-Disjoint Set Union (DSU), also known as Union-Find, tracks connected components efficiently.
+## Tarjan (SCC / bridges)
 
-### Basic Disjoint Set
-
-```cpp
-class UnionFind {
-    vector<int> parent;
-public:
-    UnionFind(int n) : parent(n) {
-        iota(parent.begin(), parent.end(), 0);
-    }
-    
-    int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // Path compression
-        }
-        return parent[x];
-    }
-    
-    void unite(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        if (px != py) {
-            parent[px] = py;
-        }
-    }
-    
-    bool connected(int x, int y) {
-        return find(x) == find(y);
-    }
-};
-```
-
-### Disjoint Set with Union by Rank
-
-Union by rank keeps tree balanced for better performance.
+SCC: same low-link = same component. Bridges: edge (u,v) is bridge iff low[v] > tin[u].
 
 ```cpp
-class UnionFind {
-    vector<int> parent, rank;
-public:
-    UnionFind(int n) : parent(n), rank(n, 0) {
-        iota(parent.begin(), parent.end(), 0);
-    }
-    
-    int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // Path compression
+struct Tarjan {
+    int n, timer = 0;
+    vector<vector<int>> g;
+    vector<int> tin, low, comp, st;
+    vector<char> in;
+    int ncomp = 0;
+
+    Tarjan(int n) : n(n), g(n), tin(n, -1), low(n), comp(n, -1), in(n, 0) {}
+    void add(int u, int v) { g[u].push_back(v); }
+
+    void dfs(int u) {
+        tin[u] = low[u] = timer++;
+        st.push_back(u);
+        in[u] = 1;
+        for (int v : g[u]) {
+            if (tin[v] == -1) {
+                dfs(v);
+                low[u] = min(low[u], low[v]);
+            } else if (in[v])
+                low[u] = min(low[u], tin[v]);
         }
-        return parent[x];
-    }
-    
-    void unite(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        if (px == py) return;
-        
-        // Union by rank: attach smaller tree to larger tree
-        if (rank[px] < rank[py]) {
-            parent[px] = py;
-        } else if (rank[px] > rank[py]) {
-            parent[py] = px;
-        } else {
-            parent[py] = px;
-            rank[px]++;
+        if (low[u] == tin[u]) {
+            while (true) {
+                int v = st.back();
+                st.pop_back();
+                in[v] = 0;
+                comp[v] = ncomp;
+                if (v == u) break;
+            }
+            ncomp++;
         }
     }
-    
-    bool connected(int x, int y) {
-        return find(x) == find(y);
-    }
-    
-    int countComponents() {
-        unordered_set<int> roots;
-        for (int i = 0; i < parent.size(); ++i) {
-            roots.insert(find(i));
-        }
-        return roots.size();
+    int run() {
+        for (int i = 0; i < n; i++)
+            if (tin[i] == -1) dfs(i);
+        return ncomp;
     }
 };
+
+// Bridges: during dfs, if (low[v] > tin[u]) then (u,v) is bridge
+vector<pair<int,int>> bridges(int n, const vector<vector<int>>& g) {
+    int timer = 0;
+    vector<int> tin(n, -1), low(n);
+    vector<pair<int,int>> out;
+    function<void(int,int)> dfs = [&](int u, int p) {
+        tin[u] = low[u] = timer++;
+        for (int v : g[u]) {
+            if (tin[v] == -1) {
+                dfs(v, u);
+                low[u] = min(low[u], low[v]);
+                if (low[v] > tin[u]) out.push_back({u, v});
+            } else if (v != p)
+                low[u] = min(low[u], tin[v]);
+        }
+    };
+    for (int i = 0; i < n; i++)
+        if (tin[i] == -1) dfs(i, -1);
+    return out;
+}
 ```
 
-### Weighted Disjoint Set
+| ID | Title | Link |
+|----|--------|------|
+| 1192 | Critical Connections in a Network | [Link](https://leetcode.com/problems/critical-connections-in-a-network/) |
 
-For problems requiring maintaining weights/ratios (e.g., Evaluate Division).
+---
 
-```cpp
-class WeightedUnionFind {
-    unordered_map<string, pair<string, double>> weights;
-    
-    pair<string, double> find(const string& node) {
-        if(!weights.contains(node)) {
-            weights[node] = {node, 1.0};
-        }
-        auto entry = weights[node];
-        if(entry.first != node) {
-            auto parentEntry = find(entry.first);
-            weights[node] = {
-                parentEntry.first,
-                entry.second * parentEntry.second
-            };
-        }
-        return weights[node];
-    }
-    
-    void unite(const string& dividend, const string& divisor, double value) {
-        auto dividendEntry = find(dividend);
-        auto divisorEntry = find(divisor);
-        
-        string dividendRoot = dividendEntry.first;
-        string divisorRoot = divisorEntry.first;
-        
-        if(dividendRoot != divisorRoot) {
-            weights[dividendRoot] = {
-                divisorRoot,
-                divisorEntry.second * value / dividendEntry.second
-            };
-        }
-    }
-};
-```
+## DSU
 
-| ID | Title | Link | Solution |
-|---|---|---|---|
-| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/) |
-| 305 | Number of Islands II | [Link](https://leetcode.com/problems/number-of-islands-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/hard-305-number-of-islands-ii/) |
-| 323 | Number of Connected Components in an Undirected Graph | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) |
-| 547 | Number of Provinces | [Link](https://leetcode.com/problems/number-of-provinces/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-18-medium-547-number-of-provinces/) |
-| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/29/medium-684-redundant-connection/) |
-| 685 | Redundant Connection II | [Link](https://leetcode.com/problems/redundant-connection-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/hard-685-redundant-connection-ii/) |
-| 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/11/medium-721-accounts-merge/) |
-| 990 | Satisfiability of Equality Equations | [Link](https://leetcode.com/problems/satisfiability-of-equality-equations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/04/medium-990-satisfiability-of-equality-equations/) |
-| 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-17-medium-399-evaluate-division/) |
-| 1319 | Number of Operations to Make Network Connected | [Link](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) | - |
+Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
 
-### References
+| ID | Title | Link |
+|----|--------|------|
+| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) |
+| 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) |
+| 323 | Number of Connected Components | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) |
+| 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) (weighted DSU) |
 
-- [LeetCode Disjoint Set LeetBook](https://leetcode.cn/leetbook/detail/disjoint-set/) - Comprehensive guide to Disjoint Set Union (DSU) with LeetCode problems
+---
 
+## More templates
+
+- **Data structures (DSU, segment tree, etc.):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Binary search, rotated array, 2D:** [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

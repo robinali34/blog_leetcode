@@ -12,9 +12,9 @@ tags: [leetcode, templates, patterns, dp, graph, sliding-window, two-pointers, b
 
 A quick reference to the most common LeetCode categories and battle‑tested C++ templates to speed up implementation.
 
-> This guide is now split into category posts:
+> This guide is split into category posts (minimal, copy-paste C++):
+> - **Data Structures & Core Algorithms:** [Binary search bounds, prefix/diff, monotonic stack/queue, heap, DSU, Trie, segment tree, Fenwick, sparse table](/posts/2025-10-29-leetcode-templates-data-structures/)
 > - Arrays & Strings: [/posts/2025-10-29-leetcode-templates-arrays-strings/](/posts/2025-10-29-leetcode-templates-arrays-strings/)
-> - Data Structures: [/posts/2025-10-29-leetcode-templates-data-structures/](/posts/2025-10-29-leetcode-templates-data-structures/)
 > - Stack: [/posts/2025-11-13-leetcode-templates-stack/](/posts/2025-11-13-leetcode-templates-stack/)
 > - Calculator: [/posts/2025-11-13-leetcode-templates-calculator/](/posts/2025-11-13-leetcode-templates-calculator/)
 > - Graph: [/posts/2025-10-29-leetcode-templates-graph/](/posts/2025-10-29-leetcode-templates-graph/)

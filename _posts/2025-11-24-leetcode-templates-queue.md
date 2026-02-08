@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Queue"
+title: "Algorithm Templates: Queue"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates queue
 permalink: /posts/2025-11-24-leetcode-templates-queue/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, queue, data-structures]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for BFS queue, monotonic queue, priority queue, circular queue, and deque. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
+
 ## Contents
 
 - [Basic Queue Operations](#basic-queue-operations)
@@ -426,5 +428,11 @@ public:
 |---|---|---|---|
 | 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
 | 1670 | Design Front Middle Back Queue | [Link](https://leetcode.com/problems/design-front-middle-back-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) |
+
+## More templates
+
+- **Data structures (monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **BFS, Graph:** [BFS](/posts/2025-11-24-leetcode-templates-bfs/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

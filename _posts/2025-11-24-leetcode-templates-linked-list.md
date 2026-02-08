@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Linked List"
+title: "Algorithm Templates: Linked List"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates linked-list
 permalink: /posts/2025-11-24-leetcode-templates-linked-list/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, linked-list]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for traversal, two pointers, dummy node, reversal, merge, cycle detection, and circular list.
+
 ## Contents
 
 - [ListNode Definition](#listnode-definition)
@@ -567,5 +569,11 @@ ListNode* insert(ListNode* head, int insertVal) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 708 | Insert into a Sorted Circular Linked List | [Link](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) |
+
+## More templates
+
+- **Data structures (pointers, recursion):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

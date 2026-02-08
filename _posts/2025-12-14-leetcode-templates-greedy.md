@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Greedy"
+title: "Algorithm Templates: Greedy"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode templates greedy
 permalink: /posts/2025-12-14-leetcode-templates-greedy/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, greedy, algorithms]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for interval scheduling, activity selection, and greedy on arrays/strings with sorting.
+
 ## Contents
 
 - [Greedy Algorithm Overview](#greedy-algorithm-overview)
@@ -449,6 +451,12 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 ## References
 
 - [Mastering Greedy Algorithms with LeetCode](https://leetcode.com/discuss/post/5330283/mastering-greedy-algorithms-with-leetcod-d0dq/) - Comprehensive guide to greedy algorithms with LeetCode problems
+
+## More templates
+
+- **DP (when greedy doesn't apply):** [Dynamic Programming](/posts/2025-10-29-leetcode-templates-dp/)
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 
 {% endraw %}
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: DFS"
+title: "Algorithm Templates: DFS"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates dfs graph
 permalink: /posts/2025-11-24-leetcode-templates-dfs/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, dfs, graph, traversal]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for graph DFS, grid DFS, tree DFS, memoization, and iterative DFS. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Backtracking](/posts/2025-11-24-leetcode-templates-backtracking/).
+
 ## Contents
 
 - [Basic DFS](#basic-dfs)
@@ -273,5 +275,11 @@ vector<int> preorderIterative(TreeNode* root) {
 |---|---|---|---|
 | 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | - |
 | 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | - |
+
+## More templates
+
+- **Graph, Backtracking:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Backtracking](/posts/2025-11-24-leetcode-templates-backtracking/)
+- **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Math & Bit Manipulation"
+title: "Algorithm Templates: Math & Bit Manipulation"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates math bit-manipulation
 permalink: /posts/2025-11-24-leetcode-templates-math-bit-manipulation/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, math, bit-manipulation]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for bit operations, fast exponentiation, GCD/LCM, primes, and number theory. See also [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
+
 ## Contents
 
 - [Bit Operations](#bit-operations)
@@ -283,5 +285,11 @@ int reverse(int x) {
 | 7 | Reverse Integer | [Link](https://leetcode.com/problems/reverse-integer/) | - |
 | 9 | Palindrome Number | [Link](https://leetcode.com/problems/palindrome-number/) | - |
 | 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
+
+## More templates
+
+- **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
+- **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

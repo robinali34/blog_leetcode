@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Backtracking"
+title: "Algorithm Templates: Backtracking"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates backtracking
 permalink: /posts/2025-11-24-leetcode-templates-backtracking/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, backtracking, dfs]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for permutations, combinations, subsets, combination sum, grid pathfinding, and constraint satisfaction (N-Queens, Sudoku).
+
 ## Contents
 
 - [Permutations](#permutations-all-arrangements)
@@ -504,5 +506,10 @@ void backtrack(state, constraints, current_solution, results){
 
 **Time Complexity:** Typically exponential O(2^n) or O(n!) depending on problem
 **Space Complexity:** O(depth) for recursion stack + O(solution_size) for current solution
+
+## More templates
+
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

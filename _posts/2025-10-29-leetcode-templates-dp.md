@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Dynamic Programming"
+title: "Algorithm Templates: Dynamic Programming"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates dynamic-programming
 permalink: /posts/2025-10-29-leetcode-templates-dp/
 tags: [leetcode, templates, dp]
 ---
+
+Minimal, copy-paste C++ for 1D/2D DP, LIS, interval DP, state machine, digit DP, and bitmask DP.
 
 ## Contents
 
@@ -430,3 +432,9 @@ int tsp(const vector<vector<int>>& w){
 | 1340 | Jump Game V | [Link](https://leetcode.com/problems/jump-game-v/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/hard-1340-jump-game-v/) |
 | 464 | Can I Win | [Link](https://leetcode.com/problems/can-i-win/) | - |
 | 691 | Stickers to Spell Word | [Link](https://leetcode.com/problems/stickers-to-spell-word/) | - |
+
+## More templates
+
+- **Data structures (segment tree, Fenwick):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search (binary search on answer):** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

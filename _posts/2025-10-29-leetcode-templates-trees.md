@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Trees"
+title: "Algorithm Templates: Trees"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates trees
 permalink: /posts/2025-10-29-leetcode-templates-trees/
 tags: [leetcode, templates, trees]
 ---
+
+Minimal, copy-paste C++ for tree traversals, LCA (binary lifting), segment tree, Fenwick tree, and HLD skeleton.
 
 ## Contents
 
@@ -550,3 +552,10 @@ void dfs2(int u,int h){ headH[u]=h; inH[u]=curT++; if(heavyH[u]!=-1){ dfs2(heavy
 ```
 
 > Note: HLD is rarely required on LeetCode.
+
+## More templates
+
+- **Data structures (segment tree, Fenwick, DSU):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Search (binary search, 2D):** [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

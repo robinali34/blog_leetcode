@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "LeetCode Templates: Arrays & Strings"
+title: "Algorithm Templates: Arrays & Strings"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates arrays strings
 permalink: /posts/2025-10-29-leetcode-templates-arrays-strings/
 tags: [leetcode, templates, arrays, strings]
 ---
+
+{% raw %}
+Minimal, copy-paste C++ for sliding window, two pointers, prefix sum, KMP, Manacher, and rolling hash.
 
 ## Contents
 
@@ -140,11 +143,14 @@ Use the LPS array during the search
 * When mismatch occurs, instead of resetting j = 0, we move j back to lps[j-1].
 
 ```cpp
-vector<int> kmpPi(const string& s){
-    int n=s.size(); vector<int> pi(n);
-    for(int i=1;i<n;++i){ int j=pi[i-1];
-        while(j>0 && s[i]!=s[j]) j=pi[j-1];
-        if(s[i]==s[j]) ++j; pi[i]=j;
+vector<int> kmpPi(const string& s) {
+    int n = s.size();
+    vector<int> pi(n);
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && s[i] != s[j]) j = pi[j - 1];
+        if (s[i] == s[j]) j++;
+        pi[i] = j;
     }
     return pi;
 }
@@ -159,10 +165,21 @@ vector<int> kmpPi(const string& s){
 ## Manacher (Longest Palindromic Substring, O(n))
 
 ```cpp
-string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t.push_back('|'); }
-    int n=t.size(); vector<int> p(n); int c=0,r=0, best=0, center=0;
-    for(int i=0;i<n;++i){ int mir=2*c-i; if(i<r) p[i]=min(r-i,p[mir]); while(i-1-p[i]>=0 && i+1+p[i]<n && t[i-1-p[i]]==t[i+1+p[i]]) ++p[i]; if(i+p[i]>r){ c=i; r=i+p[i]; } if(p[i]>best){ best=p[i]; center=i; } }
-    int start=(center-best)/2; return s.substr(start, best);
+string manacher(const string& s) {
+    string t = "|";
+    for (char c : s) { t.push_back(c); t.push_back('|'); }
+    int n = t.size();
+    vector<int> p(n);
+    int c = 0, r = 0, best = 0, center = 0;
+    for (int i = 0; i < n; i++) {
+        int mir = 2 * c - i;
+        if (i < r) p[i] = min(r - i, p[mir]);
+        while (i - 1 - p[i] >= 0 && i + 1 + p[i] < n && t[i - 1 - p[i]] == t[i + 1 + p[i]]) p[i]++;
+        if (i + p[i] > r) { c = i; r = i + p[i]; }
+        if (p[i] > best) { best = p[i]; center = i; }
+    }
+    int start = (center - best) / 2;
+    return s.substr(start, best);
 }
 ```
 
@@ -173,7 +190,17 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 ## Z-Algorithm (Pattern occurrences)
 
 ```cpp
-vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=0; for(int i=1;i<n;++i){ if(i<=r) z[i]=min(r-i+1, z[i-l]); while(i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i]; if(i+z[i]-1>r){ l=i; r=i+z[i]-1; } } return z; }
+vector<int> zfunc(const string& s) {
+    int n = s.size();
+    vector<int> z(n);
+    int l = 0, r = 0;
+    for (int i = 1; i < n; i++) {
+        if (i <= r) z[i] = min(r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]]) z[i]++;
+        if (i + z[i] - 1 > r) { l = i; r = i + z[i] - 1; }
+    }
+    return z;
+}
 ```
 
 | ID | Title | Link | Solution |
@@ -183,12 +210,20 @@ vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=
 ## String Rolling Hash (Rabin–Karp)
 
 ```cpp
-struct RH{
-    static const long long B=911382323, M=972663749; // example
-    vector<long long> p,h; RH(const string& s){ int n=s.size(); p.assign(n+1,1); h.assign(n+1,0);
-        for(int i=0;i<n;++i){ p[i+1]=p[i]*B%M; h[i+1]=(h[i]*B + s[i])%M; } }
-    long long get(int l,int r){ // [l,r)
-        return (h[r] - h[l]*p[r-l])%M;
+struct RH {
+    static const long long B = 911382323, M = 972663749;
+    vector<long long> p, h;
+    RH(const string& s) {
+        int n = s.size();
+        p.assign(n + 1, 1);
+        h.assign(n + 1, 0);
+        for (int i = 0; i < n; i++) {
+            p[i + 1] = p[i] * B % M;
+            h[i + 1] = (h[i] * B + s[i]) % M;
+        }
+    }
+    long long get(int l, int r) {  // [l, r)
+        return (h[r] - h[l] * p[r - l] % M + M) % M;
     }
 };
 ```
@@ -198,3 +233,10 @@ struct RH{
 | 187 | Repeated DNA Sequences | [Link](https://leetcode.com/problems/repeated-dna-sequences/) | - |
 | 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-686-repeated-string-match/) |
 | 1044 | Longest Duplicate Substring | [Link](https://leetcode.com/problems/longest-duplicate-substring/) | - |
+
+## More templates
+
+- **Data structures (prefix sum, monotonic stack):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+{% endraw %}

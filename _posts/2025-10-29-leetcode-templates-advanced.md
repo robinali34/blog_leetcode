@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Advanced Techniques"
+title: "Algorithm Templates: Advanced Techniques"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates advanced
 permalink: /posts/2025-10-29-leetcode-templates-advanced/
 tags: [leetcode, templates, advanced]
 ---
+
+Minimal, copy-paste C++ for coordinate compression, meet-in-the-middle, Manacher, Z-algorithm, and bitwise trie (max XOR).
 
 ## Contents
 
@@ -82,3 +84,10 @@ struct BitTrie{ struct Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; vector<Node> t{
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 421 | Maximum XOR of Two Numbers in an Array | [Link](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | - |
+
+## More templates
+
+- **Arrays & Strings (Manacher, Z, rolling hash):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Data structures (Trie):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Search (divide and conquer):** [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

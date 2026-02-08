@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Math & Geometry"
+title: "Algorithm Templates: Math & Geometry"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode templates math geometry
 permalink: /posts/2025-10-29-leetcode-templates-math-geometry/
 tags: [leetcode, templates, math, geometry]
 ---
+
+Minimal, copy-paste C++ for combinatorics (nCk mod P) and 2D geometry primitives (cross product, point on segment).
 
 ## Contents
 
@@ -39,3 +41,9 @@ bool onSeg(const P&a,const P&b,const P&c){ return min(a.x,b.x)<=c.x&&c.x<=max(a.
 |---|---|---|---|
 | 149 | Max Points on a Line | [Link](https://leetcode.com/problems/max-points-on-a-line/) | - |
 | 223 | Rectangle Area | [Link](https://leetcode.com/problems/rectangle-area/) | - |
+
+## More templates
+
+- **DP (counting, paths):** [Dynamic Programming](/posts/2025-10-29-leetcode-templates-dp/)
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

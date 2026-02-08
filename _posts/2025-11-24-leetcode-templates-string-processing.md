@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: String Processing"
+title: "Algorithm Templates: String Processing"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates string
 permalink: /posts/2025-11-24-leetcode-templates-string-processing/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, string, algorithms]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for sliding window, two pointers, string matching, manipulation, and parsing. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
+
 ## Contents
 
 - [Sliding Window](#sliding-window)
@@ -314,5 +316,11 @@ string decodeString(string s) {
 |---|---|---|---|
 | 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
 | 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
+
+## More templates
+
+- **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Stack (decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: BFS"
+title: "Algorithm Templates: BFS"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates bfs graph
 permalink: /posts/2025-11-24-leetcode-templates-bfs/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, bfs, graph, traversal]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for graph and grid BFS, multi-source BFS, shortest path, and level-order traversal. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) for Dijkstra and 0-1 BFS.
+
 ## Contents
 
 - [Basic BFS](#basic-bfs)
@@ -320,5 +322,11 @@ int shortestPath(vector<vector<int>>& grid, int k) {
 |---|---|---|---|
 | 1293 | Shortest Path in a Grid with Obstacles Elimination | [Link](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/) | - |
 | 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
+
+## More templates
+
+- **Graph (Dijkstra, 0-1 BFS, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

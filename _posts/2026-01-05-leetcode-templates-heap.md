@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Heap"
+title: "Algorithm Templates: Heap"
 date: 2026-01-05 00:00:00 -0700
 categories: leetcode templates heap priority-queue
 permalink: /posts/2026-01-05-leetcode-templates-heap/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, heap, priority-queue, data-structures]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for min/max heap, K-way merge, top K, and two heaps. See also [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) for heap patterns.
+
 ## Contents
 
 - [Heap Overview](#heap-overview)
@@ -621,6 +623,12 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>& graph, int start) {
 - **Set/Multiset**: For maintaining sorted order with duplicates
 - **Map**: For frequency counting before heap operations
 - **Deque**: For sliding window problems (alternative to heap)
+
+## More templates
+
+- **Data structures (heap, monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph (Dijkstra):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 
 {% endraw %}
 

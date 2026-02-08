@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Array & Matrix"
+title: "Algorithm Templates: Array & Matrix"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates array matrix
 permalink: /posts/2025-11-24-leetcode-templates-array-matrix/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, array, matrix]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for two pointers, sliding window, prefix sum, binary search, and matrix operations. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/posts/2026-01-20-leetcode-templates-search/).
+
 ## Contents
 
 - [Two Pointers](#two-pointers)
@@ -362,5 +364,11 @@ int jump(vector<int>& nums) {
 | 56 | Merge Intervals | [Link](https://leetcode.com/problems/merge-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/) |
 | 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
 | 969 | Pancake Sorting | [Link](https://leetcode.com/problems/pancake-sorting/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/) |
+
+## More templates
+
+- **Arrays & Strings, Search:** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Data structures, Graph:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

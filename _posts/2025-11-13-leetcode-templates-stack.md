@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Stack"
+title: "Algorithm Templates: Stack"
 date: 2025-11-13 19:40:15 -0800
 categories: leetcode templates stack data-structures
 permalink: /posts/2025-11-13-leetcode-templates-stack/
 tags: [leetcode, templates, stack, data-structures]
 ---
+
+Minimal, copy-paste C++ for parentheses matching, expression evaluation, nested structures, and monotonic stack.
 
 ## Contents
 
@@ -208,4 +210,10 @@ void processLogs(vector<string>& logs) {
 2. **Wrong stack order** when pushing/popping multiple values
 3. **Not resetting state** after processing elements
 4. **Index vs value** confusion in monotonic stack problems
+
+## More templates
+
+- **Data structures (monotonic stack/queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 

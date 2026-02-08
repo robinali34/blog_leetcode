@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode Templates: Data Structure Design"
+title: "Algorithm Templates: Data Structure Design"
 date: 2025-11-24 00:00:00 -0700
 categories: leetcode templates design
 permalink: /posts/2025-11-24-leetcode-templates-data-structure-design/
@@ -8,6 +8,8 @@ tags: [leetcode, templates, design, data-structures]
 ---
 
 {% raw %}
+Minimal, copy-paste C++ for LRU/LFU cache, Trie, time-based key-value store, and common design patterns.
+
 ## Contents
 
 - [LRU Cache](#lru-cache)
@@ -360,5 +362,10 @@ public:
 | 2043 | Simple Bank System | [Link](https://leetcode.com/problems/simple-bank-system/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) |
 | 281 | Zigzag Iterator | [Link](https://leetcode.com/problems/zigzag-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/) |
 | 1206 | Design Skiplist | [Link](https://leetcode.com/problems/design-skiplist/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-03-hard-1206-design-skiplist/) |
+
+## More templates
+
+- **Data structures (Trie, segment tree):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

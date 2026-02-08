@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "LeetCode Templates: Calculator Problems"
+title: "Algorithm Templates: Calculator"
 date: 2025-11-13 19:40:15 -0800
 categories: leetcode templates calculator expression-evaluation
 permalink: /posts/2025-11-13-leetcode-templates-calculator/
 tags: [leetcode, templates, calculator, expression-evaluation, stack]
 ---
+
+Minimal, copy-paste C++ for expression evaluation with +, −, ×, ÷ and parentheses. See also [Stack](/posts/2025-11-13-leetcode-templates-stack/) for RPN and nested expressions.
 
 ## Contents
 
@@ -296,4 +298,10 @@ if(c == '(') {
 3. **Stack order**: Pushing/popping in wrong order for parentheses
 4. **Sign handling**: Not applying saved sign correctly after `)`
 5. **Number reset**: Not resetting `num` after processing operators
+
+## More templates
+
+- **Stack (parentheses, RPN, decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 
