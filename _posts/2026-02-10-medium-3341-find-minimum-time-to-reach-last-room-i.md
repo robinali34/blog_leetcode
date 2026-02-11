@@ -65,6 +65,7 @@ Since this transition cost is nonnegative and depends only on the current best t
 
 ## Solution (Dijkstra on Grid)
 
+{% raw %}
 ```cpp
 class Solution {
 public:
@@ -102,6 +103,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ## Complexity
 
