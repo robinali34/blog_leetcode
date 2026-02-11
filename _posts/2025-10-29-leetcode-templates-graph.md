@@ -229,6 +229,68 @@ vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s)
 |----|--------|------|
 | 743 | Network Delay Time | [Link](https://leetcode.com/problems/network-delay-time/) |
 | 1976 | Number of Ways to Arrive at Destination | [Link](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/) |
+| 3112 | Minimum Time to Visit Disappearing Nodes | [Link](https://leetcode.com/problems/minimum-time-to-visit-disappearing-nodes/) |
+| 3341 | Find Minimum Time to Reach Last Room I | [Link](https://leetcode.com/problems/find-minimum-time-to-reach-last-room-i/) |
+
+**Variant: nodes disappear at given times (3112).** Only relax edge \((u,v)\) if `dist[u] + w < disappear[v]`.
+
+```cpp
+vector<int> dijkstra_disappear(int n, const vector<vector<pair<int,int>>>& g,
+                               const vector<int>& disappear) {
+    vector<int> dist(n, -1);
+    dist[0] = 0;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+    pq.push({0, 0});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (dist[u] != -1 && d > dist[u]) continue;
+        for (auto [v, w] : g[u]) {
+            int nd = d + w;
+            if (nd < disappear[v] && (dist[v] == -1 || nd < dist[v])) {
+                dist[v] = nd;
+                pq.push({nd, v});
+            }
+        }
+    }
+    return dist;
+}
+```
+
+**Variant: grid with earliest-entry times (3341).** Moving costs 1, but you may need to wait to enter the next cell:
+\[
+\text{nextTime} = \max(\text{curTime},\ \text{open}[ni][nj]) + 1
+\]
+
+```cpp
+long long dijkstra_grid_open(const vector<vector<int>>& open) {
+    int n = open.size(), m = open[0].size();
+    const long long INF = 1LL << 60;
+    vector<vector<long long>> dist(n, vector<long long>(m, INF));
+    dist[0][0] = 0;
+    using S = pair<long long, pair<int,int>>; // (time, (i,j))
+    priority_queue<S, vector<S>, greater<>> pq;
+    pq.push({0, {0, 0}});
+    const int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+    while (!pq.empty()) {
+        auto [t, pos] = pq.top();
+        pq.pop();
+        auto [i, j] = pos;
+        if (t != dist[i][j]) continue;
+        if (i == n - 1 && j == m - 1) return t;
+        for (auto& d : dirs) {
+            int ni = i + d[0], nj = j + d[1];
+            if (ni < 0 || ni >= n || nj < 0 || nj >= m) continue;
+            long long nt = max(t, (long long)open[ni][nj]) + 1;
+            if (nt < dist[ni][nj]) {
+                dist[ni][nj] = nt;
+                pq.push({nt, {ni, nj}});
+            }
+        }
+    }
+    return dist[n - 1][m - 1];
+}
+```
 
 ---
 

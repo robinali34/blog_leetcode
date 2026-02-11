@@ -113,6 +113,27 @@ public:
 };
 ```
 
+## Example Walkthrough
+
+Let's walk through **Example 1**: `heights = [10, 6, 8, 5, 11, 9]`
+
+We process from **right to left** ($i = 5 \to 0$):
+
+| Step ($i$) | Height | Stack (top at right) | Logic | Pop Count | Visible | Action |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 5 | 9 | `[]` | Stack is empty | 0 | **0** | Push 9 |
+| 4 | 11 | `[9]` | 11 > 9, pop 9 | 1 | 1 + 0 = **1** | Push 11 |
+| 3 | 5 | `[11]` | 5 < 11, don't pop | 0 | 0 + 1 = **1** | Push 5 |
+| 2 | 8 | `[11, 5]` | 8 > 5, pop 5 | 1 | 1 + 1 = **2** | Push 8 |
+| 1 | 6 | `[11, 8]` | 6 < 8, don't pop | 0 | 0 + 1 = **1** | Push 6 |
+| 0 | 10 | `[11, 8, 6]` | 10 > 6, 10 > 8, pop both | 2 | 2 + 1 = **3** | Push 10 |
+
+**Final Result**: `[3, 1, 2, 1, 1, 0]`
+
+### Why this works:
+1.  **Popping shorter people**: If current person $i$ is taller than person $j$ on the stack, person $i$ can definitely see person $j$. Person $j$ is then removed because anyone to the left of person $i$ will have their view of person $j$ blocked by person $i$.
+2.  **The "+1" logic**: After popping everyone shorter, if the stack isn't empty, the person at the top is the first person taller than current person $i$. Person $i$ can see this person, but they block person $i$ from seeing anyone further right.
+
 ## Complexity Analysis
 
 *   **Time Complexity**: $O(n)$. Each element is pushed and popped from the stack at most once.
