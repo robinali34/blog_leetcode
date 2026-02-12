@@ -46,6 +46,7 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 | 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
 | 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
 | 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
 
 ## 2D DP (grid/path)
 

@@ -726,3 +726,8 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 *Last updated: February 8, 2026*
 *Total problems solved: 187*
+
+## References
+
+- [LeetCode Wiki](https://leetcode.doocs.org/en/)
+

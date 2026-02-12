@@ -12,11 +12,36 @@ Minimal, copy-paste C++ for LRU/LFU cache, Trie, time-based key-value store, and
 
 ## Contents
 
+- [Stack-based Design](#stack-based-design)
 - [LRU Cache](#lru-cache)
 - [LFU Cache](#lfu-cache)
 - [Trie](#trie)
 - [Time-based Key-Value Store](#time-based-key-value-store)
 - [Design Patterns](#design-patterns)
+
+## Stack-based Design
+
+### Min Stack
+Maintain a primary stack for data and an auxiliary stack to track the minimum value at each state.
+
+```cpp
+class MinStack {
+    stack<int> stk, minStk;
+public:
+    void push(int val) {
+        stk.push(val);
+        if (minStk.empty()) minStk.push(val);
+        else minStk.push(min(minStk.top(), val));
+    }
+    void pop() { stk.pop(); minStk.pop(); }
+    int top() { return stk.top(); }
+    int getMin() { return minStk.top(); }
+};
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-155-min-stack/) |
 
 ## LRU Cache
 

@@ -16,6 +16,7 @@ Minimal, copy-paste C++ for parentheses matching, expression evaluation, nested 
 - [Nested Structure Processing](#nested-structure-processing)
 - [Monotonic Stack](#monotonic-stack)
 - [Stack for State Management](#stack-for-state-management)
+- [Stack Design](#stack-design-minmax-stack)
 
 ## Parentheses Matching
 
@@ -186,6 +187,30 @@ void processLogs(vector<string>& logs) {
 |---|---|---|---|
 | 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
 | 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
+
+## Stack Design (Min/Max Stack)
+
+Maintaining extra information (like minimums or frequencies) alongside the primary stack data.
+
+```cpp
+class MinStack {
+    stack<int> stk, minStk;
+public:
+    void push(int val) {
+        stk.push(val);
+        if (minStk.empty()) minStk.push(val);
+        else minStk.push(min(minStk.top(), val));
+    }
+    void pop() { stk.pop(); minStk.pop(); }
+    int top() { return stk.top(); }
+    int getMin() { return minStk.top(); }
+};
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-155-min-stack/) |
+| 716 | Max Stack | [Link](https://leetcode.com/problems/max-stack/) | - |
 
 ## Key Patterns
 
