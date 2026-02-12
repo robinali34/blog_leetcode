@@ -87,6 +87,7 @@ We can use **Dijkstra's Algorithm**. The state in the priority queue will be `{t
 
 ## Solution (Dijkstra)
 
+{% raw %}
 ```cpp
 class Solution {
 public:
@@ -142,6 +143,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ## Complexity
 
