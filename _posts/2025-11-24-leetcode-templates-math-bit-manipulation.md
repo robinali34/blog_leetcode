@@ -104,6 +104,7 @@ void swap(int& a, int& b) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
+| 29 | Divide Two Integers | [Link](https://leetcode.com/problems/divide-two-integers/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/14/medium-29-divide-two-integers/) |
 | 67 | Add Binary | [Link](https://leetcode.com/problems/add-binary/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-easy-67-add-binary/) |
 | 191 | Number of 1 Bits | [Link](https://leetcode.com/problems/number-of-1-bits/) | - |
 | 231 | Power of Two | [Link](https://leetcode.com/problems/power-of-two/) | - |
