@@ -253,6 +253,25 @@ string removeDuplicates(string s, int k) {
 | 1047 | Remove All Adjacent Duplicates In String | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/) |
 | 1209 | Remove All Adjacent Duplicates in String II | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1209-remove-all-adjacent-duplicates-in-string-ii/) |
 
+### Run-Length Encoding
+
+```cpp
+// Two-pointer grouping for consecutive runs
+string runLengthEncode(const string& s) {
+    string result;
+    for (int j = 0, k = 0; j < (int)s.size(); j = k) {
+        while (k < (int)s.size() && s[k] == s[j]) k++;
+        result += to_string(k - j) + s[j];
+    }
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 38 | Count and Say | [Link](https://leetcode.com/problems/count-and-say/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/16/medium-38-count-and-say/) |
+| 443 | String Compression | [Link](https://leetcode.com/problems/string-compression/) | - |
+
 ## Parsing
 
 ### Valid Word Abbreviation
