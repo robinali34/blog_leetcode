@@ -139,6 +139,7 @@ vector<int> next_greater_circular(const vector<int>& a) {
 | ID | Title | Link |
 |----|--------|------|
 | 739 | Daily Temperatures | [Link](https://leetcode.com/problems/daily-temperatures/) |
+| 42 | Trapping Rain Water | [Link](https://leetcode.com/problems/trapping-rain-water/) |
 | 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) |
 | 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) |
 | 1944 | Visible People in Queue | [Link](https://leetcode.com/problems/number-of-visible-people-in-a-queue/) |

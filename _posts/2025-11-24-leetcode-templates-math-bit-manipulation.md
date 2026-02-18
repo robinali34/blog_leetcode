@@ -287,6 +287,7 @@ int reverse(int x) {
 | 7 | Reverse Integer | [Link](https://leetcode.com/problems/reverse-integer/) | - |
 | 9 | Palindrome Number | [Link](https://leetcode.com/problems/palindrome-number/) | - |
 | 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
+| 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/17/medium-43-multiply-strings/) |
 
 ## More templates
 
