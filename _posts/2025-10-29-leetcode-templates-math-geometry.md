@@ -41,6 +41,7 @@ bool onSeg(const P&a,const P&b,const P&c){ return min(a.x,b.x)<=c.x&&c.x<=max(a.
 |---|---|---|---|
 | 149 | Max Points on a Line | [Link](https://leetcode.com/problems/max-points-on-a-line/) | - |
 | 223 | Rectangle Area | [Link](https://leetcode.com/problems/rectangle-area/) | - |
+| 1344 | Angle Between Hands of a Clock | [Link](https://leetcode.com/problems/angle-between-hands-of-a-clock/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/03/medium-1344-angle-between-hands-of-a-clock/) |
 
 ## More templates
 
