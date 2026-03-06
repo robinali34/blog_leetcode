@@ -167,7 +167,7 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 78 | Subsets | [Link](https://leetcode.com/problems/subsets/) | - |
+| 78 | Subsets | [Link](https://leetcode.com/problems/subsets/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/05/medium-78-subsets/) |
 | 90 | Subsets II | [Link](https://leetcode.com/problems/subsets-ii/) | - |
 
 ## Combination Sum (Unbounded/Reuse Elements)

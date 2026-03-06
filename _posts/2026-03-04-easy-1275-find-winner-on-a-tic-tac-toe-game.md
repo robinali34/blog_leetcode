@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "LeetCode 1275. Find Winner on a Tic Tac Toe Game"
-date: 2026-03-03
+date: 2026-03-04
 categories: [leetcode, easy, simulation, matrix]
 tags: [leetcode, easy, simulation, matrix, design]
-permalink: /2026/03/03/easy-1275-find-winner-on-a-tic-tac-toe-game/
+permalink: /2026/03/04/easy-1275-find-winner-on-a-tic-tac-toe-game/
 ---
 
 Tic-tac-toe is played on a `3 x 3` grid by two players A and B. Player A always plays first. Given an array `moves` where `moves[i] = [row, col]` indicates a move, return:
@@ -48,7 +48,7 @@ Output: "Draw"
 
 ## Thinking Process
 
-This uses the exact same `+1 / -1` counter trick as [LC 348 Design Tic-Tac-Toe](/2026/03/03/medium-348-design-tic-tac-toe/):
+This uses the exact same `+1 / -1` counter trick as [LC 348 Design Tic-Tac-Toe](/2026/03/04/medium-348-design-tic-tac-toe/):
 
 - Player A (even-indexed moves) contributes `+1`
 - Player B (odd-indexed moves) contributes `-1`
@@ -105,7 +105,7 @@ public:
 
 ## Key Takeaways
 
-- Same `+1 / -1` counter pattern as [LC 348](/2026/03/03/medium-348-design-tic-tac-toe/) -- the only difference is replaying moves from an array vs receiving them one at a time
+- Same `+1 / -1` counter pattern as [LC 348](/2026/03/04/medium-348-design-tic-tac-toe/) -- the only difference is replaying moves from an array vs receiving them one at a time
 - The fixed `3 x 3` grid means everything is $O(1)$ in practice
 - Check for a winner **after each move** to correctly identify the winning player
 

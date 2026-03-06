@@ -102,6 +102,7 @@ vector<int> prefix(const vector<int>& a){
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) |
+| 523 | Continuous Subarray Sum | [Link](https://leetcode.com/problems/continuous-subarray-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/04/medium-523-continuous-subarray-sum/) |
 | 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
 | 238 | Product of Array Except Self | [Link](https://leetcode.com/problems/product-of-array-except-self/) | - |
 | 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) |

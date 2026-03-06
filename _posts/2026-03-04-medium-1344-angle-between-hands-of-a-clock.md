@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "LeetCode 1344. Angle Between Hands of a Clock"
-date: 2026-03-03
+date: 2026-03-04
 categories: [leetcode, medium, math]
 tags: [leetcode, medium, math, geometry]
-permalink: /2026/03/03/medium-1344-angle-between-hands-of-a-clock/
+permalink: /2026/03/04/medium-1344-angle-between-hands-of-a-clock/
 ---
 
 Given two numbers `hour` and `minutes`, return the smaller angle (in degrees) formed between the hour and the minute hand of a clock.
