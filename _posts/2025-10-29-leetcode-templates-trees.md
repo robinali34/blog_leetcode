@@ -12,6 +12,15 @@ Minimal, copy-paste C++ for tree traversals, LCA (binary lifting), segment tree,
 ## Contents
 
 - [Traversals (iterative)](#traversals-iterative)
+- [Tree DFS Patterns](#tree-dfs-patterns)
+  - [Pattern 1: Basic Tree Traversal (DFS)](#pattern-1-basic-tree-traversal-dfs)
+  - [Pattern 2: DFS with Return Value (Bottom-Up)](#pattern-2-dfs-with-return-value-bottom-up)
+  - [Pattern 3: DFS with Global Result](#pattern-3-dfs-with-global-result)
+  - [Pattern 4: Root-to-Leaf Path Tracking](#pattern-4-root-to-leaf-path-tracking)
+  - [Pattern 5: BFS / Level Order Traversal](#pattern-5-bfs--level-order-traversal)
+  - [Pattern 6: Lowest Common Ancestor (LCA)](#pattern-6-lowest-common-ancestor-lca)
+  - [Pattern 7: Binary Search Tree (BST) Pattern](#pattern-7-binary-search-tree-bst-pattern)
+  - [Practice Roadmap](#practice-roadmap)
 - [LCA (Binary Lifting)](#lca-binary-lifting)
 - [Segment Tree](#segment-tree)
 - [Binary Search on Segment Tree (Tree Walking)](#binary-search-on-segment-tree-tree-walking)
@@ -46,11 +55,214 @@ vector<vector<int>> levelOrder(TreeNode* root){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | - |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
 | 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
 | 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
 | 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
 | 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
+
+## Tree DFS Patterns
+
+Recognizing the right tree pattern quickly is key. Below are the 7 core patterns that cover nearly all tree DFS problems.
+
+---
+
+### Pattern 1: Basic Tree Traversal (DFS)
+
+Traverse the tree using DFS. Most problems reduce to choosing **when** to process the node.
+
+```
+Preorder  : root → left → right
+Inorder   : left → root → right
+Postorder : left → right → root
+```
+
+```cpp
+void dfs(TreeNode* node) {
+    if (!node) return;
+    // preorder: process here
+    dfs(node->left);
+    // inorder: process here
+    dfs(node->right);
+    // postorder: process here
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+
+---
+
+### Pattern 2: DFS with Return Value (Bottom-Up)
+
+Each recursive call returns information about its subtree. Process children first, then combine results and return upward. Used for: height, balance, diameter, subtree properties.
+
+```cpp
+int dfs(TreeNode* node) {
+    if (!node) return 0;
+    int left = dfs(node->left);
+    int right = dfs(node->right);
+    return combine(left, right, node);
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+
+---
+
+### Pattern 3: DFS with Global Result
+
+While traversing, update a **global variable** tracking the best result. The recursive function returns a per-node value, but the answer lives outside the recursion.
+
+```cpp
+int result = INT_MIN;
+
+int dfs(TreeNode* node) {
+    if (!node) return 0;
+    int left = max(0, dfs(node->left));
+    int right = max(0, dfs(node->right));
+    result = max(result, left + right + node->val);
+    return node->val + max(left, right);
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+
+---
+
+### Pattern 4: Root-to-Leaf Path Tracking
+
+Maintain a path from root to the current node. **Push → recurse → pop** (backtracking). Used for returning paths, validating sequences, and path sum collection.
+
+```cpp
+void dfs(TreeNode* node, vector<int>& path, vector<vector<int>>& result) {
+    if (!node) return;
+    path.push_back(node->val);
+
+    if (!node->left && !node->right)
+        result.push_back(path);
+
+    dfs(node->left, path, result);
+    dfs(node->right, path, result);
+    path.pop_back();
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
+| 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
+
+---
+
+### Pattern 5: BFS / Level Order Traversal
+
+Traverse the tree **level by level** using a queue. Used for level processing, shortest depth, and breadth exploration.
+
+```cpp
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> result;
+    if (!root) return result;
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int size = q.size();
+        vector<int> level;
+        for (int i = 0; i < size; i++) {
+            TreeNode* node = q.front(); q.pop();
+            level.push_back(node->val);
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+        result.push_back(level);
+    }
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 107 | Binary Tree Level Order Traversal II | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | - |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+
+---
+
+### Pattern 6: Lowest Common Ancestor (LCA)
+
+Postorder DFS: if both subtrees contain a target, the current node is the LCA.
+
+```cpp
+TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root || root == p || root == q) return root;
+    TreeNode* left = lca(root->left, p, q);
+    TreeNode* right = lca(root->right, p, q);
+    if (left && right) return root;
+    return left ? left : right;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+
+---
+
+### Pattern 7: Binary Search Tree (BST) Pattern
+
+BST property: `left < root < right`. Inorder traversal produces sorted order. This enables pruning and ordered processing.
+
+```cpp
+void inorder(TreeNode* node) {
+    if (!node) return;
+    inorder(node->left);
+    process(node);
+    inorder(node->right);
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
+| 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
+| 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+
+---
+
+### Practice Roadmap
+
+| Day | Focus | Problems |
+|---|---|---|
+| 1 | Basics | LC 104 Maximum Depth, LC 102 Level Order, LC 257 Binary Tree Paths |
+| 2 | Intermediate | LC 110 Balanced Binary Tree, LC 543 Diameter, LC 236 LCA |
+| 3 | Advanced | LC 98 Validate BST, LC 230 Kth Smallest in BST, LC 124 Max Path Sum |
+
+### Quick Pattern Recognition
+
+If the problem mentions **height, diameter, path sum, ancestor, subtree, depth** → think **DFS on tree**.
+
+If the problem mentions **levels, shortest depth, layer traversal** → think **BFS with queue**.
+
+Most tree interview problems are medium difficulty, DFS recursion, postorder reasoning. If you can confidently solve LC 543, LC 236, and LC 124, you are well-prepared for senior-level tree questions.
+
+---
 
 ## LCA (Binary Lifting)
 
@@ -74,9 +286,12 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 | 100 | Same Tree | [Link](https://leetcode.com/problems/same-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-100-same-tree/) |
 | 101 | Symmetric Tree | [Link](https://leetcode.com/problems/symmetric-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-101-symmetric-tree/) |
 | 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
 | 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-112-path-sum/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
 | 226 | Invert Binary Tree | [Link](https://leetcode.com/problems/invert-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-226-invert-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) |
 | 129 | Sum Root to Leaf Numbers | [Link](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) |
 | 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
