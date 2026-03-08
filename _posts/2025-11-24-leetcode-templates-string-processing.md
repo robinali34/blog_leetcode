@@ -205,6 +205,7 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
+| 249 | Group Shifted Strings | [Link](https://leetcode.com/problems/group-shifted-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/medium-249-group-shifted-strings/) |
 | 893 | Groups of Special-Equivalent Strings | [Link](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/15/easy-893-groups-of-special-equivalent-strings/) |
 
 ### Remove Duplicates

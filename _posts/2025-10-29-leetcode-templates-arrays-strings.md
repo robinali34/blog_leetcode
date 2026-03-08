@@ -120,6 +120,10 @@ for (int x: nums) ++freq[x];
 |---|---|---|---|
 | 1 | Two Sum | [Link](https://leetcode.com/problems/two-sum/) | - |
 | 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
+| 242 | Valid Anagram | [Link](https://leetcode.com/problems/valid-anagram/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-242-valid-anagram/) |
+| 217 | Contains Duplicate | [Link](https://leetcode.com/problems/contains-duplicate/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-217-contains-duplicate/) |
+| 219 | Contains Duplicate II | [Link](https://leetcode.com/problems/contains-duplicate-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-219-contains-duplicate-ii/) |
+| 383 | Ransom Note | [Link](https://leetcode.com/problems/ransom-note/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-383-ransom-note/) |
 | 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
 | 359 | Logger Rate Limiter | [Link](https://leetcode.com/problems/logger-rate-limiter/) | - |
 
