@@ -427,12 +427,13 @@ vector<pair<int,int>> bridges(int n, const vector<vector<int>>& g) {
 
 Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
 
-| ID | Title | Link |
-|----|--------|------|
-| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) |
-| 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) |
-| 323 | Number of Connected Components | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) |
-| 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) (weighted DSU) |
+| ID | Title | Link | Solution |
+|----|--------|------|----------|
+| 684 | Redundant Connection | [Link](https://leetcode.com/problems/redundant-connection/) | - |
+| 721 | Accounts Merge | [Link](https://leetcode.com/problems/accounts-merge/) | - |
+| 323 | Number of Connected Components | [Link](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | - |
+| 399 | Evaluate Division | [Link](https://leetcode.com/problems/evaluate-division/) | - |
+| 1584 | Min Cost to Connect All Points | [Link](https://leetcode.com/problems/min-cost-to-connect-all-points/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/08/medium-1584-min-cost-to-connect-all-points/) |
 
 ---
 
