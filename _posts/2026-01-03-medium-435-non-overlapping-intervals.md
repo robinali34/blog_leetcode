@@ -97,23 +97,20 @@ This is a classic **greedy interval scheduling** problem. The key insight is to 
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        if(intervals.empty()) return 0;
-
-        sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v) {
-            return u[1] < v[1];
+        sort(intervals.begin(), intervals.end(), [](auto& a, auto&b){
+            return a[1] < b[1];
         });
 
-        const int N = intervals.size();
-        int right = intervals[0][1];
-        int removals = 0;
-        for(int i = 1; i < N; i++) {
-            if(intervals[i][0] < right) {
-                removals++;
+        int remove = 0;
+        int end = INT_MIN;
+        for(auto& interval: intervals){
+            if(interval[0] < end) {
+                remove++;
             } else {
-                right = intervals[i][1];
+                end = interval[1];
             }
         }
-        return removals;
+        return remove;
     }
 };
 ```
