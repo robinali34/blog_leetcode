@@ -53,6 +53,10 @@ bool dfs(vector<vector<int>>& graph, int node, int target, vector<bool>& visited
 }
 ```
 
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 841 | Keys and Rooms | [Link](https://leetcode.com/problems/keys-and-rooms/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/12/medium-841-keys-and-rooms/) |
+
 ## DFS on Grid
 
 DFS for 2D grid problems (connected components, paths).

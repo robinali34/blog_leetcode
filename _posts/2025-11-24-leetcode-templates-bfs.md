@@ -50,6 +50,10 @@ void bfs(vector<vector<int>>& graph, int start) {
 }
 ```
 
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 841 | Keys and Rooms | [Link](https://leetcode.com/problems/keys-and-rooms/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/12/medium-841-keys-and-rooms/) |
+
 ## BFS on Grid
 
 BFS for 2D grid problems (4-directional or 8-directional).
@@ -204,6 +208,11 @@ int shortestPath(vector<vector<int>>& graph, int start, int target) {
     return -1;
 }
 ```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1091 | Shortest Path in Binary Matrix | [Link](https://leetcode.com/problems/shortest-path-in-binary-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/11/medium-1091-shortest-path-in-binary-matrix/) |
+| 127 | Word Ladder | [Link](https://leetcode.com/problems/word-ladder/) | - |
 
 ## Level-order Traversal
 
