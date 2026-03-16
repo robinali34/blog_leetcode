@@ -213,6 +213,7 @@ int shortestPath(vector<vector<int>>& graph, int start, int target) {
 |---|---|---|---|
 | 1091 | Shortest Path in Binary Matrix | [Link](https://leetcode.com/problems/shortest-path-in-binary-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/11/medium-1091-shortest-path-in-binary-matrix/) |
 | 127 | Word Ladder | [Link](https://leetcode.com/problems/word-ladder/) | - |
+| 433 | Minimum Genetic Mutation | [Link](https://leetcode.com/problems/minimum-genetic-mutation/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/15/medium-433-minimum-genetic-mutation/) |
 
 ## Level-order Traversal
 
