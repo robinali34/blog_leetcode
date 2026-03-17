@@ -546,6 +546,7 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>& graph, int start) {
 | 767 | Reorganize String | [Link](https://leetcode.com/problems/reorganize-string/) | - |
 | 973 | K Closest Points to Origin | [Link](https://leetcode.com/problems/k-closest-points-to-origin/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-973-k-closest-points-to-origin/) |
 | 1976 | Number of Ways to Arrive at Destination | [Link](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/28/medium-1976-number-of-ways-to-arrive-at-destination/) |
+| 2406 | Divide Intervals Into Minimum Number of Groups | [Link](https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/16/medium-2406-divide-intervals-into-minimum-number-of-groups/) |
 
 ## Hard Problems
 
