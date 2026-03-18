@@ -118,6 +118,7 @@ int dfs(TreeNode* node) {
 | 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
 | 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
 
 ---
 
