@@ -142,6 +142,7 @@ int dfs(TreeNode* node) {
 |---|---|---|---|
 | 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
 
 ---
 
