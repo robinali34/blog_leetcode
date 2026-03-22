@@ -326,6 +326,8 @@ public:
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
+| 362 | Design Hit Counter | [Link](https://leetcode.com/problems/design-hit-counter/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-362-design-hit-counter/) |
+| 1146 | Snapshot Array | [Link](https://leetcode.com/problems/snapshot-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/19/medium-1146-snapshot-array/) |
 
 ## Design Patterns
 
