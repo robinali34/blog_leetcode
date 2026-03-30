@@ -47,6 +47,7 @@ int knap01(vector<int>& wt, vector<int>& val, int W){
 | 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
 | 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
 | 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ## 2D DP (grid/path)
 

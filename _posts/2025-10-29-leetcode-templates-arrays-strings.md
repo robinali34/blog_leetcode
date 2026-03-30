@@ -69,6 +69,7 @@ bool twoSumSorted(const vector<int>& a, int target){
 | 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
 | 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
+| 1768 | Merge Strings Alternately | [Link](https://leetcode.com/problems/merge-strings-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/easy-1768-merge-strings-alternately/) |
 
 ## Binary Search on Answer (monotonic predicate)
 

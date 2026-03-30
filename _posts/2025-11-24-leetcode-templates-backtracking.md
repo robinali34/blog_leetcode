@@ -463,6 +463,7 @@ void backtrack(int n, int open, int close, string path, vector<string>& res){
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
+| 1087 | Brace Expansion | [Link](https://leetcode.com/problems/brace-expansion/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/26/medium-1087-brace-expansion/) |
 
 ## General Backtracking Template
 

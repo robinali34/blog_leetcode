@@ -156,6 +156,7 @@ vector<int> grayCode(int n) {
 | 136 | Single Number | [Link](https://leetcode.com/problems/single-number/) | - |
 | 137 | Single Number II | [Link](https://leetcode.com/problems/single-number-ii/) | - |
 | 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-89-gray-code/) |
+| 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/easy-389-find-the-difference/) |
 
 ## Fast Exponentiation
 
