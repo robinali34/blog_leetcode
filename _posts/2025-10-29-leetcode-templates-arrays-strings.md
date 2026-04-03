@@ -90,6 +90,7 @@ long long binsearch(long long lo, long long hi){ // [lo, hi]
 | 34 | Find First and Last Position of Element in Sorted Array | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
 | 162 | Find Peak Element | [Link](https://leetcode.com/problems/find-peak-element/) | - |
 | 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
+| 1870 | Minimum Speed to Arrive on Time | [Link](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/30/medium-1870-minimum-speed-to-arrive-on-time/) |
 
 ## Prefix Sum / Difference Array
 

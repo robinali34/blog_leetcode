@@ -436,6 +436,7 @@ Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-
 | 1202 | Smallest String With Swaps | [Link](https://leetcode.com/problems/smallest-string-with-swaps/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/09/medium-1202-smallest-string-with-swaps/) |
 | 1319 | Number of Operations to Make Network Connected | [Link](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/10/medium-1319-number-of-operations-to-make-network-connected/) |
 | 1584 | Min Cost to Connect All Points | [Link](https://leetcode.com/problems/min-cost-to-connect-all-points/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/08/medium-1584-min-cost-to-connect-all-points/) |
+| 261 | Graph Valid Tree | [Link](https://leetcode.com/problems/graph-valid-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/01/medium-261-graph-valid-tree/) |
 
 ---
 
