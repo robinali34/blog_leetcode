@@ -158,6 +158,7 @@ vector<int> grayCode(int n) {
 | 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-89-gray-code/) |
 | 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/easy-389-find-the-difference/) |
 | 260 | Single Number III | [Link](https://leetcode.com/problems/single-number-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/31/medium-260-single-number-iii/) |
+| 2433 | Find The Original Array of Prefix Xor | [Link](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) |
 
 ## Fast Exponentiation
 
