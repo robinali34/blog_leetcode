@@ -208,6 +208,7 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 | 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
 | 249 | Group Shifted Strings | [Link](https://leetcode.com/problems/group-shifted-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/medium-249-group-shifted-strings/) |
 | 893 | Groups of Special-Equivalent Strings | [Link](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/15/easy-893-groups-of-special-equivalent-strings/) |
+| 1328 | Break a Palindrome | [Link](https://leetcode.com/problems/break-a-palindrome/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/07/medium-1328-break-a-palindrome/) |
 
 ### Remove Duplicates
 

@@ -569,6 +569,7 @@ ListNode* insert(ListNode* head, int insertVal) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 708 | Insert into a Sorted Circular Linked List | [Link](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) |
+| 382 | Linked List Random Node | [Link](https://leetcode.com/problems/linked-list-random-node/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/08/medium-382-linked-list-random-node/) |
 
 ## More templates
 

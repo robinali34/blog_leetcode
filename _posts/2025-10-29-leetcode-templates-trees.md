@@ -245,6 +245,7 @@ void inorder(TreeNode* node) {
 | 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
 | 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/12/medium-894-all-possible-full-binary-trees/) |
 
 ---
 

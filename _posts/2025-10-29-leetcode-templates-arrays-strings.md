@@ -49,6 +49,7 @@ int longestNoRepeat(const string& s){
 | 616 | Add Bold Tag in String | [Link](https://leetcode.com/problems/add-bold-tag-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-616-add-bold-tag-in-string/) |
 | 681 | Next Closest Time | [Link](https://leetcode.com/problems/next-closest-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-681-next-closest-time/) |
 | 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/21/medium-713-subarray-product-less-than-k/) |
+| 2461 | Maximum Sum of Distinct Subarrays With Length K | [Link](https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/09/medium-2461-maximum-sum-of-distinct-subarrays-with-length-k/) |
 
 ## Two Pointers (sorted arrays/strings)
 
@@ -131,6 +132,8 @@ for (int x: nums) ++freq[x];
 | 383 | Ransom Note | [Link](https://leetcode.com/problems/ransom-note/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-383-ransom-note/) |
 | 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
 | 359 | Logger Rate Limiter | [Link](https://leetcode.com/problems/logger-rate-limiter/) | - |
+| 2365 | Task Scheduler II | [Link](https://leetcode.com/problems/task-scheduler-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/10/medium-2365-task-scheduler-ii/) |
+| 2342 | Max Sum of a Pair With Equal Sum of Digits | [Link](https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/11/medium-2342-max-sum-of-a-pair-with-equal-sum-of-digits/) |
 
 ## KMP (Substring Search)
 KMP is a pattern matching algorithm that finds occurrences of a pattern string P within a text string T efficiently — without re-checking characters that are already known to match.
