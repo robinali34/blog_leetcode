@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 42. Trapping Rain Water"
+title: "[Hard] 42. Trapping Rain Water"
 date: 2026-02-17
 categories: [leetcode, hard, two-pointers, stack, dp]
 tags: [leetcode, hard, two-pointers, monotonic-stack, prefix-suffix, dp]

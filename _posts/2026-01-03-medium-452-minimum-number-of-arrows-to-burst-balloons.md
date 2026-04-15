@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "452. Minimum Number of Arrows to Burst Balloons"
+title: "[Medium] 452. Minimum Number of Arrows to Burst Balloons"
 date: 2026-01-03 03:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting, intervals]
 permalink: /2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/

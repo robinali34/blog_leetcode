@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "226. Invert Binary Tree"
+title: "[Easy] 226. Invert Binary Tree"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, tree, dfs]
 permalink: /2026/01/19/easy-226-invert-binary-tree/

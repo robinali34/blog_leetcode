@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 23. Merge k Sorted Lists"
+title: "[Hard] 23. Merge k Sorted Lists"
 date: 2026-02-15
 categories: [leetcode, hard, linked-list, divide-and-conquer, heap]
 tags: [leetcode, hard, linked-list, divide-and-conquer, heap, merge]

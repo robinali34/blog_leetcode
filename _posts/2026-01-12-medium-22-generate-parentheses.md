@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "22. Generate Parentheses"
+title: "[Medium] 22. Generate Parentheses"
 date: 2026-01-12 00:00:00 -0700
 categories: [leetcode, medium, string, backtracking, recursion]
 permalink: /2026/01/12/medium-22-generate-parentheses/

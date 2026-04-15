@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "393. UTF-8 Validation"
+title: "[Medium] 393. UTF-8 Validation"
 date: 2025-12-31 22:30:00 -0700
 categories: [leetcode, medium, bit-manipulation, string, array]
 permalink: /2025/12/31/medium-393-utf-8-validation/

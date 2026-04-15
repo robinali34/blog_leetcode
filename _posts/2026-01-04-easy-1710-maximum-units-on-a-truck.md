@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1710. Maximum Units on a Truck"
+title: "[Easy] 1710. Maximum Units on a Truck"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting]
 permalink: /2026/01/04/easy-1710-maximum-units-on-a-truck/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1087. Brace Expansion"
+title: "[Medium] 1087. Brace Expansion"
 date: 2026-03-26
 categories: [leetcode, medium, backtracking, string]
 tags: [leetcode, medium, backtracking, string, parsing]

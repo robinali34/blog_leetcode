@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "993. Cousins in Binary Tree"
+title: "[Easy] 993. Cousins in Binary Tree"
 date: 2026-01-07 00:00:00 -0700
 categories: [leetcode, easy, tree, bfs, binary-tree]
 permalink: /2026/01/07/easy-993-cousins-in-binary-tree/

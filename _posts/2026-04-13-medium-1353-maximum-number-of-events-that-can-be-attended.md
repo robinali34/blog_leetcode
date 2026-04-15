@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1353. Maximum Number of Events That Can Be Attended"
+title: "[Medium] 1353. Maximum Number of Events That Can Be Attended"
 date: 2026-04-13
 categories: [leetcode, medium, greedy, heap]
 tags: [leetcode, medium, greedy, heap, sorting, scheduling]

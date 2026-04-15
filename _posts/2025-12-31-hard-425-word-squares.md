@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "425. Word Squares"
+title: "[Hard] 425. Word Squares"
 date: 2025-12-31 15:30:00 -0700
 categories: [leetcode, hard, backtracking, trie, recursion, string]
 permalink: /2025/12/31/hard-425-word-squares/

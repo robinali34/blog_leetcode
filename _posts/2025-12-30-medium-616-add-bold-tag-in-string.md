@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "616. Add Bold Tag in String"
+title: "[Medium] 616. Add Bold Tag in String"
 date: 2025-12-30 17:30:00 -0700
 categories: [leetcode, medium, string, array, greedy]
 permalink: /2025/12/30/medium-616-add-bold-tag-in-string/

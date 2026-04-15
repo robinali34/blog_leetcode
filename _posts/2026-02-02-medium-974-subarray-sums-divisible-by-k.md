@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "974. Subarray Sums Divisible by K"
+title: "[Medium] 974. Subarray Sums Divisible by K"
 date: 2026-02-02 00:00:00 -0700
 categories: [leetcode, medium, array, hash-table, prefix-sum]
 permalink: /2026/02/02/medium-974-subarray-sums-divisible-by-k/

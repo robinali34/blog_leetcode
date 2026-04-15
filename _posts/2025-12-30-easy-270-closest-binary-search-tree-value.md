@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "270. Closest Binary Search Tree Value"
+title: "[Easy] 270. Closest Binary Search Tree Value"
 date: 2025-12-30 22:30:00 -0700
 categories: [leetcode, easy, binary-search-tree, tree, recursion, binary-search]
 permalink: /2025/12/30/easy-270-closest-binary-search-tree-value/

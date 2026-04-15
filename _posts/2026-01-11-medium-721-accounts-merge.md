@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "721. Accounts Merge"
+title: "[Medium] 721. Accounts Merge"
 date: 2026-01-11 00:00:00 -0700
 categories: [leetcode, medium, array, hash-table, string, union-find, dfs]
 permalink: /2026/01/11/medium-721-accounts-merge/

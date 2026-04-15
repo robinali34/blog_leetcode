@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1319. Number of Operations to Make Network Connected"
+title: "[Medium] 1319. Number of Operations to Make Network Connected"
 date: 2026-03-10
 categories: [leetcode, medium, graph, dsu]
 tags: [leetcode, medium, graph, dsu, union-find, connectivity]

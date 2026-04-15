@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "981. Time Based Key-Value Store"
+title: "[Medium] 981. Time Based Key-Value Store"
 date: 2026-01-30 00:00:00 -0700
 categories: [leetcode, medium, hash-table, binary-search, design]
 permalink: /2026/01/30/medium-981-time-based-key-value-store/

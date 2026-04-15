@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 29. Divide Two Integers"
+title: "[Medium] 29. Divide Two Integers"
 date: 2026-02-14
 categories: [leetcode, medium, math, bit-manipulation]
 tags: [leetcode, medium, bit-manipulation, math]

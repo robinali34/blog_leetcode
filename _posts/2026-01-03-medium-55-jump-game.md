@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "55. Jump Game"
+title: "[Medium] 55. Jump Game"
 date: 2026-01-03 04:00:00 -0700
 categories: [leetcode, medium, array, greedy, dynamic-programming]
 permalink: /2026/01/03/medium-55-jump-game/

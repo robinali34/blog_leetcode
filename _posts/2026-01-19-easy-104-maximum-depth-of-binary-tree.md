@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "104. Maximum Depth of Binary Tree"
+title: "[Easy] 104. Maximum Depth of Binary Tree"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, tree, dfs]
 permalink: /2026/01/19/easy-104-maximum-depth-of-binary-tree/

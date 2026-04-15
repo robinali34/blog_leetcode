@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 309. Best Time to Buy and Sell Stock with Cooldown"
+title: "[Medium] 309. Best Time to Buy and Sell Stock with Cooldown"
 date: 2026-03-20
 categories: [leetcode, medium, dp]
 tags: [leetcode, medium, dp, state-machine, stock]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "53. Maximum Subarray"
+title: "[Medium] 53. Maximum Subarray"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, greedy, divide-and-conquer]
 permalink: /2026/01/04/medium-53-maximum-subarray/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "561. Array Partition"
+title: "[Easy] 561. Array Partition"
 date: 2026-01-03 07:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting]
 permalink: /2026/01/03/easy-561-array-partition/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1376. Time Needed to Inform All Employees"
+title: "[Medium] 1376. Time Needed to Inform All Employees"
 date: 2026-03-17
 categories: [leetcode, medium, tree, dfs, bfs]
 tags: [leetcode, medium, tree, dfs, bfs, graph]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "661. Image Smoother"
+title: "[Easy] 661. Image Smoother"
 date: 2025-12-30 18:30:00 -0700
 categories: [leetcode, easy, matrix, array, simulation]
 permalink: /2025/12/30/easy-661-image-smoother/

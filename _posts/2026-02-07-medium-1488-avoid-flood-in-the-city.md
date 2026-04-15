@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1488. Avoid Flood in The City"
+title: "[Medium] 1488. Avoid Flood in The City"
 date: 2026-02-07 00:00:00 -0700
 categories: [leetcode, medium, array, greedy, binary-search, set]
 permalink: /2026/02/07/medium-1488-avoid-flood-in-the-city/

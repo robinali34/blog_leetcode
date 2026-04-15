@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 341. Flatten Nested List Iterator"
+title: "[Medium] 341. Flatten Nested List Iterator"
 date: 2026-03-24
 categories: [leetcode, medium, design, stack, iterator]
 tags: [leetcode, medium, design, stack, iterator]

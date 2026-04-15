@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "532. K-diff Pairs in an Array"
+title: "[Medium] 532. K-diff Pairs in an Array"
 date: 2026-02-06 00:00:00 -0700
 categories: [leetcode, medium, array, hash-table]
 permalink: /2026/02/06/medium-532-k-diff-pairs-in-an-array/

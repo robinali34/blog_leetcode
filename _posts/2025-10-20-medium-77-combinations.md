@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "77. Combinations"
+title: "[Medium] 77. Combinations"
 date: 2025-10-20 14:00:00 -0700
 categories: [leetcode, medium, backtracking, recursion, combinations]
 permalink: /2025/10/20/medium-77-combinations/

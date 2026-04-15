@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "860. Lemonade Change"
+title: "[Easy] 860. Lemonade Change"
 date: 2026-01-03 01:00:00 -0700
 categories: [leetcode, easy, array, greedy, simulation]
 permalink: /2026/01/03/easy-860-lemonade-change/

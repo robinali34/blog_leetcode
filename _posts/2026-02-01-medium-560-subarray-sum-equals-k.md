@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "560. Subarray Sum Equals K"
+title: "[Medium] 560. Subarray Sum Equals K"
 date: 2026-02-01 00:00:00 -0700
 categories: [leetcode, medium, array, hash-table, prefix-sum]
 permalink: /2026/02/01/medium-560-subarray-sum-equals-k/

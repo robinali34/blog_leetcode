@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "2043. Simple Bank System"
+title: "[Medium] 2043. Simple Bank System"
 date: 2025-10-20 13:50:00 -0700
 categories: leetcode algorithm medium design data-structure
 permalink: /2025/10/20/medium-2043-simple-bank-system/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "308. Range Sum Query 2D - Mutable"
+title: "[Hard] 308. Range Sum Query 2D - Mutable"
 date: 2025-12-31 21:30:00 -0700
 categories: [leetcode, hard, design, data-structures, prefix-sum, matrix]
 permalink: /2025/12/31/hard-308-range-sum-query-2d-mutable/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "739. Daily Temperatures"
+title: "[Medium] 739. Daily Temperatures"
 date: 2026-01-29 00:00:00 -0700
 categories: [leetcode, medium, array, stack, monotonic-stack]
 permalink: /2026/01/29/medium-739-daily-temperatures/

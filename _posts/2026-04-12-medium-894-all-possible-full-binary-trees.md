@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 894. All Possible Full Binary Trees"
+title: "[Medium] 894. All Possible Full Binary Trees"
 date: 2026-04-12
 categories: [leetcode, medium, tree, recursion, memoization]
 tags: [leetcode, medium, tree, recursion, memoization, dp]

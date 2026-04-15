@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1624. Largest Substring Between Two Equal Characters"
+title: "[Easy] 1624. Largest Substring Between Two Equal Characters"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, string, hash-table]
 permalink: /2026/01/19/easy-1624-largest-substring-between-two-equal-characters/

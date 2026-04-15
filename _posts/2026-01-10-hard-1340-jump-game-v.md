@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1340. Jump Game V"
+title: "[Hard] 1340. Jump Game V"
 date: 2026-01-10 00:00:00 -0700
 categories: [leetcode, hard, array, dynamic-programming, dfs, memoization]
 permalink: /2026/01/10/hard-1340-jump-game-v/

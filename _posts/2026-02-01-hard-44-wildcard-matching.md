@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "44. Wildcard Matching"
+title: "[Hard] 44. Wildcard Matching"
 date: 2026-02-01 00:00:00 -0700
 categories: [leetcode, hard, string, dynamic-programming, greedy, two-pointers]
 permalink: /2026/02/01/hard-44-wildcard-matching/

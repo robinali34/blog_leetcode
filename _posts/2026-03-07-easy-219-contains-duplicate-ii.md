@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 219. Contains Duplicate II"
+title: "[Easy] 219. Contains Duplicate II"
 date: 2026-03-07
 categories: [leetcode, easy, array, hash, sliding-window]
 tags: [leetcode, easy, array, hash, sliding-window]

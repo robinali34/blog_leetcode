@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "103. Binary Tree Zigzag Level Order Traversal"
+title: "[Medium] 103. Binary Tree Zigzag Level Order Traversal"
 date: 2026-01-06 00:00:00 -0700
 categories: [leetcode, medium, tree, bfs, binary-tree]
 permalink: /2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/

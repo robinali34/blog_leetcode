@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "392. Is Subsequence"
+title: "[Easy] 392. Is Subsequence"
 date: 2026-01-03 05:00:00 -0700
 categories: [leetcode, easy, string, two-pointers, greedy, dynamic-programming]
 permalink: /2026/01/03/easy-392-is-subsequence/

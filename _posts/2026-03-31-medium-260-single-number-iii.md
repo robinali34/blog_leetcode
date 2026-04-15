@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 260. Single Number III"
+title: "[Medium] 260. Single Number III"
 date: 2026-03-31
 categories: [leetcode, medium, bit-manipulation]
 tags: [leetcode, medium, bit-manipulation, xor]

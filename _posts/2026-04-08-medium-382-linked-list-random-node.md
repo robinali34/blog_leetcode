@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 382. Linked List Random Node"
+title: "[Medium] 382. Linked List Random Node"
 date: 2026-04-08
 categories: [leetcode, medium, linked-list, randomized]
 tags: [leetcode, medium, linked-list, randomized, reservoir-sampling]

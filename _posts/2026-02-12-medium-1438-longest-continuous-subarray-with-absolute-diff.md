@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit"
+title: "[Medium] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit"
 date: 2026-02-12 00:00:00 -0700
 categories: [leetcode, medium, sliding-window, monotonic-queue]
 tags: [leetcode, medium, sliding-window, monotonic-queue]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "843. Guess the Word"
+title: "[Hard] 843. Guess the Word"
 date: 2026-02-02 00:00:00 -0700
 categories: [leetcode, hard, array, string, interactive, minmax]
 permalink: /2026/02/02/hard-843-guess-the-word/

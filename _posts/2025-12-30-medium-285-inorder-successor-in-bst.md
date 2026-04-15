@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "285. Inorder Successor in BST"
+title: "[Medium] 285. Inorder Successor in BST"
 date: 2025-12-30 20:30:00 -0700
 categories: [leetcode, medium, binary-search-tree, tree, inorder-traversal]
 permalink: /2025/12/30/medium-285-inorder-successor-in-bst/

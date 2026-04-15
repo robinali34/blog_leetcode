@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1217. Minimum Cost to Move Chips to The Same Position"
+title: "[Easy] 1217. Minimum Cost to Move Chips to The Same Position"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, easy, array, math, greedy]
 permalink: /2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/

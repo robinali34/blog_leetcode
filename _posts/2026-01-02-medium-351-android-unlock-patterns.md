@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "351. Android Unlock Patterns"
+title: "[Medium] 351. Android Unlock Patterns"
 date: 2026-01-02 00:00:00 -0700
 categories: [leetcode, medium, backtracking, recursion, dynamic-programming]
 permalink: /2026/01/02/medium-351-android-unlock-patterns/

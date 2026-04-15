@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 113. Path Sum II"
+title: "[Medium] 113. Path Sum II"
 date: 2026-03-06
 categories: [leetcode, medium, tree, dfs, backtracking]
 tags: [leetcode, medium, tree, dfs, backtracking]

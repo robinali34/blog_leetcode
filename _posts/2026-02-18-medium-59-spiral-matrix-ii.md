@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 59. Spiral Matrix II"
+title: "[Medium] 59. Spiral Matrix II"
 date: 2026-02-18
 categories: [leetcode, medium, matrix, simulation]
 tags: [leetcode, medium, matrix, simulation, spiral]

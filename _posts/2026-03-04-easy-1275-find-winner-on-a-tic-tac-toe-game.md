@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1275. Find Winner on a Tic Tac Toe Game"
+title: "[Easy] 1275. Find Winner on a Tic Tac Toe Game"
 date: 2026-03-04
 categories: [leetcode, easy, simulation, matrix]
 tags: [leetcode, easy, simulation, matrix, design]

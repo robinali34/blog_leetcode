@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1605. Find Valid Matrix Given Row and Column Sums"
+title: "[Medium] 1605. Find Valid Matrix Given Row and Column Sums"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, matrix, greedy]
 permalink: /2026/01/04/medium-1605-find-valid-matrix-given-row-and-column-sums/

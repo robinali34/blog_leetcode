@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 893. Groups of Special-Equivalent Strings"
+title: "[Easy] 893. Groups of Special-Equivalent Strings"
 date: 2026-02-15
 categories: [leetcode, easy, string, hash]
 tags: [leetcode, easy, string, hash, canonical-form]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1233. Remove Sub-Folders from the Filesystem"
+title: "[Medium] 1233. Remove Sub-Folders from the Filesystem"
 date: 2026-01-23 00:00:00 -0700
 categories: [leetcode, medium, array, string, trie, sorting]
 permalink: /2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/

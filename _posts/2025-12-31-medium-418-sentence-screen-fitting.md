@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "418. Sentence Screen Fitting"
+title: "[Medium] 418. Sentence Screen Fitting"
 date: 2025-12-31 19:30:00 -0700
 categories: [leetcode, medium, dynamic-programming, string, simulation]
 permalink: /2025/12/31/medium-418-sentence-screen-fitting/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 36. Valid Sudoku"
+title: "[Medium] 36. Valid Sudoku"
 date: 2026-02-14
 categories: [leetcode, medium, math, bit-manipulation]
 tags: [leetcode, medium, bitmask, grid, hash]

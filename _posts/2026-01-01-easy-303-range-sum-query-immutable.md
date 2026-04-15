@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "303. Range Sum Query - Immutable"
+title: "[Easy] 303. Range Sum Query - Immutable"
 date: 2026-01-01 00:00:00 -0700
 categories: [leetcode, easy, array, design, prefix-sum]
 permalink: /2026/01/01/easy-303-range-sum-query-immutable/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 94. Binary Tree Inorder Traversal"
+title: "[Easy] 94. Binary Tree Inorder Traversal"
 date: 2026-03-06
 categories: [leetcode, easy, tree, dfs]
 tags: [leetcode, easy, tree, dfs, stack, morris]

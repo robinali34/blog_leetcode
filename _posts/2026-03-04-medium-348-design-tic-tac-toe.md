@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 348. Design Tic-Tac-Toe"
+title: "[Medium] 348. Design Tic-Tac-Toe"
 date: 2026-03-04
 categories: [leetcode, medium, design, matrix]
 tags: [leetcode, medium, design, matrix, simulation]

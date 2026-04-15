@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1650. Lowest Common Ancestor of a Binary Tree III"
+title: "[Medium] 1650. Lowest Common Ancestor of a Binary Tree III"
 date: 2025-10-20 13:55:00 -0700
 categories: leetcode algorithm medium tree binary-tree lca
 permalink: /2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/

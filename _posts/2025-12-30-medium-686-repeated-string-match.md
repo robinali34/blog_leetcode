@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "686. Repeated String Match"
+title: "[Medium] 686. Repeated String Match"
 date: 2025-12-30 14:30:00 -0700
 categories: [leetcode, medium, string-matching, kmp, rabin-karp, rolling-hash]
 permalink: /2025/12/30/medium-686-repeated-string-match/

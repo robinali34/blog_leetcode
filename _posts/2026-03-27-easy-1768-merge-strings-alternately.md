@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1768. Merge Strings Alternately"
+title: "[Easy] 1768. Merge Strings Alternately"
 date: 2026-03-27
 categories: [leetcode, easy, string, two-pointers]
 tags: [leetcode, easy, string, two-pointers]

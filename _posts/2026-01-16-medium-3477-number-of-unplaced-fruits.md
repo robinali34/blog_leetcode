@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "3477. Number of Unplaced Fruits"
+title: "[Medium] 3477. Number of Unplaced Fruits"
 date: 2026-01-16 00:00:00 -0700
 categories: [leetcode, medium, array, greedy, segment-tree]
 permalink: /2026/01/16/medium-3477-number-of-unplaced-fruits/

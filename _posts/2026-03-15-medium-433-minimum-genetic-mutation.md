@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 433. Minimum Genetic Mutation"
+title: "[Medium] 433. Minimum Genetic Mutation"
 date: 2026-03-15
 categories: [leetcode, medium, bfs, string]
 tags: [leetcode, medium, bfs, string, shortest-path]

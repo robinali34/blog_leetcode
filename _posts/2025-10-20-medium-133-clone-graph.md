@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "133. Clone Graph"
+title: "[Medium] 133. Clone Graph"
 date: 2025-10-20 16:00:00 -0700
 categories: [leetcode, medium, graph, dfs, bfs, clone]
 permalink: /2025/10/20/medium-133-clone-graph/

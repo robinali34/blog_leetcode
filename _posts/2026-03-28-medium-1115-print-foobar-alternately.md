@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1115. Print FooBar Alternately"
+title: "[Medium] 1115. Print FooBar Alternately"
 date: 2026-03-28
 categories: [leetcode, medium, concurrency]
 tags: [leetcode, medium, concurrency, mutex, condition-variable, multithreading]

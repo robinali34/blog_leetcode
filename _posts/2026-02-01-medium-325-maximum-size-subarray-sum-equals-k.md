@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "325. Maximum Size Subarray Sum Equals k"
+title: "[Medium] 325. Maximum Size Subarray Sum Equals k"
 date: 2026-02-01 00:00:00 -0700
 categories: [leetcode, medium, array, hash-table, prefix-sum]
 permalink: /2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/

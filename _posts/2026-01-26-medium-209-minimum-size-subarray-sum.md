@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "209. Minimum Size Subarray Sum"
+title: "[Medium] 209. Minimum Size Subarray Sum"
 date: 2026-01-26 00:00:00 -0700
 categories: [leetcode, medium, array, sliding-window, binary-search, prefix-sum]
 permalink: /2026/01/26/medium-209-minimum-size-subarray-sum/

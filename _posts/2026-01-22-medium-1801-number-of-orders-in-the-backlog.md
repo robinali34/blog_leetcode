@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1801. Number of Orders in the Backlog"
+title: "[Medium] 1801. Number of Orders in the Backlog"
 date: 2026-01-22 00:00:00 -0700
 categories: [leetcode, medium, array, heap, priority-queue, simulation]
 permalink: /2026/01/22/medium-1801-number-of-orders-in-the-backlog/

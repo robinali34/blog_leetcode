@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "645. Set Mismatch"
+title: "[Easy] 645. Set Mismatch"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, array, hash-table, math]
 permalink: /2026/01/19/easy-645-set-mismatch/

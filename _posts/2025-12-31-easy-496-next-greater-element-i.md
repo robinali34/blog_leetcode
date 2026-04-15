@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "496. Next Greater Element I"
+title: "[Easy] 496. Next Greater Element I"
 date: 2025-12-31 18:30:00 -0700
 categories: [leetcode, easy, array, stack, monotonic-stack, hash-table]
 permalink: /2025/12/31/easy-496-next-greater-element-i/

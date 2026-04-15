@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 249. Group Shifted Strings"
+title: "[Medium] 249. Group Shifted Strings"
 date: 2026-03-07
 categories: [leetcode, medium, string, hash]
 tags: [leetcode, medium, string, hash, canonical-form]

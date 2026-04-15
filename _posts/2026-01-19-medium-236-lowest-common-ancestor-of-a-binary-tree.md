@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "236. Lowest Common Ancestor of a Binary Tree"
+title: "[Medium] 236. Lowest Common Ancestor of a Binary Tree"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, medium, tree, dfs]
 permalink: /2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/

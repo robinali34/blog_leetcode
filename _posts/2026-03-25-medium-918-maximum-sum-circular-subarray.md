@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 918. Maximum Sum Circular Subarray"
+title: "[Medium] 918. Maximum Sum Circular Subarray"
 date: 2026-03-25
 categories: [leetcode, medium, dp, array, kadane]
 tags: [leetcode, medium, dp, array, kadane]

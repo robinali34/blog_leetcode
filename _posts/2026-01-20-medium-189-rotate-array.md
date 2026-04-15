@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "189. Rotate Array"
+title: "[Medium] 189. Rotate Array"
 date: 2026-01-20 00:00:00 -0700
 categories: [leetcode, medium, array]
 permalink: /2026/01/20/medium-189-rotate-array/

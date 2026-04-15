@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "487. Max Consecutive Ones II"
+title: "[Medium] 487. Max Consecutive Ones II"
 date: 2025-12-30 19:30:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, sliding-window]
 permalink: /2025/12/30/medium-487-max-consecutive-ones-ii/

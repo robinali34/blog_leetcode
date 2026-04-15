@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 78. Subsets"
+title: "[Medium] 78. Subsets"
 date: 2026-03-05
 categories: [leetcode, medium, backtracking]
 tags: [leetcode, medium, backtracking, dfs, bit-manipulation]

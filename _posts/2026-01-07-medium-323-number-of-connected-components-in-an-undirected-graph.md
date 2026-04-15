@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "323. Number of Connected Components in an Undirected Graph"
+title: "[Medium] 323. Number of Connected Components in an Undirected Graph"
 date: 2026-01-07 00:00:00 -0700
 categories: [leetcode, medium, graph, bfs, dfs, union-find]
 permalink: /2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/

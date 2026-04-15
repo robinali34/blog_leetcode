@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "34. Find First and Last Position of Element in Sorted Array"
+title: "[Medium] 34. Find First and Last Position of Element in Sorted Array"
 date: 2026-01-30 00:00:00 -0700
 categories: [leetcode, medium, array, binary-search]
 permalink: /2026/01/30/medium-34-find-first-and-last-position-of-element-in-sorted-array/

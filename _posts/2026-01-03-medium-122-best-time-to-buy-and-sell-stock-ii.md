@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "122. Best Time to Buy and Sell Stock II"
+title: "[Medium] 122. Best Time to Buy and Sell Stock II"
 date: 2026-01-03 06:00:00 -0700
 categories: [leetcode, medium, array, greedy, dynamic-programming]
 permalink: /2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/

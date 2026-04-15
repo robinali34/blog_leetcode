@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "2080. Range Frequency Queries"
+title: "[Medium] 2080. Range Frequency Queries"
 date: 2026-01-28 00:00:00 -0700
 categories: [leetcode, medium, array, hash-map, binary-search, design]
 permalink: /2026/01/28/medium-2080-range-frequency-queries/

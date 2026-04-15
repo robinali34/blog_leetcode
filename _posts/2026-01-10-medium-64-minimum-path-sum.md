@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "64. Minimum Path Sum"
+title: "[Medium] 64. Minimum Path Sum"
 date: 2026-01-10 00:00:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, matrix]
 permalink: /2026/01/10/medium-64-minimum-path-sum/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1197. Minimum Knight Moves"
+title: "[Medium] 1197. Minimum Knight Moves"
 date: 2026-03-19
 categories: [leetcode, medium, bfs]
 tags: [leetcode, medium, bfs, chess, shortest-path]

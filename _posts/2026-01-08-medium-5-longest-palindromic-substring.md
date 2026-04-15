@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "5. Longest Palindromic Substring"
+title: "[Medium] 5. Longest Palindromic Substring"
 date: 2026-01-08 00:00:00 -0700
 categories: [leetcode, medium, string, two-pointers, dynamic-programming]
 permalink: /2026/01/08/medium-5-longest-palindromic-substring/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "715. Range Module"
+title: "[Hard] 715. Range Module"
 date: 2025-12-31 16:30:00 -0700
 categories: [leetcode, hard, design, data-structures, interval, map, tree-map]
 permalink: /2025/12/31/hard-715-range-module/

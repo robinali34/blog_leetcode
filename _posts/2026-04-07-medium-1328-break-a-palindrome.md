@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1328. Break a Palindrome"
+title: "[Medium] 1328. Break a Palindrome"
 date: 2026-04-07
 categories: [leetcode, medium, string, greedy]
 tags: [leetcode, medium, string, greedy]

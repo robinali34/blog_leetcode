@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 43. Multiply Strings"
+title: "[Medium] 43. Multiply Strings"
 date: 2026-02-17
 categories: [leetcode, medium, string, math, simulation]
 tags: [leetcode, medium, string, math, big-integer, simulation]

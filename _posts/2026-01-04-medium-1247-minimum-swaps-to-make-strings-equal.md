@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1247. Minimum Swaps to Make Strings Equal"
+title: "[Medium] 1247. Minimum Swaps to Make Strings Equal"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, string, math, greedy]
 permalink: /2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 2365. Task Scheduler II"
+title: "[Medium] 2365. Task Scheduler II"
 date: 2026-04-10
 categories: [leetcode, medium, hash-map, simulation]
 tags: [leetcode, medium, hash-map, simulation, greedy]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 73. Set Matrix Zeroes"
+title: "[Medium] 73. Set Matrix Zeroes"
 date: 2026-04-02
 categories: [leetcode, medium, matrix, array]
 tags: [leetcode, medium, matrix, array, in-place]

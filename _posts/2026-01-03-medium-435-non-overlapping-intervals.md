@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "435. Non-overlapping Intervals"
+title: "[Medium] 435. Non-overlapping Intervals"
 date: 2026-01-03 02:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting, intervals, dynamic-programming]
 permalink: /2026/01/03/medium-435-non-overlapping-intervals/

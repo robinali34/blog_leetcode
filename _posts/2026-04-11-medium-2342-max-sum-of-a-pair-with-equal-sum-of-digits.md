@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 2342. Max Sum of a Pair With Equal Sum of Digits"
+title: "[Medium] 2342. Max Sum of a Pair With Equal Sum of Digits"
 date: 2026-04-11
 categories: [leetcode, medium, hash-map, array]
 tags: [leetcode, medium, hash-map, array, greedy]

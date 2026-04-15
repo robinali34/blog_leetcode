@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1944. Number of Visible People in a Queue"
+title: "[Hard] 1944. Number of Visible People in a Queue"
 date: 2026-02-09 00:00:00 -0700
 categories: [leetcode, hard, stack, monotonic-stack]
 permalink: /2026/02/09/hard-1944-number-of-visible-people-in-a-queue/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "862. Shortest Subarray with Sum at Least K"
+title: "[Hard] 862. Shortest Subarray with Sum at Least K"
 date: 2026-01-26 00:00:00 -0700
 categories: [leetcode, hard, array, sliding-window, deque, prefix-sum, monotonic-deque]
 permalink: /2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/

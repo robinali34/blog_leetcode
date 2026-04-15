@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "27. Remove Element"
+title: "[Easy] 27. Remove Element"
 date: 2026-01-26 00:00:00 -0700
 categories: [leetcode, easy, array, two-pointers]
 permalink: /2026/01/26/easy-27-remove-element/

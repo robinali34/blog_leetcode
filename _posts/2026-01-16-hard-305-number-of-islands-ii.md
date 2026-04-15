@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "305. Number of Islands II"
+title: "[Hard] 305. Number of Islands II"
 date: 2026-01-16 00:00:00 -0700
 categories: [leetcode, hard, array, union-find, graph]
 permalink: /2026/01/16/hard-305-number-of-islands-ii/

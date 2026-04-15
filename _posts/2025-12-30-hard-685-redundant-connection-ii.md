@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "685. Redundant Connection II"
+title: "[Hard] 685. Redundant Connection II"
 date: 2025-12-30 21:30:00 -0700
 categories: [leetcode, hard, union-find, dsu, graph, cycle-detection, directed-graph]
 permalink: /2025/12/30/hard-685-redundant-connection-ii/

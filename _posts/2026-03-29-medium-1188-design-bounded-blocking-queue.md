@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1188. Design Bounded Blocking Queue"
+title: "[Medium] 1188. Design Bounded Blocking Queue"
 date: 2026-03-29
 categories: [leetcode, medium, concurrency, design]
 tags: [leetcode, medium, concurrency, design, semaphore, producer-consumer]

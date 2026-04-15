@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "455. Assign Cookies"
+title: "[Easy] 455. Assign Cookies"
 date: 2026-01-03 00:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting, two-pointers]
 permalink: /2026/01/03/easy-455-assign-cookies/

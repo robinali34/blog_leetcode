@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1584. Min Cost to Connect All Points"
+title: "[Medium] 1584. Min Cost to Connect All Points"
 date: 2026-03-08
 categories: [leetcode, medium, graph, mst, dsu]
 tags: [leetcode, medium, graph, mst, kruskal, dsu]

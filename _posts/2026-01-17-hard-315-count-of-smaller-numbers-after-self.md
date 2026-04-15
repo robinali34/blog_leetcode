@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "315. Count of Smaller Numbers After Self"
+title: "[Hard] 315. Count of Smaller Numbers After Self"
 date: 2026-01-17 00:00:00 -0700
 categories: [leetcode, hard, array, binary-search, divide-and-conquer, binary-indexed-tree, segment-tree, merge-sort]
 permalink: /2026/01/17/hard-315-count-of-smaller-numbers-after-self/

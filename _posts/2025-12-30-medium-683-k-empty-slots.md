@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "683. K Empty Slots"
+title: "[Medium] 683. K Empty Slots"
 date: 2025-12-30 15:30:00 -0700
 categories: [leetcode, medium, sliding-window, two-pointers, array]
 permalink: /2025/12/30/medium-683-k-empty-slots/

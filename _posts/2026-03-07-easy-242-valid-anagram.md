@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 242. Valid Anagram"
+title: "[Easy] 242. Valid Anagram"
 date: 2026-03-07
 categories: [leetcode, easy, string, hash]
 tags: [leetcode, easy, string, hash, sorting]

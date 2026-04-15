@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "354. Russian Doll Envelopes"
+title: "[Medium] 354. Russian Doll Envelopes"
 date: 2026-01-25 00:00:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, binary-search, sorting]
 permalink: /2026/01/25/medium-354-russian-doll-envelopes/

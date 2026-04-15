@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "314. Binary Tree Vertical Order Traversal"
+title: "[Medium] 314. Binary Tree Vertical Order Traversal"
 date: 2025-10-20 15:00:00 -0700
 categories: [leetcode, medium, tree, bfs, vertical-order]
 permalink: /2025/10/20/medium-314-binary-tree-vertical-order-traversal/

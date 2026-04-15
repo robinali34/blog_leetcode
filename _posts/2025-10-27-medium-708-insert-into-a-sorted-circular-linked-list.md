@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 708: Insert into a Sorted Circular Linked List"
+title: "[Medium] 708. Insert into a Sorted Circular Linked List"
 date: 2025-10-27 21:06:00 -0700
 categories: leetcode medium linked-list circular
 permalink: /posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/

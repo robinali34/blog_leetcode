@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "3342. Find Minimum Time to Reach Last Room II"
+title: "[Medium] 3342. Find Minimum Time to Reach Last Room II"
 date: 2026-02-10 00:00:00 -0700
 categories: [leetcode, medium, graph, shortest-path, dijkstra, grid]
 permalink: /2026/02/10/medium-3342-find-minimum-time-to-reach-last-room-ii/

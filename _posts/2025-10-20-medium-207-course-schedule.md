@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "207. Course Schedule"
+title: "[Medium] 207. Course Schedule"
 date: 2025-10-20 16:30:00 -0700
 categories: [leetcode, medium, graph, topological-sort, cycle-detection]
 permalink: /2025/10/20/medium-207-course-schedule/

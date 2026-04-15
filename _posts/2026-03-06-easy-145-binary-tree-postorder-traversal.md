@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 145. Binary Tree Postorder Traversal"
+title: "[Easy] 145. Binary Tree Postorder Traversal"
 date: 2026-03-06
 categories: [leetcode, easy, tree, dfs]
 tags: [leetcode, easy, tree, dfs, stack]

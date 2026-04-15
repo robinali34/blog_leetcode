@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1400. Construct K Palindrome Strings"
+title: "[Medium] 1400. Construct K Palindrome Strings"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, string, greedy, hash-table]
 permalink: /2026/01/04/medium-1400-construct-k-palindrome-strings/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 155. Min Stack"
+title: "[Medium] 155. Min Stack"
 date: 2026-02-11
 categories: [leetcode, medium, stack]
 tags: [leetcode, medium, stack, data-structure-design]

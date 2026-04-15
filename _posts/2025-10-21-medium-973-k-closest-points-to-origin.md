@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 973: K Closest Points to Origin"
+title: "[Medium] 973. K Closest Points to Origin"
 date: 2025-10-21 15:30:00 -0700
 categories: leetcode medium array sorting
 permalink: /posts/2025-10-21-medium-973-k-closest-points-to-origin/

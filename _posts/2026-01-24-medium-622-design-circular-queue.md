@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "622. Design Circular Queue"
+title: "[Medium] 622. Design Circular Queue"
 date: 2026-01-24 00:00:00 -0700
 categories: [leetcode, medium, array, linked-list, design, queue]
 permalink: /2026/01/24/medium-622-design-circular-queue/

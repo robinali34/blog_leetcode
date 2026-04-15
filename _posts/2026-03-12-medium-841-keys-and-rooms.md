@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 841. Keys and Rooms"
+title: "[Medium] 841. Keys and Rooms"
 date: 2026-03-12
 categories: [leetcode, medium, graph, dfs, bfs]
 tags: [leetcode, medium, graph, dfs, bfs, reachability]

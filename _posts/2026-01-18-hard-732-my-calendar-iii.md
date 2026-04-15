@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "732. My Calendar III"
+title: "[Hard] 732. My Calendar III"
 date: 2026-01-18 00:00:00 -0700
 categories: [leetcode, hard, array, binary-search, design, segment-tree, ordered-set]
 permalink: /2026/01/18/hard-732-my-calendar-iii/

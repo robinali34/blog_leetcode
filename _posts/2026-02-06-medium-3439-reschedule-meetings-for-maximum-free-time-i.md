@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "3439. Reschedule Meetings for Maximum Free Time I"
+title: "[Medium] 3439. Reschedule Meetings for Maximum Free Time I"
 date: 2026-02-06 00:00:00 -0700
 categories: [leetcode, medium, array, intervals, sliding-window, prefix-sum]
 permalink: /2026/02/06/medium-3439-reschedule-meetings-for-maximum-free-time-i/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 383. Ransom Note"
+title: "[Easy] 383. Ransom Note"
 date: 2026-03-07
 categories: [leetcode, easy, string, hash]
 tags: [leetcode, easy, string, hash, frequency-count]

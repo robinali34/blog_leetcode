@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "3110. Score of a String"
+title: "[Easy] 3110. Score of a String"
 date: 2026-01-18 00:00:00 -0700
 categories: [leetcode, easy, string, array]
 permalink: /2026/01/18/easy-3110-score-of-a-string/

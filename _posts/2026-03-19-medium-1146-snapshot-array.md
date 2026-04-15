@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1146. Snapshot Array"
+title: "[Medium] 1146. Snapshot Array"
 date: 2026-03-19
 categories: [leetcode, medium, design, binary-search]
 tags: [leetcode, medium, design, binary-search, map]

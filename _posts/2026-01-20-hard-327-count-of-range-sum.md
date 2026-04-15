@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "327. Count of Range Sum"
+title: "[Hard] 327. Count of Range Sum"
 date: 2026-01-20 00:00:00 -0700
 categories: [leetcode, hard, array, divide-and-conquer]
 permalink: /2026/01/20/hard-327-count-of-range-sum/

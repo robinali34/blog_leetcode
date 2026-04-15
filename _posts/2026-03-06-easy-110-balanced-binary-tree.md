@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 110. Balanced Binary Tree"
+title: "[Easy] 110. Balanced Binary Tree"
 date: 2026-03-06
 categories: [leetcode, easy, tree, dfs]
 tags: [leetcode, easy, tree, dfs, recursion]

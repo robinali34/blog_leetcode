@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 347: Top K Frequent Elements"
+title: "[Medium] 347. Top K Frequent Elements"
 date: 2025-10-21 16:00:00 -0700
 categories: leetcode medium array hash-table heap
 permalink: /posts/2025-10-21-medium-347-top-k-frequent-elements/

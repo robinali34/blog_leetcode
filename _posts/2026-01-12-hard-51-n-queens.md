@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "51. N-Queens"
+title: "[Hard] 51. N-Queens"
 date: 2026-01-12 00:00:00 -0700
 categories: [leetcode, hard, array, backtracking, recursion]
 permalink: /2026/01/12/hard-51-n-queens/

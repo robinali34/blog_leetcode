@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "47. Permutations II"
+title: "[Medium] 47. Permutations II"
 date: 2025-10-20 14:05:00 -0700
 categories: leetcode algorithm medium backtracking recursion duplicates
 permalink: /2025/10/20/medium-47-permutations-ii/

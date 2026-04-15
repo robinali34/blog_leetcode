@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "84. Largest Rectangle in Histogram"
+title: "[Hard] 84. Largest Rectangle in Histogram"
 date: 2025-10-20 13:40:00 -0700
 categories: leetcode algorithm hard stack monotonic-stack
 permalink: /2025/10/20/hard-84-largest-rectangle-in-histogram/

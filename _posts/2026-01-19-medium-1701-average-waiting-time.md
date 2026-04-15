@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1701. Average Waiting Time"
+title: "[Medium] 1701. Average Waiting Time"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, medium, array, simulation]
 permalink: /2026/01/19/medium-1701-average-waiting-time/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 389. Find the Difference"
+title: "[Easy] 389. Find the Difference"
 date: 2026-03-27
 categories: [leetcode, easy, bit-manipulation, string]
 tags: [leetcode, easy, bit-manipulation, xor, string, hash]

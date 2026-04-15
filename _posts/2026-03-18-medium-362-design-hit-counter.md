@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 362. Design Hit Counter"
+title: "[Medium] 362. Design Hit Counter"
 date: 2026-03-18
 categories: [leetcode, medium, design, queue]
 tags: [leetcode, medium, design, queue, deque, sliding-window]

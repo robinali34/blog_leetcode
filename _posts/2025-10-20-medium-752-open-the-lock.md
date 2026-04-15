@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "752. Open the Lock"
+title: "[Medium] 752. Open the Lock"
 date: 2025-10-20 15:30:00 -0700
 categories: [leetcode, medium, bfs, shortest-path, lock]
 permalink: /2025/10/20/medium-752-open-the-lock/

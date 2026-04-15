@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1091. Shortest Path in Binary Matrix"
+title: "[Medium] 1091. Shortest Path in Binary Matrix"
 date: 2026-03-11
 categories: [leetcode, medium, graph, bfs]
 tags: [leetcode, medium, graph, bfs, grid, shortest-path]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "269. Alien Dictionary"
+title: "[Hard] 269. Alien Dictionary"
 date: 2026-01-14 00:00:00 -0700
 categories: [leetcode, hard, graph, topological-sort, string]
 permalink: /2026/01/14/hard-269-alien-dictionary/

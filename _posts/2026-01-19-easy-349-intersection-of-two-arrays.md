@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "349. Intersection of Two Arrays"
+title: "[Easy] 349. Intersection of Two Arrays"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, array, hash-table]
 permalink: /2026/01/19/easy-349-intersection-of-two-arrays/

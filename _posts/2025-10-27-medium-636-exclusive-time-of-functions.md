@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 636: Exclusive Time of Functions"
+title: "[Medium] 636. Exclusive Time of Functions"
 date: 2025-10-27 21:04:00 -0700
 categories: leetcode medium stack parsing
 permalink: /posts/2025-10-27-medium-636-exclusive-time-of-functions/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 144. Binary Tree Preorder Traversal"
+title: "[Easy] 144. Binary Tree Preorder Traversal"
 date: 2026-03-06
 categories: [leetcode, easy, tree, dfs]
 tags: [leetcode, easy, tree, dfs, stack, morris]

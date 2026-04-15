@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1029. Two City Scheduling"
+title: "[Medium] 1029. Two City Scheduling"
 date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting]
 permalink: /2026/01/04/medium-1029-two-city-scheduling/

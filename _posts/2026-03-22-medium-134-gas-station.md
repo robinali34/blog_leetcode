@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 134. Gas Station"
+title: "[Medium] 134. Gas Station"
 date: 2026-03-22
 categories: [leetcode, medium, greedy, array]
 tags: [leetcode, medium, greedy, array]

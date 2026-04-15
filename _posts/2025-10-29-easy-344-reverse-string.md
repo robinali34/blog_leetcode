@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 344: Reverse String"
+title: "[Easy] 344. Reverse String"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode easy two-pointers string
 permalink: /posts/2025-10-29-easy-344-reverse-string/

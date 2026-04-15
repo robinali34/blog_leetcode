@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LC 717: 1-bit and 2-bit Characters"
+title: "[Easy] 717. 1-bit and 2-bit Characters"
 date: 2025-10-29 00:00:00 -0700
 categories: leetcode easy array parsing
 permalink: /posts/2025-10-29-easy-717-1-bit-and-2-bit-characters/

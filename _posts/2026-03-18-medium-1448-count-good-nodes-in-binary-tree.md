@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1448. Count Good Nodes in Binary Tree"
+title: "[Medium] 1448. Count Good Nodes in Binary Tree"
 date: 2026-03-18
 categories: [leetcode, medium, tree, dfs, bfs]
 tags: [leetcode, medium, tree, dfs, bfs]

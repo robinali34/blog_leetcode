@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 261. Graph Valid Tree"
+title: "[Medium] 261. Graph Valid Tree"
 date: 2026-04-01
 categories: [leetcode, medium, graph, dsu, dfs]
 tags: [leetcode, medium, graph, dsu, dfs, tree, cycle-detection]

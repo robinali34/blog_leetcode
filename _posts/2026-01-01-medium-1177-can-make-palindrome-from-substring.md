@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "1177. Can Make Palindrome from Substring"
+title: "[Medium] 1177. Can Make Palindrome from Substring"
 date: 2026-01-01 01:00:00 -0700
 categories: [leetcode, medium, string, bit-manipulation, prefix-sum, hash-table]
 permalink: /2026/01/01/medium-1177-can-make-palindrome-from-substring/

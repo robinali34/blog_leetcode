@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "101. Symmetric Tree"
+title: "[Easy] 101. Symmetric Tree"
 date: 2026-01-19 00:00:00 -0700
 categories: [leetcode, easy, tree, dfs]
 permalink: /2026/01/19/easy-101-symmetric-tree/

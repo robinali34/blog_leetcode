@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 151. Reverse Words in a String"
+title: "[Medium] 151. Reverse Words in a String"
 date: 2026-03-27
 categories: [leetcode, medium, string, two-pointers]
 tags: [leetcode, medium, string, two-pointers]

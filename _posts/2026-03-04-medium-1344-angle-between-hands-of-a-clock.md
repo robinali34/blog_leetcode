@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1344. Angle Between Hands of a Clock"
+title: "[Medium] 1344. Angle Between Hands of a Clock"
 date: 2026-03-04
 categories: [leetcode, medium, math]
 tags: [leetcode, medium, math, geometry]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LeetCode 1870. Minimum Speed to Arrive on Time"
+title: "[Medium] 1870. Minimum Speed to Arrive on Time"
 date: 2026-03-30
 categories: [leetcode, medium, binary-search]
 tags: [leetcode, medium, binary-search, greedy]
