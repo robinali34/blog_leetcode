@@ -554,6 +554,72 @@ hr {
   box-sizing: border-box;
 }
 
+/* Translation Widget Sidebar */
+.translate-section {
+  margin-top: 1rem;
+}
+
+.translate-section .goog-te-gadget {
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  color: var(--morandi-text-medium) !important;
+}
+
+.translate-section .goog-te-gadget-simple {
+  background-color: var(--morandi-bg-primary) !important;
+  border: 1px solid var(--morandi-border-medium) !important;
+  border-radius: 6px !important;
+  padding: 0.4rem 0.6rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+.translate-section .goog-te-gadget-simple .goog-te-menu-value {
+  color: var(--morandi-text-dark) !important;
+}
+
+.translate-section .goog-te-gadget-simple .goog-te-menu-value span {
+  color: var(--morandi-text-dark) !important;
+}
+
+.translate-section .goog-te-gadget-simple:hover {
+  border-color: var(--morandi-border-dark) !important;
+  background-color: var(--morandi-bg-hover) !important;
+}
+
+.translate-section select.goog-te-combo {
+  width: 100% !important;
+  padding: 0.4rem 0.5rem !important;
+  border: 1px solid var(--morandi-border-medium) !important;
+  border-radius: 6px !important;
+  background-color: var(--morandi-bg-primary) !important;
+  color: var(--morandi-text-dark) !important;
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  appearance: auto !important;
+}
+
+.translate-section select.goog-te-combo:hover {
+  border-color: var(--morandi-border-dark) !important;
+  background-color: var(--morandi-bg-hover) !important;
+}
+
+.translate-section select.goog-te-combo:focus {
+  outline: none !important;
+  border-color: var(--morandi-link) !important;
+  box-shadow: 0 0 0 2px rgba(139, 134, 128, 0.15) !important;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 .sidebar-title {
   font-size: 1.2rem;
   margin: 0 0 1rem 0;
