@@ -70,7 +70,7 @@ int uniquePaths(vector<vector<int>>& g){
 | 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
 | 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) |
 | 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) |
-| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | - |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) |
 | 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
 | 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
 | 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) |

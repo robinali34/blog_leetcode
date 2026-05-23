@@ -12,10 +12,10 @@ This page contains a comprehensive list of all LeetCode problems solved in this 
 
 ## Summary Statistics
 
-- **Total Problems:** 307
+- **Total Problems:** 313
 - **Easy:** 57 problems
-- **Medium:** 217 problems
-- **Hard:** 33 problems
+- **Medium:** 221 problems
+- **Hard:** 35 problems
 
 ## Problems by Category
 
@@ -64,8 +64,8 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 
 ---
 
-*Last updated: April 15, 2026*
-*Total problems solved: 307*
+*Last updated: April 20, 2026*
+*Total problems solved: 313*
 
 ## All LeetCode Problems
 
@@ -81,6 +81,7 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 | [23](https://robinali34.github.io/blog_leetcode/2026/02/15/hard-23-merge-k-sorted-lists/) | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | Hard | Linked List, Divide And Conquer, Heap | 2026-02-15 |
 | [25](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) | Hard | Linked List, Recursive, Data Structures, Pointers, Reverse Nodes, K Group, Recursion | 2025-09-24 |
 | [27](https://robinali34.github.io/blog_leetcode/2026/01/26/easy-27-remove-element/) | [Remove Element](https://leetcode.com/problems/remove-element/) | Easy | Array, Two Pointers | 2026-01-26 |
+| [92](https://robinali34.github.io/blog_leetcode/2026/04/16/medium-92-reverse-linked-list-ii/) | [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) | Medium | Linked List, Reversal | 2026-04-16 |
 | [29](https://robinali34.github.io/blog_leetcode/2026/02/14/medium-29-divide-two-integers/) | [Divide Two Integers](https://leetcode.com/problems/divide-two-integers/) | Medium | Math, Bit Manipulation | 2026-02-14 |
 | [32](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) | [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) | Hard | String, Dynamic Programming, Stack | 2025-11-24 |
 | [33](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) | [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) | Medium | Binary Search, Data Structures, Array, Rotated Array, Search | 2025-09-23 |
@@ -160,6 +161,7 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 | [217](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-217-contains-duplicate/) | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | Easy | Array, Hash | 2026-03-07 |
 | [218](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) | [The Skyline Problem](https://leetcode.com/problems/skyline-problem/) | Hard | Sweep Line, Priority Queue, Data Structures, Union Find | 2025-10-05 |
 | [219](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-219-contains-duplicate-ii/) | [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/) | Easy | Array, Hash, Sliding Window | 2026-03-07 |
+| [221](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) | [Maximal Square](https://leetcode.com/problems/maximal-square/) | Medium | Dynamic Programming, Matrix | 2026-04-18 |
 | [224](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) | Medium | String, Stack, Expression Evaluation | 2025-11-13 |
 | [226](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-226-invert-binary-tree/) | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) | Easy | Tree, Dfs | 2026-01-19 |
 | [227](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) | [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | Medium | String, Stack, Expression Evaluation | 2025-11-13 |
@@ -175,6 +177,7 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 | [261](https://robinali34.github.io/blog_leetcode/2026/04/01/medium-261-graph-valid-tree/) | [Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/) | Medium | Graph, Dsu, Dfs | 2026-04-01 |
 | [269](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) | [Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) | Hard | Graph, Topological Sort, String | 2026-01-14 |
 | [270](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) | [Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/) | Easy | Binary Search Tree, Tree, Recursion, Binary Search | 2025-12-30 |
+| [274](https://robinali34.github.io/blog_leetcode/2026/04/17/medium-274-h-index/) | [H-Index](https://leetcode.com/problems/h-index/) | Medium | Array, Sorting, Counting Sort | 2026-04-17 |
 | [277](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-277-find-the-celebrity/) | [Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) | Medium | Graph, Two Pointers | 2025-11-24 |
 | [279](https://robinali34.github.io/blog_leetcode/2025/12/14/medium-279-perfect-squares/) | [Perfect Squares](https://leetcode.com/problems/perfect-squares/) | Medium | Math, Dynamic Programming, Bfs | 2025-12-14 |
 | [281](https://robinali34.github.io/blog_leetcode/2025/12/10/medium-281-zigzag-iterator/) | [Zigzag Iterator](https://leetcode.com/problems/zigzag-iterator/) | Medium | Design, Iterator | 2025-12-10 |
@@ -197,6 +200,7 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 | [324](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-324-wiggle-sort-ii/) | [Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/) | Medium | Arrays, Nth Element, Three Way Partition, Index Mapping | 2025-11-04 |
 | [325](https://robinali34.github.io/blog_leetcode/2026/02/01/medium-325-maximum-size-subarray-sum-equals-k/) | [Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/) | Medium | Array, Hash Table, Prefix Sum | 2026-02-01 |
 | [327](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) | Hard | Array, Divide And Conquer | 2026-01-20 |
+| [329](https://robinali34.github.io/blog_leetcode/2026/04/18/hard-329-longest-increasing-path-in-a-matrix/) | [Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) | Hard | DFS, Memoization, Topological Sort, Matrix | 2026-04-18 |
 | [341](https://robinali34.github.io/blog_leetcode/2026/03/24/medium-341-flatten-nested-list-iterator/) | [Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/) | Medium | Design, Stack, Iterator | 2026-03-24 |
 | [344](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/) | [Reverse String](https://leetcode.com/problems/reverse-string/) | Easy | Two Pointers, String | 2025-10-29 |
 | [346](https://robinali34.github.io/blog_leetcode/2025/12/14/easy-346-moving-average-from-data-stream/) | [Moving Average from Data Stream](https://leetcode.com/problems/moving-average-from-data-stream/) | Easy | Queue, Sliding Window, Design | 2025-12-14 |
@@ -371,6 +375,8 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 | [2433](https://robinali34.github.io/blog_leetcode/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) | [Find The Original Array of Prefix Xor](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | Medium | Bit Manipulation, Prefix | 2026-04-05 |
 | [2461](https://robinali34.github.io/blog_leetcode/2026/04/09/medium-2461-maximum-sum-of-distinct-subarrays-with-length-k/) | [Maximum Sum of Distinct Subarrays With Length K](https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/) | Medium | Sliding Window, Hash Map | 2026-04-09 |
 | [2466](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) | [Count Ways To Build Good Strings](https://leetcode.com/problems/count-ways-to-build-good-strings/) | Medium | Dynamic Programming, Dp | 2025-10-16 |
+| [2539](https://robinali34.github.io/blog_leetcode/2026/04/19/hard-2539-count-the-number-of-good-subsequences/) | [Count the Number of Good Subsequences](https://leetcode.com/problems/count-the-number-of-good-subsequences/) | Hard | Combinatorics, Math, Modular Arithmetic | 2026-04-19 |
+| [2571](https://robinali34.github.io/blog_leetcode/2026/04/20/medium-2571-minimum-operations-to-reduce-an-integer-to-0/) | [Minimum Operations to Reduce an Integer to 0](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/) | Medium | Bit Manipulation, Greedy | 2026-04-20 |
 | [2799](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) | [Count Complete Subarrays in an Array](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | Medium | Sliding Window, Hash Map | 2025-10-17 |
 | [3110](https://robinali34.github.io/blog_leetcode/2026/01/18/easy-3110-score-of-a-string/) | [Score of a String](https://leetcode.com/problems/score-of-a-string/) | Easy | String, Array | 2026-01-18 |
 | [3112](https://robinali34.github.io/blog_leetcode/2026/02/08/medium-3112-minimum-time-to-visit-disappearing-nodes/) | [Minimum Time to Visit Disappearing Nodes](https://leetcode.com/problems/minimum-time-to-visit-disappearing-nodes/) | Medium | Graph, Shortest Path, Dijkstra | 2026-02-08 |

@@ -221,7 +221,7 @@ int dfsWithMemo(vector<vector<int>>& matrix, int i, int j,
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 329 | Longest Increasing Path in a Matrix | [Link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) | - |
+| 329 | Longest Increasing Path in a Matrix | [Link](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/hard-329-longest-increasing-path-in-a-matrix/) |
 
 ## Iterative DFS
 
