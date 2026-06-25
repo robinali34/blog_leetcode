@@ -14,6 +14,187 @@ permalink: /leetcode-templates/
     <a class="page-link" href="/posts/2025-10-29-leetcode-categories-and-templates/">➤ View Master: LeetCode Categories and Solution Templates</a>
   </section>
 
+  <section class="template-relationships" style="margin: 2rem 0;">
+    <h2 style="font-size: 1.3rem; color: #5A5752; margin-bottom: 1rem;">Template Relationships</h2>
+    <div style="overflow-x: auto;">
+      <svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg"
+           style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+        <style>
+          .tmpl-node { cursor: pointer; }
+          .tmpl-node:hover rect { filter: brightness(0.92); }
+          .tmpl-node text { pointer-events: none; }
+        </style>
+        <defs>
+          <marker id="tmpl-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#B8B5B0"/>
+          </marker>
+        </defs>
+
+        <!-- Edges (drawn first, behind nodes) -->
+        <g stroke="#C4C0BB" stroke-width="1.4" fill="none" marker-end="url(#tmpl-arrow)">
+          <!-- Array → Search -->
+          <line x1="95" y1="158" x2="165" y2="247"/>
+          <!-- Stack → DFS (iterative) -->
+          <line x1="540" y1="158" x2="480" y2="247"/>
+          <!-- Queue → BFS -->
+          <line x1="680" y1="158" x2="740" y2="247"/>
+          <!-- DFS → DP (memoization) -->
+          <line x1="468" y1="283" x2="280" y2="362"/>
+          <!-- DFS → Backtracking (pruning) -->
+          <line x1="480" y1="283" x2="480" y2="362"/>
+          <!-- DFS → Tree (traversal) -->
+          <line x1="472" y1="283" x2="280" y2="472"/>
+          <!-- BFS → Graph (shortest path) -->
+          <line x1="740" y1="283" x2="480" y2="472"/>
+          <!-- Heap → Graph (Dijkstra, curved to avoid BFS) -->
+          <path d="M840,158 Q920,320 480,472" stroke-dasharray="6,3"/>
+        </g>
+
+        <!-- Edge labels -->
+        <g font-size="10" fill="#9A9792" font-style="italic">
+          <text x="140" y="194">binary search</text>
+          <text x="516" y="194">iterative</text>
+          <text x="365" y="316" text-anchor="end">memo</text>
+          <text x="490" y="328">pruning</text>
+          <text x="622" y="370">shortest path</text>
+          <text x="800" y="308">Dijkstra</text>
+        </g>
+
+        <!-- Foundation -->
+        <a href="{{ '/posts/2025-10-29-leetcode-templates-data-structures/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="345" y="26" width="270" height="38" rx="10" fill="#D4D1CC" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="480" y="49" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">Core Algorithms</text>
+          </g>
+        </a>
+
+        <!-- Data Structures tier -->
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-array-matrix/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="50" y="122" width="90" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="95" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Array</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-string-processing/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="192" y="122" width="86" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="235" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">String</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-linked-list/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="335" y="122" width="110" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="390" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Linked List</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-13-leetcode-templates-stack/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="500" y="122" width="80" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="540" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Stack</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-queue/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="640" y="122" width="80" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="680" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Queue</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2026-01-05-leetcode-templates-heap/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="805" y="122" width="70" height="36" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="840" y="144" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Heap</text>
+          </g>
+        </a>
+
+        <!-- Traversal & Search tier -->
+        <a href="{{ '/posts/2026-01-20-leetcode-templates-search/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="122" y="247" width="86" height="36" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="165" y="269" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Search</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-dfs/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="447" y="247" width="66" height="36" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="480" y="269" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">DFS</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-bfs/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="707" y="247" width="66" height="36" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="740" y="269" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">BFS</text>
+          </g>
+        </a>
+
+        <!-- Algorithm Paradigms tier -->
+        <a href="{{ '/posts/2025-12-14-leetcode-templates-greedy/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="35" y="362" width="90" height="36" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="80" y="384" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Greedy</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-10-29-leetcode-templates-dp/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="197" y="362" width="166" height="36" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="280" y="384" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Dynamic Programming</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-backtracking/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="420" y="362" width="120" height="36" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="480" y="384" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Backtracking</text>
+          </g>
+        </a>
+
+        <!-- Applications tier -->
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-math-bit-manipulation/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="25" y="472" width="110" height="36" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="80" y="494" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Math &amp; Bit</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-10-29-leetcode-templates-trees/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="245" y="472" width="70" height="36" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="280" y="494" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Tree</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-10-29-leetcode-templates-graph/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="440" y="472" width="80" height="36" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="480" y="494" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Graph</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-11-24-leetcode-templates-data-structure-design/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="637" y="472" width="86" height="36" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="680" y="494" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Design</text>
+          </g>
+        </a>
+        <a href="{{ '/posts/2025-10-29-leetcode-templates-advanced/' | relative_url }}">
+          <g class="tmpl-node">
+            <rect x="820" y="472" width="100" height="36" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+            <text x="870" y="494" font-size="12" fill="#5A5752" font-weight="600" text-anchor="middle">Advanced</text>
+          </g>
+        </a>
+
+        <!-- Legend -->
+        <g font-size="10" fill="#7A7772">
+          <circle cx="260" cy="540" r="6" fill="#D4D1CC" stroke="#B8B5B0" stroke-width="1"/>
+          <text x="274" y="544">Foundation</text>
+          <circle cx="360" cy="540" r="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+          <text x="374" y="544">Structures</text>
+          <circle cx="460" cy="540" r="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1"/>
+          <text x="474" y="544">Traversal</text>
+          <circle cx="548" cy="540" r="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+          <text x="562" y="544">Paradigms</text>
+          <circle cx="645" cy="540" r="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+          <text x="659" y="544">Applications</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
   <div class="posts-list" id="templatesList">
     <article class="post-item">
       <div class="post-meta">Templates</div>
