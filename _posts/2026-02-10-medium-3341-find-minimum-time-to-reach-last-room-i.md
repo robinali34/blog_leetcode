@@ -92,10 +92,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| BFS / DFS traversal | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
-| **Union-Find (DSU)** *(this problem)* | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| BFS / DFS traversal | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| **Union-Find (DSU)** *(this problem)* | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Solution
 

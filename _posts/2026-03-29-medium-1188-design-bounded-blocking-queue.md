@@ -84,10 +84,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
-| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
-| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
-| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 

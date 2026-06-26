@@ -51,11 +51,11 @@ THINKING_HINTS: dict[str, str] = {
     "stack": (
         "- Stack matches nested or LIFO structure (parentheses, monotonic scans).\n"
         "- Push on open / larger; pop when the current element resolves pending work.\n"
-        "- Monotonic stack finds next greater/smaller in $O(n)$."
+        "- Monotonic stack finds next greater/smaller in O(n)."
     ),
     "heap": (
         "- Heap gives fast access to min/max without full sorting.\n"
-        "- Size-$k$ heap handles Top-K in $O(n \\log k)$.\n"
+        "- Size-k heap handles Top-K in O(n log k).\n"
         "- Lazy deletion when elements leave the heap before removal."
     ),
     "greedy": (
@@ -96,7 +96,7 @@ THINKING_HINTS: dict[str, str] = {
     "design": (
         "- Identify required operations and their frequency (get/put/insert).\n"
         "- Combine data structures: hash map + list, heap + map, trie + DFS.\n"
-        "- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists."
+        "- Amortized O(1) often needs lazy cleanup or doubly-linked lists."
     ),
     "bit-manipulation": (
         "- XOR cancels duplicates; AND/SHIFT test or clear bits.\n"
@@ -130,154 +130,154 @@ TAG_APPROACHES: dict[str, str] = {
     "binary-search": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Standard binary search | $O(\\log n)$ | $O(1)$ | Sorted array, `left <= right` |
-| Lower / upper bound | $O(\\log n)$ | $O(1)$ | First/last position, insert index |
-| Binary search on rotated array | $O(\\log n)$ | $O(1)$ | Identify sorted half, discard other |
-| Binary search on answer | $O(n \\log M)$ | $O(1)$ | Monotonic predicate over search space |
+| Standard binary search | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 """,
     "dfs": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Recursive DFS | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| Recursive DFS | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 """,
     "bfs": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Queue BFS | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+| Queue BFS | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 """,
     "dynamic-programming": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| 1D DP | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| 1D DP | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 """,
     "dp": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| 1D DP | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| 1D DP | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 """,
     "two-pointers": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Opposite ends | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
-| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
-| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
-| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
+| Opposite ends | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
 """,
     "sliding-window": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Fixed-size window | $O(n)$ | $O(1)$ | Window size known upfront |
-| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
-| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
-| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+| Fixed-size window | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 """,
     "stack": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Monotonic stack | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| Monotonic stack | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 """,
     "heap": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Min/max heap | $O(n \\log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \\log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \\log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \\log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| Min/max heap | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 """,
     "greedy": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Sort + greedy | $O(n \\log n)$ | $O(1)$ | Interval scheduling, assignment |
-| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
-| Greedy + heap | $O(n \\log n)$ | $O(n)$ | Merge streams, room allocation |
-| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+| Sort + greedy | O(n log n) | O(1) | Interval scheduling, assignment |
+| Local greedy choice | O(n) | O(1) | Jump game, gas station |
+| Greedy + heap | O(n log n) | O(n) | Merge streams, room allocation |
+| Exchange argument | O(n) | O(1) | Prove greedy choice is safe |
 """,
     "graph": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| BFS / DFS traversal | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\\log V)$ | $O(V)$ | Non-negative edge weights |
-| Union-Find (DSU) | $O(\\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| BFS / DFS traversal | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(\α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 """,
     "tree": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Recursive DFS | $O(n)$ | $O(h)$ | Depth, path sum, subtree queries |
-| BFS level-order | $O(n)$ | $O(w)$ | Level traversal, zigzag |
-| Inorder on BST | $O(n)$ | $O(h)$ | Sorted order, successor |
-| Divide & conquer on tree | $O(n)$ | $O(h)$ | Diameter, max path |
+| Recursive DFS | O(n) | O(h) | Depth, path sum, subtree queries |
+| BFS level-order | O(n) | O(w) | Level traversal, zigzag |
+| Inorder on BST | O(n) | O(h) | Sorted order, successor |
+| Divide & conquer on tree | O(n) | O(h) | Diameter, max path |
 """,
     "linked-list": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Iterative pointer walk | $O(n)$ | $O(1)$ | Traversal, insertion |
-| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| Iterative pointer walk | O(n) | O(1) | Traversal, insertion |
+| Dummy head node | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 """,
     "backtracking": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Choose / explore / unchoose | $O(2^n)$ | $O(n)$ | Subsets, combinations |
-| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
-| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
-| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
+| Choose / explore / unchoose | O(2^n) | O(n) | Subsets, combinations |
+| Constraint pruning | Reduced search | O(n) | Early exit on invalid partial |
+| Sort + skip duplicates | O(2^n) | O(n) | Combination sum II style |
+| Path recording | O(n!) worst | O(n) | Permutations |
 """,
     "string": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Two pointers on string | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| Two pointers on string | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 """,
     "array": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Prefix sum | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \\log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| Prefix sum | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 """,
     "matrix": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Row/column traversal | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| Row/column traversal | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| Matrix as graph | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
 """,
     "design": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Hash map + list | $O(1)$ avg | $O(n)$ | LRU cache pattern |
-| Heap + hash map | $O(\\log n)$ | $O(n)$ | LFU, time-based store |
-| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
-| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
+| Hash map + list | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 """,
     "bit-manipulation": """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| XOR tricks | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| XOR tricks | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 """,
 }
 
@@ -290,13 +290,13 @@ def is_problem_post(path: Path) -> bool:
 
 def parse_filename(path: Path) -> tuple[int, str] | None:
     m = re.search(
-        r"(?:easy|medium|hard)-(?:lcr)?(\d+)-(.+)\.md$",
+        r"(?:easy|medium|hard)-(?:lcr)?(\d+)-(.+)\.md",
         path.name,
         re.I,
     )
     if m:
         return int(m.group(1)), m.group(2)
-    m = re.search(r"(?:easy|medium|hard)-(.+)\.md$", path.name, re.I)
+    m = re.search(r"(?:easy|medium|hard)-(.+)\.md", path.name, re.I)
     if m:
         return 0, m.group(1)
     return None
@@ -366,10 +366,10 @@ def pick_approaches_table(tags: list[str]) -> str:
 DEFAULT_APPROACHES = """
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Brute force | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
-| Sort + scan | $O(n \\log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
-| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
-| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+| Brute force | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| Sort + scan | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
 """
 
 
@@ -389,18 +389,18 @@ def build_references(num: int, title: str, slug: str) -> str:
 
 
 def normalize_old_format(body: str) -> str:
-    body = re.sub(r"^#\s+\[(?:Easy|Medium|Hard)\]\s+\d+\..*$\n?", "", body, flags=re.M)
-    body = re.sub(r"^#\s+LC\s+\d+:.*$\n?", "", body, flags=re.M | re.I)
-    body = re.sub(r"^#\s+\d+\.\s+.*$\n?", "", body, count=1, flags=re.M)
+    body = re.sub(r"^#\s+\[(?:Easy|Medium|Hard)\]\s+\d+\..*n?", "", body, flags=re.M)
+    body = re.sub(r"^#s+LCs+d+:.*\n?", "", body, flags=re.M | re.I)
+    body = re.sub(r"^#\s+\d+\.\s+.*n?", "", body, count=1, flags=re.M)
 
     body = re.sub(
-        r"^## Problem Description\s*\n+",
+        r"^## Problem Descriptions*n+",
         "",
         body,
         flags=re.M,
     )
     body = re.sub(
-        r"^## Solution in C\+\+\s*$",
+        r"^## Solution in C\+\+s*",
         "## Solution",
         body,
         flags=re.M,
@@ -412,31 +412,31 @@ def normalize_old_format(body: str) -> str:
         flags=re.M | re.DOTALL,
     )
     body = re.sub(
-        r"^## Algorithm Explanation\s*$",
+        r"^## Algorithm Explanation\s*",
         "### Solution Explanation",
         body,
         flags=re.M,
     )
     body = re.sub(
-        r"^## How the Algorithm Works\s*$",
+        r"^## How the Algorithm Workss*",
         "### Solution Explanation",
         body,
         flags=re.M,
     )
     body = re.sub(
-        r"^## Time Complexity\s*$",
+        r"^## Time Complexity\s*",
         "### Complexity",
         body,
         flags=re.M,
     )
     body = re.sub(
-        r"^## Complexity Analysis\s*$",
+        r"^## Complexity Analysiss*",
         "### Complexity",
         body,
         flags=re.M,
     )
-    body = re.sub(r"^### Examples\s*$", "## Examples", body, flags=re.M)
-    body = re.sub(r"^### Constraints\s*$", "## Constraints", body, flags=re.M)
+    body = re.sub(r"^### Examples\s*", "## Examples", body, flags=re.M)
+    body = re.sub(r"^### Constraintss*", "## Constraints", body, flags=re.M)
     return body
 
 
@@ -522,12 +522,12 @@ def ensure_solution_explanation(body: str) -> str:
 
 
 def ensure_thinking_process(body: str) -> str:
-    if re.search(r"^## Thinking Process\s*$", body, flags=re.M):
+    if re.search(r"^## Thinking Process\s*", body, flags=re.M):
         return body
-    if re.search(r"^## Approach\s*$", body, flags=re.M):
-        return re.sub(r"^## Approach\s*$", "## Thinking Process", body, flags=re.M)
-    if re.search(r"^## Key Idea\s*$", body, flags=re.M):
-        return re.sub(r"^## Key Idea\s*$", "## Thinking Process", body, flags=re.M)
+    if re.search(r"^## Approachs*", body, flags=re.M):
+        return re.sub(r"^## Approach\s*", "## Thinking Process", body, flags=re.M)
+    if re.search(r"^## Key Ideas*", body, flags=re.M):
+        return re.sub(r"^## Key Idea\s*", "## Thinking Process", body, flags=re.M)
     return body
 
 
@@ -545,8 +545,8 @@ def pick_thinking_hint(tags: list[str]) -> str:
         if tag in THINKING_HINTS:
             return THINKING_HINTS[tag]
     return (
-        "- Identify the pattern from constraints (sorted? graph? optimal substructure?).\n"
-        "- Write brute force first mentally, then optimize the bottleneck.\n"
+        "- Identify the pattern from constraints (sorted? graph? optimal substructure?).n"
+        "- Write brute force first mentally, then optimize the bottleneck.n"
         "- Verify edge cases: empty input, single element, duplicates."
     )
 
@@ -555,12 +555,12 @@ def extract_preamble(body: str) -> str:
     m = re.search(r"^## ", body, flags=re.M)
     text = body[: m.start()].strip() if m else body.strip()
     lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    return "\n\n".join(lines[:2]) if lines else ""
+    return "nn".join(lines[:2]) if lines else ""
 
 
 def extract_section(body: str, header: str) -> str:
     m = re.search(
-        rf"^## {re.escape(header)}\s*\n+(.*?)(?=^## |\Z)",
+        rf"^## {re.escape(header)}s*n+(.*?)(?=^## |Z)",
         body,
         flags=re.M | re.DOTALL,
     )
@@ -578,7 +578,7 @@ def extract_key_takeaway_bullets(body: str, max_items: int = 4) -> str:
             bullets.append(s)
         if len(bullets) >= max_items:
             break
-    return "\n".join(bullets)
+    return "n".join(bullets)
 
 
 def extract_full_thinking(body: str) -> str:
@@ -587,16 +587,16 @@ def extract_full_thinking(body: str) -> str:
 
 def extract_example_trace(body: str) -> str:
     m = re.search(
-        r"\*\*Example 1:\*\*(.*?)(?=\*\*Example 2:|\n## )",
+        r"\*\*Example 1:\*\*(.*?)(?=\*\*Example 2:|n## )",
         body,
         flags=re.I | re.DOTALL,
     )
     if not m:
         return ""
     block = m.group(1)
-    input_m = re.search(r"Input:\s*(.+)", block)
-    output_m = re.search(r"Output:\s*(.+)", block)
-    expl_m = re.search(r"Explanation:\s*(.+?)(?=\n\n|\n```|\Z)", block, re.S | re.I)
+    input_m = re.search(r"Input:s*(.+)", block)
+    output_m = re.search(r"Output:s*(.+)", block)
+    expl_m = re.search(r"Explanation:s*(.+?)(?=nn|n```|Z)", block, re.S | re.I)
     if not input_m:
         return ""
     inp = input_m.group(1).strip()
@@ -604,22 +604,22 @@ def extract_example_trace(body: str) -> str:
     trace = f"**Walkthrough** — input `{inp}`"
     if out:
         trace += f", expected output `{out}`"
-    trace += ":\n\n"
+    trace += ":nn"
     if expl_m:
-        trace += expl_m.group(1).strip() + "\n"
+        trace += expl_m.group(1).strip() + "n"
     else:
         trace += (
-            "1. Initialize variables from the problem setup.\n"
-            "2. Apply the main loop / recursion until the condition is met.\n"
-            "3. Confirm the result matches the expected output.\n"
+            "1. Initialize variables from the problem setup.n"
+            "2. Apply the main loop / recursion until the condition is met.n"
+            "3. Confirm the result matches the expected output.n"
         )
     return trace
 
 
 def extract_complexity_line(body: str) -> str:
-    m = re.search(r"^## Solution[^\n]*\$O\(([^)]+)\)[^\n]*\$O\(([^)]+)\)", body, re.M)
+    m = re.search(r"^## Solution[^n]*\O\(([^)]+)\)[^\n]*\O\(([^)]+)\)", body, re.M)
     if m:
-        return f"**Time:** $O({m.group(1)}) · **Space:** $O({m.group(2)})"
+        return f"**Time:** O({m.group(1)}) · **Space:** O({m.group(2)})"
     m = re.search(r"\*\*Time:\*\*.*", body)
     if m:
         line = m.group(0).strip()
@@ -629,19 +629,19 @@ def extract_complexity_line(body: str) -> str:
                 line += " · " + sm.group(0).strip()
         return line
     m = re.search(
-        r"^### Complexity\s*\n+(.*?)(?=^### |^## |\Z)",
+        r"^### Complexitys*n+(.*?)(?=^### |^## |Z)",
         body,
         flags=re.M | re.DOTALL,
     )
     if m:
         return m.group(1).strip()
     m = re.search(
-        r"\*\*Time Complexity\*\*:?\s*([^\n]+)",
+        r"\*\*Time Complexity\*\*:?s*([^n]+)",
         body,
         re.I,
     )
     if m:
-        sm = re.search(r"\*\*Space Complexity\*\*:?\s*([^\n]+)", body, re.I)
+        sm = re.search(r"\*\*Space Complexity\*\*:?s*([^n]+)", body, re.I)
         space = sm.group(1).strip() if sm else "see analysis"
         return f"**Time:** {m.group(1).strip()} · **Space:** {space}"
     return ""
@@ -681,7 +681,7 @@ def extract_primary_approach_name(body: str, slug: str) -> str:
 
 def fix_table_pipe_spacing(body: str) -> str:
     return re.sub(
-        r"\|\*\*([^*|]+)\*\*\s*\*\(this problem\)\*\s*\|",
+        r"\|\*\*([^*|]+)\*\*s*\*\(this problem\)\*s*\|",
         r"| **\1** *(this problem)* |",
         body,
     )
@@ -710,7 +710,7 @@ def pick_primary_row_index(table: str, slug: str, tags: list[str]) -> int | None
 
 def highlight_primary_approach_row(body: str, slug: str, tags: list[str]) -> str:
     m = re.search(
-        r"^(## Common Approaches\s*\n+(?:Typical techniques for this pattern:\s*\n+)?)(.*?)(?=^## |\Z)",
+        r"^(## Common Approachess*n+(?:Typical techniques for this pattern:s*n+)?)(.*?)(?=^## |Z)",
         body,
         flags=re.M | re.DOTALL,
     )
@@ -732,64 +732,64 @@ def highlight_primary_approach_row(body: str, slug: str, tags: list[str]) -> str
             name = re.sub(r"\*+", "", cols[1]).strip()
             cols[1] = f" **{name}** *(this problem)* "
             lines[idx] = "|".join(cols)
-        table = "\n".join(lines)
+        table = "n".join(lines)
     return body[: m.start()] + prefix + table + body[m.end():]
 
 
 def explanation_score(body: str) -> int:
     m = re.search(
-        r"### Solution Explanation\s*\n+(.*?)(?=^### |^## |\Z)",
+        r"### Solution Explanations*n+(.*?)(?=^### |^## |Z)",
         body,
         flags=re.M | re.DOTALL | re.I,
     )
     if m:
         return len(m.group(1).strip())
-    m = re.search(r"^## Solution.*?(?=^## |\Z)", body, flags=re.M | re.DOTALL)
+    m = re.search(r"^## Solution.*?(?=^## |Z)", body, flags=re.M | re.DOTALL)
     if not m:
         return 0
-    parts = re.split(r"```cpp\n.*?```", m.group(0), flags=re.DOTALL)
+    parts = re.split(r"```cppn.*?```", m.group(0), flags=re.DOTALL)
     if len(parts) < 2:
         return 0
     return len(parts[-1].strip())
 
 
 def build_rich_explanation(body: str, tags: list[str], slug: str) -> str:
-    parts = ["### Solution Explanation\n\n"]
+    parts = ["### Solution Explanationnn"]
     primary = extract_primary_approach_name(body, slug)
     if primary:
-        parts.append(f"**Approach:** {primary}\n\n")
+        parts.append(f"**Approach:** {primary}nn")
     thinking = extract_full_thinking(body)
     if thinking:
         first = thinking.splitlines()[0].strip()
         if first:
-            parts.append(f"**Key idea:** {first.lstrip('- ').lstrip('* ')}\n\n")
+            parts.append(f"**Key idea:** {first.lstrip('- ').lstrip('* ')}nn")
         numbered = [
             ln.strip()
             for ln in thinking.splitlines()
-            if re.match(r"^(\d+\.|-|\*)", ln.strip())
+            if re.match(r"^(d+\.|-|\*)", ln.strip())
         ]
         if numbered:
-            parts.append("**How the code works:**\n")
-            parts.append("\n".join(numbered[:6]) + "\n\n")
+            parts.append("**How the code works:**n")
+            parts.append("n".join(numbered[:6]) + "nn")
     trace = extract_example_trace(body)
     if trace:
-        parts.append(trace + "\n")
+        parts.append(trace + "n")
     comp = extract_complexity_line(body)
     if comp:
-        parts.append(comp + "\n")
-    return "".join(parts).strip() + "\n"
+        parts.append(comp + "n")
+    return "".join(parts).strip() + "n"
 
 
 def inject_rich_explanation(body: str, tags: list[str], slug: str) -> str:
     if "### Solution Explanation" in body:
-        if re.search(r"###\s+.*Solution\s+2", body, flags=re.I):
+        if re.search(r"###s+.*Solutions+2", body, flags=re.I):
             if explanation_score(body) >= MIN_EXPLANATION_CHARS + 80:
                 return body
         if explanation_score(body) >= MIN_EXPLANATION_CHARS and "Walkthrough" in body:
             return body
     rich = build_rich_explanation(body, tags, slug)
     m = re.search(
-        r"(^## (?:Solution|Approach)[^\n]*\n)(.*?)(?=^## |\Z)",
+        r"(^## (?:Solution|Approach)[^n]*n)(.*?)(?=^## |Z)",
         body,
         flags=re.M | re.DOTALL,
     )
@@ -798,35 +798,35 @@ def inject_rich_explanation(body: str, tags: list[str], slug: str) -> str:
     header, section = m.group(1), m.group(2)
     if not re.search(r"```cpp", section):
         return body
-    parts = re.split(r"(```cpp\n.*?```)", section, flags=re.DOTALL)
+    parts = re.split(r"(```cppn.*?```)", section, flags=re.DOTALL)
     if len(parts) < 2:
         return body
     before, code = parts[0], parts[1]
     after = "".join(parts[2:])
     after = re.sub(
-        r"### Solution Explanation\s*\n.*?(?=^### |^## |\Z)",
+        r"### Solution Explanations*n.*?(?=^### |^## |Z)",
         "",
         after,
         flags=re.M | re.DOTALL | re.I,
     )
     after = re.sub(
-        r"### Complexity\s*\n.*?(?=^### |^## |\Z)",
+        r"### Complexitys*n.*?(?=^### |^## |Z)",
         "",
         after,
         flags=re.M | re.DOTALL,
     )
-    new_section = before + code + "\n\n" + rich
+    new_section = before + code + "nn" + rich
     preserved = after.strip()
     if preserved and not re.match(r"^### Solution Explanation", preserved, re.I):
         if len(preserved) > 150 or re.search(r"^## ", preserved, re.M):
-            if not preserved.startswith("\n"):
-                new_section += "\n"
-            new_section += preserved + "\n"
+            if not preserved.startswith("n"):
+                new_section += "n"
+            new_section += preserved + "n"
     return body[: m.start()] + header + new_section + body[m.end():]
 
 
 def ensure_thinking_process_generated(body: str, tags: list[str]) -> str:
-    if re.search(r"^## Thinking Process\s*$", body, flags=re.M):
+    if re.search(r"^## Thinking Processs*", body, flags=re.M):
         return body
     content = extract_full_thinking(body)
     if not content:
@@ -847,11 +847,11 @@ def ensure_thinking_process_generated(body: str, tags: list[str]) -> str:
 
 
 def ensure_key_takeaways(body: str) -> str:
-    if re.search(r"^## Key Takeaways\s*$", body, flags=re.M):
+    if re.search(r"^## Key Takeaways\s*", body, flags=re.M):
         return body
     thinking = extract_full_thinking(body)
     primary = ""
-    m = re.search(r"\*\*Approach:\*\*\s*(.+)", body)
+    m = re.search(r"\*\*Approach:\*\*s*(.+)", body)
     if m:
         primary = m.group(1).strip()
     bullets = []
@@ -869,7 +869,7 @@ def ensure_key_takeaways(body: str) -> str:
             "- Reuse the template for similar problems in this pattern family.",
             "- Trace Example 1 by hand before coding.",
         ]
-    section = "## Key Takeaways\n\n" + "\n".join(bullets[:4])
+    section = "## Key Takeawaysnn" + "n".join(bullets[:4])
     return insert_section_before(
         body,
         section,
@@ -878,7 +878,7 @@ def ensure_key_takeaways(body: str) -> str:
 
 
 def ensure_common_mistakes(body: str) -> str:
-    if re.search(r"^## Common Mistakes\s*$", body, flags=re.M):
+    if re.search(r"^## Common Mistakess*", body, flags=re.M):
         return body
     section = (
         "## Common Mistakes\n\n"
@@ -904,18 +904,18 @@ def deep_enrich(body: str, tags: list[str], slug: str) -> str:
 
 def insert_section_before(body: str, section_md: str, before_headers: tuple[str, ...]) -> str:
     for header in before_headers:
-        pat = f"^## {re.escape(header)}\\s*$"
+        pat = f"^## {re.escape(header)}\\s*"
         m = re.search(pat, body, flags=re.M | re.I)
         if m:
-            return body[: m.start()] + section_md + "\n\n" + body[m.start():]
-    return body.rstrip() + "\n\n" + section_md + "\n"
+            return body[: m.start()] + section_md + "nn" + body[m.start():]
+    return body.rstrip() + "nn" + section_md + "n"
 
 
 def enrich_body(body: str, num: int, title: str, slug: str, tags: list[str]) -> str:
     body = normalize_old_format(body)
     body = ensure_thinking_process(body)
 
-    if re.search(r"^## Common Approaches\s*$", body, flags=re.M):
+    if re.search(r"^## Common Approachess*", body, flags=re.M):
         # Upgrade generic table to tag-specific when possible
         m = re.search(
             r"^## Common Approaches\s*\n+(.*?)(?=^## |\Z)",

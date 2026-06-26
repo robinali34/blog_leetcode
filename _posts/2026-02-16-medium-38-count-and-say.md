@@ -44,10 +44,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -94,7 +94,7 @@ This is cleaner than maintaining a separate counter variable.
 
 </svg>
 
-## Approach: Iterative Simulation -- $O(n \cdot L)$
+## Approach: Iterative Simulation -- O(n · L)
 
 Build each term from the previous one, iterating from term 2 to term `n`. For each term, scan with two pointers to find consecutive groups.
 

@@ -39,9 +39,9 @@ Explanation:
 
 ## Thinking Process
 
-For each split index `i`, we need `sum(nums[0..i]) >= sum(nums[i+1..n-1])`. Computing both sums from scratch for every `i` would be $O(n^2)$.
+For each split index `i`, we need `sum(nums[0..i]) >= sum(nums[i+1..n-1])`. Computing both sums from scratch for every `i` would be O(n^2).
 
-Two approaches to get $O(n)$:
+Two approaches to get O(n):
 
 1. **Prefix sum array**: precompute prefix sums, then `leftSum = prefSum[i]` and `rightSum = prefSum[n-1] - prefSum[i]`
 2. **Running sums**: maintain `leftSum` and `rightSum`, incrementally transferring each element from right to left
@@ -66,10 +66,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Solution
 
@@ -101,7 +101,7 @@ public:
 
 **Approach:** Prefix sum (this problem)
 
-**Key idea:** For each split index `i`, we need `sum(nums[0..i]) >= sum(nums[i+1..n-1])`. Computing both sums from scratch for every `i` would be $O(n^2)$.
+**Key idea:** For each split index `i`, we need `sum(nums[0..i]) >= sum(nums[i+1..n-1])`. Computing both sums from scratch for every `i` would be O(n^2).
 
 **How the code works:**
 1. **Prefix sum array**: precompute prefix sums, then `leftSum = prefSum[i]` and `rightSum = prefSum[n-1] - prefSum[i]`
@@ -114,14 +114,14 @@ Split at 0: [10] vs [4,-8,7] → 10 >= 3 ✓
   Split at 2: [10,4,-8] vs [7] → 6 >= 7 ✗
 ## Why `long long`?
 
-With $n$ up to $10^5$ and values up to $\pm 10^5$, the total sum can reach $\pm 10^{10}$, which overflows a 32-bit `int`. Using `long long` prevents this.
+With n up to 10^5 and values up to pm 10^5, the total sum can reach pm 10^{10}, which overflows a 32-bit `int`. Using `long long` prevents this.
 
 ## Comparison
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Prefix Sum Array | $O(n)$ | $O(n)$ | Reusable for multiple queries |
-| Running Sums | $O(n)$ | $O(1)$ | Optimal for single pass |
+| Prefix Sum Array | O(n) | O(n) | Reusable for multiple queries |
+| Running Sums | O(n) | O(1) | Optimal for single pass |
 
 ## Common Mistakes
 

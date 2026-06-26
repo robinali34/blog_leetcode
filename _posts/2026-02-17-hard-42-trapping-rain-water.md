@@ -36,10 +36,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Thinking Process
 
@@ -47,7 +47,7 @@ Typical techniques for this pattern:
 
 At index `i`, the water trapped is:
 
-$$\text{water}[i] = \min(\text{maxLeft}[i],\ \text{maxRight}[i]) - \text{height}[i]$$
+$text{water}[i] = min(text{maxLeft}[i],\ text{maxRight}[i]) - text{height}[i]
 
 If negative, clamp to 0. Where:
 - `maxLeft[i]` = maximum height from `0` to `i`
@@ -55,20 +55,20 @@ If negative, clamp to 0. Where:
 
 ### From Brute Force to Optimal
 
-**Brute force**: For each index, scan left and right to find the max. $O(n^2)$ -- too slow.
+**Brute force**: For each index, scan left and right to find the max. O(n^2) -- too slow.
 
-**Prefix/Suffix arrays**: Precompute `leftMax[]` and `rightMax[]` in two passes. $O(n)$ time, $O(n)$ space. Safe and clean.
+**Prefix/Suffix arrays**: Precompute `leftMax[]` and `rightMax[]` in two passes. O(n) time, O(n) space. Safe and clean.
 
-**Two pointers**: Key insight -- if `leftMax < rightMax`, water depends **only** on `leftMax` because $\min(\text{leftMax}, \text{rightMax}) = \text{leftMax}$. The opposite side is guaranteed to be at least as tall. So we don't need full arrays; just move the smaller side inward. $O(n)$ time, $O(1)$ space.
+**Two pointers**: Key insight -- if `leftMax < rightMax`, water depends **only** on `leftMax` because \min(\text{leftMax}, \text{rightMax}) = \text{leftMax}. The opposite side is guaranteed to be at least as tall. So we don't need full arrays; just move the smaller side inward. O(n) time, O(1) space.
 
 ### Comparison Table
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Brute Force | $O(n^2)$ | $O(1)$ | Too slow |
-| Prefix/Suffix | $O(n)$ | $O(n)$ | Safe, easy |
-| Two Pointers | $O(n)$ | $O(1)$ | Optimal |
-| Monotonic Stack | $O(n)$ | $O(n)$ | Useful pattern |
+| Brute Force | O(n^2) | O(1) | Too slow |
+| Prefix/Suffix | O(n) | O(n) | Safe, easy |
+| Two Pointers | O(n) | O(1) | Optimal |
+| Monotonic Stack | O(n) | O(n) | Useful pattern |
 
 
 
@@ -86,7 +86,7 @@ If negative, clamp to 0. Where:
 
 </svg>
 
-## Approach 1: Brute Force -- $O(n^2)$
+## Approach 1: Brute Force -- O(n^2)
 
 For each index, scan left and right to find the max height on each side.
 
@@ -124,16 +124,16 @@ public:
 **How the code works:**
 - `maxLeft[i]` = maximum height from `0` to `i`
 - `maxRight[i]` = maximum height from `i` to `n-1`
-**Brute force**: For each index, scan left and right to find the max. $O(n^2)$ -- too slow.
-**Prefix/Suffix arrays**: Precompute `leftMax[]` and `rightMax[]` in two passes. $O(n)$ time, $O(n)$ space. Safe and clean.
-**Two pointers**: Key insight -- if `leftMax < rightMax`, water depends **only** on `leftMax` because $\min(\text{leftMax}, \text{rightMax}) = \text{leftMax}$. The opposite side is guaranteed to be at least as tall. So we don't need full arrays; just move the smaller side inward. $O(n)$ time, $O(1)$ space.
+**Brute force**: For each index, scan left and right to find the max. O(n^2) -- too slow.
+**Prefix/Suffix arrays**: Precompute `leftMax[]` and `rightMax[]` in two passes. O(n) time, O(n) space. Safe and clean.
+**Two pointers**: Key insight -- if `leftMax < rightMax`, water depends **only** on `leftMax` because \min(\text{leftMax}, \text{rightMax}) = \text{leftMax}. The opposite side is guaranteed to be at least as tall. So we don't need full arrays; just move the smaller side inward. O(n) time, O(1) space.
 
 **Walkthrough** — input `height = [0,1,0,2,1,0,1,3,2,1,2,1]`, expected output `6`:
 
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Prefix & Suffix Arrays -- $O(n)$ time, $O(n)$ space
+## Approach 2: Prefix & Suffix Arrays -- O(n) time, O(n) space
 
 Precompute `leftMax[i]` and `rightMax[i]` in two linear passes, then compute water in a third pass.
 
@@ -165,14 +165,14 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$
+**Time**: O(n)
+**Space**: O(n)
 
-## Approach 3: Two Pointers -- $O(n)$ time, $O(1)$ space (Optimal)
+## Approach 3: Two Pointers -- O(n) time, O(1) space (Optimal)
 
 The smaller side always determines the bottleneck. Move the pointer on the smaller side inward, accumulating water as you go.
 
-**Invariant**: At each step, the smaller of `leftMax` and `rightMax` determines trapped water. Since the opposite side is guaranteed $\geq$ the smaller side, the water calculation is always safe.
+**Invariant**: At each step, the smaller of `leftMax` and `rightMax` determines trapped water. Since the opposite side is guaranteed \geq the smaller side, the water calculation is always safe.
 
 {% raw %}
 ```cpp
@@ -208,10 +208,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(1)$
+**Time**: O(n)
+**Space**: O(1)
 
-## Approach 4: Monotonic Stack -- $O(n)$ time, $O(n)$ space
+## Approach 4: Monotonic Stack -- O(n) time, O(n) space
 
 Process bars left to right. When a taller bar is found, pop shorter bars from the stack and compute the water trapped in the "valley" between the current bar and the new stack top.
 
@@ -244,8 +244,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$ -- each index is pushed and popped at most once
-**Space**: $O(n)$ for the stack
+**Time**: O(n) -- each index is pushed and popped at most once
+**Space**: O(n) for the stack
 
 ## Pattern Recognition
 
@@ -263,7 +263,7 @@ When you see "for each position, need left info + right info," immediately consi
 
 ## Key Takeaways
 
-- The formula $\min(\text{maxLeft}, \text{maxRight}) - \text{height}$ is the foundation -- all four approaches implement it differently
+- The formula \min(\text{maxLeft}, \text{maxRight}) - \text{height}$ is the foundation -- all four approaches implement it differently
 - Two pointers eliminates extra space by observing that the smaller side is the only bottleneck
 - Monotonic stack computes water layer by layer (horizontally) rather than column by column (vertically)
 - Master both two-pointer and monotonic-stack versions -- they appear in many related problems

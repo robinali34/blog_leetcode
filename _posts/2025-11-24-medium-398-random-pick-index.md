@@ -57,7 +57,7 @@ solution.pick(3); // Should return either index 2, 3, or 4 randomly.
 
 - Identify required operations and their frequency (get/put/insert).
 - Combine data structures: hash map + list, heap + map, trie + DFS.
-- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 
 
 
@@ -78,10 +78,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
-| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
-| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
-| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 
@@ -123,7 +123,7 @@ public:
 1. **Preprocessing pays off**: One-time O(n) cost amortized over many `pick()` calls
 - Identify required operations and their frequency (get/put/insert).
 - Combine data structures: hash map + list, heap + map, trie + DFS.
-- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 ## Algorithm Breakdown
 
 ### Constructor: Build Index Map

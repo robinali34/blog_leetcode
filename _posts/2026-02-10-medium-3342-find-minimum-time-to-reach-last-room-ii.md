@@ -70,9 +70,9 @@ Output: 4
 
 This is a **shortest path problem** on a grid where the edge weights are dynamic but depend only on the *sequence* of moves (1, 2, 1, 2...).
 
-Specifically, the cost of the $k$-th move is:
-- $1$ if $k$ is odd (1st, 3rd, ...)
-- $2$ if $k$ is even (2nd, 4th, ...)
+Specifically, the cost of the k-th move is:
+- 1 if k is odd (1st, 3rd, ...)
+- 2 if k is even (2nd, 4th, ...)
 
 This creates a state `(row, col, next_move_cost)`. Since the cost alternates between 1 and 2, `next_move_cost` is always either 1 or 2.
 
@@ -80,7 +80,7 @@ We can use **Dijkstra's Algorithm**. The state in the priority queue will be `{t
 - `weight` is the cost to move *out* of the current cell to a neighbor.
 - When moving from `(r, c)` to `(nr, nc)` with weight `w`:
   - `arrival_time = max(current_time, moveTime[nr][nc]) + w`
-  - The next weight for `(nr, nc)` will be `3 - w` (swaps 1 $\to$ 2 and 2 $\to$ 1).
+  - The next weight for `(nr, nc)` will be `3 - w` (swaps 1 to 2 and 2 to 1).
 
 ## Thinking Process
 
@@ -114,10 +114,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| BFS / DFS traversal | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
-| **Union-Find (DSU)** *(this problem)* | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| BFS / DFS traversal | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| **Union-Find (DSU)** *(this problem)* | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Solution
 

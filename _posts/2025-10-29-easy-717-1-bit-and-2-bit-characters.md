@@ -43,10 +43,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Thinking Process
 
@@ -72,7 +72,7 @@ If we land exactly on `n - 1`, the last `0` was never paired → **true**. If we
 
 </svg>
 
-## Solution — $O(n)$ time, $O(1)$ space
+## Solution — O(n) time, O(1) space
 
 ```cpp
 class Solution {
@@ -103,7 +103,7 @@ public:
 
 Parse "10" then the final "0" is a lone 1-bit character.
 
-**Time:** $O(n) · **Space:** $O(1)
+**Time:** O(n) · **Space:** O(1)
 ## Common Mistakes
 
 - Looping while `i < n` instead of `i < n - 1` — can overshoot and misread the last character

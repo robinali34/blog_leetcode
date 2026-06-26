@@ -50,10 +50,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -99,7 +99,7 @@ The push/pop ensures the path is always correct for the current branch.
 
 </svg>
 
-## Approach: DFS + Backtracking -- $O(n^2)$
+## Approach: DFS + Backtracking -- O(n^2)
 
 {% raw %}
 ```cpp

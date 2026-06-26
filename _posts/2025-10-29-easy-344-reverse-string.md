@@ -37,10 +37,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
-| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
-| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
-| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
+| **Opposite ends** *(this problem)* | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
 
 ## Thinking Process
 
@@ -66,7 +66,7 @@ In-place reversal is a classic **two-pointer** pattern: swap the characters at t
 
 </svg>
 
-## Solution — $O(n)$ time, $O(1)$ space
+## Solution — O(n) time, O(1) space
 
 ```cpp
 class Solution {
@@ -101,7 +101,7 @@ public:
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
 
-**Time:** $O(n) · **Space:** $O(1)
+**Time:** O(n) · **Space:** O(1)
 ## Common Mistakes
 
 - Using `left <= right` and swapping the middle element twice (use `left < right`)

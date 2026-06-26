@@ -107,8 +107,8 @@ Single pass over all 81 cells. For each filled cell:
 3. Check if `mask` already exists in `row[i]`, `col[j]`, or `box[boxIndex]`
 4. If yes, return `false`. Otherwise, set the bit.
 
-**Time Complexity**: $O(81)$ = $O(1)$
-**Space Complexity**: $O(1)$ (27 integers)
+**Time Complexity**: O(81) = O(1)
+**Space Complexity**: O(1) (27 integers)
 
 ## Common Approaches
 
@@ -116,10 +116,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
 
@@ -171,7 +171,7 @@ This problem tests:
 - **Constraint modeling** -- 27 groups validated in one pass
 - **Bitmask usage** -- one integer per constraint group
 - **Grid indexing mapping** -- the `(i/3)*3 + (j/3)` trick
-- **Clean $O(1)$ structure design** -- no containers, just arrays
+- **Clean O(1) structure design** -- no containers, just arrays
 
 ## Related Problems
 

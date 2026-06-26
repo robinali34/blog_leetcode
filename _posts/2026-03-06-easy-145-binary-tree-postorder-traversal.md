@@ -47,10 +47,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -89,7 +89,7 @@ A more direct iterative approach uses a `prev` pointer to track whether we're re
 
 </svg>
 
-## Approach 1: Recursive -- $O(n)$
+## Approach 1: Recursive -- O(n)
 
 {% raw %}
 ```cpp
@@ -122,7 +122,7 @@ private:
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Iterative (Modified Preorder + Reverse) -- $O(n)$
+## Approach 2: Iterative (Modified Preorder + Reverse) -- O(n)
 
 Do **root → right → left** traversal, then reverse the result to get **left → right → root**.
 
@@ -150,10 +150,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ for the output; $O(h)$ for the stack
+**Time**: O(n)
+**Space**: O(n) for the output; O(h) for the stack
 
-## Approach 3: Iterative (Prev Pointer) -- $O(n)$
+## Approach 3: Iterative (Prev Pointer) -- O(n)
 
 Track the previously visited node. Only visit the current node when its right child is null or was just visited.
 
@@ -189,8 +189,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ for the output; $O(h)$ for the stack
+**Time**: O(n)
+**Space**: O(n) for the output; O(h) for the stack
 
 ## Comparison Across All Three Traversal Orders
 
@@ -211,7 +211,7 @@ public:
 
 - **Reverse trick** turns postorder into a simple modification of preorder -- swap push order and reverse output
 - **Prev pointer** approach is the "true" iterative postorder -- no reversal needed, but harder to get right
-- All three traversal orders share the same $O(n)$ time and $O(h)$ auxiliary space structure
+- All three traversal orders share the same O(n) time and O(h) auxiliary space structure
 
 ## Related Problems
 

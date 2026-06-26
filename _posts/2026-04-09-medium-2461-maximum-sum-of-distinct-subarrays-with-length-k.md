@@ -93,10 +93,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
-| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
-| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
-| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+| **Fixed-size window** *(this problem)* | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Solution
 
@@ -156,7 +156,7 @@ Subarrays of length 3 with distinct elements:
 - `end - begin + 1 > k` enforces the size limit
 - `begin <= lastOccur` enforces uniqueness
 
-**Why `long long`?** With $10^5$ elements each up to $10^5$, the sum can reach $10^{10}$.
+**Why `long long`?** With 10^5 elements each up to 10^5, the sum can reach 10^{10}.
 
 ## Common Mistakes
 

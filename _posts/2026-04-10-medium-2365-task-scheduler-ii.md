@@ -54,7 +54,7 @@ We must process tasks **in order** (no reordering). For each task, either:
 1. **Enough time has passed** since the last same-type task -- do it on the next day (`day + 1`)
 2. **Not enough time** -- we must wait, jumping to `lastSeen[t] + space + 1`
 
-A hash map tracking the **last day** each task type was performed gives us $O(1)$ lookup per task.
+A hash map tracking the **last day** each task type was performed gives us O(1) lookup per task.
 
 ### Walk-through
 
@@ -90,10 +90,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
-| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
-| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
-| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+| **Sort + greedy** *(this problem)* | O(n log n) | O(1) | Interval scheduling, assignment |
+| Local greedy choice | O(n) | O(1) | Jump game, gas station |
+| Greedy + heap | O(n log n) | O(n) | Merge streams, room allocation |
+| Exchange argument | O(n) | O(1) | Prove greedy choice is safe |
 
 ## Solution
 
@@ -145,11 +145,11 @@ Day 1: task 1
   Day 9: task 1
 ## Key Details
 
-**Why `lastSeen[t] + space + 1`?** If the last occurrence was on day $d$, the earliest we can do the same task again is day $d + \text{space} + 1$ (the gap of `space` days between them).
+**Why `lastSeen[t] + space + 1`?** If the last occurrence was on day d, the earliest we can do the same task again is day d + text{space} + 1 (the gap of `space` days between them).
 
-**Why `long long`?** With $10^5$ tasks and each potentially adding `space` ($\leq 10^5$) idle days, the total days can reach $\sim 10^{10}$.
+**Why `long long`?** With 10^5 tasks and each potentially adding `space` (≤ 10^5) idle days, the total days can reach sim 10^{10}.
 
-**Why not just `day++` always?** When we need to wait, we jump forward in time. This is a simulation that skips idle days rather than counting them one by one, keeping the algorithm $O(n)$.
+**Why not just `day++` always?** When we need to wait, we jump forward in time. This is a simulation that skips idle days rather than counting them one by one, keeping the algorithm O(n).
 
 ## Common Mistakes
 
@@ -160,7 +160,7 @@ Day 1: task 1
 ## Key Takeaways
 
 - **"Execute in order with cooldown per type"** = greedy simulation with last-seen tracking
-- Jump forward instead of incrementing through idle days -- keeps it $O(n)$ regardless of `space` size
+- Jump forward instead of incrementing through idle days -- keeps it O(n) regardless of `space` size
 - Unlike LC 621 Task Scheduler (which allows reordering), this problem fixes the order, making it a simpler simulation
 
 ## Related Problems

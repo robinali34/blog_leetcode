@@ -95,10 +95,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
-| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| **Iterative pointer walk** *(this problem)* | O(n) | O(1) | Traversal, insertion |
+| Dummy head node | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Solution
 
@@ -165,7 +165,7 @@ public:
 
 - **Head insertion** is the cleanest pattern for partial reversal -- no separate reconnection step needed
 - A **dummy node** eliminates the `left == 1` edge case entirely
-- Both approaches are $O(n)$ time and $O(1)$ space -- the choice is about clarity, not performance
+- Both approaches are O(n) time and O(1) space -- the choice is about clarity, not performance
 
 ## Related Problems
 

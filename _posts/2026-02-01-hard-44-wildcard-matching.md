@@ -90,10 +90,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 
@@ -109,7 +109,7 @@ public:
             else if (c == '*') pat += ".*";
             else pat += c;
         }
-        pat.push_back('$');
+        pat.push_back('');
         return regex_search(s, regex(pat));
     }
 };
@@ -137,7 +137,7 @@ public:
    - `'?'` → `'.'` (matches any single character in regex)
    - `'*'` → `".*"` (matches any sequence in regex)
    - Regular characters remain unchanged
-2. **Anchoring**: Add `'^'` at start and `'$'` at end to ensure full string match
+2. **Anchoring**: Add `'^'` at start and `''` at end to ensure full string match
 3. **Regex Search**: Use `regex_search` to check if the entire string matches the pattern
 
 ### Why This Works:

@@ -65,10 +65,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Solution
 

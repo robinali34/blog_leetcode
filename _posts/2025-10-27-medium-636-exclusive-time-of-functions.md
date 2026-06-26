@@ -140,7 +140,7 @@ public:
 **Category:** Stack, Parsing, Simulation
 - Stack matches nested or LIFO structure (parentheses, monotonic scans).
 - Push on open / larger; pop when the current element resolves pending work.
-- Monotonic stack finds next greater/smaller in $O(n)$.
+- Monotonic stack finds next greater/smaller in O(n).
 
 **Walkthrough** — input `n = 2, logs = ["0:start:0","1:start:2","1:end:5","0:end:6"]`, expected output `[3,4]`:
 
@@ -256,7 +256,7 @@ else {
 
 - Stack matches nested or LIFO structure (parentheses, monotonic scans).
 - Push on open / larger; pop when the current element resolves pending work.
-- Monotonic stack finds next greater/smaller in $O(n)$.
+- Monotonic stack finds next greater/smaller in O(n).
 
 
 
@@ -278,7 +278,7 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |

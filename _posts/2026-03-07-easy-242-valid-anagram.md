@@ -37,10 +37,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -68,7 +68,7 @@ The key trick: increment and decrement in the **same** array. If everything canc
 
 </svg>
 
-## Approach 1: Frequency Array -- $O(n)$ time, $O(1)$ space
+## Approach 1: Frequency Array -- O(n) time, O(1) space
 
 The expected optimal solution. Since characters are lowercase letters, a 26-element array suffices.
 
@@ -111,7 +111,7 @@ public:
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Hash Map -- $O(n)$ time, $O(n)$ space
+## Approach 2: Hash Map -- O(n) time, O(n) space
 
 Generalizes to Unicode characters. Use a map instead of a fixed array.
 
@@ -135,10 +135,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ -- up to $n$ distinct characters
+**Time**: O(n)
+**Space**: O(n) -- up to n distinct characters
 
-## Approach 3: Sorting -- $O(n \log n)$
+## Approach 3: Sorting -- O(n log n)
 
 Sort both strings and compare directly. Simplest to write but slowest.
 
@@ -155,16 +155,16 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n \log n)$
-**Space**: $O(1)$ (ignoring sort internals)
+**Time**: O(n log n)
+**Space**: O(1) (ignoring sort internals)
 
 ## Comparison
 
 | Approach | Time | Space | Unicode? |
 |---|---|---|---|
-| Frequency Array | $O(n)$ | $O(1)$ | No (26 letters only) |
-| Hash Map | $O(n)$ | $O(n)$ | Yes |
-| Sorting | $O(n \log n)$ | $O(1)$ | Yes |
+| Frequency Array | O(n) | O(1) | No (26 letters only) |
+| Hash Map | O(n) | O(n) | Yes |
+| Sorting | O(n log n) | O(1) | Yes |
 
 ## Common Mistakes
 

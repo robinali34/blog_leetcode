@@ -93,10 +93,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
 
@@ -164,8 +164,8 @@ private:
 | Aspect | DFS + Memoization | Topological Sort (BFS) |
 |---|---|---|
 | Approach | Top-down recursion with cache | Bottom-up layer-by-layer |
-| Recursion | Yes (stack depth up to $mn$) | No (iterative) |
-| Space | $O(mn)$ dp + recursion stack | $O(mn)$ indegree + queue |
+| Recursion | Yes (stack depth up to mn) | No (iterative) |
+| Space | O(mn) dp + recursion stack | O(mn) indegree + queue |
 | When to prefer | Simpler to write, natural for path problems | Avoids stack overflow on large inputs |
 | Key insight | Strictly increasing = no cycles = safe to memo | Grid as DAG, longest path via topo sort |
 
@@ -180,7 +180,7 @@ private:
 - **DFS + memoization on grid** is a core pattern: define `dp[i][j]` as the answer starting from `(i, j)`, recurse on valid neighbors, cache results
 - **Strictly increasing** guarantees a DAG -- no cycles means memoization is safe and topological sort applies
 - The BFS approach reveals the problem's structure: it's just **longest path in a DAG** disguised as a grid problem
-- Both solutions are $O(mn)$ -- choose based on whether you prefer recursive or iterative style
+- Both solutions are O(mn) -- choose based on whether you prefer recursive or iterative style
 
 ## Related Problems
 

@@ -38,10 +38,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -94,7 +94,7 @@ Each string defines a pair `(E_multiset, O_multiset)`. Swaps only permute within
 
 </svg>
 
-## Approach 1: Sort-Based Signature -- $O(nk \log k)$
+## Approach 1: Sort-Based Signature -- O(nk log k)
 
 For each word, sort even-index and odd-index characters separately, concatenate into a key, and insert into a set.
 
@@ -141,7 +141,7 @@ public:
 **Walkthrough** — input `words = ["abcd","cdab","cbad","xyzz","zzxy","zzyx"]`, expected output `3`:
 
 Groups are ["abcd","cdab","cbad"], ["xyzz","zzxy"], ["zzyx"].
-## Approach 2: Frequency Count -- $O(nk)$
+## Approach 2: Frequency Count -- O(nk)
 
 Since characters are lowercase letters (only 26), we can avoid sorting by counting character frequencies instead.
 
@@ -174,8 +174,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(nk)$
-**Space**: $O(nk)$
+**Time**: O(nk)
+**Space**: O(nk)
 
 ## Common Mistakes
 

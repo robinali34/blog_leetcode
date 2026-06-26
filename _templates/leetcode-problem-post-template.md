@@ -30,8 +30,8 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Primary approach | $O(...)$ | $O(...)$ | When to use |
-| Alternative | $O(...)$ | $O(...)$ | Trade-offs |
+| Primary approach | O(...) | O(...) | When to use |
+| Alternative | O(...) | O(...) | Trade-offs |
 
 ## Thinking Process
 
@@ -41,7 +41,7 @@ The core insight — why the chosen approach works, not interview role-play.
 - Key idea: one sentence
 - Edge cases: only non-obvious ones
 
-## Solution — $O(n)$ time, $O(1)$ space
+## Solution — O(n) time, O(1) space
 
 {% raw %}
 ```cpp
@@ -56,7 +56,7 @@ public:
 
 2–8 lines on how the code works. Include a short walkthrough table or trace for tricky steps.
 
-**Time:** $O(...)$ · **Space:** $O(...)$
+**Time:** O(...) · **Space:** O(...)
 
 ### Alternative (optional)
 

@@ -57,7 +57,7 @@ q.popFront();     // return -1 -> [] (The queue is empty)
 
 - Identify required operations and their frequency (get/put/insert).
 - Combine data structures: hash map + list, heap + map, trie + DFS.
-- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 
 
 
@@ -78,10 +78,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
-| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
-| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
-| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 
@@ -169,7 +169,7 @@ private:
 1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
 - Identify required operations and their frequency (get/put/insert).
 - Combine data structures: hash map + list, heap + map, trie + DFS.
-- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 
 **Walkthrough** — input `["FrontMiddleBackQueue", "pushFront", "pushBack", "pushMiddle", "pushMiddle", "popFront", "popMiddle", "popMiddle", "popBack", "popFront"]`, expected output `[null, null, null, null, null, 1, 3, 4, 2, -1]`:
 

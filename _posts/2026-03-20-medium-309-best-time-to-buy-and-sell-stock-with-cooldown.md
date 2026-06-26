@@ -52,15 +52,15 @@ hold ──sell──► rest ──idle──► sold
 
 ### Transitions
 
-$$\text{hold}[i] = \max(\text{hold}[i-1],\ \text{sold}[i-1] - \text{prices}[i])$$
+$text{hold}[i] = max(text{hold}[i-1],\ text{sold}[i-1] - text{prices}[i])
 
 Keep holding, or buy today (only from `sold` state, not from `rest`).
 
-$$\text{rest}[i] = \text{hold}[i-1] + \text{prices}[i]$$
+text{rest}[i] = text{hold}[i-1] + text{prices}[i]
 
 Sell today (transition from `hold` to `rest`).
 
-$$\text{sold}[i] = \max(\text{sold}[i-1],\ \text{rest}[i-1])$$
+text{sold}[i] = max(text{sold}[i-1],\ text{rest}[i-1])
 
 Stay idle, or cooldown finished (transition from `rest` to `sold`).
 
@@ -70,7 +70,7 @@ Day 0: `hold = -prices[0]`, `sold = 0`, `rest = 0`
 
 ### Answer
 
-$\max(\text{sold}, \text{rest})$ -- we either have no stock and are free, or we just sold. We never want to end in `hold`.
+\max(\text{sold}, \text{rest}) -- we either have no stock and are free, or we just sold. We never want to end in `hold`.
 
 ### Walk-through
 
@@ -107,10 +107,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 
@@ -154,7 +154,7 @@ public:
 buy→sell→cooldown→buy→sell = (2-1) + (2-0) = 3
 ## Why Save `pre_` Values?
 
-All three states depend on the **previous day's** values. If we update `hold` first, it would corrupt the computation of `rest` (which needs the old `hold`). Saving previous values ensures all transitions use day $i-1$ consistently.
+All three states depend on the **previous day's** values. If we update `hold` first, it would corrupt the computation of `rest` (which needs the old `hold`). Saving previous values ensures all transitions use day i-1 consistently.
 
 ## Common Mistakes
 
@@ -166,7 +166,7 @@ All three states depend on the **previous day's** values. If we update `hold` fi
 
 - **Stock problems with constraints** map cleanly to state machine DP
 - Three states (`hold`, `sold`, `rest`) capture the cooldown rule naturally
-- Space optimization from $O(n)$ array to $O(1)$ variables is straightforward since each state only depends on the previous day
+- Space optimization from O(n) array to O(1) variables is straightforward since each state only depends on the previous day
 
 ## Stock Problem Family
 
@@ -175,7 +175,7 @@ All three states depend on the **previous day's** values. If we update `hold` fi
 | 121 Best Time to Buy and Sell Stock | 1 transaction | `hold`, `sold` |
 | 122 Best Time II | Unlimited | `hold`, `sold` |
 | 123 Best Time III | At most 2 | `hold1`, `sold1`, `hold2`, `sold2` |
-| 188 Best Time IV | At most k | `hold[j]`, `sold[j]` for $j \in [1,k]$ |
+| 188 Best Time IV | At most k | `hold[j]`, `sold[j]` for j \in [1,k]$ |
 | **309 With Cooldown** | **Unlimited + cooldown** | **`hold`, `sold`, `rest`** |
 | 714 With Transaction Fee | Unlimited + fee | `hold`, `sold` |
 

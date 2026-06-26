@@ -59,10 +59,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
 

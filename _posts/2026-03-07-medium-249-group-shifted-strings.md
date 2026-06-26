@@ -38,10 +38,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -82,7 +82,7 @@ Use `(str[i] - str[i-1] + 26) % 26` to handle the wrap-around from `z` to `a`.
 
 </svg>
 
-## Approach: Difference Key Hashing -- $O(n \cdot k)$
+## Approach: Difference Key Hashing -- O(n · k)
 
 {% raw %}
 ```cpp

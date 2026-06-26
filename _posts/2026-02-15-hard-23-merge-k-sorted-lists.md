@@ -46,16 +46,16 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
-| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| **Iterative pointer walk** *(this problem)* | O(n) | O(1) | Traversal, insertion |
+| Dummy head node | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Thinking Process
 
 Let `k` = number of lists, `N` = total number of nodes.
 
-**Lower bound**: We must touch every node, so $\Omega(N)$.
+**Lower bound**: We must touch every node, so Omega(N).
 
 ### Why Sequential Merge Is Bad
 
@@ -68,15 +68,15 @@ res = merge(res, lists[3])
 ...
 ```
 
-Worst case time is roughly $N + 2N + 3N + \cdots \approx O(kN)$. This TLEs when `k` is large because earlier merged results keep getting re-traversed.
+Worst case time is roughly N + 2N + 3N + ·s approx O(kN). This TLEs when `k` is large because earlier merged results keep getting re-traversed.
 
 ### Balanced Merging
 
-This is exactly like merge sort -- tree height is $\log k$. Each level processes all $N$ nodes once, so:
+This is exactly like merge sort -- tree height is log k. Each level processes all N nodes once, so:
 
-$$\text{Time} = O(N \log k)$$
+$text{Time} = O(N log k)
 
-### Why This Is $\log k$
+### Why This Is \log k
 
 Each round halves the number of lists:
 
@@ -84,7 +84,7 @@ Each round halves the number of lists:
 k → k/2 → k/4 → k/8 → ... → 1
 ```
 
-Number of rounds: $\log_2 k$. Each round processes all nodes once. Total: $N \cdot \log k$.
+Number of rounds: \log_2 k. Each round processes all nodes once. Total: N \cdot \log k.
 
 
 
@@ -104,7 +104,7 @@ Number of rounds: $\log_2 k$. Each round processes all nodes once. Total: $N \cd
 
 </svg>
 
-## Approach: Divide & Conquer -- $O(N \log k)$
+## Approach: Divide & Conquer -- O(N \log k)
 
 Pair lists and merge them in rounds, halving the count each time. This avoids the repeated long traversals of sequential merging.
 
@@ -156,16 +156,16 @@ public:
 **Key idea:** Let `k` = number of lists, `N` = total number of nodes.
 
 **How the code works:**
-**Lower bound**: We must touch every node, so $\Omega(N)$.
+**Lower bound**: We must touch every node, so \Omega(N).
 
 **Walkthrough** — input `lists = [[1,4,5],[1,3,4],[2,6]]`, expected output `[1,1,2,3,4,4,5,6]`:
 
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Alternative: Min Heap (Priority Queue) -- $O(N \log k)$
+## Alternative: Min Heap (Priority Queue) -- O(N \log k)
 
-Also optimal at $O(N \log k)$, but with $O(k)$ extra space for the heap.
+Also optimal at O(N \log k), but with O(k) extra space for the heap.
 
 **How it works:**
 
@@ -174,7 +174,7 @@ Also optimal at $O(N \log k)$, but with $O(k)$ extra space for the heap.
 3. **Push** that node's `next` into the heap (if it exists)
 4. Repeat until the heap is empty
 
-The heap always holds at most one node per list, so each push/pop is $O(\log k)$. Over all $N$ nodes, total time is $O(N \log k)$.
+The heap always holds at most one node per list, so each push/pop is O(\log k). Over all N nodes, total time is O(N \log k).
 
 **Why use a custom comparator struct?** Defining `Compare` as a struct makes the comparator reusable and avoids lambda overhead. The `priority_queue` in C++ is a max-heap by default, so we reverse the comparison (`a->val > b->val`) to get min-heap behavior.
 
@@ -212,14 +212,14 @@ private:
 ```
 {% endraw %}
 
-**Time**: $O(N \log k)$ -- each of $N$ nodes is pushed/popped once, each operation $O(\log k)$
-**Space**: $O(k)$ for the heap
+**Time**: O(N \log k) -- each of N nodes is pushed/popped once, each operation O(\log k)
+**Space**: O(k) for the heap
 
 ## What Strong Candidates Notice
 
 - `k` may be large with small lists, or `k` small with very large lists -- balanced merging handles both
-- Divide & conquer uses $O(1)$ extra space vs $O(k)$ for the heap
-- Sequential merge degrades to $O(kN)$ -- always avoid it
+- Divide & conquer uses O(1) extra space vs O(k) for the heap
+- Sequential merge degrades to O(kN) -- always avoid it
 
 ## Edge Cases
 
@@ -241,7 +241,7 @@ When you see **"merge k sorted ..."**, immediately think:
 - **Multi-way merge** via min heap
 - **Divide & conquer** tree merging
 
-This is a pattern problem. Balanced merging prevents repeated long traversals, bringing complexity from $O(kN)$ down to $O(N \log k)$.
+This is a pattern problem. Balanced merging prevents repeated long traversals, bringing complexity from O(kN) down to O(N \log k)$.
 
 ## Related Problems
 

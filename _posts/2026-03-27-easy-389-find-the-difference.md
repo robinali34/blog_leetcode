@@ -56,10 +56,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Solution
 
@@ -100,9 +100,9 @@ public:
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| XOR | $O(n)$ | $O(1)$ | Cleanest, no overflow risk |
-| Sum | $O(n)$ | $O(1)$ | Simple, slight overflow risk for very long strings |
-| Frequency | $O(n)$ | $O(1)$ | Most explicit, works for any "find extra" variant |
+| XOR | O(n) | O(1) | Cleanest, no overflow risk |
+| Sum | O(n) | O(1) | Simple, slight overflow risk for very long strings |
+| Frequency | O(n) | O(1) | Most explicit, works for any "find extra" variant |
 
 ## Common Mistakes
 
@@ -113,7 +113,7 @@ public:
 
 - **"Find the single extra/missing element"** = XOR is the go-to bit trick
 - Same XOR pattern appears in LC 136 (Single Number) -- any problem where elements pair up except one
-- All three approaches are $O(n)$ time, $O(1)$ space, but XOR is the most elegant
+- All three approaches are O(n) time, O(1) space, but XOR is the most elegant
 
 ## Related Problems
 

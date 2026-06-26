@@ -35,10 +35,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -74,7 +74,7 @@ Each subtree returns its own height; the parent adds one for the current node. B
 
 </svg>
 
-## Solution — $O(n)$ time, $O(h)$ space
+## Solution — O(n) time, O(h) space
 
 ```cpp
 class Solution {
@@ -103,7 +103,7 @@ public:
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
 
-**Time:** $O(n) · **Space:** $O(h)
+**Time:** O(n) · **Space:** O(h)
 ## Common Mistakes
 
 - Returning `1` for null instead of `0` (off-by-one on empty tree)

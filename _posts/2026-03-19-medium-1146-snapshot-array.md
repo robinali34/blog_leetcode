@@ -38,13 +38,13 @@ Explanation:
 
 ## Thinking Process
 
-### Naive: Copy Entire Array -- $O(n)$ per snap
+### Naive: Copy Entire Array -- O(n) per snap
 
 The simplest approach: maintain a working array and copy it on every `snap()`.
 
-- `set`: $O(1)$
-- `snap`: $O(n)$ -- copies the full array
-- `get`: $O(1)$
+- `set`: O(1)
+- `snap`: O(n) -- copies the full array
+- `get`: O(1)
 
 This works but is **too slow and memory-heavy** when there are many snapshots and a large array, especially if only a few elements change between snaps.
 
@@ -83,10 +83,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Standard binary search | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
-| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
-| **Binary search on rotated array** *(this problem)* | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
-| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
+| Standard binary search | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| **Binary search on rotated array** *(this problem)* | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
 ## Solution
 
@@ -122,12 +122,12 @@ private:
 
 **Approach:** Binary search on rotated array (this problem)
 
-**Key idea:** ### Naive: Copy Entire Array -- $O(n)$ per snap
+**Key idea:** ### Naive: Copy Entire Array -- O(n) per snap
 
 **How the code works:**
-- `set`: $O(1)$
-- `snap`: $O(n)$ -- copies the full array
-- `get`: $O(1)$
+- `set`: O(1)
+- `snap`: O(n) -- copies the full array
+- `get`: O(1)
 
 **Walkthrough** — input `SnapshotArray(3), set(0,5), snap(), set(0,6), get(0,0)`, expected output `null, null, 0, null, 5`:
 
@@ -139,8 +139,8 @@ set(0,5) → arr = [5,0,0]
 
 | Approach | `set` | `snap` | `get` | Space |
 |---|---|---|---|---|
-| Copy Array | $O(1)$ | $O(n)$ | $O(1)$ | $O(n \cdot \text{snaps})$ |
-| Map + Binary Search | $O(\log S)$ | $O(1)$ | $O(\log S)$ | $O(\text{total sets})$ |
+| Copy Array | O(1) | O(n) | O(1) | O(n · text{snaps}) |
+| Map + Binary Search | O(log S) | O(1) | O(log S) | O(text{total sets}) |
 
 The map approach wins when snapshots are frequent but changes are sparse.
 
@@ -154,7 +154,7 @@ The map approach wins when snapshots are frequent but changes are sparse.
 
 - **"Versioned data with sparse updates"** = store change log per element + binary search
 - `upper_bound` then decrement is the standard pattern for "latest version at or before X"
-- The optimization from $O(n)$ snap to $O(1)$ snap comes from only recording diffs, not full copies
+- The optimization from O(n) snap to O(1) snap comes from only recording diffs, not full copies
 
 ## Related Problems
 

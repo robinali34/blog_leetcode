@@ -99,10 +99,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
 
@@ -163,7 +163,7 @@ We want to prioritize the event that expires soonest. Start days don't matter on
 An event with `end == day` is still valid today. We only discard events whose end day is strictly **before** the current day.
 
 **Why the `if (pq.empty()) day = events[i][0]` jump?**
-Without this, we'd increment `day` through potentially thousands of idle days. Jumping to the next event's start keeps the outer loop proportional to $O(n)$ iterations.
+Without this, we'd increment `day` through potentially thousands of idle days. Jumping to the next event's start keeps the outer loop proportional to O(n) iterations.
 
 ## Common Mistakes
 

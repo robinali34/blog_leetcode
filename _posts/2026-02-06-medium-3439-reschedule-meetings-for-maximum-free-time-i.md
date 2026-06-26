@@ -64,10 +64,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
-| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
-| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
-| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+| **Fixed-size window** *(this problem)* | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Solution
 

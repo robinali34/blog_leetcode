@@ -71,10 +71,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
 
@@ -136,8 +136,8 @@ No cycle ✓
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| DSU | $O(n \cdot \alpha(n))$ | $O(n)$ | No graph construction needed |
-| DFS | $O(n)$ | $O(n)$ | Checks connectivity + acyclicity in one pass |
+| DSU | O(n · α(n)) | O(n) | No graph construction needed |
+| DFS | O(n) | O(n) | Checks connectivity + acyclicity in one pass |
 
 Both are optimal. DSU is more concise; DFS is more intuitive for graph problems.
 

@@ -41,10 +41,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -77,7 +77,7 @@ This is a **graph reachability** problem -- standard DFS or BFS from a starting 
 
 </svg>
 
-## Approach 1: DFS (Stack) -- $O(V + E)$
+## Approach 1: DFS (Stack) -- O(V + E)
 
 {% raw %}
 ```cpp
@@ -123,7 +123,7 @@ public:
 **Walkthrough** — input `rooms = [[1],[2],[3],[]]`, expected output `true`:
 
 Room 0 → key 1 → Room 1 → key 2 → Room 2 → key 3 → Room 3
-## Approach 2: BFS (Queue) -- $O(V + E)$
+## Approach 2: BFS (Queue) -- O(V + E)
 
 {% raw %}
 ```cpp
@@ -155,8 +155,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(V + E)$
-**Space**: $O(V)$
+**Time**: O(V + E)
+**Space**: O(V)
 
 ## Common Mistakes
 

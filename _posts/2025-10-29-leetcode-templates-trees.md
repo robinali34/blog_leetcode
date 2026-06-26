@@ -812,7 +812,7 @@ private:
 
 ### Binary Search on Segment Tree (Tree Walking)
 
-Instead of doing a binary search over an index and then a segment tree query ($O(\log^2 N)$), we descend the segment tree directly to find the first element satisfying a condition in $O(\log N)$.
+Instead of doing a binary search over an index and then a segment tree query (O(log^2 N)), we descend the segment tree directly to find the first element satisfying a condition in O(log N).
 
 #### Template: Find First Index >= X
 

@@ -41,10 +41,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -54,7 +54,7 @@ The diameter passing through a node = **left depth + right depth + 2** (counting
 
 ### Why Bottom-Up?
 
-We need the depth of every subtree. Computing depth top-down would recompute subtrees repeatedly ($O(n^2)$). Instead, compute depth bottom-up and update a global maximum at each node -- same pattern as [LC 110 Balanced Binary Tree](/2026/03/06/easy-110-balanced-binary-tree/).
+We need the depth of every subtree. Computing depth top-down would recompute subtrees repeatedly (O(n^2)). Instead, compute depth bottom-up and update a global maximum at each node -- same pattern as [LC 110 Balanced Binary Tree](/2026/03/06/easy-110-balanced-binary-tree/).
 
 ### Edge Count vs Node Count
 
@@ -101,7 +101,7 @@ Max diameter = 3 ✓
 
 </svg>
 
-## Approach: Bottom-Up DFS -- $O(n)$
+## Approach: Bottom-Up DFS -- O(n)
 
 {% raw %}
 ```cpp

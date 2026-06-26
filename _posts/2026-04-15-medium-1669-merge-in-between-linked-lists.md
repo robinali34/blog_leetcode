@@ -105,10 +105,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
-| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| **Iterative pointer walk** *(this problem)* | O(n) | O(1) | Traversal, insertion |
+| Dummy head node | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Solution
 
@@ -161,7 +161,7 @@ public:
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
 
-**Time:** $O(n + m)$ -- traverse `list1` up to index `b`, then traverse all of `list2` · **Space:** $O(1)$ -- only pointer variables## Key Details
+**Time:** O(n + m) -- traverse `list1` up to index `b`, then traverse all of `list2` · **Space:** O(1) -- only pointer variables## Key Details
 ## Without Dummy (Slightly Simpler)
 
 Since the constraints guarantee `a >= 1`, we can skip the dummy:

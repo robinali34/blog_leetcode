@@ -661,11 +661,11 @@ int shortestPath(vector<vector<int>>& grid, int k) {
 
 | Pattern | When to Use | Time | Space |
 |---|---|---|---|
-| **Basic BFS** | Shortest path (unweighted), level-order | $O(V+E)$ | $O(V)$ |
-| **Grid BFS** | Grid shortest path, nearest cell | $O(M \times N)$ | $O(M \times N)$ |
-| **Multi-source** | Distance from ANY source | $O(M \times N)$ | $O(M \times N)$ |
-| **Level-order** | Tree level processing | $O(N)$ | $O(N)$ |
-| **BFS + State** | Multiple dimensions (keys, masks) | $O(\text{States})$ | $O(\text{States})$ |
+| **Basic BFS** | Shortest path (unweighted), level-order | O(V+E) | O(V) |
+| **Grid BFS** | Grid shortest path, nearest cell | O(M × N) | O(M × N) |
+| **Multi-source** | Distance from ANY source | O(M × N) | O(M × N) |
+| **Level-order** | Tree level processing | O(N) | O(N) |
+| **BFS + State** | Multiple dimensions (keys, masks) | O(text{States}) | O(text{States}) |
 
 ## More templates
 

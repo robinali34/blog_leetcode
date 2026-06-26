@@ -8,7 +8,7 @@ permalink: /2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/
 ---
 You are given an integer array `pref` of size `n`. Find and return the array `arr` of size `n` that satisfies:
 
-$$\text{pref}[i] = \text{arr}[0] \oplus \text{arr}[1] \oplus \ldots \oplus \text{arr}[i]$$
+$text{pref}[i] = text{arr}[0] oplus text{arr}[1] oplus ldots oplus text{arr}[i]
 
 It is guaranteed that a unique `arr` exists.
 
@@ -44,13 +44,13 @@ Output: [13]
 
 Given:
 
-$$\text{pref}[i] = \text{arr}[0] \oplus \text{arr}[1] \oplus \ldots \oplus \text{arr}[i]$$
+text{pref}[i] = text{arr}[0] oplus text{arr}[1] oplus ldots oplus text{arr}[i]
 
-$$\text{pref}[i-1] = \text{arr}[0] \oplus \text{arr}[1] \oplus \ldots \oplus \text{arr}[i-1]$$
+text{pref}[i-1] = text{arr}[0] oplus text{arr}[1] oplus ldots oplus text{arr}[i-1]
 
 XOR both sides:
 
-$$\text{pref}[i] \oplus \text{pref}[i-1] = \text{arr}[i]$$
+text{pref}[i] oplus text{pref}[i-1] = text{arr}[i]
 
 This is the XOR analog of prefix sum difference: just as `arr[i] = prefixSum[i] - prefixSum[i-1]` for addition, we have `arr[i] = pref[i] ^ pref[i-1]` for XOR.
 
@@ -72,10 +72,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(\log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1)$ | Power of two, divide by 2 |
 
 ## Solution
 

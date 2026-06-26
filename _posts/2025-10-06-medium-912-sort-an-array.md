@@ -54,10 +54,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Brute force | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
-| **Sort + scan** *(this problem)* | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
-| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
-| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+| Brute force | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| **Sort + scan** *(this problem)* | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
 
 ## Solution
 

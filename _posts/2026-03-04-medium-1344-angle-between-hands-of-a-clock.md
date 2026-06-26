@@ -42,10 +42,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
-| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
-| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+| **Brute force** *(this problem)* | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| Sort + scan | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
 
 ## Thinking Process
 
@@ -57,20 +57,20 @@ The hour hand moves based on **both** the hour and the minutes:
 - Each hour mark = `360 / 12 = 30` degrees
 - The minute component shifts the hour hand by `minutes / 60` of one hour mark
 
-$$\text{hourAngle} = (\text{hour} \bmod 12 + \text{minutes} / 60.0) \times 30.0$$
+$text{hourAngle} = (text{hour} bmod 12 + text{minutes} / 60.0) × 30.0
 
 ### Minute Hand Angle
 
 The minute hand moves based only on minutes:
 - Each minute mark = `360 / 60 = 6` degrees
 
-$$\text{minuteAngle} = (\text{minutes} \bmod 60) \times 6.0$$
+text{minuteAngle} = (text{minutes} bmod 60) × 6.0
 
 ### The Smaller Angle
 
 The raw difference might be the "long way around" the clock. The answer is the smaller of the two arcs:
 
-$$\text{answer} = \min(\text{diff},\ 360 - \text{diff})$$
+text{answer} = min(text{diff},\ 360 - text{diff})
 
 ### Walk-Through: hour=12, minutes=30
 
@@ -95,7 +95,7 @@ answer      = min(165, 360 - 165) = min(165, 195) = 165°
 
 </svg>
 
-## Approach: Direct Calculation -- $O(1)$
+## Approach: Direct Calculation -- O(1)$
 
 {% raw %}
 ```cpp

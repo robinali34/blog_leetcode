@@ -46,10 +46,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
-| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
-| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+| **Brute force** *(this problem)* | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| Sort + scan | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
 
 ## Thinking Process
 
@@ -61,7 +61,7 @@ We need the subarray to have length **at least 2**, so we need `i - j >= 2`.
 
 ### Naive Approach
 
-Check all pairs `(i, j)` -- $O(n^2)$. Too slow.
+Check all pairs `(i, j)` -- O(n^2). Too slow.
 
 ### Hash Map Approach
 
@@ -71,7 +71,7 @@ Initialize with `map[0] = -1` to handle the case where a prefix sum itself is di
 
 ### Hash Set Approach (with 1-Step Delay)
 
-If we only need to know *existence* (not index), we can use a set instead. But to enforce the "length >= 2" constraint, we **delay insertion by one step**: at index `i`, we insert the remainder from index `i-1`. This ensures any match found corresponds to a subarray of size $\geq 2$.
+If we only need to know *existence* (not index), we can use a set instead. But to enforce the "length >= 2" constraint, we **delay insertion by one step**: at index `i`, we insert the remainder from index `i-1`. This ensures any match found corresponds to a subarray of size ≥ 2.
 
 **Why the delay?** Without it, a remainder inserted at index `i` could match at index `i+1`, producing a subarray of size 1.
 
@@ -89,7 +89,7 @@ If we only need to know *existence* (not index), we can use a set instead. But t
 
 </svg>
 
-## Approach 1: Hash Map -- $O(n)$
+## Approach 1: Hash Map -- O(n)
 
 Store the first occurrence index of each prefix remainder. Only update the map if the remainder hasn't been seen before (we want the earliest index to maximize subarray length).
 
@@ -129,7 +129,7 @@ public:
 **Walkthrough** — input `nums = [23,2,4,6,7], k = 6`, expected output `true`:
 
 [2,4] is a subarray of size 2 whose sum 6 is a multiple of 6.
-## Approach 2: Hash Set with Delayed Insertion -- $O(n)$
+## Approach 2: Hash Set with Delayed Insertion -- O(n)
 
 Insert each remainder one step late, so any match guarantees a gap of at least 2.
 
@@ -155,8 +155,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(\min(n, k))$
+**Time**: O(n)
+**Space**: O(min(n, k))
 
 **How the delay works:**
 

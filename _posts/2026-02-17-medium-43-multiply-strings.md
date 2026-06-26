@@ -36,10 +36,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -55,8 +55,8 @@ If `num1` has length `n` and `num2` has length `m`:
 
 When multiplying `num1[i] * num2[j]`, the contribution goes to:
 
-$$\text{result}[i + j + 1] \quad \text{(ones place)}$$
-$$\text{result}[i + j] \quad \text{(carry)}$$
+$text{result}[i + j + 1] quad text{(ones place)}
+text{result}[i + j] quad text{(carry)}
 
 This is because position `i` from the end of `num1` and position `j` from the end of `num2` together shift the product by `(n-1-i) + (m-1-j)` places, which maps to index `i + j + 1` in the result array.
 
@@ -97,7 +97,7 @@ Wait -- `123 × 45 = 5535`. Correct!
 
 </svg>
 
-## Approach: Grade School Multiplication -- $O(nm)$
+## Approach: Grade School Multiplication -- O(nm)
 
 Multiply each digit pair, accumulate into a result array with carry propagation.
 
@@ -160,7 +160,7 @@ public:
 - **Big integer multiplication** follows the same algorithm you learned in school
 - The index formula `result[i + j + 1]` is the core insight -- memorize it
 - Always allocate `n + m` digits for the result
-- Faster algorithms exist (Karatsuba $O(n^{1.58})$, FFT $O(n \log n)$) but are overkill for interview constraints
+- Faster algorithms exist (Karatsuba O(n^{1.58}), FFT O(n \log n)$) but are overkill for interview constraints
 
 ## Related Problems
 

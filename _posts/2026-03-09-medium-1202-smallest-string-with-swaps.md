@@ -46,10 +46,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
-| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| **BFS / DFS traversal** *(this problem)* | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Thinking Process
 
@@ -84,7 +84,7 @@ Within each connected component, we can achieve any permutation. The lexicograph
 
 </svg>
 
-## Approach: DSU + Group Sort -- $O(n \log n)$
+## Approach: DSU + Group Sort -- O(n log n)
 
 {% raw %}
 ```cpp

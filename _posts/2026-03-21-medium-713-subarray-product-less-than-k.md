@@ -86,10 +86,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
-| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
-| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
-| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+| **Fixed-size window** *(this problem)* | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Solution
 
@@ -126,7 +126,7 @@ The 8 subarrays with product < 100:
   [10], [5], [2], [6], [10,5], [5,2], [2,6], [5,2,6]
 ## Why `long long` for the Product?
 
-Elements can be up to 1000 and the array up to 30000 long. While the `while` loop keeps the product below `k` ($\leq 10^6$), a single multiplication `currProd *= nums[right]` can momentarily overflow `int` before the shrink loop fires. Using `long long` prevents this.
+Elements can be up to 1000 and the array up to 30000 long. While the `while` loop keeps the product below `k` (≤ 10^6), a single multiplication `currProd *= nums[right]` can momentarily overflow `int` before the shrink loop fires. Using `long long` prevents this.
 
 ## Common Mistakes
 

@@ -89,10 +89,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
 ## Solution
 
@@ -141,8 +141,8 @@ public:
 
 | Aspect | Greedy (Bit Manipulation) | BFS |
 |---|---|---|
-| Time | $O(\log n)$ | $O(n \log n)$ |
-| Space | $O(1)$ | $O(n)$ |
+| Time | O(log n) | O(n log n) |
+| Space | O(1) | O(n) |
 | Correctness proof | Requires greedy argument | Guaranteed (shortest path) |
 | Interview value | Shows deep bit intuition | Shows BFS modeling skill |
 | Best for | Production / follow-up optimization | Proving correctness / verification |
@@ -151,16 +151,16 @@ BFS is useful as a **verification tool**: run it on small inputs to confirm the 
 
 ## Why the Greedy is Optimal
 
-Consider a block of $k$ consecutive `1`s:
+Consider a block of k consecutive `1`s:
 
 | Strategy | Operations |
 |---|---|
-| Subtract each bit individually | $k$ |
-| Add 1 to collapse, then subtract the resulting bit | $2$ |
+| Subtract each bit individually | k |
+| Add 1 to collapse, then subtract the resulting bit | 2 |
 
-For $k \ge 3$, adding is strictly better. For $k = 2$ (like `11₂ = 3`), both cost 2 operations:
-- Add: $3 + 1 = 4$, $4 - 4 = 0$ (2 ops)
-- Subtract: $3 - 1 = 2$, $2 - 2 = 0$ (2 ops)
+For k ge 3, adding is strictly better. For k = 2 (like `11₂ = 3`), both cost 2 operations:
+- Add: 3 + 1 = 4, 4 - 4 = 0 (2 ops)
+- Subtract: 3 - 1 = 2, 2 - 2 = 0 (2 ops)
 
 The greedy chooses to add for `k >= 2`, which is safe since it never costs more.
 
@@ -176,7 +176,7 @@ The greedy chooses to add for `k >= 2`, which is safe since it never costs more.
 - **Think in binary** when the problem involves powers of 2
 - **Consecutive `1`s can be collapsed** by adding 1 -- this is the core greedy insight
 - Check `n & 3 == 3` (two lowest bits both set) to decide add vs subtract
-- BFS gives a provably optimal baseline; greedy gives $O(\log n)$ performance
+- BFS gives a provably optimal baseline; greedy gives O(log n) performance
 - The pattern "add to create carry, then subtract" appears in many bit manipulation problems
 
 ## Related Problems

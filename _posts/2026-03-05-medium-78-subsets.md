@@ -36,14 +36,14 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
-Every element has two choices: **include** or **exclude**. With `n` elements, there are $2^n$ subsets total.
+Every element has two choices: **include** or **exclude**. With `n` elements, there are 2^n subsets total.
 
 ### Backtracking Approach
 
@@ -87,7 +87,7 @@ The `start` parameter ensures we only pick elements after the current index, pre
 
 </svg>
 
-## Approach 1: Backtracking -- $O(n \cdot 2^n)$
+## Approach 1: Backtracking -- O(n · 2^n)
 
 {% raw %}
 ```cpp
@@ -117,14 +117,14 @@ private:
 
 **Approach:** Recursive DFS (this problem)
 
-**Key idea:** Every element has two choices: **include** or **exclude**. With `n` elements, there are $2^n$ subsets total.
+**Key idea:** Every element has two choices: **include** or **exclude**. With `n` elements, there are 2^n subsets total.
 
 **Walkthrough** — input `nums = [1,2,3]`, expected output `[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]`:
 
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Bitmask Enumeration -- $O(n \cdot 2^n)$
+## Approach 2: Bitmask Enumeration -- O(n · 2^n)
 
 Each integer from `0` to `2^n - 1` represents a subset: bit `j` is set means include `nums[j]`.
 
@@ -151,8 +151,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n \cdot 2^n)$
-**Space**: $O(n)$ per subset (excluding output)
+**Time**: O(n · 2^n)
+**Space**: O(n) per subset (excluding output)
 
 ## Common Mistakes
 
@@ -163,7 +163,7 @@ public:
 ## Key Takeaways
 
 - **Backtracking template**: push → recurse → pop. The `start` index prevents revisiting earlier elements
-- **Bitmask alternative**: natural for small `n` ($\leq 20$), iterative and easy to reason about
+- **Bitmask alternative**: natural for small `n` (≤ 20), iterative and easy to reason about
 - This is the foundation for LC 90 (Subsets II with duplicates) -- just add a sort + skip condition
 
 ## Related Problems

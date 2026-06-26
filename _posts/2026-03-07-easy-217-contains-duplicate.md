@@ -42,10 +42,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Thinking Process
 
@@ -69,7 +69,7 @@ We need to detect if any element appears more than once. Three standard approach
 
 </svg>
 
-## Approach 1: Hash Set -- $O(n)$
+## Approach 1: Hash Set -- O(n)
 
 Insert elements and check for duplicates in one pass. Early exit on first duplicate.
 
@@ -104,7 +104,7 @@ public:
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Hash Map -- $O(n)$
+## Approach 2: Hash Map -- O(n)
 
 Same idea but tracks counts. Slightly more than needed here, but useful when the problem asks *how many* duplicates.
 
@@ -124,10 +124,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$
+**Time**: O(n)
+**Space**: O(n)
 
-## Approach 3: Sorting -- $O(n \log n)$
+## Approach 3: Sorting -- O(n log n)
 
 Sort first, then duplicates become adjacent.
 
@@ -146,10 +146,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n \log n)$
-**Space**: $O(1)$ (in-place sort, modifies input)
+**Time**: O(n log n)
+**Space**: O(1) (in-place sort, modifies input)
 
-## Approach 4: One-Liner -- $O(n)$
+## Approach 4: One-Liner -- O(n)
 
 Build a set and compare sizes. Clean but no early exit.
 
@@ -164,17 +164,17 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$
+**Time**: O(n)
+**Space**: O(n)
 
 ## Comparison
 
 | Approach | Time | Space | Early Exit? | Modifies Input? |
 |---|---|---|---|---|
-| Hash Set | $O(n)$ | $O(n)$ | Yes | No |
-| Hash Map | $O(n)$ | $O(n)$ | Yes | No |
-| Sorting | $O(n \log n)$ | $O(1)$ | Yes | Yes |
-| One-Liner | $O(n)$ | $O(n)$ | No | No |
+| Hash Set | O(n) | O(n) | Yes | No |
+| Hash Map | O(n) | O(n) | Yes | No |
+| Sorting | O(n log n) | O(1) | Yes | Yes |
+| One-Liner | O(n) | O(n) | No | No |
 
 ## Common Mistakes
 
@@ -185,8 +185,8 @@ public:
 
 ## Key Takeaways
 
-- **Hash set with early exit** is the best general approach -- $O(n)$ time with short-circuit on first duplicate
-- Sorting trades time for space ($O(1)$ extra) but modifies the input
+- **Hash set with early exit** is the best general approach -- O(n) time with short-circuit on first duplicate
+- Sorting trades time for space (O(1) extra) but modifies the input
 - The one-liner is elegant but always processes the entire array
 
 ## Related Problems

@@ -51,10 +51,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
-| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| **BFS / DFS traversal** *(this problem)* | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Thinking Process
 
@@ -68,7 +68,7 @@ If we have enough cables, any redundant cable (within an already-connected compo
 
 The answer is simply:
 
-$$\text{operations} = \text{components} - 1$$
+$text{operations} = text{components} - 1
 
 Each operation connects one more component to the rest.
 
@@ -92,7 +92,7 @@ Every connection merges two computers. Start with `n` components, and each succe
 
 </svg>
 
-## Approach: DSU -- $O(n + m)$
+## Approach: DSU -- O(n + m)$
 
 {% raw %}
 ```cpp

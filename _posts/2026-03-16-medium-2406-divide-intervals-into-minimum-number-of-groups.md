@@ -91,10 +91,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
 
@@ -150,7 +150,7 @@ No two intervals in the same group overlap.
 ## Key Takeaways
 
 - **"Minimum groups with no overlap"** = **"Maximum overlap at any point"** = Meeting Rooms II pattern
-- Sort by start + min-heap of end times is the standard $O(n \log n)$ approach
+- Sort by start + min-heap of end times is the standard O(n log n) approach
 - The strict `<` vs `<=` depends on whether endpoints are inclusive or exclusive -- always check the problem statement
 
 ## Related Problems

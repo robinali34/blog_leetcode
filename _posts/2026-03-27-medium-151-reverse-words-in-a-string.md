@@ -51,7 +51,7 @@ Trim leading/trailing spaces, scan left to right building words, and push each c
 
 ### Approach 2: Reverse Entire String + Reverse Each Word (In-Place)
 
-For an $O(1)$ extra space solution:
+For an O(1) extra space solution:
 1. Reverse the entire string
 2. Reverse each individual word
 3. Clean up extra spaces
@@ -78,10 +78,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
-| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
-| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
-| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
+| **Opposite ends** *(this problem)* | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
 
 ## Solution
 
@@ -141,8 +141,8 @@ public:
 
 | Approach | Time | Extra Space | Notes |
 |---|---|---|---|
-| Deque | $O(n)$ | $O(n)$ | Clean, easy to understand |
-| Reverse Twice | $O(n)$ | $O(1)$ | In-place, interview follow-up |
+| Deque | O(n) | O(n) | Clean, easy to understand |
+| Reverse Twice | O(n) | O(1) | In-place, interview follow-up |
 
 ## Common Mistakes
 
@@ -153,7 +153,7 @@ public:
 ## Key Takeaways
 
 - **"Reverse word order"** has two classic approaches: collect-in-reverse (deque/stack) or reverse-entire-then-reverse-each-word
-- The in-place "reverse twice" technique is a common interview follow-up: "Can you do it in $O(1)$ space?"
+- The in-place "reverse twice" technique is a common interview follow-up: "Can you do it in O(1) space?"
 - Trimming and compacting spaces is the fiddly part -- the deque approach sidesteps it by only collecting non-empty words
 
 ## Related Problems

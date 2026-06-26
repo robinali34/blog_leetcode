@@ -69,11 +69,22 @@ Index 3: 1 >= 4  →  at least 4 papers with >= 4 citations ✗  ← STOP
 h = 3
 ```
 
-### Can We Do Better Than $O(n \log n)$?
+### Can We Do Better Than O(n log n)?
 
-Yes -- since `h` can be at most `n`, we can use counting sort to get $O(n)$.
+Yes — since `h` can be at most `n`, we can bucket citation counts and scan in linear time.
 
+### Counting Sort — O(n) time, O(n) space
 
+Any citation count above `n` cannot increase the h-index (we only have `n` papers), so clamp each count to `min(c, n)` and build a frequency array of size `n + 1`. Scan from `h = n` down to `0`, accumulating how many papers have at least `h` citations:
+
+```
+citations = [3, 0, 6, 1, 5], n = 5
+Buckets (after clamp): 0→1, 1→1, 3→1, 5→1  (6 clamped to 5)
+
+h = 5: papers with ≥5 citations = 1  →  1 < 5
+h = 4: papers with ≥4 citations = 1  →  1 < 4
+h = 3: papers with ≥3 citations = 3  →  3 ≥ 3  ✓  answer = 3
+```
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
@@ -86,20 +97,30 @@ Yes -- since `h` can be at most `n`, we can use counting sort to get $O(n)$.
 
 </svg>
 
+## Comparison
+
+| Aspect | Sorting | Counting Sort |
+|---|---|---|
+| Time | O(n log n) | O(n) |
+| Space | O(1) (in-place sort) | O(n) (frequency array) |
+| Interview preference | Most common, easy to explain | Good follow-up for optimization |
+| Key idea | Descending order gives "papers seen" naturally | Bucket citations, scan from top |
+
 ## Common Approaches
 
 Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
-| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
-| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
-| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+| **Sort + greedy** *(this problem)* | O(n log n) | O(1) | Interval scheduling, assignment |
+| Local greedy choice | O(n) | O(1) | Jump game, gas station |
+| Greedy + heap | O(n log n) | O(n) | Merge streams, room allocation |
+| Exchange argument | O(n) | O(1) | Prove greedy choice is safe |
 
 ## Solution
 
-{% raw %}
+### Sort Descending — O(n log n)
+
 ```cpp
 class Solution {
 public:
@@ -113,29 +134,44 @@ public:
 };
 ```
 
+### Counting Sort — O(n) time, O(n) space
+
+```cpp
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int n = citations.size();
+        vector<int> count(n + 1, 0);
+        for (int c : citations) {
+            count[min(c, n)]++;
+        }
+        int papers = 0;
+        for (int h = n; h >= 0; --h) {
+            papers += count[h];
+            if (papers >= h) return h;
+        }
+        return 0;
+    }
+};
+```
+
 ### Solution Explanation
 
-**Approach:** Sort + greedy (this problem)
+**Approach:** Sort descending, then scan until the balance breaks.
 
-**Key idea:** ### What Are We Really Looking For?
+**Key idea:** After sorting descending, index `i` represents `i + 1` papers seen. The first position where `citations[i] < i + 1` means we cannot support `i + 1` papers with that many citations — so the answer is `i`.
 
 **How the code works:**
-- **Position `i+1`** = number of papers we've seen so far
-- **Value `citations[i]`** = the citation count of the current paper
+- Sort with `greater<int>()` so the highest citations come first.
+- At index `i`, we have `i + 1` papers; if the smallest among them (`citations[i]`) is still `>= i + 1`, the h-index is at least `i + 1`.
+- When `citations[i] < i + 1`, return `i` (the largest valid h-index).
+- If every paper passes the check, return `n`.
 
-**Walkthrough** — input `citations = [3, 0, 6, 1, 5]`, expected output `3`:
+**Walkthrough** — `citations = [3, 0, 6, 1, 5]`, expected output `3`:
 
-1. Initialize variables from the problem setup.
-2. Apply the main loop / recursion until the condition is met.
-3. Confirm the result matches the expected output.
-## Comparison
-
-| Aspect | Sorting | Counting Sort |
-|---|---|---|
-| Time | $O(n \log n)$ | $O(n)$ |
-| Space | $O(1)$ (in-place sort) | $O(n)$ (frequency array) |
-| Interview preference | Most common, easy to explain | Good follow-up for optimization |
-| Key idea | Descending order gives "papers seen" naturally | Bucket citations, scan from top |
+1. Sort descending → `[6, 5, 3, 1, 0]`.
+2. `i = 0`: `6 >= 1` ✓ · `i = 1`: `5 >= 2` ✓ · `i = 2`: `3 >= 3` ✓.
+3. `i = 3`: `1 < 4` → return `3`.
 
 ## Common Mistakes
 
@@ -152,7 +188,7 @@ public:
 
 ## Related Problems
 
-- [275. H-Index II](https://www.leetcode.com/problems/h-index-ii/) -- sorted input, use binary search for $O(\log n)$
+- [275. H-Index II](https://www.leetcode.com/problems/h-index-ii/) -- sorted input, use binary search for O(log n)
 - [287. Find the Duplicate Number](https://www.leetcode.com/problems/find-the-duplicate-number/) -- counting / pigeonhole
 - [169. Majority Element](https://www.leetcode.com/problems/majority-element/) -- finding a threshold in an array
 

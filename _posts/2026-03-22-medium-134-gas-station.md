@@ -88,10 +88,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
-| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
-| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
-| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+| **Sort + greedy** *(this problem)* | O(n log n) | O(1) | Interval scheduling, assignment |
+| Local greedy choice | O(n) | O(1) | Jump game, gas station |
+| Greedy + heap | O(n log n) | O(n) | Merge streams, room allocation |
+| Exchange argument | O(n) | O(1) | Prove greedy choice is safe |
 
 ## Solution
 
@@ -146,7 +146,7 @@ Since the answer is unique (given by the problem), the last candidate standing a
 
 ## Common Mistakes
 
-- Trying to simulate from every station -- $O(n^2)$ brute force
+- Trying to simulate from every station -- O(n^2) brute force
 - Forgetting the `totalGain` check (the greedy candidate might not work if there isn't enough total fuel)
 - Off-by-one: resetting to `i + 1` not `i` (station `i` already failed)
 

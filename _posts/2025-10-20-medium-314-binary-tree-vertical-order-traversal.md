@@ -71,10 +71,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Queue BFS | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| **Level-order BFS** *(this problem)* | $O(n)$ | $O(w)$ | Process by depth/layer |
+| Queue BFS | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| **Level-order BFS** *(this problem)* | O(n) | O(w) | Process by depth/layer |
 
 ## Solution
 

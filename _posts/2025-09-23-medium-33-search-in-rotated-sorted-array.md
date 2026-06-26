@@ -8,7 +8,7 @@ permalink: /posts/2025-09-23-medium-33-search-in-rotated-sorted-array/
 ---
 There is an integer array `nums` sorted in ascending order (with distinct values), rotated at an unknown pivot. Given `nums` and `target`, return the index of `target` or `-1` if it is not in `nums`.
 
-You must write an algorithm with $O(\log n)$ runtime complexity.
+You must write an algorithm with O(log n) runtime complexity.
 
 ## Examples
 
@@ -47,10 +47,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Standard binary search | $O(\log n)$ | $O(1)$ | Only if array is not rotated |
-| **Modified BS (sorted half)** | $O(\log n)$ | $O(1)$ | **This problem** — discard half each step |
-| Find pivot + BS | $O(\log n)$ | $O(1)$ | Locate rotation index, then two BS calls |
-| Linear scan | $O(n)$ | $O(1)$ | Violates the $O(\log n)$ requirement |
+| Standard binary search | O(log n) | O(1) | Only if array is not rotated |
+| **Modified BS (sorted half)** | O(log n) | O(1) | **This problem** — discard half each step |
+| Find pivot + BS | O(log n) | O(1) | Locate rotation index, then two BS calls |
+| Linear scan | O(n) | O(1) | Violates the O(log n) requirement |
 
 ## Thinking Process
 
@@ -82,7 +82,7 @@ This is the same binary-search loop — only the “which half to discard?” ru
 
 </svg>
 
-## Solution — $O(\log n)$ time, $O(1)$ space
+## Solution — O(log n) time, O(1) space
 
 ```cpp
 class Solution {
@@ -126,7 +126,7 @@ public:
 | 2 | 4 | 6 | 5 | 1 | left [0,1] | 0 in [0,1) → `right = 4` |
 | 3 | 4 | 4 | 4 | 0 | — | found at index 4 |
 
-**Time:** $O(\log n)$ — halve search space each iteration · **Space:** $O(1)$
+**Time:** O(log n) — halve search space each iteration · **Space:** O(1)
 
 ## Common Mistakes
 

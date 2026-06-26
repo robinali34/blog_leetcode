@@ -60,12 +60,12 @@ This is a **monotonic predicate** -- perfect for binary search on the answer.
 
 At speed `k`, the total time is:
 
-$$t = \sum_{i=0}^{n-2} \left\lceil \frac{\text{dist}[i]}{k} \right\rceil + \frac{\text{dist}[n-1]}{k}$$
+$t = sum_{i=0}^{n-2} leftlceil frac{text{dist}[i]}{k} rightrceil + frac{text{dist}[n-1]}{k}
 
 - First `n - 1` rides: round up (must wait for next integer hour)
 - Last ride: exact time (no waiting after)
 
-Integer ceiling trick: $\lceil a/b \rceil = (a + b - 1) / b$ using integer division.
+Integer ceiling trick: \lceil a/b \rceil = (a + b - 1) / b using integer division.
 
 ### Walk-through
 
@@ -105,10 +105,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
-| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
-| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
-| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
+| **Standard binary search** *(this problem)* | O(\log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(\log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(\log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n \log M) | O(1) | Monotonic predicate over search space |
 
 ## Solution
 
@@ -160,9 +160,9 @@ private:
 **Walkthrough** — input `dist = [1,3,2], hour = 6`, expected output `1`:
 
 At speed 1: ceil(1/1)=1 + ceil(3/1)=3 + 2/1=2 = 6 ≤ 6 ✓
-## Why $M = 10^7$?
+## Why M = 10^7?
 
-Maximum distance is $10^5$ and `hour` can have two decimal places, so the last ride could need a speed up to $10^5 / 0.01 = 10^7$ in the worst case.
+Maximum distance is 10^5 and `hour` can have two decimal places, so the last ride could need a speed up to 10^5 / 0.01 = 10^7$ in the worst case.
 
 ## Common Mistakes
 

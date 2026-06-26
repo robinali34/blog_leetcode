@@ -52,10 +52,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Row/column traversal | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| **Transpose / rotate** *(this problem)* | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| Row/column traversal | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| Matrix as graph | O(nm) | O(nm) | 4/8-directional neighbors |
+| **Transpose / rotate** *(this problem)* | O(nm) | O(1) | In-place rotation tricks |
 
 ## Solution
 

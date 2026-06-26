@@ -48,7 +48,7 @@ minStack.getMin(); // return -2
 
 ## Thinking Process
 
-To achieve $O(1)$ for `getMin()`, we need to keep track of the minimum value at every state of the stack.
+To achieve O(1) for `getMin()`, we need to keep track of the minimum value at every state of the stack.
 
 ### Two Stacks Approach
 We can use an auxiliary stack called `minStk` to store the minimum value encountered so far.
@@ -64,8 +64,8 @@ We can use an auxiliary stack called `minStk` to store the minimum value encount
     - Return the top of `minStk`.
 
 ### Complexity
-- **Time Complexity**: $O(1)$ for all operations.
-- **Space Complexity**: $O(N)$ to store $N$ elements and their corresponding minimums.
+- **Time Complexity**: O(1) for all operations.
+- **Space Complexity**: O(N) to store N elements and their corresponding minimums.
 
 
 
@@ -87,10 +87,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Solution
 
@@ -135,7 +135,7 @@ private:
 
 **Approach:** Monotonic stack (this problem)
 
-**Key idea:** To achieve $O(1)$ for `getMin()`, we need to keep track of the minimum value at every state of the stack.
+**Key idea:** To achieve O(1) for `getMin()`, we need to keep track of the minimum value at every state of the stack.
 
 **How the code works:**
 - When `push(val)`:
@@ -145,8 +145,8 @@ private:
 - When `pop()`:
 - Pop from both the main stack and `minStk`.
 
-- **Time Complexity**: $O(1)$ for all operations.
-- **Space Complexity**: $O(N)$ to store $N$ elements and their corresponding minimums.
+- **Time Complexity**: O(1) for all operations.
+- **Space Complexity**: O(N) to store N elements and their corresponding minimums.
 ## Common Mistakes
 
 - Skipping edge cases (empty input, single element, boundaries).

@@ -47,15 +47,15 @@ We can try to include or exclude each element recursively.
     - Include `nums[i]` in the sum (subtract from target).
     - Exclude `nums[i]` (keep target same).
 
-Time Complexity: $O(2^n)$ - TLE.
+Time Complexity: O(2^n) - TLE.
 
 ### 2. Top-Down DP (Memoization)
 
 The brute force approach re-calculates the same state `(index, currentTarget)` multiple times. We can cache these results.
 Note: Using `vector<vector<int>>` (with -1 for unvisited) is preferred over `vector<vector<bool>>` to distinguish between "visited and false" vs "unvisited".
 
-Time Complexity: $O(n \cdot \text{target})$
-Space Complexity: $O(n \cdot \text{target})$
+Time Complexity: O(n · text{target})
+Space Complexity: O(n · text{target})
 
 ### 3. Bottom-Up DP (2D)
 
@@ -67,8 +67,8 @@ We can build a table `dp[i][j]` representing whether sum `j` is possible using t
 Notice that `dp[i][j]` only depends on the previous row `dp[i-1]`. We can reduce the space to a 1D array.
 When iterating through the 1D array, we must iterate **backwards** from `target` to `nums[i]`. This ensures that when we calculate `dp[j]`, we are using values from the *previous* iteration (effectively `dp[i-1]`), not values we just updated in the *current* iteration.
 
-Time Complexity: $O(n \cdot \text{target})$
-Space Complexity: $O(\text{target})$
+Time Complexity: O(n · text{target})
+Space Complexity: O(text{target})
 
 
 
@@ -91,10 +91,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 

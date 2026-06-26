@@ -42,10 +42,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -78,7 +78,7 @@ All valid → return true
 
 </svg>
 
-## Approach 1: Frequency Array -- $O(n + m)$ time, $O(1)$ space
+## Approach 1: Frequency Array -- O(n + m) time, O(1) space
 
 Since characters are lowercase letters, a 26-element array suffices.
 
@@ -114,7 +114,7 @@ public:
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Hash Map -- $O(n + m)$ time, $O(k)$ space
+## Approach 2: Hash Map -- O(n + m) time, O(k) space
 
 Generalizes to any character set.
 
@@ -137,8 +137,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n + m)$
-**Space**: $O(k)$ where $k$ is the number of distinct characters
+**Time**: O(n + m)
+**Space**: O(k) where k is the number of distinct characters
 
 ## Common Mistakes
 

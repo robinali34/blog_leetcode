@@ -47,10 +47,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -58,7 +58,7 @@ Preorder traversal processes nodes in **root → left → right** order. Three s
 
 1. **Recursive** -- direct translation of the definition
 2. **Iterative (stack)** -- simulate recursion with an explicit stack
-3. **Morris traversal** -- $O(1)$ space using threaded tree
+3. **Morris traversal** -- O(1) space using threaded tree
 
 ### Why Know All Three?
 
@@ -87,7 +87,7 @@ The recursive solution is trivial. Interviewers often follow up with "can you do
 
 </svg>
 
-## Approach 1: Recursive -- $O(n)$
+## Approach 1: Recursive -- O(n)
 
 {% raw %}
 ```cpp
@@ -118,14 +118,14 @@ private:
 **How the code works:**
 1. **Recursive** -- direct translation of the definition
 2. **Iterative (stack)** -- simulate recursion with an explicit stack
-3. **Morris traversal** -- $O(1)$ space using threaded tree
+3. **Morris traversal** -- O(1) space using threaded tree
 
 **Walkthrough** — input `root = [1,null,2,3]`, expected output `[1,2,3]`:
 
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Iterative (Stack) -- $O(n)$
+## Approach 2: Iterative (Stack) -- O(n)
 
 Push right child first, then left, so left is processed first (LIFO).
 
@@ -152,10 +152,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(h)$ for the stack
+**Time**: O(n)
+**Space**: O(h) for the stack
 
-## Approach 3: Morris Traversal -- $O(n)$ time, $O(n)$ space
+## Approach 3: Morris Traversal -- O(n) time, O(n) space
 
 Use the tree's null pointers to thread back to ancestors, avoiding a stack entirely. For preorder: visit the node **before** following the thread.
 
@@ -193,16 +193,16 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$ -- each edge traversed at most twice
-**Space**: $O(n)$ for the output vector; $O(1)$ auxiliary
+**Time**: O(n) -- each edge traversed at most twice
+**Space**: O(n) for the output vector; O(1) auxiliary
 
 ## Comparison
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Recursive | $O(n)$ | $O(h)$ | Simplest, may stack overflow on deep trees |
-| Iterative Stack | $O(n)$ | $O(h)$ | Common interview follow-up |
-| Morris | $O(n)$ | $O(n)$ | $O(1)$ auxiliary; modifies tree temporarily, restores it |
+| Recursive | O(n) | O(h) | Simplest, may stack overflow on deep trees |
+| Iterative Stack | O(n) | O(h) | Common interview follow-up |
+| Morris | O(n) | O(n) | O(1) auxiliary; modifies tree temporarily, restores it |
 
 ## Common Mistakes
 
@@ -215,7 +215,7 @@ public:
 
 - All three traversal orders (pre/in/post) share the same three implementation strategies
 - **Iterative stack trick for preorder**: push right before left so left pops first
-- **Morris**: useful when $O(1)$ space is required; temporarily modifies the tree but restores it
+- **Morris**: useful when O(1) space is required; temporarily modifies the tree but restores it
 
 ## Related Problems
 

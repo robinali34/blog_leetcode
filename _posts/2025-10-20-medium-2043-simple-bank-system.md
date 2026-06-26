@@ -36,15 +36,15 @@ Output
 
 Explanation
 Bank bank = new Bank([10, 100, 20, 50, 30]);
-bank.withdraw(3, 10);    // return true, account 3 has a balance of $20, so it is valid to withdraw $10.
-                         // Account 3 has $20 - $10 = $10 after the transaction.
-bank.transfer(5, 1, 20); // return true, account 5 has a balance of $30, so it is valid to transfer $20.
-                         // Account 5 has $30 - $20 = $10 after the transaction.
-                         // Account 1 has $10 + $20 = $30 after the transaction.
-bank.deposit(5, 20);     // return true, it is valid to deposit $20 to account 5.
-                         // Account 5 has $10 + $20 = $30 after the transaction.
-bank.transfer(3, 4, 15); // return false, the current balance of account 3 is $10,
-                         // so it is invalid to transfer $15 from it.
+bank.withdraw(3, 10);    // return true, account 3 has a balance of 20, so it is valid to withdraw 10.
+                         // Account 3 has 20 - 10 = 10 after the transaction.
+bank.transfer(5, 1, 20); // return true, account 5 has a balance of 30, so it is valid to transfer 20.
+                         // Account 5 has 30 - 20 = 10 after the transaction.
+                         // Account 1 has 10 + 20 = 30 after the transaction.
+bank.deposit(5, 20);     // return true, it is valid to deposit 20 to account 5.
+                         // Account 5 has 10 + 20 = 30 after the transaction.
+bank.transfer(3, 4, 15); // return false, the current balance of account 3 is 10,
+                         // so it is invalid to transfer 15 from it.
 bank.withdraw(10, 50);   // return false, it is invalid because account 10 does not exist.
 ```
 
@@ -91,10 +91,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
-| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
-| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
-| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(\log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 
@@ -204,10 +204,10 @@ public:
 ### Example Walkthrough:
 For `balance = [10, 100, 20, 50, 30]` (5 accounts):
 
-- **withdraw(3, 10):** Account 3 has $20, withdraw $10 → Success, balance = $10
-- **transfer(5, 1, 20):** Account 5 has $30, transfer $20 to account 1 → Success
-- **deposit(5, 20):** Add $20 to account 5 → Success, balance = $30
-- **transfer(3, 4, 15):** Account 3 has $10, insufficient for $15 → Failure
+- **withdraw(3, 10):** Account 3 has 20, withdraw 10 → Success, balance = 10
+- **transfer(5, 1, 20):** Account 5 has 30, transfer 20 to account 1 → Success
+- **deposit(5, 20):** Add 20 to account 5 → Success, balance = 30
+- **transfer(3, 4, 15):** Account 3 has 10, insufficient for 15 → Failure
 - **withdraw(10, 50):** Account 10 doesn't exist → Failure
 
 ### Complexity

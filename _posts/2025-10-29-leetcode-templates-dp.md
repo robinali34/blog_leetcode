@@ -433,7 +433,7 @@ int uniquePathsWithObstacles(vector<vector<int>>& grid) {
   <text x="360" y="235" font-size="10" fill="#9A9792">Tails array length = LIS length (but NOT the LIS)</text>
 </svg>
 
-### Template: $O(n^2)$ DP
+### Template: O(n^2) DP
 
 {% raw %}
 ```cpp
@@ -451,7 +451,7 @@ int lengthOfLIS(vector<int>& nums) {
 ```
 {% endraw %}
 
-### Template: $O(n \log n)$ with Binary Search (Patience Sort)
+### Template: O(n log n) with Binary Search (Patience Sort)
 
 {% raw %}
 ```cpp
@@ -793,7 +793,7 @@ int maxPathSum(TreeNode* root) {
 
 ## DP with Binary Search
 
-**When to use:** A pure DP solution is $O(n^2)$ or worse, and binary search can help find the optimal transition in $O(\log n)$, bringing total time down.
+**When to use:** A pure DP solution is O(n^2) or worse, and binary search can help find the optimal transition in O(log n), bringing total time down.
 
 ### Template: Binary Search on Answer (LC 410)
 
@@ -881,9 +881,9 @@ long long solve(long long N) {
 
 ## Bitmask DP (TSP / subsets)
 
-**When to use:** The problem has a small set of items ($n \le 20$) and you need to track which items have been used. Each bit in a bitmask represents "used" (1) or "not used" (0).
+**When to use:** The problem has a small set of items (n le 20) and you need to track which items have been used. Each bit in a bitmask represents "used" (1) or "not used" (0).
 
-**The key constraint:** $n \le 20$ (otherwise $2^n$ states explode). If you see $n \le 15\text{-}20$ in the constraints, think bitmask.
+**The key constraint:** n le 20 (otherwise 2^n states explode). If you see n le 15text{-}20 in the constraints, think bitmask.
 
 ### Template: Traveling Salesman (TSP)
 
@@ -925,14 +925,14 @@ int tsp(const vector<vector<int>>& w) {
 
 | Type | Signal in Problem | Time | Space |
 |---|---|---|---|
-| **1D Linear** | Sequence, "rob/skip", coin change | $O(n)$ or $O(n \times W)$ | $O(n)$ or $O(W)$ |
-| **2D Grid** | Matrix, paths, grid traversal | $O(m \times n)$ | $O(m \times n)$ |
-| **LIS** | Longest increasing/decreasing subsequence | $O(n^2)$ or $O(n \log n)$ | $O(n)$ |
-| **State Machine** | Buy/sell, hold/not hold, cooldown | $O(n \times k)$ | $O(n \times k)$ |
-| **Interval** | Merge/split ranges, balloons, palindromes | $O(n^3)$ | $O(n^2)$ |
-| **Tree** | DP on subtrees, tree paths | $O(n)$ | $O(n)$ |
-| **Digit** | "Count numbers in [1, N] with property" | $O(\text{digits} \times \text{states})$ | Same |
-| **Bitmask** | Small n ($\le 20$), subset selection | $O(2^n \times n)$ | $O(2^n \times n)$ |
+| **1D Linear** | Sequence, "rob/skip", coin change | O(n) or O(n × W) | O(n) or O(W) |
+| **2D Grid** | Matrix, paths, grid traversal | O(m × n) | O(m × n) |
+| **LIS** | Longest increasing/decreasing subsequence | O(n^2) or O(n log n) | O(n) |
+| **State Machine** | Buy/sell, hold/not hold, cooldown | O(n × k) | O(n × k) |
+| **Interval** | Merge/split ranges, balloons, palindromes | O(n^3) | O(n^2) |
+| **Tree** | DP on subtrees, tree paths | O(n) | O(n) |
+| **Digit** | "Count numbers in [1, N] with property" | O(text{digits} × text{states}) | Same |
+| **Bitmask** | Small n (le 20), subset selection | O(2^n × n) | O(2^n × n) |
 
 ## More Templates
 

@@ -77,10 +77,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
-| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
-| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
-| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
+| **Opposite ends** *(this problem)* | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
 
 ## Solution
 

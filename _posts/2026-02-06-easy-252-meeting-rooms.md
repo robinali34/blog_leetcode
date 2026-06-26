@@ -38,10 +38,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Thinking Process
 
@@ -60,7 +60,7 @@ Sort intervals by start time. After sorting, any overlap must appear between **c
 
 </svg>
 
-## Solution — $O(n \log n)$ time, $O(\log n)$ space
+## Solution — O(n log n) time, O(log n) space
 
 ```cpp
 class Solution {
@@ -87,7 +87,7 @@ public:
 
 [0,30] overlaps with [5,10] (and with [15,20]), so the person cannot attend all.
 
-**Time:** $O(n \log n) · **Space:** $O(\log n)
+**Time:** O(n log n) · **Space:** O(\log n)
 ## Related Problems
 
 - [253. Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) — Minimum number of rooms

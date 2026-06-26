@@ -47,10 +47,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
 ## Thinking Process
 
@@ -80,7 +80,7 @@ Unlike typical grid BFS (4 directions), this problem allows diagonal movement. T
 
 </svg>
 
-## Approach: BFS -- $O(n^2)$
+## Approach: BFS -- O(n^2)
 
 {% raw %}
 ```cpp

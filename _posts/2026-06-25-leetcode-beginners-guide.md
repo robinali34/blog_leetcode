@@ -64,15 +64,15 @@ Here's something most beginners miss: **the constraints section tells you which 
 
 | Input size `n` | Target Complexity | What This Means | Typical Approaches |
 |---|---|---|---|
-| $n \le 10$ | $O(n!)$ or $O(2^n)$ | Try everything | Brute force, backtracking |
-| $n \le 20$ | $O(2^n)$ | Subsets / states | Bitmask DP |
-| $n \le 500$ | $O(n^3)$ | Triple loop is OK | Floyd-Warshall, matrix DP |
-| $n \le 5{,}000$ | $O(n^2)$ | Double loop is OK | DP, two pointers |
-| $n \le 10^5$ | $O(n \log n)$ | Sort + scan | Sorting, binary search |
-| $n \le 10^6$ | $O(n)$ | Single pass | Hash map, sliding window |
-| $n \le 10^9$ | $O(\log n)$ | No array at all | Binary search on answer, math |
+| n le 10 | O(n!) or O(2^n) | Try everything | Brute force, backtracking |
+| n le 20 | O(2^n) | Subsets / states | Bitmask DP |
+| n le 500 | O(n^3) | Triple loop is OK | Floyd-Warshall, matrix DP |
+| n le 5{,}000 | O(n^2) | Double loop is OK | DP, two pointers |
+| n le 10^5 | O(n log n) | Sort + scan | Sorting, binary search |
+| n le 10^6 | O(n) | Single pass | Hash map, sliding window |
+| n le 10^9 | O(log n) | No array at all | Binary search on answer, math |
 
-**Example:** If a problem says $1 \le n \le 10^5$, an $O(n^2)$ solution will be too slow ($10^{10}$ operations). You need $O(n \log n)$ or better -- think sorting or binary search.
+**Example:** If a problem says 1 le n le 10^5, an O(n^2) solution will be too slow (10^{10} operations). You need O(n log n) or better -- think sorting or binary search.
 
 ## Difficulty Levels Explained
 

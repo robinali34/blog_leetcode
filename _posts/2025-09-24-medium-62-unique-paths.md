@@ -73,10 +73,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **2D DP** *(this problem)* | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| 1D DP | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **2D DP** *(this problem)* | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| 1D DP | O(n) | O(n) or O(1) | Linear recurrence |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 **Time Complexity:** O(m × n) - We fill each cell once  

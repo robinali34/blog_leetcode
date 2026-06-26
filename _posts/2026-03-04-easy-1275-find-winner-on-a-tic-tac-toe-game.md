@@ -51,10 +51,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Row/column traversal** *(this problem)* | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| **Row/column traversal** *(this problem)* | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| Matrix as graph | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
 
 ## Thinking Process
 
@@ -82,7 +82,7 @@ After replaying all moves, if no winner:
 
 </svg>
 
-## Approach: Counter Tracking -- $O(m)$
+## Approach: Counter Tracking -- O(m)
 
 {% raw %}
 ```cpp
@@ -142,7 +142,7 @@ A wins with the diagonal.
 ## Key Takeaways
 
 - Same `+1 / -1` counter pattern as [LC 348](/2026/03/04/medium-348-design-tic-tac-toe/) -- the only difference is replaying moves from an array vs receiving them one at a time
-- The fixed `3 x 3` grid means everything is $O(1)$ in practice
+- The fixed `3 x 3` grid means everything is O(1) in practice
 - Check for a winner **after each move** to correctly identify the winning player
 
 ## Related Problems

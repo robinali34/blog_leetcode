@@ -52,25 +52,25 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Thinking Process
 
 We maintain a **monotonic decreasing stack** from right to left.
 
-1.  Iterate through the `heights` array from right to left ($n-1$ down to $0$).
-2.  For each person $i$:
+1.  Iterate through the `heights` array from right to left (n-1 down to 0).
+2.  For each person i:
     *   While the stack is not empty and the current person `heights[i]` is taller than the person at the top of the stack `st.top()`:
-        *   Person $i$ can see `st.top()`.
-        *   Pop `st.top()` and increment the count for person $i$.
-        *   Why? Because `st.top()` was the shortest person currently available to the right, and `heights[i]` blocks anyone behind them from seeing `st.top()`, but person $i$ sees them.
+        *   Person i can see `st.top()`.
+        *   Pop `st.top()` and increment the count for person i.
+        *   Why? Because `st.top()` was the shortest person currently available to the right, and `heights[i]` blocks anyone behind them from seeing `st.top()`, but person i sees them.
     *   If the stack is still not empty after the pops:
-        *   Person $i$ can see the current `st.top()` (who is taller than `heights[i]`).
-        *   Increment the count for person $i$.
-        *   This person blocks person $i$ from seeing anyone further to the right.
+        *   Person i can see the current `st.top()` (who is taller than `heights[i]`).
+        *   Increment the count for person i.
+        *   This person blocks person i from seeing anyone further to the right.
     *   Push the current person `heights[i]` onto the stack.
 
 
@@ -124,12 +124,12 @@ public:
 **Key idea:** We maintain a **monotonic decreasing stack** from right to left.
 
 **How the code works:**
-1.  Iterate through the `heights` array from right to left ($n-1$ down to $0$).
-2.  For each person $i$:
+1.  Iterate through the `heights` array from right to left (n-1 down to 0).
+2.  For each person i:
 *   While the stack is not empty and the current person `heights[i]` is taller than the person at the top of the stack `st.top()`:
-*   Person $i$ can see `st.top()`.
-*   Pop `st.top()` and increment the count for person $i$.
-*   Why? Because `st.top()` was the shortest person currently available to the right, and `heights[i]` blocks anyone behind them from seeing `st.top()`, but person $i$ sees them.
+*   Person i can see `st.top()`.
+*   Pop `st.top()` and increment the count for person i.
+*   Why? Because `st.top()` was the shortest person currently available to the right, and `heights[i]` blocks anyone behind them from seeing `st.top()`, but person i sees them.
 
 **Walkthrough** — input `heights = [10,6,8,5,11,9]`, expected output `[3,1,2,1,1,0]`:
 
@@ -142,15 +142,15 @@ public:
 - Person 4 can see person 5.
 - Person 5 can see no one since nobody is to the right of them.
 
-*   **Time Complexity**: $O(n)$. Each element is pushed and popped from the stack at most once.
-*   **Space Complexity**: $O(n)$ for the stack and the result array.
+*   **Time Complexity**: O(n). Each element is pushed and popped from the stack at most once.
+*   **Space Complexity**: O(n) for the stack and the result array.
 ## Example Walkthrough
 
 Let's walk through **Example 1**: `heights = [10, 6, 8, 5, 11, 9]`
 
-We process from **right to left** ($i = 5 \to 0$):
+We process from **right to left** (i = 5 to 0):
 
-| Step ($i$) | Height | Stack (top at right) | Logic | Pop Count | Visible | Action |
+| Step (i) | Height | Stack (top at right) | Logic | Pop Count | Visible | Action |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 5 | 9 | `[]` | Stack is empty | 0 | **0** | Push 9 |
 | 4 | 11 | `[9]` | 11 > 9, pop 9 | 1 | 1 + 0 = **1** | Push 11 |
@@ -162,12 +162,12 @@ We process from **right to left** ($i = 5 \to 0$):
 **Final Result**: `[3, 1, 2, 1, 1, 0]`
 
 ### Why this works:
-1.  **Popping shorter people**: If current person $i$ is taller than person $j$ on the stack, person $i$ can definitely see person $j$. Person $j$ is then removed because anyone to the left of person $i$ will have their view of person $j$ blocked by person $i$.
-2.  **The "+1" logic**: After popping everyone shorter, if the stack isn't empty, the person at the top is the first person taller than current person $i$. Person $i$ can see this person, but they block person $i$ from seeing anyone further right.
+1.  **Popping shorter people**: If current person i is taller than person j on the stack, person i can definitely see person j. Person j is then removed because anyone to the left of person i will have their view of person j blocked by person i.
+2.  **The "+1" logic**: After popping everyone shorter, if the stack isn't empty, the person at the top is the first person taller than current person i. Person i can see this person, but they block person i from seeing anyone further right.
 
 ### Complexity
-*   **Time Complexity**: $O(n)$. Each element is pushed and popped from the stack at most once.
-*   **Space Complexity**: $O(n)$ for the stack and the result array.
+*   **Time Complexity**: O(n). Each element is pushed and popped from the stack at most once.
+*   **Space Complexity**: O(n) for the stack and the result array.
 
 ## Common Mistakes
 
@@ -186,7 +186,7 @@ We process from **right to left** ($i = 5 \to 0$):
 
 - **Pattern:** Monotonic stack (this problem)
 - While the stack is not empty and the current person `heights[i]` is taller than the person at the top of the stack `st.top()`:
-- Person $i$ can see `st.top()`.
+- Person i can see `st.top()`.
 
 ## References
 

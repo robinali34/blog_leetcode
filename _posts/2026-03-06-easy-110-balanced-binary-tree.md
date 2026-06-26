@@ -54,18 +54,18 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
-### Naive: Top-Down -- $O(n^2)$
+### Naive: Top-Down -- O(n^2)
 
-For each node, compute the height of left and right subtrees separately, check the difference, then recurse on children. This recomputes heights repeatedly -- $O(n)$ per node, $O(n^2)$ total.
+For each node, compute the height of left and right subtrees separately, check the difference, then recurse on children. This recomputes heights repeatedly -- O(n) per node, O(n^2) total.
 
-### Optimal: Bottom-Up with Early Termination -- $O(n)$
+### Optimal: Bottom-Up with Early Termination -- O(n)
 
 Compute height bottom-up and **return -1 as a sentinel** the moment an imbalance is detected. This way:
 - Each node is visited exactly once
@@ -96,7 +96,7 @@ The key insight is combining two tasks into one recursive function: **compute he
 
 </svg>
 
-## Approach: Bottom-Up DFS -- $O(n)$
+## Approach: Bottom-Up DFS -- O(n)
 
 {% raw %}
 ```cpp
@@ -127,7 +127,7 @@ private:
 
 **Approach:** Recursive DFS (this problem)
 
-**Key idea:** ### Naive: Top-Down -- $O(n^2)$
+**Key idea:** ### Naive: Top-Down -- O(n^2)
 
 **How the code works:**
 - Each node is visited exactly once
@@ -140,13 +140,13 @@ private:
 3. Confirm the result matches the expected output.
 ## Why -1 Works as a Sentinel
 
-Normal heights are always $\geq 0$, so `-1` is an impossible height value. Once any subtree returns `-1`, every ancestor immediately returns `-1` without doing further work. This is the **early termination** that makes it $O(n)$.
+Normal heights are always ≥ 0, so `-1` is an impossible height value. Once any subtree returns `-1`, every ancestor immediately returns `-1` without doing further work. This is the **early termination** that makes it O(n).
 
 ## Common Mistakes
 
-- Computing height and checking balance in separate passes (top-down $O(n^2)$)
+- Computing height and checking balance in separate passes (top-down O(n^2))
 - Forgetting to check `leftHeight == -1` **before** computing `rightHeight` (misses early termination)
-- Confusing "balanced" with "perfect" or "complete" -- balanced only requires height difference $\leq 1$ at every node
+- Confusing "balanced" with "perfect" or "complete" -- balanced only requires height difference ≤ 1 at every node
 
 ## Key Takeaways
 

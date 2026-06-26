@@ -49,7 +49,7 @@ while dividend >= divisor:
     count++
 ```
 
-Worst case: $O(2^{31})$ -- TLE. We need $O(\log n)$.
+Worst case: O(2^{31}) -- TLE. We need O(log n).
 
 ### Think in Binary (Core Insight)
 
@@ -109,8 +109,8 @@ negative = (dividend > 0) ^ (divisor > 0)
 
 | Metric | Value |
 |--------|-------|
-| Time | $O(\log n)$ -- 32 iterations for 32-bit int |
-| Space | $O(1)$ |
+| Time | O(log n) -- 32 iterations for 32-bit int |
+| Space | O(1) |
 ## Edge Cases
 
 **Case 1:** `dividend = INT_MIN, divisor = -1` -- Answer = `INT_MAX` (overflow guard)
@@ -127,10 +127,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
 
@@ -204,7 +204,7 @@ public:
 ```
 {% endraw %}
 
-Also $O(\log n)$.
+Also O(log n).
 
 ## Common Mistakes
 

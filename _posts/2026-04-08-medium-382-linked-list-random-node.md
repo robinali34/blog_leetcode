@@ -34,23 +34,23 @@ Each call returns 1, 2, or 3 with probability 1/3.
 
 ### Approach 1: Flatten to Array
 
-Copy all values into a vector in the constructor. `getRandom` picks a random index. Simple but uses $O(n)$ extra space.
+Copy all values into a vector in the constructor. `getRandom` picks a random index. Simple but uses O(n) extra space.
 
 ### Approach 2: Reservoir Sampling
 
 For the follow-up (unknown length, no extra space), use **Reservoir Sampling (k=1)**:
 
-Walk through the list. At the $i$-th node (1-indexed), replace the current pick with this node's value with probability $\frac{1}{i}$.
+Walk through the list. At the i-th node (1-indexed), replace the current pick with this node's value with probability frac{1}{i}.
 
 **Why this gives uniform probability**:
 
-The probability that node $j$ is the final pick:
+The probability that node j is the final pick:
 
-$$P(\text{picked at } j) \times P(\text{not replaced at } j{+}1) \times \ldots \times P(\text{not replaced at } n)$$
+$P(text{picked at } j) × P(text{not replaced at } j{+}1) × ldots × P(text{not replaced at } n)
 
-$$= \frac{1}{j} \times \frac{j}{j+1} \times \frac{j+1}{j+2} \times \ldots \times \frac{n-1}{n} = \frac{1}{n}$$
+= frac{1}{j} × frac{j}{j+1} × frac{j+1}{j+2} × ldots × frac{n-1}{n} = frac{1}{n}
 
-The fractions telescope, giving exactly $\frac{1}{n}$ for every node.
+The fractions telescope, giving exactly \frac{1}{n} for every node.
 
 
 
@@ -76,10 +76,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Iterative pointer walk | $O(n)$ | $O(1)$ | Traversal, insertion |
-| **Dummy head node** *(this problem)* | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| Iterative pointer walk | O(n) | O(1) | Traversal, insertion |
+| **Dummy head node** *(this problem)* | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Solution
 
@@ -125,7 +125,7 @@ private:
 
 ## Key Takeaways
 
-- **Reservoir Sampling** solves "pick k items uniformly at random from a stream of unknown length" in $O(1)$ space
+- **Reservoir Sampling** solves "pick k items uniformly at random from a stream of unknown length" in O(1)$ space
 - The telescoping probability proof is elegant and worth understanding
 - This is a classic interview follow-up: "What if you can't store the data?"
 

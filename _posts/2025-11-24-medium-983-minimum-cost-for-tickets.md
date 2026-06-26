@@ -27,10 +27,10 @@ Return *the minimum number of dollars you need to travel every day in the given 
 Input: days = [1,4,6,7,8,20], costs = [2,7,15]
 Output: 11
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
-On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
-On day 4, you bought a 7-day pass for costs[1] = $7, which covered days 4, 5, 6, 7, and 8.
-On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
-In total you spent $11 and covered all the days of your travel.
+On day 1, you bought a 1-day pass for costs[0] = 2, which covered day 1.
+On day 4, you bought a 7-day pass for costs[1] = 7, which covered days 4, 5, 6, 7, and 8.
+On day 20, you bought a 1-day pass for costs[0] = 2, which covered day 20.
+In total you spent 11 and covered all the days of your travel.
 ```
 
 **Example 2:**
@@ -38,9 +38,9 @@ In total you spent $11 and covered all the days of your travel.
 Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
 Output: 17
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
-On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
-On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
-In total you spent $17 and covered all the days of your travel.
+On day 1, you bought a 30-day pass for costs[2] = 15 which covered days 1, 2, ..., 30.
+On day 31, you bought a 1-day pass for costs[0] = 2 which covered day 31.
+In total you spent 17 and covered all the days of your travel.
 ```
 
 ## Constraints
@@ -80,10 +80,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 
@@ -136,10 +136,10 @@ public:
 **Walkthrough** — input `days = [1,4,6,7,8,20], costs = [2,7,15]`, expected output `11`:
 
 For example, here is one way to buy passes that lets you travel your travel plan:
-On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
-On day 4, you bought a 7-day pass for costs[1] = $7, which covered days 4, 5, 6, 7, and 8.
-On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
-In total you spent $11 and covered all the days of your travel.
+On day 1, you bought a 1-day pass for costs[0] = 2, which covered day 1.
+On day 4, you bought a 7-day pass for costs[1] = 7, which covered days 4, 5, 6, 7, and 8.
+On day 20, you bought a 1-day pass for costs[0] = 2, which covered day 20.
+In total you spent 11 and covered all the days of your travel.
 
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
@@ -293,11 +293,11 @@ Travel days: {1-10, 30, 31}
 Last day: 31
 
 Key decisions:
-Day 1: Buy 30-day pass ($15) - covers days 1-30
-  - Cheaper than buying 10 individual 1-day passes ($20)
+Day 1: Buy 30-day pass (15) - covers days 1-30
+  - Cheaper than buying 10 individual 1-day passes (20)
   - Cheaper than buying multiple 7-day passes
 
-Day 31: Buy 1-day pass ($2) - covers day 31
+Day 31: Buy 1-day pass (2) - covers day 31
 
 DP progression:
 dp[1] = min(2, 7, 15) = 2 (but we'll see 30-day is better)

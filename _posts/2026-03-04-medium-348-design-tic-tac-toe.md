@@ -41,16 +41,16 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Row/column traversal** *(this problem)* | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| **Row/column traversal** *(this problem)* | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| Matrix as graph | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
 
 ## Thinking Process
 
 ### Brute Force
 
-After each move, scan the entire row, column, and both diagonals to check for a winner. Each `move` costs $O(n)$.
+After each move, scan the entire row, column, and both diagonals to check for a winner. Each `move` costs O(n).
 
 ### Key Insight: +1 / -1 Encoding
 
@@ -60,7 +60,7 @@ Instead of storing the full board, track the **sum** of each row, column, diagon
 
 If any sum reaches `+n`, player 1 wins. If any reaches `-n`, player 2 wins. This works because a sum of `±n` means all `n` cells in that line belong to the same player.
 
-This makes each `move` $O(1)$ -- just update at most 4 counters and check their absolute values.
+This makes each `move` O(1) -- just update at most 4 counters and check their absolute values.
 
 ### Why +1 / -1?
 
@@ -79,7 +79,7 @@ Using `+1` and `-1` is cleaner than tracking two separate counts per line. Oppos
 
 </svg>
 
-## Approach: Counter Tracking -- $O(1)$ per move
+## Approach: Counter Tracking -- O(1) per move
 
 {% raw %}
 ```cpp

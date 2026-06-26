@@ -94,7 +94,7 @@ Key cells:
 - `dp[2][4]`: `min(top=1, left=2, diag=1) + 1 = 2` -- another 2x2 square
 - `dp[3][3]`: `min(top=2, left=0, diag=1) + 1 = 1` -- left is 0, so only 1x1
 
-Max value = 2, so answer = $2^2 = 4$.
+Max value = 2, so answer = 2^2 = 4.
 
 
 
@@ -117,10 +117,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 
@@ -187,7 +187,7 @@ public:
 - Classic 2D DP pattern: define state at each cell, derive from neighbors
 - The `min` of three neighbors is the core insight -- a square is only as large as its weakest constraint
 - Space optimization from 2D to 1D is a standard technique: save the diagonal before overwriting
-- Answer is $\text{maxSide}^2$ (area, not side length)
+- Answer is text{maxSide}^2 (area, not side length)
 
 ## Related Problems
 

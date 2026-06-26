@@ -63,10 +63,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Thinking Process
 
@@ -129,10 +129,10 @@ public:
 ```
 
 ### Complexity
-*   **Time Complexity**: $O(n)$, where $n$ is the length of the string. We iterate through the string once.
+*   **Time Complexity**: O(n), where n is the length of the string. We iterate through the string once.
 *   **Space Complexity**: 
-    *   Solution 1: $O(n)$ for the DP array.
-    *   Solution 2: $O(1)$ as we only use a few integer variables.
+    *   Solution 1: O(n) for the DP array.
+    *   Solution 2: O(1) as we only use a few integer variables.
 
 
 
@@ -164,9 +164,9 @@ public:
 
 ## Key Takeaways
 
-- Time Complexity**: $O(n)$, where $n$ is the length of the string. We iterate through the string once.
+- Time Complexity**: O(n), where n is the length of the string. We iterate through the string once.
 - Space Complexity**:
-- Solution 1: $O(n)$ for the DP array.
+- Solution 1: O(n) for the DP array.
 
 ## References
 

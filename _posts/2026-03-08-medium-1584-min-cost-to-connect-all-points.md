@@ -36,10 +36,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
-| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
-| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
-| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+| **BFS / DFS traversal** *(this problem)* | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Thinking Process
 
@@ -47,14 +47,14 @@ This is a **Minimum Spanning Tree (MST)** problem on a complete graph. Each poin
 
 ### Kruskal's Algorithm
 
-1. Generate all $\binom{n}{2}$ edges with their Manhattan distance weights
+1. Generate all binom{n}{2} edges with their Manhattan distance weights
 2. Sort edges by weight (ascending)
 3. Greedily add edges using **DSU (Union-Find)** -- skip edges that would create a cycle
-4. Stop after adding $n - 1$ edges (MST is complete)
+4. Stop after adding n - 1 edges (MST is complete)
 
 ### Why Kruskal?
 
-For a complete graph with $n$ nodes, there are $O(n^2)$ edges. Kruskal's sorts them and processes greedily, giving $O(n^2 \log n)$ total. Prim's with a heap is also $O(n^2 \log n)$ here, but Kruskal + DSU is cleaner for complete graphs.
+For a complete graph with n nodes, there are O(n^2) edges. Kruskal's sorts them and processes greedily, giving O(n^2 log n) total. Prim's with a heap is also O(n^2 log n) here, but Kruskal + DSU is cleaner for complete graphs.
 
 
 
@@ -72,7 +72,7 @@ For a complete graph with $n$ nodes, there are $O(n^2)$ edges. Kruskal's sorts t
 
 </svg>
 
-## Approach: Kruskal's MST + DSU -- $O(n^2 \log n)$
+## Approach: Kruskal's MST + DSU -- O(n^2 log n)
 
 {% raw %}
 ```cpp
@@ -142,10 +142,10 @@ public:
 **Key idea:** This is a **Minimum Spanning Tree (MST)** problem on a complete graph. Each point is a node, and the edge weight between any two points is their Manhattan distance.
 
 **How the code works:**
-1. Generate all $\binom{n}{2}$ edges with their Manhattan distance weights
+1. Generate all binom{n}{2} edges with their Manhattan distance weights
 2. Sort edges by weight (ascending)
 3. Greedily add edges using **DSU (Union-Find)** -- skip edges that would create a cycle
-4. Stop after adding $n - 1$ edges (MST is complete)
+4. Stop after adding n - 1 edges (MST is complete)
 
 **Walkthrough** — input `points = [[0,0],[2,2],[3,10],[5,2],[7,0]]`, expected output `20`:
 
@@ -171,21 +171,21 @@ MST cost = 20 ✓
 
 ## DSU (Union-Find) Recap
 
-- **Path compression** (`find`): flattens the tree so future finds are nearly $O(1)$
+- **Path compression** (`find`): flattens the tree so future finds are nearly O(1)
 - **Union by rank**: always attach the smaller tree under the larger root
-- Combined: amortized $O(\alpha(n))$ per operation (practically constant)
+- Combined: amortized O(α(n)) per operation (practically constant)
 
 ## Common Mistakes
 
-- Forgetting to stop after $n - 1$ edges (MST of $n$ nodes always has exactly $n - 1$ edges)
+- Forgetting to stop after n - 1 edges (MST of n nodes always has exactly n - 1 edges)
 - Generating duplicate edges (only iterate `j = i + 1` to `n`, not all pairs)
 - Using edge weight for rank in DSU (rank tracks tree height/size, not edge weight)
 
 ## Key Takeaways
 
-- **Complete graph MST** = generate all edges + Kruskal's. Simple and effective for $n \leq 1000$
+- **Complete graph MST** = generate all edges + Kruskal's. Simple and effective for n ≤ 1000
 - **DSU** is the natural companion to Kruskal's -- it answers "are these connected?" in near-constant time
-- For larger $n$, Prim's with adjacency list or geometric optimizations (e.g., only considering nearest neighbors) would be needed
+- For larger n, Prim's with adjacency list or geometric optimizations (e.g., only considering nearest neighbors) would be needed
 
 ## Related Problems
 

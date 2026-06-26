@@ -66,10 +66,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
-| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
-| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
-| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+| **Fixed-size window** *(this problem)* | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Solution
 
@@ -112,9 +112,9 @@ getHits(4):   hits at 1,2,3 → 3
 
 | Approach | `hit` | `getHits` | Best For |
 |---|---|---|---|
-| Deque | $O(1)$ | amortized $O(1)$ | Timestamps in order (this problem) |
-| Sorted Vector | $O(n)$ worst / $O(1)$ practical | $O(\log n + k)$ | Random access needed |
-| Multiset | $O(\log n)$ | $O(k \log n)$ | Timestamps out of order |
+| Deque | O(1) | amortized O(1) | Timestamps in order (this problem) |
+| Sorted Vector | O(n) worst / O(1) practical | O(log n + k) | Random access needed |
+| Multiset | O(log n) | O(k log n) | Timestamps out of order |
 
 ## Common Mistakes
 
@@ -125,7 +125,7 @@ getHits(4):   hits at 1,2,3 → 3
 ## Key Takeaways
 
 - **Sliding time window + ordered arrivals** = deque is the natural data structure
-- Each element is enqueued and dequeued at most once, giving amortized $O(1)$ per operation
+- Each element is enqueued and dequeued at most once, giving amortized O(1) per operation
 - The deque solution is the expected interview answer for this problem -- clean, simple, and optimal
 
 ## Related Problems

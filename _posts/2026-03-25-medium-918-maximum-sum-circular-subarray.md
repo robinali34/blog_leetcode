@@ -59,11 +59,11 @@ Case 2: Wrapping around (subarray spans both ends)
 
 **Case 2**: The wrapping subarray = total sum minus the **minimum** subarray in the middle. So:
 
-$$\text{wrap sum} = \text{total} - \text{minSubarraySum}$$
+$text{wrap sum} = text{total} - text{minSubarraySum}
 
 ### Answer
 
-$$\max(\text{maxSum},\ \text{total} - \text{minSum})$$
+max(text{maxSum},\ text{total} - text{minSum})
 
 ### Edge Case: All Negative
 
@@ -110,10 +110,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
-| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
-| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
-| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Solution
 
@@ -177,7 +177,7 @@ The wrapping subarray is everything **except** the minimum contiguous subarray. 
 ## Key Takeaways
 
 - **Circular max subarray = max(normal Kadane's, total - min Kadane's)** -- elegant reduction
-- Running max-Kadane's and min-Kadane's simultaneously in a single pass keeps it $O(n)$ time, $O(1)$ space
+- Running max-Kadane's and min-Kadane's simultaneously in a single pass keeps it O(n) time, O(1)$ space
 - The "all negative" guard is the one subtlety -- without it, the wrap case incorrectly returns 0
 
 ## Related Problems

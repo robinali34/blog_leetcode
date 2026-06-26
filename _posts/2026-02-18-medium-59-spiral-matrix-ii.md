@@ -37,10 +37,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Row/column traversal | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| **Matrix as graph** *(this problem)* | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| Row/column traversal | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| **Matrix as graph** *(this problem)* | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
 
 ## Thinking Process
 
@@ -93,7 +93,7 @@ For layer `k`:
 
 </svg>
 
-## Approach: Layer-by-Layer -- $O(n^2)$
+## Approach: Layer-by-Layer -- O(n^2)
 
 Iterate over layers from `0` to `(n+1)/2 - 1`. For each layer, fill the four sides with incrementing counter.
 
@@ -174,8 +174,8 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n^2)$
-**Space**: $O(n^2)$
+**Time**: O(n^2)
+**Space**: O(n^2)
 
 ## Common Mistakes
 
@@ -188,7 +188,7 @@ public:
 - This is a pure **implementation accuracy** problem -- recognize it as spiral simulation immediately
 - **Layer-by-layer** is safer and more explicit about boundaries
 - **Direction array** is shorter but requires checking "already filled" cells
-- Both approaches are $O(n^2)$ and optimal since every cell must be visited
+- Both approaches are O(n^2) and optimal since every cell must be visited
 
 ## Related Problems
 

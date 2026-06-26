@@ -47,7 +47,7 @@ Explanation:
 
 - Stack matches nested or LIFO structure (parentheses, monotonic scans).
 - Push on open / larger; pop when the current element resolves pending work.
-- Monotonic stack finds next greater/smaller in $O(n)$.
+- Monotonic stack finds next greater/smaller in O(n).
 
 
 
@@ -69,10 +69,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Solution
 

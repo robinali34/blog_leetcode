@@ -63,7 +63,7 @@ Finally, the backlog has (10^9 - 3) + 999999994 = 1999999991 orders. So we retur
 - Always match with best available price
 
 - Heap gives fast access to min/max without full sorting.
-- Size-$k$ heap handles Top-K in $O(n \log k)$.
+- Size-k heap handles Top-K in O(n log k).
 - Lazy deletion when elements leave the heap before removal.
 
 
@@ -85,10 +85,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
 
@@ -157,7 +157,7 @@ public:
 - Min heap for sell orders (want lowest price)
 - Always match with best available price
 - Heap gives fast access to min/max without full sorting.
-- Size-$k$ heap handles Top-K in $O(n \log k)$.
+- Size-k heap handles Top-K in O(n log k).
 
 **Walkthrough** — input `orders = [[10,5,0],[15,2,1],[25,1,1],[30,4,0]]`, expected output `6`:
 

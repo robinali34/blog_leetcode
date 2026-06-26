@@ -39,7 +39,7 @@ Explanation: "the", "is", "sunny" and "day" are the four most frequent words, wi
 1. **Custom Comparator**: The key is the two-level sorting: frequency first, then lexicographic order
 
 - Heap gives fast access to min/max without full sorting.
-- Size-$k$ heap handles Top-K in $O(n \log k)$.
+- Size-k heap handles Top-K in O(n log k).
 - Lazy deletion when elements leave the heap before removal.
 
 
@@ -61,10 +61,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
 
@@ -100,7 +100,7 @@ public:
 **How the code works:**
 1. **Custom Comparator**: The key is the two-level sorting: frequency first, then lexicographic order
 - Heap gives fast access to min/max without full sorting.
-- Size-$k$ heap handles Top-K in $O(n \log k)$.
+- Size-k heap handles Top-K in O(n log k).
 - Lazy deletion when elements leave the heap before removal.
 
 **Walkthrough** — input `words = ["i","love","leetcode","i","love","coding"], k = 2`, expected output `["i","love"]`:

@@ -51,7 +51,7 @@ This is structurally identical to [LC 127 Word Ladder](https://www.leetcode.com/
 
 ### Algorithm
 
-1. Put the bank into a set for $O(1)$ lookup
+1. Put the bank into a set for O(1) lookup
 2. Early exit if `endGene` is not in the bank
 3. BFS level by level: for each gene, try all single-character mutations (`A`, `C`, `G`, `T`)
 4. If a mutation is in the bank, enqueue it and **remove it from the bank set** (acts as visited)
@@ -97,10 +97,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
 ## Solution
 
@@ -151,7 +151,7 @@ public:
 **Key idea:** ### Why BFS?
 
 **How the code works:**
-1. Put the bank into a set for $O(1)$ lookup
+1. Put the bank into a set for O(1) lookup
 2. Early exit if `endGene` is not in the bank
 3. BFS level by level: for each gene, try all single-character mutations (`A`, `C`, `G`, `T`)
 4. If a mutation is in the bank, enqueue it and **remove it from the bank set** (acts as visited)

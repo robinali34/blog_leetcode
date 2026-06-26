@@ -81,10 +81,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
-| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
-| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
-| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
+| **Choose / explore / unchoose** *(this problem)* | O(2^n) | O(n) | Subsets, combinations |
+| Constraint pruning | Reduced search | O(n) | Early exit on invalid partial |
+| Sort + skip duplicates | O(2^n) | O(n) | Combination sum II style |
+| Path recording | O(n!) worst | O(n) | Permutations |
 
 ## Solution
 
@@ -154,7 +154,7 @@ private:
 ## Common Mistakes
 
 - Forgetting to skip commas during parsing (adding `,` as a character option)
-- Not sorting groups, then needing to sort the entire output ($O(k^m \cdot m \log(k^m))$ instead of $O(k^m \cdot m)$)
+- Not sorting groups, then needing to sort the entire output (O(k^m · m log(k^m)) instead of O(k^m · m))
 - Off-by-one: not incrementing `i` past the closing `}`
 
 ## Key Takeaways

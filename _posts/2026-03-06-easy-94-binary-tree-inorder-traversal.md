@@ -47,10 +47,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Thinking Process
 
@@ -60,7 +60,7 @@ Three standard implementations:
 
 1. **Recursive** -- direct translation
 2. **Iterative (stack)** -- go as far left as possible, then process and go right
-3. **Morris traversal** -- $O(1)$ auxiliary space using threaded tree
+3. **Morris traversal** -- O(1) auxiliary space using threaded tree
 
 ### Iterative Key Insight
 
@@ -89,7 +89,7 @@ Unlike preorder where we can simply push right then left, inorder requires us to
 
 </svg>
 
-## Approach 1: Recursive -- $O(n)$
+## Approach 1: Recursive -- O(n)
 
 {% raw %}
 ```cpp
@@ -120,14 +120,14 @@ private:
 **How the code works:**
 1. **Recursive** -- direct translation
 2. **Iterative (stack)** -- go as far left as possible, then process and go right
-3. **Morris traversal** -- $O(1)$ auxiliary space using threaded tree
+3. **Morris traversal** -- O(1) auxiliary space using threaded tree
 
 **Walkthrough** — input `root = [1,null,2,3]`, expected output `[1,3,2]`:
 
 1. Initialize variables from the problem setup.
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
-## Approach 2: Iterative (Stack) -- $O(n)$
+## Approach 2: Iterative (Stack) -- O(n)
 
 Push all left children first. When there's nothing left to go, pop, visit, and move right.
 
@@ -156,10 +156,10 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ for the output; $O(h)$ for the stack
+**Time**: O(n)
+**Space**: O(n) for the output; O(h) for the stack
 
-## Approach 3: Morris Traversal -- $O(n)$
+## Approach 3: Morris Traversal -- O(n)
 
 Thread the rightmost node of the left subtree back to the current node. Visit the node **after** returning via the thread (between left and right).
 
@@ -197,16 +197,16 @@ public:
 ```
 {% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ for the output; $O(1)$ auxiliary
+**Time**: O(n)
+**Space**: O(n) for the output; O(1) auxiliary
 
 ## Comparison
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Recursive | $O(n)$ | $O(h)$ aux | Simplest |
-| Iterative Stack | $O(n)$ | $O(h)$ aux | "Go left, pop, go right" pattern |
-| Morris | $O(n)$ | $O(1)$ aux | Modifies tree temporarily, restores it |
+| Recursive | O(n) | O(h) aux | Simplest |
+| Iterative Stack | O(n) | O(h) aux | "Go left, pop, go right" pattern |
+| Morris | O(n) | O(1) aux | Modifies tree temporarily, restores it |
 
 ## Preorder vs Inorder: Key Difference
 

@@ -97,10 +97,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
-| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
-| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
-| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
 
@@ -159,7 +159,7 @@ x&-x = 0000 0100  ← lowest set bit
 
 ## Common Mistakes
 
-- Trying to use a hash map (works but violates the $O(1)$ space requirement)
+- Trying to use a hash map (works but violates the O(1) space requirement)
 - Using any bit of `x` other than a set bit to partition (a `0` bit means `a` and `b` agree there -- useless for splitting)
 - Integer overflow: `x & (-x)` can overflow if `x = INT_MIN`; using `unsigned` or `x & (unsigned)(-x)` is safer
 

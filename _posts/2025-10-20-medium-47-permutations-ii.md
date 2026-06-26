@@ -66,10 +66,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
-| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
-| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
-| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
+| **Choose / explore / unchoose** *(this problem)* | O(2^n) | O(n) | Subsets, combinations |
+| Constraint pruning | Reduced search | O(n) | Early exit on invalid partial |
+| Sort + skip duplicates | O(2^n) | O(n) | Combination sum II style |
+| Path recording | O(n!) worst | O(n) | Permutations |
 
 ## Solution
 

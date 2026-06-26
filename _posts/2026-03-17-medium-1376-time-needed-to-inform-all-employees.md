@@ -47,9 +47,9 @@ Explanation: Chain 6→5→4→3→2→1→0, total = 1+2+3+4+5+6 = 21.
 
 ## Thinking Process
 
-### Baseline (Naive) -- $O(n^2)$
+### Baseline (Naive) -- O(n^2)
 
-For each employee, walk up through `manager[i] → manager[manager[i]] → ... → head` and sum `informTime` along the path. Track the maximum. In a chain structure each walk is $O(n)$, giving $O(n^2)$ total.
+For each employee, walk up through `manager[i] → manager[manager[i]] → ... → head` and sum `informTime` along the path. Track the maximum. In a chain structure each walk is O(n), giving O(n^2) total.
 
 ### Bottleneck
 
@@ -65,7 +65,7 @@ Build an adjacency list and traverse once with DFS or BFS. Each node is visited 
 
 ### DFS Recurrence
 
-$$\text{time}(node) = \text{informTime}[node] + \max_{child}(\text{time}(child))$$
+$text{time}(node) = text{informTime}[node] + max_{child}(text{time}(child))
 
 Base case: leaf nodes have no children, so `max(child times) = 0`.
 
@@ -91,10 +91,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
 
@@ -127,7 +127,7 @@ private:
 
 **Approach:** Recursive DFS (this problem)
 
-**Key idea:** ### Baseline (Naive) -- $O(n^2)$
+**Key idea:** ### Baseline (Naive) -- O(n^2)$
 
 **Walkthrough** — input `n = 1, headID = 0, manager = [-1], informTime = [0]`, expected output `0`:
 

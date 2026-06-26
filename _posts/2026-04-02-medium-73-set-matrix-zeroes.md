@@ -29,15 +29,15 @@ Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 - `m == matrix.length`, `n == matrix[0].length`
 - `1 <= m, n <= 200`
 - `-2^31 <= matrix[i][j] <= 2^31 - 1`
-- **Follow-up**: Can you solve it with $O(1)$ extra space?
+- **Follow-up**: Can you solve it with O(1) extra space?
 
 ## Thinking Process
 
 The naive approach (modify while scanning) corrupts the matrix -- new zeros trigger more zeros than intended. We need to **record which rows and columns to zero out first**, then apply.
 
 Three levels of space usage:
-1. **$O(m + n)$**: Use separate sets/arrays for row and column markers
-2. **$O(1)$**: Use the matrix's own first row and first column as markers
+1. **O(m + n)**: Use separate sets/arrays for row and column markers
+2. **O(1)**: Use the matrix's own first row and first column as markers
 
 
 
@@ -58,10 +58,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Row/column traversal | $O(nm)$ | $O(1)$ | Simulation, spiral |
-| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
-| **Matrix as graph** *(this problem)* | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
-| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
+| Row/column traversal | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| **Matrix as graph** *(this problem)* | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
 
 ## Solution
 
@@ -104,8 +104,8 @@ public:
 **Key idea:** The naive approach (modify while scanning) corrupts the matrix -- new zeros trigger more zeros than intended. We need to **record which rows and columns to zero out first**, then apply.
 
 **How the code works:**
-1. **$O(m + n)$**: Use separate sets/arrays for row and column markers
-2. **$O(1)$**: Use the matrix's own first row and first column as markers
+1. **O(m + n)**: Use separate sets/arrays for row and column markers
+2. **O(1)**: Use the matrix's own first row and first column as markers
 
 **Walkthrough** — input `[[1,1,1],[1,0,1],[1,1,1]]`, expected output `[[1,0,1],[0,0,0],[1,0,1]]`:
 
@@ -116,8 +116,8 @@ public:
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Hash Sets | $O(m \cdot n)$ | $O(m + n)$ | Simple and clear |
-| In-Place Markers | $O(m \cdot n)$ | $O(1)$ | Uses matrix itself; interview follow-up |
+| Hash Sets | O(m · n) | O(m + n) | Simple and clear |
+| In-Place Markers | O(m · n) | O(1) | Uses matrix itself; interview follow-up |
 
 ## Common Mistakes
 
@@ -128,7 +128,7 @@ public:
 ## Key Takeaways
 
 - **"Mark then apply"** is the core pattern -- never modify and read from the same data simultaneously
-- Using the matrix's own borders as storage is a classic $O(1)$ space trick
+- Using the matrix's own borders as storage is a classic O(1) space trick
 - The order of operations is critical: scan → mark → apply interior → apply borders
 
 ## Related Problems

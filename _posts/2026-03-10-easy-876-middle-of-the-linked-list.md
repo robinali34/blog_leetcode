@@ -37,10 +37,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
-| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
-| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
-| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+| **Iterative pointer walk** *(this problem)* | O(n) | O(1) | Traversal, insertion |
+| Dummy head node | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Thinking Process
 
@@ -80,7 +80,7 @@ For even-length lists, this naturally returns the **second** middle node, matchi
 
 </svg>
 
-## Approach: Slow & Fast Pointer -- $O(n)$
+## Approach: Slow & Fast Pointer -- O(n)
 
 {% raw %}
 ```cpp

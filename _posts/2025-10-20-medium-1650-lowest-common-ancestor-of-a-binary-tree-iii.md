@@ -86,10 +86,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Recursive DFS | $O(n)$ | $O(h)$ | Depth, path sum, subtree queries |
-| BFS level-order | $O(n)$ | $O(w)$ | Level traversal, zigzag |
-| Inorder on BST | $O(n)$ | $O(h)$ | Sorted order, successor |
-| **Divide & conquer on tree** *(this problem)* | $O(n)$ | $O(h)$ | Diameter, max path |
+| Recursive DFS | O(n) | O(h) | Depth, path sum, subtree queries |
+| BFS level-order | O(n) | O(w) | Level traversal, zigzag |
+| Inorder on BST | O(n) | O(h) | Sorted order, successor |
+| **Divide & conquer on tree** *(this problem)* | O(n) | O(h) | Diameter, max path |
 
 ## Solution
 

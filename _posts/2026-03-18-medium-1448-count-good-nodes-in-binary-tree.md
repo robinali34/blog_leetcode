@@ -73,10 +73,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
-| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
-| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
-| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
 
@@ -123,9 +123,9 @@ Node 1 is not good because 3 > 1 on its path.
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Recursive DFS | $O(n)$ | $O(h)$ | Cleanest, natural top-down |
-| Iterative DFS | $O(n)$ | $O(h)$ | Avoids stack overflow |
-| BFS | $O(n)$ | $O(w)$ | Level-order, wider space for balanced trees |
+| Recursive DFS | O(n) | O(h) | Cleanest, natural top-down |
+| Iterative DFS | O(n) | O(h) | Avoids stack overflow |
+| BFS | O(n) | O(w) | Level-order, wider space for balanced trees |
 
 ## Common Mistakes
 

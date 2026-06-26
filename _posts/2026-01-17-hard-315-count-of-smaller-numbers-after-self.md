@@ -71,10 +71,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| Prefix sum | $O(n)$ | $O(n)$ | Range queries, subarray sum |
-| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
-| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
-| **Hash map counting** *(this problem)* | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+| Prefix sum | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| **Hash map counting** *(this problem)* | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Solution
 

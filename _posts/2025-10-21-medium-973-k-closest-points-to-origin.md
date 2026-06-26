@@ -46,10 +46,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
-| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
-| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
-| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Thinking Process
 

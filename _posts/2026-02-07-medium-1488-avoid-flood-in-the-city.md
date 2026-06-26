@@ -82,10 +82,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
-| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
-| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
-| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
+| **Standard binary search** *(this problem)* | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
 ## Solution
 

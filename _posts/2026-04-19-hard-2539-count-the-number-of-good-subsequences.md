@@ -6,7 +6,7 @@ categories: [leetcode, hard, combinatorics]
 tags: [leetcode, hard, combinatorics, modular-arithmetic, math, string]
 permalink: /2026/04/19/hard-2539-count-the-number-of-good-subsequences/
 ---
-Given a string `s`, return the number of **non-empty good subsequences** of `s`. A subsequence is **good** if every character in it appears the **same number of times**. Answer modulo $10^9 + 7$.
+Given a string `s`, return the number of **non-empty good subsequences** of `s`. A subsequence is **good** if every character in it appears the **same number of times**. Answer modulo 10^9 + 7.
 
 ## Examples
 
@@ -42,33 +42,33 @@ freq: l=1, e=2, t=1
 
 ### Why Brute Force Fails
 
-Enumerating all $2^n - 1$ non-empty subsequences and checking each one is exponential. We need a combinatorial approach.
+Enumerating all 2^n - 1 non-empty subsequences and checking each one is exponential. We need a combinatorial approach.
 
 ### The Key Insight
 
 Instead of generating subsequences, **fix a target frequency `k`** and count how many subsequences have every chosen character appearing exactly `k` times.
 
 For a fixed `k`:
-- For each character `c` with `freq[c] >= k`, we can either **include** it (choose exactly `k` of its `freq[c]` occurrences: $\binom{freq[c]}{k}$ ways) or **exclude** it entirely (1 way)
+- For each character `c` with `freq[c] >= k`, we can either **include** it (choose exactly `k` of its `freq[c]` occurrences: binom{freq[c]}{k} ways) or **exclude** it entirely (1 way)
 - Characters with `freq[c] < k` must be excluded
 
 So the total for a given `k`:
 
-$$\text{ways}(k) = \prod_{\text{all chars } c} \left(1 + \binom{freq[c]}{k} \cdot [freq[c] \ge k]\right) - 1$$
+$text{ways}(k) = prod_{text{all chars } c} left(1 + binom{freq[c]}{k} · [freq[c] ge k]right) - 1
 
-The $-1$ removes the empty subsequence (where every character is excluded).
+The -1 removes the empty subsequence (where every character is excluded).
 
 ### Final Answer
 
-$$\text{answer} = \sum_{k=1}^{\max\_freq} \text{ways}(k)$$
+text{answer} = sum_{k=1}^{max\_freq} text{ways}(k)
 
 ### Efficient Combinations
 
-We need $\binom{n}{k}$ for various $n, k$ up to $\max\_freq$. Using a Pascal table would be $O(n^2)$ memory, which can blow up for large frequencies.
+We need \binom{n}{k} for various n, k up to \max\_freq. Using a Pascal table would be O(n^2) memory, which can blow up for large frequencies.
 
 Instead, precompute factorials and use **Fermat's little theorem** for modular inverse:
 
-$$\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} = n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \pmod{10^9+7}$$
+binom{n}{k} = frac{n!}{k! · (n-k)!} = n! · (k!)^{-1} · ((n-k)!)^{-1} pmod{10^9+7}
 
 
 
@@ -92,10 +92,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
-| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
-| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
-| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Solution
 
@@ -158,7 +158,7 @@ public:
 **Key idea:** ### Why Brute Force Fails
 
 **How the code works:**
-- For each character `c` with `freq[c] >= k`, we can either **include** it (choose exactly `k` of its `freq[c]` occurrences: $\binom{freq[c]}{k}$ ways) or **exclude** it entirely (1 way)
+- For each character `c` with `freq[c] >= k`, we can either **include** it (choose exactly `k` of its `freq[c]` occurrences: \binom{freq[c]}{k} ways) or **exclude** it entirely (1 way)
 - Characters with `freq[c] < k` must be excluded
 
 **Walkthrough** — input `s = "aabb"`, expected output `11`:
@@ -167,34 +167,34 @@ public:
 2. Apply the main loop / recursion until the condition is met.
 3. Confirm the result matches the expected output.
 
-**Time:** $O(\text{maxFreq} \times |\Sigma|)$ where $|\Sigma| \le 26$ · **Space:** $O(\text{maxFreq})$ for factorial arrays## Walk-through: `s = "aabb"`
+**Time:** O(\text{maxFreq} \times |\Sigma|) where |\Sigma| \le 26 · **Space:** O(\text{maxFreq}) for factorial arrays## Walk-through: `s = "aabb"`
 ## Why Not Pascal's Triangle?
 
-For inputs like `"jjjjjj..."` (single character, frequency $10^4$), a Pascal table would need $O(n^2)$ space -- up to $10^8$ entries. The factorial + modular inverse approach uses only $O(n)$ space and computes each $\binom{n}{k}$ in $O(1)$.
+For inputs like `"jjjjjj..."` (single character, frequency 10^4), a Pascal table would need O(n^2) space -- up to 10^8 entries. The factorial + modular inverse approach uses only O(n) space and computes each \binom{n}{k} in O(1).
 
 | Approach | Space | Per-query |
 |---|---|---|
-| Pascal's triangle | $O(n^2)$ | $O(1)$ |
-| Factorial + mod inverse | $O(n)$ | $O(1)$ |
+| Pascal's triangle | O(n^2) | O(1) |
+| Factorial + mod inverse | O(n) | O(1) |
 
 ## Common Mistakes
 
-- **Forgetting the $-1$:** The product includes the case where every character is excluded (empty subsequence), which must be subtracted
+- **Forgetting the -1:** The product includes the case where every character is excluded (empty subsequence), which must be subtracted
 - **Not clamping combinations:** Only characters with `freq[c] >= k` contribute; others must be skipped (their factor is just 1)
-- **Using Pascal table for large $n$:** Causes MLE; always use factorial arrays with Fermat inverse
+- **Using Pascal table for large n:** Causes MLE; always use factorial arrays with Fermat inverse
 - **Missing modular arithmetic:** Intermediate products can overflow without `% MOD` at each step
 
 ## Key Takeaways
 
 - **"Fix a parameter and count"** is a powerful combinatorial strategy -- here we fix the target frequency `k`
-- For each character, the choice is binary: include (choose $k$ copies) or exclude -- giving a product formula
-- **Modular inverse via Fermat's little theorem** ($a^{-1} \equiv a^{p-2} \pmod{p}$) is essential for efficient $\binom{n}{k}$ under modulo
+- For each character, the choice is binary: include (choose k copies) or exclude -- giving a product formula
+- **Modular inverse via Fermat's little theorem** (a^{-1} \equiv a^{p-2} \pmod{p}) is essential for efficient \binom{n}{k} under modulo
 - Grouping by frequency is a clean optimization when characters share the same count
 
 ## Related Problems
 
 - [1569. Number of Ways to Reorder Array to Get Same BST](https://www.leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/) -- combinatorics with modular inverse
-- [62. Unique Paths](https://www.leetcode.com/problems/unique-paths/) -- basic combinatorics $\binom{m+n-2}{m-1}$
+- [62. Unique Paths](https://www.leetcode.com/problems/unique-paths/) -- basic combinatorics \binom{m+n-2}{m-1}$
 - [1512. Number of Good Pairs](https://www.leetcode.com/problems/number-of-good-pairs/) -- frequency counting
 - [940. Distinct Subsequences II](https://www.leetcode.com/problems/distinct-subsequences-ii/) -- subsequence counting with DP
 

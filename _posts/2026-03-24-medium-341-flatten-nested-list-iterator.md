@@ -40,7 +40,7 @@ Output: [1,4,6]
 
 ### The Problem with Pre-flattening
 
-We could recursively flatten the entire list in the constructor and iterate over the result. That works, but uses $O(n)$ extra space upfront and doesn't take advantage of **lazy evaluation** -- we might not need all elements.
+We could recursively flatten the entire list in the constructor and iterate over the result. That works, but uses O(n) extra space upfront and doesn't take advantage of **lazy evaluation** -- we might not need all elements.
 
 ### Stack-Based Lazy Approach
 
@@ -107,10 +107,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
-| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
-| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
-| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Solution
 

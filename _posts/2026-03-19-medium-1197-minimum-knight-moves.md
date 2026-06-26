@@ -40,7 +40,7 @@ We need the **minimum number of moves** from `(0,0)` to `(x,y)` on an unweighted
 
 ### Symmetry Optimization
 
-Knight moves are symmetric across both axes. If `(x, y)` is reachable in $k$ moves, so is `(-x, y)`, `(x, -y)`, and `(-x, -y)`. So we can fold the target into the **first quadrant** with `x = abs(x)`, `y = abs(y)` and only explore that region.
+Knight moves are symmetric across both axes. If `(x, y)` is reachable in k moves, so is `(-x, y)`, `(x, -y)`, and `(-x, -y)`. So we can fold the target into the **first quadrant** with `x = abs(x)`, `y = abs(y)` and only explore that region.
 
 ### Why Allow `nx >= -1` and `ny >= -1`?
 
@@ -83,10 +83,10 @@ Typical techniques for this pattern:
 
 | Approach | Time | Space | Notes |
 |----------|------|-------|-------|
-| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
-| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
-| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
-| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
 ## Solution
 
