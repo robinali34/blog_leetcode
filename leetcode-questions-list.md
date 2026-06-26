@@ -56,13 +56,14 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 
 ## Guides & References
 
-New to LeetCode or C++? Start here:
+New to LeetCode or C++? Start here. For a curated interview path, see the [NeetCode 150](https://neetcode.io/practice/practice/neetcode150) list (full breakdown in the Beginner's Guide).
 
 | Guide | Description |
 |---|---|
-| [LeetCode Beginner's Guide](/blog_leetcode/2026/06/25/leetcode-beginners-guide/) | What LeetCode is, how it works, difficulty levels, and a step-by-step roadmap from beginner to competitive programmer |
+| [LeetCode Beginner's Guide](/blog_leetcode/2026/06/25/leetcode-beginners-guide/) | What LeetCode is, how it works, difficulty levels, Blind 75, **NeetCode 150 full problem list**, and a step-by-step roadmap |
 | [C++ Guide](/blog_leetcode/cpp-guide/) | Learn C++ for competitive programming -- language essentials, STL, patterns, and modern C++ features |
 | [LeetCode Templates Index](/blog_leetcode/leetcode-templates/) | All algorithm pattern templates with relationship diagram |
+| [NeetCode 150 (official)](https://neetcode.io/practice/practice/neetcode150) | 150 curated problems with progress tracking on NeetCode |
 
 ---
 
