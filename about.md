@@ -12,10 +12,11 @@ Have fun~
 
 ## What You'll Find Here
 
-- **Algorithm Solutions**: Step-by-step solutions to LeetCode problems and coding challenges
+- **Algorithm Solutions**: Step-by-step solutions to [313+ LeetCode problems](/blog_leetcode/leetcode-questions-list.html) with detailed analysis
+- **Algorithm Templates**: Reusable [pattern templates](/blog_leetcode/leetcode-templates/) for every major algorithm category
+- **[LeetCode Beginner's Guide](/blog_leetcode/2026/06/25/leetcode-beginners-guide/)**: A complete roadmap from zero to interview-ready
+- **[C++ Guide](/blog_leetcode/cpp-guide/)**: Learn C++ for competitive programming, from basics to modern C++20/23 features
 - **Technical Insights**: Deep dives into data structures and algorithmic concepts
-- **Software Engineering**: Best practices and patterns in software development
-- **Learning Resources**: Tutorials and guides for technical topics
 
 ## What I'm Interested In
 

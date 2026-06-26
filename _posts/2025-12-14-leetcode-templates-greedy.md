@@ -381,6 +381,7 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 | 1400 | Construct K Palindrome Strings | [Link](https://leetcode.com/problems/construct-k-palindrome-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1400-construct-k-palindrome-strings/) |
 | 1605 | Find Valid Matrix Given Row and Column Sums | [Link](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1605-find-valid-matrix-given-row-and-column-sums/) |
 | 376 | Wiggle Subsequence | [Link](https://leetcode.com/problems/wiggle-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-376-wiggle-subsequence/) |
+| 274 | H-Index | [Link](https://leetcode.com/problems/h-index/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/17/medium-274-h-index/) |
 
 ## Hard Problems
 

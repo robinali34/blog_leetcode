@@ -54,17 +54,19 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 11. **Sweep Line** - [template](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-leetcode-templates-greedy/)
 12. **Data Structure Design** - [template](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-leetcode-templates-data-structure-design/)
 
-## Tips for Problem Solving
+## Guides & References
 
-1. **Identify the Pattern:** Look for common algorithm patterns (DP, sliding window, etc.)
-2. **Start Simple:** Begin with brute force, then optimize
-3. **Use Data Structures:** Choose appropriate DS for the problem
-4. **Consider Edge Cases:** Handle boundary conditions
-5. **Optimize Space/Time:** Trade-offs between complexity and efficiency
+New to LeetCode or C++? Start here:
+
+| Guide | Description |
+|---|---|
+| [LeetCode Beginner's Guide](/blog_leetcode/2026/06/25/leetcode-beginners-guide/) | What LeetCode is, how it works, difficulty levels, and a step-by-step roadmap from beginner to competitive programmer |
+| [C++ Guide](/blog_leetcode/cpp-guide/) | Learn C++ for competitive programming -- language essentials, STL, patterns, and modern C++ features |
+| [LeetCode Templates Index](/blog_leetcode/leetcode-templates/) | All algorithm pattern templates with relationship diagram |
 
 ---
 
-*Last updated: April 20, 2026*
+*Last updated: June 25, 2026*
 *Total problems solved: 313*
 
 ## All LeetCode Problems

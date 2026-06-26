@@ -162,3 +162,8 @@ Scan from h=5:  total=2, 2 >= 5?  no
 - [275. H-Index II](https://leetcode.com/problems/h-index-ii/) -- sorted input, use binary search for $O(\log n)$
 - [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) -- counting / pigeonhole
 - [169. Majority Element](https://leetcode.com/problems/majority-element/) -- finding a threshold in an array
+
+## Template Reference
+
+- [Greedy (Sorting + Greedy)](/blog_leetcode/posts/2025-12-14-leetcode-templates-greedy/)
+- [Arrays & Strings](/blog_leetcode/posts/2025-10-29-leetcode-templates-arrays-strings/)

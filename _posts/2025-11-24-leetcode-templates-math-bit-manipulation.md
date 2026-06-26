@@ -113,6 +113,7 @@ void swap(int& a, int& b) {
 | 393 | UTF-8 Validation | [Link](https://leetcode.com/problems/utf-8-validation/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-393-utf-8-validation/) |
 | 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
 | 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/) |
+| 2571 | Minimum Operations to Reduce an Integer to 0 | [Link](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/20/medium-2571-minimum-operations-to-reduce-an-integer-to-0/) |
 
 ## Common Bit Tricks
 
@@ -291,6 +292,7 @@ int reverse(int x) {
 | 9 | Palindrome Number | [Link](https://leetcode.com/problems/palindrome-number/) | - |
 | 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
 | 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/17/medium-43-multiply-strings/) |
+| 2539 | Count the Number of Good Subsequences | [Link](https://leetcode.com/problems/count-the-number-of-good-subsequences/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/19/hard-2539-count-the-number-of-good-subsequences/) |
 
 ## More templates
 

@@ -245,3 +245,7 @@ For inputs like `"jjjjjj..."` (single character, frequency $10^4$), a Pascal tab
 - [62. Unique Paths](https://leetcode.com/problems/unique-paths/) -- basic combinatorics $\binom{m+n-2}{m-1}$
 - [1512. Number of Good Pairs](https://leetcode.com/problems/number-of-good-pairs/) -- frequency counting
 - [940. Distinct Subsequences II](https://leetcode.com/problems/distinct-subsequences-ii/) -- subsequence counting with DP
+
+## Template Reference
+
+- [Math & Bit Manipulation](/blog_leetcode/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)
