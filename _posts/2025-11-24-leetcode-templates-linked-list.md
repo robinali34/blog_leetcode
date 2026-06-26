@@ -310,6 +310,76 @@ ListNode* deleteNode(ListNode* head, int val) {
 
 ### Fast and Slow Pointers
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="fsp-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B8B5B0"/>
+    </marker>
+  </defs>
+  <text x="320" y="14" font-size="11.5" fill="#7A7772" text-anchor="middle" font-style="italic">slow moves 1 step · fast moves 2 steps</text>
+  <!-- Row 0: Initial — slow & fast both at node 1 -->
+  <text x="12" y="63" font-size="12" font-weight="600" fill="#5A5752">Initial</text>
+  <text x="137" y="28" font-size="11" fill="#6B8B6B" text-anchor="middle" font-weight="600">slow</text>
+  <path d="M133,33 L137,41 L141,33 Z" fill="#6B8B6B"/>
+  <path d="M133,91 L137,83 L141,91 Z" fill="#6B7B9B"/>
+  <text x="137" y="104" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">fast</text>
+  <rect x="110" y="48" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="137" y="62" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="165" y1="62" x2="200" y2="62" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="200" y="48" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="227" y="62" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="255" y1="62" x2="290" y2="62" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="290" y="48" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="317" y="62" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="345" y1="62" x2="380" y2="62" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="380" y="48" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="407" y="62" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="435" y1="62" x2="470" y2="62" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="470" y="48" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="497" y="62" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <!-- Row 1: Step 1 — slow at node 2, fast at node 3 -->
+  <text x="12" y="157" font-size="12" font-weight="600" fill="#5A5752">Step 1</text>
+  <text x="227" y="122" font-size="11" fill="#6B8B6B" text-anchor="middle" font-weight="600">slow</text>
+  <path d="M223,127 L227,135 L231,127 Z" fill="#6B8B6B"/>
+  <path d="M313,183 L317,175 L321,183 Z" fill="#6B7B9B"/>
+  <text x="317" y="196" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">fast</text>
+  <rect x="110" y="142" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="137" y="156" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="165" y1="156" x2="200" y2="156" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="200" y="142" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="227" y="156" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="255" y1="156" x2="290" y2="156" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="290" y="142" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="317" y="156" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="345" y1="156" x2="380" y2="156" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="380" y="142" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="407" y="156" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="435" y1="156" x2="470" y2="156" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="470" y="142" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="497" y="156" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <!-- Row 2: Step 2 — slow at middle (node 3), fast at end (node 5) -->
+  <text x="12" y="251" font-size="12" font-weight="600" fill="#5A5752">Step 2</text>
+  <text x="317" y="216" font-size="11" fill="#6B8B6B" text-anchor="middle" font-weight="600">slow</text>
+  <path d="M313,221 L317,229 L321,221 Z" fill="#6B8B6B"/>
+  <path d="M493,277 L497,269 L501,277 Z" fill="#6B7B9B"/>
+  <text x="497" y="290" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">fast</text>
+  <rect x="110" y="236" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="137" y="250" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="165" y1="250" x2="200" y2="250" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="200" y="236" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="227" y="250" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="255" y1="250" x2="290" y2="250" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="290" y="236" width="55" height="28" rx="6" fill="#D4D8D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="317" y="250" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <text x="317" y="278" font-size="10" fill="#6B8B6B" text-anchor="middle" font-style="italic">middle</text>
+  <line x1="345" y1="250" x2="380" y2="250" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="380" y="236" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="407" y="250" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="435" y1="250" x2="470" y2="250" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#fsp-arr)"/>
+  <rect x="470" y="236" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="497" y="250" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+</svg>
+
 ```cpp
 // Find middle node
 ListNode* findMiddle(ListNode* head) {
@@ -408,6 +478,83 @@ ListNode* removeElements(ListNode* head, int val) {
 
 ### Reverse Entire List
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 295" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="rv-fwd" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B8B5B0"/>
+    </marker>
+    <marker id="rv-rev" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B07878"/>
+    </marker>
+  </defs>
+  <!-- Step 1: prev=null, curr=1, next=2 — all forward links -->
+  <text x="12" y="66" font-size="12" font-weight="600" fill="#5A5752">Step 1</text>
+  <text x="125" y="30" font-size="11" fill="#9A7E5A" text-anchor="middle" font-weight="600">prev</text>
+  <path d="M121,35 L125,43 L129,35 Z" fill="#9A7E5A"/>
+  <text x="200" y="30" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">curr</text>
+  <path d="M196,35 L200,43 L204,35 Z" fill="#6B7B9B"/>
+  <text x="285" y="30" font-size="11" fill="#8B8680" text-anchor="middle" font-weight="600">next</text>
+  <path d="M281,35 L285,43 L289,35 Z" fill="#8B8680"/>
+  <rect x="105" y="50" width="40" height="28" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="125" y="64" font-size="11" fill="#7A7772" text-anchor="middle" dominant-baseline="central">null</text>
+  <rect x="175" y="50" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="200" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="225" y1="64" x2="260" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="260" y="50" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="285" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="310" y1="64" x2="345" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="345" y="50" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="395" y1="64" x2="430" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="430" y="50" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="455" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <!-- Step 2: prev=1, curr=2, next=3 — node 1 reversed to null -->
+  <text x="12" y="162" font-size="12" font-weight="600" fill="#5A5752">Step 2</text>
+  <text x="200" y="126" font-size="11" fill="#9A7E5A" text-anchor="middle" font-weight="600">prev</text>
+  <path d="M196,131 L200,139 L204,131 Z" fill="#9A7E5A"/>
+  <text x="285" y="126" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">curr</text>
+  <path d="M281,131 L285,139 L289,131 Z" fill="#6B7B9B"/>
+  <text x="370" y="126" font-size="11" fill="#8B8680" text-anchor="middle" font-weight="600">next</text>
+  <path d="M366,131 L370,139 L374,131 Z" fill="#8B8680"/>
+  <rect x="105" y="146" width="40" height="28" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="125" y="160" font-size="11" fill="#7A7772" text-anchor="middle" dominant-baseline="central">null</text>
+  <rect x="175" y="146" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B07878" stroke-width="1.5"/>
+  <text x="200" y="160" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="175" y1="160" x2="145" y2="160" stroke="#B07878" stroke-width="1.5" marker-end="url(#rv-rev)"/>
+  <rect x="260" y="146" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="285" y="160" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="310" y1="160" x2="345" y2="160" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="345" y="146" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="160" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="395" y1="160" x2="430" y2="160" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="430" y="146" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="455" y="160" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <!-- Step 3: prev=2, curr=3, next=4 — nodes 1,2 reversed -->
+  <text x="12" y="258" font-size="12" font-weight="600" fill="#5A5752">Step 3</text>
+  <text x="285" y="222" font-size="11" fill="#9A7E5A" text-anchor="middle" font-weight="600">prev</text>
+  <path d="M281,227 L285,235 L289,227 Z" fill="#9A7E5A"/>
+  <text x="370" y="222" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">curr</text>
+  <path d="M366,227 L370,235 L374,227 Z" fill="#6B7B9B"/>
+  <text x="455" y="222" font-size="11" fill="#8B8680" text-anchor="middle" font-weight="600">next</text>
+  <path d="M451,227 L455,235 L459,227 Z" fill="#8B8680"/>
+  <rect x="105" y="242" width="40" height="28" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="125" y="256" font-size="11" fill="#7A7772" text-anchor="middle" dominant-baseline="central">null</text>
+  <rect x="175" y="242" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B07878" stroke-width="1.5"/>
+  <text x="200" y="256" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="175" y1="256" x2="145" y2="256" stroke="#B07878" stroke-width="1.5" marker-end="url(#rv-rev)"/>
+  <rect x="260" y="242" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B07878" stroke-width="1.5"/>
+  <text x="285" y="256" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="260" y1="256" x2="225" y2="256" stroke="#B07878" stroke-width="1.5" marker-end="url(#rv-rev)"/>
+  <rect x="345" y="242" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="256" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="395" y1="256" x2="430" y2="256" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#rv-fwd)"/>
+  <rect x="430" y="242" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="455" y="256" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <!-- Legend -->
+  <text x="540" y="258" font-size="10" fill="#B07878">← reversed</text>
+  <text x="540" y="272" font-size="10" fill="#B8B5B0">→ original</text>
+</svg>
+
 ```cpp
 // Iterative reversal
 ListNode* reverseList(ListNode* head) {
@@ -498,6 +645,70 @@ ListNode* reverseKGroup(ListNode* head, int k) {
 
 ### Merge Two Sorted Lists
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="mg-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B8B5B0"/>
+    </marker>
+    <marker id="mg-warm" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <path d="M0,0 L6,2.5 L0,5 Z" fill="#B07878"/>
+    </marker>
+    <marker id="mg-cool" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <path d="M0,0 L6,2.5 L0,5 Z" fill="#7A8A9A"/>
+    </marker>
+  </defs>
+  <!-- Source lists -->
+  <text x="22" y="42" font-size="12" font-weight="600" fill="#5A5752">list1</text>
+  <rect x="70" y="28" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="95" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="120" y1="42" x2="155" y2="42" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="155" y="28" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="180" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="205" y1="42" x2="240" y2="42" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="240" y="28" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="265" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <text x="380" y="42" font-size="12" font-weight="600" fill="#5A5752">list2</text>
+  <rect x="420" y="28" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="445" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="470" y1="42" x2="505" y2="42" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="505" y="28" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="530" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="555" y1="42" x2="590" y2="42" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="590" y="28" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="615" y="42" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">6</text>
+  <!-- Dashed arrows from source to result -->
+  <line x1="95" y1="56" x2="55" y2="148" stroke="#B07878" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-warm)"/>
+  <line x1="180" y1="56" x2="225" y2="148" stroke="#B07878" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-warm)"/>
+  <line x1="265" y1="56" x2="395" y2="148" stroke="#B07878" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-warm)"/>
+  <line x1="445" y1="56" x2="140" y2="148" stroke="#7A8A9A" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-cool)"/>
+  <line x1="530" y1="56" x2="310" y2="148" stroke="#7A8A9A" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-cool)"/>
+  <line x1="615" y1="56" x2="480" y2="148" stroke="#7A8A9A" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mg-cool)"/>
+  <!-- Merged result -->
+  <text x="10" y="168" font-size="12" font-weight="600" fill="#5A5752">result</text>
+  <rect x="30" y="155" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="55" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="80" y1="169" x2="115" y2="169" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="115" y="155" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="165" y1="169" x2="200" y2="169" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="200" y="155" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="225" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="250" y1="169" x2="285" y2="169" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="285" y="155" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="310" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="335" y1="169" x2="370" y2="169" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="370" y="155" width="50" height="28" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="395" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <line x1="420" y1="169" x2="455" y2="169" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#mg-arr)"/>
+  <rect x="455" y="155" width="50" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="480" y="169" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">6</text>
+  <!-- Legend -->
+  <rect x="530" y="155" width="12" height="12" rx="2" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="548" y="165" font-size="10" fill="#7A7772">from list1</text>
+  <rect x="530" y="173" width="12" height="12" rx="2" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="548" y="183" font-size="10" fill="#7A7772">from list2</text>
+</svg>
+
 ```cpp
 // Merge two sorted lists
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
@@ -550,6 +761,75 @@ ListNode* mergeKListsHelper(vector<ListNode*>& lists, int left, int right) {
 **When to use:** The problem asks "has cycle", "find cycle start", or "find the duplicate number" (which reduces to cycle detection). Floyd's algorithm: if fast and slow meet, there's a cycle.
 
 ### Detect Cycle (Floyd's Algorithm)
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="cd-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B8B5B0"/>
+    </marker>
+    <marker id="cd-cyc" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#9A9792"/>
+    </marker>
+  </defs>
+  <!-- Phase 1: fast & slow meet -->
+  <text x="350" y="16" font-size="12" fill="#5A5752" text-anchor="middle" font-weight="600">Phase 1 — fast and slow meet</text>
+  <!-- Nodes: 1→2→3→4→5, with 5→3 cycle -->
+  <rect x="55" y="50" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="82" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="110" y1="64" x2="145" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="145" y="50" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="172" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="200" y1="64" x2="245" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="245" y="50" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="272" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <text x="272" y="44" font-size="9" fill="#9A9792" text-anchor="middle" font-style="italic">cycle start</text>
+  <line x1="300" y1="64" x2="345" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="345" y="50" width="55" height="28" rx="6" fill="#E8D5D0" stroke="#B07878" stroke-width="2"/>
+  <text x="372" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="400" y1="64" x2="445" y2="64" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="445" y="50" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="472" y="64" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <!-- Cycle arrow: 5 → 3 (curved underneath) -->
+  <path d="M472,78 C472,112 272,112 272,78" stroke="#9A9792" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#cd-cyc)"/>
+  <text x="372" y="108" font-size="9" fill="#9A9792" text-anchor="middle" font-style="italic">cycle</text>
+  <!-- Meeting point labels -->
+  <text x="362" y="36" font-size="11" fill="#6B8B6B" text-anchor="middle" font-weight="600">slow</text>
+  <path d="M358,40 L362,47 L366,40 Z" fill="#6B8B6B"/>
+  <text x="392" y="36" font-size="11" fill="#6B7B9B" text-anchor="middle" font-weight="600">fast</text>
+  <path d="M388,40 L392,47 L396,40 Z" fill="#6B7B9B"/>
+  <text x="540" y="60" font-size="10" fill="#B07878" font-weight="600">meet here!</text>
+  <line x1="530" y1="62" x2="502" y2="64" stroke="#B07878" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- Phase 2: find cycle start -->
+  <text x="350" y="148" font-size="12" fill="#5A5752" text-anchor="middle" font-weight="600">Phase 2 — reset slow to head, both advance ×1</text>
+  <!-- Same node layout -->
+  <rect x="55" y="178" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="82" y="192" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">1</text>
+  <line x1="110" y1="192" x2="145" y2="192" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="145" y="178" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="172" y="192" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">2</text>
+  <line x1="200" y1="192" x2="245" y2="192" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="245" y="178" width="55" height="28" rx="6" fill="#D4D8D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="272" y="192" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">3</text>
+  <line x1="300" y1="192" x2="345" y2="192" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="345" y="178" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="372" y="192" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">4</text>
+  <line x1="400" y1="192" x2="445" y2="192" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#cd-arr)"/>
+  <rect x="445" y="178" width="55" height="28" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="472" y="192" font-size="13" fill="#3A3530" text-anchor="middle" dominant-baseline="central">5</text>
+  <!-- Cycle arrow -->
+  <path d="M472,206 C472,240 272,240 272,206" stroke="#9A9792" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#cd-cyc)"/>
+  <!-- Slow starts at node 1, fast stays at node 4 -->
+  <text x="82" y="166" font-size="10" fill="#6B8B6B" text-anchor="middle" font-weight="600">slow (reset)</text>
+  <path d="M78,170 L82,176 L86,170 Z" fill="#6B8B6B"/>
+  <text x="372" y="166" font-size="10" fill="#6B7B9B" text-anchor="middle" font-weight="600">fast</text>
+  <path d="M368,170 L372,176 L376,170 Z" fill="#6B7B9B"/>
+  <!-- Dashed path showing slow: 1→2→3 -->
+  <path d="M100,175 Q100,158 172,158 Q245,158 255,175" stroke="#6B8B6B" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#cd-arr)"/>
+  <!-- Dashed path showing fast: 4→5→3 -->
+  <path d="M390,210 Q390,225 472,225 Q540,225 540,218 Q540,210 472,210 Q390,250 272,210" stroke="#6B7B9B" stroke-width="1.2" fill="none" stroke-dasharray="4,3"/>
+  <!-- Cycle start annotation -->
+  <text x="272" y="268" font-size="11" fill="#8B8680" text-anchor="middle" font-weight="600">↑ cycle start — both meet here</text>
+</svg>
 
 ```cpp
 // Detect cycle using Floyd's cycle detection

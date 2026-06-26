@@ -127,6 +127,95 @@ DFS for 2D grid problems (connected components, paths).
 
 **When to use:** Flood-fill problems, island counting, or any task where you explore connected cells in a 2D matrix.
 
+<svg viewBox="0 0 570 340" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="185" y="28" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">DFS flood fill on a grid</text>
+  <text x="89" y="46" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <text x="140" y="46" font-size="9" fill="#9A9792" text-anchor="middle">1</text>
+  <text x="191" y="46" font-size="9" fill="#9A9792" text-anchor="middle">2</text>
+  <text x="242" y="46" font-size="9" fill="#9A9792" text-anchor="middle">3</text>
+  <text x="293" y="46" font-size="9" fill="#9A9792" text-anchor="middle">4</text>
+  <!-- Row 0: 1* 1* 0 0 0 — island 1 being flood-filled -->
+  <rect x="65" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="89" y="77" font-size="12" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="89" y="93" font-size="9" fill="#5A5752" text-anchor="middle">①</text>
+  <rect x="116" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="140" y="77" font-size="12" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="140" y="93" font-size="9" fill="#5A5752" text-anchor="middle">②</text>
+  <rect x="167" y="52" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="191" y="81" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="218" y="52" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="242" y="81" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="269" y="52" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="293" y="81" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <!-- Row 1: 0 1* 0 0 0 -->
+  <rect x="65" y="103" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="89" y="132" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="116" y="103" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="140" y="128" font-size="12" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="140" y="144" font-size="9" fill="#5A5752" text-anchor="middle">③</text>
+  <rect x="167" y="103" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="191" y="132" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="218" y="103" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="242" y="132" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="269" y="103" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="293" y="132" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <!-- Row 2: 0 0 0 1 1 — island 2 (not yet explored) -->
+  <rect x="65" y="154" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="89" y="183" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="116" y="154" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="140" y="183" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="167" y="154" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="191" y="183" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="218" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="269" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <!-- Row 3: 0 0 0 1 0 -->
+  <rect x="65" y="205" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="89" y="234" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="116" y="205" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="140" y="234" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="167" y="205" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="191" y="234" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="218" y="205" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="269" y="205" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="293" y="234" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <!-- Row 4: 0 0 0 0 0 -->
+  <rect x="65" y="256" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="89" y="285" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="116" y="256" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="140" y="285" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="167" y="256" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="191" y="285" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="218" y="256" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="242" y="285" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <rect x="269" y="256" width="48" height="48" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="293" y="285" font-size="13" fill="#B8B5B0" font-weight="600" text-anchor="middle">0</text>
+  <!-- DFS exploration arrows -->
+  <defs><marker id="dfs-arrow" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0,0 7,2.5 0,5" fill="#8B8680"/></marker></defs>
+  <line x1="103" y1="76" x2="126" y2="76" stroke="#8B8680" stroke-width="2" marker-end="url(#dfs-arrow)"/>
+  <line x1="140" y1="93" x2="140" y2="113" stroke="#8B8680" stroke-width="2" marker-end="url(#dfs-arrow)"/>
+  <!-- Annotations -->
+  <text x="370" y="72" font-size="11" fill="#5A5752" font-weight="600">DFS flood fill</text>
+  <text x="370" y="90" font-size="10" fill="#7A7772">Start at (0,0), explore</text>
+  <text x="370" y="104" font-size="10" fill="#7A7772">all connected 1s:</text>
+  <text x="370" y="128" font-size="10" fill="#5A5752">① (0,0) → go right</text>
+  <text x="370" y="144" font-size="10" fill="#5A5752">② (0,1) → go down</text>
+  <text x="370" y="160" font-size="10" fill="#5A5752">③ (1,1) → no more 1s</text>
+  <text x="370" y="176" font-size="10" fill="#7A7772" font-style="italic">Backtrack → island done!</text>
+  <!-- Legend -->
+  <rect x="370" y="206" width="14" height="14" rx="3" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="390" y="217" font-size="10" fill="#5A5752">Explored (flood fill)</text>
+  <rect x="370" y="226" width="14" height="14" rx="3" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="390" y="237" font-size="10" fill="#5A5752">Land (not yet visited)</text>
+  <rect x="370" y="246" width="14" height="14" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="390" y="257" font-size="10" fill="#5A5752">Water (0)</text>
+  <text x="370" y="286" font-size="10" fill="#7A7772" font-style="italic">Grid has 2 islands.</text>
+  <text x="370" y="300" font-size="10" fill="#7A7772" font-style="italic">DFS marks each connected</text>
+  <text x="370" y="314" font-size="10" fill="#7A7772" font-style="italic">component of 1s.</text>
+</svg>
+
 ```cpp
 // DFS on 2D grid (4-directional)
 void dfsGrid(vector<vector<char>>& grid, int i, int j) {
@@ -262,6 +351,65 @@ DFS with caching to avoid recomputation.
 
 **When to use:** Problems with overlapping subproblems on graphs or grids, such as longest increasing path or counting distinct paths.
 
+<svg viewBox="0 0 660 290" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="160" y="22" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">DFS with memoization — Longest Increasing Path</text>
+  <!-- Column labels -->
+  <text x="95" y="50" font-size="9" fill="#9A9792" text-anchor="middle">col 0</text>
+  <text x="170" y="50" font-size="9" fill="#9A9792" text-anchor="middle">col 1</text>
+  <text x="245" y="50" font-size="9" fill="#9A9792" text-anchor="middle">col 2</text>
+  <!-- Row 0: 9 9 4 | memo: 1 1 2 -->
+  <rect x="60" y="60" width="70" height="52" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="95" y="84" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">9</text>
+  <text x="95" y="104" font-size="9" fill="#5A5752" text-anchor="middle">memo=1</text>
+  <rect x="135" y="60" width="70" height="52" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="170" y="84" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">9</text>
+  <text x="170" y="104" font-size="9" fill="#7A7772" text-anchor="middle">memo=1</text>
+  <rect x="210" y="60" width="70" height="52" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="245" y="84" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">4</text>
+  <text x="245" y="104" font-size="9" fill="#7A7772" text-anchor="middle">memo=2</text>
+  <!-- Row 1: 6 6 8 | memo: 2 2 1 -->
+  <rect x="60" y="117" width="70" height="52" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="95" y="141" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">6</text>
+  <text x="95" y="161" font-size="9" fill="#5A5752" text-anchor="middle">memo=2</text>
+  <rect x="135" y="117" width="70" height="52" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="170" y="141" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">6</text>
+  <text x="170" y="161" font-size="9" fill="#7A7772" text-anchor="middle">memo=2</text>
+  <rect x="210" y="117" width="70" height="52" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="245" y="141" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">8</text>
+  <text x="245" y="161" font-size="9" fill="#7A7772" text-anchor="middle">memo=1</text>
+  <!-- Row 2: 2 1 1 | memo: 3 4 2 -->
+  <rect x="60" y="174" width="70" height="52" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="95" y="198" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">2</text>
+  <text x="95" y="218" font-size="9" fill="#5A5752" text-anchor="middle">memo=3</text>
+  <rect x="135" y="174" width="70" height="52" rx="5" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="170" y="198" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="170" y="218" font-size="9" fill="#3A3530" font-weight="600" text-anchor="middle">memo=4 ★</text>
+  <rect x="210" y="174" width="70" height="52" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="245" y="198" font-size="16" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="245" y="218" font-size="9" fill="#7A7772" text-anchor="middle">memo=2</text>
+  <!-- Path arrows: (2,1)→(2,0)→(1,0)→(0,0) -->
+  <defs><marker id="memo-arrow" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0,0 7,2.5 0,5" fill="#8B8680"/></marker></defs>
+  <line x1="145" y1="200" x2="135" y2="200" stroke="#8B8680" stroke-width="2.5" marker-end="url(#memo-arrow)"/>
+  <line x1="95" y1="178" x2="95" y2="172" stroke="#8B8680" stroke-width="2.5" marker-end="url(#memo-arrow)"/>
+  <line x1="95" y1="122" x2="95" y2="116" stroke="#8B8680" stroke-width="2.5" marker-end="url(#memo-arrow)"/>
+  <!-- Explanation -->
+  <text x="330" y="72" font-size="11" fill="#5A5752" font-weight="600">Longest increasing path</text>
+  <text x="330" y="92" font-size="11" fill="#3A3530" font-weight="700">1 → 2 → 6 → 9</text>
+  <text x="330" y="108" font-size="10" fill="#7A7772">(length 4, shown with arrows)</text>
+  <text x="330" y="138" font-size="10" fill="#5A5752" font-weight="600">How memo works:</text>
+  <text x="330" y="156" font-size="10" fill="#7A7772">memo[r][c] = length of the</text>
+  <text x="330" y="170" font-size="10" fill="#7A7772">longest path starting from (r,c)</text>
+  <text x="330" y="196" font-size="10" fill="#5A5752">DFS from cell 1 at (2,1):</text>
+  <text x="330" y="212" font-size="10" fill="#7A7772">→ can go to 2: 1+memo[2][0]</text>
+  <text x="330" y="226" font-size="10" fill="#7A7772">→ memo[2][0]=3 (2→6→9)</text>
+  <text x="330" y="240" font-size="10" fill="#7A7772">→ so memo[2][1] = 1+3 = 4</text>
+  <!-- Legend -->
+  <rect x="330" y="258" width="14" height="14" rx="3" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="350" y="269" font-size="10" fill="#5A5752">On longest path</text>
+  <rect x="460" y="258" width="14" height="14" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="480" y="269" font-size="10" fill="#5A5752">Path start (max memo)</text>
+</svg>
+
 ```cpp
 // DFS with memoization (e.g., Longest Increasing Path)
 int dfsWithMemo(vector<vector<int>>& matrix, int i, int j, 
@@ -369,6 +517,82 @@ vector<int> preorderIterative(TreeNode* root) {
 > - **Use DFS** when you need to explore all paths, check connectivity, detect cycles, or solve problems that decompose recursively (e.g., tree shape, backtracking). DFS is also more memory-efficient on narrow/deep structures.
 > - **Use BFS** when you need the **shortest path in an unweighted graph**, want to process nodes level by level, or need the minimum number of steps to reach a target.
 > - **Rule of thumb:** If the problem says "shortest" or "minimum steps," reach for BFS. If it says "all paths," "connected," or "exists," DFS is usually the natural fit.
+
+<svg viewBox="0 0 700 270" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- DFS side -->
+  <text x="170" y="22" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">DFS — Goes deep first</text>
+  <!-- DFS highlighted path A→B→D -->
+  <line x1="170" y1="58" x2="110" y2="118" stroke="#E8D5D0" stroke-width="8" stroke-linecap="round"/>
+  <line x1="110" y1="128" x2="75" y2="188" stroke="#E8D5D0" stroke-width="8" stroke-linecap="round"/>
+  <!-- DFS edges -->
+  <line x1="170" y1="55" x2="110" y2="120" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="170" y1="55" x2="230" y2="120" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="110" y1="130" x2="75" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="110" y1="130" x2="145" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="230" y1="130" x2="230" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- DFS nodes -->
+  <circle cx="170" cy="50" r="18" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="170" y="55" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">A</text>
+  <circle cx="110" cy="125" r="18" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="110" y="130" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">B</text>
+  <circle cx="230" cy="125" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="230" y="130" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">C</text>
+  <circle cx="75" cy="195" r="18" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="75" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">D</text>
+  <circle cx="145" cy="195" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="145" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">E</text>
+  <circle cx="230" cy="195" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="230" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">F</text>
+  <!-- DFS visit order -->
+  <text x="192" y="44" font-size="9" fill="#5A5752">①</text>
+  <text x="132" y="118" font-size="9" fill="#5A5752">②</text>
+  <text x="97" y="188" font-size="9" fill="#5A5752">③</text>
+  <text x="167" y="188" font-size="9" fill="#7A7772">④</text>
+  <text x="252" y="118" font-size="9" fill="#7A7772">⑤</text>
+  <text x="252" y="188" font-size="9" fill="#7A7772">⑥</text>
+  <!-- DFS deep arrow -->
+  <path d="M 30 60 L 30 200" fill="none" stroke="#8B8680" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="26,198 34,198 30,208" fill="#8B8680"/>
+  <text x="30" y="228" font-size="10" fill="#5A5752" text-anchor="middle" font-style="italic">deep</text>
+  <!-- Separator -->
+  <line x1="345" y1="15" x2="345" y2="250" stroke="#E8E3D8" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="345" y="260" font-size="10" fill="#9A9792" text-anchor="middle">vs</text>
+  <!-- BFS side -->
+  <text x="530" y="22" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">BFS — Goes wide first</text>
+  <!-- BFS level highlight band -->
+  <rect x="435" y="107" width="190" height="38" rx="8" fill="#D4D8E0" fill-opacity="0.4"/>
+  <text x="640" y="130" font-size="9" fill="#5A5752" font-style="italic">level 1</text>
+  <!-- BFS edges -->
+  <line x1="530" y1="55" x2="470" y2="120" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="530" y1="55" x2="590" y2="120" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="470" y1="130" x2="435" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="470" y1="130" x2="505" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="590" y1="130" x2="590" y2="190" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- BFS nodes -->
+  <circle cx="530" cy="50" r="18" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="530" y="55" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">A</text>
+  <circle cx="470" cy="125" r="18" fill="#D4D8E0" stroke="#8B8680" stroke-width="2"/>
+  <text x="470" y="130" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">B</text>
+  <circle cx="590" cy="125" r="18" fill="#D4D8E0" stroke="#8B8680" stroke-width="2"/>
+  <text x="590" y="130" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">C</text>
+  <circle cx="435" cy="195" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="435" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">D</text>
+  <circle cx="505" cy="195" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="505" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">E</text>
+  <circle cx="590" cy="195" r="18" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="590" y="200" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">F</text>
+  <!-- BFS visit order -->
+  <text x="552" y="44" font-size="9" fill="#5A5752">①</text>
+  <text x="492" y="118" font-size="9" fill="#5A5752">②</text>
+  <text x="612" y="118" font-size="9" fill="#5A5752">③</text>
+  <text x="457" y="188" font-size="9" fill="#7A7772">④</text>
+  <text x="527" y="188" font-size="9" fill="#7A7772">⑤</text>
+  <text x="612" y="188" font-size="9" fill="#7A7772">⑥</text>
+  <!-- BFS wide arrow -->
+  <path d="M 420 240 L 630 240" fill="none" stroke="#8B8680" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="628,236 628,244 638,240" fill="#8B8680"/>
+  <text x="530" y="258" font-size="10" fill="#5A5752" text-anchor="middle" font-style="italic">wide</text>
+</svg>
 
 ## More templates
 

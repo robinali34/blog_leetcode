@@ -83,6 +83,105 @@ This page collects ready-to-use C++ templates for every major binary search patt
 
 Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < right` — same as [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds).
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="18" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Binary Search: find 23 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]</text>
+  <!-- Step 1: lo=0, mid=4, hi=9 -->
+  <text x="30" y="56" font-size="11" font-weight="600" fill="#5A5752">Step 1</text>
+  <g transform="translate(120,36)">
+    <rect width="50" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E0D8E4" stroke="#A098A8" stroke-width="1.5"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530">91</text>
+    <text x="25" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#7A8EA0">lo</text>
+    <text x="225" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#9088A0">mid</text>
+    <text x="475" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#A08888">hi</text>
+  </g>
+  <text x="660" y="56" font-size="10" font-style="italic" fill="#9A9792">16 &lt; 23 → right</text>
+  <!-- Step 2: lo=5, mid=7, hi=9 -->
+  <text x="30" y="146" font-size="11" font-weight="600" fill="#5A5752">Step 2</text>
+  <g transform="translate(120,126)">
+    <rect width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E0D8E4" stroke="#A098A8" stroke-width="1.5"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530">91</text>
+    <text x="275" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#7A8EA0">lo</text>
+    <text x="375" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#9088A0">mid</text>
+    <text x="475" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#A08888">hi</text>
+  </g>
+  <text x="660" y="146" font-size="10" font-style="italic" fill="#9A9792">56 &gt; 23 → left</text>
+  <!-- Step 3: found at index 5 -->
+  <text x="30" y="236" font-size="11" font-weight="600" fill="#5A5752">Step 3</text>
+  <g transform="translate(120,216)">
+    <rect width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#C8D5C4" stroke="#7A9A7A" stroke-width="2"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">91</text>
+    <text x="275" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#5A8A5A">found!</text>
+  </g>
+  <text x="660" y="236" font-size="10" font-style="italic" fill="#9A9792">23 = target ✓</text>
+  <!-- Legend -->
+  <g transform="translate(155,272)">
+    <rect width="12" height="12" rx="2" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+    <text x="18" y="10" font-size="10" fill="#7A7772">lo</text>
+    <rect x="50" width="12" height="12" rx="2" fill="#E0D8E4" stroke="#A098A8" stroke-width="1"/>
+    <text x="68" y="10" font-size="10" fill="#7A7772">mid</text>
+    <rect x="110" width="12" height="12" rx="2" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1"/>
+    <text x="128" y="10" font-size="10" fill="#7A7772">hi</text>
+    <rect x="165" width="12" height="12" rx="2" fill="#C8D5C4" stroke="#7A9A7A" stroke-width="1"/>
+    <text x="183" y="10" font-size="10" fill="#7A7772">found</text>
+    <rect x="230" width="12" height="12" rx="2" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="248" y="10" font-size="10" fill="#7A7772">eliminated</text>
+  </g>
+</svg>
+
 ```cpp
 int bsearch(const vector<int>& a, int target) {
     int lo = 0, hi = (int)a.size() - 1;
@@ -175,6 +274,28 @@ int findMin_rotated(const vector<int>& nums) {
 **When to use:** You see "minimize maximum", "maximum minimum", "minimum capacity/speed", or any optimization where you can check feasibility for a given answer value.
 
 Min valid: `lo < hi`, `hi = mid` when valid. Max valid: `lo < hi`, `mid = lo + (hi - lo + 1) / 2`, `lo = mid` when valid.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 210" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="20" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Binary Search on Answer — Find the Feasibility Boundary</text>
+  <!-- Two-region bar -->
+  <rect x="60" y="50" width="260" height="36" rx="0" fill="#E8D5D0" stroke="none"/>
+  <rect x="320" y="50" width="320" height="36" rx="0" fill="#C8D5C4" stroke="none"/>
+  <rect x="60" y="50" width="580" height="36" rx="4" fill="none" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- Boundary marker -->
+  <line x1="320" y1="44" x2="320" y2="92" stroke="#3A3530" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="320" y="106" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">answer</text>
+  <!-- Region labels -->
+  <text x="190" y="73" text-anchor="middle" font-size="12" font-weight="600" fill="#8B7570">NOT FEASIBLE</text>
+  <text x="480" y="73" text-anchor="middle" font-size="12" font-weight="600" fill="#5A7A5A">FEASIBLE</text>
+  <!-- Endpoint labels -->
+  <text x="60" y="106" text-anchor="middle" font-size="11" fill="#5A5752">0</text>
+  <text x="640" y="106" text-anchor="middle" font-size="11" fill="#5A5752">N</text>
+  <!-- How it works -->
+  <text x="350" y="138" text-anchor="middle" font-size="11" fill="#5A5752">Binary search narrows the range:</text>
+  <text x="350" y="158" text-anchor="middle" font-size="11" fill="#8B7570">valid(mid) = false → lo = mid + 1 (discard left half)</text>
+  <text x="350" y="176" text-anchor="middle" font-size="11" fill="#5A7A5A">valid(mid) = true → hi = mid (keep mid, search left half)</text>
+  <text x="350" y="200" text-anchor="middle" font-size="10" fill="#9A9792">lo and hi converge to the smallest feasible answer</text>
+</svg>
 
 ```cpp
 int minValid(int lo, int hi) {

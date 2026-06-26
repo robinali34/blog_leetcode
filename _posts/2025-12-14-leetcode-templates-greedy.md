@@ -75,6 +75,53 @@ Greedy algorithms make locally optimal choices at each step, hoping to find a gl
 
 Greedy approach: Sort by end time, always pick the interval that ends earliest.
 
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <rect width="700" height="250" rx="12" fill="#FAF8F5"/>
+  <text x="350" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#3A3530">Merge Intervals</text>
+  <text x="42" y="68" text-anchor="middle" font-size="11" fill="#7A7772">Input</text>
+  <line x1="70" y1="98" x2="630" y2="98" stroke="#B8B5B0" stroke-width="1"/>
+  <g font-size="9" fill="#9A9792" text-anchor="middle">
+    <line x1="70" y1="95" x2="70" y2="101" stroke="#B8B5B0"/><text x="70" y="112">0</text>
+    <line x1="98" y1="95" x2="98" y2="101" stroke="#B8B5B0"/><text x="98" y="112">1</text>
+    <line x1="126" y1="97" x2="126" y2="99" stroke="#B8B5B0"/>
+    <line x1="154" y1="95" x2="154" y2="101" stroke="#B8B5B0"/><text x="154" y="112">3</text>
+    <line x1="238" y1="95" x2="238" y2="101" stroke="#B8B5B0"/><text x="238" y="112">6</text>
+    <line x1="294" y1="95" x2="294" y2="101" stroke="#B8B5B0"/><text x="294" y="112">8</text>
+    <line x1="350" y1="95" x2="350" y2="101" stroke="#B8B5B0"/><text x="350" y="112">10</text>
+    <line x1="490" y1="95" x2="490" y2="101" stroke="#B8B5B0"/><text x="490" y="112">15</text>
+    <line x1="574" y1="95" x2="574" y2="101" stroke="#B8B5B0"/><text x="574" y="112">18</text>
+  </g>
+  <rect x="98" y="46" width="56" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="126" y="60" text-anchor="middle" font-size="10" fill="#3A3530">[1,3]</text>
+  <rect x="126" y="70" width="112" height="20" rx="4" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1" opacity="0.9"/>
+  <text x="182" y="84" text-anchor="middle" font-size="10" fill="#3A3530">[2,6]</text>
+  <rect x="294" y="58" width="56" height="20" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="322" y="72" text-anchor="middle" font-size="10" fill="#3A3530">[8,10]</text>
+  <rect x="490" y="58" width="84" height="20" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="532" y="72" text-anchor="middle" font-size="10" fill="#3A3530">[15,18]</text>
+  <text x="350" y="138" text-anchor="middle" font-size="12" fill="#8B8680">▼ merge overlapping</text>
+  <text x="42" y="178" text-anchor="middle" font-size="11" fill="#7A7772">Result</text>
+  <line x1="70" y1="198" x2="630" y2="198" stroke="#B8B5B0" stroke-width="1"/>
+  <g font-size="9" fill="#9A9792" text-anchor="middle">
+    <line x1="70" y1="195" x2="70" y2="201" stroke="#B8B5B0"/><text x="70" y="212">0</text>
+    <line x1="98" y1="195" x2="98" y2="201" stroke="#B8B5B0"/><text x="98" y="212">1</text>
+    <line x1="238" y1="195" x2="238" y2="201" stroke="#B8B5B0"/><text x="238" y="212">6</text>
+    <line x1="294" y1="195" x2="294" y2="201" stroke="#B8B5B0"/><text x="294" y="212">8</text>
+    <line x1="350" y1="195" x2="350" y2="201" stroke="#B8B5B0"/><text x="350" y="212">10</text>
+    <line x1="490" y1="195" x2="490" y2="201" stroke="#B8B5B0"/><text x="490" y="212">15</text>
+    <line x1="574" y1="195" x2="574" y2="201" stroke="#B8B5B0"/><text x="574" y="212">18</text>
+  </g>
+  <rect x="98" y="168" width="140" height="26" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="168" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#3A3530">[1,6]</text>
+  <rect x="294" y="168" width="56" height="26" rx="5" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="322" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#3A3530">[8,10]</text>
+  <rect x="490" y="168" width="84" height="26" rx="5" fill="#E8E3D8" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="532" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#3A3530">[15,18]</text>
+  <text x="350" y="242" text-anchor="middle" font-size="11" fill="#7A7772" font-style="italic">[1,3] and [2,6] overlap → merged into [1,6]</text>
+</svg>
+</div>
+
 ```cpp
 // Non-overlapping Intervals
 int eraseOverlapIntervals(vector<vector<int>>& intervals) {
@@ -167,6 +214,51 @@ double fractionalKnapsack(int W, vector<Item>& items) {
 **When to use:** Look for "jump game", "maximum subarray", "best time to buy/sell", or any problem where you scan an array and maintain a running best/state — local decisions at each index build up to the global answer.
 
 Greedy choices on array elements, often with two pointers or sliding window.
+
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 260" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <rect width="700" height="260" rx="12" fill="#FAF8F5"/>
+  <text x="350" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#3A3530">Greedy Activity Selection — Pick Earliest End Time</text>
+  <line x1="140" y1="230" x2="620" y2="230" stroke="#B8B5B0" stroke-width="1"/>
+  <g font-size="9" fill="#9A9792" text-anchor="middle">
+    <line x1="140" y1="227" x2="140" y2="233" stroke="#B8B5B0"/><text x="140" y="244">0</text>
+    <line x1="188" y1="227" x2="188" y2="233" stroke="#B8B5B0"/><text x="188" y="244">1</text>
+    <line x1="236" y1="227" x2="236" y2="233" stroke="#B8B5B0"/><text x="236" y="244">2</text>
+    <line x1="284" y1="227" x2="284" y2="233" stroke="#B8B5B0"/><text x="284" y="244">3</text>
+    <line x1="332" y1="227" x2="332" y2="233" stroke="#B8B5B0"/><text x="332" y="244">4</text>
+    <line x1="380" y1="229" x2="380" y2="231" stroke="#B8B5B0"/>
+    <line x1="428" y1="227" x2="428" y2="233" stroke="#B8B5B0"/><text x="428" y="244">6</text>
+    <line x1="476" y1="227" x2="476" y2="233" stroke="#B8B5B0"/><text x="476" y="244">7</text>
+    <line x1="524" y1="229" x2="524" y2="231" stroke="#B8B5B0"/>
+    <line x1="572" y1="227" x2="572" y2="233" stroke="#B8B5B0"/><text x="572" y="244">9</text>
+    <line x1="620" y1="227" x2="620" y2="233" stroke="#B8B5B0"/><text x="620" y="244">10</text>
+  </g>
+  <text x="118" y="55" text-anchor="end" font-size="11" fill="#3A3530">A [0,2]</text>
+  <rect x="140" y="42" width="96" height="20" rx="4" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="188" y="56" text-anchor="middle" font-size="9" fill="#5A5752">1st</text>
+  <text x="660" y="55" font-size="12" fill="#3A3530">✓</text>
+  <text x="118" y="87" text-anchor="end" font-size="11" fill="#9A9792">B [1,4]</text>
+  <rect x="188" y="74" width="144" height="20" rx="4" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="260" y="88" text-anchor="middle" font-size="9" fill="#9A9792">overlaps A</text>
+  <text x="660" y="87" font-size="12" fill="#9A9792">✗</text>
+  <text x="118" y="119" text-anchor="end" font-size="11" fill="#3A3530">C [3,6]</text>
+  <rect x="284" y="106" width="144" height="20" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="356" y="120" text-anchor="middle" font-size="9" fill="#5A5752">2nd</text>
+  <text x="660" y="119" font-size="12" fill="#3A3530">✓</text>
+  <text x="118" y="151" text-anchor="end" font-size="11" fill="#9A9792">D [4,7]</text>
+  <rect x="332" y="138" width="144" height="20" rx="4" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="404" y="152" text-anchor="middle" font-size="9" fill="#9A9792">overlaps C</text>
+  <text x="660" y="151" font-size="12" fill="#9A9792">✗</text>
+  <text x="118" y="183" text-anchor="end" font-size="11" fill="#3A3530">E [6,9]</text>
+  <rect x="428" y="170" width="144" height="20" rx="4" fill="#E8E3D8" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="500" y="184" text-anchor="middle" font-size="9" fill="#5A5752">3rd</text>
+  <text x="660" y="183" font-size="12" fill="#3A3530">✓</text>
+  <text x="118" y="215" text-anchor="end" font-size="11" fill="#9A9792">F [7,10]</text>
+  <rect x="476" y="202" width="144" height="20" rx="4" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="548" y="216" text-anchor="middle" font-size="9" fill="#9A9792">overlaps E</text>
+  <text x="660" y="215" font-size="12" fill="#9A9792">✗</text>
+</svg>
+</div>
 
 ```cpp
 // Maximum Subarray (Kadane's Algorithm)

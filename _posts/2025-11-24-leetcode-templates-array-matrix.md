@@ -199,6 +199,49 @@ int longestSubarray(vector<int>& nums, int k) {
 
 **When to use:** The problem involves "range sum queries", "subarray sum equals k", or asks you to compute cumulative totals over a range efficiently.
 
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <rect width="700" height="280" rx="12" fill="#FAF8F5"/>
+  <text x="350" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#3A3530">Prefix Sum — Range Query</text>
+  <text x="148" y="72" text-anchor="end" font-size="11" fill="#7A7772">Original</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="205" y="58" width="54" height="34" rx="5" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="232" y="80" fill="#5A5752">1</text><text x="232" y="104" font-size="9" fill="#9A9792">0</text>
+    <rect x="263" y="58" width="54" height="34" rx="5" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="290" y="80" fill="#5A5752">2</text><text x="290" y="104" font-size="9" fill="#9A9792">1</text>
+    <rect x="321" y="58" width="54" height="34" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="348" y="80" fill="#3A3530" font-weight="bold">3</text><text x="348" y="104" font-size="9" fill="#5A5752">2</text>
+    <rect x="379" y="58" width="54" height="34" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="406" y="80" fill="#3A3530" font-weight="bold">4</text><text x="406" y="104" font-size="9" fill="#5A5752">3</text>
+    <rect x="437" y="58" width="54" height="34" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="464" y="80" fill="#3A3530" font-weight="bold">5</text><text x="464" y="104" font-size="9" fill="#5A5752">4</text>
+  </g>
+  <line x1="321" y1="52" x2="491" y2="52" stroke="#8B8680" stroke-width="1.5"/>
+  <line x1="321" y1="52" x2="321" y2="56" stroke="#8B8680" stroke-width="1.5"/>
+  <line x1="491" y1="52" x2="491" y2="56" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="406" y="46" text-anchor="middle" font-size="10" fill="#8B8680">range [2..4]</text>
+  <text x="148" y="166" text-anchor="end" font-size="11" fill="#7A7772">Prefix</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="176" y="152" width="54" height="34" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="203" y="174" fill="#5A5752">0</text><text x="203" y="198" font-size="9" fill="#9A9792">0</text>
+    <rect x="234" y="152" width="54" height="34" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="261" y="174" fill="#5A5752">1</text><text x="261" y="198" font-size="9" fill="#9A9792">1</text>
+    <rect x="292" y="152" width="54" height="34" rx="5" fill="#E8E3D8" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="319" y="174" fill="#3A3530" font-weight="bold">3</text><text x="319" y="198" font-size="9" fill="#5A5752">2</text>
+    <rect x="350" y="152" width="54" height="34" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="377" y="174" fill="#5A5752">6</text><text x="377" y="198" font-size="9" fill="#9A9792">3</text>
+    <rect x="408" y="152" width="54" height="34" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="435" y="174" fill="#5A5752">10</text><text x="435" y="198" font-size="9" fill="#9A9792">4</text>
+    <rect x="466" y="152" width="54" height="34" rx="5" fill="#E8E3D8" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="493" y="174" fill="#3A3530" font-weight="bold">15</text><text x="493" y="198" font-size="9" fill="#5A5752">5</text>
+  </g>
+  <line x1="493" y1="188" x2="493" y2="218" stroke="#8B8680" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="319" y1="188" x2="319" y2="218" stroke="#8B8680" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="350" y="238" text-anchor="middle" font-size="12" fill="#5A5752">sum(a[2..4]) = prefix[5] − prefix[2] = 15 − 3 = <tspan font-weight="bold" fill="#3A3530">12</tspan></text>
+  <text x="350" y="260" text-anchor="middle" font-size="11" fill="#7A7772" font-style="italic">Range sum in O(1) after O(n) preprocessing</text>
+</svg>
+</div>
+
 ### Basic Prefix Sum
 
 ```cpp
@@ -310,6 +353,65 @@ int searchRotated(vector<int>& nums, int target) {
 ## Matrix Operations
 
 **When to use:** The problem says "rotate image", "spiral order", "transpose matrix", or involves traversing a 2D grid in a specific pattern.
+
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 330" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="sp6Arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#8B8680"/></marker>
+  </defs>
+  <rect width="620" height="330" rx="12" fill="#FAF8F5"/>
+  <text x="310" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#3A3530">Spiral Matrix — Traversal Order</text>
+  <g font-size="14" text-anchor="middle">
+    <rect x="200" y="48" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="225" y="79" fill="#3A3530" font-weight="bold">1</text>
+    <rect x="254" y="48" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="279" y="79" fill="#3A3530">2</text>
+    <rect x="308" y="48" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="333" y="79" fill="#3A3530">3</text>
+    <rect x="362" y="48" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="387" y="79" fill="#3A3530">4</text>
+    <rect x="200" y="102" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="225" y="133" fill="#3A3530">12</text>
+    <rect x="254" y="102" width="50" height="50" rx="4" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="279" y="133" fill="#3A3530">13</text>
+    <rect x="308" y="102" width="50" height="50" rx="4" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="333" y="133" fill="#3A3530">14</text>
+    <rect x="362" y="102" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="387" y="133" fill="#3A3530">5</text>
+    <rect x="200" y="156" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="225" y="187" fill="#3A3530">11</text>
+    <rect x="254" y="156" width="50" height="50" rx="4" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="279" y="187" fill="#3A3530">16</text>
+    <rect x="308" y="156" width="50" height="50" rx="4" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="333" y="187" fill="#3A3530">15</text>
+    <rect x="362" y="156" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="387" y="187" fill="#3A3530">6</text>
+    <rect x="200" y="210" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="225" y="241" fill="#3A3530">10</text>
+    <rect x="254" y="210" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="279" y="241" fill="#3A3530">9</text>
+    <rect x="308" y="210" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="333" y="241" fill="#3A3530">8</text>
+    <rect x="362" y="210" width="50" height="50" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="387" y="241" fill="#3A3530">7</text>
+  </g>
+  <line x1="218" y1="40" x2="398" y2="40" stroke="#8B8680" stroke-width="2" marker-end="url(#sp6Arr)"/>
+  <text x="308" y="36" text-anchor="middle" font-size="10" fill="#7A7772">→ right</text>
+  <line x1="420" y1="58" x2="420" y2="252" stroke="#8B8680" stroke-width="2" marker-end="url(#sp6Arr)"/>
+  <text x="444" y="155" font-size="10" fill="#7A7772">↓ down</text>
+  <line x1="398" y1="268" x2="218" y2="268" stroke="#8B8680" stroke-width="2" marker-end="url(#sp6Arr)"/>
+  <text x="308" y="282" text-anchor="middle" font-size="10" fill="#7A7772">← left</text>
+  <line x1="192" y1="252" x2="192" y2="112" stroke="#8B8680" stroke-width="2" marker-end="url(#sp6Arr)"/>
+  <text x="178" y="175" text-anchor="end" font-size="10" fill="#7A7772">↑ up</text>
+  <g transform="translate(68, 302)">
+    <rect x="0" y="0" width="14" height="14" rx="2" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+    <text x="20" y="11" font-size="10" fill="#5A5752">outer ring (1–12)</text>
+    <rect x="150" y="0" width="14" height="14" rx="2" fill="#E8D5D0" stroke="#8B8680" stroke-width="1"/>
+    <text x="170" y="11" font-size="10" fill="#5A5752">inner ring (13–16)</text>
+    <text x="300" y="11" font-size="10" fill="#7A7772">right → down → left → up → repeat inward</text>
+  </g>
+</svg>
+</div>
 
 ### Rotate Matrix
 

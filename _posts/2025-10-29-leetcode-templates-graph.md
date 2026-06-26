@@ -200,6 +200,103 @@ int bfs_mask(int n, const vector<vector<int>>& g, int start) {
 
 Indegree-based. Edge (u, v) means u before v. Returns order or empty if cycle.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="ka" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#8B8680"/>
+    </marker>
+  </defs>
+  <!-- Step titles -->
+  <text x="115" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">① Compute indegrees</text>
+  <text x="360" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">② Process A, B</text>
+  <text x="605" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">③ Process C, D</text>
+  <!-- Panel dividers -->
+  <line x1="234" y1="8" x2="234" y2="282" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="486" y1="8" x2="486" y2="282" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- ===== PANEL 1: Initial indegrees ===== -->
+  <!-- Edges (drawn first, behind nodes) -->
+  <line x1="70" y1="100" x2="120" y2="121" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <line x1="70" y1="155" x2="120" y2="135" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <line x1="158" y1="128" x2="178" y2="128" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <!-- Node A (indegree 0) — enqueued -->
+  <circle cx="52" cy="92" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="52" y="97" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">A</text>
+  <rect x="68" y="74" width="20" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="78" y="85" text-anchor="middle" font-size="9" fill="#3A3530" font-weight="bold">0</text>
+  <!-- Node B (indegree 0) — enqueued -->
+  <circle cx="52" cy="163" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="52" y="168" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">B</text>
+  <rect x="68" y="145" width="20" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="78" y="156" text-anchor="middle" font-size="9" fill="#3A3530" font-weight="bold">0</text>
+  <!-- Node C (indegree 2) -->
+  <circle cx="138" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="138" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">C</text>
+  <rect x="154" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="164" y="121" text-anchor="middle" font-size="9" fill="#5A5752">2</text>
+  <!-- Node D (indegree 1) -->
+  <circle cx="200" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="200" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">D</text>
+  <rect x="216" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="226" y="121" text-anchor="middle" font-size="9" fill="#5A5752">1</text>
+  <!-- Queue -->
+  <rect x="15" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="26" y="230" font-size="11" fill="#5A5752">Queue:</text>
+  <rect x="75" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="88" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">A</text>
+  <rect x="105" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="118" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">B</text>
+  <text x="26" y="265" font-size="11" fill="#7A7772">Output: [ ]</text>
+  <!-- ===== PANEL 2: Process A, B ===== -->
+  <!-- Faded edges -->
+  <line x1="312" y1="100" x2="357" y2="121" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="312" y1="155" x2="357" y2="135" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="398" y1="128" x2="418" y2="128" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <!-- A — processed -->
+  <circle cx="294" cy="92" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="294" y="97" text-anchor="middle" font-size="14" fill="#9A9792">A</text>
+  <text x="294" y="76" text-anchor="middle" font-size="10" fill="#9A9792">✓</text>
+  <!-- B — processed -->
+  <circle cx="294" cy="163" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="294" y="168" text-anchor="middle" font-size="14" fill="#9A9792">B</text>
+  <text x="294" y="147" text-anchor="middle" font-size="10" fill="#9A9792">✓</text>
+  <!-- C (indegree 2→0) — now enqueued -->
+  <circle cx="380" cy="128" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="380" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">C</text>
+  <rect x="396" y="110" width="32" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="412" y="121" text-anchor="middle" font-size="8" fill="#3A3530" font-weight="bold">2→0</text>
+  <!-- D (indegree 1) -->
+  <circle cx="440" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="440" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">D</text>
+  <rect x="456" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="466" y="121" text-anchor="middle" font-size="9" fill="#5A5752">1</text>
+  <!-- Queue -->
+  <rect x="257" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="268" y="230" font-size="11" fill="#5A5752">Queue:</text>
+  <rect x="320" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="333" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">C</text>
+  <text x="268" y="265" font-size="11" fill="#7A7772">Output: [A, B]</text>
+  <!-- ===== PANEL 3: Process C, D — done ===== -->
+  <!-- All edges faded -->
+  <line x1="554" y1="100" x2="597" y2="121" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="554" y1="155" x2="597" y2="135" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="640" y1="128" x2="655" y2="128" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- All nodes processed -->
+  <circle cx="536" cy="92" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="536" y="97" text-anchor="middle" font-size="14" fill="#9A9792">A</text>
+  <circle cx="536" cy="163" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="536" y="168" text-anchor="middle" font-size="14" fill="#9A9792">B</text>
+  <circle cx="619" cy="128" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="619" y="133" text-anchor="middle" font-size="14" fill="#9A9792">C</text>
+  <circle cx="677" cy="128" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="677" y="133" text-anchor="middle" font-size="14" fill="#9A9792">D</text>
+  <!-- Queue (empty) -->
+  <rect x="500" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="511" y="230" font-size="11" fill="#9A9792">Queue: (empty)</text>
+  <!-- Final output -->
+  <rect x="500" y="255" width="205" height="28" rx="5" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="602" y="274" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">Output: [A, B, C, D] ✓</text>
+</svg>
+
 ```cpp
 vector<int> topo_kahn(int n, const vector<vector<int>>& g) {
     vector<int> indeg(n);
@@ -266,6 +363,73 @@ vector<int> topo_dfs(int n, const vector<vector<int>>& g) {
 **When to use:** "shortest path" with non-negative weights; "minimum cost to reach destination"; "network delay time"; any weighted graph where all weights ≥ 0.
 
 Nonnegative weights. Adjacency list: g[u] = [(v, w), ...]. Returns distances from source s.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="da" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#8B8680"/>
+    </marker>
+  </defs>
+  <!-- ======== WEIGHTED GRAPH ======== -->
+  <!-- Edges with weight labels -->
+  <line x1="121" y1="85" x2="259" y2="53" stroke="#8B8680" stroke-width="1.5" marker-end="url(#da)"/>
+  <line x1="121" y1="95" x2="259" y2="127" stroke="#8B8680" stroke-width="1.5" marker-end="url(#da)"/>
+  <line x1="280" y1="110" x2="280" y2="70" stroke="#8B8680" stroke-width="1.5" marker-end="url(#da)"/>
+  <line x1="301" y1="53" x2="439" y2="85" stroke="#8B8680" stroke-width="1.5" marker-end="url(#da)"/>
+  <line x1="301" y1="127" x2="439" y2="95" stroke="#8B8680" stroke-width="1.5" marker-end="url(#da)"/>
+  <!-- Weight labels -->
+  <rect x="178" y="57" width="18" height="16" rx="3" fill="#FAF8F5" stroke="none"/>
+  <text x="187" y="69" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">4</text>
+  <rect x="178" y="105" width="18" height="16" rx="3" fill="#FAF8F5" stroke="none"/>
+  <text x="187" y="117" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">1</text>
+  <rect x="286" y="82" width="18" height="16" rx="3" fill="#FAF8F5" stroke="none"/>
+  <text x="295" y="94" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">2</text>
+  <rect x="362" y="57" width="18" height="16" rx="3" fill="#FAF8F5" stroke="none"/>
+  <text x="371" y="69" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">3</text>
+  <rect x="362" y="105" width="18" height="16" rx="3" fill="#FAF8F5" stroke="none"/>
+  <text x="371" y="117" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">7</text>
+  <!-- Nodes (on top of edges) -->
+  <circle cx="100" cy="90" r="22" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="100" y="95" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">S</text>
+  <text x="100" y="125" text-anchor="middle" font-size="10" fill="#5A5752">dist: 0</text>
+  <circle cx="280" cy="48" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="280" y="53" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">A</text>
+  <text x="280" y="24" text-anchor="middle" font-size="10" fill="#5A5752">dist: ∞</text>
+  <circle cx="280" cy="132" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="280" y="137" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">B</text>
+  <text x="280" y="167" text-anchor="middle" font-size="10" fill="#5A5752">dist: ∞</text>
+  <circle cx="460" cy="90" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="460" y="95" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">C</text>
+  <text x="460" y="125" text-anchor="middle" font-size="10" fill="#5A5752">dist: ∞</text>
+  <!-- Graph label -->
+  <text x="540" y="52" font-size="10" fill="#7A7772">Edges: S→A(4), S→B(1),</text>
+  <text x="540" y="66" font-size="10" fill="#7A7772">B→A(2), A→C(3), B→C(7)</text>
+  <!-- ======== STEP BOXES ======== -->
+  <!-- Step 1: Process S -->
+  <rect x="15" y="183" width="215" height="110" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <rect x="15" y="183" width="215" height="24" rx="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="122" y="199" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">Process S (dist 0)</text>
+  <text x="28" y="224" font-size="10" fill="#5A5752">Relax S→A: dist[A] = 0+4 = 4</text>
+  <text x="28" y="240" font-size="10" fill="#5A5752">Relax S→B: dist[B] = 0+1 = 1</text>
+  <text x="28" y="262" font-size="10" fill="#7A7772">PQ: {(1, B), (4, A)}</text>
+  <text x="28" y="280" font-size="10" fill="#7A7772">dist: [S=0, A=4, B=1]</text>
+  <!-- Step 2: Process B — RELAXATION -->
+  <rect x="243" y="183" width="215" height="110" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <rect x="243" y="183" width="215" height="24" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="350" y="199" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">Process B (dist 1)</text>
+  <text x="256" y="224" font-size="10" fill="#3A3530" font-weight="bold">★ B→A: 1+2=3 &lt; 4 — relaxed!</text>
+  <text x="256" y="240" font-size="10" fill="#5A5752">Relax B→C: dist[C] = 1+7 = 8</text>
+  <text x="256" y="262" font-size="10" fill="#7A7772">PQ: {(3, A), (8, C)}</text>
+  <text x="256" y="280" font-size="10" fill="#7A7772">dist: [S=0, B=1, A=3, C=8]</text>
+  <!-- Step 3: Process A — RELAXATION -->
+  <rect x="471" y="183" width="215" height="110" rx="6" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <rect x="471" y="183" width="215" height="24" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="578" y="199" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">Process A (dist 3)</text>
+  <text x="484" y="224" font-size="10" fill="#3A3530" font-weight="bold">★ A→C: 3+3=6 &lt; 8 — relaxed!</text>
+  <text x="484" y="248" font-size="10" fill="#7A7772">PQ: {(6, C)}</text>
+  <rect x="484" y="264" width="190" height="22" rx="4" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="579" y="280" text-anchor="middle" font-size="10" fill="#3A3530" font-weight="bold">Final: S=0, B=1, A=3, C=6</text>
+</svg>
 
 ```cpp
 vector<long long> dijkstra(int n, const vector<vector<pair<int,int>>>& g, int s) {
@@ -499,6 +663,96 @@ vector<pair<int,int>> bridges(int n, const vector<vector<int>>& g) {
 **When to use:** "number of connected components"; "are two nodes in the same group?"; "redundant connection" (cycle detection in undirected graph); dynamic connectivity as edges are added.
 
 Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="ua" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#8B8680"/>
+    </marker>
+    <marker id="ua2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#B8B5B0"/>
+    </marker>
+  </defs>
+  <!-- Panel titles -->
+  <text x="110" y="18" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">① Initial (6 sets)</text>
+  <text x="345" y="18" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">② After 3 unions</text>
+  <text x="590" y="18" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">③ Path compression</text>
+  <!-- Dividers -->
+  <line x1="225" y1="6" x2="225" y2="204" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="465" y1="6" x2="465" y2="204" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- ===== PANEL 1: 6 separate nodes ===== -->
+  <circle cx="45" cy="75" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="45" y="80" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">0</text>
+  <circle cx="110" cy="75" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="110" y="80" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">1</text>
+  <circle cx="175" cy="75" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="175" y="80" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">2</text>
+  <circle cx="45" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="45" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">3</text>
+  <circle cx="110" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="110" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">4</text>
+  <circle cx="175" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="175" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">5</text>
+  <text x="110" y="186" text-anchor="middle" font-size="10" fill="#7A7772">Each node is its own root</text>
+  <!-- ===== PANEL 2: After union(0,1), union(2,3), union(4,5) ===== -->
+  <!-- Tree 0←1 -->
+  <line x1="280" y1="124" x2="280" y2="94" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ua)"/>
+  <circle cx="280" cy="72" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="280" y="77" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">0</text>
+  <circle cx="280" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="280" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">1</text>
+  <!-- Tree 2←3 -->
+  <line x1="345" y1="124" x2="345" y2="94" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ua)"/>
+  <circle cx="345" cy="72" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="345" y="77" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">2</text>
+  <circle cx="345" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="345" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">3</text>
+  <!-- Tree 4←5 -->
+  <line x1="410" y1="124" x2="410" y2="94" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ua)"/>
+  <circle cx="410" cy="72" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="410" y="77" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">4</text>
+  <circle cx="410" cy="140" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="410" y="145" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">5</text>
+  <text x="345" y="186" text-anchor="middle" font-size="10" fill="#7A7772">union(0,1) union(2,3) union(4,5)</text>
+  <!-- ===== PANEL 3: Path compression ===== -->
+  <!-- BEFORE find(3): tree 0←1, 0←2←3 -->
+  <text x="527" y="36" text-anchor="middle" font-size="10" fill="#7A7772">Before find(3)</text>
+  <!-- Edge 1→0 -->
+  <line x1="505" y1="96" x2="522" y2="70" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ua2)"/>
+  <!-- Edge 2→0 (highlighted path) -->
+  <line x1="549" y1="96" x2="535" y2="70" stroke="#8B8680" stroke-width="2" marker-end="url(#ua)"/>
+  <!-- Edge 3→2 (highlighted path) -->
+  <line x1="556" y1="138" x2="556" y2="118" stroke="#8B8680" stroke-width="2" marker-end="url(#ua)"/>
+  <!-- Nodes -->
+  <circle cx="527" cy="54" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="527" y="59" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">0</text>
+  <circle cx="496" cy="105" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="496" y="110" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">1</text>
+  <circle cx="556" cy="105" r="16" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="556" y="110" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">2</text>
+  <circle cx="556" cy="155" r="16" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="556" y="160" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">3</text>
+  <!-- Arrow between before/after -->
+  <text x="596" y="105" text-anchor="middle" font-size="18" fill="#8B8680">→</text>
+  <!-- AFTER find(3): tree 0←1, 0←2, 0←3 (all direct children) -->
+  <text x="660" y="36" text-anchor="middle" font-size="10" fill="#7A7772">After find(3)</text>
+  <!-- Edge 1→0 -->
+  <line x1="633" y1="96" x2="650" y2="70" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ua2)"/>
+  <!-- Edge 2→0 -->
+  <line x1="660" y1="89" x2="660" y2="72" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ua2)"/>
+  <!-- Edge 3→0 (highlighted — new direct link) -->
+  <line x1="685" y1="96" x2="669" y2="70" stroke="#8B8680" stroke-width="2" marker-end="url(#ua)"/>
+  <!-- Nodes -->
+  <circle cx="660" cy="54" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="660" y="59" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">0</text>
+  <circle cx="624" cy="105" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="624" y="110" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">1</text>
+  <circle cx="660" cy="105" r="16" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="660" y="110" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">2</text>
+  <circle cx="696" cy="105" r="16" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="696" y="110" text-anchor="middle" font-size="13" fill="#3A3530" font-weight="bold">3</text>
+  <text x="590" y="186" text-anchor="middle" font-size="10" fill="#7A7772">3 now points directly to root 0</text>
+</svg>
 
 | ID | Title | Link | Solution |
 |----|--------|------|----------|

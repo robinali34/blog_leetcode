@@ -147,6 +147,47 @@ void dfs(TreeNode* node) {
 
 Each recursive call returns information about its subtree. Process children first, then combine results and return upward. Used for: height, balance, diameter, subtree properties.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 270" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="340" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Computing Max Depth — values return upward</text>
+  <!-- tree edges -->
+  <line x1="340" y1="50" x2="190" y2="130" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="340" y1="50" x2="490" y2="130" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="190" y1="130" x2="110" y2="210" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="190" y1="130" x2="270" y2="210" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- return value pills on edges (child → parent) -->
+  <rect x="133" y="160" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="151" y="173" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <rect x="213" y="160" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="231" y="173" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <rect x="243" y="78" width="36" height="18" rx="9" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="261" y="91" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">↑ 1</text>
+  <rect x="398" y="78" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="416" y="91" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <!-- nodes -->
+  <circle cx="340" cy="50" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="340" y="51" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="190" cy="130" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="190" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">2</text>
+  <circle cx="490" cy="130" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="490" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="110" cy="210" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="110" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">4</text>
+  <circle cx="270" cy="210" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="270" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <!-- computation annotations -->
+  <text x="340" y="28" text-anchor="middle" fill="#3A3530" font-size="11" font-weight="bold">1 + max(1, 0) = 2</text>
+  <text x="190" y="164" text-anchor="middle" fill="#5A5752" font-size="10">1+max(0,0) = 1</text>
+  <text x="490" y="160" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <text x="110" y="242" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <text x="270" y="242" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <!-- legend -->
+  <rect x="530" y="200" width="140" height="50" rx="6" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="600" y="219" text-anchor="middle" fill="#3A3530" font-size="12" font-weight="bold">Result: depth = 2</text>
+  <rect x="545" y="228" width="28" height="14" rx="7" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="559" y="239" text-anchor="middle" fill="#5A5752" font-size="8" font-weight="bold">↑ n</text>
+  <text x="578" y="239" fill="#7A7772" font-size="10">return value</text>
+</svg>
+
 ```cpp
 int dfs(TreeNode* node) {
     if (!node) return 0;
@@ -197,6 +238,46 @@ int dfs(TreeNode* node) {
 **When to use:** Root-to-leaf paths, path sum collection — any problem that needs the full path from root to the current node.
 
 Maintain a path from root to the current node. **Push → recurse → pop** (backtracking). Used for returning paths, validating sequences, and path sum collection.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 265" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Path Tracking — collecting root-to-leaf path [1→2→4]</text>
+  <!-- tree edges (highlighted path in darker stroke) -->
+  <line x1="190" y1="50" x2="110" y2="130" stroke="#8B8680" stroke-width="3"/>
+  <line x1="110" y1="130" x2="60" y2="210" stroke="#8B8680" stroke-width="3"/>
+  <line x1="190" y1="50" x2="270" y2="130" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="110" y1="130" x2="160" y2="210" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- nodes (highlighted path = warm fill, others = neutral) -->
+  <circle cx="190" cy="50" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="190" y="51" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="110" cy="130" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="110" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">2</text>
+  <circle cx="270" cy="130" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="270" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="60" cy="210" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="60" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">4</text>
+  <text x="60" y="242" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">✓ leaf</text>
+  <circle cx="160" cy="210" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="160" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <!-- side panel: path tracking steps -->
+  <rect x="360" y="30" width="310" height="220" rx="8" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="515" y="52" text-anchor="middle" fill="#5A5752" font-size="12" font-weight="bold">push → recurse → pop</text>
+  <line x1="375" y1="60" x2="655" y2="60" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="380" y="82" fill="#3A3530" font-size="11" font-weight="bold">push(1)</text>
+  <rect x="470" y="68" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="82" text-anchor="middle" fill="#3A3530" font-size="11">path = [1]</text>
+  <text x="380" y="110" fill="#3A3530" font-size="11" font-weight="bold">push(2)</text>
+  <rect x="470" y="96" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="110" text-anchor="middle" fill="#3A3530" font-size="11">path = [1, 2]</text>
+  <text x="380" y="138" fill="#3A3530" font-size="11" font-weight="bold">push(4)</text>
+  <rect x="470" y="124" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="138" text-anchor="middle" fill="#3A3530" font-size="11">path = [1, 2, 4]</text>
+  <text x="595" y="138" fill="#5A5752" font-size="10" font-weight="bold">✓</text>
+  <text x="515" y="162" text-anchor="middle" fill="#5A5752" font-size="11">leaf → result.add([1, 2, 4])</text>
+  <line x1="375" y1="172" x2="655" y2="172" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="380" y="192" fill="#9A9792" font-size="11">pop(4)  →  path = [1, 2]</text>
+  <text x="380" y="212" fill="#9A9792" font-size="11">pop(2)  →  path = [1]</text>
+  <text x="380" y="232" fill="#7A7772" font-size="10" font-style="italic">backtracking restores path state</text>
+</svg>
 
 ```cpp
 void dfs(TreeNode* node, vector<int>& path, vector<vector<int>>& result) {
@@ -262,6 +343,46 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 
 Postorder DFS: if both subtrees contain a target, the current node is the LCA.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Lowest Common Ancestor — p=5, q=1</text>
+  <!-- tree edges -->
+  <line x1="350" y1="55" x2="200" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="350" y1="55" x2="500" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="130" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="200" y1="135" x2="270" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="500" y1="135" x2="430" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="500" y1="135" x2="570" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- LCA node (3) — warm highlight with stronger border -->
+  <circle cx="350" cy="55" r="24" fill="#E8D5D0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="350" y="56" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="16" font-weight="bold">3</text>
+  <text x="350" y="24" text-anchor="middle" fill="#3A3530" font-size="12" font-weight="bold">★ LCA</text>
+  <!-- p node (5) — blue-grey highlight -->
+  <circle cx="200" cy="135" r="22" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="200" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <rect x="217" y="117" width="18" height="16" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+  <text x="226" y="129" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">p</text>
+  <!-- q node (1) — blue-grey highlight -->
+  <circle cx="500" cy="135" r="22" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="500" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <rect x="517" y="117" width="18" height="16" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+  <text x="526" y="129" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">q</text>
+  <!-- other nodes — neutral -->
+  <circle cx="130" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="130" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">6</text>
+  <circle cx="270" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="270" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">2</text>
+  <circle cx="430" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="430" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">0</text>
+  <circle cx="570" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="570" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">8</text>
+  <!-- annotations showing how left/right results meet -->
+  <rect x="118" y="247" width="116" height="18" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="176" y="260" text-anchor="middle" fill="#5A5752" font-size="10">left = found p ✓</text>
+  <rect x="440" y="247" width="120" height="18" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="500" y="260" text-anchor="middle" fill="#5A5752" font-size="10">right = found q ✓</text>
+  <text x="350" y="278" text-anchor="middle" fill="#3A3530" font-size="11" font-weight="bold">left &amp;&amp; right → return root (node 3 is LCA)</text>
+</svg>
+
 ```cpp
 TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q) {
     if (!root || root == p || root == q) return root;
@@ -284,6 +405,50 @@ TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q) {
 **When to use:** Validate BST, search, insert, delete — any problem that leverages the BST property (`left < root < right`) for pruning or ordered processing.
 
 BST property: `left < root < right`. Inorder traversal produces sorted order. This enables pruning and ordered processing.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Binary Search Tree — left &lt; root &lt; right</text>
+  <!-- tree edges -->
+  <line x1="350" y1="55" x2="200" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="350" y1="55" x2="500" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="120" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="280" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="500" y1="135" x2="580" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- ordering labels on edges -->
+  <text x="258" y="86" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&lt;</text>
+  <text x="440" y="86" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <text x="148" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&lt;</text>
+  <text x="252" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <text x="552" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <!-- nodes -->
+  <circle cx="350" cy="55" r="24" fill="#D4D8D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="350" y="56" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="16" font-weight="bold">8</text>
+  <circle cx="200" cy="135" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="200" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="500" cy="135" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="500" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">10</text>
+  <circle cx="120" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="120" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="280" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="280" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">6</text>
+  <circle cx="580" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="580" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">14</text>
+  <!-- inorder traversal (sorted output) -->
+  <rect x="80" y="260" width="540" height="30" rx="6" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="100" y="279" fill="#5A5752" font-size="11" font-weight="bold">Inorder:</text>
+  <text x="160" y="280" fill="#3A3530" font-size="13" font-weight="bold">1</text>
+  <text x="182" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="205" y="280" fill="#3A3530" font-size="13" font-weight="bold">3</text>
+  <text x="227" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="250" y="280" fill="#3A3530" font-size="13" font-weight="bold">6</text>
+  <text x="272" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="295" y="280" fill="#3A3530" font-size="13" font-weight="bold">8</text>
+  <text x="317" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="345" y="280" fill="#3A3530" font-size="13" font-weight="bold">10</text>
+  <text x="372" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="400" y="280" fill="#3A3530" font-size="13" font-weight="bold">14</text>
+  <text x="445" y="280" fill="#5A5752" font-size="11" font-style="italic">(sorted!)</text>
+</svg>
 
 ```cpp
 void inorder(TreeNode* node) {
@@ -365,6 +530,89 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 Segment Tree is a data structure that allows efficient range queries and range updates on an array. It's particularly useful for problems involving range sum, range minimum/maximum, and range updates.
 
 **Reference:** [A Recursive Approach to Segment Trees, Range Sum Queries, and Lazy Propagation](https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/)
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 335" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Segment Tree — Range Sum for array [1, 3, 5, 7, 2, 4]</text>
+  <!-- edges: level 0 → level 1 -->
+  <line x1="387" y1="55" x2="285" y2="90" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="387" y1="55" x2="489" y2="90" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- edges: level 1 → level 2 -->
+  <line x1="285" y1="120" x2="234" y2="155" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="285" y1="120" x2="336" y2="155" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="489" y1="120" x2="438" y2="155" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="489" y1="120" x2="540" y2="155" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- edges: level 2 → level 3 -->
+  <line x1="234" y1="185" x2="200" y2="220" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="234" y1="185" x2="268" y2="220" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="438" y1="185" x2="404" y2="220" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="438" y1="185" x2="472" y2="220" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- dotted lines: leaves → array cells -->
+  <line x1="200" y1="250" x2="200" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="268" y1="250" x2="268" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="336" y1="185" x2="336" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="404" y1="250" x2="404" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="472" y1="250" x2="472" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="185" x2="540" y2="278" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- level 0: root node -->
+  <rect x="361" y="30" width="52" height="34" rx="6" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="387" y="44" text-anchor="middle" fill="#3A3530" font-size="14" font-weight="bold">22</text>
+  <text x="387" y="58" text-anchor="middle" fill="#7A7772" font-size="9">[0–5]</text>
+  <!-- level 1 -->
+  <rect x="259" y="88" width="52" height="34" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="285" y="102" text-anchor="middle" fill="#3A3530" font-size="14" font-weight="bold">9</text>
+  <text x="285" y="116" text-anchor="middle" fill="#7A7772" font-size="9">[0–2]</text>
+  <rect x="463" y="88" width="52" height="34" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="489" y="102" text-anchor="middle" fill="#3A3530" font-size="14" font-weight="bold">13</text>
+  <text x="489" y="116" text-anchor="middle" fill="#7A7772" font-size="9">[3–5]</text>
+  <!-- level 2 -->
+  <rect x="208" y="153" width="52" height="34" rx="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="234" y="167" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">4</text>
+  <text x="234" y="181" text-anchor="middle" fill="#7A7772" font-size="9">[0–1]</text>
+  <rect x="310" y="153" width="52" height="34" rx="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="336" y="167" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">5</text>
+  <text x="336" y="181" text-anchor="middle" fill="#7A7772" font-size="9">[2]</text>
+  <rect x="412" y="153" width="52" height="34" rx="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="438" y="167" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">9</text>
+  <text x="438" y="181" text-anchor="middle" fill="#7A7772" font-size="9">[3–4]</text>
+  <rect x="514" y="153" width="52" height="34" rx="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="540" y="167" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">4</text>
+  <text x="540" y="181" text-anchor="middle" fill="#7A7772" font-size="9">[5]</text>
+  <!-- level 3 (leaf nodes of the tree) -->
+  <rect x="174" y="218" width="52" height="34" rx="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="200" y="232" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">1</text>
+  <text x="200" y="246" text-anchor="middle" fill="#7A7772" font-size="9">[0]</text>
+  <rect x="242" y="218" width="52" height="34" rx="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="268" y="232" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">3</text>
+  <text x="268" y="246" text-anchor="middle" fill="#7A7772" font-size="9">[1]</text>
+  <rect x="378" y="218" width="52" height="34" rx="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="404" y="232" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">7</text>
+  <text x="404" y="246" text-anchor="middle" fill="#7A7772" font-size="9">[3]</text>
+  <rect x="446" y="218" width="52" height="34" rx="6" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="472" y="232" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">2</text>
+  <text x="472" y="246" text-anchor="middle" fill="#7A7772" font-size="9">[4]</text>
+  <!-- array cells at bottom -->
+  <text x="105" y="296" fill="#5A5752" font-size="11" font-weight="bold">array:</text>
+  <rect x="170" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="200" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">1</text>
+  <rect x="238" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="268" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">3</text>
+  <rect x="306" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="336" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">5</text>
+  <rect x="374" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="404" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">7</text>
+  <rect x="442" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="472" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">2</text>
+  <rect x="510" y="278" width="60" height="26" rx="4" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="540" y="295" text-anchor="middle" fill="#3A3530" font-size="13" font-weight="bold">4</text>
+  <!-- index labels -->
+  <text x="105" y="322" fill="#9A9792" font-size="10">index:</text>
+  <text x="200" y="322" text-anchor="middle" fill="#9A9792" font-size="10">0</text>
+  <text x="268" y="322" text-anchor="middle" fill="#9A9792" font-size="10">1</text>
+  <text x="336" y="322" text-anchor="middle" fill="#9A9792" font-size="10">2</text>
+  <text x="404" y="322" text-anchor="middle" fill="#9A9792" font-size="10">3</text>
+  <text x="472" y="322" text-anchor="middle" fill="#9A9792" font-size="10">4</text>
+  <text x="540" y="322" text-anchor="middle" fill="#9A9792" font-size="10">5</text>
+</svg>
 
 ### Basic Segment Tree (Range Sum Query)
 

@@ -50,6 +50,58 @@ In C++, `std::priority_queue` is a max-heap by default. To get a min-heap, pass 
 - Scheduling problems (meeting rooms, task ordering)
 - Stream processing (continuously arriving data)
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 305" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="18" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Min-Heap: Tree Structure and Array Representation</text>
+  <!-- Tree edges -->
+  <line x1="350" y1="60" x2="210" y2="105" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="350" y1="60" x2="490" y2="105" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="210" y1="135" x2="140" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="210" y1="135" x2="280" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="490" y1="135" x2="420" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- Tree nodes with index annotations -->
+  <circle cx="350" cy="48" r="20" fill="#D4D8D0" stroke="#8B9B86" stroke-width="2"/>
+  <text x="350" y="53" text-anchor="middle" font-size="15" font-weight="700" fill="#3A3530">1</text>
+  <text x="374" y="37" font-size="9" fill="#9A9792">i=0</text>
+  <circle cx="210" cy="120" r="18" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="210" y="125" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">3</text>
+  <text x="232" y="109" font-size="9" fill="#9A9792">i=1</text>
+  <circle cx="490" cy="120" r="18" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="490" y="125" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">5</text>
+  <text x="512" y="109" font-size="9" fill="#9A9792">i=2</text>
+  <circle cx="140" cy="188" r="16" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="140" y="193" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">7</text>
+  <text x="160" y="178" font-size="9" fill="#9A9792">i=3</text>
+  <circle cx="280" cy="188" r="16" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="280" y="193" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">9</text>
+  <text x="300" y="178" font-size="9" fill="#9A9792">i=4</text>
+  <circle cx="420" cy="188" r="16" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="420" y="193" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">8</text>
+  <text x="440" y="178" font-size="9" fill="#9A9792">i=5</text>
+  <!-- Array representation -->
+  <text x="350" y="228" text-anchor="middle" font-size="11" font-weight="600" fill="#5A5752">Array: stored level-by-level, left to right</text>
+  <rect x="155" y="236" width="48" height="28" rx="4" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="179" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">1</text>
+  <rect x="203" y="236" width="48" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="227" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">3</text>
+  <rect x="251" y="236" width="48" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="275" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">5</text>
+  <rect x="299" y="236" width="48" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="323" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">7</text>
+  <rect x="347" y="236" width="48" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="371" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">9</text>
+  <rect x="395" y="236" width="48" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+  <text x="419" y="254" text-anchor="middle" font-size="13" font-weight="600" fill="#3A3530">8</text>
+  <!-- Array index labels -->
+  <text x="179" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[0]</text>
+  <text x="227" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[1]</text>
+  <text x="275" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[2]</text>
+  <text x="323" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[3]</text>
+  <text x="371" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[4]</text>
+  <text x="419" y="278" text-anchor="middle" font-size="9" fill="#9A9792">[5]</text>
+  <!-- Relationship formulas -->
+  <text x="350" y="300" text-anchor="middle" font-size="10" fill="#7A7772">parent = (i-1)/2 · left child = 2i+1 · right child = 2i+2 · parent ≤ children everywhere</text>
+</svg>
+
 ### How a Min-Heap Works (Visualization)
 
 <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;font-family:monospace">
@@ -371,6 +423,60 @@ vector<int> mergeKSortedArrays(vector<vector<int>>& arrays) {
 ## Top K Elements
 
 **When to use:** The problem asks for "kth largest", "top k frequent", "k closest" — maintain a heap of size k and evict the least relevant element.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#8B8680"/></marker>
+    <marker id="ahg" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#8B9B86"/></marker>
+    <marker id="ahr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#B8A5A0"/></marker>
+  </defs>
+  <text x="360" y="20" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Top-K Pattern: Min-Heap of Size K Filters the K Largest</text>
+  <!-- Input stream -->
+  <text x="25" y="60" font-size="11" font-weight="600" fill="#5A5752">Input stream</text>
+  <rect x="15" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="30" y="86" text-anchor="middle" font-size="11" fill="#3A3530">4</text>
+  <rect x="49" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="64" y="86" text-anchor="middle" font-size="11" fill="#3A3530">7</text>
+  <rect x="83" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="98" y="86" text-anchor="middle" font-size="11" fill="#3A3530">2</text>
+  <rect x="117" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="132" y="86" text-anchor="middle" font-size="11" fill="#3A3530">9</text>
+  <rect x="151" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="166" y="86" text-anchor="middle" font-size="11" fill="#3A3530">1</text>
+  <rect x="185" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="200" y="86" text-anchor="middle" font-size="11" fill="#3A3530">5</text>
+  <rect x="219" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="234" y="86" text-anchor="middle" font-size="11" fill="#3A3530">8</text>
+  <rect x="253" y="70" width="30" height="24" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="268" y="86" text-anchor="middle" font-size="11" fill="#3A3530">3</text>
+  <!-- Arrow to heap -->
+  <line x1="290" y1="82" x2="348" y2="82" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- Heap container -->
+  <rect x="358" y="38" width="180" height="130" rx="10" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="448" y="56" text-anchor="middle" font-size="11" font-weight="600" fill="#5A5752">Min-Heap (K = 3)</text>
+  <!-- Heap tree inside -->
+  <line x1="448" y1="80" x2="412" y2="108" stroke="#B8B5B0" stroke-width="1.2"/>
+  <line x1="448" y1="80" x2="484" y2="108" stroke="#B8B5B0" stroke-width="1.2"/>
+  <circle cx="448" cy="74" r="14" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="448" y="78" text-anchor="middle" font-size="12" font-weight="600" fill="#3A3530">7</text>
+  <circle cx="412" cy="114" r="14" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="412" y="118" text-anchor="middle" font-size="12" font-weight="600" fill="#3A3530">8</text>
+  <circle cx="484" cy="114" r="14" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="484" y="118" text-anchor="middle" font-size="12" font-weight="600" fill="#3A3530">9</text>
+  <text x="448" y="152" text-anchor="middle" font-size="9" fill="#7A7772">top() = smallest kept</text>
+  <!-- Arrow to result -->
+  <line x1="543" y1="82" x2="598" y2="82" stroke="#8B9B86" stroke-width="1.5" marker-end="url(#ahg)"/>
+  <!-- Result box -->
+  <rect x="608" y="56" width="100" height="56" rx="8" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="658" y="76" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">Top-3</text>
+  <text x="658" y="94" text-anchor="middle" font-size="12" fill="#3A3530">{7, 8, 9}</text>
+  <text x="658" y="108" text-anchor="middle" font-size="9" fill="#7A7772">K largest</text>
+  <!-- Eviction arrow -->
+  <line x1="448" y1="170" x2="448" y2="200" stroke="#B8A5A0" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <!-- Evicted info -->
+  <text x="448" y="220" text-anchor="middle" font-size="11" fill="#B8A5A0">Evicted: 1, 2, 3, 4, 5</text>
+  <text x="448" y="238" text-anchor="middle" font-size="10" fill="#9A9792">new &gt; top() → push new, pop smallest</text>
+</svg>
 
 ### Top K Frequent Elements
 

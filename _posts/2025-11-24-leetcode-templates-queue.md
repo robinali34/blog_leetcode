@@ -16,6 +16,30 @@ See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structur
 
 - **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
+<svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="180" y="20" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Queue (FIFO)</text>
+  <rect x="30" y="35" width="300" height="50" rx="8" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="50" y="55" font-size="10" fill="#9A9792">front →</text>
+  <rect x="100" y="45" width="50" height="30" rx="4" fill="#D4D8E0" stroke="#B8B5B0"/><text x="125" y="64" font-size="12" fill="#5A5752" text-anchor="middle">1</text>
+  <rect x="155" y="45" width="50" height="30" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/><text x="180" y="64" font-size="12" fill="#5A5752" text-anchor="middle">2</text>
+  <rect x="200" y="45" width="50" height="30" rx="4" fill="#E8D5D0" stroke="#B8B5B0"/><text x="225" y="64" font-size="12" fill="#5A5752" text-anchor="middle">3</text>
+  <text x="260" y="55" font-size="10" fill="#9A9792">← back</text>
+  <text x="180" y="95" font-size="10" fill="#5A5752" text-anchor="middle">push → back | pop → front | BFS uses queue</text>
+  <text x="540" y="20" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Deque (both ends)</text>
+  <rect x="400" y="35" width="300" height="50" rx="8" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="420" y="55" font-size="10" fill="#9A9792">front →</text>
+  <rect x="470" y="45" width="50" height="30" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/><text x="495" y="64" font-size="12" fill="#5A5752" text-anchor="middle">5</text>
+  <rect x="525" y="45" width="50" height="30" rx="4" fill="#D4D8E0" stroke="#B8B5B0"/><text x="550" y="64" font-size="12" fill="#5A5752" text-anchor="middle">3</text>
+  <rect x="580" y="45" width="50" height="30" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/><text x="605" y="64" font-size="12" fill="#5A5752" text-anchor="middle">1</text>
+  <text x="660" y="55" font-size="10" fill="#9A9792">← back</text>
+  <text x="540" y="95" font-size="10" fill="#5A5752" text-anchor="middle">push_front / push_back | sliding window, 0-1 BFS</text>
+  <text x="360" y="130" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Monotonic Queue — sliding window max for [1,3,-1,-3,5,3,6,7], k=3</text>
+  <rect x="120" y="145" width="480" height="30" rx="4" fill="#F0EBE6" stroke="#D4D1CC"/>
+  <text x="140" y="165" font-size="11" fill="#5A5752">1</text><text x="200" y="165" font-size="11" fill="#5A5752">3</text><text x="260" y="165" font-size="11" fill="#5A5752">-1</text><text x="320" y="165" font-size="11" fill="#5A5752">-3</text><text x="380" y="165" font-size="11" fill="#5A5752">5</text><text x="440" y="165" font-size="11" fill="#5A5752">3</text><text x="500" y="165" font-size="11" fill="#5A5752">6</text><text x="560" y="165" font-size="11" fill="#5A5752">7</text>
+  <text x="360" y="200" font-size="10" fill="#5A5752" text-anchor="middle">Deque keeps indices in decreasing order → front always has window maximum</text>
+  <text x="360" y="215" font-size="10" fill="#3A6B3A" font-weight="600" text-anchor="middle">Output: [3, 3, 5, 5, 6, 7]</text>
+</svg>
+
 ## Contents
 
 - [Basic Queue Operations](#basic-queue-operations)

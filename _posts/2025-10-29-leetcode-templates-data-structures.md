@@ -11,6 +11,35 @@ This page is your toolbox of essential data structures for LeetCode. Each templa
 
 > **This is the foundation.** These data structures are the building blocks that other templates (DFS, BFS, DP) build on. Master binary search and prefix sums first, then work outward — you'll see them appear inside graph, tree, and dynamic programming solutions.
 
+<svg viewBox="0 0 740 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="22" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Which Data Structure Do I Need?</text>
+  <rect x="30" y="40" width="150" height="44" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="105" y="58" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Sorted + search?</text>
+  <text x="105" y="76" font-size="10" fill="#7A7772" text-anchor="middle">→ Binary Search</text>
+  <rect x="200" y="40" width="150" height="44" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="275" y="58" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Range sums?</text>
+  <text x="275" y="76" font-size="10" fill="#7A7772" text-anchor="middle">→ Prefix Sum / BIT</text>
+  <rect x="370" y="40" width="150" height="44" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="445" y="58" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Next greater/smaller?</text>
+  <text x="445" y="76" font-size="10" fill="#7A7772" text-anchor="middle">→ Monotonic Stack</text>
+  <rect x="500" y="40" width="150" height="44" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="575" y="58" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Top-K / min cost?</text>
+  <text x="575" y="76" font-size="10" fill="#7A7772" text-anchor="middle">→ Heap</text>
+  <rect x="30" y="110" width="150" height="44" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="105" y="128" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Connected groups?</text>
+  <text x="105" y="146" font-size="10" fill="#7A7772" text-anchor="middle">→ Union-Find (DSU)</text>
+  <rect x="200" y="110" width="150" height="44" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="275" y="128" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Prefix of strings?</text>
+  <text x="275" y="146" font-size="10" fill="#7A7772" text-anchor="middle">→ Trie</text>
+  <rect x="370" y="110" width="150" height="44" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="445" y="128" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Range query + update?</text>
+  <text x="445" y="146" font-size="10" fill="#7A7772" text-anchor="middle">→ Segment Tree</text>
+  <rect x="500" y="110" width="150" height="44" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="575" y="128" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Static range min/max?</text>
+  <text x="575" y="146" font-size="10" fill="#7A7772" text-anchor="middle">→ Sparse Table</text>
+  <text x="370" y="185" font-size="10" fill="#9A9792" text-anchor="middle">Start with binary search + prefix sum — they appear inside most other patterns</text>
+</svg>
+
 ## Contents
 
 - [Binary Search (Bounds)](#binary-search-bounds)
@@ -31,6 +60,23 @@ This page is your toolbox of essential data structures for LeetCode. Each templa
 **When to use:** The input is sorted (or the answer space is monotonic) and you need to find a boundary — first element ≥ x, last element ≤ x, or the minimum/maximum value satisfying a condition.
 
 Half-open range `[lo, hi)`. Use when you need first ≥ x (lower_bound) or first > x (upper_bound).
+
+<svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="340" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Binary Search on [2, 5, 8, 12, 16, 23, 38] — target = 23</text>
+  <rect x="80" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="105" y="51" font-size="12" fill="#5A5752" text-anchor="middle">2</text>
+  <rect x="130" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="155" y="51" font-size="12" fill="#5A5752" text-anchor="middle">5</text>
+  <rect x="180" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="205" y="51" font-size="12" fill="#5A5752" text-anchor="middle">8</text>
+  <rect x="230" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="255" y="51" font-size="12" fill="#5A5752" text-anchor="middle">12</text>
+  <rect x="280" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="305" y="51" font-size="12" fill="#5A5752" text-anchor="middle">16</text>
+  <rect x="330" y="30" width="50" height="32" rx="4" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="355" y="51" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">23</text>
+  <rect x="380" y="30" width="50" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="405" y="51" font-size="12" fill="#5A5752" text-anchor="middle">38</text>
+  <text x="105" y="78" font-size="10" fill="#7080A0" font-weight="600">lo</text>
+  <text x="355" y="78" font-size="10" fill="#C08070" font-weight="600">mid ✓</text>
+  <text x="405" y="78" font-size="10" fill="#7080A0" font-weight="600">hi</text>
+  <text x="340" y="110" font-size="10" fill="#5A5752" text-anchor="middle">Step 1: lo=0, hi=6, mid=3 → 12 &lt; 23 → lo=4</text>
+  <text x="340" y="128" font-size="10" fill="#5A5752" text-anchor="middle">Step 2: lo=4, hi=6, mid=5 → 23 = target → found!</text>
+  <text x="340" y="150" font-size="10" fill="#3A6B3A" font-weight="600" text-anchor="middle">Key: half-open range [lo, hi) — mid never equals hi</text>
+</svg>
 
 ```cpp
 // First index where a[i] >= x (lower_bound)
@@ -219,6 +265,21 @@ vector<int> merge_k_sorted(const vector<vector<int>>& lists) {
 
 Path compression + rank merge. `find(x)`, `unite(a,b)`.
 
+<svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="340" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Union-Find — unite(1,2), unite(3,4), unite(2,3)</text>
+  <circle cx="120" cy="55" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="2"/><text x="120" y="60" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">0</text>
+  <circle cx="220" cy="55" r="22" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="220" y="60" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">1</text>
+  <circle cx="320" cy="55" r="22" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="320" y="60" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">2</text>
+  <circle cx="480" cy="55" r="22" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="480" y="60" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">3</text>
+  <circle cx="580" cy="55" r="22" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="580" y="60" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">4</text>
+  <line x1="220" y1="55" x2="120" y2="55" stroke="#6B8B6B" stroke-width="2"/>
+  <line x1="320" y1="55" x2="220" y2="55" stroke="#6B8B6B" stroke-width="2"/>
+  <line x1="580" y1="55" x2="480" y2="55" stroke="#C08070" stroke-width="2"/>
+  <text x="220" y="100" font-size="10" fill="#3A6B3A" text-anchor="middle">Group {0,1,2}</text>
+  <text x="530" y="100" font-size="10" fill="#C08070" text-anchor="middle">Group {3,4}</text>
+  <text x="340" y="130" font-size="10" fill="#5A5752" text-anchor="middle">find(x) returns root with path compression | unite merges two groups</text>
+</svg>
+
 ```cpp
 struct DSU {
     vector<int> p, r;
@@ -248,6 +309,24 @@ struct DSU {
 **When to use:** Problems involve prefix matching, autocomplete, word search in a dictionary, or "find all words with prefix X". Also useful for XOR-maximization with a bitwise trie.
 
 Fixed alphabet (e.g. 26). Insert and search in O(|s|).
+
+<svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="300" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Trie for words: "cat", "car", "dog"</text>
+  <circle cx="300" cy="45" r="18" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="2"/><text x="300" y="50" font-size="10" fill="#5A5752" text-anchor="middle">root</text>
+  <line x1="280" y1="60" x2="200" y2="90" stroke="#B8B5B0"/><line x1="320" y1="60" x2="400" y2="90" stroke="#B8B5B0"/>
+  <circle cx="200" cy="100" r="16" fill="#D4D8D0" stroke="#B8B5B0"/><text x="200" y="105" font-size="11" fill="#5A5752" text-anchor="middle">c</text>
+  <circle cx="400" cy="100" r="16" fill="#E8D5D0" stroke="#B8B5B0"/><text x="400" y="105" font-size="11" fill="#5A5752" text-anchor="middle">d</text>
+  <line x1="185" y1="115" x2="150" y2="140" stroke="#B8B5B0"/><line x1="215" y1="115" x2="250" y2="140" stroke="#B8B5B0"/>
+  <circle cx="150" cy="150" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="150" y="155" font-size="10" fill="#5A5752" text-anchor="middle">a</text>
+  <circle cx="250" cy="150" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="250" y="155" font-size="10" fill="#5A5752" text-anchor="middle">a</text>
+  <line x1="140" y1="162" x2="120" y2="172" stroke="#B8B5B0"/><line x1="160" y1="162" x2="180" y2="172" stroke="#B8B5B0"/>
+  <text x="120" y="176" font-size="9" fill="#3A6B3A" text-anchor="middle">t✓</text>
+  <text x="180" y="176" font-size="9" fill="#3A6B3A" text-anchor="middle">r✓</text>
+  <line x1="400" y1="115" x2="400" y2="150" stroke="#B8B5B0"/>
+  <circle cx="400" cy="160" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="400" y="165" font-size="10" fill="#5A5752" text-anchor="middle">o</text>
+  <line x1="400" y1="172" x2="400" y2="176" stroke="#B8B5B0"/><text x="400" y="176" font-size="9" fill="#3A6B3A" text-anchor="middle">g✓</text>
+  <text x="300" y="176" font-size="9" fill="#9A9792" text-anchor="middle">Shared prefixes share nodes — "cat" and "car" share c→a</text>
+</svg>
 
 ```cpp
 struct Trie {

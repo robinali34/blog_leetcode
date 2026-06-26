@@ -24,6 +24,26 @@ Welcome to the String Processing template collection! These are ready-to-use C++
 
 **When to use:** The problem asks for "longest substring without repeating characters", "minimum window containing all characters", or any contiguous substring optimization with a frequency constraint.
 
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Minimum Window — s = "ADOBECODEBANC", t = "ABC"</text>
+  <text x="50" y="50" font-size="11" fill="#5A5752" font-weight="600">Step 1: expand until valid</text>
+  <rect x="50" y="58" width="36" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/><text x="68" y="76" font-size="11" fill="#5A5752" text-anchor="middle">A</text>
+  <rect x="86" y="58" width="36" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/><text x="104" y="76" font-size="11" fill="#5A5752" text-anchor="middle">D</text>
+  <rect x="122" y="58" width="36" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/><text x="140" y="76" font-size="11" fill="#5A5752" text-anchor="middle">O</text>
+  <rect x="158" y="58" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="176" y="76" font-size="11" fill="#5A5752" text-anchor="middle">B</text>
+  <rect x="194" y="58" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="212" y="76" font-size="11" fill="#5A5752" text-anchor="middle">E</text>
+  <rect x="230" y="58" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="248" y="76" font-size="11" fill="#5A5752" text-anchor="middle">C</text>
+  <text x="290" y="76" font-size="10" fill="#3A6B3A">← window "BEC" has A,B,C ✓</text>
+  <text x="50" y="110" font-size="11" fill="#5A5752" font-weight="600">Step 2: shrink from left</text>
+  <rect x="50" y="118" width="36" height="28" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-dasharray="4"/><text x="68" y="136" font-size="11" fill="#9A9792" text-anchor="middle">A</text>
+  <rect x="158" y="118" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="176" y="136" font-size="11" fill="#5A5752" text-anchor="middle">B</text>
+  <rect x="194" y="118" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="212" y="136" font-size="11" fill="#5A5752" text-anchor="middle">E</text>
+  <rect x="230" y="118" width="36" height="28" rx="3" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="248" y="136" font-size="11" fill="#5A5752" text-anchor="middle">C</text>
+  <text x="290" y="136" font-size="10" fill="#5A5752">shrink left → "BEC" (len=3)</text>
+  <text x="350" y="175" font-size="11" fill="#5A5752" text-anchor="middle">Pattern: expand right until valid → shrink left while still valid → track minimum length</text>
+  <text x="350" y="192" font-size="10" fill="#9A9792" text-anchor="middle">left pointer ────────────────────────────── right pointer</text>
+</svg>
+
 ### Longest Substring Without Repeating Characters
 
 ```cpp

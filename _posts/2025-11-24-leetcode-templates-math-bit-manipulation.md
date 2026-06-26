@@ -12,6 +12,21 @@ This page collects ready-to-use C++ templates for bit manipulation, fast exponen
 
 > **New to Bit Manipulation?** Computers store everything in binary. Bit manipulation lets you perform operations on individual bits — it's incredibly fast and often turns complex problems into elegant one-liners. The most common trick: XOR (`a ^ b`) cancels matching bits, which is why it solves "single number" problems.
 
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">Bit Positions — number 23 = 10111</text>
+  <rect x="80" y="35" width="60" height="36" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="110" y="50" font-size="9" fill="#9A9792" text-anchor="middle">bit 4</text><text x="110" y="66" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">1</text>
+  <rect x="140" y="35" width="60" height="36" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="170" y="50" font-size="9" fill="#9A9792" text-anchor="middle">bit 3</text><text x="170" y="66" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">0</text>
+  <rect x="200" y="35" width="60" height="36" rx="4" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="230" y="50" font-size="9" fill="#9A9792" text-anchor="middle">bit 2</text><text x="230" y="66" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">1</text>
+  <rect x="260" y="35" width="60" height="36" rx="4" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="290" y="50" font-size="9" fill="#9A9792" text-anchor="middle">bit 1</text><text x="290" y="66" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">1</text>
+  <rect x="320" y="35" width="60" height="36" rx="4" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="350" y="50" font-size="9" fill="#9A9792" text-anchor="middle">bit 0</text><text x="350" y="66" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">1</text>
+  <text x="450" y="58" font-size="11" fill="#5A5752">16+4+2+1 = 23</text>
+  <text x="350" y="105" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">XOR Trick — Single Number (all appear twice except one)</text>
+  <text x="120" y="130" font-size="11" fill="#5A5752">4</text><text x="160" y="130" font-size="11" fill="#5A5752">^ 1</text><text x="200" y="130" font-size="11" fill="#5A5752">^ 2</text><text x="240" y="130" font-size="11" fill="#5A5752">^ 1</text><text x="300" y="130" font-size="11" fill="#5A5752">^ 4</text><text x="360" y="130" font-size="11" fill="#5A5752">^ 2</text>
+  <text x="420" y="130" font-size="12" fill="#3A6B3A" font-weight="700">= 4</text>
+  <text x="350" y="155" font-size="10" fill="#5A5752" text-anchor="middle">Pairs cancel (a ^ a = 0), only the unique number survives</text>
+  <text x="350" y="180" font-size="10" fill="#5A5752" text-anchor="middle">num &amp; (num-1) clears lowest set bit | num &amp; (-num) gets lowest set bit</text>
+</svg>
+
 ## Contents
 
 - [Bit Operations](#bit-operations)

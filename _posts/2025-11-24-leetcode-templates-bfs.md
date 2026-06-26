@@ -125,6 +125,97 @@ void bfs(vector<vector<int>>& graph, int start) {
 
 BFS for 2D grid problems (4-directional or 8-directional).
 
+<svg viewBox="0 0 560 330" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="185" y="28" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">BFS expands outward on a grid</text>
+  <text x="89" y="46" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <text x="140" y="46" font-size="9" fill="#9A9792" text-anchor="middle">1</text>
+  <text x="191" y="46" font-size="9" fill="#9A9792" text-anchor="middle">2</text>
+  <text x="242" y="46" font-size="9" fill="#9A9792" text-anchor="middle">3</text>
+  <text x="293" y="46" font-size="9" fill="#9A9792" text-anchor="middle">4</text>
+  <text x="56" y="81" font-size="9" fill="#9A9792" text-anchor="end">0</text>
+  <text x="56" y="132" font-size="9" fill="#9A9792" text-anchor="end">1</text>
+  <text x="56" y="183" font-size="9" fill="#9A9792" text-anchor="end">2</text>
+  <text x="56" y="234" font-size="9" fill="#9A9792" text-anchor="end">3</text>
+  <text x="56" y="285" font-size="9" fill="#9A9792" text-anchor="end">4</text>
+  <!-- Row 0 -->
+  <rect x="65" y="52" width="48" height="48" rx="5" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="89" y="81" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">0</text>
+  <rect x="116" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="167" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="218" y="52" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="269" y="52" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">4</text>
+  <!-- Row 1 -->
+  <rect x="65" y="103" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="116" y="103" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="167" y="103" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="218" y="103" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">4</text>
+  <rect x="269" y="103" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">5</text>
+  <!-- Row 2 -->
+  <rect x="65" y="154" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="116" y="154" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="167" y="154" width="48" height="48" rx="5" fill="#9A9792" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="191" y="183" font-size="16" fill="#FAF8F5" font-weight="700" text-anchor="middle">#</text>
+  <rect x="218" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">5</text>
+  <rect x="269" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">6</text>
+  <!-- Row 3 -->
+  <rect x="65" y="205" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="116" y="205" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">4</text>
+  <rect x="167" y="205" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">5</text>
+  <rect x="218" y="205" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">6</text>
+  <rect x="269" y="205" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">7</text>
+  <!-- Row 4 -->
+  <rect x="65" y="256" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">4</text>
+  <rect x="116" y="256" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">5</text>
+  <rect x="167" y="256" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">6</text>
+  <rect x="218" y="256" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">7</text>
+  <rect x="269" y="256" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">8</text>
+  <!-- Wavefront annotation -->
+  <path d="M 335 80 C 360 80 365 140 355 190" fill="none" stroke="#8B8680" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <polygon points="351,188 359,196 355,186" fill="#8B8680"/>
+  <text x="375" y="88" font-size="11" fill="#5A5752" font-weight="600">BFS wavefront</text>
+  <text x="375" y="104" font-size="10" fill="#7A7772">expands one step</text>
+  <text x="375" y="118" font-size="10" fill="#7A7772">at a time from start</text>
+  <text x="375" y="148" font-size="10" fill="#7A7772" font-style="italic">Wall at (2,2) forces</text>
+  <text x="375" y="162" font-size="10" fill="#7A7772" font-style="italic">BFS to go around it</text>
+  <!-- Legend -->
+  <text x="375" y="200" font-size="11" fill="#3A3530" font-weight="600">Distance from start</text>
+  <rect x="375" y="210" width="14" height="14" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="395" y="221" font-size="10" fill="#5A5752">0 (start)</text>
+  <rect x="375" y="230" width="14" height="14" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="395" y="241" font-size="10" fill="#5A5752">1–2</text>
+  <rect x="375" y="250" width="14" height="14" rx="3" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="395" y="261" font-size="10" fill="#5A5752">3–4</text>
+  <rect x="375" y="270" width="14" height="14" rx="3" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="395" y="281" font-size="10" fill="#5A5752">5–6</text>
+  <rect x="375" y="290" width="14" height="14" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="395" y="301" font-size="10" fill="#5A5752">7–8</text>
+  <rect x="450" y="210" width="14" height="14" rx="3" fill="#9A9792" stroke="#8B8680" stroke-width="1"/>
+  <text x="470" y="221" font-size="10" fill="#5A5752">Wall</text>
+</svg>
+
 ```cpp
 // BFS on 2D grid (4-directional)
 int bfsGrid(vector<vector<char>>& grid, pair<int, int> start, pair<int, int> target) {
@@ -202,6 +293,90 @@ int numIslands(vector<vector<char>>& grid) {
 **When to use:** The problem asks for the distance from ANY source (not one specific source). Classic signals: "distance to nearest 0," "rotting spreads from all rotten oranges simultaneously," or "fill from all gates at once."
 
 Start BFS from multiple sources simultaneously -- enqueue all starting points before the loop begins.
+
+<svg viewBox="0 0 580 340" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="185" y="28" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">Multi-source BFS — distance to nearest source</text>
+  <text x="89" y="46" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <text x="140" y="46" font-size="9" fill="#9A9792" text-anchor="middle">1</text>
+  <text x="191" y="46" font-size="9" fill="#9A9792" text-anchor="middle">2</text>
+  <text x="242" y="46" font-size="9" fill="#9A9792" text-anchor="middle">3</text>
+  <text x="293" y="46" font-size="9" fill="#9A9792" text-anchor="middle">4</text>
+  <!-- Row 0: 0 1 2 1 0 — sources at (0,0) and (0,4) -->
+  <rect x="65" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="89" y="79" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">0</text>
+  <text x="89" y="93" font-size="8" fill="#5A5752" text-anchor="middle">src</text>
+  <rect x="116" y="52" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="167" y="52" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="218" y="52" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="81" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="269" y="52" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="293" y="79" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">0</text>
+  <text x="293" y="93" font-size="8" fill="#5A5752" text-anchor="middle">src</text>
+  <!-- Row 1: 1 2 3 2 1 -->
+  <rect x="65" y="103" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="116" y="103" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="167" y="103" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="218" y="103" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="269" y="103" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="132" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <!-- Row 2: 2 3 2 3 2 -->
+  <rect x="65" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="116" y="154" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="167" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="218" y="154" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="269" y="154" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="183" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <!-- Row 3: 3 2 1 2 3 -->
+  <rect x="65" y="205" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <rect x="116" y="205" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="167" y="205" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="191" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="218" y="205" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="269" y="205" width="48" height="48" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="234" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">3</text>
+  <!-- Row 4: 2 1 0 1 2 — source at (4,2) -->
+  <rect x="65" y="256" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="89" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <rect x="116" y="256" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="140" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="167" y="256" width="48" height="48" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="191" y="283" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">0</text>
+  <text x="191" y="297" font-size="8" fill="#5A5752" text-anchor="middle">src</text>
+  <rect x="218" y="256" width="48" height="48" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="242" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">1</text>
+  <rect x="269" y="256" width="48" height="48" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="293" y="285" font-size="13" fill="#3A3530" font-weight="600" text-anchor="middle">2</text>
+  <!-- Annotations -->
+  <text x="370" y="75" font-size="11" fill="#5A5752" font-weight="600">All sources enqueued</text>
+  <text x="370" y="91" font-size="11" fill="#5A5752" font-weight="600">at distance 0</text>
+  <text x="370" y="118" font-size="10" fill="#7A7772">BFS expands from every</text>
+  <text x="370" y="132" font-size="10" fill="#7A7772">source simultaneously.</text>
+  <text x="370" y="158" font-size="10" fill="#7A7772" font-style="italic">Each cell shows distance</text>
+  <text x="370" y="172" font-size="10" fill="#7A7772" font-style="italic">to the nearest source.</text>
+  <!-- Legend -->
+  <text x="370" y="210" font-size="11" fill="#3A3530" font-weight="600">Legend</text>
+  <rect x="370" y="220" width="14" height="14" rx="3" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="390" y="231" font-size="10" fill="#5A5752">Source (dist 0)</text>
+  <rect x="370" y="240" width="14" height="14" rx="3" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="390" y="251" font-size="10" fill="#5A5752">Dist 1</text>
+  <rect x="370" y="260" width="14" height="14" rx="3" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="390" y="271" font-size="10" fill="#5A5752">Dist 2</text>
+  <rect x="370" y="280" width="14" height="14" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="390" y="291" font-size="10" fill="#5A5752">Dist 3</text>
+</svg>
 
 ```cpp
 // Multi-source BFS (e.g., 01 Matrix)
@@ -367,6 +542,77 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 **When to use:** The shortest path depends on more than just position -- you also need to track keys collected, obstacles eliminated, a bitmask of visited nodes, or other extra dimensions. Look for "at most k obstacles," "collect all keys," or "visit all nodes."
 
 BFS when state includes more than just position -- expand the visited array to cover all state dimensions.
+
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="22" font-size="13" fill="#3A3530" font-weight="700" text-anchor="middle">BFS with state = (position, keys_collected)</text>
+  <!-- Grid: 3x3 with keys a,b and doors A,B -->
+  <text x="105" y="48" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Grid with keys &amp; doors</text>
+  <!-- Row 0: S . A -->
+  <rect x="40" y="58" width="50" height="50" rx="5" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="65" y="88" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">S</text>
+  <rect x="93" y="58" width="50" height="50" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="118" y="88" font-size="13" fill="#9A9792" font-weight="600" text-anchor="middle">·</text>
+  <rect x="146" y="58" width="50" height="50" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="171" y="88" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">A</text>
+  <!-- Row 1: a . . -->
+  <rect x="40" y="111" width="50" height="50" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="65" y="141" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">a</text>
+  <rect x="93" y="111" width="50" height="50" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="118" y="141" font-size="13" fill="#9A9792" font-weight="600" text-anchor="middle">·</text>
+  <rect x="146" y="111" width="50" height="50" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="171" y="141" font-size="13" fill="#9A9792" font-weight="600" text-anchor="middle">·</text>
+  <!-- Row 2: . b B -->
+  <rect x="40" y="164" width="50" height="50" rx="5" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="65" y="194" font-size="13" fill="#9A9792" font-weight="600" text-anchor="middle">·</text>
+  <rect x="93" y="164" width="50" height="50" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="118" y="194" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">b</text>
+  <rect x="146" y="164" width="50" height="50" rx="5" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="171" y="194" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">B</text>
+  <!-- Grid legend -->
+  <rect x="30" y="230" width="12" height="12" rx="2" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="48" y="240" font-size="9" fill="#5A5752">key (collect)</text>
+  <rect x="115" y="230" width="12" height="12" rx="2" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="133" y="240" font-size="9" fill="#5A5752">door (need key)</text>
+  <!-- State space visualization -->
+  <line x1="230" y1="45" x2="230" y2="260" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="460" y="48" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">State = (row, col, keys_bitmask)</text>
+  <!-- Bitmask explanation -->
+  <text x="310" y="76" font-size="10" fill="#7A7772">Bitmask tracks collected keys:</text>
+  <rect x="310" y="84" width="24" height="20" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="322" y="98" font-size="10" fill="#9A9792" font-weight="600" text-anchor="middle">a</text>
+  <rect x="338" y="84" width="24" height="20" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="350" y="98" font-size="10" fill="#9A9792" font-weight="600" text-anchor="middle">b</text>
+  <text x="372" y="98" font-size="10" fill="#7A7772">= 00 (no keys)</text>
+  <!-- State transitions -->
+  <rect x="265" y="118" width="400" height="32" rx="6" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="275" y="138" font-size="11" fill="#3A3530" font-weight="600">❶ Start:</text>
+  <text x="345" y="138" font-size="11" fill="#5A5752" font-family="monospace">(0, 0)</text>
+  <rect x="415" y="126" width="22" height="16" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="426" y="138" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <rect x="439" y="126" width="22" height="16" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="450" y="138" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <text x="470" y="138" font-size="10" fill="#7A7772">no keys</text>
+  <text x="462" y="162" font-size="11" fill="#B8B5B0">↓ pick up key a</text>
+  <rect x="265" y="170" width="400" height="32" rx="6" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="275" y="190" font-size="11" fill="#3A3530" font-weight="600">❷ Got key a:</text>
+  <text x="362" y="190" font-size="11" fill="#5A5752" font-family="monospace">(1, 0)</text>
+  <rect x="415" y="178" width="22" height="16" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+  <text x="426" y="190" font-size="9" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="439" y="178" width="22" height="16" rx="3" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="450" y="190" font-size="9" fill="#9A9792" text-anchor="middle">0</text>
+  <text x="470" y="190" font-size="10" fill="#7A7772">has a → can open A</text>
+  <text x="462" y="214" font-size="11" fill="#B8B5B0">↓ pick up key b</text>
+  <rect x="265" y="222" width="400" height="32" rx="6" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="275" y="242" font-size="11" fill="#3A3530" font-weight="600">❸ Got both:</text>
+  <text x="358" y="242" font-size="11" fill="#5A5752" font-family="monospace">(2, 1)</text>
+  <rect x="415" y="230" width="22" height="16" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+  <text x="426" y="242" font-size="9" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="439" y="230" width="22" height="16" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+  <text x="450" y="242" font-size="9" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <text x="470" y="242" font-size="10" fill="#7A7772">has a,b → can open B</text>
+  <!-- Key insight -->
+  <text x="350" y="280" font-size="10" fill="#5A5752" text-anchor="middle" font-style="italic">Same cell can be visited with different key sets → different states!</text>
+</svg>
 
 ```cpp
 // BFS with state (e.g., Shortest Path with Obstacle Elimination)

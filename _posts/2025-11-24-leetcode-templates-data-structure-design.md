@@ -12,6 +12,28 @@ Data structure design problems are among the most popular interview questions at
 
 > **Design problems test your ability to compose data structures.** The trick is almost always combining a hash map with another structure (linked list, heap, array) to get O(1) for multiple operations.
 
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="360" y="18" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">LRU Cache — hash map + doubly linked list</text>
+  <rect x="30" y="40" width="200" height="120" rx="8" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="130" y="58" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Hash Map</text>
+  <text x="50" y="80" font-size="10" fill="#5A5752">key=1 → node₁</text>
+  <text x="50" y="98" font-size="10" fill="#5A5752">key=2 → node₂</text>
+  <text x="50" y="116" font-size="10" fill="#5A5752">key=3 → node₃</text>
+  <text x="130" y="145" font-size="9" fill="#9A9792" text-anchor="middle">O(1) lookup by key</text>
+  <text x="400" y="35" font-size="10" fill="#9A9792">head (oldest)</text>
+  <rect x="280" y="45" width="70" height="32" rx="4" fill="#F0EBE6" stroke="#B8B5B0"/><text x="315" y="64" font-size="12" fill="#9A9792" text-anchor="middle">1</text>
+  <line x1="350" y1="61" x2="380" y2="61" stroke="#B8B5B0" marker-end="url(#lru-arr)"/>
+  <rect x="380" y="45" width="70" height="32" rx="4" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/><text x="415" y="64" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">2</text>
+  <line x1="450" y1="61" x2="480" y2="61" stroke="#B8B5B0"/>
+  <rect x="480" y="45" width="70" height="32" rx="4" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/><text x="515" y="64" font-size="12" fill="#5A5752" font-weight="700" text-anchor="middle">3</text>
+  <text x="560" y="35" font-size="10" fill="#C08070" font-weight="600">tail (recent)</text>
+  <defs><marker id="lru-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#B8B5B0"/></marker></defs>
+  <text x="400" y="100" font-size="10" fill="#5A5752" text-anchor="middle">Doubly linked list — O(1) insert/remove at any position</text>
+  <text x="400" y="130" font-size="10" fill="#5A5752" text-anchor="middle">get(3): map lookup → splice node to tail (mark recent)</text>
+  <text x="400" y="152" font-size="10" fill="#5A5752" text-anchor="middle">put(4): if full → evict head (oldest), insert at tail</text>
+  <text x="400" y="180" font-size="10" fill="#3A6B3A" font-weight="600" text-anchor="middle">Both get and put are O(1)</text>
+</svg>
+
 - **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
 ## Contents

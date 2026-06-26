@@ -30,6 +30,105 @@ Arrays and strings are the foundation of coding interviews — you'll encounter 
 
 **When to use:** "longest substring", "shortest subarray", "at most k distinct", or any problem asking for a contiguous subrange that satisfies a constraint.
 
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 260" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <rect width="700" height="260" rx="12" fill="#FAF8F5"/>
+  <text x="350" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#3A3530">Sliding Window — Longest Substring Without Repeating</text>
+  <g font-size="8" fill="#9A9792" text-anchor="middle">
+    <text x="72" y="40">0</text><text x="109" y="40">1</text><text x="146" y="40">2</text><text x="183" y="40">3</text>
+    <text x="220" y="40">4</text><text x="257" y="40">5</text><text x="294" y="40">6</text><text x="331" y="40">7</text>
+  </g>
+  <g transform="translate(0, 44)">
+    <text x="20" y="18" font-size="10" fill="#7A7772">#1</text>
+    <rect x="55" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="72" y="18" text-anchor="middle" font-size="12" fill="#3A3530">a</text>
+    <rect x="92" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="109" y="18" text-anchor="middle" font-size="12" fill="#3A3530">b</text>
+    <rect x="129" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="146" y="18" text-anchor="middle" font-size="12" fill="#3A3530">c</text>
+    <rect x="166" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="183" y="18" text-anchor="middle" font-size="12" fill="#9A9792">a</text>
+    <rect x="203" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="220" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="240" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="257" y="18" text-anchor="middle" font-size="12" fill="#9A9792">c</text>
+    <rect x="277" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="294" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="314" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="331" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="53" y="-4" width="112" height="34" rx="5" fill="none" stroke="#8B8680" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="380" y="12" font-size="11" fill="#5A5752">expand → window "abc", len = 3</text>
+    <text x="380" y="26" font-size="10" fill="#7A7772">seen: {a, b, c}</text>
+  </g>
+  <g transform="translate(0, 99)">
+    <text x="20" y="18" font-size="10" fill="#7A7772">#2</text>
+    <rect x="55" y="0" width="34" height="26" rx="3" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="72" y="18" text-anchor="middle" font-size="12" fill="#3A3530">a</text>
+    <rect x="92" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="109" y="18" text-anchor="middle" font-size="12" fill="#3A3530">b</text>
+    <rect x="129" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="146" y="18" text-anchor="middle" font-size="12" fill="#3A3530">c</text>
+    <rect x="166" y="0" width="34" height="26" rx="3" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="183" y="18" text-anchor="middle" font-size="12" fill="#3A3530">a</text>
+    <rect x="203" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="220" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="240" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="257" y="18" text-anchor="middle" font-size="12" fill="#9A9792">c</text>
+    <rect x="277" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="294" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="314" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="331" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="53" y="-4" width="149" height="34" rx="5" fill="none" stroke="#B8B5B0" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="380" y="12" font-size="11" fill="#5A5752">expand → "abca" — 'a' repeats!</text>
+    <text x="380" y="26" font-size="10" fill="#7A7772">shrink left to remove duplicate</text>
+  </g>
+  <g transform="translate(0, 154)">
+    <text x="20" y="18" font-size="10" fill="#7A7772">#3</text>
+    <rect x="55" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="72" y="18" text-anchor="middle" font-size="12" fill="#9A9792">a</text>
+    <rect x="92" y="0" width="34" height="26" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="109" y="18" text-anchor="middle" font-size="12" fill="#3A3530">b</text>
+    <rect x="129" y="0" width="34" height="26" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="146" y="18" text-anchor="middle" font-size="12" fill="#3A3530">c</text>
+    <rect x="166" y="0" width="34" height="26" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="183" y="18" text-anchor="middle" font-size="12" fill="#3A3530">a</text>
+    <rect x="203" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="220" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="240" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="257" y="18" text-anchor="middle" font-size="12" fill="#9A9792">c</text>
+    <rect x="277" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="294" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="314" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="331" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="90" y="-4" width="112" height="34" rx="5" fill="none" stroke="#8B8680" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="380" y="12" font-size="11" fill="#5A5752">shrink → "bca", len = 3</text>
+    <text x="380" y="26" font-size="10" fill="#7A7772">no duplicates, continue expanding</text>
+  </g>
+  <g transform="translate(0, 209)">
+    <text x="20" y="18" font-size="10" fill="#7A7772">#4</text>
+    <rect x="55" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="72" y="18" text-anchor="middle" font-size="12" fill="#9A9792">a</text>
+    <rect x="92" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="109" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="129" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="146" y="18" text-anchor="middle" font-size="12" fill="#9A9792">c</text>
+    <rect x="166" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="183" y="18" text-anchor="middle" font-size="12" fill="#3A3530">a</text>
+    <rect x="203" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="220" y="18" text-anchor="middle" font-size="12" fill="#3A3530">b</text>
+    <rect x="240" y="0" width="34" height="26" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.2"/>
+    <text x="257" y="18" text-anchor="middle" font-size="12" fill="#3A3530">c</text>
+    <rect x="277" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="294" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="314" y="0" width="34" height="26" rx="3" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+    <text x="331" y="18" text-anchor="middle" font-size="12" fill="#9A9792">b</text>
+    <rect x="164" y="-4" width="112" height="34" rx="5" fill="none" stroke="#8B8680" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="380" y="12" font-size="11" fill="#5A5752">expand → "abc", len = 3</text>
+    <text x="380" y="26" font-size="10" fill="#3A3530" font-weight="bold">max length = 3</text>
+  </g>
+</svg>
+</div>
+
 ```cpp
 // Variable-size window (e.g., longest substring without repeating)
 int longestNoRepeat(const string& s){
@@ -60,6 +159,49 @@ int longestNoRepeat(const string& s){
 ## Two Pointers (sorted arrays/strings)
 
 **When to use:** "pair with target sum in sorted array", "container with most water", "valid palindrome", or when the array is sorted and you can shrink the search space from both ends.
+
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 210" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <rect width="700" height="210" rx="12" fill="#FAF8F5"/>
+  <text x="350" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#3A3530">Two Pointers — Find Pair with Target Sum = 9</text>
+  <g font-size="14" text-anchor="middle">
+    <rect x="154" y="42" width="48" height="40" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="178" y="68" fill="#9A9792">1</text>
+    <text x="178" y="94" font-size="9" fill="#9A9792">0</text>
+    <rect x="210" y="42" width="48" height="40" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="234" y="68" fill="#3A3530" font-weight="bold">2</text>
+    <text x="234" y="94" font-size="9" fill="#5A5752">1</text>
+    <rect x="266" y="42" width="48" height="40" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="290" y="68" fill="#5A5752">3</text>
+    <text x="290" y="94" font-size="9" fill="#9A9792">2</text>
+    <rect x="322" y="42" width="48" height="40" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="346" y="68" fill="#5A5752">4</text>
+    <text x="346" y="94" font-size="9" fill="#9A9792">3</text>
+    <rect x="378" y="42" width="48" height="40" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="402" y="68" fill="#5A5752">5</text>
+    <text x="402" y="94" font-size="9" fill="#9A9792">4</text>
+    <rect x="434" y="42" width="48" height="40" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.2"/>
+    <text x="458" y="68" fill="#5A5752">6</text>
+    <text x="458" y="94" font-size="9" fill="#9A9792">5</text>
+    <rect x="490" y="42" width="48" height="40" rx="5" fill="#E8D5D0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="514" y="68" fill="#3A3530" font-weight="bold">7</text>
+    <text x="514" y="94" font-size="9" fill="#5A5752">6</text>
+  </g>
+  <polygon points="234,104 228,114 240,114" fill="#8B8680"/>
+  <text x="234" y="128" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">left</text>
+  <polygon points="514,104 508,114 520,114" fill="#8B8680"/>
+  <text x="514" y="128" text-anchor="middle" font-size="11" fill="#5A5752" font-weight="bold">right</text>
+  <path d="M178,40 Q178,30 206,30 Q234,30 234,40" fill="none" stroke="#B8B5B0" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <polygon points="232,38 234,44 236,38" fill="#B8B5B0"/>
+  <text x="206" y="26" text-anchor="middle" font-size="9" fill="#9A9792">move →</text>
+  <g font-size="12">
+    <text x="120" y="156" fill="#7A7772">Step 1:</text>
+    <text x="178" y="156" fill="#5A5752">left=0, right=6 → 1 + 7 = 8 &lt; 9 → move left</text>
+    <text x="120" y="180" fill="#7A7772">Step 2:</text>
+    <text x="178" y="180" fill="#3A3530" font-weight="bold">left=1, right=6 → 2 + 7 = 9 = target ✓</text>
+  </g>
+</svg>
+</div>
 
 ```cpp
 bool twoSumSorted(const vector<int>& a, int target){

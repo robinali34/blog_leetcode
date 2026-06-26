@@ -142,6 +142,85 @@ backtrack(current_state):
 
 Generate all permutations of distinct elements.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="20" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Permutation Tree for [1, 2, 3] — pick one unused element per level</text>
+  <!-- Edges Root to L1 -->
+  <line x1="370" y1="56" x2="120" y2="106" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="370" y1="56" x2="370" y2="106" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="370" y1="56" x2="620" y2="106" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="232" y="74" text-anchor="middle" font-size="10" fill="#9A9792">pick 1</text>
+  <text x="382" y="74" text-anchor="middle" font-size="10" fill="#9A9792">pick 2</text>
+  <text x="508" y="74" text-anchor="middle" font-size="10" fill="#9A9792">pick 3</text>
+  <!-- Edges L1 to L2 -->
+  <line x1="120" y1="130" x2="60" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="120" y1="130" x2="180" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="370" y1="130" x2="310" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="370" y1="130" x2="430" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="620" y1="130" x2="560" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="620" y1="130" x2="680" y2="178" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="82" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+2</text>
+  <text x="158" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+3</text>
+  <text x="332" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+1</text>
+  <text x="408" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+3</text>
+  <text x="582" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+1</text>
+  <text x="658" y="152" text-anchor="middle" font-size="10" fill="#9A9792">+2</text>
+  <!-- Edges L2 to L3 (single child each) -->
+  <line x1="60" y1="202" x2="60" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="180" y1="202" x2="180" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="310" y1="202" x2="310" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="430" y1="202" x2="430" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="560" y1="202" x2="560" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="680" y1="202" x2="680" y2="250" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="50" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+3</text>
+  <text x="170" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+2</text>
+  <text x="300" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+3</text>
+  <text x="420" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+1</text>
+  <text x="550" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+2</text>
+  <text x="670" y="228" text-anchor="middle" font-size="10" fill="#9A9792">+1</text>
+  <!-- Root node -->
+  <rect x="340" y="36" width="60" height="24" rx="12" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="51" text-anchor="middle" font-size="12" fill="#3A3530">[ ]</text>
+  <!-- L1 nodes -->
+  <rect x="90" y="110" width="60" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="120" y="125" text-anchor="middle" font-size="12" fill="#3A3530">[1]</text>
+  <rect x="340" y="110" width="60" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="125" text-anchor="middle" font-size="12" fill="#3A3530">[2]</text>
+  <rect x="590" y="110" width="60" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="620" y="125" text-anchor="middle" font-size="12" fill="#3A3530">[3]</text>
+  <!-- L2 nodes -->
+  <rect x="25" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="60" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[1,2]</text>
+  <rect x="145" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="180" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[1,3]</text>
+  <rect x="275" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="310" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[2,1]</text>
+  <rect x="395" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="430" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[2,3]</text>
+  <rect x="525" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="560" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[3,1]</text>
+  <rect x="645" y="182" width="70" height="24" rx="12" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="680" y="197" text-anchor="middle" font-size="11" fill="#3A3530">[3,2]</text>
+  <!-- L3 leaves (green-ish completed permutations) -->
+  <rect x="15" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="60" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[1,2,3]</text>
+  <rect x="135" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="180" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[1,3,2]</text>
+  <rect x="265" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="310" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[2,1,3]</text>
+  <rect x="385" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="430" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[2,3,1]</text>
+  <rect x="515" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="560" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[3,1,2]</text>
+  <rect x="635" y="254" width="90" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="680" y="269" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">[3,2,1]</text>
+  <!-- Legend -->
+  <rect x="195" y="302" width="14" height="14" rx="4" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="215" y="313" font-size="10" fill="#7A7772">Partial path</text>
+  <rect x="320" y="302" width="14" height="14" rx="4" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1"/>
+  <text x="340" y="313" font-size="10" fill="#7A7772">Complete permutation (leaf)</text>
+  <text x="370" y="335" text-anchor="middle" font-size="10" fill="#9A9792">3! = 6 permutations · each root-to-leaf path is one arrangement</text>
+</svg>
+
 ### Permutations without duplicates
 
 ```cpp
@@ -234,6 +313,81 @@ void backtrack(int start, int n, int k, vector<int>& cur, vector<vector<int>>& r
 **When to use:** The problem asks for "all subsets", "power set", "all subsequences", or "every possible selection".
 
 Generate all subsets (power set) of an array. This includes the empty set and the set itself.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="18" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Subsets of [1, 2, 3] — Include / Exclude at Each Level</text>
+  <!-- Edges Root to L1 -->
+  <line x1="370" y1="50" x2="185" y2="98" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="370" y1="50" x2="555" y2="98" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="264" y="68" text-anchor="middle" font-size="10" fill="#8B9B86">incl 1</text>
+  <text x="476" y="68" text-anchor="middle" font-size="10" fill="#B8A5A0">excl 1</text>
+  <!-- Edges L1 to L2 -->
+  <line x1="185" y1="122" x2="95" y2="170" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="185" y1="122" x2="275" y2="170" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="555" y1="122" x2="465" y2="170" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="555" y1="122" x2="645" y2="170" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="132" y="142" text-anchor="middle" font-size="10" fill="#8B9B86">+2</text>
+  <text x="238" y="142" text-anchor="middle" font-size="10" fill="#B8A5A0">skip 2</text>
+  <text x="502" y="142" text-anchor="middle" font-size="10" fill="#8B9B86">+2</text>
+  <text x="608" y="142" text-anchor="middle" font-size="10" fill="#B8A5A0">skip 2</text>
+  <!-- Edges L2 to L3 -->
+  <line x1="95" y1="194" x2="55" y2="242" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="95" y1="194" x2="135" y2="242" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="275" y1="194" x2="235" y2="242" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="275" y1="194" x2="315" y2="242" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="465" y1="194" x2="425" y2="242" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="465" y1="194" x2="505" y2="242" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="645" y1="194" x2="605" y2="242" stroke="#8B9B86" stroke-width="1.5"/>
+  <line x1="645" y1="194" x2="685" y2="242" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="68" y="216" text-anchor="middle" font-size="9" fill="#8B9B86">+3</text>
+  <text x="122" y="216" text-anchor="middle" font-size="9" fill="#B8A5A0">skip</text>
+  <text x="248" y="216" text-anchor="middle" font-size="9" fill="#8B9B86">+3</text>
+  <text x="302" y="216" text-anchor="middle" font-size="9" fill="#B8A5A0">skip</text>
+  <text x="438" y="216" text-anchor="middle" font-size="9" fill="#8B9B86">+3</text>
+  <text x="492" y="216" text-anchor="middle" font-size="9" fill="#B8A5A0">skip</text>
+  <text x="618" y="216" text-anchor="middle" font-size="9" fill="#8B9B86">+3</text>
+  <text x="672" y="216" text-anchor="middle" font-size="9" fill="#B8A5A0">skip</text>
+  <!-- Root node -->
+  <rect x="342" y="30" width="56" height="24" rx="12" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="370" y="45" text-anchor="middle" font-size="12" fill="#3A3530">{ }</text>
+  <!-- L1 nodes -->
+  <rect x="157" y="102" width="56" height="24" rx="12" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="185" y="117" text-anchor="middle" font-size="12" fill="#3A3530">{1}</text>
+  <rect x="527" y="102" width="56" height="24" rx="12" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="555" y="117" text-anchor="middle" font-size="12" fill="#3A3530">{ }</text>
+  <!-- L2 nodes -->
+  <rect x="62" y="174" width="66" height="24" rx="12" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="95" y="189" text-anchor="middle" font-size="11" fill="#3A3530">{1,2}</text>
+  <rect x="247" y="174" width="56" height="24" rx="12" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="275" y="189" text-anchor="middle" font-size="11" fill="#3A3530">{1}</text>
+  <rect x="437" y="174" width="56" height="24" rx="12" fill="#D4D8D0" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="465" y="189" text-anchor="middle" font-size="11" fill="#3A3530">{2}</text>
+  <rect x="617" y="174" width="56" height="24" rx="12" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="645" y="189" text-anchor="middle" font-size="11" fill="#3A3530">{ }</text>
+  <!-- L3 leaf nodes (green-ish, all subsets) -->
+  <rect x="14" y="246" width="82" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="55" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{1,2,3}</text>
+  <rect x="101" y="246" width="68" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="135" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{1,2}</text>
+  <rect x="201" y="246" width="68" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="235" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{1,3}</text>
+  <rect x="288" y="246" width="54" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="315" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{1}</text>
+  <rect x="391" y="246" width="68" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="425" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{2,3}</text>
+  <rect x="478" y="246" width="54" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="505" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{2}</text>
+  <rect x="578" y="246" width="54" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="605" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{3}</text>
+  <rect x="658" y="246" width="54" height="24" rx="12" fill="#C8D5C4" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="685" y="261" text-anchor="middle" font-size="10" font-weight="600" fill="#3A3530">{ }</text>
+  <!-- Legend -->
+  <line x1="190" y1="296" x2="225" y2="296" stroke="#8B9B86" stroke-width="1.5"/>
+  <text x="235" y="300" font-size="10" fill="#7A7772">Include element</text>
+  <line x1="350" y1="296" x2="385" y2="296" stroke="#B8A5A0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="395" y="300" font-size="10" fill="#7A7772">Exclude element</text>
+  <text x="370" y="322" text-anchor="middle" font-size="10" fill="#9A9792">Each root-to-leaf path is one subset · 2³ = 8 subsets total</text>
+</svg>
 
 ### Subsets without duplicates
 
