@@ -67,8 +67,6 @@ Unlike typical grid BFS (4 directions), this problem allows diagonal movement. T
 - Start or end cell is `1` (blocked) → return `-1` immediately
 - Grid is `1x1` with `grid[0][0] = 0` → return `1`
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -81,8 +79,6 @@ Unlike typical grid BFS (4 directions), this problem allows diagonal movement. T
 </svg>
 
 ## Approach: BFS -- O(n^2)
-
-{% raw %}
 ```cpp
 class Solution {
 public:

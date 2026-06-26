@@ -56,8 +56,6 @@ Given a 2D matrix `matrix`, handle multiple queries of the following types:
 - Row-major vs column-major traversal affects cache and logic.
 - Boundary checks on every neighbor expansion.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -221,6 +219,7 @@ Row 4: 4 - 1 = 3
 
 Sum = 3 + 4 + 3 = 10
 ```
+
 ## Algorithm Breakdown
 
 ### **Key Insight: Row Prefix Sums**
@@ -324,7 +323,6 @@ For better performance with many queries, consider 2D BIT or Segment Tree.
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

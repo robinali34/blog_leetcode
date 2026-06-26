@@ -6,8 +6,6 @@ categories: leetcode templates bfs graph
 permalink: /posts/2025-11-24-leetcode-templates-bfs/
 tags: [leetcode, templates, bfs, graph, traversal]
 ---
-
-{% raw %}
 Breadth-First Search (BFS) is a graph traversal algorithm that explores nodes layer by layer, visiting all neighbors at the current depth before moving deeper. It's the go-to technique for finding shortest paths in unweighted graphs and grids, and it appears constantly in LeetCode Medium problems.
 
 > **New to BFS?** The core idea is simple: **use a queue to explore nodes level by level -- process all nodes at distance 1, then distance 2, then distance 3, and so on.** The first time you reach a node is always the shortest path.
@@ -673,5 +671,3 @@ int shortestPath(vector<vector<int>>& grid, int k) {
 - **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-

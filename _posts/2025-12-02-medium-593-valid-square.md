@@ -39,8 +39,6 @@ Given the coordinates of four points in 2D space `p1`, `p2`, `p3`, and `p4`, ret
 - Write brute force first mentally, then optimize the bottleneck.
 - Verify edge cases: empty input, single element, duplicates.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 

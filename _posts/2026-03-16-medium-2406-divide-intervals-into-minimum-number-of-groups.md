@@ -72,8 +72,6 @@ Answer: heap.size() = 3
 
 Intervals are **inclusive**: `[1,5]` and `[5,10]` share the point 5, so they overlap. We can only reuse a group when `pq.top() < start` (strictly less), not `<=`.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
@@ -97,8 +95,6 @@ Typical techniques for this pattern:
 | Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -145,7 +141,6 @@ No two intervals in the same group overlap.
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -52,8 +52,6 @@ $P(text{picked at } j) × P(text{not replaced at } j{+}1) × ldots × P(text{not
 
 The fractions telescope, giving exactly \frac{1}{n} for every node.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
@@ -82,8 +80,6 @@ Typical techniques for this pattern:
 | Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

@@ -6,8 +6,6 @@ categories: leetcode templates graph
 permalink: /posts/2025-10-29-leetcode-templates-graph/
 tags: [leetcode, templates, graph]
 ---
-
-{% raw %}
 Graph algorithms are among the most versatile tools in competitive programming and coding interviews. A graph is simply a collection of nodes (vertices) connected by edges, and nearly every "network," "grid," or "relationship" problem maps onto one. This page provides production-ready C++ templates for the most common graph patterns — from basic traversal to advanced connectivity — so you can focus on modeling the problem rather than re-deriving algorithms from scratch. All templates are 0-indexed unless noted.
 
 > **New to Graphs?** A graph consists of **nodes** (things) connected by **edges** (relationships between things). Most graph problems on LeetCode reduce to one of three categories: **traversal** (BFS/DFS — explore or find shortest paths), **shortest paths** with weights (Dijkstra, Bellman-Ford), or **connectivity / ordering** (Union-Find, Topological Sort). If you can identify which category your problem falls into, you're halfway to the solution.
@@ -84,6 +82,7 @@ Graph algorithms are among the most versatile tools in competitive programming a
 
 Grid: 4-directional. Use for shortest path when all edges have weight 1.
 
+{% raw %}
 ```cpp
 int bfs_grid(const vector<string>& g, int si, int sj, int ti, int tj) {
     int m = g.size(), n = g[0].size();
@@ -107,6 +106,7 @@ int bfs_grid(const vector<string>& g, int si, int sj, int ti, int tj) {
     return -1;
 }
 ```
+{% endraw %}
 
 | ID | Title | Link |
 |----|--------|------|
@@ -121,6 +121,7 @@ int bfs_grid(const vector<string>& g, int si, int sj, int ti, int tj) {
 
 Start from multiple nodes (distance 0). Same as BFS with initial queue containing all sources.
 
+{% raw %}
 ```cpp
 int multi_bfs(const vector<string>& g, const vector<pair<int,int>>& sources) {
     int m = g.size(), n = g[0].size();
@@ -147,6 +148,7 @@ int multi_bfs(const vector<string>& g, const vector<pair<int,int>>& sources) {
     return best;
 }
 ```
+{% endraw %}
 
 | ID | Title | Link |
 |----|--------|------|
@@ -492,6 +494,7 @@ vector<int> dijkstra_disappear(int n, const vector<vector<pair<int,int>>>& g,
 \text{nextTime} = \max(\text{curTime},\ \text{open}[ni][nj]) + 1
 \]
 
+{% raw %}
 ```cpp
 long long dijkstra_grid_open(const vector<vector<int>>& open) {
     int n = open.size(), m = open[0].size();
@@ -521,6 +524,7 @@ long long dijkstra_grid_open(const vector<vector<int>>& open) {
     return dist[n - 1][m - 1];
 }
 ```
+{% endraw %}
 
 ---
 
@@ -786,4 +790,3 @@ Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-
 - **Data structures (DSU, segment tree, etc.):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Binary search, rotated array, 2D:** [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}

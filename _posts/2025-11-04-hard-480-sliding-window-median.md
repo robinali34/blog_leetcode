@@ -53,8 +53,6 @@ The **median** is the middle value in an ordered integer list. If the size of th
 - Expand `right` to grow; shrink `left` when invalid.
 - Fixed window: slide both pointers together.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -266,6 +264,7 @@ if(lo.empty() || nums[i] <= *prev(lo.end()))
 else 
     hi.insert(nums[i]);
 ```
+
 - Insert into appropriate multiset based on comparison with max of `lo`
 
 #### 2. Balance the Two Multisets
@@ -281,6 +280,7 @@ auto balance = [&]() {
     }
 };
 ```
+
 - Maintain: `lo.size() == hi.size()` (even k) or `lo.size() == hi.size() + 1` (odd k)
 
 #### 3. Remove Element Leaving Window
@@ -294,6 +294,7 @@ if(i >= k) {
     balance();
 }
 ```
+
 - Find and remove element from appropriate multiset
 
 #### 4. Calculate Median
@@ -313,6 +314,7 @@ auto getMedian = [&]() -> double {
 multiset<int> window(nums.begin(), nums.begin() + k);
 auto mid = next(window.begin(), k / 2);
 ```
+
 - Create multiset with first k elements
 - Set `mid` to point to median position
 
@@ -322,6 +324,7 @@ window.insert(nums[i]);
 if (nums[i] < *mid)
     mid--;  // New element is smaller, median moved left
 ```
+
 - Insert new element
 - Adjust median iterator if needed
 
@@ -332,6 +335,7 @@ if (nums[i - k] <= *mid)
     
 window.erase(window.lower_bound(nums[i - k]));
 ```
+
 - Adjust median iterator before removal
 - Remove element using `lower_bound` to handle duplicates
 

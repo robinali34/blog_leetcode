@@ -64,8 +64,6 @@ dfs(start=0, path=[])        → record []
 
 The `start` parameter ensures we only pick elements after the current index, preventing duplicate subsets like `[2,1]` when `[1,2]` already exists.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -88,8 +86,6 @@ The `start` parameter ensures we only pick elements after the current index, pre
 </svg>
 
 ## Approach 1: Backtracking -- O(n · 2^n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -127,8 +123,6 @@ private:
 ## Approach 2: Bitmask Enumeration -- O(n · 2^n)
 
 Each integer from `0` to `2^n - 1` represents a subset: bit `j` is set means include `nums[j]`.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -149,7 +143,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n · 2^n)
 **Space**: O(n) per subset (excluding output)

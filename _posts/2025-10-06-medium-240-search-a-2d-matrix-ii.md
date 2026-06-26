@@ -40,6 +40,7 @@ Matrix visualization:
 [10, 13, 14, 17, 24]
 [18, 21, 23, 26, 30]
 ```
+
 Target = 20 not found in matrix
 
 ## Constraints
@@ -59,8 +60,6 @@ Target = 20 not found in matrix
 - The search space must shrink monotonically each step.
 - Decide which half still satisfies the predicate, discard the other.
 - Use `mid = left + (right - left) / 2` to avoid overflow.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
@@ -168,6 +167,7 @@ For target = 5 in the matrix:
 [10, 13, 14, 17, 24]
 [18, 21, 23, 26, 30]
 ```
+
 Path: 15 → 11 → 7 → 4 → 5 ✓
 
 ## Why Top-Right Works
@@ -193,7 +193,6 @@ Path: 15 → 11 → 7 → 4 → 5 ✓
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

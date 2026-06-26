@@ -19,8 +19,6 @@ Given an `m x n` integer matrix `img` representing the grayscale of an image, re
 - Row-major vs column-major traversal affects cache and logic.
 - Boundary checks on every neighbor expansion.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -163,7 +161,6 @@ Final result: [[137,141,137],[141,138,141],[137,141,137]]
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

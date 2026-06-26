@@ -53,8 +53,6 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 - Combine results from left and right subtrees at each node.
 - Base case is usually `null`; height drives stack space.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -332,6 +330,7 @@ Traversal:
 
 Final: 495 + 491 + 40 = 1026
 ```
+
 ## Algorithm Breakdown
 
 ### Solution 1: Recursive Preorder
@@ -398,6 +397,7 @@ while (predecessor->right != nullptr && predecessor->right != root) {
     steps++;
 }
 ```
+
 - Find the rightmost node in the left subtree
 - Track number of steps for backtracking
 
@@ -409,6 +409,7 @@ if (predecessor->right == nullptr) {
     root = root->left;
 }
 ```
+
 - Create temporary link from predecessor to current node
 - This allows us to return to current node later
 
@@ -425,6 +426,7 @@ else {
     root = root->right;
 }
 ```
+
 - When we return via temporary link, we've finished left subtree
 - Backtrack `currNum` by dividing by 10 for each step
 - Remove temporary link to restore tree structure

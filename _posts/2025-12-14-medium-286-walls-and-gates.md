@@ -4,8 +4,6 @@ title: "[Medium] 286. Walls and Gates"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm medium cpp array matrix bfs problem-solving
 ---
-{% raw %}
-
 You are given an `m x n` grid `rooms` initialized with these three possible values:
 
 - `-1` A wall or an obstacle.
@@ -49,8 +47,6 @@ Output: [[2147483647]]
 - Queue guarantees shortest path in unweighted graphs.
 - Process level by level when counting layers or distances.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -83,6 +79,7 @@ Typical techniques for this pattern:
 
 This solution uses BFS starting from all gates simultaneously. Since BFS guarantees shortest path in unweighted graphs, each empty room will be filled with the distance to its nearest gate.
 
+{% raw %}
 ```cpp
 class Solution {
 private:
@@ -129,6 +126,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ### Solution Explanation
 
@@ -286,9 +284,6 @@ Similar problems:
 3. **Network Routing**: Find nearest gateway/router
 4. **Emergency Evacuation**: Find nearest exit in emergency scenarios
 5. **Facility Location**: Find optimal locations based on multiple sources
-
-{% endraw %}
-
 ## References
 
 - [LC 286: Walls and Gates on LeetCode](https://www.leetcode.com/problems/walls-and-gates/)

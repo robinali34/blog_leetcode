@@ -54,8 +54,6 @@ Output: -12
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 

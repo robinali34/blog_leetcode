@@ -87,8 +87,6 @@ next(): return 1
 hasNext(): stack empty → false
 ```
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
@@ -113,8 +111,6 @@ Typical techniques for this pattern:
 | Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class NestedIterator {
 public:

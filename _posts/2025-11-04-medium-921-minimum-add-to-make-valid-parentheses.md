@@ -56,8 +56,6 @@ Explanation: Need to add 2 '(' at the beginning and 2 ')' at the end
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
@@ -137,6 +135,7 @@ Insert '(' at the beginning: "()())"
 ```cpp
 int left = 0, right = 0;
 ```
+
 - **`left`**: Tracks unmatched opening parentheses
 - **`right`**: Tracks unmatched closing parentheses (need to add opening)
 
@@ -146,6 +145,7 @@ if(ch == '(') {
     left++;
 }
 ```
+
 - Increment `left` counter
 - This represents an opening that needs to be closed later
 
@@ -159,6 +159,7 @@ else if (ch == ')') {
     }
 }
 ```
+
 - **If `left > 0`**: Match with existing opening → decrement `left`
 - **If `left == 0`**: No opening to match → increment `right` (need to add an opening)
 
@@ -166,6 +167,7 @@ else if (ch == ')') {
 ```cpp
 return left + right;
 ```
+
 - **`right`**: Number of opening parentheses to add (for unmatched closing)
 - **`left`**: Number of closing parentheses to add (for unmatched opening)
 - **Sum**: Total minimum additions needed

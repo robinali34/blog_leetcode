@@ -44,8 +44,6 @@ We need a **sliding window** of hits within the last 300 seconds. The key questi
 
 Since timestamps arrive in non-decreasing order, older hits are always at the front -- a natural fit for a **queue/deque**.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -74,8 +72,6 @@ Typical techniques for this pattern:
 ## Solution
 
 Use a deque to store timestamps. On `getHits`, pop from the front while the oldest hit is outside the window.
-
-{% raw %}
 ```cpp
 class HitCounter {
 public:

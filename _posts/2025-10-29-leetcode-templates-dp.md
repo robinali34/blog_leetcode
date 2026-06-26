@@ -138,13 +138,10 @@ Every DP problem follows the same four steps. Before writing any code, answer th
 **When to use:** The problem involves a sequence (array, string) and asks for a maximum/minimum value or count. Each element either contributes to the answer or doesn't.
 
 ### The Pattern
-
-{% raw %}
 ```
 dp[i] = best answer considering elements 0..i
 dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
 ```
-{% endraw %}
 
 ### Example: House Robber (LC 198)
 
@@ -201,8 +198,6 @@ dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
   <text x="200" y="152" font-size="12" fill="#5A5752" font-family="monospace">dp[i] = max(dp[i-1], dp[i-2] + nums[i])</text>
   <text x="200" y="170" font-size="10" fill="#9A9792">          skip i       rob i</text>
 </svg>
-
-{% raw %}
 ```cpp
 int rob(vector<int>& nums) {
     int n = nums.size();
@@ -218,15 +213,12 @@ int rob(vector<int>& nums) {
     return dp[n - 1];
 }
 ```
-{% endraw %}
 
 ### Template: 0/1 Knapsack
 
 > "Given items with weights and values, maximize total value without exceeding capacity W."
 
 The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
-
-{% raw %}
 ```cpp
 int knapsack01(vector<int>& wt, vector<int>& val, int W) {
     vector<int> dp(W + 1, 0);
@@ -236,7 +228,6 @@ int knapsack01(vector<int>& wt, vector<int>& val, int W) {
     return dp[W];
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -259,13 +250,10 @@ int knapsack01(vector<int>& wt, vector<int>& val, int W) {
 **When to use:** The problem involves a 2D grid/matrix and asks about paths, areas, or values computed from neighboring cells.
 
 ### The Pattern
-
-{% raw %}
 ```
 dp[i][j] = answer for subproblem ending at cell (i, j)
 dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagonal)
 ```
-{% endraw %}
 
 ### Example: Unique Paths with Obstacles (LC 63)
 
@@ -334,8 +322,6 @@ dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagona
   <text x="30" y="280" font-size="10" fill="#9A9792">                    ↑ from above   ↑ from left</text>
   <text x="30" y="300" font-size="10" fill="#9A9792">First row and column: dp = 1 (only one path to reach each edge cell)</text>
 </svg>
-
-{% raw %}
 ```cpp
 int uniquePathsWithObstacles(vector<vector<int>>& grid) {
     int m = grid.size(), n = grid[0].size();
@@ -354,7 +340,6 @@ int uniquePathsWithObstacles(vector<vector<int>>& grid) {
     return dp[m - 1][n - 1];
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -434,8 +419,6 @@ int uniquePathsWithObstacles(vector<vector<int>>& grid) {
 </svg>
 
 ### Template: O(n^2) DP
-
-{% raw %}
 ```cpp
 int lengthOfLIS(vector<int>& nums) {
     int n = nums.size();
@@ -449,11 +432,8 @@ int lengthOfLIS(vector<int>& nums) {
     return *max_element(dp.begin(), dp.end());
 }
 ```
-{% endraw %}
 
 ### Template: O(n log n) with Binary Search (Patience Sort)
-
-{% raw %}
 ```cpp
 int lengthOfLIS(vector<int>& nums) {
     vector<int> tails;
@@ -465,11 +445,8 @@ int lengthOfLIS(vector<int>& nums) {
     return tails.size();
 }
 ```
-{% endraw %}
 
 ### Template: Count Number of LIS (LC 673)
-
-{% raw %}
 ```cpp
 int findNumberOfLIS(vector<int>& nums) {
     int n = nums.size();
@@ -495,7 +472,6 @@ int findNumberOfLIS(vector<int>& nums) {
     return result;
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -509,18 +485,13 @@ int findNumberOfLIS(vector<int>& nums) {
 **When to use:** The problem asks you to merge, split, or process contiguous ranges, and the optimal solution for a range depends on how you split it.
 
 **The pattern:** Solve small intervals first, then build up to the full range by trying every possible split point.
-
-{% raw %}
 ```
 dp[i][j] = best answer for the subarray from index i to j
 For each split point k in [i, j):
     dp[i][j] = best(dp[i][k] + dp[k+1][j] + merge_cost)
 ```
-{% endraw %}
 
 ### Template
-
-{% raw %}
 ```cpp
 int intervalDP(vector<int>& arr) {
     int n = arr.size();
@@ -538,13 +509,10 @@ int intervalDP(vector<int>& arr) {
     return dp[0][n - 1];
 }
 ```
-{% endraw %}
 
 ### Example: Burst Balloons (LC 312)
 
 Think of it as: "which balloon do I burst **last** in the range `[i, j]`?"
-
-{% raw %}
 ```cpp
 int maxCoins(vector<int>& nums) {
     int n = nums.size();
@@ -564,7 +532,6 @@ int maxCoins(vector<int>& nums) {
     return dp[1][n];
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -644,8 +611,6 @@ Instead of one DP array, maintain **multiple arrays** -- one for each state. At 
 </svg>
 
 ### Template: Basic Buy/Sell (unlimited transactions)
-
-{% raw %}
 ```cpp
 int maxProfit(vector<int>& prices) {
     int n = prices.size();
@@ -661,11 +626,8 @@ int maxProfit(vector<int>& prices) {
     return dp[n - 1][1];
 }
 ```
-{% endraw %}
 
 ### Template: With Cooldown (3 states)
-
-{% raw %}
 ```cpp
 int maxProfit(vector<int>& prices) {
     int n = prices.size();
@@ -683,7 +645,6 @@ int maxProfit(vector<int>& prices) {
     return max(dp[n - 1][0], dp[n - 1][2]);
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -740,8 +701,6 @@ int maxProfit(vector<int>& prices) {
 </svg>
 
 ### Template: Tree DP (House Robber III, LC 337)
-
-{% raw %}
 ```cpp
 pair<int, int> dfs(TreeNode* root) {
     if (!root) return {0, 0};
@@ -760,13 +719,10 @@ int rob(TreeNode* root) {
     return max(skip, take);
 }
 ```
-{% endraw %}
 
 ### Template: Max Path Sum (LC 124)
 
 Each node contributes its value + best single path from one child. But the answer can also be a path through the node connecting both children.
-
-{% raw %}
 ```cpp
 int maxPathSum(TreeNode* root) {
     int maxSum = INT_MIN;
@@ -783,7 +739,6 @@ int maxPathSum(TreeNode* root) {
     return maxSum;
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -800,8 +755,6 @@ int maxPathSum(TreeNode* root) {
 > "Split array into `m` subarrays to minimize the largest subarray sum."
 
 The insight: binary search on the answer (the maximum sum), and use a greedy check.
-
-{% raw %}
 ```cpp
 bool canSplit(vector<int>& nums, int m, int maxSum) {
     int count = 1, sum = 0;
@@ -824,7 +777,6 @@ int splitArray(vector<int>& nums, int m) {
     return lo;
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -843,8 +795,6 @@ int splitArray(vector<int>& nums, int m) {
 - Any property-specific state (previous digit, digit sum, etc.)
 
 ### Template
-
-{% raw %}
 ```cpp
 string sN;
 long long dp[20][11][2][2];
@@ -871,7 +821,6 @@ long long solve(long long N) {
     return dfs(0, -1, true, false);
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
@@ -886,8 +835,6 @@ long long solve(long long N) {
 **The key constraint:** n le 20 (otherwise 2^n states explode). If you see n le 15text{-}20 in the constraints, think bitmask.
 
 ### Template: Traveling Salesman (TSP)
-
-{% raw %}
 ```cpp
 int tsp(const vector<vector<int>>& w) {
     int n = w.size();
@@ -909,7 +856,6 @@ int tsp(const vector<vector<int>>& w) {
     return *min_element(dp.back().begin(), dp.back().end());
 }
 ```
-{% endraw %}
 
 | ID | Title | Link | Solution |
 |---|---|---|---|

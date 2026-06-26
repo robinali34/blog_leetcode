@@ -36,8 +36,6 @@ Output: 2
 - Expand `right` to grow; shrink `left` when invalid.
 - Fixed window: slide both pointers together.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -116,6 +114,7 @@ The first two digits or the last three digits are consecutive 1s. The maximum nu
 ```cpp
 int maxCnt = 0, cnt = 0;
 ```
+
 - `maxCnt`: Tracks the maximum consecutive ones seen so far
 - `cnt`: Tracks the current consecutive ones streak
 
@@ -123,6 +122,7 @@ int maxCnt = 0, cnt = 0;
 ```cpp
 for(int n : nums) {
 ```
+
 Process each element in the array.
 
 ### 3. Handle Ones
@@ -132,6 +132,7 @@ if(n == 1) {
     maxCnt = max(maxCnt, cnt);
 }
 ```
+
 - Increment current streak counter
 - Update maximum if current streak is longer
 
@@ -141,6 +142,7 @@ else {
     cnt = 0;
 }
 ```
+
 Reset the current streak counter to 0.
 
 ### Complexity

@@ -6,8 +6,6 @@ categories: leetcode templates heap priority-queue
 permalink: /posts/2026-01-05-leetcode-templates-heap/
 tags: [leetcode, templates, heap, priority-queue, data-structures]
 ---
-
-{% raw %}
 Welcome to the Heap templates page! Here you'll find battle-tested C++ snippets for every common heap (priority queue) pattern on LeetCode — from basic min/max heaps to advanced techniques like K-way merge, Two Heaps for medians, and Dijkstra's shortest path. Each section is self-contained so you can copy-paste directly into your solutions. See also [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) for related patterns.
 
 > **New to Heaps?** A heap (priority queue) always gives you the smallest (min-heap) or largest (max-heap) element in O(1). Think of it as a self-sorting container. Whenever a problem says "k largest", "k smallest", "median", or "merge sorted lists", think heap.
@@ -800,6 +798,3 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>& graph, int start) {
 - **Data structures (heap, monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph (Dijkstra):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-
-{% endraw %}
-

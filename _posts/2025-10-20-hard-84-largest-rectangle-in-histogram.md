@@ -8,7 +8,6 @@ permalink: /2025/10/20/hard-84-largest-rectangle-in-histogram/
 **Difficulty:** Hard  
 **Category:** Stack, Monotonic Stack
 
-
 Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
 
 ## Examples
@@ -46,8 +45,6 @@ This is a classic **Monotonic Stack** problem. The key insight is that for each 
 ### Key Insight:
 - For each bar at index `i`, the largest rectangle with height `heights[i]` extends from the previous smaller bar to the next smaller bar
 - The width = `right_boundary - left_boundary - 1`
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
@@ -149,7 +146,6 @@ For `heights = [2,1,5,6,2,3]` with sentinel `[2,1,5,6,2,3,0]`:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

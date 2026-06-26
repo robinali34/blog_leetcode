@@ -56,8 +56,6 @@ Explanation: The only 0-diff pair is (1, 1).
 - Prefix sums answer range queries; hash maps answer pair/count queries.
 - In-place tricks use swap/write index instead of extra arrays.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
@@ -138,7 +136,6 @@ The two 2-diff pairs are (1, 3) and (3, 5). (Two 1s yield one unique pair (1,3).
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

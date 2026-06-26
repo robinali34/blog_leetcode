@@ -10,7 +10,6 @@ tags: [algorithm, medium, array, optimization, greedy, two-pointers]
 
 Given two lists representing round trip ticket prices, select the cheapest outbound and return tickets where the return follows the outbound. Implement a function to find the minimum total cost of the trip.
 
-
 You are given two lists of ticket prices:
 - `outbound`: List of outbound ticket prices
 - `return_trip`: List of return ticket prices
@@ -33,7 +32,6 @@ Find the minimum total cost of such a round trip.
 ## Examples
 
 **Example 1:**
-{% raw %}
 ```cpp
 Input: 
   outbound = {9, 1, 5}
@@ -64,10 +62,8 @@ Explanation:
   
   For the solution, we'll find the true minimum cost.
 ```
-{% endraw %}
 
 **Example 2:**
-{% raw %}
 ```cpp
 Input:
   outbound = {3, 2, 1}
@@ -90,7 +86,6 @@ But if j >= i:
   - outbound[2] = 2: return_trip[2] = 3 → 4
   - Minimum: 4
 ```
-{% endraw %}
 
 ## Constraints
 
@@ -105,8 +100,6 @@ But if j >= i:
 - Greedy works when local optimal choices lead to global optimum.
 - Often sort first to make the greedy choice obvious.
 - Prove or sanity-check: would swapping two choices ever help?
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
@@ -276,7 +269,6 @@ The example might be showing a valid but not optimal solution.
 ```
 
 **Visual Representation:**
-{% raw %}
 ```
 outbound:  {9,  1,  5}
             │   │   │
@@ -290,7 +282,7 @@ returnTrip: {4,  5,  3}
               └───┴───┘
               minReturn = {3, 3, 3}
 ```
-{% endraw %}
+
 ## Algorithm Breakdown
 
 ### Step 1: Precompute Minimum Return Prices
@@ -491,8 +483,6 @@ Similar problems:
 - Optimization with constraints
 
 ## Step-by-Step Trace: `outbound = {3, 2, 1}, returnTrip = {1, 2, 3}`
-
-{% raw %}
 ```
 Step 1: Precompute minReturn
   minReturn[2] = returnTrip[2] = 3
@@ -507,7 +497,6 @@ Step 2: Calculate costs
   
   Minimum: min(5, 5) = 5
 ```
-{% endraw %}
 
 ## Why This Solution Works
 
@@ -530,7 +519,6 @@ Step 2: Calculate costs
 Here are several test cases to verify the solution:
 
 ### Test Case 1
-{% raw %}
 ```cpp
 outbound = {9, 1, 5}
 returnTrip = {4, 5, 3}
@@ -540,10 +528,8 @@ Explanation:
   - Costs: 9+3=12, 1+3=4, 5+3=8
   - Minimum: 4 (outbound[1]=1 + returnTrip[2]=3)
 ```
-{% endraw %}
 
 ### Test Case 2
-{% raw %}
 ```cpp
 outbound = {5, 7, 10}
 returnTrip = {20, 9, 1}
@@ -553,10 +539,8 @@ Explanation:
   - Costs: 5+1=6, 7+1=8, 10+1=11
   - Minimum: 6 (outbound[0]=5 + returnTrip[2]=1)
 ```
-{% endraw %}
 
 ### Test Case 3
-{% raw %}
 ```cpp
 outbound = {1, 100, 200}
 returnTrip = {1000, 400, 2}
@@ -566,10 +550,8 @@ Explanation:
   - Costs: 1+2=3, 100+2=102, 200+2=202
   - Minimum: 3 (outbound[0]=1 + returnTrip[2]=2)
 ```
-{% endraw %}
 
 ### Test Case 4
-{% raw %}
 ```cpp
 outbound = {8, 4, 2}
 returnTrip = {5, 3, 6}
@@ -579,10 +561,8 @@ Explanation:
   - Costs: 8+3=11, 4+3=7, 2+3=5
   - Minimum: 5 (outbound[2]=2 + returnTrip[1]=3)
 ```
-{% endraw %}
 
 ### Test Case 5
-{% raw %}
 ```cpp
 outbound = {1, 2, 3}
 returnTrip = {10, 9, 8}
@@ -592,10 +572,8 @@ Explanation:
   - Costs: 1+8=9, 2+8=10, 3+8=11
   - Minimum: 9 (outbound[0]=1 + returnTrip[2]=8)
 ```
-{% endraw %}
 
 ### Test Case Verification Code
-
 {% raw %}
 ```cpp
 #include <vector>

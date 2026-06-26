@@ -78,8 +78,6 @@ The key technique is using two pointers `j` and `k` to identify each run of iden
 
 This is cleaner than maintaining a separate counter variable.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -97,8 +95,6 @@ This is cleaner than maintaining a separate counter variable.
 ## Approach: Iterative Simulation -- O(n · L)
 
 Build each term from the previous one, iterating from term 2 to term `n`. For each term, scan with two pointers to find consecutive groups.
-
-{% raw %}
 ```cpp
 class Solution {
 public:

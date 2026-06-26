@@ -16,8 +16,6 @@ Given a string containing just the characters `'('` and `')'`, find the length o
 - Recurrence: how does the answer build from smaller indices?
 - Base cases first; optimize space if only prior row/layer is needed.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -306,6 +304,7 @@ if (s[i - 1] == '(') {
     dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
 }
 ```
+
 - If previous character is `'('`, we have a match
 - Add 2 for the current match
 - Add any valid substring before `i-2`
@@ -317,6 +316,7 @@ else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] == '(') {
         ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
 }
 ```
+
 - Check if there's a matching `'('` before the valid substring ending at `i-1`
 - If found, combine:
   - Length of valid substring ending at `i-1`: `dp[i-1]`
@@ -338,6 +338,7 @@ for (int i = 0; i < len; i++) {
     }
 }
 ```
+
 - Count opening and closing parentheses
 - When equal, we have a valid substring
 - If closing > opening, reset (can't form valid substring)
@@ -355,6 +356,7 @@ for (int i = len - 1; i >= 0; i--) {
     }
 }
 ```
+
 - Same logic but reversed
 - Catches cases where left-to-right misses valid substrings
 

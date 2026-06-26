@@ -86,8 +86,6 @@ k → k/2 → k/4 → k/8 → ... → 1
 
 Number of rounds: \log_2 k. Each round processes all nodes once. Total: N \cdot \log k.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
@@ -107,8 +105,6 @@ Number of rounds: \log_2 k. Each round processes all nodes once. Total: N \cdot 
 ## Approach: Divide & Conquer -- O(N \log k)
 
 Pair lists and merge them in rounds, halving the count each time. This avoids the repeated long traversals of sequential merging.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -177,8 +173,6 @@ Also optimal at O(N \log k), but with O(k) extra space for the heap.
 The heap always holds at most one node per list, so each push/pop is O(\log k). Over all N nodes, total time is O(N \log k).
 
 **Why use a custom comparator struct?** Defining `Compare` as a struct makes the comparator reusable and avoids lambda overhead. The `priority_queue` in C++ is a max-heap by default, so we reverse the comparison (`a->val > b->val`) to get min-heap behavior.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -210,7 +204,6 @@ private:
     };
 };
 ```
-{% endraw %}
 
 **Time**: O(N \log k) -- each of N nodes is pushed/popped once, each operation O(\log k)
 **Space**: O(k) for the heap
@@ -233,7 +226,6 @@ private:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

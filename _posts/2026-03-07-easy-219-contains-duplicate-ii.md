@@ -56,8 +56,6 @@ Two approaches:
 1. **Hash map** -- store the last seen index of each value. On a repeat, check if the distance is ≤ k.
 2. **Sliding window set** -- maintain a set of the last `k` elements. If the current element is already in the window, it's a nearby duplicate.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -75,8 +73,6 @@ Two approaches:
 ## Approach 1: Hash Map (Last Index) -- O(n)
 
 Track the most recent index of each value. If we see the same value again and the gap is ≤ k, return `true`. Always update to the latest index.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -110,8 +106,6 @@ public:
 ## Approach 2: Sliding Window Set -- O(n)
 
 Maintain a set of size at most `k`. As the window slides forward, remove the element that falls out of range. If the current element is already in the window, it's a duplicate within distance `k`.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -126,7 +120,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(min(n, k)) -- the window never exceeds size `k`

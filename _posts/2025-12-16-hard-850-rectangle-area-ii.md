@@ -4,8 +4,6 @@ title: "[Hard] 850. Rectangle Area II"
 date: 2025-12-16 00:00:00 -0800
 categories: leetcode algorithm hard cpp geometry sweep-line segment-tree problem-solving
 ---
-{% raw %}
-
 You are given a 2D array of axis-aligned `rectangles`. For each `rectangle[i] = [xi1, yi1, xi2, yi2]`, where `(xi1, yi1)` is the bottom-left corner and `(xi2, yi2)` is the top-right corner of the `ith` rectangle.
 
 Calculate the **total area** covered by all `rectangles` in the plane. Any area covered by two or more rectangles should only be counted **once**.
@@ -44,8 +42,6 @@ Explanation: The answer is 10^18 modulo (10^9 + 7), which is 49.
 - Identify the pattern from constraints (sorted? graph? optimal substructure?).
 - Write brute force first mentally, then optimize the bottleneck.
 - Verify edge cases: empty input, single element, duplicates.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
@@ -284,9 +280,6 @@ Similar problems:
 3. **Collision Detection**: Finding overlapping regions
 4. **Layout Algorithms**: Determining occupied space
 5. **Map Rendering**: Tile coverage calculations
-
-{% endraw %}
-
 ## References
 
 - [LC 850: Rectangle Area II on LeetCode](https://www.leetcode.com/problems/rectangle-area-ii/)

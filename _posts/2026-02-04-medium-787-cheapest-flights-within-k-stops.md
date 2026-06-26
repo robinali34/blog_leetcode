@@ -64,8 +64,6 @@ The optimal path with no stops from city 0 to 2 has cost 500.
 - Recurrence: how does the answer build from smaller indices?
 - Base cases first; optimize space if only prior row/layer is needed.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -179,7 +177,6 @@ Note that the path through cities [0,1,2,3] is cheaper but is invalid because it
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-1868-product-of-two-run-length-encoded-arrays/
 **Difficulty:** Medium  
 **Category:** Run-Length Encoding, Two Pointers, Array Processing
 
-
 Run-length encoding is a compression algorithm that allows for an integer array `nums` with many segments of repeated numbers to be represented by a (generally smaller) 2D array `encoded`. Each `encoded[i] = [vali, freqi]` describes the `ith` segment of repeated numbers in `nums` where `vali` is the value that is repeated `freqi` times.
 
 For example, `nums = [1,1,1,2,2,2,2,2]` is represented by the run-length encoded array `encoded = [[1,3],[2,5]]`. Another way to read this is "three 1's followed by five 2's".
@@ -54,8 +53,6 @@ The key insight is to process both encoded arrays simultaneously using two point
 4. If the result array is not empty and the last segment has the same value, merge frequencies
 5. Otherwise, add a new segment
 6. Decrease frequencies and advance pointers when segments are exhausted
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
@@ -153,7 +150,6 @@ For `encoded1 = [[1,3],[2,3]]` and `encoded2 = [[6,3],[3,3]]`:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

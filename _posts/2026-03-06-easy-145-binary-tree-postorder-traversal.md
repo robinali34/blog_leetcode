@@ -66,8 +66,6 @@ This avoids the complexity of tracking "has the right child been visited?"
 
 A more direct iterative approach uses a `prev` pointer to track whether we're returning from the right child, but the reverse trick is simpler to implement.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -90,8 +88,6 @@ A more direct iterative approach uses a `prev` pointer to track whether we're re
 </svg>
 
 ## Approach 1: Recursive -- O(n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -125,8 +121,6 @@ private:
 ## Approach 2: Iterative (Modified Preorder + Reverse) -- O(n)
 
 Do **root → right → left** traversal, then reverse the result to get **left → right → root**.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -148,7 +142,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n) for the output; O(h) for the stack
@@ -156,8 +149,6 @@ public:
 ## Approach 3: Iterative (Prev Pointer) -- O(n)
 
 Track the previously visited node. Only visit the current node when its right child is null or was just visited.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -187,7 +178,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n) for the output; O(h) for the stack
@@ -205,7 +195,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

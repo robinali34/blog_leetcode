@@ -75,8 +75,6 @@ If we only need to know *existence* (not index), we can use a set instead. But t
 
 **Why the delay?** Without it, a remainder inserted at index `i` could match at index `i+1`, producing a subarray of size 1.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
@@ -92,8 +90,6 @@ If we only need to know *existence* (not index), we can use a set instead. But t
 ## Approach 1: Hash Map -- O(n)
 
 Store the first occurrence index of each prefix remainder. Only update the map if the remainder hasn't been seen before (we want the earliest index to maximize subarray length).
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -132,8 +128,6 @@ public:
 ## Approach 2: Hash Set with Delayed Insertion -- O(n)
 
 Insert each remainder one step late, so any match guarantees a gap of at least 2.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -153,7 +147,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(min(n, k))

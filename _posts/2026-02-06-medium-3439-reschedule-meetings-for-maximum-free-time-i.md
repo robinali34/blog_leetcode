@@ -45,8 +45,6 @@ Explanation: Reschedule [2,4] to [1,3]. Free blocks: [0,1], [4,9], [9,10] → ma
 - Expand `right` to grow; shrink `left` when invalid.
 - Fixed window: slide both pointers together.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
@@ -126,7 +124,6 @@ Reschedule meeting [1,2] to [2,3]. Free blocks: [0,1], [3,5] → max free time 2
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

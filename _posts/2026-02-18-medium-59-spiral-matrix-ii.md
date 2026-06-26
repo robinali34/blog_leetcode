@@ -80,8 +80,6 @@ For layer `k`:
 - Bottom-right corner is at `(n-k-1, n-k-1)`
 - Each of the four sides has carefully adjusted start/end to avoid double-counting corners
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -96,8 +94,6 @@ For layer `k`:
 ## Approach: Layer-by-Layer -- O(n^2)
 
 Iterate over layers from `0` to `(n+1)/2 - 1`. For each layer, fill the four sides with incrementing counter.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -146,7 +142,6 @@ public:
 ## Alternative: Direction Array Simulation
 
 Instead of explicit layer logic, use direction vectors and rotate when hitting a boundary or an already-filled cell. Often shorter code.
-
 {% raw %}
 ```cpp
 class Solution {

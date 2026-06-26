@@ -69,8 +69,6 @@ $text{time}(node) = text{informTime}[node] + max_{child}(text{time}(child))
 
 Base case: leaf nodes have no children, so `max(child times) = 0`.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -97,8 +95,6 @@ Typical techniques for this pattern:
 | Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

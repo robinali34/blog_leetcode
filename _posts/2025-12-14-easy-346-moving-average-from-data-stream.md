@@ -4,8 +4,6 @@ title: "[Easy] 346. Moving Average from Data Stream"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm easy cpp queue sliding-window design problem-solving
 ---
-{% raw %}
-
 Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
 
 Implement the `MovingAverage` class:
@@ -44,8 +42,6 @@ movingAverage.next(5); // return 6.0 = (10 + 3 + 5) / 3
 - Maintain a window `[left, right]` satisfying a constraint.
 - Expand `right` to grow; shrink `left` when invalid.
 - Fixed window: slide both pointers together.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
@@ -245,9 +241,6 @@ Similar problems:
 3. **Sensor Data**: Smooth sensor readings over time
 4. **Performance Metrics**: Average response time in sliding window
 5. **Signal Processing**: Moving average filter for noise reduction
-
-{% endraw %}
-
 ## References
 
 - [LC 346: Moving Average from Data Stream on LeetCode](https://www.leetcode.com/problems/moving-average-from-data-stream/)

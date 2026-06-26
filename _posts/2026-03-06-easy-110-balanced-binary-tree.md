@@ -73,8 +73,6 @@ Compute height bottom-up and **return -1 as a sentinel** the moment an imbalance
 
 The key insight is combining two tasks into one recursive function: **compute height** and **detect imbalance**, using `-1` as the "not balanced" signal.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -97,8 +95,6 @@ The key insight is combining two tasks into one recursive function: **compute he
 </svg>
 
 ## Approach: Bottom-Up DFS -- O(n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:

@@ -4,8 +4,6 @@ title: "[Medium] 547. Number of Provinces"
 date: 2025-12-18 00:00:00 -0800
 categories: leetcode algorithm medium cpp disjoint-set dfs graph problem-solving
 ---
-{% raw %}
-
 There are `n` cities. Some of them are connected, while some are not. If city `a` is connected directly with city `b`, and city `b` is connected directly with city `c`, then city `a` is connected indirectly with city `c`.
 
 A **province** is a group of directly or indirectly connected cities and no other cities outside of the group.
@@ -44,8 +42,6 @@ Output: 3
 - Model entities as nodes and relationships as edges.
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
@@ -260,9 +256,6 @@ Similar problems:
 - Max Area of Island
 - Friend Circles (same problem)
 - Accounts Merge
-
-{% endraw %}
-
 ## References
 
 - [LC 547: Number of Provinces on LeetCode](https://www.leetcode.com/problems/number-of-provinces/)

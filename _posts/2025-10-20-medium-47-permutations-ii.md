@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-47-permutations-ii/
 **Difficulty:** Medium  
 **Category:** Backtracking, Recursion, Duplicates
 
-
 Given a collection of numbers, `nums`, that might contain **duplicates**, return all the possible **unique permutations** in any order.
 
 ## Examples
@@ -46,8 +45,6 @@ When we have duplicates, we need to ensure that identical elements don't create 
 
 ### Algorithm 2: STL next_permutation (Unchanged)
 The STL approach works the same as LC 46 because `next_permutation()` automatically handles duplicates correctly.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
@@ -139,7 +136,8 @@ public:
         return rtn;
     }
 };
-```## Why `current` Array is Essential
+```
+## Why `current` Array is Essential
 
 ### **Problem with In-Place Swapping Approach**
 
@@ -195,6 +193,7 @@ idx=0: Try nums[0]=1, nums[1]=1, nums[2]=2
    ├─ Swap(1,1): [2,1,1] → Add [2,1,1]
    └─ Swap(1,2): [2,1,1] → Add [2,1,1] ❌ DUPLICATE!
 ```
+
 **Result:** `[[1,1,2], [1,2,1], [2,1,1], [2,1,1]]` - 4 permutations (WRONG!)
 
 **Current Array Approach (CORRECT):**
@@ -214,6 +213,7 @@ used=[F,F,F], current=[]
    │  └─ i=2: Skip (used)
    └─ i=1: nums[1]=1, Skip (nums[1]==nums[0] && !used[0]) ❌
 ```
+
 **Result:** `[[1,1,2], [1,2,1], [2,1,1]]` - 3 unique permutations (CORRECT!)
 
 ### **Key Benefits of `current` Array**
@@ -243,7 +243,8 @@ used=[F,F,F], current=[]
 ### **When You Can Skip `current`**
 
 **STL Approach (No `current` needed):**
-```cpp
+```
+cpp
 vector<vector<int>> permuteUnique(vector<int>& nums) {
     vector<vector<int>> rtn;
     sort(nums.begin(), nums.end());
@@ -263,7 +264,8 @@ vector<vector<int>> permuteUnique(vector<int>& nums) {
 
 **Yes, you can use a hash set to remove duplicates:**
 
-```cpp
+```
+cpp
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
@@ -298,7 +300,8 @@ private:
 4. **Convert back to vector** - return unique permutations
 
 **Example:**
-```cpp
+```
+cpp
 // Input: nums = [1,1,2]
 // Step 1: Generate all permutations
 result = [[1,1,2], [1,2,1], [1,1,2], [1,2,1], [2,1,1], [2,1,1]]
@@ -351,7 +354,8 @@ return [[1,1,2], [1,2,1], [2,1,1]]
 
 ### **Hash Set Implementation Details**
 
-```cpp
+```
+cpp
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
@@ -394,7 +398,8 @@ private:
 
 #### **Option 3a: Using `set<vector<int>>` (Simpler)**
 
-```cpp
+```
+cpp
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
@@ -424,7 +429,8 @@ private:
 
 #### **Option 3b: Using `unordered_set<vector<int>>` (Better Performance)**
 
-```cpp
+```
+cpp
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
@@ -468,7 +474,8 @@ private:
 
 ### **Solution 4: Alternative Hash Set Implementations**
 
-```cpp
+```
+cpp
 // Method 1: Using unordered_set (requires custom hash)
 class Solution {
 public:
@@ -721,6 +728,7 @@ private:
 **Example Walkthrough for `nums = [1,1,2]`:**
 
 ```
+
 Sorted: [1,1,2], used=[F,F,F], current=[]
 ├─ i=0: nums[0]=1, used[0]=T, current=[1]
 │  ├─ i=0: Skip (used)
@@ -804,7 +812,6 @@ This problem extends the classic permutation generation to handle duplicates, re
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

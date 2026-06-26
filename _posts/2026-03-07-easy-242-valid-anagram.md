@@ -52,8 +52,6 @@ Two strings are anagrams if and only if they have the same character frequencies
 
 The key trick: increment and decrement in the **same** array. If everything cancels to zero, the frequencies match.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -71,8 +69,6 @@ The key trick: increment and decrement in the **same** array. If everything canc
 ## Approach 1: Frequency Array -- O(n) time, O(1) space
 
 The expected optimal solution. Since characters are lowercase letters, a 26-element array suffices.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -114,8 +110,6 @@ public:
 ## Approach 2: Hash Map -- O(n) time, O(n) space
 
 Generalizes to Unicode characters. Use a map instead of a fixed array.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -133,7 +127,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n) -- up to n distinct characters
@@ -141,8 +134,6 @@ public:
 ## Approach 3: Sorting -- O(n log n)
 
 Sort both strings and compare directly. Simplest to write but slowest.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -153,7 +144,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n log n)
 **Space**: O(1) (ignoring sort internals)

@@ -74,8 +74,6 @@ Think of the grid as a **DAG**: draw an edge `u → v` whenever `matrix[v] > mat
 3. Process layer by layer; each layer = one step in the path
 4. Number of BFS layers = answer
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -99,7 +97,6 @@ Typical techniques for this pattern:
 | Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Solution
-
 {% raw %}
 ```cpp
 class Solution {
@@ -141,6 +138,7 @@ private:
     }
 };
 ```
+{% endraw %}
 
 ### Solution Explanation
 

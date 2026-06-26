@@ -10,7 +10,6 @@ tags: [leetcode, medium, tree, binary-tree, dfs, bfs, graph, recursion]
 **Category:** Tree, DFS, BFS  
 **Companies:** Amazon, Facebook, Google, Microsoft, Apple
 
-
 Given the `root` of a binary tree, the value of a `target` node, and an integer `k`, return an array of the values of all nodes that have a distance `k` from the target node.
 
 You can return the answer in any order.
@@ -173,7 +172,6 @@ dfs(curr->right, dist - 1, rtn, visited);
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 314: Binary Tree Vertical Order Traversal](https://www.leetcode.com/problems/binary-tree-vertical-order-traversal/)
@@ -224,8 +222,6 @@ dfs(curr->right, dist - 1, rtn, visited);
 - Model entities as nodes and relationships as edges.
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>

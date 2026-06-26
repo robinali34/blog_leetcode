@@ -80,8 +80,6 @@ Answer: 4 ✓
 
 If the heap is empty and there are more events, we jump `day` forward to `events[i][0]` instead of incrementing one by one. This avoids iterating through idle days and keeps the algorithm efficient.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
 
@@ -105,8 +103,6 @@ Typical techniques for this pattern:
 | Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

@@ -56,8 +56,6 @@ This is the XOR analog of prefix sum difference: just as `arr[i] = prefixSum[i] 
 
 Base case: `arr[0] = pref[0]`.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
 
@@ -78,8 +76,6 @@ Typical techniques for this pattern:
 | Shift operations | O(n) | O(1)$ | Power of two, divide by 2 |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

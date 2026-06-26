@@ -57,4 +57,3 @@ categories: leetcode algorithm linked-list data-structures interview-preparation
 - Memorize reverse list & two-pointer cycle detection patterns
 - Understand when to use `dummy` node (saves edge case pain)
 - For hard problems, focus on **visual diagrams**
-

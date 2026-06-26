@@ -62,8 +62,6 @@ Consume 'a' → a:0
 All valid → return true
 ```
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -81,8 +79,6 @@ All valid → return true
 ## Approach 1: Frequency Array -- O(n + m) time, O(1) space
 
 Since characters are lowercase letters, a 26-element array suffices.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -117,8 +113,6 @@ public:
 ## Approach 2: Hash Map -- O(n + m) time, O(k) space
 
 Generalizes to any character set.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -135,7 +129,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n + m)
 **Space**: O(k) where k is the number of distinct characters

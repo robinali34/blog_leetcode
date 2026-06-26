@@ -57,8 +57,6 @@ This problem can be solved using two main approaches:
 
 The key insight is that variables connected by equality equations must have the same value, while variables connected by inequality equations must have different values.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 

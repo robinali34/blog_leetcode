@@ -33,8 +33,6 @@ There are two main approaches to solve this problem:
 1. **Direct Rotation**: Rotate elements in groups of 4 using coordinate mapping
 2. **Transpose + Reflect**: Transpose the matrix then reflect each row
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 

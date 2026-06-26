@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/
 **Difficulty:** Medium  
 **Category:** Tree, Binary Tree, LCA
 
-
 Given two nodes of a binary tree `p` and `q`, return their **lowest common ancestor (LCA)**.
 
 Each node has a reference to its parent node. The definition of LCA is: "The lowest common ancestor of two nodes `p` and `q` in a tree is the lowest node that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself)."
@@ -56,8 +55,6 @@ This is a variation of the **Lowest Common Ancestor (LCA)** problem where each n
 
 ### Key Insight:
 This approach ensures both pointers travel the same total distance, making them meet at the LCA.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
@@ -185,7 +182,6 @@ This problem demonstrates the power of the two-pointer technique and shows how m
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -48,8 +48,6 @@ Output: 23
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
@@ -292,6 +290,7 @@ if(isdigit(ch)) {
     curr = (10 * curr) + (ch - '0');
 }
 ```
+
 - Build multi-digit numbers incrementally
 
 #### 2. Process Operators
@@ -310,6 +309,7 @@ switch(ch) {
     // ...
 }
 ```
+
 - Use `switch` for cleaner code when handling multiple character cases
 - Add current number with sign to result
 - Reset sign and current number
@@ -324,6 +324,7 @@ case '(':
     curr = 0;
     break;
 ```
+
 - Save current result and sign
 - Reset for inner expression
 
@@ -338,6 +339,7 @@ case ')':
     curr = 0;
     break;
 ```
+
 - Complete inner expression
 - Apply saved sign
 - Add to saved result
@@ -346,6 +348,7 @@ case ')':
 ```cpp
 return rtn + (sign * curr);
 ```
+
 - Add the last number if any
 
 ### Solution 2: Recursive
@@ -390,6 +393,7 @@ if(c == '(') {
 ```cpp
 result += signs.top() * sign * num;
 ```
+
 - `signs.top()`: Cumulative sign from all outer parentheses
 - `sign`: Current operator sign
 - `num`: Current number

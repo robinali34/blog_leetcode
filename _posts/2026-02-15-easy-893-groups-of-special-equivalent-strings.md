@@ -78,8 +78,6 @@ All strings with the same signature belong to one group. The answer is the numbe
 
 Each string defines a pair `(E_multiset, O_multiset)`. Swaps only permute within E and within O. So equivalence class = identical pair of multisets. This is a classic **"group by canonical representation under allowed transformations"** pattern, similar to Group Anagrams (LC 49).
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -97,8 +95,6 @@ Each string defines a pair `(E_multiset, O_multiset)`. Swaps only permute within
 ## Approach 1: Sort-Based Signature -- O(nk log k)
 
 For each word, sort even-index and odd-index characters separately, concatenate into a key, and insert into a set.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -144,8 +140,6 @@ Groups are ["abcd","cdab","cbad"], ["xyzz","zzxy"], ["zzyx"].
 ## Approach 2: Frequency Count -- O(nk)
 
 Since characters are lowercase letters (only 26), we can avoid sorting by counting character frequencies instead.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -172,7 +166,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(nk)
 **Space**: O(nk)

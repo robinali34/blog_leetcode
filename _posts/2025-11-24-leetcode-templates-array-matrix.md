@@ -6,8 +6,6 @@ categories: leetcode templates array matrix
 permalink: /posts/2025-11-24-leetcode-templates-array-matrix/
 tags: [leetcode, templates, array, matrix]
 ---
-
-{% raw %}
 Welcome to the Array & Matrix template collection! These are ready-to-use C++ snippets for the most common array patterns: two pointers, sliding window, prefix sum, binary search, and matrix operations. Each template is minimal enough to memorize yet complete enough to paste into a solution and adapt. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/posts/2026-01-20-leetcode-templates-search/).
 
 > **Arrays are the most common data structure in interviews.** Most problems start with an array or can be reduced to one. Learning these patterns well — two pointers, sliding window, prefix sum, and binary search — covers roughly 40% of all LeetCode problems.
@@ -555,5 +553,3 @@ int jump(vector<int>& nums) {
 - **Arrays & Strings, Search:** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Data structures, Graph:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-

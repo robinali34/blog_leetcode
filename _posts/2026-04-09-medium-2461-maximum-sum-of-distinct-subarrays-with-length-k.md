@@ -71,8 +71,6 @@ end=6: 9 seen at idx=5, shrink past 5 → [9]  currSum=9, size=1
 Answer: 15 ✓
 ```
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -99,8 +97,6 @@ Typical techniques for this pattern:
 | Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

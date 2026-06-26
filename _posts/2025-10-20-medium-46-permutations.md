@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-46-permutations/
 **Difficulty:** Medium  
 **Category:** Backtracking, Recursion
 
-
 Given an array `nums` of distinct integers, return **all the possible permutations**. You can return the answer in **any order**.
 
 ## Examples
@@ -56,8 +55,6 @@ This is a classic **backtracking** problem that requires generating all possible
 2. **Use do-while loop** with `next_permutation()` to generate all permutations
 3. **Add each permutation** to result vector
 4. **Continue until** no more permutations exist
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
@@ -136,7 +133,8 @@ public:
         return rtn;
     }
 };
-```## Explanation
+```
+## Explanation
 
 ### Solution 1: Backtracking with Swapping
 
@@ -231,7 +229,6 @@ This problem is fundamental for understanding backtracking algorithms and is com
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

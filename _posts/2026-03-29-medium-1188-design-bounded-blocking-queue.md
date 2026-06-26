@@ -65,8 +65,6 @@ enqueue(x):                    dequeue():
 
 `empty.acquire()` must come **before** `mutex.acquire()`. If reversed, a producer could hold the mutex while blocking on `empty`, preventing any consumer from acquiring the mutex to dequeue -- **deadlock**.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
@@ -90,8 +88,6 @@ Typical techniques for this pattern:
 | Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class BoundedBlockingQueue {
 public:

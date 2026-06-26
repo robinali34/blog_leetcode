@@ -4,8 +4,6 @@ title: "[Medium] 690. Employee Importance"
 date: 2025-12-16 00:00:00 -0800
 categories: leetcode algorithm medium cpp dfs bfs hash-table problem-solving
 ---
-{% raw %}
-
 You have a data structure of employee information, including the employee's unique ID, importance value, and direct subordinates' IDs.
 
 You are given an array of employees `employees` where:
@@ -50,8 +48,6 @@ Thus, the total importance value of employee 5 is -3.
 - BFS visits nodes in non-decreasing distance from the source.
 - Queue guarantees shortest path in unweighted graphs.
 - Process level by level when counting layers or distances.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
@@ -201,8 +197,6 @@ This problem demonstrates the **"Tree/Graph Traversal with Hash Map"** pattern:
 2. Use DFS or BFS to traverse
 3. Accumulate values during traversal
 ```
-
-{% endraw %}
 
 ## References
 

@@ -63,8 +63,6 @@ Use the partition algorithm from quicksort to find the kth largest element witho
 - Size-k heap handles Top-K in O(n log k).
 - Lazy deletion when elements leave the heap before removal.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
 
@@ -205,7 +203,6 @@ Final: Top of heap = 5 (2nd largest)
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -10,7 +10,6 @@ tags: [leetcode, medium, linked-list, circular, insertion, two-pointers]
 **Category:** Linked List, Circular List  
 **Companies:** Amazon, Facebook, Google, Microsoft
 
-
 Given a circular linked list, represented by a Node class, insert a new value into the list while maintaining the circular and sorted order of the list.
 
 The list is circular, so the last node points back to the first node. The list is sorted in ascending order.
@@ -194,7 +193,6 @@ if(curr->next->val < curr->val) {
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 23: Swap Nodes in Pairs](https://www.leetcode.com/problems/swap-nodes-in-pairs/) - Linked list manipulation
@@ -241,8 +239,6 @@ if(curr->next->val < curr->val) {
 - Draw pointers before rewriting links.
 - Dummy head simplifies insert/delete at the head.
 - Slow/fast pointers find middle or detect cycles in one pass.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>

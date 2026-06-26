@@ -76,8 +76,6 @@ Each operation connects one more component to the rest.
 
 Every connection merges two computers. Start with `n` components, and each successful union reduces the count by one. After processing all connections, the remaining component count gives the answer directly.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -93,8 +91,6 @@ Every connection merges two computers. Start with `n` components, and each succe
 </svg>
 
 ## Approach: DSU -- O(n + m)$
-
-{% raw %}
 ```cpp
 class DSU {
 public:

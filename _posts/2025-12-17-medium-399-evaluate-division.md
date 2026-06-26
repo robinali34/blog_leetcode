@@ -4,8 +4,6 @@ title: "[Medium] 399. Evaluate Division"
 date: 2025-12-17 00:00:00 -0800
 categories: leetcode algorithm medium cpp disjoint-set graph dfs problem-solving
 ---
-{% raw %}
-
 You are given an array of variable pairs `equations` and an array of real numbers `values`, where `equations[i] = [Ai, Bi]` and `values[i]` represent the equation `Ai / Bi = values[i]`. Each `Ai` or `Bi` is a string that represents a single variable.
 
 You are also given some `queries`, where `queries[j] = [Cj, Dj]` represents the `jth` query where you must find the answer for `Cj / Dj = ?`.
@@ -57,8 +55,6 @@ Output: [0.50000,2.00000,-1.00000,-1.00000]
 - Model entities as nodes and relationships as edges.
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
@@ -298,9 +294,6 @@ Similar problems:
 - Satisfiability of Equality Equations
 - Network Connectivity with Weights
 - Ratio Queries
-
-{% endraw %}
-
 ## References
 
 - [LC 399: Evaluate Division on LeetCode](https://www.leetcode.com/problems/evaluate-division/)

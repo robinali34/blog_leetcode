@@ -70,8 +70,6 @@ If negative, clamp to 0. Where:
 | Two Pointers | O(n) | O(1) | Optimal |
 | Monotonic Stack | O(n) | O(n) | Useful pattern |
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -89,8 +87,6 @@ If negative, clamp to 0. Where:
 ## Approach 1: Brute Force -- O(n^2)
 
 For each index, scan left and right to find the max height on each side.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -136,8 +132,6 @@ public:
 ## Approach 2: Prefix & Suffix Arrays -- O(n) time, O(n) space
 
 Precompute `leftMax[i]` and `rightMax[i]` in two linear passes, then compute water in a third pass.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -163,7 +157,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n)
@@ -173,8 +166,6 @@ public:
 The smaller side always determines the bottleneck. Move the pointer on the smaller side inward, accumulating water as you go.
 
 **Invariant**: At each step, the smaller of `leftMax` and `rightMax` determines trapped water. Since the opposite side is guaranteed \geq the smaller side, the water calculation is always safe.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -206,7 +197,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(1)
@@ -214,8 +204,6 @@ public:
 ## Approach 4: Monotonic Stack -- O(n) time, O(n) space
 
 Process bars left to right. When a taller bar is found, pop shorter bars from the stack and compute the water trapped in the "valley" between the current bar and the new stack top.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -242,7 +230,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n) -- each index is pushed and popped at most once
 **Space**: O(n) for the stack
@@ -259,7 +246,6 @@ When you see "for each position, need left info + right info," immediately consi
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

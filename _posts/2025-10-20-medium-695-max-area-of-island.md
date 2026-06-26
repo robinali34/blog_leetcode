@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-695-max-area-of-island/
 **Difficulty:** Medium  
 **Category:** DFS, Graph, Matrix
 
-
 You are given an `m x n` binary matrix `grid`. An island is a group of `1`'s (representing land) connected **4-directionally** (horizontal or vertical). You may assume all four edges of the grid are surrounded by water.
 
 The **area** of an island is the number of cells with a value of `1` in the island.
@@ -52,8 +51,6 @@ This is a classic **Connected Components** problem that can be solved using **De
 3. During DFS, mark visited cells as `0` (water) to avoid revisiting
 4. Count all connected land cells and return the area
 5. Update the maximum area if current island is larger
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
@@ -172,7 +169,6 @@ For a simple grid `[[1,1],[1,0]]`:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

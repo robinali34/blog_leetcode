@@ -66,8 +66,6 @@ Two common sliding-window techniques:
    - `increase` keeps values in increasing order (front = min)
    Push new value by popping from back while invariant violated. When shrinking left, pop from front if it equals outgoing value. This yields O(n) time and O(n) space.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -85,8 +83,6 @@ Two common sliding-window techniques:
 ## Solutions
 
 ### Multiset (balanced BST) — O(n log n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -122,7 +118,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

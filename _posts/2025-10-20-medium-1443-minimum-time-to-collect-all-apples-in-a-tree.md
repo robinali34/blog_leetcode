@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/
 **Difficulty:** Medium  
 **Category:** Tree, DFS, BFS, Graph
 
-
 Given an undirected tree consisting of `n` vertices numbered from `0` to `n-1`, which has some apples in their vertices. You spend 1 second to walk over one edge of the tree. Return the minimum time in seconds you have to spend to collect all apples in the tree, starting at vertex 0 and coming back to this vertex.
 
 The edges of the undirected tree are given in the array `edges`, where `edges[i] = [ai, bi]` means that exists an edge connecting the vertices `ai` and `bi`. Additionally, there is a boolean array `hasApple`, where `hasApple[i] = true` means that vertex `i` has an apple; otherwise, vertex `i` does not have any apple.
@@ -59,8 +58,6 @@ This problem can be solved using either **DFS** or **BFS** approaches. The key i
 2. **For each apple node**, trace path back to root
 3. **Count edges** in the path, avoiding duplicates
 4. **Return total time** (2 seconds per unique edge)
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
@@ -154,7 +151,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

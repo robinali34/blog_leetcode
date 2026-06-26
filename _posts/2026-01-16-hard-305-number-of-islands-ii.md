@@ -50,8 +50,6 @@ Output: [1]
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -78,6 +76,7 @@ Typical techniques for this pattern:
 
 ### **Solution: Union-Find (Disjoint Set Union) with Path Compression and Union by Rank**
 
+{% raw %}
 ```cpp
 class UnionFind{
 public:
@@ -134,8 +133,8 @@ private:
 class Solution {
 public:
     vector<int> numIslands2(int m, int n, vector<vector<int>>& positions) {
-        {% raw %}vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};{% endraw %}
-        UnionFind dsu(m*n);
+vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+UnionFind dsu(m*n);
         vector<int> rtn;
         for(auto& position: positions) {
             int landPosition = position[0] * n + position[1];
@@ -154,6 +153,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ### Solution Explanation
 

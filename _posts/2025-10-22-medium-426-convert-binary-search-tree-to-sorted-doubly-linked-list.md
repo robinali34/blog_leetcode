@@ -10,7 +10,6 @@ tags: [leetcode, medium, tree, linked-list, bst, inorder-traversal, recursion]
 **Category:** Tree, Linked List, DFS  
 **Companies:** Amazon, Microsoft, Facebook
 
-
 Convert a Binary Search Tree to a sorted Circular Doubly Linked List in-place.
 
 Think of the left and right pointers as synonymous to the previous and next pointers in a doubly-linked list. For a circular doubly linked list, the predecessor of the first element is the last element, and the successor of the last element is the first element.
@@ -145,7 +144,6 @@ return first;         // Return smallest element
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 114: Flatten Binary Tree to Linked List](https://www.leetcode.com/problems/flatten-binary-tree-to-linked-list/)
@@ -191,8 +189,6 @@ return first;         // Return smallest element
 - Trees have no cycles — recursion is natural.
 - Combine results from left and right subtrees at each node.
 - Base case is usually `null`; height drives stack space.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>

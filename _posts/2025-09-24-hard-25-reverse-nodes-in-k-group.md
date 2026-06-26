@@ -45,8 +45,6 @@ The solution uses a recursive approach:
 3. **Recursive Call**: Recursively process the remaining list
 4. **Connect Groups**: Link the reversed group with the result from recursion
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 

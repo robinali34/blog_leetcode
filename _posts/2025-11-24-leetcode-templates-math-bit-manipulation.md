@@ -6,8 +6,6 @@ categories: leetcode templates math bit-manipulation
 permalink: /posts/2025-11-24-leetcode-templates-math-bit-manipulation/
 tags: [leetcode, templates, math, bit-manipulation]
 ---
-
-{% raw %}
 This page collects ready-to-use C++ templates for bit manipulation, fast exponentiation, GCD/LCM, prime sieves, and basic number theory. Each snippet is self-contained — copy it into your solution and adapt as needed. If you're looking for geometry-related math, see [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
 
 > **New to Bit Manipulation?** Computers store everything in binary. Bit manipulation lets you perform operations on individual bits — it's incredibly fast and often turns complex problems into elegant one-liners. The most common trick: XOR (`a ^ b`) cancels matching bits, which is why it solves "single number" problems.
@@ -342,5 +340,3 @@ int reverse(int x) {
 - **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
 - **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-

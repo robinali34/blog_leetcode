@@ -19,8 +19,6 @@ Return `s` *after adding the bold tags*.
 - Often sort first to make the greedy choice obvious.
 - Prove or sanity-check: would swapping two choices ever help?
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
@@ -81,6 +79,7 @@ The algorithm handles overlapping matches automatically:
 ```cpp
 if(mask[i] == true && (i == 0 || mask[i - 1] == false))
 ```
+
 - Current character is bold
 - AND we're at the start of a bold sequence (first char OR previous not bold)
 
@@ -88,6 +87,7 @@ if(mask[i] == true && (i == 0 || mask[i - 1] == false))
 ```cpp
 if(mask[i] == true && (i == n - 1 || mask[i+1] == false))
 ```
+
 - Current character is bold
 - AND we're at the end of a bold sequence (last char OR next not bold)
 
@@ -97,6 +97,7 @@ For each position, we check all words:
 ```cpp
 if(i + word_len <= n && s.substr(i, word_len) == word)
 ```
+
 - Bounds check: `i + word_len <= n`
 - Substring comparison: `s.substr(i, word_len) == word`
 
@@ -203,7 +204,6 @@ Result: "<b>aaabbc</b>c"
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

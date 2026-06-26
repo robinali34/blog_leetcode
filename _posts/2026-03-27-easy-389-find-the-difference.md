@@ -40,8 +40,6 @@ Every character in `s` appears in `t`, plus one extra. We need to find that extr
 
 XOR is the cleanest: `a ^ a = 0` and `0 ^ a = a`, so every matched pair cancels.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
 
@@ -62,8 +60,6 @@ Typical techniques for this pattern:
 | Stack parsing | O(n) | O(n) | Decode string, parentheses |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

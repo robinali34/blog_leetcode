@@ -10,7 +10,6 @@ tags: [leetcode, medium, stack, parsing, logs, simulation]
 **Category:** Stack, Parsing, Simulation  
 **Companies:** Amazon, Facebook, Google, Twitter
 
-
 On a **single-threaded** CPU, we can only execute one function at a time. When a function call starts, it's recorded with a start timestamp. When a call ends, it's recorded with an end timestamp. Functions can call other functions, creating a call stack.
 
 Given an integer `n` representing the number of functions, and an array `logs`, where `logs[i]` represents the `i-th` log message formatted as `"{function_id}:{"start"|"end"}:{timestamp}"`, return an array where each element is the exclusive time of that function.
@@ -207,7 +206,6 @@ else {
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 394: Decode String](https://www.leetcode.com/problems/decode-string/) - Nested structure processing
@@ -257,8 +255,6 @@ else {
 - Stack matches nested or LIFO structure (parentheses, monotonic scans).
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>

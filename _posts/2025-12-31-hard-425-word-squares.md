@@ -19,8 +19,6 @@ Given an array of unique strings `words`, return *all the word squares you can b
 - Prune branches early to avoid exploring invalid partial states.
 - Sort input to skip duplicate combinations efficiently.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
 
@@ -215,7 +213,8 @@ step = 1: prefix = column 1 = "a"
 
 Actually, I realize the prefix building might work differently. Let me check the code again:
 
-```cpp
+```
+cpp
 string prefix;
 for(const string& word: square) {
     prefix += word[step];
@@ -228,7 +227,8 @@ prefix = "ball"[1] = "a"
 But we want words where the first character matches... wait, I think the issue is that step represents which row we're filling (0-indexed from second row).
 
 Actually, looking at the main function:
-```cpp
+```
+cpp
 for(const string& word: words) {
     vector<string> square{word};
     backtrack(1, square, rtn);
@@ -259,7 +259,6 @@ The key insight is that the Trie efficiently finds words matching prefixes, and 
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

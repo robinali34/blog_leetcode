@@ -70,8 +70,6 @@ When iterating through the 1D array, we must iterate **backwards** from `target`
 Time Complexity: O(n · text{target})
 Space Complexity: O(text{target})
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
@@ -99,8 +97,6 @@ Typical techniques for this pattern:
 ## Solution
 
 ### Approach 1: DFS (Time Limit Exceeded)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -142,7 +138,6 @@ The array can be partitioned as [1, 5, 5] and [11].
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -48,8 +48,6 @@ The solution uses a stack-based approach:
 3. **Operation Execution**: Pop two operands, perform operation, push result
 4. **Final Result**: The remaining element in stack is the answer
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 

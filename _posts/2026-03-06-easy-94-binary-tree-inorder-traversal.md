@@ -66,8 +66,6 @@ Three standard implementations:
 
 Unlike preorder where we can simply push right then left, inorder requires us to **defer** visiting a node until its entire left subtree is processed. The pattern is: push all left children onto the stack, pop and visit, then move to the right child.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -90,8 +88,6 @@ Unlike preorder where we can simply push right then left, inorder requires us to
 </svg>
 
 ## Approach 1: Recursive -- O(n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -130,8 +126,6 @@ private:
 ## Approach 2: Iterative (Stack) -- O(n)
 
 Push all left children first. When there's nothing left to go, pop, visit, and move right.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -154,7 +148,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n) for the output; O(h) for the stack
@@ -162,8 +155,6 @@ public:
 ## Approach 3: Morris Traversal -- O(n)
 
 Thread the rightmost node of the left subtree back to the current node. Visit the node **after** returning via the thread (between left and right).
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -195,7 +186,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n) for the output; O(1) auxiliary
@@ -222,7 +212,6 @@ The Morris and iterative templates are almost identical across traversal orders.
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

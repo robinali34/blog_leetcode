@@ -25,8 +25,6 @@ Android devices have a special lock screen with a `3 x 3` grid of dots. Users ca
 - Recurrence: how does the answer build from smaller indices?
 - Base cases first; optimize space if only prior row/layer is needed.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
@@ -172,7 +170,6 @@ This reduces computation by ~4x for corners and edges.
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

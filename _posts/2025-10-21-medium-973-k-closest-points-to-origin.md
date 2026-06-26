@@ -10,7 +10,6 @@ tags: [leetcode, medium, array, sorting, heap, quickselect]
 **Category:** Array, Sorting, Heap, Quickselect  
 **Companies:** Amazon, Google, Facebook, Microsoft
 
-
 Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane and an integer `k`, return the `k` closest points to the origin `(0, 0)`.
 
 The distance between two points on the X-Y plane is the Euclidean distance (i.e., `√((x1 - x2)² + (y1 - y2)²)`).
@@ -171,8 +170,6 @@ private:
 | Max Heap | O(n log k) | O(k) | k << n, memory constrained |
 | Quickselect | O(n) avg | O(1) | Large datasets, k ≈ n |
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
 
@@ -201,7 +198,6 @@ private:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

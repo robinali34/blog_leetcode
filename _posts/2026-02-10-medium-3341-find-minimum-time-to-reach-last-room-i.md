@@ -70,8 +70,6 @@ You are given a 2D array `moveTime` of size `n x m`, where `moveTime[i][j]` repr
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -98,7 +96,6 @@ Typical techniques for this pattern:
 | Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
 ## Solution
-
 {% raw %}
 ```cpp
 class Solution {
@@ -137,6 +134,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ### Solution Explanation
 
@@ -153,7 +151,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

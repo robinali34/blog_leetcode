@@ -81,8 +81,6 @@ Step 4: Rewire
 Result: 10 → 1 → 13 → 1000000 → 1000001 → 1000002 → 5  ✓
 ```
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
@@ -111,8 +109,6 @@ Typical techniques for this pattern:
 | Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -165,8 +161,6 @@ public:
 ## Without Dummy (Slightly Simpler)
 
 Since the constraints guarantee `a >= 1`, we can skip the dummy:
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -193,7 +187,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 ## Common Mistakes
 

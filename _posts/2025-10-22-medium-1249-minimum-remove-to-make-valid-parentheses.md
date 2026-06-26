@@ -10,7 +10,6 @@ tags: [leetcode, medium, string, stack, parentheses, validation]
 **Category:** String, Stack  
 **Companies:** Amazon, Facebook, Microsoft, Google
 
-
 Given a string `s` of `'('`, `')'` and lowercase English characters.
 
 Your task is to remove the minimum number of parentheses ( `'('` or `')'`, in any positions ) so that the resulting parentheses string is valid and return **any** valid string.
@@ -147,7 +146,6 @@ while(!stk.empty()) {
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 20: Valid Parentheses](https://www.leetcode.com/problems/valid-parentheses/)
@@ -193,8 +191,6 @@ while(!stk.empty()) {
 - Stack matches nested or LIFO structure (parentheses, monotonic scans).
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>

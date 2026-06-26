@@ -62,8 +62,6 @@ Even (6 nodes):  1 → 2 → 3 → 4 → 5 → 6
 
 For even-length lists, this naturally returns the **second** middle node, matching the problem requirement.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
@@ -81,8 +79,6 @@ For even-length lists, this naturally returns the **second** middle node, matchi
 </svg>
 
 ## Approach: Slow & Fast Pointer -- O(n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:

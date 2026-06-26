@@ -10,7 +10,6 @@ tags: [leetcode, medium, array, hash-table, heap, bucket-sort, quickselect]
 **Category:** Array, Hash Table, Heap, Bucket Sort, Quickselect  
 **Companies:** Amazon, Google, Facebook, Microsoft, Apple
 
-
 Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in **any order**.
 
 ## Examples
@@ -137,7 +136,6 @@ public:
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Key Takeaways
 
 1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
@@ -162,8 +160,6 @@ public:
 - Heap gives fast access to min/max without full sorting.
 - Size-k heap handles Top-K in O(n log k).
 - Lazy deletion when elements leave the heap before removal.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>

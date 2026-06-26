@@ -60,8 +60,6 @@ On `get(index, snap_id)`: binary search for the latest entry at or before `snap_
 
 A `map<int,int>` per index gives this naturally with `upper_bound`.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
@@ -89,8 +87,6 @@ Typical techniques for this pattern:
 | Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class SnapshotArray {
 public:

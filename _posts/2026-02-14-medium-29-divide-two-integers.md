@@ -63,8 +63,6 @@ So we greedily subtract the largest shifted divisor. This makes it **logarithmic
 
 > Division = Binary decomposition of quotient.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
 
@@ -133,8 +131,6 @@ Typical techniques for this pattern:
 | Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -158,7 +154,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 ### Why This Solution Works Well
 
@@ -171,8 +166,6 @@ public:
 ## Alternative: Exponential Doubling
 
 Instead of iterating over all 32 bits, repeatedly double `divisor` until it exceeds `dividend`, then subtract:
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -202,7 +195,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 Also O(log n).
 
@@ -211,7 +203,6 @@ Also O(log n).
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

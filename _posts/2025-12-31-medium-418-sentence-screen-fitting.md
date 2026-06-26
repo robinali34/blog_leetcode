@@ -60,8 +60,6 @@ The order of words in the sentence must remain unchanged, and a word cannot be s
 - Recurrence: how does the answer build from smaller indices?
 - Base cases first; optimize space if only prior row/layer is needed.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
@@ -215,6 +213,7 @@ Row 0: a-bcd-  (starts with "a", ends at "bcd", next starts with "e")
 Row 1: e-a---  (starts with "e", completes sentence, next starts with "bcd")
 Row 2: bcd-e-  (starts with "bcd", completes sentence, next starts with "a")
 ```
+
 ## Algorithm Breakdown
 
 ### **Key Insight: DP Precomputation**
@@ -344,7 +343,6 @@ The algorithm efficiently handles:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

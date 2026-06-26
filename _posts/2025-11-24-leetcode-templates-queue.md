@@ -6,8 +6,6 @@ categories: leetcode templates queue
 permalink: /posts/2025-11-24-leetcode-templates-queue/
 tags: [leetcode, templates, queue, data-structures]
 ---
-
-{% raw %}
 Queues are one of the most versatile data structures in algorithm problems. This page collects ready-to-use C++ templates for every queue variant you'll encounter on LeetCode — from the basic FIFO queue used in BFS to monotonic queues, priority queues, and deques. Each section includes the template code and a curated problem list so you can practice immediately.
 
 See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
@@ -486,5 +484,3 @@ public:
 - **Data structures (monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **BFS, Graph:** [BFS](/posts/2025-11-24-leetcode-templates-bfs/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-

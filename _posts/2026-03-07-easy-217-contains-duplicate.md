@@ -55,8 +55,6 @@ We need to detect if any element appears more than once. Three standard approach
 2. **Sorting** -- sort the array, then adjacent duplicates are next to each other.
 3. **One-liner** -- build a set from the array and compare sizes.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
@@ -72,8 +70,6 @@ We need to detect if any element appears more than once. Three standard approach
 ## Approach 1: Hash Set -- O(n)
 
 Insert elements and check for duplicates in one pass. Early exit on first duplicate.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -107,8 +103,6 @@ public:
 ## Approach 2: Hash Map -- O(n)
 
 Same idea but tracks counts. Slightly more than needed here, but useful when the problem asks *how many* duplicates.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -122,7 +116,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n)
@@ -130,8 +123,6 @@ public:
 ## Approach 3: Sorting -- O(n log n)
 
 Sort first, then duplicates become adjacent.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -144,7 +135,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n log n)
 **Space**: O(1) (in-place sort, modifies input)
@@ -152,8 +142,6 @@ public:
 ## Approach 4: One-Liner -- O(n)
 
 Build a set and compare sizes. Clean but no early exit.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -162,7 +150,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(n)
@@ -181,7 +168,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

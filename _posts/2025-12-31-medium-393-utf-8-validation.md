@@ -36,8 +36,6 @@ A character in **UTF8** can be from **1 to 4 bytes** long, subjected to the foll
 - Watch index bounds and empty-string edge cases.
 - Stack helps with nested or repeated patterns.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
 
@@ -246,7 +244,6 @@ while ((num & mask) != 0 && count < 4) {
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Related Problems
 

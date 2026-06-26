@@ -10,7 +10,6 @@ tags: [leetcode, medium, design, array, matrix, optimization]
 **Category:** Design, Array, Matrix  
 **Companies:** Amazon, Google, Microsoft, Facebook
 
-
 Design a Tic-tac-toe game that is played between two players on an `n x n` grid.
 
 A move is guaranteed to be valid and is placed on an empty block. Once a winning condition is reached, no more moves are allowed. A player who succeeds in placing `n` of their marks in a horizontal, vertical, or diagonal row wins the game.
@@ -212,7 +211,6 @@ if(abs(rows[row]) == n || abs(cols[col]) == n ||
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 794: Valid Tic-Tac-Toe State](https://www.leetcode.com/problems/valid-tic-tac-toe-state/)
@@ -258,8 +256,6 @@ if(abs(rows[row]) == n || abs(cols[col]) == n ||
 - Treat the grid as a graph with 4- or 8-directional neighbors.
 - Row-major vs column-major traversal affects cache and logic.
 - Boundary checks on every neighbor expansion.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>

@@ -8,7 +8,6 @@ permalink: /2025/10/20/medium-2043-simple-bank-system/
 **Difficulty:** Medium  
 **Category:** Design, Data Structure
 
-
 You have been tasked with writing a program for a popular bank that will automate all its incoming transactions (transfer, deposit, and withdraw). The bank has `n` accounts numbered from `1` to `n`. The initial balance of each account is stored in a **0-indexed** integer array `balance`, with the `(i + 1)th` account having an initial balance of `balance[i]`.
 
 Execute all the **valid** transactions. A transaction is **valid** if:
@@ -71,8 +70,6 @@ This is a **Data Structure Design** problem that simulates a simple bank system.
 3. **Check sufficient funds** before withdrawals and transfers
 4. **Perform operations** atomically (check first, then modify)
 5. **Return success/failure** based on validation results
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
@@ -244,7 +241,6 @@ For `balance = [10, 100, 20, 50, 30]` (5 accounts):
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

@@ -49,8 +49,6 @@ Output: 3
 - Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
 - Union-Find helps when connectivity updates are frequent.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -279,6 +277,7 @@ Order doesn't matter - all 4 directions must be explored.
 This problem demonstrates the **"Connected Components"** pattern:
 
 ```
+
 1. Scan grid for unvisited components
 2. Use DFS/BFS to explore entire component
 3. Mark visited to avoid revisiting

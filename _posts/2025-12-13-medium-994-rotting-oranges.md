@@ -4,8 +4,6 @@ title: "[Medium] 994. Rotting Oranges"
 date: 2025-12-13 00:00:00 -0800
 categories: leetcode algorithm medium cpp array matrix bfs problem-solving
 ---
-{% raw %}
-
 You are given an `m x n` grid where each cell can have one of three values:
 
 - `0` representing an empty cell,
@@ -53,8 +51,6 @@ Explanation: Since there are no fresh oranges at minute 0, the answer is just 0.
 - Queue guarantees shortest path in unweighted graphs.
 - Process level by level when counting layers or distances.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -87,6 +83,7 @@ Typical techniques for this pattern:
 
 This solution uses BFS starting from all rotten oranges simultaneously. A special marker `{-1, -1}` is used to separate levels (minutes).
 
+{% raw %}
 ```cpp
 class Solution {
 public:
@@ -140,6 +137,7 @@ public:
     }
 };
 ```
+{% endraw %}
 
 ### Solution Explanation
 
@@ -288,9 +286,6 @@ Similar problems:
 3. **Fire Spread**: Simulate fire spreading from multiple ignition points
 4. **Virus Propagation**: Model computer virus spreading in network
 5. **Information Diffusion**: Track information spread in social networks
-
-{% endraw %}
-
 ## References
 
 - [LC 994: Rotting Oranges on LeetCode](https://www.leetcode.com/problems/rotting-oranges/)

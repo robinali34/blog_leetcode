@@ -76,8 +76,6 @@ This is [LC 112 Path Sum](/2026/03/06/easy-112-path-sum/) extended to **collect 
 
 The push/pop ensures the path is always correct for the current branch.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -100,8 +98,6 @@ The push/pop ensures the path is always correct for the current branch.
 </svg>
 
 ## Approach: DFS + Backtracking -- O(n^2)
-
-{% raw %}
 ```cpp
 class Solution {
 public:

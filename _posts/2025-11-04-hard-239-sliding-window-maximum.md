@@ -47,8 +47,6 @@ Output: [1]
 - Expand `right` to grow; shrink `left` when invalid.
 - Fixed window: slide both pointers together.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
@@ -147,6 +145,7 @@ Window position                Max
 vector<int> rtn;
 deque<int> q;
 ```
+
 - `rtn`: Result array to store maximums
 - `q`: Deque storing indices in decreasing order of values
 
@@ -156,6 +155,7 @@ while(!q.empty() && q.front() < i - k + 1) {
     q.pop_front();
 }
 ```
+
 - Window starts at `i - k + 1`
 - Remove indices that are before the window start
 
@@ -165,6 +165,7 @@ while(!q.empty() && nums[q.back()] < nums[i]) {
     q.pop_back();
 }
 ```
+
 - Remove indices whose values are smaller than `nums[i]`
 - These elements can never be the maximum in any future window
 - Maintains decreasing order in deque
@@ -173,6 +174,7 @@ while(!q.empty() && nums[q.back()] < nums[i]) {
 ```cpp
 q.push_back(i);
 ```
+
 - Add current index to deque
 
 ### 5. Record Maximum
@@ -181,6 +183,7 @@ if(i >= k - 1) {
     rtn.push_back(nums[q.front()]);
 }
 ```
+
 - When window is complete (i >= k - 1), add maximum to result
 - Maximum is always at `q.front()`
 

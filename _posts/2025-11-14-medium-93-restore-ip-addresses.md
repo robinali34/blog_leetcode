@@ -45,8 +45,6 @@ A **valid IP address** consists of exactly four integers separated by single dot
 - Prune branches early to avoid exploring invalid partial states.
 - Sort input to skip duplicate combinations efficiently.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
 
@@ -254,7 +252,8 @@ public:
         return result;
     }
 };
-```## Key Optimizations (C++20)
+```
+## Key Optimizations (C++20)
 
 1. **`string_view`**: Avoids string copying when checking segments and building results
 2. **`reserve()`**: Pre-allocates memory for vectors and strings to avoid reallocations
@@ -291,6 +290,7 @@ public:
 └─ "25" (valid)
    └─ ...
 ```
+
 ## Algorithm Breakdown
 
 ### 1. Validation Function

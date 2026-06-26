@@ -59,8 +59,6 @@ Explanation: None of the folders are subfolders of another folder.
 - Watch index bounds and empty-string edge cases.
 - Stack helps with nested or repeated patterns.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 

@@ -66,8 +66,6 @@ This makes each `move` O(1) -- just update at most 4 counters and check their ab
 
 Using `+1` and `-1` is cleaner than tracking two separate counts per line. Opposite players cancel each other out, so `|sum| == n` is a necessary and sufficient condition for a win.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -80,8 +78,6 @@ Using `+1` and `-1` is cleaner than tracking two separate counts per line. Oppos
 </svg>
 
 ## Approach: Counter Tracking -- O(1) per move
-
-{% raw %}
 ```cpp
 class TicTacToe {
 public:

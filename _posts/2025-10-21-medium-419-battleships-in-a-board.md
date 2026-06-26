@@ -10,7 +10,6 @@ tags: [leetcode, medium, array, matrix, dfs, battleship]
 **Category:** Array, Matrix, DFS  
 **Companies:** Amazon, Google, Microsoft
 
-
 Given an `m x n` matrix `board` where each cell is either a battleship `'X'` or empty `'.'`, return the number of the battleships on `board`.
 
 Battleships can only be placed horizontally or vertically on `board`. In other words, they can only be made of the shape `1 x k` (1 row, k columns) or `k x 1` (k rows, 1 column), where `k` can be of any size. At least one horizontal or vertical cell separates between two battleships (i.e., there are no adjacent battleships).
@@ -114,7 +113,6 @@ public:
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Key Takeaways
 
 1. **Battleship Structure**: Each battleship is a connected component of `'X'` cells
@@ -139,8 +137,6 @@ public:
 - DFS explores one branch fully before backtracking.
 - Mark visited nodes to avoid cycles on graphs.
 - Return aggregated results from children to the parent.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>

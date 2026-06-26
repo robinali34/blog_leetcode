@@ -6,8 +6,6 @@ categories: leetcode templates backtracking
 permalink: /posts/2025-11-24-leetcode-templates-backtracking/
 tags: [leetcode, templates, backtracking, dfs]
 ---
-
-{% raw %}
 Welcome to the backtracking templates! Backtracking is one of the most versatile problem-solving techniques in competitive programming—once you learn the core pattern, you can tackle a huge family of problems from permutations to Sudoku. This page gives you battle-tested C++ templates for every major backtracking pattern, ready to adapt and submit.
 
 > **New to Backtracking?** Backtracking = DFS + undo. You try a choice, recurse deeper, and if it doesn't work out, you undo the choice and try the next one. It's how you systematically explore all possibilities without missing any.
@@ -797,5 +795,3 @@ void backtrack(state, constraints, current_solution, results){
 - **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-

@@ -10,7 +10,6 @@ tags: [leetcode, medium, array, sorting, simulation, bucket-sort]
 **Category:** Array, Sorting, Simulation  
 **Companies:** Amazon, Google, Microsoft, Uber
 
-
 There is a car with `capacity` empty seats. The vehicle only drives east (i.e., it cannot turn around and drive west).
 
 You are given the integer `capacity` and an array `trips` where `trips[i] = [numPassengers, from, to]` indicates that the `i`-th trip has `numPassengers` passengers and the locations to pick them up and drop them off are `from` and `to` respectively. The locations are given as the number of kilometers due east from the car's initial location.
@@ -137,7 +136,6 @@ for(int number: timestamp) {
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 253: Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/)
@@ -183,8 +181,6 @@ for(int number: timestamp) {
 - Clarify if the array is sorted, has negatives, or allows duplicates.
 - Prefix sums answer range queries; hash maps answer pair/count queries.
 - In-place tricks use swap/write index instead of extra arrays.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>

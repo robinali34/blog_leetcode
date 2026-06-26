@@ -20,8 +20,6 @@ Return a list of indices (0-indexed) of buildings that have an ocean view, sorte
 - Push on open / larger; pop when the current element resolves pending work.
 - Monotonic stack finds next greater/smaller in O(n).
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -269,6 +267,7 @@ i = 0: heights[0] = 1
 
 After reverse: rtn = [3]
 ```
+
 ## Algorithm Breakdown
 
 ### Solution 1: Simple Greedy

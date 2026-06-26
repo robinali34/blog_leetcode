@@ -4,8 +4,6 @@ title: "[Medium] 279. Perfect Squares"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm medium cpp math dynamic-programming bfs problem-solving
 ---
-{% raw %}
-
 Given an integer `n`, return *the least number of perfect square numbers that sum to* `n`.
 
 A **perfect square** is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, `1`, `4`, `9`, and `16` are perfect squares while `3` and `11` are not.
@@ -43,8 +41,6 @@ Output: 1
 - Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
 - Recurrence: how does the answer build from smaller indices?
 - Base cases first; optimize space if only prior row/layer is needed.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
@@ -264,9 +260,6 @@ This problem demonstrates multiple patterns:
 2. **Optimization**: Resource allocation problems
 3. **Algorithm Design**: Pattern matching in DP problems
 4. **Mathematical Research**: Number representation problems
-
-{% endraw %}
-
 ## References
 
 - [LC 279: Perfect Squares on LeetCode](https://www.leetcode.com/problems/perfect-squares/)

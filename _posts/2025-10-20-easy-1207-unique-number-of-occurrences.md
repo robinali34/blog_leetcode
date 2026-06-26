@@ -10,7 +10,6 @@ tags: [leetcode, easy, array, hash-table, counting]
 **Category:** Array, Hash Table  
 **Companies:** Amazon, Google, Microsoft
 
-
 Given an array of integers `arr`, return `true` if the number of occurrences of each value in the array is **unique**, or `false` otherwise.
 
 ## Examples
@@ -117,7 +116,6 @@ freq[num + 1000]++;
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
 
-
 ## Related Problems
 
 - [LC 347: Top K Frequent Elements](https://www.leetcode.com/problems/top-k-frequent-elements/)
@@ -163,8 +161,6 @@ freq[num + 1000]++;
 - Clarify if the array is sorted, has negatives, or allows duplicates.
 - Prefix sums answer range queries; hash maps answer pair/count queries.
 - In-place tricks use swap/write index instead of extra arrays.
-
-
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>

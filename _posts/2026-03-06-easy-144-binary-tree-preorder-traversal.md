@@ -64,8 +64,6 @@ Preorder traversal processes nodes in **root → left → right** order. Three s
 
 The recursive solution is trivial. Interviewers often follow up with "can you do it iteratively?" or "can you do it in O(1) space?" -- that's where the stack and Morris approaches matter.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
@@ -88,8 +86,6 @@ The recursive solution is trivial. Interviewers often follow up with "can you do
 </svg>
 
 ## Approach 1: Recursive -- O(n)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -128,8 +124,6 @@ private:
 ## Approach 2: Iterative (Stack) -- O(n)
 
 Push right child first, then left, so left is processed first (LIFO).
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -150,7 +144,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n)
 **Space**: O(h) for the stack
@@ -158,8 +151,6 @@ public:
 ## Approach 3: Morris Traversal -- O(n) time, O(n) space
 
 Use the tree's null pointers to thread back to ancestors, avoiding a stack entirely. For preorder: visit the node **before** following the thread.
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -191,7 +182,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(n) -- each edge traversed at most twice
 **Space**: O(n) for the output vector; O(1) auxiliary
@@ -209,7 +199,6 @@ public:
 - Skipping edge cases (empty input, single element, boundaries).
 - Off-by-one errors in loops and index ranges.
 - Forgetting to handle the case when no valid answer exists.
-
 
 ## Key Takeaways
 

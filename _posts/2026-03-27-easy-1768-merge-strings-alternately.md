@@ -43,8 +43,6 @@ Explanation: a p b q + remaining "cd"
 
 Use two pointers `i` and `j` to walk through both strings simultaneously. In each iteration, take one character from `word1` (if available), then one from `word2` (if available). The loop continues until both strings are exhausted, naturally handling unequal lengths.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
@@ -71,8 +69,6 @@ Typical techniques for this pattern:
 | Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
 
 ## Solution
-
-{% raw %}
 ```cpp
 class Solution {
 public:

@@ -61,8 +61,6 @@ This is a **graph reachability** problem -- standard DFS or BFS from a starting 
 3. Track visited rooms
 4. If `visited.size() == n`, all rooms are reachable
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
@@ -78,8 +76,6 @@ This is a **graph reachability** problem -- standard DFS or BFS from a starting 
 </svg>
 
 ## Approach 1: DFS (Stack) -- O(V + E)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -124,8 +120,6 @@ public:
 
 Room 0 → key 1 → Room 1 → key 2 → Room 2 → key 3 → Room 3
 ## Approach 2: BFS (Queue) -- O(V + E)
-
-{% raw %}
 ```cpp
 class Solution {
 public:
@@ -153,7 +147,6 @@ public:
     }
 };
 ```
-{% endraw %}
 
 **Time**: O(V + E)
 **Space**: O(V)

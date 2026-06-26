@@ -37,8 +37,6 @@ Explanation: [0, 1] or [1, 0] is the longest contiguous subarray with an equal n
 - Prefix sums answer range queries; hash maps answer pair/count queries.
 - In-place tricks use swap/write index instead of extra arrays.
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
@@ -120,6 +118,7 @@ unordered_map<int, int> map;
 map[0] = -1;  // Base case
 int maxLen = 0, count = 0;
 ```
+
 - **`map[0] = -1`**: Represents prefix sum 0 before the array starts
 - This allows us to handle subarrays starting at index 0
 - **`count`**: Tracks the current prefix sum
@@ -128,6 +127,7 @@ int maxLen = 0, count = 0;
 ```cpp
 count = count + (nums[i] == 1 ? 1 : -1);
 ```
+
 - **Convert**: `0` → `-1`, `1` → `+1`
 - **Accumulate**: Add to running count
 
@@ -137,6 +137,7 @@ if(map.contains(count)) {
     maxLen = max(maxLen, i - map[count]);
 }
 ```
+
 - **If prefix sum seen before**: Subarray from `map[count] + 1` to `i` has sum 0
 - **Length**: `i - map[count]` (we don't add 1 because `map[count]` is the index before the subarray starts)
 
@@ -146,6 +147,7 @@ else {
     map[count] = i;
 }
 ```
+
 - **Store only first occurrence**: To maximize subarray length
 - **Later occurrences**: Would give shorter subarrays
 

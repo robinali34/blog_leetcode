@@ -39,8 +39,6 @@ Three levels of space usage:
 1. **O(m + n)**: Use separate sets/arrays for row and column markers
 2. **O(1)**: Use the matrix's own first row and first column as markers
 
-
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
@@ -66,8 +64,6 @@ Typical techniques for this pattern:
 ## Solution
 
 Scan for zeros, record their rows and columns, then zero out.
-
-{% raw %}
 ```cpp
 class Solution {
 public:

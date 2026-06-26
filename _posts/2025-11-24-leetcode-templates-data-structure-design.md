@@ -6,8 +6,6 @@ categories: leetcode templates design
 permalink: /posts/2025-11-24-leetcode-templates-data-structure-design/
 tags: [leetcode, templates, design, data-structures]
 ---
-
-{% raw %}
 Data structure design problems are among the most popular interview questions at top tech companies. This page provides complete, tested C++ implementations for LRU/LFU cache, Trie, time-based key-value store, and other classic design patterns. The key insight for most of these problems is combining two or more simple structures to achieve the required time complexity.
 
 > **Design problems test your ability to compose data structures.** The trick is almost always combining a hash map with another structure (linked list, heap, array) to get O(1) for multiple operations.
@@ -446,5 +444,3 @@ public:
 
 - **Data structures (Trie, segment tree):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-{% endraw %}
-
