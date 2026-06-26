@@ -6,11 +6,6 @@ categories: [leetcode, medium, tree, bfs, binary-tree]
 permalink: /2026/01/07/medium-102-binary-tree-level-order-traversal/
 tags: [leetcode, medium, tree, bfs, level-order-traversal, binary-tree]
 ---
-
-# 102. Binary Tree Level Order Traversal
-
-## Problem Statement
-
 Given the `root` of a binary tree, return *the level order traversal of its nodes' values*. (i.e., from left to right, level by level).
 
 ## Examples
@@ -42,84 +37,40 @@ Output: []
 - The number of nodes in the tree is in the range `[0, 2000]`.
 - `-1000 <= Node.val <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **BFS Structure**: Queue naturally maintains level-by-level order
 
-1. **Level definition**: How are levels defined? (Assumption: Level 0 is root, level 1 is root's children, etc. - BFS levels)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level, nodes in left-to-right order)
 
-3. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
 
-4. **Traversal order**: Should nodes at the same level be in any specific order? (Assumption: Left to right - process left child before right child)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to traverse tree level by level. Let me use DFS and track levels."
+## Common Approaches
 
-**Naive Solution**: Use DFS with level tracking. Store nodes by level in map, then convert to result.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(n) space
-
-**Issues**:
-- DFS doesn't naturally maintain level order
-- Need to sort levels or use map
-- Doesn't leverage BFS naturally
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "BFS naturally processes nodes level by level."
-
-**Improved Solution**: Use BFS (queue). Process nodes level by level. For each level, process all nodes at that level, add to result.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- BFS naturally maintains level order
-- O(n) time is optimal
-- Clean and intuitive
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "BFS approach is optimal. Track level size to process level by level."
-
-**Best Solution**: BFS approach is optimal. Use queue, track level size, process all nodes at current level before moving to next level.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. BFS is perfect for level-order traversal
-2. O(n) time is optimal - visit each node once
-3. Level size tracking enables level-by-level processing
-4. O(n) space for queue is necessary
-
-## Solution Approach
-
-This is a classic **BFS (Breadth-First Search)** problem. The key insight is to:
-1. Use a queue to traverse the tree level by level
-2. Process all nodes at the current level before moving to the next
-3. Track the level size to know when we've processed all nodes at a level
-
-### Key Insights:
-
-1. **Level-by-Level Processing**: Process all nodes at the current level before moving to the next
-2. **Queue for BFS**: Use a queue to maintain the order of nodes to be processed
-3. **Level Size Tracking**: Store the queue size before processing a level to know how many nodes belong to that level
-4. **Children Order**: Always add left child first, then right child to maintain left-to-right order
-
-### Algorithm:
-
-1. **Initialize**: Create result vector and queue, push root if it exists
-2. **For each level**:
-   - Get current level size (number of nodes at this level)
-   - Process all nodes at current level
-   - Add their values to the level vector
-   - Add their children to the queue for next level
-3. **Return**: Result vector containing all levels
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Queue BFS | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| **Level-order BFS** *(this problem)* | $O(n)$ | $O(w)$ | Process by depth/layer |
 
 ## Solution
 
@@ -161,6 +112,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Level-order BFS (this problem)
+
+**Key idea:** 1. **BFS Structure**: Queue naturally maintains level-by-level order
+
+**How the code works:**
+1. **BFS Structure**: Queue naturally maintains level-by-level order
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [3,9,20,null,null,15,7]`, expected output `[[3],[9,20],[15,7]]`:
+
+Level 0: [3]
+Level 1: [9, 20]
+Level 2: [15, 7]
 
 ### **Algorithm Explanation:**
 
@@ -241,22 +210,33 @@ Queue empty, return result
 - **Space Complexity:** O(n) for the result and O(w) for the queue where w is maximum width
   - Result stores all n node values
   - Queue stores at most one level of nodes (maximum width of tree)
+## Related Problems
 
-## Key Insights
+- [LC 103: Binary Tree Zigzag Level Order Traversal](https://www.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) - Alternate direction at each level
+- [LC 107: Binary Tree Level Order Traversal II](https://www.leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
+- [LC 314: Binary Tree Vertical Order Traversal](https://www.leetcode.com/problems/binary-tree-vertical-order-traversal/) - Vertical traversal
+- [LC 199: Binary Tree Right Side View](https://www.leetcode.com/problems/binary-tree-right-side-view/) - Right side view
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **BFS Structure**: Queue naturally maintains level-by-level order
 2. **Level Size Tracking**: Critical to know when we've finished processing a level
 3. **Pre-allocation**: Using `reserve()` avoids vector reallocation overhead
 4. **Children Order**: Always add left then right to maintain left-to-right traversal
 
-## Related Problems
+## References
 
-- [LC 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) - Alternate direction at each level
-- [LC 107: Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
-- [LC 314: Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) - Vertical traversal
-- [LC 199: Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) - Right side view
+- [LC 102: Binary Tree Level Order Traversal on LeetCode](https://www.leetcode.com/problems/binary-tree-level-order-traversal/)
+- [LeetCode Discuss — LC 102: Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/binary-tree-level-order-traversal/editorial/) *(may require premium)*
 
----
+## Template Reference
 
-*This problem demonstrates the fundamental BFS pattern for tree traversal, which is essential for many tree problems.*
-
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

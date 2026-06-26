@@ -6,7 +6,6 @@ categories: [leetcode, medium, hash-map, array]
 tags: [leetcode, medium, hash-map, array, greedy]
 permalink: /2026/04/11/medium-2342-max-sum-of-a-pair-with-equal-sum-of-digits/
 ---
-
 Given an array `nums`, find two indices `i` and `j` (`i != j`) such that the **digit sum** of `nums[i]` equals the digit sum of `nums[j]`, and return the **maximum** value of `nums[i] + nums[j]`. Return `-1` if no such pair exists.
 
 ## Examples
@@ -65,7 +64,31 @@ Answer: 54 ✓
 
 Max digit sum occurs for `999,999,999` = $9 \times 9 = 81$. An array of size 100 covers all possible digit sums with margin.
 
-## Solution: Greedy (Best Seen So Far) -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
+
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -95,16 +118,28 @@ private:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n \cdot d)$ where $d$ = number of digits (at most 10) $\approx O(n)$
-**Space**: $O(1)$ -- fixed-size array of 100
+### Solution Explanation
 
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** To maximize the sum of a pair with equal digit sums, we want the **two largest** numbers in each digit-sum group.
+
+**How the code works:**
+1. Compute its digit sum
+2. If we've seen a number with the same digit sum, try pairing with the best one
+3. Update the best for this digit sum
+
+**Walkthrough** — input `nums = [18,43,36,13,7]`, expected output `54`:
+
+digitSum(18) = 9, digitSum(36) = 9
+  18 + 36 = 54 is the maximum pair with equal digit sums.
 ## Common Mistakes
 
-- Storing all numbers per group and sorting (works but $O(n \log n)$ instead of $O(n)$)
-- Forgetting to return `-1` when no valid pair exists
-- Updating `best[s]` before checking the pair (would pair a number with itself)
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 
 ## Key Takeaways
 
@@ -114,10 +149,16 @@ private:
 
 ## Related Problems
 
-- [1. Two Sum](https://leetcode.com/problems/two-sum/) -- pair finding with hash map
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) -- "best seen so far" pattern
-- [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) -- grouping by canonical key
-- [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/) -- digit/character frequency
+- [1. Two Sum](https://www.leetcode.com/problems/two-sum/) -- pair finding with hash map
+- [121. Best Time to Buy and Sell Stock](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock/) -- "best seen so far" pattern
+- [49. Group Anagrams](https://www.leetcode.com/problems/group-anagrams/) -- grouping by canonical key
+- [242. Valid Anagram](https://www.leetcode.com/problems/valid-anagram/) -- digit/character frequency
+
+## References
+
+- [LC 2342: Max Sum of a Pair With Equal Sum of Digits on LeetCode](https://www.leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/)
+- [LeetCode Discuss — LC 2342: Max Sum of a Pair With Equal Sum of Digits](https://www.leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/editorial/) *(may require premium)*
 
 ## Template Reference
 

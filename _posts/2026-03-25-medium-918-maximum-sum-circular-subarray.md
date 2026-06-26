@@ -6,7 +6,6 @@ categories: [leetcode, medium, dp, array, kadane]
 tags: [leetcode, medium, dp, array, kadane]
 permalink: /2026/03/25/medium-918-maximum-sum-circular-subarray/
 ---
-
 Given a **circular** integer array `nums`, find the maximum possible sum of a non-empty subarray. A circular subarray can wrap around the end back to the beginning.
 
 ## Examples
@@ -90,7 +89,33 @@ total = 7
 maxSum=7 ≥ 0, so answer = max(7, 7-(-3)) = max(7, 10) = 10 ✓
 ```
 
-## Solution: Double Kadane's -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -116,11 +141,20 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- single pass computing both Kadane's simultaneously
-**Space**: $O(1)$
+### Solution Explanation
 
+**Approach:** 1D DP (this problem)
+
+**Key idea:** ### Two Cases
+
+**How the code works:**
+**Case 1**: Standard maximum subarray -- solved by Kadane's algorithm.
+**Case 2**: The wrapping subarray = total sum minus the **minimum** subarray in the middle. So:
+
+**Walkthrough** — input `nums = [1,-2,3,-2]`, expected output `3`:
+
+Subarray [3] has maximum sum 3.
 ## Why `total - minSum` Gives the Wrap-Around Sum
 
 ```
@@ -148,10 +182,16 @@ The wrapping subarray is everything **except** the minimum contiguous subarray. 
 
 ## Related Problems
 
-- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) -- standard Kadane's (non-circular)
-- [134. Gas Station](https://leetcode.com/problems/gas-station/) -- circular array with running sum
-- [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) -- Kadane's variant with products
-- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) -- subarray with constraint
+- [53. Maximum Subarray](https://www.leetcode.com/problems/maximum-subarray/) -- standard Kadane's (non-circular)
+- [134. Gas Station](https://www.leetcode.com/problems/gas-station/) -- circular array with running sum
+- [152. Maximum Product Subarray](https://www.leetcode.com/problems/maximum-product-subarray/) -- Kadane's variant with products
+- [209. Minimum Size Subarray Sum](https://www.leetcode.com/problems/minimum-size-subarray-sum/) -- subarray with constraint
+
+## References
+
+- [LC 918: Maximum Sum Circular Subarray on LeetCode](https://www.leetcode.com/problems/maximum-sum-circular-subarray/)
+- [LeetCode Discuss — LC 918: Maximum Sum Circular Subarray](https://www.leetcode.com/problems/maximum-sum-circular-subarray/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-sum-circular-subarray/editorial/) *(may require premium)*
 
 ## Template Reference
 

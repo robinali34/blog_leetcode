@@ -4,19 +4,13 @@ title: "[Medium] 62. Unique Paths"
 date: 2025-09-24 23:30:00 -0000
 categories: leetcode algorithm dynamic-programming data-structures grid combinatorics medium cpp unique-paths problem-solving
 ---
-
-# [Medium] 62. Unique Paths
-
 This is a classic dynamic programming problem that requires finding the number of unique paths from top-left to bottom-right of a grid. The key insight is recognizing the overlapping subproblems and using DP to avoid recalculating the same paths multiple times.
-
-## Problem Description
 
 There is a robot on an m x n grid. The robot is initially located at the top-left corner (grid[0][0]). The robot tries to move to the bottom-right corner (grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
 
 Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: m = 3, n = 7
@@ -45,65 +39,11 @@ Input: m = 3, n = 3
 Output: 6
 ```
 
-### Constraints
+## Constraints
 - 1 <= m, n <= 100
 - It's guaranteed that the answer will be less than or equal to 2 * 10^9
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Movement direction**: In which directions can we move? (Assumption: Only right and down - typical grid path problem constraint)
-
-2. **Starting/ending positions**: Where do we start and end? (Assumption: Start at top-left (0,0), end at bottom-right (m-1, n-1))
-
-3. **Path uniqueness**: Do we need to find all paths or just count them? (Assumption: Just count the number of unique paths, not enumerate them)
-
-4. **Grid boundaries**: Can we move outside the grid? (Assumption: No - must stay within grid bounds)
-
-5. **Return value**: What should we return? (Assumption: Number of unique paths - integer count)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to count paths. Let me try all possible paths using DFS/backtracking."
-
-**Naive Solution**: Use DFS/backtracking to explore all possible paths from start to end, count successful paths.
-
-**Complexity**: O(2^(m+n)) worst case time, O(m+n) space
-
-**Issues**:
-- Exponential time complexity
-- Explores many redundant paths
-- Very inefficient for large grids
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This has optimal substructure. I can use dynamic programming - paths to (i,j) = paths to (i-1,j) + paths to (i,j-1)."
-
-**Improved Solution**: DP where dp[i][j] = number of paths to reach (i,j). dp[i][j] = dp[i-1][j] + dp[i][j-1]. Base case: dp[0][0] = 1.
-
-**Complexity**: O(m × n) time, O(m × n) space
-
-**Improvements**:
-- Polynomial time instead of exponential
-- Correctly counts all paths
-- Can optimize space to O(min(m,n))
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DP is optimal. Can optimize space to O(n) using single row, or use combinatorial formula."
-
-**Best Solution**: DP approach is optimal. Can optimize space to O(min(m,n)) using single array. Alternatively, use combinatorial formula: C(m+n-2, m-1) = (m+n-2)! / ((m-1)! × (n-1)!) but DP is more intuitive.
-
-**Complexity**: O(m × n) time, O(min(m,n)) space
-
-**Key Realizations**:
-1. DP is natural approach - optimal substructure
-2. O(m × n) time is optimal for DP approach
-3. Space can be optimized to O(min(m,n))
-4. Combinatorial formula exists but DP is clearer
-
-## Approach
+## Thinking Process
 
 The solution uses dynamic programming with the following key insights:
 
@@ -111,8 +51,34 @@ The solution uses dynamic programming with the following key insights:
 2. **Recurrence Relation**: `dp[i][j] = dp[i-1][j] + dp[i][j-1]`
 3. **Bottom-up DP**: Build the solution from smaller subproblems to larger ones
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">2D DP on grid</text>
+
+  <rect x="40" y="40" width="32" height="28" rx="2" fill="#D4D8E0" stroke="#8B8680"/><text x="56" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="72" y="40" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="88" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="104" y="40" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="40" y="68" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="56" y="84" text-anchor="middle" font-size="10">1</text>
+  <rect x="72" y="68" width="32" height="28" rx="2" fill="#E0D8E4" stroke="#A098A8"/><text x="88" y="84" text-anchor="middle" font-size="10">2</text>
+  <rect x="104" y="68" width="32" height="28" rx="2" fill="#E8D5D0" stroke="#B8A5A0"/><text x="120" y="84" text-anchor="middle" font-size="10">3</text>
+  <text x="140" y="65" font-size="10" fill="#C4956A">← + ↑</text>
+  <text x="90" y="115" text-anchor="middle" font-size="11" fill="#6B6560">cell from top + left neighbors</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **2D DP** *(this problem)* | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| 1D DP | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
+## Solution
 **Time Complexity:** O(m × n) - We fill each cell once  
 **Space Complexity:** O(m × n) - For the DP table
 
@@ -130,6 +96,23 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 2D DP (this problem)
+
+**Key idea:** The solution uses dynamic programming with the following key insights:
+
+**How the code works:**
+1. **Base Case**: The first row and first column can only be reached in one way (moving right or down respectively)
+2. **Recurrence Relation**: `dp[i][j] = dp[i-1][j] + dp[i][j-1]`
+3. **Bottom-up DP**: Build the solution from smaller subproblems to larger ones
+
+**Walkthrough** — input `m = 3, n = 7`, expected output `28`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 ## Step-by-Step Example
 
@@ -156,39 +139,6 @@ Let's trace through the solution with m = 3, n = 3:
 ```
 
 **Result:** dp[2][2] = 6 unique paths
-
-## Key Insights
-
-1. **Mathematical Approach**: This is essentially a combination problem - we need to choose (m-1) down moves out of (m+n-2) total moves
-2. **DP Optimization**: Avoids recalculating the same subproblems multiple times
-3. **Space Optimization**: Can be optimized to O(min(m,n)) space using rolling array technique
-4. **Base Cases**: First row and column are always 1 since there's only one way to reach them
-
-## Alternative Approaches
-
-### Mathematical Solution (Combinatorics)
-```cpp
-int uniquePaths(int m, int n) {
-    long long result = 1;
-    for (int i = 0; i < min(m-1, n-1); i++) {
-        result = result * (m + n - 2 - i) / (i + 1);
-    }
-    return (int)result;
-}
-```
-
-### Space-Optimized DP
-```cpp
-int uniquePaths(int m, int n) {
-    vector<int> dp(n, 1);
-    for (int i = 1; i < m; i++) {
-        for (int j = 1; j < n; j++) {
-            dp[j] += dp[j-1];
-        }
-    }
-    return dp[n-1];
-}
-```
 
 ## Visual Representation
 
@@ -234,3 +184,16 @@ Start ↓ ↓ →
 - **174. Dungeon Game** - Reverse DP approach
 
 ---
+
+## References
+
+- [LC 62: Unique Paths on LeetCode](https://www.leetcode.com/problems/unique-paths/)
+- [LeetCode Discuss — LC 62: Unique Paths](https://www.leetcode.com/problems/unique-paths/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/unique-paths/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Mathematical Approach**: This is essentially a combination problem - we need to choose (m-1) down moves out of (m+n-2) total moves
+2. **DP Optimization**: Avoids recalculating the same subproblems multiple times
+3. **Space Optimization**: Can be optimized to O(min(m,n)) space using rolling array technique
+4. **Base Cases**: First row and column are always 1 since there's only one way to reach them

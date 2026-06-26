@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp string stack greedy problem-solving
 permalink: /posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/
 tags: [leetcode, medium, string, stack, parentheses, greedy, counting]
 ---
-
-# [Medium] 921. Minimum Add to Make Parentheses Valid
-
 A parentheses string is valid if and only if:
 
 - It is the empty string,
@@ -49,35 +46,42 @@ Explanation: Need to add 2 '(' at the beginning and 2 ')' at the end
 - `1 <= s.length <= 1000`
 - `s[i]` is either `'('` or `')'`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Counter-Based**: Use counters instead of stack for single bracket type
+- **Unmatched closing**: Tracked by `right` (need to add opening)
+- **Unmatched opening**: Tracked by `left` (need to add closing)
 
-1. **Valid parentheses**: What makes parentheses valid? (Assumption: Every opening '(' has matching closing ')', properly nested)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of parentheses to add to make string valid)
 
-3. **Return value**: What should we return? (Assumption: Integer - minimum number of parentheses to add)
 
-4. **Insertion positions**: Where can we add parentheses? (Assumption: Can add at any position - beginning, middle, or end)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Parentheses types**: What types of parentheses? (Assumption: Only '(' and ')' - no brackets or braces)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Try adding different combinations of parentheses and check if the resulting string is valid. This requires trying all possible ways to add parentheses, which has exponential complexity. For each combination, validate the parentheses string, which takes O(n) time. This is too slow for large strings.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Monotonic stack | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| **Parentheses matching** *(this problem)* | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-Use a stack to identify unmatched parentheses. Track opening and closing parentheses: if we encounter ')' without a matching '(', we need to add '('. If we finish with unmatched '(', we need to add ')'. Count unmatched opening and closing parentheses. However, determining the minimum additions requires careful tracking.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a balance counter: traverse the string, increment balance for '(', decrement for ')'. If balance becomes negative (more ')' than '('), we need to add '(', so increment a counter and reset balance to 0. After processing, add balance number of ')' to close remaining '(' parentheses. The answer is the sum of additions needed. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we only need to track the balance (net opening parentheses) and handle negative balance (excess closing parentheses) immediately.
-
-## Solution: Greedy Counter Approach
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1)
@@ -105,67 +109,28 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Balance Tracking
+**Approach:** Parentheses matching (this problem)
 
-- **`left`**: Counts unmatched opening parentheses
-- **`right`**: Counts unmatched closing parentheses (need to add opening parentheses)
-- **Greedy approach**: Match closing parentheses immediately when possible
+**Key idea:** 1. **Counter-Based**: Use counters instead of stack for single bracket type
 
-### Step-by-Step Example: `s = "()))(("`
-
-| Step | Char | `left` | `right` | Action | Reason |
-|------|------|--------|---------|--------|--------|
-| Initial | - | 0 | 0 | - | - |
-| 1 | `(` | 1 | 0 | Increment `left` | New opening |
-| 2 | `)` | 0 | 0 | Decrement `left` | Matched with existing `(` |
-| 3 | `)` | 0 | 1 | Increment `right` | No `(` to match, need to add one |
-| 4 | `)` | 0 | 2 | Increment `right` | No `(` to match, need to add one |
-| 5 | `(` | 1 | 2 | Increment `left` | New opening |
-| 6 | `(` | 2 | 2 | Increment `left` | New opening |
-
-**Final:** `right = 2` (need to add 2 `(`), `left = 2` (need to add 2 `)`)  
-**Total:** `2 + 2 = 4`
-
-### Visual Representation
-
-```
-s = "()))(("
-     ( ) ) ) ( (
-     0 1 2 3 4 5
-     
-Step 1: '(' → left = 1
-  Need: 1 '(' unmatched
-  
-Step 2: ')' → left = 0
-  Matched! Now balanced
-  
-Step 3: ')' → right = 1
-  No '(' to match → need to add 1 '('
-  
-Step 4: ')' → right = 2
-  No '(' to match → need to add 1 '('
-  
-Step 5: '(' → left = 1
-  Need: 1 '(' unmatched
-  
-Step 6: '(' → left = 2
-  Need: 2 '(' unmatched → need to add 2 ')'
-
-Final: right = 2 (add '('), left = 2 (add ')')
-Total: 4 additions
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Counter-Based**: Use counters instead of stack for single bracket type
-2. **Greedy Matching**: Match closing parentheses immediately when possible
-3. **Two Types of Deficits**:
-   - **Unmatched closing**: Tracked by `right` (need to add opening)
-   - **Unmatched opening**: Tracked by `left` (need to add closing)
-4. **Final Answer**: Sum of both deficits (`left + right`)
+- **Unmatched closing**: Tracked by `right` (need to add opening)
+- **Unmatched opening**: Tracked by `left` (need to add closing)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
+**Walkthrough** — input `s = "())"`, expected output `1`:
+
+Insert '(' at the beginning: "()())"
+
+| Aspect | Complexity |
+|--------|------------|
+| **Time** | O(n) - Single pass through string |
+| **Space** | O(1) - Only using two integer variables |
 ## Algorithm Breakdown
 
 ### 1. Initialize Counters
@@ -205,85 +170,13 @@ return left + right;
 - **`left`**: Number of closing parentheses to add (for unmatched opening)
 - **Sum**: Total minimum additions needed
 
-## Complexity Analysis
-
+### Complexity
 | Aspect | Complexity |
 |--------|------------|
 | **Time** | O(n) - Single pass through string |
 | **Space** | O(1) - Only using two integer variables |
 
-## Alternative Approaches
-
-### Approach 1: Stack-Based (More Verbose)
-
-```cpp
-int minAddToMakeValid(string s) {
-    stack<char> st;
-    int minAdd = 0;
-    
-    for(char c: s) {
-        if(c == '(') {
-            st.push(c);
-        } else {
-            if(st.empty()) {
-                minAdd++;  // Need to add '('
-            } else {
-                st.pop();  // Match found
-            }
-        }
-    }
-    
-    return minAdd + st.size();  // Add ')' for remaining '('
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Stack can hold up to n elements
-
-### Approach 2: Stack-Based (More Verbose)
-
-```cpp
-int minAddToMakeValid(string s) {
-    stack<char> st;
-    int right = 0;
-    
-    for(char c: s) {
-        if(c == '(') {
-            st.push(c);
-        } else {
-            if(st.empty()) {
-                right++;  // Need to add '('
-            } else {
-                st.pop();  // Match found
-            }
-        }
-    }
-    
-    return right + st.size();  // Add ')' for remaining '('
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Stack can hold up to n elements
-
-**Note:** This approach uses a stack, which is more memory-intensive than the counter approach.
-
-### Approach 3: Dynamic Programming (Overkill)
-
-```cpp
-// Not recommended for this problem
-// DP would be O(n²) time and space
-```
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **Counter (Greedy)** | O(n) | O(1) | Optimal, simple | Only works for single bracket type |
-| **Stack** | O(n) | O(n) | Extensible to multiple types | More memory, slower |
-| **Two-Pass** | O(n) | O(1) | Clear separation | Same as counter approach |
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty string**: `""` → `0` (already valid)
 2. **All opening**: `"((("` → `3` (need 3 closing)
@@ -291,8 +184,6 @@ int minAddToMakeValid(string s) {
 4. **Already valid**: `"()()"` → `0`
 5. **Nested valid**: `"((()))"` → `0`
 6. **Mixed**: `"()))(("` → `4` (2 opening + 2 closing)
-
-## Common Mistakes
 
 1. **Only tracking one type**: Forgetting to add `left` at the end
 2. **Wrong condition**: Using `left >= 0` instead of `left > 0`
@@ -446,11 +337,11 @@ The ternary operator `open > 0 ? open-- : minAdd++` is efficient and clear.
 
 ## Related Problems
 
-- [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) - Check if valid
-- [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) - Find longest valid substring
-- [301. Remove Invalid Parentheses](https://leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
-- [1249. Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - Remove minimum characters
-- [1541. Minimum Insertions to Balance a Parentheses String](https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/) - Similar to this problem
+- [20. Valid Parentheses](https://www.leetcode.com/problems/valid-parentheses/) - Check if valid
+- [32. Longest Valid Parentheses](https://www.leetcode.com/problems/longest-valid-parentheses/) - Find longest valid substring
+- [301. Remove Invalid Parentheses](https://www.leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
+- [1249. Minimum Remove to Make Valid Parentheses](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - Remove minimum characters
+- [1541. Minimum Insertions to Balance a Parentheses String](https://www.leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/) - Similar to this problem
 
 ## Pattern Recognition
 
@@ -512,20 +403,21 @@ But for single bracket type `()`, the counter approach is optimal.
 3. **Correctness**: Handles all edge cases properly
 4. **Simplicity**: Much simpler than stack-based approach for single type
 
-## Comparison with Similar Problems
+## Key Takeaways
 
-| Problem | Approach | Complexity |
-|---------|---------|-----------|
-| **LC 20** (Check valid) | Stack | O(n) time, O(n) space |
-| **LC 921** (Min add) | Counter | O(n) time, O(1) space |
-| **LC 1249** (Min remove) | Stack | O(n) time, O(n) space |
-| **LC 1541** (Min insertions) | Counter | O(n) time, O(1) space |
+1. **Counter-Based**: Use counters instead of stack for single bracket type
+2. **Greedy Matching**: Match closing parentheses immediately when possible
+3. **Two Types of Deficits**:
+   - **Unmatched closing**: Tracked by `right` (need to add opening)
+   - **Unmatched opening**: Tracked by `left` (need to add closing)
+4. **Final Answer**: Sum of both deficits (`left + right`)
 
-**Key Difference:**
-- **Single bracket type** (`()`) → Counter is optimal
-- **Multiple bracket types** (`()[]{}`) → Stack is needed
+## References
 
----
+- [LC 921: Minimum Add to Make Parentheses Valid on LeetCode](https://www.leetcode.com/problems/minimum-add-to-make-valid-parentheses/)
+- [LeetCode Discuss — LC 921: Minimum Add to Make Parentheses Valid](https://www.leetcode.com/problems/minimum-add-to-make-valid-parentheses/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-add-to-make-valid-parentheses/editorial/) *(may require premium)*
 
-*This problem demonstrates how a simple counter-based approach can be more efficient than a stack when dealing with a single bracket type. The greedy strategy of matching immediately ensures optimality.*
+## Template Reference
 
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

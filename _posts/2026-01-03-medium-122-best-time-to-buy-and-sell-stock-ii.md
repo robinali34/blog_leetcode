@@ -5,11 +5,6 @@ date: 2026-01-03 06:00:00 -0700
 categories: [leetcode, medium, array, greedy, dynamic-programming]
 permalink: /2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/
 ---
-
-# 122. Best Time to Buy and Sell Stock II
-
-## Problem Statement
-
 You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `i`-th day.
 
 On each day, you may decide to buy and/or sell the stock. You can only hold **at most one** share of the stock at any time. However, you can buy it then immediately sell it on the **same day**.
@@ -47,51 +42,41 @@ Explanation: There is no way to make a positive profit, so we never buy the stoc
 - `1 <= prices.length <= 3 * 10^4`
 - `0 <= prices[i] <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `i`-th day.
 
-1. **Transaction rules**: What are the transaction rules? (Assumption: Can buy and sell multiple times, but must sell before buying again - can hold at most one share)
+On each day, you may decide to buy and/or sell the stock. You can only hold **at most one** share of the stock at any time. However, you can buy it then immediately sell it on the **same day**.
 
-2. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total profit from all transactions)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Return value**: What should we return? (Assumption: Integer - maximum profit possible)
 
-4. **Multiple transactions**: Can we make multiple transactions? (Assumption: Yes - can buy and sell as many times as we want)
 
-5. **No transaction**: What if we never buy? (Assumption: Profit is 0 - no transactions made)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-## Interview Deduction Process (20 minutes)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible combinations of buy and sell days. For each possible sequence of transactions (buy, sell, buy, sell, ...), calculate the total profit. This requires exploring all possible transaction sequences, which has exponential complexity. The challenge is determining the optimal sequence of buy/sell decisions.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming: dp[i][holding] = maximum profit up to day i, where holding indicates whether we own stock. For each day, decide to buy, sell, or hold. This requires tracking state (holding or not) and has O(n) time with O(n) space. However, we can optimize further since we only need previous day's state.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use greedy approach: capture every price increase. If price[i+1] > price[i], buy on day i and sell on day i+1 (or equivalently, add price[i+1] - price[i] to profit). This works because we can make unlimited transactions, so we should capture every opportunity to profit. This achieves O(n) time with O(1) space. The key insight is that the maximum profit equals the sum of all positive price differences between consecutive days, since we can make a transaction for each price increase.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem. The key insight is that we can capture all positive price differences (gains) by buying and selling on consecutive days whenever the price increases.
-
-### Key Insights:
-
-1. **Greedy Strategy**: Capture every price increase
-2. **Local Maximum**: Buy before price increase, sell after
-3. **Sum of Gains**: Total profit = sum of all positive day-to-day differences
-4. **Optimal**: This greedy approach captures maximum profit
-
-### Algorithm:
-
-1. **Iterate**: Go through prices array
-2. **Calculate Difference**: For each day, calculate price difference from previous day
-3. **Sum Positive Differences**: Add all positive differences to profit
-4. **Return**: Total maximum profit
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -110,6 +95,25 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `i`-th day.
+
+**How the code works:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `prices = [7,1,5,3,6,4]`, expected output `7`:
+
+Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+Total profit is 4 + 3 = 7.
+
+**Time:** O(n) where n is the length of prices array · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -214,7 +218,6 @@ i=4: 1-3 = -2 → maxProfit = 0
 
 Result: 0 (no positive gains)
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -275,26 +278,7 @@ This captures all positive price movements, which is optimal.
 4. **No DP Needed**: Simple greedy is sufficient
 5. **Efficient**: O(n) time, O(1) space
 
-## Alternative Approaches
-
-### **Approach 1: Greedy (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming**
-- **Time**: O(n)
-- **Space**: O(1) or O(n)
-- **Use when**: Need to track state (holding/not holding stock)
-- **Idea**: `dp[i][0]` = max profit at day i not holding, `dp[i][1]` = holding
-
-### **Approach 3: Peak Valley Approach**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Idea**: Find local minima (valleys) and local maxima (peaks)
-- **Equivalent**: Same as greedy, just different perspective
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty array**: `[]` → return 0
 2. **Single price**: `[5]` → return 0 (no transaction possible)
@@ -302,8 +286,6 @@ This captures all positive price movements, which is optimal.
 4. **All decreasing**: `[5,4,3,2,1]` → return 0
 5. **Constant prices**: `[5,5,5,5]` → return 0
 6. **Mixed**: `[7,1,5,3,6,4]` → return 7
-
-## Common Mistakes
 
 1. **Wrong logic**: Trying to find single best buy/sell pair
 2. **Missing edge case**: Not handling empty array
@@ -313,30 +295,28 @@ This captures all positive price movements, which is optimal.
 
 ## Related Problems
 
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Single transaction
-- [123. Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) - At most 2 transactions
-- [188. Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) - At most k transactions
-- [309. Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) - With cooldown period
-- [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/) - With transaction fee
-
-## Comparison with Other Stock Problems
-
-**LC 121 (Single Transaction):**
-- Goal: Maximum profit with one buy and one sell
-- Approach: Track minimum price and maximum profit
-- Complexity: O(n)
-
-**LC 122 (Unlimited Transactions - Current):**
-- Goal: Maximum profit with unlimited transactions
-- Approach: Sum all positive price differences
-- Complexity: O(n)
-
-**LC 123 (At Most 2 Transactions):**
-- Goal: Maximum profit with at most 2 transactions
-- Approach: DP with state tracking
-- Complexity: O(n)
+- [121. Best Time to Buy and Sell Stock](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Single transaction
+- [123. Best Time to Buy and Sell Stock III](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) - At most 2 transactions
+- [188. Best Time to Buy and Sell Stock IV](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) - At most k transactions
+- [309. Best Time to Buy and Sell Stock with Cooldown](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) - With cooldown period
+- [714. Best Time to Buy and Sell Stock with Transaction Fee](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/) - With transaction fee
 
 ## Tags
 
 `Array`, `Greedy`, `Dynamic Programming`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 122: Best Time to Buy and Sell Stock II on LeetCode](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+- [LeetCode Discuss — LC 122: Best Time to Buy and Sell Stock II](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

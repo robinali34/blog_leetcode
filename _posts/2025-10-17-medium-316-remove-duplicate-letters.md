@@ -4,9 +4,6 @@ title: "[Medium] 316. Remove Duplicate Letters"
 date: 2025-10-17 22:23:33 -0700
 categories: leetcode algorithm medium cpp stack monotonic-stack greedy problem-solving
 ---
-
-# [Medium] 316. Remove Duplicate Letters
-
 Given a string `s`, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the **smallest in lexicographical order** among all possible results.
 
 ## Examples
@@ -43,62 +40,41 @@ Explanation:
 - `1 <= s.length <= 10^4`
 - `s` consists of lowercase English letters only.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Lexicographically smallest:** Always prefer smaller characters
+1. **Maintains order:** Characters in lexicographical order
 
-1. **Duplicate removal**: How should we remove duplicates? (Assumption: Remove duplicate letters so each letter appears at most once)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Lexicographic order**: What does "lexicographically smallest" mean? (Assumption: Smallest in dictionary order - 'a' < 'b', 'ab' < 'ac')
 
-3. **Character preservation**: Can we reorder characters? (Assumption: Must maintain relative order of remaining characters - cannot completely rearrange)
 
-4. **Return format**: What should we return? (Assumption: String with duplicates removed, lexicographically smallest possible)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **All unique**: What if string has no duplicates? (Assumption: Return string as is - already optimal)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to remove duplicates. Let me try all possible ways to remove characters."
+## Common Approaches
 
-**Naive Solution**: Try all possible ways to remove duplicate characters, check which gives lexicographically smallest result.
+Typical techniques for this pattern:
 
-**Complexity**: Exponential time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- Exponential time complexity
-- Tries many invalid combinations
-- Very inefficient
-- Doesn't leverage greedy property
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use greedy approach. For each position, choose lexicographically smallest character that can be placed."
-
-**Improved Solution**: Use greedy with frequency counting. Count character frequencies. For each position, try placing smallest possible character that still allows remaining characters to be placed.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- Greedy approach is correct
-- O(n²) time is better than exponential
-- Handles lexicographic ordering
-- Can be optimized further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use monotonic stack to efficiently maintain lexicographic order while ensuring all characters are included."
-
-**Best Solution**: Use monotonic stack with frequency counting. Track character frequencies and whether character is in stack. For each character, while stack top is larger and can be removed (frequency > 0), pop it. Push current character.
-
-**Complexity**: O(n) time, O(1) space (26 characters)
-
-**Key Realizations**:
-1. Monotonic stack maintains lexicographic order
-2. Frequency counting ensures all characters included
-3. O(n) time is optimal - single pass
-4. O(1) space - fixed alphabet size
-
-## Solution: Monotonic Stack with Greedy Approach
+## Solution
 
 **Time Complexity:** O(n) where n is the length of string  
 **Space Complexity:** O(1) since we use at most 26 characters
@@ -147,8 +123,7 @@ public:
 };
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** Use a monotonic stack to maintain lexicographically smallest result while ensuring each character appears exactly once.
 
 **Steps:**
@@ -216,8 +191,7 @@ for(char c : s) {
 4. **Add current character** to stack
 5. **Mark as visited**
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | Count frequency | O(n) | O(1) |
@@ -227,27 +201,6 @@ for(char c : s) {
 | **Total** | **O(n)** | **O(1)** |
 
 Where n is the length of the string.
-
-## Edge Cases
-
-1. **Single character:** `s = "a"` → `"a"`
-2. **All same characters:** `s = "aaaa"` → `"a"`
-3. **Already sorted:** `s = "abc"` → `"abc"`
-4. **Reverse sorted:** `s = "cba"` → `"abc"`
-
-## Key Insights
-
-### Greedy Strategy:
-1. **Lexicographically smallest:** Always prefer smaller characters
-2. **One occurrence:** Each character appears exactly once
-3. **Future availability:** Consider if character will appear again
-4. **Stack property:** Maintains order and allows efficient removal
-
-### Monotonic Stack:
-1. **Maintains order:** Characters in lexicographical order
-2. **Efficient removal:** Can remove multiple characters at once
-3. **Future consideration:** Checks if characters will appear again
-4. **Optimal result:** Ensures smallest lexicographical order
 
 ## Detailed Example Walkthrough
 
@@ -270,63 +223,12 @@ Where n is the length of the string.
 
 **Final result:** `"abc"`
 
-## Alternative Approaches
-
-### Approach 1: Recursive with Backtracking
-```cpp
-class Solution {
-public:
-    string removeDuplicateLetters(string s) {
-        if(s.empty()) return "";
-        
-        vector<int> count(26, 0);
-        for(char c : s) count[c - 'a']++;
-        
-        int pos = 0;
-        for(int i = 0; i < s.length(); i++) {
-            if(s[i] < s[pos]) pos = i;
-            if(--count[s[i] - 'a'] == 0) break;
-        }
-        
-        char c = s[pos];
-        string remaining = s.substr(pos + 1);
-        for(char& ch : remaining) {
-            if(ch == c) ch = ' ';
-        }
-        
-        return c + removeDuplicateLetters(remaining);
-    }
-};
-```
-
-**Time Complexity:** O(n^2)  
-**Space Complexity:** O(n)
-
-### Approach 2: Set-based Approach
-```cpp
-class Solution {
-public:
-    string removeDuplicateLetters(string s) {
-        set<char> seen;
-        string result;
-        
-        for(char c : s) {
-            if(seen.find(c) == seen.end()) {
-                seen.insert(c);
-                result += c;
-            }
-        }
-        
-        sort(result.begin(), result.end());
-        return result;
-    }
-};
-```
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(1)
-
 ## Common Mistakes
+
+1. **Single character:** `s = "a"` → `"a"`
+2. **All same characters:** `s = "aaaa"` → `"a"`
+3. **Already sorted:** `s = "abc"` → `"abc"`
+4. **Reverse sorted:** `s = "cba"` → `"abc"`
 
 1. **Wrong removal condition:** Not checking if character will appear again
 2. **Missing visited check:** Processing same character multiple times
@@ -335,10 +237,10 @@ public:
 
 ## Related Problems
 
-- [402. Remove K Digits](https://leetcode.com/problems/remove-k-digits/)
-- [321. Create Maximum Number](https://leetcode.com/problems/create-maximum-number/)
-- [1081. Smallest Subsequence of Distinct Characters](https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/)
-- [316. Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/)
+- [402. Remove K Digits](https://www.leetcode.com/problems/remove-k-digits/)
+- [321. Create Maximum Number](https://www.leetcode.com/problems/create-maximum-number/)
+- [1081. Smallest Subsequence of Distinct Characters](https://www.leetcode.com/problems/smallest-subsequence-of-distinct-characters/)
+- [316. Remove Duplicate Letters](https://www.leetcode.com/problems/remove-duplicate-letters/)
 
 ## Why This Solution Works
 
@@ -359,3 +261,23 @@ public:
 2. **Optimality:** Produces lexicographically smallest result
 3. **Efficiency:** O(n) time complexity
 4. **Simplicity:** Easy to understand and implement
+
+## References
+
+- [LC 316: Remove Duplicate Letters on LeetCode](https://www.leetcode.com/problems/remove-duplicate-letters/)
+- [LeetCode Discuss — LC 316: Remove Duplicate Letters](https://www.leetcode.com/problems/remove-duplicate-letters/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/remove-duplicate-letters/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Greedy Strategy:
+1. **Lexicographically smallest:** Always prefer smaller characters
+2. **One occurrence:** Each character appears exactly once
+3. **Future availability:** Consider if character will appear again
+4. **Stack property:** Maintains order and allows efficient removal
+
+### Monotonic Stack:
+1. **Maintains order:** Characters in lexicographical order
+2. **Efficient removal:** Can remove multiple characters at once
+3. **Future consideration:** Checks if characters will appear again
+4. **Optimal result:** Ensures smallest lexicographical order

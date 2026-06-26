@@ -4,12 +4,7 @@ title: "[Medium] 794. Valid Tic-Tac-Toe State"
 date: 2025-09-24 17:00:00 -0000
 categories: leetcode algorithm simulation data-structures game-logic validation medium cpp tic-tac-toe game-validation problem-solving
 ---
-
-# [Medium] 794. Valid Tic-Tac-Toe State
-
 This is a simulation problem that requires understanding the rules of Tic-Tac-Toe and validating whether a given board state is possible. The key insight is checking the count of X's and O's, and ensuring that winning conditions are valid.
-
-## Problem Description
 
 Given a Tic-Tac-Toe board as an array of strings, return whether this board state is valid.
 
@@ -19,8 +14,7 @@ A Tic-Tac-Toe board is valid if:
 3. If X wins, there should be exactly one more X than O
 4. If O wins, there should be equal number of X's and O's
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: board = ["O  ","   ","   "]
@@ -42,67 +36,12 @@ Output: false
 Explanation: Both players win at the same time.
 ```
 
-### Constraints
+## Constraints
 - board.length == 3
 - board[i].length == 3
 - board[i][j] is either 'X', 'O', or ' '
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Game rules**: What are the tic-tac-toe rules? (Assumption: X goes first, players alternate, game ends when someone wins or board is full)
-
-2. **Win condition**: How does a player win? (Assumption: Three in a row horizontally, vertically, or diagonally)
-
-3. **Valid state**: What makes a board state valid? (Assumption: State is reachable through valid gameplay - X count equals O count or X count = O count + 1)
-
-4. **Multiple winners**: Can both players win simultaneously? (Assumption: No - per examples, if both win, state is invalid)
-
-5. **Return value**: What should we return? (Assumption: Boolean - true if board state is valid, false otherwise)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to check if board is valid. Let me check all winning conditions and count pieces."
-
-**Naive Solution**: Check all 8 winning lines (3 rows, 3 columns, 2 diagonals), count X's and O's, check if counts are valid.
-
-**Complexity**: O(1) time, O(1) space
-
-**Issues**:
-- May miss edge cases
-- Need to check multiple conditions
-- Logic can be complex
-- Need to handle all invalid cases
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I need to check: count difference (X - O should be 0 or 1), and at most one winner."
-
-**Improved Solution**: Count X's and O's, check if difference is valid (0 or 1). Check all winning lines, ensure at most one winner. If X wins, count difference must be 1. If O wins, count difference must be 0.
-
-**Complexity**: O(1) time, O(1) space
-
-**Improvements**:
-- Systematic checking of all conditions
-- Handles all edge cases
-- Clear logic flow
-- O(1) time is optimal
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "The approach is already optimal. Let me refine the condition checking logic."
-
-**Best Solution**: Check count difference first (must be 0 or 1). Then check winners: if both win, invalid. If X wins, must have count difference 1. If O wins, must have count difference 0.
-
-**Complexity**: O(1) time, O(1) space
-
-**Key Realizations**:
-1. Count difference check is first validation
-2. Winner checking must consider count difference
-3. O(1) time is optimal - fixed size board
-4. All conditions must be checked systematically
-
-## Approach
+## Thinking Process
 
 The solution involves checking several conditions:
 
@@ -113,8 +52,32 @@ The solution involves checking several conditions:
    - If O wins, X and O should have equal counts
    - Both players cannot win simultaneously
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+
+## Solution
 **Time Complexity:** O(1) - Constant time since board is always 3x3  
 **Space Complexity:** O(1) - Only using constant extra space
 
@@ -171,6 +134,23 @@ private:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Brute force (this problem)
+
+**Key idea:** The solution involves checking several conditions:
+
+**How the code works:**
+1. **Count Validation**: Count X's and O's - X should have equal or one more count than O
+2. **Win Detection**: Check if either player has won (rows, columns, diagonals)
+3. **Win Validation**:
+- If X wins, O should have exactly one less count than X
+- If O wins, X and O should have equal counts
+- Both players cannot win simultaneously
+
+**Walkthrough** — input `board = ["O  ","   ","   "]`, expected output `false`:
+
+The first player always plays "X".
 ## Step-by-Step Example
 
 Let's trace through the solution with board = `["XOX"," X ","OOO"]`:
@@ -190,13 +170,6 @@ Let's trace through the solution with board = `["XOX"," X ","OOO"]`:
 
 **Result:** Valid board state
 
-## Key Insights
-
-1. **Turn Order**: X always goes first, so X should have equal or one more count than O
-2. **Win Detection**: Check all rows, columns, and both diagonals
-3. **Mutual Exclusivity**: Only one player can win in a valid game
-4. **Count Validation**: Winning player must have the correct count based on game rules
-
 ## Common Mistakes
 
 - Not checking if both players win simultaneously
@@ -205,3 +178,16 @@ Let's trace through the solution with board = `["XOX"," X ","OOO"]`:
 - Not handling edge cases like empty boards
 
 ---
+
+## References
+
+- [LC 794: Valid Tic-Tac-Toe State on LeetCode](https://www.leetcode.com/problems/valid-tic-tac-toe-state/)
+- [LeetCode Discuss — LC 794: Valid Tic-Tac-Toe State](https://www.leetcode.com/problems/valid-tic-tac-toe-state/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/valid-tic-tac-toe-state/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Turn Order**: X always goes first, so X should have equal or one more count than O
+2. **Win Detection**: Check all rows, columns, and both diagonals
+3. **Mutual Exclusivity**: Only one player can win in a valid game
+4. **Count Validation**: Winning player must have the correct count based on game rules

@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, string, greedy, hash-table]
 permalink: /2026/01/04/medium-1400-construct-k-palindrome-strings/
 ---
-
-# 1400. Construct K Palindrome Strings
-
-## Problem Statement
-
 Given a string `s` and an integer `k`, return `true` *if you can use all the characters in `s` to construct `k` palindrome strings or `false` otherwise*.
 
 ## Examples
@@ -42,53 +37,37 @@ Explanation: All the characters in s can be used to construct 4 palindromes: "t"
 - `1 <= k <= 10^5`
 - `s` consists of lowercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given a string `s` and an integer `k`, return `true` *if you can use all the characters in `s` to construct `k` palindrome strings or `false` otherwise*.
 
-1. **Palindrome construction**: What does "construct k palindromes" mean? (Assumption: Split string s into k non-empty palindromic substrings)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-2. **Character usage**: Can we use each character only once? (Assumption: Yes - must use all characters from s exactly once)
 
-3. **Palindrome requirement**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
 
-4. **Return value**: What should we return? (Assumption: Boolean - true if can construct k palindromes, false otherwise)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= s.length - can have 1 to s.length palindromes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Try all possible ways to split the string into k palindromic substrings. Use backtracking: try placing a cut at each position, check if the current substring is a palindrome, and recursively try to form k-1 palindromes from the remaining string. This approach has exponential time complexity and is too slow for strings up to 10^5 characters. The challenge is that checking palindromes and exploring all partitions is computationally expensive.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use dynamic programming to check if we can partition the string into k palindromes. Precompute a palindrome table (isPalindrome[i][j]) to check if substring s[i:j] is a palindrome in O(1). Then use DP: dp[i][k] = true if we can partition s[0:i] into k palindromes. However, this still requires exploring many partitions and has O(n² × k) complexity, which may be too slow for large inputs.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a key mathematical insight: each palindrome can have at most one character with odd frequency (the center). Count how many characters in the string have odd frequency. We need at least that many palindromes (one for each odd-frequency character). The maximum number of palindromes we can create is the string length (one character per palindrome). If k is between the minimum and maximum, it's possible; otherwise, it's not. This reduces the problem to a simple frequency counting problem with O(n) time complexity. The key insight is that we don't need to actually construct the palindromes - we just need to check if it's mathematically possible based on character frequencies.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem with a key mathematical insight about palindromes. The crucial observation is that a palindrome can have **at most one character with odd frequency** (the center character).
-
-### Key Insights:
-
-1. **Palindrome Property**: Each palindrome can have at most 1 character with odd frequency
-2. **Minimum Palindromes**: Need at least as many palindromes as characters with odd frequency
-3. **Maximum Palindromes**: Can create at most `n` palindromes (one per character)
-4. **Feasibility Check**: Can construct `k` palindromes if `min_palindromes <= k <= max_palindromes`
-
-### Algorithm:
-
-1. **Count Frequencies**: Count occurrence of each character in `s`
-2. **Count Odd Frequencies**: Count how many characters have odd frequency
-3. **Determine Bounds**:
-   - **Minimum**: `max(odd_count, 1)` - need at least one palindrome, and at least as many as odd-frequency characters
-   - **Maximum**: `n` - can create one palindrome per character
-4. **Check Feasibility**: Return `true` if `min <= k <= max`
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -114,6 +93,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** Given a string `s` and an integer `k`, return `true` *if you can use all the characters in `s` to construct `k` palindrome strings or `false` otherwise*.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `s = "annabelle", k = 2`, expected output `true`:
+
+You can construct two palindromes using all characters in s.
+Some possible constructions "anna" + "elble", "anbna" + "elle", etc.
+
+**Time:** O(n) where n is the length of `s` · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -273,7 +270,6 @@ Step 4: Check feasibility
   4 <= 4 <= 4 ✓
   Return: true
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Odd Frequencies Matter**
@@ -330,24 +326,7 @@ Step 4: Check feasibility
 4. **Feasibility**: Check if `k` is between min and max
 5. **Simple Solution**: Just count frequencies and check bounds
 
-## Alternative Approaches
-
-### **Approach 1: Frequency Counting (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Hash Map**
-- **Time**: O(n)
-- **Space**: O(26) = O(1)
-- **Similar**: Use `unordered_map` instead of array (same complexity)
-
-### **Approach 3: Greedy Construction**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Overkill**: Try to actually construct palindromes (not needed, bounds check is sufficient)
-
-## Edge Cases
+## Common Mistakes
 
 1. **All even frequencies**: `s = "aabb"`, `k = 1` → return `true` (left = 1, right = 4)
 2. **All odd frequencies**: `s = "abc"`, `k = 3` → return `true` (left = 3, right = 3)
@@ -355,8 +334,6 @@ Step 4: Check feasibility
 4. **k equals maximum**: `s = "abc"`, `k = 3` → return `true` (left = 3, right = 3)
 5. **k less than minimum**: `s = "leetcode"`, `k = 3` → return `false` (left = 6, right = 8)
 6. **k greater than maximum**: `s = "abc"`, `k = 4` → return `false` (left = 3, right = 3)
-
-## Common Mistakes
 
 1. **Forgetting minimum bound**: Not using `max(left, 1)` when all frequencies are even
 2. **Wrong odd count**: Not counting all characters with odd frequency
@@ -366,10 +343,10 @@ Step 4: Check feasibility
 
 ## Related Problems
 
-- [266. Palindrome Permutation](https://leetcode.com/problems/palindrome-permutation/) - Check if string can be palindrome
-- [409. Longest Palindrome](https://leetcode.com/problems/longest-palindrome/) - Build longest palindrome
-- [1177. Can Make Palindrome from Substring](https://leetcode.com/problems/can-make-palindrome-from-substring/) - Check if substring can be palindrome
-- [680. Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/) - Can make palindrome with 1 deletion
+- [266. Palindrome Permutation](https://www.leetcode.com/problems/palindrome-permutation/) - Check if string can be palindrome
+- [409. Longest Palindrome](https://www.leetcode.com/problems/longest-palindrome/) - Build longest palindrome
+- [1177. Can Make Palindrome from Substring](https://www.leetcode.com/problems/can-make-palindrome-from-substring/) - Check if substring can be palindrome
+- [680. Valid Palindrome II](https://www.leetcode.com/problems/valid-palindrome-ii/) - Can make palindrome with 1 deletion
 
 ## Follow-Up: Why Minimum is `max(odd_count, 1)`
 
@@ -385,3 +362,18 @@ Step 4: Check feasibility
 
 `String`, `Greedy`, `Hash Table`, `Medium`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 1400: Construct K Palindrome Strings on LeetCode](https://www.leetcode.com/problems/construct-k-palindrome-strings/)
+- [LeetCode Discuss — LC 1400: Construct K Palindrome Strings](https://www.leetcode.com/problems/construct-k-palindrome-strings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/construct-k-palindrome-strings/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

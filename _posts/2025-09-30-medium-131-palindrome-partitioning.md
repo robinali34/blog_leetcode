@@ -4,9 +4,6 @@ title: "[Medium] 131. Palindrome Partitioning"
 date: 2025-09-30 00:00:00 -0000
 categories: leetcode algorithm backtracking data-structures string palindrome recursion medium cpp partitioning problem-solving
 ---
-
-# [Medium] 131. Palindrome Partitioning
-
 Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
 
 ## Examples
@@ -28,62 +25,7 @@ Output: [["a"]]
 - 1 <= s.length <= 16
 - s contains only lowercase English letters
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Partition definition**: What is a palindrome partition? (Assumption: Split string into substrings where each substring is a palindrome)
-
-2. **Partition requirement**: Must we partition the entire string? (Assumption: Yes - use all characters, no character left out)
-
-3. **Palindrome definition**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
-
-4. **Output format**: Should we return all partitions or just count? (Assumption: Return all possible palindrome partitions - list of lists)
-
-5. **Order requirement**: Does the order of partitions matter? (Assumption: No - can return in any order)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to partition string into palindromes. Let me try all possible partitions."
-
-**Naive Solution**: Generate all possible ways to partition string, check if each substring is palindrome, collect valid partitions.
-
-**Complexity**: O(2^n × n) time, O(2^n × n) space
-
-**Issues**:
-- Exponential time - tries all partitions
-- Repeats palindrome checking for same substrings
-- Very inefficient
-- Doesn't leverage memoization
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use backtracking with memoization for palindrome checking."
-
-**Improved Solution**: Use backtracking to try all partitions. For each position, try all possible palindrome substrings starting there. Memoize palindrome checks to avoid recomputation.
-
-**Complexity**: O(2^n × n) time worst case, O(n²) space
-
-**Improvements**:
-- Memoization reduces palindrome checking
-- Backtracking explores all partitions
-- Still exponential but better than brute-force
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Backtracking with memoized palindrome checking is optimal. Can optimize palindrome check with DP."
-
-**Best Solution**: Backtracking with DP for palindrome checking. Precompute palindrome table using DP, then use backtracking to generate all valid partitions.
-
-**Complexity**: O(2^n × n) time worst case, O(n²) space
-
-**Key Realizations**:
-1. Backtracking is natural for generating all partitions
-2. DP palindrome checking optimizes repeated checks
-3. O(2^n) time is inherent - exponential number of partitions
-4. O(n²) space for palindrome table is acceptable
-
-## Approach
+## Thinking Process
 
 The solution uses backtracking (DFS) with the following strategy:
 
@@ -92,8 +34,31 @@ The solution uses backtracking (DFS) with the following strategy:
 3. **Backtrack**: If palindrome, add to current partition and recurse, then remove
 4. **Palindrome Check**: Verify if substring from start to end is a palindrome
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
+
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
+| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
+| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
+| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
+
+## Solution
 **Time Complexity:** O(2^n × n) - Exponential due to backtracking, n for palindrome check  
 **Space Complexity:** O(n) - For recursion stack and current partition
 
@@ -127,6 +92,23 @@ private:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Choose / explore / unchoose (this problem)
+
+**Key idea:** The solution uses backtracking (DFS) with the following strategy:
+
+**How the code works:**
+1. **Base Case**: When we've processed the entire string, add the current partition to results
+2. **Recursive Case**: For each possible end position, check if substring is palindrome
+3. **Backtrack**: If palindrome, add to current partition and recurse, then remove
+4. **Palindrome Check**: Verify if substring from start to end is a palindrome
+
+**Walkthrough** — input `s = "aab"`, expected output `[["a","a","b"],["aa","b"]]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Step-by-Step Example
 
 For `s = "aab"`:
@@ -158,35 +140,6 @@ For `s = "aab"`:
 
 **Result:** `[["a","a","b"],["aa","b"]]`
 
-## Key Insights
-
-1. **Backtracking Pattern**: Add → Recurse → Remove
-2. **Palindrome Check**: Verify each substring before adding to partition
-3. **Index Management**: Use start and end indices to define substrings
-4. **Base Case**: When start >= string length, we have a complete partition
-5. **Pruning**: Only recurse if current substring is a palindrome
-
-## Alternative Approaches
-
-### 1. **Optimized Palindrome Check**
-```cpp
-bool isPalindrome(const string& str, int start, int end) {
-    while (start < end) {
-        if (str[start] != str[end]) return false;
-        start++;
-        end--;
-    }
-    return true;
-}
-```
-
-### 2. **Precompute Palindrome Table**
-```cpp
-vector<vector<bool>> isPal;
-// Precompute all palindrome substrings
-// Time: O(n²), Space: O(n²)
-```
-
 ## Common Mistakes
 
 1. **Forgetting to backtrack**: Not removing elements after recursion
@@ -197,10 +150,10 @@ vector<vector<bool>> isPal;
 
 ## Related Problems
 
-- [132. Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/) - Minimum cuts
-- [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
-- [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
-- [93. Restore IP Addresses](https://leetcode.com/problems/restore-ip-addresses/) - Similar partitioning pattern
+- [132. Palindrome Partitioning II](https://www.leetcode.com/problems/palindrome-partitioning-ii/) - Minimum cuts
+- [5. Longest Palindromic Substring](https://www.leetcode.com/problems/longest-palindromic-substring/)
+- [647. Palindromic Substrings](https://www.leetcode.com/problems/palindromic-substrings/)
+- [93. Restore IP Addresses](https://www.leetcode.com/problems/restore-ip-addresses/) - Similar partitioning pattern
 
 ## Visual Representation
 
@@ -222,3 +175,17 @@ Results: ["a","a","b"] and ["aa","b"]
 ```
 
 This problem demonstrates the classic backtracking pattern for generating all possible partitions with a constraint (palindrome check).
+
+## References
+
+- [LC 131: Palindrome Partitioning on LeetCode](https://www.leetcode.com/problems/palindrome-partitioning/)
+- [LeetCode Discuss — LC 131: Palindrome Partitioning](https://www.leetcode.com/problems/palindrome-partitioning/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/palindrome-partitioning/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Backtracking Pattern**: Add → Recurse → Remove
+2. **Palindrome Check**: Verify each substring before adding to partition
+3. **Index Management**: Use start and end indices to define substrings
+4. **Base Case**: When start >= string length, we have a complete partition
+5. **Pruning**: Only recurse if current substring is a palindrome

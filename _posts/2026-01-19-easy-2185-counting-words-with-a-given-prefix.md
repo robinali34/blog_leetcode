@@ -6,11 +6,6 @@ categories: [leetcode, easy, string, array]
 permalink: /2026/01/19/easy-2185-counting-words-with-a-given-prefix/
 tags: [leetcode, easy, string, array, prefix, simulation]
 ---
-
-# 2185. Counting Words With a Given Prefix
-
-## Problem Statement
-
 You are given an array of strings `words` and a string `pref`.
 
 Return the **number** of strings in `words` that contain `pref` as a **prefix**.
@@ -39,55 +34,38 @@ Explanation: There are no strings that contain "code" as a prefix.
 - `1 <= words[i].length, pref.length <= 100`
 - `words[i]` and `pref` consist of lowercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Simple Prefix Matching**: Use substring comparison for clarity
 
-1. **Prefix definition**: What is a prefix? (Assumption: Characters at the beginning of a string - word starts with prefix)
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
 
-2. **Matching rule**: How do we check if word has prefix? (Assumption: Word must start with exact prefix string - first len(pref) characters match)
 
-3. **Return value**: What should we return? (Assumption: Integer - count of words that have the given prefix)
 
-4. **Case sensitivity**: Are comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Empty prefix**: What if prefix is empty? (Assumption: Per constraints, pref.length >= 1, so not empty)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-For each word in the array, check if it starts with the prefix by comparing character by character. Count how many words match. This straightforward approach has O(n × m) time complexity where n is the number of words and m is the prefix length. This works but can be optimized if we need to answer multiple prefix queries.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Sort the words array, then use binary search to find the range of words that start with the prefix. However, binary search on prefixes requires careful implementation to find the correct range. Alternatively, use a trie data structure if we need to answer many prefix queries, but for a single query, this adds overhead.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Simply iterate through the words array and check if each word starts with the prefix using string comparison (substring check or character-by-character comparison up to prefix length). This achieves O(n × m) time which is optimal for a single query since we must check each word. For multiple queries, a trie would be better, but for a single query, the simple linear scan is the most efficient approach. The key insight is that for one-time queries, preprocessing overhead (like building a trie) isn't worth it.
-
-## Solution Approach
-
-This is a straightforward **simulation** problem. We need to:
-1. Iterate through each word in the array
-2. Check if the word starts with the given prefix
-3. Count how many words match
-
-### Key Insights:
-
-1. **Prefix Check**: A word has a prefix if its first `pref.length()` characters match `pref`
-2. **Length Validation**: A word must be at least as long as the prefix
-3. **Simple Comparison**: Use substring comparison or character-by-character check
-
-### Algorithm:
-
-1. Initialize counter to 0
-2. For each word:
-   - Check if word length >= prefix length
-   - Compare first `pref.length()` characters with `pref`
-   - If match, increment counter
-3. Return counter
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
 ## Solution
 
@@ -107,56 +85,22 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Initialize Counter**: `cnt = 0` to track matching words
-2. **Store Prefix Length**: `prel = pref.length()` for efficiency
-3. **Iterate Through Words**:
-   - For each word, extract substring from index 0 to `prel`
-   - Compare with `pref`
-   - If equal, increment counter
-4. **Return Result**: Total count of words with the prefix
+**Approach:** Two pointers on string (this problem)
 
-### Example Walkthrough:
+**Key idea:** 1. **Simple Prefix Matching**: Use substring comparison for clarity
 
-**Input:** `words = ["pay","attention","practice","attend"]`, `pref = "at"`
-
-```
-Word: "pay"
-  word.substr(0, 2) = "pa" ≠ "at" → skip
-
-Word: "attention"
-  word.substr(0, 2) = "at" == "at" → cnt = 1 ✓
-
-Word: "practice"
-  word.substr(0, 2) = "pr" ≠ "at" → skip
-
-Word: "attend"
-  word.substr(0, 2) = "at" == "at" → cnt = 2 ✓
-
-Return: 2
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n × m)
-  - `n` = number of words
-  - `m` = length of prefix
-  - For each word, we create a substring of length `m` and compare (O(m) operation)
-  - Total: O(n × m)
-
-- **Space Complexity:** O(1)
-  - Only using a counter variable
-  - Note: `substr()` creates a temporary string, but this is typically optimized by the compiler
-
-## Key Insights
-
+**How the code works:**
 1. **Simple Prefix Matching**: Use substring comparison for clarity
-2. **Length Safety**: `substr(0, prel)` automatically handles cases where word is shorter than prefix (returns shorter substring)
-3. **Efficient**: Linear time complexity, suitable for given constraints
-4. **Readable**: Clear and straightforward implementation
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
 
-## Edge Cases
+**Walkthrough** — input `words = ["pay","attention","practice","attend"], pref = "at"`, expected output `2`:
+
+The 2 strings that contain "at" as a prefix are: "attention" and "attend".
+## Common Mistakes
 
 1. **Word shorter than prefix**: `substr(0, prel)` returns a shorter string, comparison fails correctly
 2. **Empty prefix**: If `pref = ""`, all words match (but constraints guarantee `pref.length >= 1`)
@@ -165,82 +109,11 @@ Return: 2
 5. **All words match**: Returns `words.length`
 6. **Single character prefix**: Works correctly with `pref = "a"`
 
-## Common Mistakes
-
 1. **Out-of-bounds access**: Not checking word length before accessing characters
 2. **Off-by-one errors**: Incorrect substring indices
 3. **Case sensitivity**: Problem states lowercase only, but worth noting
 4. **Forgetting to increment counter**: Missing the increment statement
 5. **Using wrong comparison**: Comparing entire word instead of prefix
-
-## Alternative Approaches
-
-### Character-by-Character Comparison
-
-```cpp
-class Solution {
-public:
-    int prefixCount(vector<string>& words, string pref) {
-        int cnt = 0;
-        int prel = pref.length();
-        for(auto& word: words) {
-            if(word.length() < prel) continue;
-            bool match = true;
-            for(int i = 0; i < prel; i++) {
-                if(word[i] != pref[i]) {
-                    match = false;
-                    break;
-                }
-            }
-            if(match) cnt++;
-        }
-        return cnt;
-    }
-};
-```
-
-**Pros**: More explicit, avoids substring creation  
-**Cons**: Slightly more verbose
-
-### Using `find()` Method
-
-```cpp
-class Solution {
-public:
-    int prefixCount(vector<string>& words, string pref) {
-        int cnt = 0;
-        for(auto& word: words) {
-            if(word.find(pref) == 0) {
-                cnt++;
-            }
-        }
-        return cnt;
-    }
-};
-```
-
-**Pros**: Very concise  
-**Cons**: `find()` searches entire string, less efficient for prefix-only check
-
-### Using `starts_with()` (C++20)
-
-```cpp
-class Solution {
-public:
-    int prefixCount(vector<string>& words, string pref) {
-        int cnt = 0;
-        for(auto& word: words) {
-            if(word.starts_with(pref)) {
-                cnt++;
-            }
-        }
-        return cnt;
-    }
-};
-```
-
-**Pros**: Most semantic, clearly expresses intent  
-**Cons**: Requires C++20
 
 ## When to Use This Pattern
 
@@ -255,10 +128,22 @@ public:
 - [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - More efficient for multiple prefix queries
 - [LC 211: Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-211-design-add-and-search-words-data-structure/) - Trie with wildcard support
 - [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Prefix matching with replacement
-- [LC 14: Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) - Finding common prefix
-- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Prefix-based word selection
+- [LC 14: Longest Common Prefix](https://www.leetcode.com/problems/longest-common-prefix/) - Finding common prefix
+- [LC 720: Longest Word in Dictionary](https://www.leetcode.com/problems/longest-word-in-dictionary/) - Prefix-based word selection
 
----
+## Key Takeaways
 
-*This problem demonstrates **simple prefix matching** using substring comparison. For multiple queries, consider using a **Trie data structure** for better efficiency.*
+1. **Simple Prefix Matching**: Use substring comparison for clarity
+2. **Length Safety**: `substr(0, prel)` automatically handles cases where word is shorter than prefix (returns shorter substring)
+3. **Efficient**: Linear time complexity, suitable for given constraints
+4. **Readable**: Clear and straightforward implementation
 
+## References
+
+- [LC 2185: Counting Words With a Given Prefix on LeetCode](https://www.leetcode.com/problems/counting-words-with-a-given-prefix/)
+- [LeetCode Discuss — LC 2185: Counting Words With a Given Prefix](https://www.leetcode.com/problems/counting-words-with-a-given-prefix/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/counting-words-with-a-given-prefix/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

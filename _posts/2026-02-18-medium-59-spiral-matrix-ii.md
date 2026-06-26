@@ -6,7 +6,6 @@ categories: [leetcode, medium, matrix, simulation]
 tags: [leetcode, medium, matrix, simulation, spiral]
 permalink: /2026/02/18/medium-59-spiral-matrix-ii/
 ---
-
 Given a positive integer `n`, generate an `n × n` matrix filled with elements from `1` to `n²` in spiral order (clockwise).
 
 ## Examples
@@ -31,6 +30,17 @@ Output: [[1]]
 ## Constraints
 
 - `1 <= n <= 20`
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Row/column traversal | $O(nm)$ | $O(1)$ | Simulation, spiral |
+| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
+| **Matrix as graph** *(this problem)* | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
+| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
 
 ## Thinking Process
 
@@ -70,6 +80,19 @@ For layer `k`:
 - Bottom-right corner is at `(n-k-1, n-k-1)`
 - Each of the four sides has carefully adjusted start/end to avoid double-counting corners
 
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
+
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
+
 ## Approach: Layer-by-Layer -- $O(n^2)$
 
 Iterate over layers from `0` to `(n+1)/2 - 1`. For each layer, fill the four sides with incrementing counter.
@@ -100,11 +123,26 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n^2)$ -- each cell filled exactly once
-**Space**: $O(n^2)$ for the output matrix (no extra space)
+### Solution Explanation
 
+**Approach:** Matrix as graph (this problem)
+
+**Key idea:** ### Core Observations
+
+**How the code works:**
+- The matrix is square
+- We fill numbers `1 → n²` in a clockwise spiral
+- This is a **simulation** problem -- no DP or graph tricks, just precise boundary control
+1. **Left → Right** (top row of this layer)
+2. **Top → Bottom** (right column)
+3. **Right → Left** (bottom row)
+
+**Walkthrough** — input `n = 3`, expected output `1  2  3`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Alternative: Direction Array Simulation
 
 Instead of explicit layer logic, use direction vectors and rotate when hitting a boundary or an already-filled cell. Often shorter code.
@@ -154,9 +192,15 @@ public:
 
 ## Related Problems
 
-- [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) -- read a matrix in spiral order (the reverse operation)
-- [885. Spiral Matrix III](https://leetcode.com/problems/spiral-matrix-iii/) -- spiral walk on a grid from a starting point
-- [2326. Spiral Matrix IV](https://leetcode.com/problems/spiral-matrix-iv/) -- fill spiral from a linked list
+- [54. Spiral Matrix](https://www.leetcode.com/problems/spiral-matrix/) -- read a matrix in spiral order (the reverse operation)
+- [885. Spiral Matrix III](https://www.leetcode.com/problems/spiral-matrix-iii/) -- spiral walk on a grid from a starting point
+- [2326. Spiral Matrix IV](https://www.leetcode.com/problems/spiral-matrix-iv/) -- fill spiral from a linked list
+
+## References
+
+- [LC 59: Spiral Matrix II on LeetCode](https://www.leetcode.com/problems/spiral-matrix-ii/)
+- [LeetCode Discuss — LC 59: Spiral Matrix II](https://www.leetcode.com/problems/spiral-matrix-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/spiral-matrix-ii/editorial/) *(may require premium)*
 
 ## Template Reference
 

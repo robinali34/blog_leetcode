@@ -4,14 +4,9 @@ title: "[Hard] 317. Shortest Distance from All Buildings"
 date: 2025-09-24 19:00:00 -0000
 categories: leetcode algorithm bfs graph data-structures matrix shortest-path hard cpp shortest-distance buildings problem-solving
 ---
-
-# [Hard] 317. Shortest Distance from All Buildings
-
 <!-- Fixed Liquid syntax error -->
 
 This is a graph traversal problem that requires finding the optimal location to build a new building such that the total distance to all existing buildings is minimized. The key insight is using BFS from each building to calculate distances and finding the spot with minimum total distance.
-
-## Problem Description
 
 Given a 2D grid where:
 - `0` represents empty land
@@ -20,8 +15,7 @@ Given a 2D grid where:
 
 Find the shortest distance from all buildings to a single empty land cell. Return -1 if it's impossible.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: grid = [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]
@@ -41,69 +35,14 @@ Input: grid = [[1]]
 Output: -1
 ```
 
-### Constraints
+## Constraints
 - m == grid.length
 - n == grid[i].length
 - 1 <= m, n <= 50
 - grid[i][j] is either 0, 1, or 2
 - There will be at least one building in the grid
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Grid cell types**: What do the values represent? (Assumption: 0 = empty land, 1 = building, 2 = obstacle - cannot pass through)
-
-2. **Distance calculation**: How is distance calculated? (Assumption: Manhattan distance - sum of horizontal and vertical steps, can only move in 4 directions)
-
-3. **Reachability**: Must the empty land be reachable from all buildings? (Assumption: Yes - if cannot reach all buildings, return -1)
-
-4. **Obstacle handling**: Can we pass through obstacles? (Assumption: No - obstacles block movement, cannot build on obstacles)
-
-5. **Return value**: What should we return? (Assumption: Shortest total distance from chosen empty land to all buildings, or -1 if impossible)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to find shortest distance. Let me try each empty land position."
-
-**Naive Solution**: For each empty land cell, perform BFS to all buildings, sum distances, find minimum.
-
-**Complexity**: O(m × n × B) time where B is building count, O(m × n) space
-
-**Issues**:
-- O(m × n × B) time - inefficient
-- Repeats BFS for each empty land
-- Doesn't leverage reverse BFS
-- Can be optimized significantly
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can BFS from each building to all empty lands, accumulate distances."
-
-**Improved Solution**: For each building, perform BFS to all reachable empty lands, accumulate distances. Find empty land with minimum total distance.
-
-**Complexity**: O(B × m × n) time, O(m × n) space
-
-**Improvements**:
-- BFS from buildings is more efficient
-- Accumulates distances correctly
-- Still O(B × m × n) but better structure
-- Can optimize further
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "BFS from buildings with distance accumulation is optimal. Can optimize with grid modification."
-
-**Best Solution**: BFS from each building, accumulate distances in distance matrix. Use grid modification to track reachability. Find empty land reachable from all buildings with minimum distance.
-
-**Complexity**: O(B × m × n) time, O(m × n) space
-
-**Key Realizations**:
-1. BFS from buildings is key insight
-2. Distance accumulation enables efficient computation
-3. Grid modification tracks reachability
-4. O(B × m × n) time is optimal for this approach
-
-## Approach
+## Thinking Process
 
 There are three main approaches to solve this problem:
 
@@ -111,7 +50,34 @@ There are three main approaches to solve this problem:
 2. **BFS from Each Building**: For each building, BFS to all empty lands and accumulate distances
 3. **Optimized BFS with Grid Modification**: Use grid values to track reachability
 
-## Solution 1: BFS from Each Empty Land
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+
+## Solution
 
 **Time Complexity:** O(m²n²) - For each empty land, BFS to all buildings  
 **Space Complexity:** O(mn) - For visited array and queue
@@ -204,119 +170,20 @@ private:
 };
 ```
 
-## Solution 2: BFS from Each Building
+### Solution Explanation
 
-**Time Complexity:** O(m²n²) - For each building, BFS to all empty lands  
-**Space Complexity:** O(mn) - For distance tracking and visited array
+**Approach:** Queue BFS (this problem)
 
-```cpp
-class Solution {
-public:
-    int shortestDistance(vector<vector<int>>& grid) {
-        const int cols = grid[0].size(), rows = grid.size();
-        int minDisatnce = INT_MAX, totalHouses = 0;
-        vector<vector<array<int, 2>>> distances(rows, vector<array<int, 2>> (cols, {0, 0}));
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                if(grid[row][col] == 1) {
-                    totalHouses++;
-                    bfs(grid, distances, row, col);
-                }
-            }
-        }
-        for (int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                if(distances[row][col][1] == totalHouses) {
-                    minDisatnce = min(minDisatnce, distances[row][col][0]);
-                }
-            }
-        }
-        return minDisatnce == INT_MAX ? -1: minDisatnce;
-    }
+**Key idea:** There are three main approaches to solve this problem:
 
-private:
-    void bfs(vector<vector<int>>& grid, vector<vector<array<int, 2>>>& distance, int row, int col) {
-        constexpr array<pair<int, int>, 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\};
-        const int rows = grid.size(), cols = grid[0].size();
-        queue<pair<int, int>> q;
-        q.emplace(row, col);
-        vector<vector<bool>> vis (rows, vector<bool>(cols, false));
-        vis[row][col] = true;
-        int steps = 0;
-        while(!q.empty()) {
-            for (int i = q.size(); i > 0; i--) {
-                auto cur = q.front();
-                q.pop();
-                row = cur.first;
-                col = cur.second;
-                if(grid[row][col] == 0) {
-                    distance[row][col][0] += steps;
-                    distance[row][col][1] += 1;
-                }
-                for(auto& [dr, dc]: dirs) {
-                    int nextRow = row + dr;
-                    int nextCol = col + dc;
-                    if (nextRow >= 0 && nextCol >= 0 && nextRow < rows && nextCol < cols) {
-                        if(!vis[nextRow][nextCol] && grid[nextRow][nextCol] == 0) {
-                            vis[nextRow][nextCol] = true;
-                            q.emplace(nextRow, nextCol);
-                        }
-                    }
-                }
-            }
-            steps++;
-        }
-    }
-};
-```
+**How the code works:**
+1. **BFS from Each Empty Land**: For each empty land, BFS to all buildings
+2. **BFS from Each Building**: For each building, BFS to all empty lands and accumulate distances
+3. **Optimized BFS with Grid Modification**: Use grid values to track reachability
 
-## Solution 3: Optimized BFS with Grid Modification
+**Walkthrough** — input `grid = [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]`, expected output `7`:
 
-**Time Complexity:** O(m²n²) - For each building, BFS to all reachable empty lands  
-**Space Complexity:** O(mn) - For total distance tracking
-
-```cpp
-class Solution {
-public:
-    int shortestDistance(vector<vector<int>>& grid) {
-        const int rows = grid.size(), cols = grid[0].size();
-        constexpr array<pair<int, int>, 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\};
-        int emptyLandValue =0, minDist = INT_MAX;
-        vector<vector<int>> total(rows, vector<int> (cols, 0));
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                if(grid[row][col] == 1) {
-                    minDist = INT_MAX;
-                    queue<pair<int, int>> q;
-                    q.emplace(row, col);
-                    int steps = 0;
-                    while(!q.empty()) {
-                        steps++;
-                        for(int level = q.size(); level > 0; level--) {
-                            auto cur = q.front();
-                            q.pop();
-                            for (auto& [dr, dc]: dirs) {
-                                int nextRow = cur.first + dr;
-                                int nextCol = cur.second + dc;
-                                if(nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols
-                                && grid[nextRow][nextCol] == emptyLandValue){
-                                    grid[nextRow][nextCol]--;
-                                    total[nextRow][nextCol] += steps;
-                                    q.emplace(nextRow, nextCol);
-                                    minDist = min(minDist, total[nextRow][nextCol]);
-                                }
-                            }
-                        }
-                    }
-                    emptyLandValue--;
-                }
-            }
-        }
-        return minDist == INT_MAX ? -1 : minDist;
-    }
-};
-```
-
+The optimal location is (1,2) with total distance 7.
 ## Step-by-Step Example
 
 Let's trace through Solution 2 with grid = `[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]`:
@@ -334,13 +201,6 @@ Let's trace through Solution 2 with grid = `[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]
 
 **Result:** Position (1,2) with total distance 7
 
-## Key Insights
-
-1. **BFS Level Processing**: Process each level of BFS to calculate distances correctly
-2. **Reachability Check**: Ensure all buildings can reach the chosen empty land
-3. **Distance Accumulation**: Sum distances from all buildings to each empty land
-4. **Grid Optimization**: Use grid modification to track reachability efficiently
-
 ## Approach Comparison
 
 | Approach | Pros | Cons |
@@ -357,3 +217,16 @@ Let's trace through Solution 2 with grid = `[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]
 - **Boundary Conditions**: Not handling edge cases properly
 
 ---
+
+## References
+
+- [LC 317: Shortest Distance from All Buildings on LeetCode](https://www.leetcode.com/problems/shortest-distance-from-all-buildings/)
+- [LeetCode Discuss — LC 317: Shortest Distance from All Buildings](https://www.leetcode.com/problems/shortest-distance-from-all-buildings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/shortest-distance-from-all-buildings/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **BFS Level Processing**: Process each level of BFS to calculate distances correctly
+2. **Reachability Check**: Ensure all buildings can reach the chosen empty land
+3. **Distance Accumulation**: Sum distances from all buildings to each empty land
+4. **Grid Optimization**: Use grid modification to track reachability efficiently

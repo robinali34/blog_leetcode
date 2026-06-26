@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, greedy]
 permalink: /2026/01/04/medium-376-wiggle-subsequence/
 ---
-
-# 376. Wiggle Subsequence
-
-## Problem Statement
-
 A **wiggle sequence** is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative.
 
 - For example, `[1, 7, 4, 9, 2, 5]` is a **wiggle sequence** because the differences `(6, -3, 5, -7, 3)` alternate between positive and negative.
@@ -48,51 +43,41 @@ Explanation: The longest wiggle subsequence is [1, 2] or [1, 9] with difference 
 - `1 <= nums.length <= 1000`
 - `0 <= nums[i] <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+A **wiggle sequence** is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative.
 
-1. **Wiggle definition**: What makes a sequence "wiggle"? (Assumption: Differences between consecutive elements alternate between positive and negative - up-down-up or down-up-down pattern)
+- For example, `[1, 7, 4, 9, 2, 5]` is a **wiggle sequence** because the differences `(6, -3, 5, -7, 3)` alternate between positive and negative.
 
-2. **Subsequence definition**: Does subsequence need to be contiguous? (Assumption: No - subsequence maintains relative order but can skip elements)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Length requirement**: What is the minimum length of a wiggle subsequence? (Assumption: Length 1 is valid, length 2 is valid if numbers differ)
 
-4. **Equal values**: What if consecutive elements are equal? (Assumption: Equal values break the wiggle pattern - need to skip them or clarify handling)
 
-5. **Return value**: Should we return the length or the subsequence itself? (Assumption: Return the length - integer representing longest wiggle subsequence length)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-## Interview Deduction Process (20 minutes)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible subsequences and check which ones are wiggle sequences. For each subsequence, verify it alternates between increasing and decreasing. This approach has exponential complexity as we try all 2^n subsequences, which is infeasible for large arrays.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming: dp[i][direction] = longest wiggle subsequence ending at index i with given direction (up or down). For each position, check all previous positions and update dp based on whether we can extend the wiggle sequence. This requires O(n²) time and O(n) space, which works but can be optimized further.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use greedy approach: track the current direction (up or down) and the last element in the wiggle sequence. For each new element, if it continues the wiggle pattern (e.g., was going up, now going down), extend the sequence. If it breaks the pattern, decide whether to replace the last element (if it's better) or skip. Alternatively, count the number of direction changes: whenever the difference changes sign (positive to negative or vice versa), we have a wiggle. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we only need to track the last direction and the last value, not all previous states.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem. The key insight is to count the number of times the difference between consecutive elements changes sign. We only need to track when the sign alternates, not the actual values.
-
-### Key Insights:
-
-1. **Difference Tracking**: Track the difference between consecutive elements
-2. **Sign Alternation**: Count when the sign of the difference changes
-3. **Greedy Choice**: Include an element if it causes a sign change
-4. **Skip Equal Elements**: If difference is 0, don't count it (no sign change)
-
-### Algorithm:
-
-1. **Handle Edge Cases**: If array has less than 2 elements, return its length
-2. **Initialize**: Calculate first difference, set count to 2 if non-zero, else 1
-3. **Process Remaining**: For each element, calculate difference and check if sign alternates
-4. **Count Alternations**: Increment count when sign changes
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -119,6 +104,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** A **wiggle sequence** is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative.
+
+**How the code works:**
+- For example, `[1, 7, 4, 9, 2, 5]` is a **wiggle sequence** because the differences `(6, -3, 5, -7, 3)` alternate between positive and negative.
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `nums = [1,7,4,9,2,5]`, expected output `6`:
+
+The entire sequence is a wiggle sequence because differences (6, -3, 5, -7, 3) alternate.
+
+**Time:** O(n) where n is the length of `nums` · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -276,7 +279,6 @@ i=3: nums[3]=4
 Result: 2
 Wiggle sequence: [1, 2] or [1, 9]
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -332,44 +334,7 @@ Actually, let me reconsider. If we have `[1, 2, 2, 3]`:
 4. **Sign Alternation**: Use `<=` and `>=` to handle zero differences correctly
 5. **Optimal**: This greedy strategy finds the longest wiggle subsequence
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with Difference Tracking (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Idea**: Track two states: `up[i]` (ending with up) and `down[i]` (ending with down)
-- **Code**:
-```cpp
-int wiggleMaxLength(vector<int>& nums) {
-    int n = nums.size();
-    vector<int> up(n, 1), down(n, 1);
-    for(int i = 1; i < n; i++) {
-        if(nums[i] > nums[i-1]) {
-            up[i] = down[i-1] + 1;
-            down[i] = down[i-1];
-        } else if(nums[i] < nums[i-1]) {
-            down[i] = up[i-1] + 1;
-            up[i] = up[i-1];
-        } else {
-            up[i] = up[i-1];
-            down[i] = down[i-1];
-        }
-    }
-    return max(up[n-1], down[n-1]);
-}
-```
-
-### **Approach 3: Space-Optimized DP**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Idea**: Only track `up` and `down` for current position (similar to greedy)
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single element**: `[1]` → return 1
 2. **Two elements (different)**: `[1, 2]` → return 2
@@ -379,8 +344,6 @@ int wiggleMaxLength(vector<int>& nums) {
 6. **All equal**: `[1,1,1,1]` → return 1
 7. **Perfect wiggle**: `[1,7,4,9,2,5]` → return 6
 
-## Common Mistakes
-
 1. **Wrong sign check**: Using `>` and `<` instead of `>=` and `<=`
 2. **Not handling zeros**: Forgetting to skip elements with zero difference
 3. **Not updating prevDiff**: Updating `prevDiff` even when sign doesn't change
@@ -389,10 +352,10 @@ int wiggleMaxLength(vector<int>& nums) {
 
 ## Related Problems
 
-- [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) - Similar subsequence problem
-- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) - Subarray problem
-- [392. Is Subsequence](https://leetcode.com/problems/is-subsequence/) - Subsequence matching
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar pattern
+- [300. Longest Increasing Subsequence](https://www.leetcode.com/problems/longest-increasing-subsequence/) - Similar subsequence problem
+- [53. Maximum Subarray](https://www.leetcode.com/problems/maximum-subarray/) - Subarray problem
+- [392. Is Subsequence](https://www.leetcode.com/problems/is-subsequence/) - Subsequence matching
+- [121. Best Time to Buy and Sell Stock](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar pattern
 
 ## Follow-Up: Why `<=` and `>=` Instead of `<` and `>`?
 
@@ -413,3 +376,18 @@ int wiggleMaxLength(vector<int>& nums) {
 
 `Array`, `Dynamic Programming`, `Greedy`, `Medium`
 
+## Key Takeaways
+
+- For example, `[1, 7, 4, 9, 2, 5]` is a **wiggle sequence** because the differences `(6, -3, 5, -7, 3)` alternate between positive and negative.
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+
+## References
+
+- [LC 376: Wiggle Subsequence on LeetCode](https://www.leetcode.com/problems/wiggle-subsequence/)
+- [LeetCode Discuss — LC 376: Wiggle Subsequence](https://www.leetcode.com/problems/wiggle-subsequence/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/wiggle-subsequence/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

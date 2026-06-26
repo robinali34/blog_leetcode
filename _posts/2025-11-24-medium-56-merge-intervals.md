@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp array sorting interval problem-solving
 permalink: /posts/2025-11-24-medium-56-merge-intervals/
 tags: [leetcode, medium, array, sorting, intervals, merge]
 ---
-
-# [Medium] 56. Merge Intervals
-
 Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return *an array of the non-overlapping intervals that cover all the intervals in the input*.
 
 ## Examples
@@ -33,62 +30,39 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 - `intervals[i].length == 2`
 - `0 <= starti <= endi <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
 
-1. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Typically inclusive on both ends [start, end] - need to clarify)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-2. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common point - [a, b] overlaps [c, d] if max(a, c) <= min(b, d))
 
-3. **Merging rule**: How should we merge overlapping intervals? (Assumption: Combine into single interval [min(start1, start2), max(end1, end2)])
 
-4. **Output format**: Should we return merged intervals or modify input? (Assumption: Return new array of merged intervals - don't modify input)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
-5. **Order requirement**: Does the order of intervals matter? (Assumption: No - can sort first, then merge - output order doesn't matter)
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to merge intervals. Let me check all pairs of intervals."
+## Common Approaches
 
-**Naive Solution**: Check all pairs of intervals, merge overlapping ones, repeat until no more merges possible.
+Typical techniques for this pattern:
 
-**Complexity**: O(n²) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
 
-**Issues**:
-- O(n²) time - inefficient
-- May need multiple passes
-- Doesn't leverage sorting
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can sort intervals by start time, then merge adjacent overlapping intervals."
-
-**Improved Solution**: Sort intervals by start time. Traverse sorted intervals, merge with previous if overlapping.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Improvements**:
-- Sorting enables single-pass merging
-- O(n log n) time is much better
-- Handles all cases correctly
-- Clean and intuitive
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Sort and merge approach is optimal. Can optimize space by modifying in-place."
-
-**Best Solution**: Sort intervals by start time. Traverse and merge: if current overlaps with last merged interval, update end; otherwise add new interval.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Key Realizations**:
-1. Sorting is key insight
-2. O(n log n) time is optimal for sorting approach
-3. Single pass after sorting is efficient
-4. O(n) space for result is necessary
-
-## Solution: Sort and Merge
+## Solution
 
 **Time Complexity:** O(n log n) - dominated by sorting  
 **Space Complexity:** O(n) - for the merged result
@@ -117,63 +91,27 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Sort First
+**Approach:** Prefix sum (this problem)
 
-**Why sort?**
-- After sorting by start time, overlapping intervals become adjacent
-- We only need to compare each interval with the last merged interval
-- If current interval doesn't overlap with last merged, it won't overlap with any previous ones
+**Key idea:** 1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
 
-### Step-by-Step Example: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
-
-```
-Step 1: Sort intervals (already sorted)
-  intervals = [[1,3], [2,6], [8,10], [15,18]]
-
-Step 2: Initialize
-  merged = []
-
-Step 3: Process [1,3]
-  merged is empty → add [1,3]
-  merged = [[1,3]]
-
-Step 4: Process [2,6]
-  Check: merged.back()[1] = 3, current left = 2
-  Since 3 >= 2, intervals overlap → merge
-  merged.back()[1] = max(3, 6) = 6
-  merged = [[1,6]]
-
-Step 5: Process [8,10]
-  Check: merged.back()[1] = 6, current left = 8
-  Since 6 < 8, no overlap → add [8,10]
-  merged = [[1,6], [8,10]]
-
-Step 6: Process [15,18]
-  Check: merged.back()[1] = 10, current left = 15
-  Since 10 < 15, no overlap → add [15,18]
-  merged = [[1,6], [8,10], [15,18]]
-
-Final: [[1,6], [8,10], [15,18]]
-```
-
-**Visual Representation:**
-```
-Before:  [1,3]  [2,6]  [8,10]  [15,18]
-         └─┬─┘
-           └─── Overlap ───┘
-
-After:   [1,6]  [8,10]  [15,18]
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
-2. **Compare with last merged**: Only need to check overlap with the last interval in merged list
-3. **Overlap condition**: Two intervals `[a,b]` and `[c,d]` overlap if `c <= b`
-4. **Merge by extending**: When overlapping, extend end time to `max(b, d)`
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
+**Walkthrough** — input `intervals = [[1,3],[2,6],[8,10],[15,18]]`, expected output `[[1,6],[8,10],[15,18]]`:
+
+Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Sort and Merge** | O(n log n) | O(n) | Simple, clear | Extra space |
+| **Custom Comparator** | O(n log n) | O(n) | Explicit | More verbose |
+| **In-Place** | O(n log n) | O(1) | Space efficient | Modifies input |
 ## Algorithm Breakdown
 
 ### Sorting
@@ -219,96 +157,7 @@ if(merged.size() == 0 || merged.back()[1] < left) {
 - `[1,4]` and `[4,5]`: `4 <= 4` → overlap ✓ (adjacent counts)
 - `[1,3]` and `[4,6]`: `4 <= 3` → no overlap ✗
 
-## Edge Cases
-
-1. **Empty input**: Return empty array
-2. **Single interval**: Return as-is
-3. **All intervals overlap**: Merge into one interval
-4. **No overlaps**: Return all intervals unchanged
-5. **Adjacent intervals**: `[1,4]` and `[4,5]` merge to `[1,5]`
-6. **Nested intervals**: `[1,6]` and `[2,4]` merge to `[1,6]`
-
-## Alternative Approaches
-
-### Approach 2: Custom Comparator
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
-
-```cpp
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        if(intervals.empty()) return {};
-        
-        sort(intervals.begin(), intervals.end(), 
-             [](const vector<int>& a, const vector<int>& b) {
-                 return a[0] < b[0];
-             });
-        
-        vector<vector<int>> merged;
-        merged.push_back(intervals[0]);
-        
-        for(int i = 1; i < intervals.size(); i++) {
-            if(intervals[i][0] <= merged.back()[1]) {
-                merged.back()[1] = max(merged.back()[1], intervals[i][1]);
-            } else {
-                merged.push_back(intervals[i]);
-            }
-        }
-        
-        return merged;
-    }
-};
-```
-
-**Pros:**
-- Explicit comparator makes intent clear
-- Slightly more readable
-
-**Cons:**
-- More verbose
-- Same complexity
-
-### Approach 3: In-Place Merging
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(1) excluding output
-
-```cpp
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        if(intervals.empty()) return {};
-        
-        sort(intervals.begin(), intervals.end());
-        
-        int writeIdx = 0;
-        for(int i = 1; i < intervals.size(); i++) {
-            if(intervals[i][0] <= intervals[writeIdx][1]) {
-                intervals[writeIdx][1] = max(intervals[writeIdx][1], intervals[i][1]);
-            } else {
-                writeIdx++;
-                intervals[writeIdx] = intervals[i];
-            }
-        }
-        
-        intervals.resize(writeIdx + 1);
-        return intervals;
-    }
-};
-```
-
-**Pros:**
-- O(1) extra space (modifies input)
-- More memory efficient
-
-**Cons:**
-- Modifies input array
-- Less intuitive
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Sort and Merge** | O(n log n) | O(n) | Simple, clear | Extra space |
@@ -360,6 +209,13 @@ merged.back()[1] = max(merged.back()[1], right);
 
 ## Common Mistakes
 
+1. **Empty input**: Return empty array
+2. **Single interval**: Return as-is
+3. **All intervals overlap**: Merge into one interval
+4. **No overlaps**: Return all intervals unchanged
+5. **Adjacent intervals**: `[1,4]` and `[4,5]` merge to `[1,5]`
+6. **Nested intervals**: `[1,6]` and `[2,4]` merge to `[1,6]`
+
 1. **Forgetting to sort**: Without sorting, algorithm fails
 2. **Wrong overlap condition**: Using `>=` instead of `<=` or vice versa
 3. **Not handling empty input**: Forgetting edge case
@@ -374,11 +230,11 @@ merged.back()[1] = max(merged.back()[1], right);
 
 ## Related Problems
 
-- [57. Insert Interval](https://leetcode.com/problems/insert-interval/) - Insert and merge
-- [252. Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) - Check if intervals overlap
-- [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) - Remove minimum intervals
-- [1094. Car Pooling](https://leetcode.com/problems/car-pooling/) - Interval scheduling
+- [57. Insert Interval](https://www.leetcode.com/problems/insert-interval/) - Insert and merge
+- [252. Meeting Rooms](https://www.leetcode.com/problems/meeting-rooms/) - Check if intervals overlap
+- [253. Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) - Remove minimum intervals
+- [1094. Car Pooling](https://www.leetcode.com/problems/car-pooling/) - Interval scheduling
 
 ## Real-World Applications
 
@@ -643,3 +499,20 @@ Step 5: Only [15,18] remains
 ---
 
 *This problem is a classic interval merging problem that demonstrates the importance of sorting and efficient overlap detection.*
+
+## Key Takeaways
+
+1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
+2. **Compare with last merged**: Only need to check overlap with the last interval in merged list
+3. **Overlap condition**: Two intervals `[a,b]` and `[c,d]` overlap if `c <= b`
+4. **Merge by extending**: When overlapping, extend end time to `max(b, d)`
+
+## References
+
+- [LC 56: Merge Intervals on LeetCode](https://www.leetcode.com/problems/merge-intervals/)
+- [LeetCode Discuss — LC 56: Merge Intervals](https://www.leetcode.com/problems/merge-intervals/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/merge-intervals/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

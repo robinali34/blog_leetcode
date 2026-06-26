@@ -5,11 +5,6 @@ date: 2025-12-30 21:30:00 -0700
 categories: [leetcode, hard, union-find, dsu, graph, cycle-detection, directed-graph]
 permalink: /2025/12/30/hard-685-redundant-connection-ii/
 ---
-
-# 685. Redundant Connection II
-
-## Problem Statement
-
 In this problem, a **rooted tree** is a directed graph such that there is exactly one node (the root) for which all other nodes are descendants of this node, plus exactly one parent for every node (except the root node which has no parents).
 
 The given input is a directed graph that started as a rooted tree with `n` nodes (with distinct values from `1` to `n`), with one additional directed edge added. The added edge has two different vertices chosen from `1` to `n`, and was not an edge that already existed.
@@ -17,6 +12,43 @@ The given input is a directed graph that started as a rooted tree with `n` nodes
 The resulting graph is given as a 2D-array of `edges`. Each element of `edges` is a pair `[ui, vi]` that represents a **directed edge** connecting nodes `ui` and `vi`, where `ui` is a parent of child `vi`.
 
 Return *an edge that can be removed so that the resulting graph is a rooted tree of `n` nodes*. If there are multiple answers, return the answer that occurs **last** in the given 2D-array.
+
+## Thinking Process
+
+In this problem, a **rooted tree** is a directed graph such that there is exactly one node (the root) for which all other nodes are descendants of this node, plus exactly one parent for every node (except the root node which has no parents).
+
+The given input is a directed graph that started as a rooted tree with `n` nodes (with distinct values from `1` to `n`), with one additional directed edge added. The added edge has two different vertices chosen from `1` to `n`, and was not an edge that already existed.
+
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
+| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
+| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
+| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
 
 ## Examples
 
@@ -49,272 +81,6 @@ The edge [2,1] should be removed.
 - `edges[i].length == 2`
 - `1 <= ui, vi <= n`
 - `ui != vi`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Tree structure**: What makes a valid tree? (Assumption: Directed tree with n nodes and n-1 edges, one root, no cycles)
-
-2. **Redundant edge**: What makes an edge redundant? (Assumption: Edge that creates cycle or gives node two parents - violates tree properties)
-
-3. **Return format**: What should we return? (Assumption: Edge to remove - [u, v] that should be removed to make valid tree)
-
-4. **Multiple redundant edges**: What if multiple edges are redundant? (Assumption: Return the last edge in edges array that can be removed)
-
-5. **Edge direction**: Are edges directed? (Assumption: Yes - edges[i] = [ui, vi] means edge from ui to vi)
-
-## Interview Deduction Process (30 minutes)
-
-**Step 1: Brute-Force Approach (8 minutes)**
-
-Try removing each edge and check if the resulting graph is a valid tree (connected, no cycles, n-1 edges). Use DFS or BFS to check connectivity and cycle detection. This approach requires O(n) time per edge removal check, giving O(n²) overall complexity, which works but can be optimized.
-
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use Union-Find to detect cycles. Process edges in order, and if adding an edge creates a cycle (both endpoints already connected), that edge is redundant. However, this problem is more complex because the graph is directed and we need to handle cases where a node has two parents. Need to identify candidate edges: edges that create cycles or edges that give a node two parents.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Handle two cases: (1) A node has two parents: identify the two edges that give the same node two parents. Try removing each and check if the result is valid. (2) No node has two parents: use Union-Find to find the edge that creates a cycle (similar to LC 684). Process edges in order, and the last edge that creates a cycle is the answer. This achieves O(n × α(n)) time where α is inverse Ackermann, which is optimal. The key insight is that in a directed tree, there can be at most one node with two parents, and we need to handle this case specially before applying standard cycle detection.
-
-## Solution Approach
-
-This problem is the **directed graph** version of LC 684. Unlike the undirected case, we need to handle two types of issues:
-
-1. **Node with Two Parents (Conflict)**: A node receives edges from two different parents
-2. **Cycle in Graph**: A cycle exists in the directed graph
-
-### Key Insights:
-
-1. **Two Problem Types**:
-   - **Conflict**: Node has two parents (invalidates tree property)
-   - **Cycle**: Directed cycle exists (invalidates tree property)
-
-2. **Union-Find for Cycles**: Use Union-Find to detect cycles in directed graph
-3. **Parent Tracking**: Track parent of each node to detect conflicts
-4. **Priority**: Return last edge in input that causes the problem
-
-### Algorithm:
-
-1. **Detect Conflicts**: Track parent of each node, identify if any node has two parents
-2. **Detect Cycles**: Use Union-Find to detect cycles
-3. **Handle Cases**:
-   - No conflict: Return edge that creates cycle
-   - Conflict exists: Return appropriate edge based on cycle detection
-
-## Solution
-
-### **Solution: Union-Find with Conflict Detection**
-
-```cpp
-struct UnionFind {
-    vector<int> ancestor;
-    UnionFind(int n) {
-        ancestor.resize(n);
-        for(int i = 0; i < n; i++) {
-            ancestor[i] = i;
-        }
-    }
-
-    int find(int index) {
-        return index == ancestor[index] ? index : ancestor[index] = find(ancestor[index]);
-    }
-
-    void merge(int u, int v) {
-        ancestor[find(u)] = find(v);
-    }
-};
-
-class Solution {
-public:
-    vector<int> findRedundantDirectedConnection(vector<vector<int>>& edges) {
-        const int n = edges.size();
-        UnionFind uf = UnionFind(n + 1);
-        vector<int> parent(n + 1);
-        for(int i = 1; i <= n; i++) {
-            parent[i] = i;
-        }
-        int conflict = -1;
-        int cycle = -1;
-        for(int i = 0; i < n; i++) {
-            vector<int> edge = edges[i];
-            int node1 = edge[0], node2 = edge[1];
-            if(parent[node2] != node2) {
-                conflict = i;
-            } else {
-                parent[node2] = node1;
-                if(uf.find(node1) == uf.find(node2)) {
-                    cycle = i;
-                } else {
-                    uf.merge(node1, node2);
-                }
-            }
-        }
-        if(conflict < 0) {
-            return {edges[cycle][0], edges[cycle][1]};
-        } else {
-            vector<int> conflictEdge = edges[conflict];
-            if(cycle >= 0) {
-                return {parent[conflictEdge[1]], conflictEdge[1]};
-            } else {
-                return {conflictEdge[0], conflictEdge[1]};
-            }
-        }
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Union-Find Structure (Lines 1-18)**:
-   - `ancestor[i]`: Root ancestor of node `i`
-   - `find(index)`: Find root with path compression
-   - `merge(u, v)`: Merge sets containing `u` and `v`
-
-2. **Initialization (Lines 22-28)**:
-   - Create Union-Find for `n+1` nodes (1-indexed)
-   - Initialize `parent` array: `parent[i] = i` (each node is its own parent initially)
-   - Track `conflict` and `cycle` edge indices
-
-3. **Process Each Edge (Lines 29-42)**:
-   - **Conflict Detection (Lines 33-34)**:
-     - If `parent[node2] != node2`: Node2 already has a parent → conflict!
-     - Mark this edge as conflict edge
-   - **Cycle Detection (Lines 35-41)**:
-     - Set `parent[node2] = node1`
-     - If `uf.find(node1) == uf.find(node2)`: Already connected → cycle!
-     - Otherwise: Merge the two nodes
-
-4. **Return Result (Lines 43-52)**:
-   - **No Conflict**: Return edge that creates cycle
-   - **Conflict Exists**:
-     - If cycle also exists: Return first parent edge (the one that's part of cycle)
-     - If no cycle: Return conflict edge itself
-
-### **Example Walkthrough:**
-
-**Example 1: `edges = [[1,2],[1,3],[2,3]]`**
-
-```
-Step 1: Initialize
-parent = [0,1,2,3]  (1-indexed, parent[i]=i initially)
-conflict = -1, cycle = -1
-
-Step 2: Process edge [1,2]
-  node1=1, node2=2
-  parent[2] == 2 → no conflict
-  parent[2] = 1
-  uf.find(1) != uf.find(2) → no cycle
-  uf.merge(1, 2)
-  parent = [0,1,1,3]
-
-Step 3: Process edge [1,3]
-  node1=1, node2=3
-  parent[3] == 3 → no conflict
-  parent[3] = 1
-  uf.find(1) != uf.find(3) → no cycle
-  uf.merge(1, 3)
-  parent = [0,1,1,1]
-
-Step 4: Process edge [2,3]
-  node1=2, node2=3
-  parent[3] == 1 != 3 → CONFLICT!
-  conflict = 2
-  (Don't update parent or check cycle)
-
-Result: conflict = -1? No, conflict = 2
-But wait, let me re-check the logic...
-
-Actually, when conflict is detected, we don't update parent.
-So when we process [2,3]:
-  parent[3] = 1 (from previous step)
-  parent[3] != 3 → conflict = 2
-  We skip updating parent and cycle check
-
-But we need to check cycle separately. Let me trace more carefully...
-
-Actually, the issue is that when conflict is found, we skip the cycle check.
-But we should still check if there's a cycle with the existing edges.
-
-Wait, I think the logic is:
-- If parent[node2] != node2, we have a conflict, so we mark conflict = i
-- Otherwise, we set parent and check for cycle
-
-So for [2,3]:
-  parent[3] = 1 (from [1,3])
-  parent[3] != 3 → conflict = 2
-  We don't check cycle for this edge
-
-But we already have cycle information from previous edges.
-
-Actually, let me re-read the code:
-- conflict tracks the LAST edge that causes conflict
-- cycle tracks the LAST edge that causes cycle
-- We process edges in order
-
-For the example:
-- [1,2]: No conflict, no cycle
-- [1,3]: No conflict, no cycle  
-- [2,3]: Conflict! (node 3 already has parent 1)
-
-But wait, we also need to check if [2,3] creates a cycle.
-Since we skip the cycle check when conflict is detected, we need to handle this differently.
-
-Actually, I think the algorithm works like this:
-1. First pass: Detect conflicts and cycles separately
-2. If no conflict: Return cycle edge
-3. If conflict: Check if removing conflict edge fixes it, or if we need the first parent edge
-
-Let me trace Example 3 which has both conflict and cycle.
-```
-
-**Example 3: `edges = [[2,1],[3,1],[4,2],[1,4]]`**
-
-```
-Step 1: Initialize
-parent = [0,1,2,3,4]
-conflict = -1, cycle = -1
-
-Step 2: Process [2,1]
-  parent[1] == 1 → no conflict
-  parent[1] = 2
-  uf.find(2) != uf.find(1) → no cycle
-  uf.merge(2, 1)
-  parent = [0,2,2,3,4]
-
-Step 3: Process [3,1]
-  parent[1] == 2 != 1 → CONFLICT!
-  conflict = 1
-  (Skip parent update and cycle check)
-  parent = [0,2,2,3,4] (unchanged)
-
-Step 4: Process [4,2]
-  parent[2] == 2 → no conflict
-  parent[2] = 4
-  uf.find(4) != uf.find(2) → no cycle (2's root is 2, 4's root is 4)
-  uf.merge(4, 2)
-  parent = [0,2,4,3,4]
-
-Step 5: Process [1,4]
-  parent[4] == 4 → no conflict
-  parent[4] = 1
-  uf.find(1) == uf.find(4)? 
-    find(1) = find(2) = find(4) = 4 (after merges)
-    find(4) = 4
-    Yes! CYCLE!
-  cycle = 3
-  parent = [0,2,4,3,1]
-
-Result:
-  conflict = 1 (edge [3,1])
-  cycle = 3 (edge [1,4])
-  
-  conflict >= 0, so:
-    conflictEdge = [3,1]
-    cycle >= 0, so:
-      return {parent[1], 1} = {2, 1}
-```
 
 ## Algorithm Breakdown
 
@@ -355,8 +121,7 @@ if(conflict < 0) {
 - **Conflict + cycle**: The cycle involves the conflict node, so we need to remove the first parent edge (the one that's part of the cycle)
 - **Conflict only**: No cycle, so removing the conflict edge fixes it
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n × α(n)) ≈ O(n)
 - **Union-Find operations**: O(α(n)) per operation (nearly constant)
 - **Process n edges**: O(n × α(n))
@@ -384,25 +149,6 @@ if(conflict < 0) {
 | **DSU Usage** | Direct cycle detection | Cycle detection + conflict handling |
 | **Complexity** | O(n × α(n)) | O(n × α(n)) |
 | **Difficulty** | Medium | Hard |
-
-## Alternative Approaches
-
-### **Approach 1: Union-Find with Conflict Detection (Current Solution)**
-- **Time**: O(n × α(n)) ≈ O(n)
-- **Space**: O(n)
-- **Best for**: Efficient single-pass solution
-
-### **Approach 2: DFS Cycle Detection**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Use DFS**: Build graph, detect cycles with DFS
-- **Handle conflicts**: Track parents separately
-
-### **Approach 3: Two-Pass Approach**
-- **Time**: O(n × α(n))
-- **Space**: O(n)
-- **First pass**: Detect conflicts
-- **Second pass**: Check cycles with/without conflict edges
 
 ## Detailed Example Walkthrough
 
@@ -456,14 +202,36 @@ Result:
 4. **Root node conflict**: Root receives an edge (shouldn't happen in valid input)
 5. **Self-loop**: Edge from node to itself (shouldn't happen per constraints)
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/) - Undirected graph version
-- [685. Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/) - Current problem (directed)
-- [547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Connected components
-- [990. Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) - DSU application
+- [684. Redundant Connection](https://www.leetcode.com/problems/redundant-connection/) - Undirected graph version
+- [685. Redundant Connection II](https://www.leetcode.com/problems/redundant-connection-ii/) - Current problem (directed)
+- [547. Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) - Connected components
+- [990. Satisfiability of Equality Equations](https://www.leetcode.com/problems/satisfiability-of-equality-equations/) - DSU application
 
 ## Tags
 
 `Union-Find`, `DSU`, `Disjoint Set Union`, `Graph`, `Cycle Detection`, `Directed Graph`, `Hard`
 
+## Key Takeaways
+
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+## References
+
+- [LC 685: Redundant Connection II on LeetCode](https://www.leetcode.com/problems/redundant-connection-ii/)
+- [LeetCode Discuss — LC 685: Redundant Connection II](https://www.leetcode.com/problems/redundant-connection-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/redundant-connection-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

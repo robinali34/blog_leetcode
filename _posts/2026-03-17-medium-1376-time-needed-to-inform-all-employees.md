@@ -6,7 +6,6 @@ categories: [leetcode, medium, tree, dfs, bfs]
 tags: [leetcode, medium, tree, dfs, bfs, graph]
 permalink: /2026/03/17/medium-1376-time-needed-to-inform-all-employees/
 ---
-
 A company has `n` employees numbered `0` to `n-1`. Each employee has exactly one direct manager given in `manager[i]`, except the head of the company (`manager[headID] == -1`). An employee needs `informTime[i]` minutes to inform **all** their direct subordinates. Return the total time needed to inform all employees.
 
 ## Examples
@@ -70,7 +69,34 @@ $$\text{time}(node) = \text{informTime}[node] + \max_{child}(\text{time}(child))
 
 Base case: leaf nodes have no children, so `max(child times) = 0`.
 
-## Solution 1: DFS -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -96,49 +122,16 @@ private:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- each node visited once
-**Space**: $O(n)$ -- adjacency list + recursion stack
+### Solution Explanation
 
-## Solution 2: BFS -- $O(n)$
+**Approach:** Recursive DFS (this problem)
 
-Propagate accumulated time level by level. Track the maximum time seen at any node.
+**Key idea:** ### Baseline (Naive) -- $O(n^2)$
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        unordered_map<int, vector<int>> graph;
-        for (int i = 0; i < n; i++) {
-            if (manager[i] != -1) {
-                graph[manager[i]].push_back(i);
-            }
-        }
+**Walkthrough** — input `n = 1, headID = 0, manager = [-1], informTime = [0]`, expected output `0`:
 
-        queue<pair<int, int>> q;
-        q.push({headID, 0});
-        int maxTime = 0;
-
-        while (!q.empty()) {
-            auto [node, time] = q.front();
-            q.pop();
-            maxTime = max(maxTime, time);
-            for (int child : graph[node]) {
-                q.push({child, time + informTime[node]});
-            }
-        }
-
-        return maxTime;
-    }
-};
-```
-{% endraw %}
-
-**Time**: $O(n)$
-**Space**: $O(n)$
-
+Only the head, no one to inform.
 ## Common Mistakes
 
 - Confusing the direction: edges go from manager to subordinates, not the other way
@@ -153,10 +146,16 @@ public:
 
 ## Related Problems
 
-- [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) -- longest path in unweighted tree
-- [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) -- longest path through any node
-- [841. Keys and Rooms](https://leetcode.com/problems/keys-and-rooms/) -- graph reachability via DFS/BFS
-- [207. Course Schedule](https://leetcode.com/problems/course-schedule/) -- directed graph traversal
+- [104. Maximum Depth of Binary Tree](https://www.leetcode.com/problems/maximum-depth-of-binary-tree/) -- longest path in unweighted tree
+- [543. Diameter of Binary Tree](https://www.leetcode.com/problems/diameter-of-binary-tree/) -- longest path through any node
+- [841. Keys and Rooms](https://www.leetcode.com/problems/keys-and-rooms/) -- graph reachability via DFS/BFS
+- [207. Course Schedule](https://www.leetcode.com/problems/course-schedule/) -- directed graph traversal
+
+## References
+
+- [LC 1376: Time Needed to Inform All Employees on LeetCode](https://www.leetcode.com/problems/time-needed-to-inform-all-employees/)
+- [LeetCode Discuss — LC 1376: Time Needed to Inform All Employees](https://www.leetcode.com/problems/time-needed-to-inform-all-employees/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/time-needed-to-inform-all-employees/editorial/) *(may require premium)*
 
 ## Template Reference
 

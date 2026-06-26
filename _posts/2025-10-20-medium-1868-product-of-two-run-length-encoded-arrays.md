@@ -5,13 +5,9 @@ date: 2025-10-20 13:30:00 -0700
 categories: leetcode algorithm medium run-length-encoding two-pointers array-processing
 permalink: /2025/10/20/medium-1868-product-of-two-run-length-encoded-arrays/
 ---
-
-# 1868. Product of Two Run-Length Encoded Arrays
-
 **Difficulty:** Medium  
 **Category:** Run-Length Encoding, Two Pointers, Array Processing
 
-## Problem Statement
 
 Run-length encoding is a compression algorithm that allows for an integer array `nums` with many segments of repeated numbers to be represented by a (generally smaller) 2D array `encoded`. Each `encoded[i] = [vali, freqi]` describes the `ith` segment of repeated numbers in `nums` where `vali` is the value that is repeated `freqi` times.
 
@@ -47,62 +43,7 @@ The product is [2,2,2,6,9,9], which is represented by [[2,3],[6,1],[9,2]].
 - `encoded1[i].length == encoded2[j].length == 2`
 - `1 <= vali, freqi <= 10^4`
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Run-length encoding**: What is run-length encoding? (Assumption: [value, frequency] pairs - value appears frequency times consecutively)
-
-2. **Product calculation**: How is product calculated? (Assumption: Element-wise product - multiply corresponding elements from decoded arrays)
-
-3. **Array length**: Are arrays guaranteed to have same length? (Assumption: Yes - after decoding, both arrays have same length)
-
-4. **Return format**: What should we return? (Assumption: Run-length encoded result - array of [value, frequency] pairs)
-
-5. **Encoding optimization**: Should we optimize the encoding? (Assumption: Yes - combine consecutive same values in result)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to compute product. Let me decode both arrays, multiply, then encode."
-
-**Naive Solution**: Decode both run-length encoded arrays to full arrays, multiply element-wise, encode result back.
-
-**Complexity**: O(n × m) time where n, m are total lengths, O(n + m) space
-
-**Issues**:
-- Decoding uses extra space
-- Doesn't leverage run-length encoding
-- Inefficient for large arrays
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can process run-length encoded arrays directly without decoding."
-
-**Improved Solution**: Use two pointers for both encoded arrays. Process segments, compute products, handle frequency matching.
-
-**Complexity**: O(k1 + k2) time where k1, k2 are encoded lengths, O(k1 + k2) space
-
-**Improvements**:
-- Processes encoded arrays directly
-- O(k1 + k2) time is much better
-- Handles frequency matching correctly
-- Can optimize encoding
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Process segments directly and combine consecutive same values in result."
-
-**Best Solution**: Two-pointer approach processing segments directly. When segments have same frequency, compute product. When frequencies differ, handle partial matches. Combine consecutive same values in result.
-
-**Complexity**: O(k1 + k2) time, O(k1 + k2) space
-
-**Key Realizations**:
-1. Two-pointer technique processes encoded arrays efficiently
-2. Handle frequency matching carefully
-3. O(k1 + k2) time is optimal
-4. Combine consecutive values to optimize encoding
-
-## Approach
+## Thinking Process
 
 The key insight is to process both encoded arrays simultaneously using two pointers, computing the product of corresponding elements and merging consecutive segments with the same value.
 
@@ -113,6 +54,33 @@ The key insight is to process both encoded arrays simultaneously using two point
 4. If the result array is not empty and the last segment has the same value, merge frequencies
 5. Otherwise, add a new segment
 6. Decrease frequencies and advance pointers when segments are exhausted
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
 ## Solution
 
@@ -140,6 +108,11 @@ public:
 };
 ```
 
+### Solution Explanation
+
+The key insight is to process both encoded arrays simultaneously using two pointers, computing the product of corresponding elements and merging consecutive segments with the same value.
+
+See **Complexity** below for time and space analysis.
 ## Explanation
 
 ### Step-by-Step Process:
@@ -161,8 +134,7 @@ For `encoded1 = [[1,3],[2,3]]` and `encoded2 = [[6,3],[3,3]]`:
 - **Step 2:** `min(3,3) = 3`, `val = 2*3 = 6`, merge with previous: `[6,6]`
 - **Result:** `[[6,6]]`
 
-## Complexity Analysis
-
+### Complexity
 **Time Complexity:** O(n + m) where n and m are the lengths of the encoded arrays
 - Each segment is processed exactly once
 - Merging operations are O(1)
@@ -170,7 +142,20 @@ For `encoded1 = [[1,3],[2,3]]` and `encoded2 = [[6,3],[3,3]]`:
 **Space Complexity:** O(n + m) for the result array
 - In worst case, no segments can be merged
 
-## Key Insights
+## References
+
+- [LC 1868: Product of Two Run-Length Encoded Arrays on LeetCode](https://www.leetcode.com/problems/product-of-two-run-length-encoded-arrays/)
+- [LeetCode Discuss — LC 1868: Product of Two Run-Length Encoded Arrays](https://www.leetcode.com/problems/product-of-two-run-length-encoded-arrays/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/product-of-two-run-length-encoded-arrays/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Two-pointer technique:** Efficiently process both arrays simultaneously
 2. **Frequency management:** Always consume the minimum frequency to avoid gaps

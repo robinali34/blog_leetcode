@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, hash-table, string, union-find, dfs]
 permalink: /2026/01/11/medium-721-accounts-merge/
 tags: [leetcode, medium, array, hash-table, string, union-find, disjoint-set, dfs]
 ---
-
-# 721. Accounts Merge
-
-## Problem Statement
-
 Given a list of `accounts` where each element `accounts[i]` is a list of strings, where the first element `accounts[i][0]` is a name, and the rest of the elements are **emails** representing emails of the account.
 
 Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some common email to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.
@@ -41,52 +36,47 @@ Output: [["Ethan","Ethan0@m.co","Ethan4@m.co","Ethan5@m.co"],["Gabe","Gabe0@m.co
 - `1 <= accounts[i][0].length <= 10`
 - `accounts[i][j]` for `j > 0` is a valid email.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Email as Unique Identifier**: Names can be duplicated, but emails are unique
 
-1. **Merging rule**: When should accounts be merged? (Assumption: Two accounts belong to the same person if they share at least one common email)
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
 
-2. **Name handling**: What if accounts have different names but share emails? (Assumption: If emails match, they're the same person - use the name from first account or clarify)
 
-3. **Email uniqueness**: Can the same email appear in multiple accounts? (Assumption: Yes - that's how we identify accounts to merge)
 
-4. **Output format**: How should merged accounts be formatted? (Assumption: List with name first, then sorted unique emails)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-5. **Transitive merging**: If A shares email with B, and B shares email with C, should A, B, C all be merged? (Assumption: Yes - transitive closure - use Union-Find to handle this)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each account, check against all other accounts to see if they share any email. If they do, merge them by combining their email lists. Repeat until no more merges are possible. This approach has O(n² × m) complexity where n is the number of accounts and m is the average number of emails per account, which is too slow. The transitive closure requirement makes this even more complex, as we need multiple passes.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use a hash map from email to account index. For each account, check if any of its emails already exist in the map. If yes, merge the current account into the existing one. This handles direct matches but doesn't handle transitive relationships efficiently. For example, if account A shares email with B, and B shares email with C, we might not merge A and C correctly without additional passes or a more sophisticated data structure.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use Union-Find (Disjoint Set Union) to group emails that belong to the same person. Create a mapping from email to a unique index, and use Union-Find to union all emails within the same account, and also union emails that appear in multiple accounts. After all union operations, group emails by their root parent. For each group, retrieve the account name (from the first account containing any email in that group) and sort the emails. This achieves O(n × m × α(n)) complexity where α is the inverse Ackermann function (effectively constant). The key insight is using Union-Find to handle transitive relationships automatically - if email1 and email2 are in account A, and email2 and email3 are in account B, Union-Find will correctly group all three emails together.
-
-## Solution Approach
-
-This is a **Union-Find (Disjoint Set Union)** problem. The key insight is that emails belonging to the same account should be grouped together, and if two accounts share any email, they should be merged.
-
-### Key Insights:
-
-1. **Email as Identifier**: Use emails as unique identifiers (not names, since names can be duplicated)
-2. **Union-Find**: Group emails that belong to the same account using Union-Find
-3. **Email Mapping**: Map each email to a unique index and to its owner's name
-4. **Grouping**: After union operations, group emails by their root parent
-5. **Sorting**: Sort emails within each merged account
-
-### Algorithm:
-
-1. **Assign IDs**: Map each unique email to a unique index
-2. **Union Emails**: For each account, union all emails in that account
-3. **Group by Root**: Group emails by their root parent (connected component)
-4. **Build Result**: For each group, create an account with name and sorted emails
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Solution
 
@@ -175,6 +165,23 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Email as Unique Identifier**: Names can be duplicated, but emails are unique
+
+**How the code works:**
+1. **Email as Unique Identifier**: Names can be duplicated, but emails are unique
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
+
+**Walkthrough** — input `accounts = [["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]`, expected output `[["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]`:
+
+The first and second John's accounts are merged because they share the email "johnsmith@mail.com".
+The third John's account is not merged because it doesn't share any email with the other accounts.
 
 ### **Algorithm Explanation:**
 
@@ -281,22 +288,12 @@ Result: [
   - `emailToName`: O(n × k) for all emails
   - `idxToEmails`: O(n × k) for grouped emails
   - `parent` array: O(n × k)
-
-## Key Insights
-
-1. **Email as Unique Identifier**: Names can be duplicated, but emails are unique
-2. **Union-Find for Grouping**: Efficiently groups emails that belong together
-3. **Transitive Merging**: If A shares email with B, and B shares with C, then A, B, C are merged
-4. **Path Compression**: Critical for efficiency in Union-Find operations
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single email per account**: `[["John","a@mail.com"]]` → return `[["John","a@mail.com"]]`
 2. **No shared emails**: All accounts remain separate
 3. **All emails shared**: All accounts merge into one
 4. **Duplicate emails in same account**: Handled correctly (only assigned one ID)
-
-## Common Mistakes
 
 1. **Using names as keys**: Names can be duplicated, causing incorrect merging
 2. **Not sorting emails**: Result must have sorted emails
@@ -304,72 +301,26 @@ Result: [
 4. **Missing path compression**: Without it, `find` can be O(n) instead of O(α(n))
 5. **Name mismatch**: Assuming all emails in merged account have same name (they do, but need to verify)
 
-## Alternative Approaches
-
-### **Approach 2: DFS (Depth-First Search)**
-
-Build a graph where emails are nodes and edges connect emails in the same account. Use DFS to find connected components.
-
-```cpp
-class Solution {
-public:
-    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
-        unordered_map<string, vector<string>> graph;
-        unordered_map<string, string> emailToName;
-        
-        // Build graph
-        for(auto& account: accounts) {
-            string name = account[0];
-            for(int i = 1; i < account.size(); i++) {
-                graph[account[1]].push_back(account[i]);
-                graph[account[i]].push_back(account[1]);
-                emailToName[account[i]] = name;
-            }
-        }
-        
-        // DFS to find connected components
-        vector<vector<string>> result;
-        unordered_set<string> visited;
-        
-        for(auto& [email, _]: graph) {
-            if(!visited.count(email)) {
-                vector<string> component;
-                dfs(graph, email, visited, component);
-                sort(component.begin(), component.end());
-                component.insert(component.begin(), emailToName[email]);
-                result.push_back(component);
-            }
-        }
-        
-        return result;
-    }
-    
-private:
-    void dfs(unordered_map<string, vector<string>>& graph, 
-             string email, unordered_set<string>& visited, 
-             vector<string>& component) {
-        visited.insert(email);
-        component.push_back(email);
-        for(string& neighbor: graph[email]) {
-            if(!visited.count(neighbor)) {
-                dfs(graph, neighbor, visited, component);
-            }
-        }
-    }
-};
-```
-
-**Time Complexity:** O(n × k × log(n × k))  
-**Space Complexity:** O(n × k)
-
 ## Related Problems
 
-- [LC 323: Number of Connected Components](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) - Count connected components
-- [LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Similar connected components problem
-- [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/) - Union-Find for cycle detection
-- [LC 990: Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) - Union-Find for equality constraints
+- [LC 323: Number of Connected Components](https://www.leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) - Count connected components
+- [LC 547: Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) - Similar connected components problem
+- [LC 684: Redundant Connection](https://www.leetcode.com/problems/redundant-connection/) - Union-Find for cycle detection
+- [LC 990: Satisfiability of Equality Equations](https://www.leetcode.com/problems/satisfiability-of-equality-equations/) - Union-Find for equality constraints
 
----
+## Key Takeaways
 
-*This problem demonstrates Union-Find for grouping related entities. The key insight is using emails (not names) as unique identifiers and leveraging Union-Find's transitive property to merge accounts that share any email.*
+1. **Email as Unique Identifier**: Names can be duplicated, but emails are unique
+2. **Union-Find for Grouping**: Efficiently groups emails that belong together
+3. **Transitive Merging**: If A shares email with B, and B shares with C, then A, B, C are merged
+4. **Path Compression**: Critical for efficiency in Union-Find operations
 
+## References
+
+- [LC 721: Accounts Merge on LeetCode](https://www.leetcode.com/problems/accounts-merge/)
+- [LeetCode Discuss — LC 721: Accounts Merge](https://www.leetcode.com/problems/accounts-merge/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/accounts-merge/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

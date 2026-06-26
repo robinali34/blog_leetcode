@@ -5,13 +5,9 @@ date: 2025-10-20 13:40:00 -0700
 categories: leetcode algorithm hard stack monotonic-stack
 permalink: /2025/10/20/hard-84-largest-rectangle-in-histogram/
 ---
-
-# 84. Largest Rectangle in Histogram
-
 **Difficulty:** Hard  
 **Category:** Stack, Monotonic Stack
 
-## Problem Statement
 
 Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
 
@@ -36,61 +32,7 @@ Output: 4
 - `1 <= heights.length <= 10^5`
 - `0 <= heights[i] <= 10^4`
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Rectangle definition**: What rectangles can we form? (Assumption: Rectangles formed by consecutive bars - width is number of consecutive bars, height is minimum bar height)
-
-2. **Rectangle area**: How is rectangle area calculated? (Assumption: width × height - number of bars × minimum bar height in range)
-
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum area among all possible rectangles)
-
-4. **Return value**: What should we return? (Assumption: Integer representing maximum rectangle area)
-
-5. **Empty histogram**: What if histogram is empty? (Assumption: Per constraints, length >= 1, so not empty)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to find largest rectangle. Let me check all possible rectangles."
-
-**Naive Solution**: For each bar, try all possible widths (extend left and right), compute area, track maximum.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Repeats work for finding boundaries
-- Doesn't leverage monotonic stack
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can use DP to find left and right boundaries where current bar is minimum."
-
-**Improved Solution**: For each bar, find leftmost and rightmost positions where it's minimum. Use DP or two passes to compute boundaries.
-
-**Complexity**: O(n²) worst case, O(n) space
-
-**Improvements**:
-- Better structure than brute-force
-- Still O(n²) in worst case
-- Can optimize boundary finding
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "I can use monotonic stack to find boundaries efficiently."
-
-**Best Solution**: Use monotonic stack to find left and right boundaries where each bar is minimum. Stack stores indices. When bar is smaller than stack top, pop and compute area.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Monotonic stack is perfect for "next smaller" problems
-2. O(n) time is optimal - each bar processed once
-3. Stack efficiently finds boundaries
-4. O(n) space for stack is necessary
-
-## Approach
+## Thinking Process
 
 This is a classic **Monotonic Stack** problem. The key insight is that for each bar, we need to find the largest rectangle that can be formed with that bar as the height.
 
@@ -104,6 +46,31 @@ This is a classic **Monotonic Stack** problem. The key insight is that for each 
 ### Key Insight:
 - For each bar at index `i`, the largest rectangle with height `heights[i]` extends from the previous smaller bar to the next smaller bar
 - The width = `right_boundary - left_boundary - 1`
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
+
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
 ## Solution
 
@@ -129,6 +96,11 @@ public:
 };
 ```
 
+### Solution Explanation
+
+This is a classic **Monotonic Stack** problem. The key insight is that for each bar, we need to find the largest rectangle that can be formed with that bar as the height.
+
+See **Complexity** below for time and space analysis.
 ## Explanation
 
 ### Step-by-Step Process:
@@ -158,8 +130,7 @@ For `heights = [2,1,5,6,2,3]` with sentinel `[2,1,5,6,2,3,0]`:
 
 **Maximum area = 10**
 
-## Complexity Analysis
-
+### Complexity
 **Time Complexity:** O(n) where n is the length of heights array
 - Each element is pushed and popped from stack exactly once
 - Each element is processed once
@@ -167,52 +138,23 @@ For `heights = [2,1,5,6,2,3]` with sentinel `[2,1,5,6,2,3,0]`:
 **Space Complexity:** O(n) for the stack
 - In worst case, all elements could be in increasing order
 
-## Key Insights
+## References
+
+- [LC 84: Largest Rectangle in Histogram on LeetCode](https://www.leetcode.com/problems/largest-rectangle-in-histogram/)
+- [LeetCode Discuss — LC 84: Largest Rectangle in Histogram](https://www.leetcode.com/problems/largest-rectangle-in-histogram/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/largest-rectangle-in-histogram/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Monotonic Stack:** Maintains bars in increasing height order
 2. **Sentinel Value:** Adding 0 at end ensures all bars are processed
 3. **Area Calculation:** Width = distance between smaller bars on left and right
 4. **Index Tracking:** Store indices in stack, not values, to calculate width
 5. **Greedy Approach:** Process each bar as soon as we find a smaller bar
-
-## Alternative Approaches
-
-### Brute Force (O(n²)):
-```cpp
-int largestRectangleArea(vector<int>& heights) {
-    int max_area = 0;
-    for(int i = 0; i < heights.size(); i++) {
-        int min_height = heights[i];
-        for(int j = i; j < heights.size(); j++) {
-            min_height = min(min_height, heights[j]);
-            max_area = max(max_area, min_height * (j - i + 1));
-        }
-    }
-    return max_area;
-}
-```
-
-### Divide and Conquer (O(n log n)):
-```cpp
-int largestRectangleArea(vector<int>& heights) {
-    return divideConquer(heights, 0, heights.size() - 1);
-}
-
-int divideConquer(vector<int>& heights, int left, int right) {
-    if(left > right) return 0;
-    if(left == right) return heights[left];
-    
-    int min_idx = left;
-    for(int i = left; i <= right; i++) {
-        if(heights[i] < heights[min_idx]) min_idx = i;
-    }
-    
-    int area = heights[min_idx] * (right - left + 1);
-    int left_area = divideConquer(heights, left, min_idx - 1);
-    int right_area = divideConquer(heights, min_idx + 1, right);
-    
-    return max({area, left_area, right_area});
-}
-```
-
-The monotonic stack approach is the most efficient solution for this problem, demonstrating the power of this data structure for solving range-based problems.

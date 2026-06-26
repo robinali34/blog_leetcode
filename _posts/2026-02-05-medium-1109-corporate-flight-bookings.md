@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, prefix-sum, difference-array]
 permalink: /2026/02/05/medium-1109-corporate-flight-bookings/
 tags: [leetcode, medium, array, prefix-sum, difference-array]
 ---
-
-# 1109. Corporate Flight Bookings
-
-## Problem Statement
-
 There are `n` flights labeled from `1` to `n`. You are given an array of flight bookings where `bookings[i] = [firsti, lasti, seatsi]` represents a booking for flights `firsti` through `lasti` (inclusive) with `seatsi` seats reserved for each flight in that range.
 
 Return an array `answer` of length `n`, where `answer[i]` is the total number of seats reserved for flight `i + 1`.
@@ -47,12 +42,6 @@ Flight 2: 10 + 15 = 25 seats
 - `1 <= firsti <= lasti <= n`
 - `1 <= seatsi <= 10^4`
 
-## Clarification Questions
-
-1. **Indexing**: Are flight numbers 1-indexed? (Yes — flights are 1 to n; answer[i] is for flight i+1.)
-2. **Overlapping bookings**: Can the same flight appear in multiple bookings? (Yes — we sum all reserved seats.)
-3. **Range**: Is [first, last] inclusive on both ends? (Yes.)
-
 ## Intro: Partial Sum and Difference Array
 
 ### Partial sum (prefix sum)
@@ -84,18 +73,45 @@ For this problem we build a difference array (add at `first`, subtract at `last+
 
 ### Common LeetCode problems using partial sum / difference array
 
-- **Difference array (range update, then prefix sum):** [1109. Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/), [1094. Car Pooling](https://leetcode.com/problems/car-pooling/), [798. Smallest Rotation with Highest Score](https://leetcode.com/problems/smallest-rotation-with-highest-score/), [1674. Minimum Moves to Make Array Complementary](https://leetcode.com/problems/minimum-moves-to-make-array-complementary/).
-- **Prefix sum (subarray sum / range query):** [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/), [325. Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/), [974. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/), [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/), [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/).
+- **Difference array (range update, then prefix sum):** [1109. Corporate Flight Bookings](https://www.leetcode.com/problems/corporate-flight-bookings/), [1094. Car Pooling](https://www.leetcode.com/problems/car-pooling/), [798. Smallest Rotation with Highest Score](https://www.leetcode.com/problems/smallest-rotation-with-highest-score/), [1674. Minimum Moves to Make Array Complementary](https://www.leetcode.com/problems/minimum-moves-to-make-array-complementary/).
+- **Prefix sum (subarray sum / range query):** [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/), [325. Maximum Size Subarray Sum Equals k](https://www.leetcode.com/problems/maximum-size-subarray-sum-equals-k/), [974. Subarray Sums Divisible by K](https://www.leetcode.com/problems/subarray-sums-divisible-by-k/), [525. Contiguous Array](https://www.leetcode.com/problems/contiguous-array/), [303. Range Sum Query - Immutable](https://www.leetcode.com/problems/range-sum-query-immutable/).
 
 ---
 
-## Interview Deduction Process
+## Thinking Process
 
-**Step 1: Brute force** — For each booking, loop from `first` to `last` and add `seats` to each index. Time O(bookings × range length), which can be O(n × m). Space O(n).
+1. **Difference array** turns “add d to [l, r]” into two point updates: +d at l, -d at r+1.
 
-**Step 2: Optimized** — Use a difference array: for each `[first, last, seats]`, add `seats` at `first-1` and subtract `seats` at `last` (0-indexed: `last` is the index after the last flight). Then one pass of prefix sum (e.g. `partial_sum`) gives the answer. Time O(n + m), space O(n).
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-## Solution 1: Brute Force (Range Loop)
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+
+## Solution
 
 For each booking, add `seats` to every flight in `[first, last]`.
 
@@ -115,96 +131,27 @@ public:
 };
 ```
 
-- **Time:** O(m × L), where m = bookings.length, L = average range length (worst O(n)).
-- **Space:** O(n).
+### Solution Explanation
 
-## Solution 2: Difference Array + `partial_sum`
+**Approach:** Prefix sum (this problem)
 
-Mark each range with a +d at the start and -d at the position after the end; then prefix sum recovers the counts.
+**Key idea:** 1. **Difference array** turns “add d to [l, r]” into two point updates: +d at l, -d at r+1.
 
-```cpp
-class Solution {
-public:
-    vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
-        vector<int> rtn(n + 1);
-        for (auto& b : bookings) {
-            int first = b[0] - 1, last = b[1], seats = b[2];
-            rtn[first] += seats;
-            rtn[last] -= seats;
-        }
-        partial_sum(rtn.begin(), rtn.end(), rtn.begin());
-        rtn.pop_back();
-        return rtn;
-    }
-};
-```
+**How the code works:**
+1. **Difference array** turns “add d to [l, r]” into two point updates: +d at l, -d at r+1.
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-- **Indexing:** Flights 1..n → indices 0..n-1. Booking `[first, last]` (1-indexed) → indices `first-1 .. last-1`. We add at `first-1` and subtract at `last` so that the prefix sum at index `i` is the total seats for flight `i+1`. The extra `rtn[n]` is only used for the subtraction; we drop it with `pop_back()`.
-- **Time:** O(n + m).
-- **Space:** O(n).
+**Walkthrough** — input `bookings = [[1,2,10],[2,3,20],[2,5,25]], n = 5`, expected output `[10,55,45,25,25]`:
 
-### Algorithm breakdown
+Flight 1: 10 seats
+Flight 2: 10 + 20 + 25 = 55 seats
+Flight 3: 20 + 25 = 45 seats
+Flight 4: 25 seats
+Flight 5: 25 seats
 
-1. Allocate `rtn(n + 1)` (extra slot for the “after last” offset).
-2. For each `[first, last, seats]`: `rtn[first-1] += seats`, `rtn[last] -= seats`.
-3. `partial_sum(rtn.begin(), rtn.end(), rtn.begin())` to get cumulative counts.
-4. `rtn.pop_back()` so the result has length `n`.
-
-### Why it works
-
-After all updates, the value at index `i` in the result is the sum of all +d and -d that apply to position `i`. Each booking adds +d at the start and -d just after the end, so the running sum at `i` equals the total seats reserved for flight `i+1`.
-
-### Variant: `std::inclusive_scan` (C++17)
-
-Same difference-array idea; use `inclusive_scan` instead of `partial_sum`. Both compute the inclusive prefix sum; `inclusive_scan` supports execution policies (e.g. `std::execution::par`) for parallel scan when needed.
-
-```cpp
-class Solution {
-public:
-    vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
-        vector<int> rtn(n + 1);
-        for (auto& b : bookings) {
-            int first = b[0] - 1, last = b[1], seats = b[2];
-            rtn[first] += seats;
-            rtn[last] -= seats;
-        }
-        inclusive_scan(rtn.begin(), rtn.end(), rtn.begin());
-        rtn.pop_back();
-        return rtn;
-    }
-};
-```
-
-Include `<numeric>` (and optionally `<execution>` for `std::execution::par`). Time and space same as the `partial_sum` version.
-
-### Variant: Length-`n` array + manual prefix sum (LeetCode China official)
-
-Use a single array of length `n`. Only subtract at index `booking[1]` when `booking[1] < n`, so no extra slot is needed; then run a manual prefix-sum loop. No STL scan or `pop_back`.
-
-```cpp
-class Solution {
-public:
-    vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
-        vector<int> nums(n);
-        for (auto& booking : bookings) {
-            nums[booking[0] - 1] += booking[2];
-            if (booking[1] < n) {
-                nums[booking[1]] -= booking[2];
-            }
-        }
-        for (int i = 1; i < n; i++) {
-            nums[i] += nums[i - 1];
-        }
-        return nums;
-    }
-};
-```
-
-- **Indexing:** Add at `first - 1`; subtract at `last` only when `last < n` (so we never write to index `n`). Then `nums[i] += nums[i-1]` is the inclusive prefix sum in place.
-- **Time:** O(n + m). **Space:** O(n).
-
-*Source: [力扣官方题解](https://leetcode.cn/problems/corporate-flight-bookings/solutions/968214/hang-ban-yu-ding-tong-ji-by-leetcode-sol-5pv8/) (LeetCode China official solution).*
-
+**Time:** O(m × L), where m = bookings.length, L = average range length (worst O(n)). · **Space:** O(n).
 ## Complexity Comparison
 
 | Approach              | Time        | Space |
@@ -212,15 +159,32 @@ public:
 | Brute force (range loop) | O(m × L)    | O(n)  |
 | Difference + partial_sum / inclusive_scan | O(n + m) | O(n)  |
 
-## Key Insights
+## Related Problems
+
+- [1094. Car Pooling](https://www.leetcode.com/problems/car-pooling/) — Difference array on a timeline
+- [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/) — Prefix sum + hash map
+- [303. Range Sum Query - Immutable](https://www.leetcode.com/problems/range-sum-query-immutable/) — Prefix sum for range queries
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Difference array** turns “add d to [l, r]” into two point updates: +d at l, -d at r+1.
 2. **Prefix sum** over the difference array recovers the final value at each index.
 3. **C++ `partial_sum`** or **`inclusive_scan`** (C++17) compute prefix sums in one line; `inclusive_scan` can use execution policies for parallel scan.
 4. Same pattern appears in Car Pooling (1094) and other “range update, single query pass” problems.
 
-## Related Problems
+## References
 
-- [1094. Car Pooling](https://leetcode.com/problems/car-pooling/) — Difference array on a timeline
-- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) — Prefix sum + hash map
-- [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/) — Prefix sum for range queries
+- [LC 1109: Corporate Flight Bookings on LeetCode](https://www.leetcode.com/problems/corporate-flight-bookings/)
+- [LeetCode Discuss — LC 1109: Corporate Flight Bookings](https://www.leetcode.com/problems/corporate-flight-bookings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/corporate-flight-bookings/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

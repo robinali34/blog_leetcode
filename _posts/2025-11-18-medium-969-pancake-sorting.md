@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp array sorting problem-solving
 permalink: /posts/2025-11-18-medium-969-pancake-sorting/
 tags: [leetcode, medium, array, sorting, greedy, pancake-flip]
 ---
-
-# [Medium] 969. Pancake Sorting
-
 Given an array of integers `arr`, sort the array by performing a series of **pancake flips**.
 
 In one pancake flip we do the following steps:
@@ -49,35 +46,41 @@ Note that other answers, such as [3, 3], would also be accepted.
 - `1 <= arr[i] <= arr.length`
 - All integers in `arr` are unique (i.e. `arr` is a permutation of the integers from `1` to `arr.length`).
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Greedy Strategy**: Place largest elements first, working from right to left
+- First flip: Bring target element to front (if not already there)
+- Second flip: Move target element to its correct position
 
-1. **Pancake flip**: What is a pancake flip? (Assumption: Reverse first k elements - flip(arr, k) reverses arr[0:k])
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-2. **Sorting goal**: What are we trying to achieve? (Assumption: Sort array in ascending order using only pancake flips)
 
-3. **Return format**: What should we return? (Assumption: Array of k values - sequence of flips to sort the array)
 
-4. **Array properties**: What are the array properties? (Assumption: Permutation of [1, 2, ..., n] - unique integers from 1 to n)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-5. **Multiple solutions**: Are there multiple valid solutions? (Assumption: Yes - can return any valid sequence of flips)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Try all possible sequences of flips: for each position, try flipping at positions 2, 3, ..., n. Use BFS or DFS to explore all possible flip sequences until we find one that sorts the array. This approach has exponential time complexity and is impractical even for small arrays.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
-Use a greedy approach: work from the end of the array. For each position from n-1 down to 0, find the largest unsorted element, flip it to the top, then flip it to its correct position. This reduces the problem size by one each iteration. However, we need to track which elements are already in their correct positions to avoid unnecessary flips.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use greedy algorithm with position tracking: for each position `i` from n-1 down to 0, if `arr[i] != i+1` (element not in correct position), find where `i+1` is located, flip it to the top (position 0), then flip it to position `i`. This ensures each element is placed correctly in at most 2 flips. The algorithm runs in O(n²) time: O(n) positions, each requiring O(n) to find the element. The key insight is that we can sort the array by placing elements one by one from the end, and pancake flips allow us to move any element to any position efficiently.
-
-## Solution: Greedy Approach
+## Solution
 
 **Time Complexity:** O(n²) - For each of n elements, we may need to search and flip  
 **Space Complexity:** O(1) excluding output array
@@ -129,71 +132,34 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `arr = [3,2,4,1]`
+**Approach:** Sort + greedy (this problem)
 
-```
-Initial: arr = [3, 2, 4, 1]
+**Key idea:** 1. **Greedy Strategy**: Place largest elements first, working from right to left
 
-valueToSort = 4:
-  Find index of 4: idx = 2
-  idx != 3 (valueToSort - 1), need to move
-  idx != 0, flip first 3 elements: [4, 2, 3, 1]
-  Flip first 4 elements: [1, 3, 2, 4]
-  rtn = [3, 4]
-
-valueToSort = 3:
-  Find index of 3: idx = 1
-  idx != 2, need to move
-  idx != 0, flip first 2 elements: [3, 1, 2, 4]
-  Flip first 3 elements: [2, 1, 3, 4]
-  rtn = [3, 4, 2, 3]
-
-valueToSort = 2:
-  Find index of 2: idx = 0
-  idx != 1, need to move
-  idx == 0, skip first flip
-  Flip first 2 elements: [1, 2, 3, 4]
-  rtn = [3, 4, 2, 3, 2]
-
-valueToSort = 1:
-  Find index of 1: idx = 0
-  idx == 0 (valueToSort - 1), already in place, continue
-
-Result: rtn = [3, 4, 2, 3, 2]
-```
-
-### Visual Representation
-
-```
-Step 1: Place 4 in position 4
-  [3, 2, 4, 1] → Find 4 at index 2
-  Flip k=3: [4, 2, 3, 1]  (bring 4 to front)
-  Flip k=4: [1, 3, 2, 4]  (move 4 to end)
-
-Step 2: Place 3 in position 3
-  [1, 3, 2, 4] → Find 3 at index 1
-  Flip k=2: [3, 1, 2, 4]  (bring 3 to front)
-  Flip k=3: [2, 1, 3, 4]  (move 3 to position 3)
-
-Step 3: Place 2 in position 2
-  [2, 1, 3, 4] → Find 2 at index 0
-  Flip k=2: [1, 2, 3, 4]  (move 2 to position 2)
-
-Final: [1, 2, 3, 4] ✓
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Greedy Strategy**: Place largest elements first, working from right to left
-2. **Two-Step Process**: 
-   - First flip: Bring target element to front (if not already there)
-   - Second flip: Move target element to its correct position
-3. **Skip Optimization**: If element is already in correct position, skip it
-4. **Index Conversion**: k is 1-indexed (flip first k elements), but arrays are 0-indexed
-5. **Unique Values**: Since all values are unique, `find` always returns a valid index
+- First flip: Bring target element to front (if not already there)
+- Second flip: Move target element to its correct position
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
+**Walkthrough** — input `arr = [3,2,4,1]`, expected output `[4,2,4,3]`:
+
+We perform 4 pancake flips, with k values [4,2,4,3]:
+Starting state: arr = [3, 2, 4, 1]
+After 1st flip (k=4): arr = [1, 4, 2, 3]
+After 2nd flip (k=2): arr = [4, 1, 2, 3]
+After 3rd flip (k=4): arr = [3, 2, 1, 4]
+After 4th flip (k=3): arr = [1, 2, 3, 4]
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Greedy with Linear Search** | O(n²) | O(1) | Simple, clear | O(n) find per element |
+| **STL max_element** | O(n²) | O(1) | Cleaner code | Iterator complexity |
+| **Position Map** | O(n²) | O(n) | O(1) find | More complex |
 ## Algorithm Breakdown
 
 ```cpp
@@ -250,114 +216,7 @@ int find(vector<int>& arr, int target) {
 
 Linear search to find the index of target value.
 
-## Edge Cases
-
-1. **Already sorted**: `[1,2,3]` → return `[]`
-2. **Reverse sorted**: `[3,2,1]` → requires flips
-3. **Single element**: `[1]` → return `[]`
-4. **Element at front**: `[4,1,2,3]` → skip first flip
-5. **Element in place**: Skip both flips
-
-## Alternative Approaches
-
-### Approach 2: Using STL reverse
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
-
-```cpp
-class Solution {
-public:
-    vector<int> pancakeSort(vector<int>& arr) {
-        vector<int> result;
-        
-        for(int size = arr.size(); size > 1; size--) {
-            // Find index of maximum in unsorted portion
-            int maxIdx = max_element(arr.begin(), arr.begin() + size) - arr.begin();
-            
-            if(maxIdx == size - 1) continue;  // Already in place
-            
-            // Bring max to front
-            if(maxIdx > 0) {
-                result.push_back(maxIdx + 1);
-                reverse(arr.begin(), arr.begin() + maxIdx + 1);
-            }
-            
-            // Move max to correct position
-            result.push_back(size);
-            reverse(arr.begin(), arr.begin() + size);
-        }
-        
-        return result;
-    }
-};
-```
-
-**Pros:**
-- Uses STL functions (cleaner)
-- `max_element` is more efficient than linear search
-
-**Cons:**
-- Requires understanding of STL iterators
-
-### Approach 3: Optimized Find
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
-
-Instead of linear search, maintain a position map:
-
-```cpp
-class Solution {
-public:
-    vector<int> pancakeSort(vector<int>& arr) {
-        vector<int> result;
-        int n = arr.size();
-        
-        // Create position map: value -> index
-        vector<int> pos(n + 1);
-        for(int i = 0; i < n; i++) {
-            pos[arr[i]] = i;
-        }
-        
-        for(int val = n; val >= 1; val--) {
-            int idx = pos[val];
-            
-            if(idx == val - 1) continue;
-            
-            if(idx != 0) {
-                result.push_back(idx + 1);
-                flip(arr, idx + 1, pos);
-            }
-            
-            result.push_back(val);
-            flip(arr, val, pos);
-        }
-        
-        return result;
-    }
-    
-private:
-    void flip(vector<int>& arr, int k, vector<int>& pos) {
-        for(int i = 0; i < k / 2; i++) {
-            swap(arr[i], arr[k - 1 - i]);
-            pos[arr[i]] = i;
-            pos[arr[k - 1 - i]] = k - 1 - i;
-        }
-    }
-};
-```
-
-**Pros:**
-- O(1) find operation
-- More efficient for large arrays
-
-**Cons:**
-- More complex implementation
-- Need to maintain position map
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Greedy with Linear Search** | O(n²) | O(1) | Simple, clear | O(n) find per element |
@@ -401,6 +260,12 @@ If element is already in correct position, skip both flips to optimize.
 
 ## Common Mistakes
 
+1. **Already sorted**: `[1,2,3]` → return `[]`
+2. **Reverse sorted**: `[3,2,1]` → requires flips
+3. **Single element**: `[1]` → return `[]`
+4. **Element at front**: `[4,1,2,3]` → skip first flip
+5. **Element in place**: Skip both flips
+
 1. **Off-by-one errors**: Using `idx` instead of `idx + 1` for k
 2. **Wrong flip condition**: Not checking if `idx != 0` before first flip
 3. **Incorrect position check**: Using `idx == valueToSort` instead of `idx == valueToSort - 1`
@@ -416,10 +281,10 @@ If element is already in correct position, skip both flips to optimize.
 
 ## Related Problems
 
-- [324. Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/) - Different sorting constraint
-- [912. Sort an Array](https://leetcode.com/problems/sort-an-array/) - General sorting
-- [75. Sort Colors](https://leetcode.com/problems/sort-colors/) - Three-way partition
-- [969. Pancake Sorting](https://leetcode.com/problems/pancake-sorting/) - This problem
+- [324. Wiggle Sort II](https://www.leetcode.com/problems/wiggle-sort-ii/) - Different sorting constraint
+- [912. Sort an Array](https://www.leetcode.com/problems/sort-an-array/) - General sorting
+- [75. Sort Colors](https://www.leetcode.com/problems/sort-colors/) - Three-way partition
+- [969. Pancake Sorting](https://www.leetcode.com/problems/pancake-sorting/) - This problem
 
 ## Real-World Applications
 
@@ -462,3 +327,22 @@ Similar problems:
 
 *This problem is a fun introduction to constraint-based sorting, demonstrating how greedy algorithms can solve seemingly complex problems with simple strategies.*
 
+## Key Takeaways
+
+1. **Greedy Strategy**: Place largest elements first, working from right to left
+2. **Two-Step Process**: 
+   - First flip: Bring target element to front (if not already there)
+   - Second flip: Move target element to its correct position
+3. **Skip Optimization**: If element is already in correct position, skip it
+4. **Index Conversion**: k is 1-indexed (flip first k elements), but arrays are 0-indexed
+5. **Unique Values**: Since all values are unique, `find` always returns a valid index
+
+## References
+
+- [LC 969: Pancake Sorting on LeetCode](https://www.leetcode.com/problems/pancake-sorting/)
+- [LeetCode Discuss — LC 969: Pancake Sorting](https://www.leetcode.com/problems/pancake-sorting/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/pancake-sorting/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

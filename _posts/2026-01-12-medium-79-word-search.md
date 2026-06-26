@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, backtracking, matrix, dfs]
 permalink: /2026/01/12/medium-79-word-search/
 tags: [leetcode, medium, array, backtracking, matrix, dfs, recursion]
 ---
-
-# 79. Word Search
-
-## Problem Statement
-
 Given an `m x n` grid of characters `board` and a string `word`, return `true` *if* `word` *exists in the grid*.
 
 The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
@@ -43,56 +38,47 @@ Output: false
 - `1 <= word.length <= 15`
 - `board` and `word` consists of only lowercase and uppercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **DFS with Backtracking**: Explore all paths, restore state after exploring
 
-1. **Cell reuse**: Can we reuse the same cell multiple times in a path? (Assumption: No - each cell can be used at most once in a path)
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
 
-2. **Movement directions**: In which directions can we move? (Assumption: Up, down, left, right - 4 directions, no diagonals)
 
-3. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different)
 
-4. **Word matching**: Do we need exact match or can it be a subsequence? (Assumption: Exact match - contiguous path forming the exact word)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-5. **Starting position**: Can we start from any cell? (Assumption: Yes - can start from any cell that matches the first character of word)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Try all possible paths starting from each cell that matches the first character. Use recursive backtracking to explore all 4 directions from each cell. Mark visited cells to avoid cycles, then unmark when backtracking. This approach works but can be inefficient if not optimized, potentially exploring many invalid paths. The time complexity is O(m × n × 4^L) where L is the word length, which can be slow for large boards.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Add early termination: if the current path cannot possibly form the word (remaining characters don't match), backtrack immediately. Also, use a visited set or boolean array to track visited cells more efficiently. Prune paths that are clearly invalid. However, the worst-case complexity remains exponential, though average case improves significantly with pruning.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use DFS with backtracking and careful visited tracking. Mark the current cell as visited before recursion, then unmark after backtracking (to allow reuse in different paths). Add early termination when the current character doesn't match. Use in-place modification of the board (marking with a special character) to avoid extra space, or use a separate visited array. The key optimization is proper backtracking: mark visited before exploring, unmark after exploring, ensuring all paths are considered while avoiding cycles. This achieves the best possible time complexity for this problem, with O(m × n × 4^L) worst case but much better average case with pruning.
-
-## Solution Approach
-
-This is a classic **backtracking with DFS** problem on a 2D grid. The key insight is to explore all possible paths from each starting position, marking cells as visited during exploration and restoring them when backtracking.
-
-### Key Insights:
-
-1. **DFS Exploration**: Start from each cell and explore all 4 directions
-2. **Visited Marking**: Mark current cell as visited (e.g., `'#'`) to avoid revisiting
-3. **Backtracking**: Restore cell value after exploring all paths from it
-4. **Early Termination**: Return `true` as soon as word is found
-5. **Boundary Checking**: Check bounds and character match before recursing
-
-### Algorithm:
-
-1. **For each cell**: Try starting the word search from that cell
-2. **DFS Function**:
-   - Base case: If `idx == word.length()`, return `true`
-   - Check bounds and character match
-   - Mark cell as visited
-   - Explore all 4 directions
-   - Restore cell value (backtrack)
-3. **Return**: `true` if word found, `false` otherwise
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Solution
 
@@ -130,6 +116,24 @@ private:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **DFS with Backtracking**: Explore all paths, restore state after exploring
+
+**How the code works:**
+1. **DFS with Backtracking**: Explore all paths, restore state after exploring
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
+
+**Walkthrough** — input `board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"`, expected output `true`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 ### **Algorithm Explanation:**
 
@@ -235,16 +239,7 @@ No path found from (0,0). Try other starting positions...
 - **Space Complexity:** O(L)
   - Recursion stack depth: at most `L` (word length)
   - No additional data structures (modifies board in-place)
-
-## Key Insights
-
-1. **DFS with Backtracking**: Explore all paths, restore state after exploring
-2. **In-Place Marking**: Use `'#'` to mark visited cells (no extra visited array needed)
-3. **Early Termination**: Return `true` immediately when word is found
-4. **Direction Array**: Clean iteration through 4 directions
-5. **Boundary Checking**: Check bounds and character match before recursing
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single character word**: `word = "A"` → return `true` if 'A' exists in board
 2. **Word longer than board**: Impossible, but handled by bounds checking
@@ -252,65 +247,33 @@ No path found from (0,0). Try other starting positions...
 4. **No matching path**: Return `false` after exploring all possibilities
 5. **Word not found**: Return `false`
 
-## Common Mistakes
-
 1. **Not restoring cell value**: Forgetting to backtrack causes incorrect results
 2. **Wrong visited marking**: Not marking before recursion or marking incorrectly
 3. **Missing bounds check**: Accessing out-of-bounds indices
 4. **Wrong character comparison**: Comparing before marking as visited
 5. **Not checking all starting positions**: Only checking first cell
 
-## Alternative Approaches
-
-### **Approach 2: Using Visited Array**
-
-```cpp
-class Solution {
-public:
-    bool exist(vector<vector<char>>& board, string word) {
-        int m = board.size(), n = board[0].size();
-        vector<vector<bool>> visited(m, vector<bool>(n, false));
-        
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(dfs(board, word, i, j, 0, visited)) return true;
-            }
-        }
-        return false;
-    }
-    
-private:
-    bool dfs(vector<vector<char>>& board, string& word, int i, int j, int idx, vector<vector<bool>>& visited) {
-        if(idx == word.length()) return true;
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size()) return false;
-        if(visited[i][j] || board[i][j] != word[idx]) return false;
-        
-        visited[i][j] = true;
-        vector<pair<int, int>> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\};
-        for(auto& [dr, dc]: dirs) {
-            if(dfs(board, word, i + dr, j + dc, idx + 1, visited)) return true;
-        }
-        visited[i][j] = false;
-        return false;
-    }
-};
-```
-
-**Time Complexity:** O(m × n × 4^L)  
-**Space Complexity:** O(m × n + L) (visited array + recursion stack)
-
-**Comparison:**
-- **In-place marking**: More space-efficient, modifies board
-- **Visited array**: Preserves board, uses extra O(m × n) space
-
 ## Related Problems
 
-- [LC 212: Word Search II](https://leetcode.com/problems/word-search-ii/) - Find multiple words (use Trie)
-- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) - Similar DFS pattern
-- [LC 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/) - DFS with boundaries
-- [LC 79: Word Search](https://leetcode.com/problems/word-search/) - This problem
+- [LC 212: Word Search II](https://www.leetcode.com/problems/word-search-ii/) - Find multiple words (use Trie)
+- [LC 200: Number of Islands](https://www.leetcode.com/problems/number-of-islands/) - Similar DFS pattern
+- [LC 130: Surrounded Regions](https://www.leetcode.com/problems/surrounded-regions/) - DFS with boundaries
+- [LC 79: Word Search](https://www.leetcode.com/problems/word-search/) - This problem
 
----
+## Key Takeaways
 
-*This problem demonstrates DFS backtracking on a 2D grid. The key is marking cells as visited during exploration and restoring them when backtracking, allowing the same cell to be used in different paths.*
+1. **DFS with Backtracking**: Explore all paths, restore state after exploring
+2. **In-Place Marking**: Use `'#'` to mark visited cells (no extra visited array needed)
+3. **Early Termination**: Return `true` immediately when word is found
+4. **Direction Array**: Clean iteration through 4 directions
+5. **Boundary Checking**: Check bounds and character match before recursing
 
+## References
+
+- [LC 79: Word Search on LeetCode](https://www.leetcode.com/problems/word-search/)
+- [LeetCode Discuss — LC 79: Word Search](https://www.leetcode.com/problems/word-search/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/word-search/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

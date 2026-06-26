@@ -6,7 +6,6 @@ categories: [leetcode, medium, tree, dfs, bfs]
 tags: [leetcode, medium, tree, dfs, bfs]
 permalink: /2026/03/18/medium-1448-count-good-nodes-in-binary-tree/
 ---
-
 Given a binary tree, a node `X` is **good** if there is no node with a value greater than `X` on the path from root to `X`. Return the number of good nodes in the tree. The root is always a good node.
 
 ## Examples
@@ -52,7 +51,34 @@ This is a classic **top-down DFS with state** pattern: pass extra information (t
 2. At each node: if `node->val >= maxVal`, it's good -- increment count
 3. Update `maxVal = max(maxVal, node->val)` and recurse on children
 
-## Solution 1: Recursive DFS -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -77,75 +103,22 @@ private:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(h)$ -- recursion stack, $O(n)$ worst case for skewed tree
+### Solution Explanation
 
-## Solution 2: Iterative DFS (Stack) -- $O(n)$
+**Approach:** Recursive DFS (this problem)
 
-Carry `maxVal` alongside each node in the stack.
+**Key idea:** A node is "good" if `node->val >= max value on the path from root to this node`. So we need to carry the **running maximum** as we traverse downward.
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    int goodNodes(TreeNode* root) {
-        if (!root) return 0;
-        int count = 0;
-        stack<pair<TreeNode*, int>> stk;
-        stk.push({root, root->val});
+**How the code works:**
+1. Start DFS from root with `maxVal = INT_MIN` (or `root->val`)
+2. At each node: if `node->val >= maxVal`, it's good -- increment count
+3. Update `maxVal = max(maxVal, node->val)` and recurse on children
 
-        while (!stk.empty()) {
-            auto [node, maxVal] = stk.top();
-            stk.pop();
-            if (node->val >= maxVal) count++;
-            int newMax = max(maxVal, node->val);
-            if (node->right) stk.push({node->right, newMax});
-            if (node->left) stk.push({node->left, newMax});
-        }
+**Walkthrough** — input `root = [3,1,4,3,null,1,5]`, expected output `4`:
 
-        return count;
-    }
-};
-```
-{% endraw %}
-
-**Time**: $O(n)$
-**Space**: $O(h)$
-
-## Solution 3: BFS (Queue) -- $O(n)$
-
-Same idea, but level-by-level with a queue. Each entry carries its path maximum.
-
-{% raw %}
-```cpp
-class Solution {
-public:
-    int goodNodes(TreeNode* root) {
-        if (!root) return 0;
-        int count = 0;
-        queue<pair<TreeNode*, int>> q;
-        q.push({root, root->val});
-
-        while (!q.empty()) {
-            auto [node, maxVal] = q.front();
-            q.pop();
-            if (node->val >= maxVal) count++;
-            int newMax = max(maxVal, node->val);
-            if (node->left) q.push({node->left, newMax});
-            if (node->right) q.push({node->right, newMax});
-        }
-
-        return count;
-    }
-};
-```
-{% endraw %}
-
-**Time**: $O(n)$
-**Space**: $O(w)$ where $w$ is the maximum width of the tree
-
+Good nodes: 3 (root), 3 (left-left), 4, 5.
+Node 1 is not good because 3 > 1 on its path.
 ## Comparison
 
 | Approach | Time | Space | Notes |
@@ -168,10 +141,16 @@ public:
 
 ## Related Problems
 
-- [112. Path Sum](https://leetcode.com/problems/path-sum/) -- top-down DFS carrying remaining sum
-- [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/) -- top-down DFS with path tracking
-- [1376. Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees/) -- DFS with accumulated state
-- [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) -- path value tracking
+- [112. Path Sum](https://www.leetcode.com/problems/path-sum/) -- top-down DFS carrying remaining sum
+- [113. Path Sum II](https://www.leetcode.com/problems/path-sum-ii/) -- top-down DFS with path tracking
+- [1376. Time Needed to Inform All Employees](https://www.leetcode.com/problems/time-needed-to-inform-all-employees/) -- DFS with accumulated state
+- [124. Binary Tree Maximum Path Sum](https://www.leetcode.com/problems/binary-tree-maximum-path-sum/) -- path value tracking
+
+## References
+
+- [LC 1448: Count Good Nodes in Binary Tree on LeetCode](https://www.leetcode.com/problems/count-good-nodes-in-binary-tree/)
+- [LeetCode Discuss — LC 1448: Count Good Nodes in Binary Tree](https://www.leetcode.com/problems/count-good-nodes-in-binary-tree/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/count-good-nodes-in-binary-tree/editorial/) *(may require premium)*
 
 ## Template Reference
 

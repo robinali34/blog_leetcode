@@ -6,7 +6,6 @@ categories: [leetcode, medium, tree, recursion, memoization]
 tags: [leetcode, medium, tree, recursion, memoization, dp]
 permalink: /2026/04/12/medium-894-all-possible-full-binary-trees/
 ---
-
 Given an integer `n`, return a list of all possible **full binary trees** with `n` nodes. Each node has value `0`. A full binary tree is a tree where every node has either 0 or 2 children.
 
 ## Examples
@@ -70,7 +69,41 @@ n=5: root + split remaining 4 nodes
 Total: 2 full binary trees with 5 nodes
 ```
 
-## Solution: Recursive + Memoization -- $O(2^{n/2})$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
+
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -101,28 +134,25 @@ private:
     unordered_map<int, vector<TreeNode*>> memo;
 };
 ```
-{% endraw %}
 
-**Time**: $O(2^{n/2})$ -- the number of full binary trees grows as Catalan numbers
-**Space**: $O(n \cdot 2^{n/2})$ -- storing all trees in the memo
+### Solution Explanation
 
-## Key Details
+**Approach:** 1D DP (this problem)
 
-**Why `i += 2`?** Both subtrees must be full binary trees, so both must have an odd number of nodes. Starting at 1 and stepping by 2 ensures `i` and `n - 1 - i` are both odd.
+**Key idea:** ### Key Observation
 
-**Why memoization helps**: `FBT(3)` might be needed as a left subtree for `FBT(7)` in multiple splits, and also as a right subtree. Caching avoids regenerating the same trees.
+**How the code works:**
+- `n` must be **odd** (each subtree adds 2 nodes at a time, plus the root)
+- If `n` is even, no full binary tree exists
+- 1 root node
+- `i` nodes in the left subtree
+- `n - 1 - i` nodes in the right subtree
 
-**Catalan numbers**: The count of full binary trees with $n$ nodes (where $n = 2k+1$) is the $k$-th Catalan number: $C_k = \frac{1}{k+1}\binom{2k}{k}$.
+**Walkthrough** — input `n = 7`, expected output `[[0,0,0,null,null,0,0,null,null,0,0],`:
 
-| n | Trees |
-|---|---|
-| 1 | 1 |
-| 3 | 1 |
-| 5 | 2 |
-| 7 | 5 |
-| 9 | 14 |
-| 11 | 42 |
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Common Mistakes
 
 - Not checking for even `n` (no full binary tree exists)
@@ -137,10 +167,16 @@ private:
 
 ## Related Problems
 
-- [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/) -- generate all BSTs (similar recursive structure)
-- [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/) -- count Catalan numbers
-- [241. Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/) -- recursive split + combine pattern
-- [108. Convert Sorted Array to BST](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) -- tree construction
+- [95. Unique Binary Search Trees II](https://www.leetcode.com/problems/unique-binary-search-trees-ii/) -- generate all BSTs (similar recursive structure)
+- [96. Unique Binary Search Trees](https://www.leetcode.com/problems/unique-binary-search-trees/) -- count Catalan numbers
+- [241. Different Ways to Add Parentheses](https://www.leetcode.com/problems/different-ways-to-add-parentheses/) -- recursive split + combine pattern
+- [108. Convert Sorted Array to BST](https://www.leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) -- tree construction
+
+## References
+
+- [LC 894: All Possible Full Binary Trees on LeetCode](https://www.leetcode.com/problems/all-possible-full-binary-trees/)
+- [LeetCode Discuss — LC 894: All Possible Full Binary Trees](https://www.leetcode.com/problems/all-possible-full-binary-trees/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/all-possible-full-binary-trees/editorial/) *(may require premium)*
 
 ## Template Reference
 

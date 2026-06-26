@@ -6,11 +6,6 @@ categories: [leetcode, easy, array, hash-table]
 permalink: /2026/01/19/easy-349-intersection-of-two-arrays/
 tags: [leetcode, easy, array, hash-table, two-pointers, sorting]
 ---
-
-# 349. Intersection of Two Arrays
-
-## Problem Statement
-
 Given two integer arrays `nums1` and `nums2`, return an array of their **intersection**. Each element in the result must be **unique** and you may return the result in **any order**.
 
 ## Examples
@@ -34,51 +29,42 @@ Explanation: The intersection contains elements 9 and 4. Order does not matter.
 - `1 <= nums1.length, nums2.length <= 1000`
 - `0 <= nums1[i], nums2[i] <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Hash Set for Uniqueness**: Automatically handles duplicates
 
-1. **Intersection definition**: What exactly is the intersection? (Assumption: Elements that appear in both arrays, each element appears only once in result)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **Duplicate handling**: If an element appears multiple times in both arrays, how many times should it appear in result? (Assumption: Only once - intersection contains unique elements)
 
-3. **Order requirement**: Does the order of elements in the result matter? (Assumption: No - order doesn't matter, can return in any order)
 
-4. **Array mutability**: Can we modify the input arrays? (Assumption: No - typically we don't modify input arrays)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Empty arrays**: What if one or both arrays are empty? (Assumption: Return empty array - no intersection)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-For each element in the first array, check if it exists in the second array by scanning linearly. Add matching elements to the result, but check for duplicates before adding. This approach has O(n × m) time complexity where n and m are array lengths, which is inefficient. Duplicate checking adds additional overhead.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
-Sort both arrays, then use two pointers to find common elements. Since arrays are sorted, we can advance pointers based on comparison. This reduces time to O(n log n + m log m) for sorting plus O(n + m) for comparison. However, we still need to handle duplicates in the result, which requires additional checks or a set to track seen elements.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use a hash set to store elements from the first array. Then iterate through the second array, check if each element exists in the set, and if so, add it to the result and remove it from the set (to avoid duplicates). This achieves O(n + m) average time complexity with O(min(n, m)) space for the hash set. The key insight is using a hash set for O(1) average lookup time and removing elements after adding to the result to ensure uniqueness without additional duplicate checks.
-
-## Solution Approach
-
-This problem requires finding common elements between two arrays, with each element appearing only once in the result. There are several approaches:
-
-1. **Hash Set**: Use set to track elements from first array, then check second array
-2. **Sorting + Two Pointers**: Sort both arrays and use two pointers
-3. **Boolean Array**: Use fixed-size array if value range is limited
-4. **Built-in Set Operations**: Use set intersection operations
-
-### Key Insights:
-
-1. **Uniqueness**: Result must contain unique elements only
-2. **Order Independence**: Result can be in any order
-3. **Duplicate Handling**: Need to avoid duplicates in result
-4. **Efficiency**: Hash set provides O(1) average lookup time
-
-## Solution: Hash Set Approach
+## Solution
 
 ```cpp
 class Solution {
@@ -97,204 +83,22 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Build Hash Set from First Array**:
-   - Create `unordered_set<int> seen` from `nums1`
-   - This automatically removes duplicates from `nums1`
-   - Provides O(1) average lookup time
+**Approach:** Opposite ends (this problem)
 
-2. **Iterate Through Second Array**:
-   - For each element `num` in `nums2`:
-     - Check if `num` exists in `seen` using `seen.contains(num)`
-     - If found:
-       - Add `num` to result vector `rtn`
-       - **Remove `num` from `seen`** to prevent duplicates in result
+**Key idea:** 1. **Hash Set for Uniqueness**: Automatically handles duplicates
 
-3. **Return Result**:
-   - Return the result vector containing unique intersection elements
-
-### Why Remove from Set?
-
-The key insight is removing elements from `seen` after adding them to the result. This ensures:
-- If `nums2` contains duplicates (e.g., `[2,2]`), only the first occurrence is added
-- Subsequent occurrences won't match because the element was removed
-- Result contains each intersecting element exactly once
-
-### Example Walkthrough:
-
-**Input:** `nums1 = [1,2,2,1]`, `nums2 = [2,2]`
-
-```
-Step 1: Build hash set from nums1
-  seen = {1, 2}  (duplicates removed)
-
-Step 2: Process nums2
-  num = 2:
-    seen.contains(2) = true
-    rtn.push_back(2) → rtn = [2]
-    seen.erase(2) → seen = {1}
-  
-  num = 2:
-    seen.contains(2) = false (was removed)
-    Skip
-
-Result: [2] ✓
-```
-
-**Input:** `nums1 = [4,9,5]`, `nums2 = [9,4,9,8,4]`
-
-```
-Step 1: Build hash set from nums1
-  seen = {4, 9, 5}
-
-Step 2: Process nums2
-  num = 9:
-    seen.contains(9) = true
-    rtn.push_back(9) → rtn = [9]
-    seen.erase(9) → seen = {4, 5}
-  
-  num = 4:
-    seen.contains(4) = true
-    rtn.push_back(4) → rtn = [9, 4]
-    seen.erase(4) → seen = {5}
-  
-  num = 9:
-    seen.contains(9) = false (was removed)
-    Skip
-  
-  num = 8:
-    seen.contains(8) = false
-    Skip
-  
-  num = 4:
-    seen.contains(4) = false (was removed)
-    Skip
-
-Result: [9, 4] ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n + m)
-  - Building hash set from `nums1`: O(n) where n = `nums1.size()`
-  - Iterating through `nums2`: O(m) where m = `nums2.size()`
-  - Hash set operations (contains, erase): O(1) average
-  - Total: O(n + m)
-
-- **Space Complexity:** O(n + k)
-  - Hash set `seen`: O(n) to store unique elements from `nums1`
-  - Result vector `rtn`: O(k) where k = number of unique intersection elements
-  - Total: O(n + k) = O(n + m) in worst case
-
-## Alternative Approaches
-
-### Solution 2: Sorting + Two Pointers
-
-```cpp
-class Solution {
-public:
-    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        sort(nums1.begin(), nums1.end());
-        sort(nums2.begin(), nums2.end());
-        
-        vector<int> result;
-        int i = 0, j = 0;
-        
-        while (i < nums1.size() && j < nums2.size()) {
-            if (nums1[i] < nums2[j]) {
-                i++;
-            } else if (nums1[i] > nums2[j]) {
-                j++;
-            } else {
-                // Found intersection
-                if (result.empty() || result.back() != nums1[i]) {
-                    result.push_back(nums1[i]);
-                }
-                i++;
-                j++;
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-**Complexity:**
-- Time: O(n log n + m log m) for sorting + O(n + m) for two pointers = O(n log n + m log m)
-- Space: O(1) extra space (excluding output)
-
-**Pros:** No extra space for hash set  
-**Cons:** Modifies input arrays, slower for small arrays
-
-### Solution 3: Boolean Array (Fixed Range)
-
-```cpp
-class Solution {
-public:
-    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        bool present[1001] = {false};
-        for (int num : nums1) {
-            present[num] = true;
-        }
-        
-        vector<int> result;
-        for (int num : nums2) {
-            if (present[num]) {
-                result.push_back(num);
-                present[num] = false; // Mark as added
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-**Complexity:**
-- Time: O(n + m)
-- Space: O(1001) = O(1) fixed space
-
-**Pros:** Very fast, constant space  
-**Cons:** Only works when value range is limited (0-1000)
-
-### Solution 4: Using Set Operations
-
-```cpp
-class Solution {
-public:
-    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        unordered_set<int> set1(nums1.begin(), nums1.end());
-        unordered_set<int> set2(nums2.begin(), nums2.end());
-        
-        vector<int> result;
-        for (int num : set1) {
-            if (set2.count(num)) {
-                result.push_back(num);
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-**Complexity:**
-- Time: O(n + m)
-- Space: O(n + m)
-
-**Pros:** Clean and readable  
-**Cons:** Uses more space (two sets)
-
-## Key Insights
-
+**How the code works:**
 1. **Hash Set for Uniqueness**: Automatically handles duplicates
-2. **Erase After Add**: Prevents duplicate results efficiently
-3. **Order Independence**: Can return result in any order
-4. **Space-Time Trade-off**: Hash set uses more space but provides O(1) lookup
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-## Edge Cases
+**Walkthrough** — input `nums1 = [1,2,2,1], nums2 = [2,2]`, expected output `[2]`:
+
+The intersection contains only the element 2.
+## Common Mistakes
 
 1. **No intersection**: `nums1 = [1,2,3]`, `nums2 = [4,5,6]` → `[]`
 2. **Complete overlap**: `nums1 = [1,2,3]`, `nums2 = [1,2,3]` → `[1,2,3]`
@@ -302,39 +106,33 @@ public:
 4. **Duplicates in both**: `nums1 = [1,1,2,2]`, `nums2 = [2,2]` → `[2]`
 5. **Single element**: `nums1 = [1]`, `nums2 = [1]` → `[1]`
 
-## Common Mistakes
-
 1. **Not removing from set**: Results in duplicate elements in output
 2. **Using vector instead of set**: Doesn't handle duplicates in `nums1`
 3. **Wrong comparison**: Comparing entire arrays instead of elements
 4. **Forgetting empty check**: Not handling empty arrays
 5. **Order dependency**: Trying to maintain order when not needed
 
-## Comparison of Approaches
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **Hash Set** | O(n + m) | O(n + k) | Fast, simple, handles duplicates | Extra space |
-| **Sorting + Two Pointers** | O(n log n + m log m) | O(1) | No extra space | Modifies input, slower |
-| **Boolean Array** | O(n + m) | O(1) | Very fast, constant space | Limited value range |
-| **Set Operations** | O(n + m) | O(n + m) | Clean code | More space |
-
-## When to Use Each Approach
-
-- **Hash Set**: General purpose, most common solution
-- **Sorting + Two Pointers**: When space is critical, input can be modified
-- **Boolean Array**: When value range is small and known (0-1000)
-- **Set Operations**: When code clarity is priority
-
 ## Related Problems
 
-- [LC 350: Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii/) - Allow duplicates in result
-- [LC 349: Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/) - Unique elements only (this problem)
-- [LC 1002: Find Common Characters](https://leetcode.com/problems/find-common-characters/) - Find common characters in strings
-- [LC 1213: Intersection of Three Sorted Arrays](https://leetcode.com/problems/intersection-of-three-sorted-arrays/) - Three arrays intersection
-- [LC 2248: Intersection of Multiple Arrays](https://leetcode.com/problems/intersection-of-multiple-arrays/) - Multiple arrays intersection
+- [LC 350: Intersection of Two Arrays II](https://www.leetcode.com/problems/intersection-of-two-arrays-ii/) - Allow duplicates in result
+- [LC 349: Intersection of Two Arrays](https://www.leetcode.com/problems/intersection-of-two-arrays/) - Unique elements only (this problem)
+- [LC 1002: Find Common Characters](https://www.leetcode.com/problems/find-common-characters/) - Find common characters in strings
+- [LC 1213: Intersection of Three Sorted Arrays](https://www.leetcode.com/problems/intersection-of-three-sorted-arrays/) - Three arrays intersection
+- [LC 2248: Intersection of Multiple Arrays](https://www.leetcode.com/problems/intersection-of-multiple-arrays/) - Multiple arrays intersection
 
----
+## Key Takeaways
 
-*This problem demonstrates efficient **set-based intersection** using hash sets. The key technique is removing elements from the set after adding them to prevent duplicates in the result, ensuring each intersecting element appears exactly once.*
+1. **Hash Set for Uniqueness**: Automatically handles duplicates
+2. **Erase After Add**: Prevents duplicate results efficiently
+3. **Order Independence**: Can return result in any order
+4. **Space-Time Trade-off**: Hash set uses more space but provides O(1) lookup
 
+## References
+
+- [LC 349: Intersection of Two Arrays on LeetCode](https://www.leetcode.com/problems/intersection-of-two-arrays/)
+- [LeetCode Discuss — LC 349: Intersection of Two Arrays](https://www.leetcode.com/problems/intersection-of-two-arrays/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/intersection-of-two-arrays/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

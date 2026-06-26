@@ -4,9 +4,6 @@ title: "[Medium] 146. LRU Cache"
 date: 2025-12-02 00:00:00 -0800
 categories: leetcode algorithm medium cpp design data-structures hash-map linked-list problem-solving
 ---
-
-# [Medium] 146. LRU Cache
-
 Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
 
 Implement the `LRUCache` class:
@@ -47,35 +44,46 @@ lRUCache.get(4);    // return 4
 - `0 <= value <= 10^5`
 - At most `2 * 10^5` calls will be made to `get` and `put`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
 
-1. **LRU definition**: What does "Least Recently Used" mean? (Assumption: The item that hasn't been accessed for the longest time - need to track access order)
+Implement the `LRUCache` class:
 
-2. **Cache operations**: What operations should the cache support? (Assumption: get(key) - retrieve value, put(key, value) - insert/update, both operations update access order)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
-3. **Eviction policy**: When should we evict items? (Assumption: When cache is full and we need to add a new item, evict the least recently used item)
 
-4. **Capacity**: What is the cache capacity? (Assumption: Fixed capacity specified in constructor - cannot exceed this limit)
 
-5. **Return values**: What should get() return if key doesn't exist? (Assumption: Return -1 - key not found in cache)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
-## Interview Deduction Process (20 minutes)
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Use a simple array or vector to store key-value pairs, maintaining insertion order. For get(), search linearly through the array, move the accessed item to the end, and return its value. For put(), check if key exists (linear search), update if found, otherwise append. When capacity is exceeded, remove the first element. This approach has O(n) time complexity for both operations, which doesn't meet the O(1) requirement.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use a hash map for O(1) lookups, but maintain access order using a separate list or array. When accessing an element, remove it from its current position and append to the end. However, removing from the middle of an array is O(n), so this still doesn't achieve O(1) operations. Alternatively, use a linked list for O(1) removal, but finding the node to remove requires O(n) traversal unless we store pointers.
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
 
-**Step 3: Optimized Solution (8 minutes)**
-
-Combine a hash map with a doubly linked list. The hash map stores key → (value, iterator) pairs, where the iterator points to the node in the linked list. The linked list maintains access order (front = LRU, back = MRU). For get(), look up in hash map O(1), move node to end using splice() O(1). For put(), check existence O(1), update value O(1), and if needed, remove front node O(1) and add to end O(1). This achieves O(1) for both operations by leveraging the hash map for lookups and the doubly linked list for maintaining order with O(1) node movement.
-
-## Solution: Hash Map + Doubly Linked List
+## Solution
 
 **Time Complexity:** O(1) for both `get` and `put`  
 **Space Complexity:** O(capacity)
@@ -130,17 +138,22 @@ private:
  */
 ```
 
-### Key Points
+### Solution Explanation
 
-1. **`list<int> keyList_`**: Maintains the order of keys, with front being LRU and back being MRU
-2. **`unordered_map<int, pair<int, list<int>::iterator>>`**: Maps key to (value, iterator) pair
-3. **`list::splice()`**: O(1) operation to move nodes without copying
-4. **`get()` operation**: Moves accessed key to end (most recently used) using `splice()`
-5. **`put()` operation**: 
-   - If key exists (via `get()`), updates value and returns early
-   - If capacity is full, removes front (LRU) before inserting
-   - Always inserts new key at end (most recently used)
+**Approach:** Iterative pointer walk (this problem)
 
+**Key idea:** Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
+
+**How the code works:**
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
+
+| Operation | Time | Space |
+|-----------|------|-------|
+| `get(key)` | O(1) | O(1) |
+| `put(key, value)` | O(1) | O(1) |
+| **Overall** | **O(1)** | **O(capacity)** |
 ## Thread-Safe LRU Cache
 
 Thread-safe version using mutex for concurrent access.
@@ -211,8 +224,7 @@ private:
 3. **`shared_lock<shared_mutex>`**: Shared lock for read-only operations like `size()`
 4. **Note**: The thread-safe `put()` calls `get()` which requires careful lock management - both methods use exclusive locks
 
-## How the Algorithm Works
-
+### Solution Explanation
 ### Data Structure Design
 
 ```
@@ -257,8 +269,7 @@ put(3, 3):  get(3) returns -1, capacity full
             list: [1] <-> [3]
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time | Space |
 |-----------|------|-------|
 | `get(key)` | O(1) | O(1) |
@@ -272,23 +283,32 @@ put(3, 3):  get(3) returns -1, capacity full
 3. **Iterator storage**: Hash map stores iterators to list nodes for O(1) access
 4. **`splice()` optimization**: Moves nodes without copying, maintaining O(1) complexity
 
-## Edge Cases
+## Common Mistakes
 
 1. **Capacity = 1**: Only one item can exist
 2. **Get non-existent key**: Returns -1
 3. **Update existing key**: Moves to end, doesn't increase size
 4. **Multiple puts**: Evicts oldest when capacity exceeded
 
-## Common Mistakes
-
 1. **Not moving to end on get**: Must update access order
 2. **Wrong eviction order**: Remove from front (LRU), not back
 3. **Invalid iterator after modification**: Use `splice()` which preserves iterators
 4. **Not handling existing key in put**: Must check and update, not just insert
 
+## Key Takeaways
+
+- **Pattern:** Iterative pointer walk (this problem)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+
+## References
+
+- [LC 146: LRU Cache on LeetCode](https://www.leetcode.com/problems/lru-cache/)
+- [LeetCode Discuss — LC 146: LRU Cache](https://www.leetcode.com/problems/lru-cache/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/lru-cache/editorial/) *(may require premium)*
+
 ## Related Problems
 
-- [460. LFU Cache](https://leetcode.com/problems/lfu-cache/) - Least Frequently Used
-- [432. All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)
-- [588. Design In-Memory File System](https://leetcode.com/problems/design-in-memory-file-system/)
-
+- [460. LFU Cache](https://www.leetcode.com/problems/lfu-cache/) - Least Frequently Used
+- [432. All O`one Data Structure](https://www.leetcode.com/problems/all-oone-data-structure/)
+- [588. Design In-Memory File System](https://www.leetcode.com/problems/design-in-memory-file-system/)

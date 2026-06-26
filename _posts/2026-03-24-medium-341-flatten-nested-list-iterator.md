@@ -6,7 +6,6 @@ categories: [leetcode, medium, design, stack, iterator]
 tags: [leetcode, medium, design, stack, iterator]
 permalink: /2026/03/24/medium-341-flatten-nested-list-iterator/
 ---
-
 You are given a nested list of integers `nestedList`. Each element is either an integer or a list whose elements may also be integers or other lists. Implement an iterator to flatten it.
 
 Implement `NestedIterator`:
@@ -88,7 +87,32 @@ next(): return 1
 hasNext(): stack empty → false
 ```
 
-## Solution: Stack-Based Lazy Iterator -- $O(1)$ amortized
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
+
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -125,11 +149,21 @@ private:
     stack<NestedInteger> stk;
 };
 ```
-{% endraw %}
 
-**Time**: $O(1)$ amortized per `next`/`hasNext` call -- each element is pushed and popped exactly once across all calls
-**Space**: $O(D)$ where $D$ = maximum nesting depth (stack holds at most one "path" through the nesting)
+### Solution Explanation
 
+**Approach:** Monotonic stack (this problem)
+
+**Key idea:** ### The Problem with Pre-flattening
+
+**How the code works:**
+1. **Constructor**: push elements onto the stack **in reverse order** (so the first element is on top)
+2. **`hasNext`**: peek at the top -- if it's a list, expand it (pop, push children in reverse). Repeat until the top is an integer or the stack is empty
+3. **`next`**: the top is guaranteed to be an integer (since `hasNext` was called first) -- pop and return it
+
+**Walkthrough** — input `nestedList = [[1,1],2,[1,1]]`, expected output `[1,1,2,1,1]`:
+
+Flattening gives [1,1,2,1,1].
 ## Key Details
 
 **Why does `hasNext` do the flattening, not `next`?**
@@ -152,10 +186,16 @@ The `while` loop in `hasNext` handles this: `[]` gets popped and expanded to not
 
 ## Related Problems
 
-- [385. Mini Parser](https://leetcode.com/problems/mini-parser/) -- building nested structures
-- [339. Nested List Weight Sum](https://leetcode.com/problems/nested-list-weight-sum/) -- DFS on nested lists
-- [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) -- stack-based tree iterator
-- [281. Zigzag Iterator](https://leetcode.com/problems/zigzag-iterator/) -- iterator design
+- [385. Mini Parser](https://www.leetcode.com/problems/mini-parser/) -- building nested structures
+- [339. Nested List Weight Sum](https://www.leetcode.com/problems/nested-list-weight-sum/) -- DFS on nested lists
+- [173. Binary Search Tree Iterator](https://www.leetcode.com/problems/binary-search-tree-iterator/) -- stack-based tree iterator
+- [281. Zigzag Iterator](https://www.leetcode.com/problems/zigzag-iterator/) -- iterator design
+
+## References
+
+- [LC 341: Flatten Nested List Iterator on LeetCode](https://www.leetcode.com/problems/flatten-nested-list-iterator/)
+- [LeetCode Discuss — LC 341: Flatten Nested List Iterator](https://www.leetcode.com/problems/flatten-nested-list-iterator/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/flatten-nested-list-iterator/editorial/) *(may require premium)*
 
 ## Template Reference
 

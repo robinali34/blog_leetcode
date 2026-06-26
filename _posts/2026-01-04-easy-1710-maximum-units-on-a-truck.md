@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting]
 permalink: /2026/01/04/easy-1710-maximum-units-on-a-truck/
 ---
-
-# 1710. Maximum Units on a Truck
-
-## Problem Statement
-
 You are assigned to put some amount of boxes onto **one truck**. You are given a 2D array `boxTypes`, where `boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]`:
 
 - `numberOfBoxesi` is the number of boxes of type `i`.
@@ -57,51 +52,39 @@ Total: 50 + 27 + 10 + 14 = 101... Actually, let me verify with the algorithm.
 - `1 <= numberOfBoxesi, numberOfUnitsPerBoxi <= 1000`
 - `1 <= truckSize <= 10^6`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You are assigned to put some amount of boxes onto **one truck**. You are given a 2D array `boxTypes`, where `boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]`:
 
-1. **Box format**: How are boxes represented? (Assumption: [numberOfBoxes, numberOfUnitsPerBox] - number of boxes and units per box)
+- `numberOfBoxesi` is the number of boxes of type `i`.
 
-2. **Truck capacity**: What is truck capacity? (Assumption: truckSize - maximum number of boxes that can fit on truck)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total units that can be loaded on truck)
 
-4. **Return value**: What should we return? (Assumption: Integer - maximum units that can be loaded)
 
-5. **Box selection**: Can we take partial boxes? (Assumption: No - must take whole boxes, cannot break boxes)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (10 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+</svg>
 
-Try all possible combinations of boxes that fit within truck capacity. For each combination, calculate total units and track the maximum. This approach has exponential complexity as we try all subsets of boxes, which is infeasible for large inputs.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming: dp[i][capacity] = maximum units using first i box types with given capacity. This requires O(n × capacity) time and space, which works but can be optimized further since we can take multiple boxes of the same type.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use greedy approach: sort boxes by units per box in descending order. Greedily take boxes with highest units per box first until truck capacity is reached. This works because if we have capacity for one more box, we should always choose the box with highest units per box. This achieves O(n log n) time for sorting plus O(n) for selection, which is optimal. The key insight is that this is a fractional knapsack-like problem where we want to maximize value (units) given weight constraint (box count), and greedy works perfectly when we can't break items but want to maximize value-to-weight ratio.
-
-## Solution Approach
-
-This is a classic **greedy algorithm** problem. The key insight is to prioritize boxes with the highest units per box, as this maximizes the total units we can fit in the limited truck space.
-
-### Key Insights:
-
-1. **Sort by Units Per Box**: Sort boxes in descending order of `numberOfUnitsPerBoxi`
-2. **Greedy Selection**: Always take as many boxes as possible from the highest-unit boxes first
-3. **Optimal**: This greedy strategy maximizes total units
-4. **Fill Remaining Space**: Take boxes until truck is full
-
-### Algorithm:
-
-1. **Sort**: Sort `boxTypes` by `numberOfUnitsPerBoxi` in descending order
-2. **Greedy Fill**: For each box type, take as many boxes as possible
-3. **Track Remaining**: Keep track of remaining truck capacity
-4. **Calculate Units**: Sum up units from selected boxes
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -126,6 +109,29 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** You are assigned to put some amount of boxes onto **one truck**. You are given a 2D array `boxTypes`, where `boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]`:
+
+**How the code works:**
+- `numberOfBoxesi` is the number of boxes of type `i`.
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4`, expected output `8`:
+
+There are:
+- 1 box of the first type that contains 3 units.
+- 2 boxes of the second type that contain 2 units each.
+- 3 boxes of the third type that contain 1 unit each.
+You can take all the boxes of the first and second types, and one box of the third type.
+The total number of units will be = (1 * 3) + (2 * 2) + (1 * 1) = 8.
+
+**Time:** - **Sorting**: O(n log n) where n = `boxTypes.length` · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -224,7 +230,6 @@ Step 4: boxType = [2, 5]
 
 Result: 91
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -279,32 +284,13 @@ The critical metric is **units per box**, not total units:
 4. **Optimal**: Greedy strategy finds maximum units
 5. **Simple**: Straightforward implementation after sorting
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with Sorting (Current Solution)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Brute Force (Try All Combinations)**
-- **Time**: O(2^n) or worse
-- **Space**: O(n)
-- **Not practical**: Too slow for large inputs
-
-### **Approach 3: Dynamic Programming (Knapsack)**
-- **Time**: O(n × truckSize)
-- **Space**: O(truckSize)
-- **Overkill**: Greedy is optimal and simpler
-
-## Edge Cases
+## Common Mistakes
 
 1. **Truck size equals total boxes**: `truckSize = sum(boxTypes[i][0])` → take all boxes
 2. **Truck size is 1**: Take one box with highest units per box
 3. **All boxes have same units per box**: Order doesn't matter, take until full
 4. **Single box type**: Take `min(truckSize, boxTypes[0][0])` boxes
 5. **Truck size larger than all boxes**: Take all boxes, return sum of all units
-
-## Common Mistakes
 
 1. **Not sorting**: Trying to select boxes without sorting by units per box
 2. **Wrong metric**: Sorting by total units instead of units per box
@@ -314,13 +300,28 @@ The critical metric is **units per box**, not total units:
 
 ## Related Problems
 
-- [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/) - Greedy matching
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
-- [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Greedy with sorting
-- [322. Coin Change](https://leetcode.com/problems/coin-change/) - Similar greedy concept (though DP is better)
-- [860. Lemonade Change](https://leetcode.com/problems/lemonade-change/) - Greedy change giving
+- [455. Assign Cookies](https://www.leetcode.com/problems/assign-cookies/) - Greedy matching
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
+- [452. Minimum Number of Arrows to Burst Balloons](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Greedy with sorting
+- [322. Coin Change](https://www.leetcode.com/problems/coin-change/) - Similar greedy concept (though DP is better)
+- [860. Lemonade Change](https://www.leetcode.com/problems/lemonade-change/) - Greedy change giving
 
 ## Tags
 
 `Array`, `Greedy`, `Sorting`, `Easy`
 
+## Key Takeaways
+
+- `numberOfBoxesi` is the number of boxes of type `i`.
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+
+## References
+
+- [LC 1710: Maximum Units on a Truck on LeetCode](https://www.leetcode.com/problems/maximum-units-on-a-truck/)
+- [LeetCode Discuss — LC 1710: Maximum Units on a Truck](https://www.leetcode.com/problems/maximum-units-on-a-truck/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-units-on-a-truck/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

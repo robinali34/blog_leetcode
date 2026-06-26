@@ -6,7 +6,6 @@ categories: [leetcode, medium, greedy, heap, intervals]
 tags: [leetcode, medium, greedy, heap, intervals, sweep-line]
 permalink: /2026/03/16/medium-2406-divide-intervals-into-minimum-number-of-groups/
 ---
-
 You are given a 2D array `intervals` where `intervals[i] = [left_i, right_i]` represents the **inclusive** interval `[left_i, right_i]`. Divide the intervals into one or more **groups** such that no two intervals in the same group **overlap** (two intervals overlap if there is at least one common number). Return the **minimum** number of groups needed.
 
 ## Examples
@@ -73,7 +72,31 @@ Answer: heap.size() = 3
 
 Intervals are **inclusive**: `[1,5]` and `[5,10]` share the point 5, so they overlap. We can only reuse a group when `pq.top() < start` (strictly less), not `<=`.
 
-## Solution: Greedy + Min-Heap -- $O(n \log n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
+
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
+| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
+| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
+| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -96,57 +119,33 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n \log n)$ -- sorting + heap operations
-**Space**: $O(n)$ -- heap can hold all intervals in the worst case
+### Solution Explanation
 
-## Solution 2: Sweep Line (Line Sweep) -- $O(n \log n)$
+**Approach:** Min/max heap (this problem)
 
-Instead of simulating group assignment, directly compute the **maximum overlap** using a sweep line.
+**Key idea:** ### Key Insight
 
-**Idea**: For each interval $[l, r]$, create two events:
-- $+1$ at time $l$ (an interval starts)
-- $-1$ at time $r+1$ (an interval ends -- `+1` because endpoints are inclusive)
+**How the code works:**
+1. **Sort** intervals by start time
+2. Use a **min-heap** tracking the end times of each group's last interval
+3. For each new interval:
+- If the earliest-ending group finishes **before** the new interval starts (`pq.top() < start`), reuse that group (pop it)
+- Push the new interval's end time onto the heap
+4. The heap size at the end = minimum number of groups
 
-Sort events by time, sweep through, and track the running count. The peak = minimum groups.
+**Walkthrough** — input `intervals = [[5,10],[6,8],[1,5],[2,3],[1,10]]`, expected output `3`:
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    int minGroups(vector<vector<int>>& intervals) {
-        vector<pair<int, int>> events;
-        for (auto& interval : intervals) {
-            events.push_back({interval[0], 1});
-            events.push_back({interval[1] + 1, -1});
-        }
-        sort(events.begin(), events.end());
-
-        int curr = 0;
-        int maxOverlap = 0;
-        for (auto& [time, val] : events) {
-            curr += val;
-            maxOverlap = max(maxOverlap, curr);
-        }
-        return maxOverlap;
-    }
-};
-```
-{% endraw %}
-
-**Time**: $O(n \log n)$ -- sorting events
-**Space**: $O(n)$ -- events array
-
-### Why `end + 1`?
-
-Since intervals are **inclusive**, `[1,5]` and `[5,10]` overlap at point 5. The end event must be placed at `r + 1` so the $-1$ fires *after* the inclusive endpoint, correctly counting both intervals as overlapping at `r`.
-
+Group 1: [1,5], [6,8]
+  Group 2: [2,3], [5,10]
+  Group 3: [1,10]
+No two intervals in the same group overlap.
 ## Common Mistakes
 
-- Using `<=` instead of `<` for the reuse check (intervals are inclusive, so equal endpoints overlap)
-- Forgetting to sort by start time first
-- Popping more than one element from the heap per interval (we only free the earliest-ending group)
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 
 ## Key Takeaways
 
@@ -156,10 +155,16 @@ Since intervals are **inclusive**, `[1,5]` and `[5,10]` overlap at point 5. The 
 
 ## Related Problems
 
-- [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) -- identical pattern (exclusive endpoints)
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) -- greedy interval scheduling
-- [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) -- greedy intervals
-- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) -- interval merging
+- [253. Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) -- identical pattern (exclusive endpoints)
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) -- greedy interval scheduling
+- [452. Minimum Number of Arrows to Burst Balloons](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) -- greedy intervals
+- [56. Merge Intervals](https://www.leetcode.com/problems/merge-intervals/) -- interval merging
+
+## References
+
+- [LC 2406: Divide Intervals Into Minimum Number of Groups on LeetCode](https://www.leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/)
+- [LeetCode Discuss — LC 2406: Divide Intervals Into Minimum Number of Groups](https://www.leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/editorial/) *(may require premium)*
 
 ## Template Reference
 

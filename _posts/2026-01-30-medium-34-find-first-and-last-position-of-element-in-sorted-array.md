@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, binary-search]
 permalink: /2026/01/30/medium-34-find-first-and-last-position-of-element-in-sorted-array/
 tags: [leetcode, medium, array, binary-search]
 ---
-
-# 34. Find First and Last Position of Element in Sorted Array
-
-## Problem Statement
-
 Given an array of integers `nums` sorted in non-decreasing order, find the starting and ending position of a given `target` value.
 
 If `target` is not found in the array, return `[-1, -1]`.
@@ -50,46 +45,43 @@ Explanation: The array is empty, so target is not found.
 - `nums` is a non-decreasing array.
 - `-10^9 <= target <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Lower Bound vs Upper Bound**: Understanding the difference between lower bound (first position >= target) and upper bound (first position > target) is crucial
 
-1. **Array properties**: What are the array properties? (Assumption: Array is sorted in non-decreasing order - can contain duplicates)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Target existence**: What if target is not found? (Assumption: Return [-1, -1] - target doesn't exist in array)
 
-3. **Return format**: What should we return? (Assumption: Array of two integers [start, end] - first and last position of target)
 
-4. **Time complexity**: What time complexity is required? (Assumption: O(log n) - must use binary search, not linear scan)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-5. **Single occurrence**: What if target appears only once? (Assumption: Return [index, index] - same index for both start and end)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Scan through the array from left to right to find the first occurrence of target, then scan from right to left to find the last occurrence. This approach has O(n) time complexity, which doesn't meet the O(log n) requirement.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Standard binary search | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| **Binary search on rotated array** *(this problem)* | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
 
-Use binary search to find the target, then expand left and right to find the boundaries. However, in the worst case (all elements are target), this still requires O(n) time to expand, which doesn't meet the requirement.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use two binary searches: one to find the lower bound (first position where target can be inserted, which is the first occurrence) and one to find the upper bound (first position where target+1 can be inserted, which is one past the last occurrence). Subtract 1 from the upper bound to get the last occurrence. This achieves O(log n) time complexity with two binary searches.
-
-## Solution Approach
-
-This problem requires finding the first and last occurrence of a target in a sorted array with O(log n) time complexity. The key insight is to use two binary searches: one for the lower bound and one for the upper bound.
-
-### Key Insights:
-
-1. **Lower Bound**: The first position where target can be inserted (first occurrence of target)
-2. **Upper Bound**: The first position where target+1 can be inserted (one past the last occurrence)
-3. **Two Binary Searches**: Use separate binary search functions for lower and upper bounds
-4. **Boundary Handling**: Check if target exists before calculating the range
-
-## Solution: Binary Search with Lower and Upper Bounds
+## Solution
 
 ```cpp
 class Solution {
@@ -127,173 +119,51 @@ private:
 };
 ```
 
-### Algorithm Breakdown:
+### Solution Explanation
 
-1. **Edge Case**: If array is empty, return `[-1, -1]`
-2. **Find Lower Bound**: Use binary search to find first position where `target` can be inserted
-3. **Check Existence**: If `lowerBound == nums.size()` or `nums[lowerBound] != target`, target doesn't exist, return `[-1, -1]`
-4. **Find Upper Bound**: Use binary search to find first position where `target + 1` can be inserted
-5. **Calculate Range**: Last occurrence is `upperBound - 1`
-6. **Return**: `[lowerBound, upperBound - 1]`
+**Approach:** Binary search on rotated array (this problem)
 
-### Lower Bound Binary Search:
+**Key idea:** 1. **Lower Bound vs Upper Bound**: Understanding the difference between lower bound (first position >= target) and upper bound (first position > target) is crucial
 
-- **Purpose**: Find the first position where target can be inserted (first occurrence)
-- **Logic**: If `nums[mid] < target`, move right (`left = mid + 1`). Otherwise, move left (`right = mid`)
-- **Result**: Returns the first index where `nums[index] >= target`
+**How the code works:**
+1. **Lower Bound vs Upper Bound**: Understanding the difference between lower bound (first position >= target) and upper bound (first position > target) is crucial
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-### Upper Bound Binary Search:
+**Walkthrough** — input `nums = [5,7,7,8,8,10], target = 8`, expected output `[3,4]`:
 
-- **Purpose**: Find the first position where target+1 can be inserted (one past last occurrence)
-- **Logic**: If `nums[mid] <= target`, move right (`left = mid + 1`). Otherwise, move left (`right = mid`)
-- **Result**: Returns the first index where `nums[index] > target`
-
-### Why This Works:
-
-- **Lower Bound**: Finds the first position where we can insert target, which is exactly the first occurrence
-- **Upper Bound**: Finds the first position where we can insert target+1, which is one position after the last occurrence
-- **Range Calculation**: `[lowerBound, upperBound - 1]` gives us the exact range of target occurrences
-
-### Sample Test Case Run:
-
-**Input:** `nums = [5,7,7,8,8,10]`, `target = 8`
-
-```
-Step 1: Find Lower Bound (first occurrence of 8)
-
-Initial: left = 0, right = 6
-
-Iteration 1:
-  mid = 0 + (6 - 0) / 2 = 3
-  nums[3] = 8, target = 8
-  Since nums[3] >= target (8 >= 8), move left
-  right = mid = 3
-  Search range: [0, 3]
-
-Iteration 2:
-  mid = 0 + (3 - 0) / 2 = 1
-  nums[1] = 7, target = 8
-  Since nums[1] < target (7 < 8), move right
-  left = mid + 1 = 2
-  Search range: [2, 3]
-
-Iteration 3:
-  mid = 2 + (3 - 2) / 2 = 2
-  nums[2] = 7, target = 8
-  Since nums[2] < target (7 < 8), move right
-  left = mid + 1 = 3
-  Search range: [3, 3]
-
-Loop condition: left (3) < right (3) is false, exit loop
-
-Lower Bound = 3
-
-Step 2: Check if target exists
-  nums[3] = 8 == target = 8 ✓
-  Target exists at index 3
-
-Step 3: Find Upper Bound (first position where 9 can be inserted)
-
-Initial: left = 0, right = 6
-
-Iteration 1:
-  mid = 0 + (6 - 0) / 2 = 3
-  nums[3] = 8, target = 8
-  Since nums[3] <= target (8 <= 8), move right
-  left = mid + 1 = 4
-  Search range: [4, 6]
-
-Iteration 2:
-  mid = 4 + (6 - 4) / 2 = 5
-  nums[5] = 10, target = 8
-  Since nums[5] > target (10 > 8), move left
-  right = mid = 5
-  Search range: [4, 5]
-
-Iteration 3:
-  mid = 4 + (5 - 4) / 2 = 4
-  nums[4] = 8, target = 8
-  Since nums[4] <= target (8 <= 8), move right
-  left = mid + 1 = 5
-  Search range: [5, 5]
-
-Loop condition: left (5) < right (5) is false, exit loop
-
-Upper Bound = 5
-
-Step 4: Calculate range
-  First occurrence: lowerBound = 3
-  Last occurrence: upperBound - 1 = 5 - 1 = 4
-
-Result: [3, 4]
-```
-
-**Verification:**
-- `nums[3] = 8` ✓ (first occurrence)
-- `nums[4] = 8` ✓ (last occurrence)
-- `nums[2] = 7 ≠ 8` ✓ (before first)
-- `nums[5] = 10 ≠ 8` ✓ (after last)
-
-**Output:** `[3, 4]` ✓
-
----
-
-**Another Example:** `nums = [5,7,7,8,8,10]`, `target = 6`
-
-```
-Step 1: Find Lower Bound
-
-Initial: left = 0, right = 6
-
-Iteration 1:
-  mid = 0 + (6 - 0) / 2 = 3
-  nums[3] = 8, target = 6
-  Since nums[3] >= target (8 >= 6), move left
-  right = mid = 3
-  Search range: [0, 3]
-
-Iteration 2:
-  mid = 0 + (3 - 0) / 2 = 1
-  nums[1] = 7, target = 6
-  Since nums[1] >= target (7 >= 6), move left
-  right = mid = 1
-  Search range: [0, 1]
-
-Iteration 3:
-  mid = 0 + (1 - 0) / 2 = 0
-  nums[0] = 5, target = 6
-  Since nums[0] < target (5 < 6), move right
-  left = mid + 1 = 1
-  Search range: [1, 1]
-
-Loop condition: left (1) < right (1) is false, exit loop
-
-Lower Bound = 1
-
-Step 2: Check if target exists
-  nums[1] = 7 != target = 6 ✗
-  Target does not exist
-
-Result: [-1, -1]
-```
-
-**Output:** `[-1, -1]` ✓
-
-## Complexity Analysis
+The target value 8 appears at indices 3 and 4.
 
 - **Time Complexity**: O(log n) - Two binary searches, each taking O(log n) time
 - **Space Complexity**: O(1) - Only using a constant amount of extra space
+## Related Problems
 
-## Key Insights
+- [35. Search Insert Position](https://www.leetcode.com/problems/search-insert-position/) - Find insertion position (lower bound)
+- [704. Binary Search](https://www.leetcode.com/problems/binary-search/) - Standard binary search
+- [33. Search in Rotated Sorted Array](https://www.leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on rotated array
+- [162. Find Peak Element](https://www.leetcode.com/problems/find-peak-element/) - Binary search variant
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Lower Bound vs Upper Bound**: Understanding the difference between lower bound (first position >= target) and upper bound (first position > target) is crucial
 2. **Binary Search Variants**: This problem demonstrates two important binary search variants that are commonly used
 3. **Boundary Conditions**: Careful handling of edge cases (empty array, target not found) is essential
 4. **Range Calculation**: Upper bound minus 1 gives the last occurrence when target exists
 
-## Related Problems
+## References
 
-- [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/) - Find insertion position (lower bound)
-- [704. Binary Search](https://leetcode.com/problems/binary-search/) - Standard binary search
-- [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on rotated array
-- [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/) - Binary search variant
+- [LC 34: Find First and Last Position of Element in Sorted Array on LeetCode](https://www.leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+- [LeetCode Discuss — LC 34: Find First and Last Position of Element in Sorted Array](https://www.leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

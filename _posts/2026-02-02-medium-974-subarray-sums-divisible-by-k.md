@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, hash-table, prefix-sum]
 permalink: /2026/02/02/medium-974-subarray-sums-divisible-by-k/
 tags: [leetcode, medium, array, hash-table, prefix-sum]
 ---
-
-# 974. Subarray Sums Divisible by K
-
-## Problem Statement
-
 Given an integer array `nums` and an integer `k`, return the number of non-empty subarrays that have a sum divisible by `k`.
 
 A subarray is a contiguous non-empty sequence of elements within an array.
@@ -39,46 +34,40 @@ Output: 0
 - `-10^4 <= nums[i] <= 10^4`
 - `2 <= k <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Modulo Property**: If two prefix sums have the same modulo value, the subarray between them is divisible by `k`
 
-1. **Subarray definition**: What constitutes a subarray? (Assumption: A contiguous non-empty sequence of elements - must be consecutive elements)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-2. **Divisibility**: What does "divisible by k" mean? (Assumption: The sum of the subarray must be divisible by `k`, i.e., `sum % k == 0`)
 
-3. **Negative numbers**: How do we handle negative numbers in modulo operations? (Assumption: Use `(num % k + k) % k` to ensure non-negative modulo result)
 
-4. **Empty subarray**: Should we consider empty subarrays? (Assumption: No - subarray must be non-empty, so length is at least 1)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Overlapping subarrays**: If multiple subarrays are divisible by `k`, should we count all of them? (Assumption: Yes - count all distinct subarrays that are divisible by `k`, even if they overlap)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each starting position `i`, iterate through all ending positions `j >= i`, calculate the sum of subarray `nums[i..j]`, and increment count if `sum % k == 0`. This approach has O(n²) time complexity and O(1) space complexity.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
 
-Use prefix sums to avoid recalculating subarray sums. For each position, we can compute the sum from index 0 to current position. However, we still need to check all pairs of positions, which is still O(n²) time.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use prefix sum modulo with hash map/array. The key insight is: if `prefixMod[i] == prefixMod[j]`, then `sum(nums[i+1..j]) % k == 0`. We can use an array of size `k` to count occurrences of each modulo value. For each position, check how many previous positions have the same modulo value. This achieves O(n) time and O(k) space complexity.
-
-## Solution Approach
-
-This problem is a variation of the prefix sum technique, but uses modulo arithmetic to handle divisibility. The key insight is that if two prefix sums have the same modulo value, the subarray between them is divisible by `k`.
-
-### Key Insights:
-
-1. **Modulo Property**: If `prefixSum[i] % k == prefixSum[j] % k`, then `sum(nums[i+1..j]) % k == 0`
-2. **Negative Modulo**: Use `(num % k + k) % k` to ensure non-negative modulo result
-3. **Array Instead of Hash Map**: Since modulo values are in range `[0, k-1]`, we can use an array of size `k`
-4. **Initial State**: Initialize with `prefixMods[0] = 1` to handle subarrays starting from index 0
-
-## Solution: Prefix Sum Modulo with Array
+## Solution
 
 ```cpp
 class Solution {
@@ -97,178 +86,25 @@ public:
 };
 ```
 
-### Algorithm Breakdown:
+### Solution Explanation
 
-1. **Initialize**: 
-   - `prefixMod = 0`: Running prefix sum modulo
-   - `cnt = 0`: Count of subarrays divisible by `k`
-   - `prefixMods[k]`: Array to count occurrences of each modulo value
-   - `prefixMods[0] = 1`: Initialize with prefix sum 0 (for subarrays starting at index 0)
+**Approach:** Prefix sum (this problem)
 
-2. **Iterate**: For each number in the array:
-   - Update prefix modulo: `prefixMod = (prefixMod + num % k + k) % k`
-     - `num % k`: Get modulo of current number
-     - `+ k`: Handle negative numbers
-     - `% k`: Ensure result is in range `[0, k-1]`
-   - Add count: `cnt += prefixMods[prefixMod]` (number of previous positions with same modulo)
-   - Increment count: `prefixMods[prefixMod]++`
+**Key idea:** 1. **Modulo Property**: If two prefix sums have the same modulo value, the subarray between them is divisible by `k`
 
-3. **Return**: Total count of subarrays divisible by `k`
+**How the code works:**
+1. **Modulo Property**: If two prefix sums have the same modulo value, the subarray between them is divisible by `k`
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-### Why This Works:
+**Walkthrough** — input `nums = [4,5,0,-2,-3,1], k = 5`, expected output `7`:
 
-- **Modulo Property**: If `prefixMod[i] == prefixMod[j]`, then `(prefixSum[j] - prefixSum[i]) % k == 0`
-- **Negative Handling**: `(num % k + k) % k` ensures non-negative modulo for negative numbers
-- **Counting**: For each position, count how many previous positions have the same modulo value
-- **Initial State**: `prefixMods[0] = 1` handles the case where subarray starts at index 0
-
-### Sample Test Case Run:
-
-**Input:** `nums = [4,5,0,-2,-3,1]`, `k = 5`
-
-```
-Initial: prefixMod = 0, cnt = 0, prefixMods = [1, 0, 0, 0, 0]
-
-Iteration 0 (num = 4):
-  prefixMod = (0 + 4 % 5 + 5) % 5 = (0 + 4 + 5) % 5 = 9 % 5 = 4
-  prefixMods[4] = 0, cnt = 0 + 0 = 0
-  prefixMods[4] = 1
-  State: prefixMod=4, cnt=0, prefixMods=[1,0,0,0,1]
-
-Iteration 1 (num = 5):
-  prefixMod = (4 + 5 % 5 + 5) % 5 = (4 + 0 + 5) % 5 = 9 % 5 = 4
-  prefixMods[4] = 1, cnt = 0 + 1 = 1
-  prefixMods[4] = 2
-  State: prefixMod=4, cnt=1, prefixMods=[1,0,0,0,2]
-
-Iteration 2 (num = 0):
-  prefixMod = (4 + 0 % 5 + 5) % 5 = (4 + 0 + 5) % 5 = 9 % 5 = 4
-  prefixMods[4] = 2, cnt = 1 + 2 = 3
-  prefixMods[4] = 3
-  State: prefixMod=4, cnt=3, prefixMods=[1,0,0,0,3]
-
-Iteration 3 (num = -2):
-  prefixMod = (4 + (-2) % 5 + 5) % 5 = (4 + 3 + 5) % 5 = 12 % 5 = 2
-  prefixMods[2] = 0, cnt = 3 + 0 = 3
-  prefixMods[2] = 1
-  State: prefixMod=2, cnt=3, prefixMods=[1,0,1,0,3]
-
-Iteration 4 (num = -3):
-  prefixMod = (2 + (-3) % 5 + 5) % 5 = (2 + 2 + 5) % 5 = 9 % 5 = 4
-  prefixMods[4] = 3, cnt = 3 + 3 = 6
-  prefixMods[4] = 4
-  State: prefixMod=4, cnt=6, prefixMods=[1,0,1,0,4]
-
-Iteration 5 (num = 1):
-  prefixMod = (4 + 1 % 5 + 5) % 5 = (4 + 1 + 5) % 5 = 10 % 5 = 0
-  prefixMods[0] = 1, cnt = 6 + 1 = 7
-  prefixMods[0] = 2
-  State: prefixMod=0, cnt=7, prefixMods=[2,0,1,0,4]
-
-Return: cnt = 7 ✓
-```
-
-**Verification:**
-- Subarrays divisible by 5:
-  - `[5]` (indices 1-1): sum = 5 ✓
-  - `[5,0]` (indices 1-2): sum = 5 ✓
-  - `[0]` (indices 2-2): sum = 0 ✓
-  - `[5,0,-2,-3]` (indices 1-4): sum = 0 ✓
-  - `[0,-2,-3]` (indices 2-4): sum = -5 ✓ (divisible by 5)
-  - `[-2,-3]` (indices 3-4): sum = -5 ✓ (divisible by 5)
-  - `[4,5,0,-2,-3,1]` (indices 0-5): sum = 5 ✓
-- Total count = 7 ✓
-
-**Output:** `7` ✓
-
----
-
-**Another Example:** `nums = [5]`, `k = 9`
-
-```
-Initial: prefixMod = 0, cnt = 0, prefixMods = [1, 0, 0, 0, 0, 0, 0, 0, 0]
-
-Iteration 0 (num = 5):
-  prefixMod = (0 + 5 % 9 + 9) % 9 = (0 + 5 + 9) % 9 = 14 % 9 = 5
-  prefixMods[5] = 0, cnt = 0 + 0 = 0
-  prefixMods[5] = 1
-  State: prefixMod=5, cnt=0, prefixMods=[1,0,0,0,0,1,0,0,0]
-
-Return: cnt = 0 ✓
-```
-
-**Verification:**
-- Subarray `[5]`: sum = 5, 5 % 9 = 5 ≠ 0 ✗
-- No subarray divisible by 9 ✓
-
-**Output:** `0` ✓
-
----
-
-**Edge Case:** `nums = [1,2,3,4,5]`, `k = 3`
-
-```
-Initial: prefixMod = 0, cnt = 0, prefixMods = [1, 0, 0]
-
-Iteration 0 (num = 1):
-  prefixMod = (0 + 1 % 3 + 3) % 3 = (0 + 1 + 3) % 3 = 4 % 3 = 1
-  prefixMods[1] = 0, cnt = 0
-  prefixMods[1] = 1
-  State: prefixMod=1, cnt=0, prefixMods=[1,1,0]
-
-Iteration 1 (num = 2):
-  prefixMod = (1 + 2 % 3 + 3) % 3 = (1 + 2 + 3) % 3 = 6 % 3 = 0
-  prefixMods[0] = 1, cnt = 0 + 1 = 1
-  prefixMods[0] = 2
-  State: prefixMod=0, cnt=1, prefixMods=[2,1,0]
-
-Iteration 2 (num = 3):
-  prefixMod = (0 + 3 % 3 + 3) % 3 = (0 + 0 + 3) % 3 = 3 % 3 = 0
-  prefixMods[0] = 2, cnt = 1 + 2 = 3
-  prefixMods[0] = 3
-  State: prefixMod=0, cnt=3, prefixMods=[3,1,0]
-
-Iteration 3 (num = 4):
-  prefixMod = (0 + 4 % 3 + 3) % 3 = (0 + 1 + 3) % 3 = 4 % 3 = 1
-  prefixMods[1] = 1, cnt = 3 + 1 = 4
-  prefixMods[1] = 2
-  State: prefixMod=1, cnt=4, prefixMods=[3,2,0]
-
-Iteration 4 (num = 5):
-  prefixMod = (1 + 5 % 3 + 3) % 3 = (1 + 2 + 3) % 3 = 6 % 3 = 0
-  prefixMods[0] = 3, cnt = 4 + 3 = 7
-  prefixMods[0] = 4
-  State: prefixMod=0, cnt=7, prefixMods=[4,2,0]
-
-Return: cnt = 7 ✓
-```
-
-**Verification:**
-- Subarrays divisible by 3:
-  - `[1,2]` (indices 0-1): sum = 3 ✓
-  - `[3]` (indices 2-2): sum = 3 ✓
-  - `[1,2,3]` (indices 0-2): sum = 6 ✓
-  - `[2,3,4]` (indices 1-3): sum = 9 ✓
-  - `[3,4,5]` (indices 2-4): sum = 12 ✓
-  - `[1,2,3,4,5]` (indices 0-4): sum = 15 ✓
-  - `[4,5]` (indices 3-4): sum = 9 ✓
-- Total count = 7 ✓
-
-**Output:** `7` ✓
-
-## Complexity Analysis
+There are 7 subarrays with a sum divisible by k = 5:
+[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
 
 - **Time Complexity**: O(n) - Single pass through the array
 - **Space Complexity**: O(k) - Array of size `k` to store modulo counts (more efficient than O(n) hash map)
-
-## Key Insights
-
-1. **Modulo Property**: If two prefix sums have the same modulo value, the subarray between them is divisible by `k`
-2. **Negative Modulo Handling**: Use `(num % k + k) % k` to ensure non-negative modulo for negative numbers
-3. **Array vs Hash Map**: Since modulo values are in range `[0, k-1]`, we can use an array instead of a hash map, saving space
-4. **Initial State**: Initialize with `prefixMods[0] = 1` to handle subarrays starting from index 0
-5. **Integer Overflow Prevention**: The modulo operation naturally prevents integer overflow by keeping values in range `[0, k-1]`
-
 ## Comparison with Related Problems
 
 | Problem | Goal | Technique | Space Complexity |
@@ -279,8 +115,33 @@ Return: cnt = 7 ✓
 
 ## Related Problems
 
-- [1. Two Sum](https://leetcode.com/problems/two-sum/) - Hash map lookup for target sum
-- [325. Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/) - Find maximum length subarray
-- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) - Count subarrays with sum k
-- [523. Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/) - Check for subarray sum divisible by k
-- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) - Find minimum length subarray
+- [1. Two Sum](https://www.leetcode.com/problems/two-sum/) - Hash map lookup for target sum
+- [325. Maximum Size Subarray Sum Equals k](https://www.leetcode.com/problems/maximum-size-subarray-sum-equals-k/) - Find maximum length subarray
+- [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/) - Count subarrays with sum k
+- [523. Continuous Subarray Sum](https://www.leetcode.com/problems/continuous-subarray-sum/) - Check for subarray sum divisible by k
+- [209. Minimum Size Subarray Sum](https://www.leetcode.com/problems/minimum-size-subarray-sum/) - Find minimum length subarray
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+1. **Modulo Property**: If two prefix sums have the same modulo value, the subarray between them is divisible by `k`
+2. **Negative Modulo Handling**: Use `(num % k + k) % k` to ensure non-negative modulo for negative numbers
+3. **Array vs Hash Map**: Since modulo values are in range `[0, k-1]`, we can use an array instead of a hash map, saving space
+4. **Initial State**: Initialize with `prefixMods[0] = 1` to handle subarrays starting from index 0
+5. **Integer Overflow Prevention**: The modulo operation naturally prevents integer overflow by keeping values in range `[0, k-1]`
+
+## References
+
+- [LC 974: Subarray Sums Divisible by K on LeetCode](https://www.leetcode.com/problems/subarray-sums-divisible-by-k/)
+- [LeetCode Discuss — LC 974: Subarray Sums Divisible by K](https://www.leetcode.com/problems/subarray-sums-divisible-by-k/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/subarray-sums-divisible-by-k/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

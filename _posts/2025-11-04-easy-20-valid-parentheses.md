@@ -6,9 +6,6 @@ categories: leetcode algorithm easy cpp string stack problem-solving
 permalink: /posts/2025-11-04-easy-20-valid-parentheses/
 tags: [leetcode, easy, string, stack, parentheses, validation]
 ---
-
-# [Easy] 20. Valid Parentheses
-
 Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.
 
 An input string is valid if:
@@ -54,60 +51,40 @@ Output: true
 - `1 <= s.length <= 10^4`
 - `s` consists of parentheses only `'()[]{}'`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Stack for LIFO**: Opening brackets must close in reverse order
 
-1. **Valid parentheses definition**: What makes parentheses valid? (Assumption: Every opening bracket has matching closing bracket, properly nested - no cross-nesting)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Bracket types**: What bracket types are there? (Assumption: Three types - '()', '[]', '{}' - each must match its own type)
 
-3. **Nesting rules**: Can brackets be nested? (Assumption: Yes - but must be properly nested, e.g., "([])" is valid, "([)]" is not)
 
-4. **Return value**: What should we return? (Assumption: Boolean - true if valid, false otherwise)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Empty string**: What if string is empty? (Assumption: Return true - empty string is valid)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to check if parentheses are valid. Let me think about counting opening and closing brackets."
+## Common Approaches
 
-**Naive Solution**: Count opening and closing brackets of each type. Check if counts match and if they're properly nested by scanning multiple times.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(1) space (but incorrect logic)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Monotonic stack | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| **Parentheses matching** *(this problem)* | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- Simple counting doesn't handle nesting order correctly
-- Can't distinguish between "([)]" (invalid) and "([])" (valid) with just counts
-- Doesn't track the order of bracket types
-- Fails for nested structures
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I need to track the order of opening brackets. A stack can help maintain the order."
-
-**Improved Solution**: Use a stack to track opening brackets. When encountering a closing bracket, check if it matches the most recent opening bracket. If stack is empty at the end, all brackets are matched.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Correctly handles nesting order
-- Tracks bracket type matching
-- Single pass through string
-- Handles all edge cases properly
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "The stack approach is already optimal. Let me verify edge cases and consider if we can optimize space."
-
-**Best Solution**: Stack-based approach is optimal. Space can't be reduced below O(n) worst case (e.g., all opening brackets). Consider using a counter for single bracket type, but stack is needed for multiple types.
-
-**Key Realizations**:
-1. Stack is the natural data structure for matching problems
-2. O(n) space is necessary for worst case
-3. Single pass O(n) time is optimal
-4. Stack approach handles all bracket types elegantly
-
-## Solution: Stack-Based Matching
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -138,81 +115,28 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: LIFO (Last In, First Out)
+**Approach:** Parentheses matching (this problem)
 
-Parentheses must be closed in the reverse order they were opened. This matches the stack's LIFO property perfectly.
+**Key idea:** 1. **Stack for LIFO**: Opening brackets must close in reverse order
 
-### Step-by-Step Example: `s = "([{}])"`
-
-| Step | Char | Action | Stack | Valid? |
-|------|------|--------|-------|--------|
-| 0 | - | Initialize | [] | - |
-| 1 | `(` | Push | `['(']` | - |
-| 2 | `[` | Push | `['(', '[']` | - |
-| 3 | `{` | Push | `['(', '[', '{']` | - |
-| 4 | `}` | Pop: `{` matches | `['(', '[']` | Yes |
-| 5 | `]` | Pop: `[` matches | `['(']` | Yes |
-| 6 | `)` | Pop: `(` matches | `[]` | Yes |
-
-**Final Check:** Stack is empty → `true`
-
-### Step-by-Step Example: `s = "([)]"`
-
-| Step | Char | Action | Stack | Valid? |
-|------|------|--------|-------|--------|
-| 1 | `(` | Push | `['(']` | - |
-| 2 | `[` | Push | `['(', '[']` | - |
-| 3 | `)` | Check: `(` matches | `['[']` | Yes |
-| 4 | `]` | Check: `[` matches | `[]` | Yes |
-
-Wait, that's incorrect. Let me recalculate:
-
-| Step | Char | Action | Stack | Valid? |
-|------|------|--------|-------|--------|
-| 1 | `(` | Push | `['(']` | - |
-| 2 | `[` | Push | `['(', '[']` | - |
-| 3 | `)` | Check: top is `[`, not `(` | `['(', '[']` | **No** → Return false |
-
-**Final Answer:** `false`
-
-### Visual Representation
-
-```
-Valid: "([{}])"
-        ( [ { } ] )
-        ↑ ↑ ↑ ↑ ↑ ↑
-        1 2 3 4 5 6
-        
-Stack progression:
-1: ['(']
-2: ['(', '[']
-3: ['(', '[', '{']
-4: ['(', '[']      (matched {})
-5: ['(']           (matched [])
-6: []              (matched ())
-Result: true ✓
-
-Invalid: "([)]"
-          ( [ ) ]
-          ↑ ↑ ↑ ↑
-          1 2 3 4
-          
-Stack progression:
-1: ['(']
-2: ['(', '[']
-3: ['(', '[']      (trying to match ) with [, fails!)
-Result: false ✗
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Stack for LIFO**: Opening brackets must close in reverse order
-2. **Map for Matching**: Use hash map to map closing to opening brackets
-3. **Empty Stack Check**: All brackets matched if stack is empty at end
-4. **Early Return**: Return false immediately on mismatch or empty stack with closing bracket
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
+**Walkthrough** — input `s = "()"`, expected output `true`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Aspect | Complexity |
+|--------|------------|
+| **Time** | O(n) - Single pass through string, each operation is O(1) |
+| **Space** | O(n) - Stack can hold at most n/2 opening brackets in worst case |
 ## Algorithm Breakdown
 
 ### 1. Initialize Stack and Map
@@ -254,107 +178,13 @@ return st.empty();
 - If stack is empty, all brackets were matched
 - If stack has remaining elements, some opening brackets were never closed
 
-## Complexity Analysis
-
+### Complexity
 | Aspect | Complexity |
 |--------|------------|
 | **Time** | O(n) - Single pass through string, each operation is O(1) |
 | **Space** | O(n) - Stack can hold at most n/2 opening brackets in worst case |
 
-## Alternative Approaches
-
-### Approach 1: Without Hash Map (Explicit Checks)
-
-```cpp
-bool isValid(string s) {
-    stack<char> st;
-    
-    for(char c: s) {
-        if(c == '(' || c == '[' || c == '{') {
-            st.push(c);
-        } else {
-            if(st.empty()) return false;
-            
-            char top = st.top();
-            st.pop();
-            
-            if((c == ')' && top != '(') ||
-               (c == ']' && top != '[') ||
-               (c == '}' && top != '{')) {
-                return false;
-            }
-        }
-    }
-    
-    return st.empty();
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-### Approach 2: Using String as Stack
-
-```cpp
-bool isValid(string s) {
-    string stack = "";
-    
-    for(char c: s) {
-        if(c == '(' || c == '[' || c == '{') {
-            stack += c;
-        } else {
-            if(stack.empty()) return false;
-            
-            char last = stack.back();
-            stack.pop_back();
-            
-            if((c == ')' && last != '(') ||
-               (c == ']' && last != '[') ||
-               (c == '}' && last != '{')) {
-                return false;
-            }
-        }
-    }
-    
-    return stack.empty();
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-**Note:** This is less efficient due to string operations, but uses less code.
-
-### Approach 3: Counter-Based (Only for Single Type)
-
-```cpp
-// Only works for single bracket type like "()"
-bool isValid(string s) {
-    int count = 0;
-    for(char c: s) {
-        if(c == '(') count++;
-        else count--;
-        if(count < 0) return false;
-    }
-    return count == 0;
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
-
-**Limitation:** Doesn't work for multiple bracket types like `"([)]"`.
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **Stack + Map** | O(n) | O(n) | Clean, extensible | Slight overhead |
-| **Stack + Explicit** | O(n) | O(n) | No map needed | More verbose |
-| **String Stack** | O(n) | O(n) | Simple code | Less efficient |
-| **Counter** | O(n) | O(1) | Space optimal | Only single type |
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty string**: `""` → `true` (valid by definition)
 2. **Single bracket**: `"("` or `")"` → `false`
@@ -363,8 +193,6 @@ bool isValid(string s) {
 5. **Nested valid**: `"([{}])"` → `true`
 6. **Interleaved invalid**: `"([)]"` → `false`
 7. **Mixed valid**: `"()[]{}"` → `true`
-
-## Common Mistakes
 
 1. **Not checking stack empty**: Forgetting to check `st.empty()` before `st.top()`
 2. **Wrong map direction**: Mapping opening → closing instead of closing → opening
@@ -487,11 +315,11 @@ if(c == ')') {
 
 ## Related Problems
 
-- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) - Generate all valid parentheses
-- [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) - Find longest valid substring
-- [301. Remove Invalid Parentheses](https://leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
-- [1249. Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - Remove invalid characters
-- [1541. Minimum Insertions to Balance a Parentheses String](https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/) - Add minimum to balance
+- [22. Generate Parentheses](https://www.leetcode.com/problems/generate-parentheses/) - Generate all valid parentheses
+- [32. Longest Valid Parentheses](https://www.leetcode.com/problems/longest-valid-parentheses/) - Find longest valid substring
+- [301. Remove Invalid Parentheses](https://www.leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
+- [1249. Minimum Remove to Make Valid Parentheses](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - Remove invalid characters
+- [1541. Minimum Insertions to Balance a Parentheses String](https://www.leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/) - Add minimum to balance
 
 ## Pattern Recognition
 
@@ -540,3 +368,19 @@ if(c == '{' || c == '[' || c == '(' || c == '<') {
 
 *This is a fundamental stack problem that demonstrates the LIFO property perfectly. It's an excellent introduction to stack-based algorithms and pattern matching.*
 
+## Key Takeaways
+
+1. **Stack for LIFO**: Opening brackets must close in reverse order
+2. **Map for Matching**: Use hash map to map closing to opening brackets
+3. **Empty Stack Check**: All brackets matched if stack is empty at end
+4. **Early Return**: Return false immediately on mismatch or empty stack with closing bracket
+
+## References
+
+- [LC 20: Valid Parentheses on LeetCode](https://www.leetcode.com/problems/valid-parentheses/)
+- [LeetCode Discuss — LC 20: Valid Parentheses](https://www.leetcode.com/problems/valid-parentheses/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/valid-parentheses/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

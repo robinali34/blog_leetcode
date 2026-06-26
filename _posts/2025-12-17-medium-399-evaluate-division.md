@@ -4,9 +4,7 @@ title: "[Medium] 399. Evaluate Division"
 date: 2025-12-17 00:00:00 -0800
 categories: leetcode algorithm medium cpp disjoint-set graph dfs problem-solving
 ---
-
 {% raw %}
-# [Medium] 399. Evaluate Division
 
 You are given an array of variable pairs `equations` and an array of real numbers `values`, where `equations[i] = [Ai, Bi]` and `values[i]` represent the equation `Ai / Bi = values[i]`. Each `Ai` or `Bi` is a string that represents a single variable.
 
@@ -52,35 +50,42 @@ Output: [0.50000,2.00000,-1.00000,-1.00000]
 - `1 <= Cj.length, Dj.length <= 5`
 - `Ai, Bi, Cj, Dj` consist of lower case English letters and digits.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Weighted Union-Find**: Maintains ratios relative to root
 
-1. **Division representation**: How are divisions represented? (Assumption: equations[i] = [Ai, Bi] means Ai / Bi = values[i])
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Query format**: What are we querying? (Assumption: queries[j] = [Cj, Dj] means find Cj / Dj)
 
-3. **Unknown variables**: What if variables are unknown? (Assumption: Return -1.0 - cannot determine the division)
 
-4. **Return format**: What should we return? (Assumption: Array of doubles - results for each query)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Transitivity**: Are divisions transitive? (Assumption: Yes - if a/b = x and b/c = y, then a/c = x*y)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each query, try to find a direct path from numerator to denominator using the given equations. Use DFS or BFS to explore all possible paths, multiplying values along the path. If no path exists, return -1. This approach works but may explore many paths inefficiently, especially if the graph is large or queries are repeated.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
-Build a graph where nodes are variables and edges are division relationships with weights. For each query, use DFS or BFS to find a path from source to target, accumulating the product of edge weights. Cache results for repeated queries. This improves efficiency but still requires path finding for each query, which can be O(V + E) per query.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use Union-Find with weighted edges. For each equation a/b = value, union a and b while maintaining weights. Store weight[a] = value of a relative to its root. When querying a/b, if they're in the same component, calculate (weight[a] / root) / (weight[b] / root) = a/b. This achieves O((E + Q) × α(V)) time where α is inverse Ackermann (effectively constant). Alternatively, use graph DFS with memoization. The key insight is that Union-Find naturally handles transitivity and provides O(1) amortized queries after preprocessing, making it optimal for multiple queries.
-
-## Solution 1: Union-Find with Weighted Edges (Recommended)
+## Solution
 
 **Time Complexity:** O((E + Q) × α(n)) where E = equations, Q = queries, n = variables  
 **Space Complexity:** O(n) - For the union-find structure
@@ -153,6 +158,29 @@ public:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Weighted Union-Find**: Maintains ratios relative to root
+
+**How the code works:**
+1. **Weighted Union-Find**: Maintains ratios relative to root
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]`, expected output `[6.00000,0.50000,-1.00000,1.00000,-1.00000]`:
+
+Given: a / b = 2.0, b / c = 3.0
+queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
+Return: [6.0, 0.5, -1.0, 1.0, -1.0]
+
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| Union-Find | O((E+Q)×α(n)) | O(n) | Optimal for many queries |
+| Graph DFS | O(E + Q×V) | O(E+V) | Simple, good for few queries |
+
 ### How Solution 1 Works
 
 1. **Union-Find Structure**:
@@ -178,96 +206,6 @@ public:
 The Union-Find structure maintains ratios relative to the root:
 - `weights[node] = {root, node/root}`
 - To find `a / b`: If both have same root, `(a/root) / (b/root) = a/b`
-
-## Solution 2: Graph DFS
-
-**Time Complexity:** O(E + Q × V) where V = number of variables  
-**Space Complexity:** O(E + V) - For graph and visited set
-
-Build a graph and use DFS to find paths between variables.
-
-```cpp
-class Solution {
-public:
-    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-        unordered_map<string, vector<pair<string, double>>> graph;
-        
-        // Build graph
-        for(int i = 0; i < equations.size(); i++) {
-            string a = equations[i][0];
-            string b = equations[i][1];
-            double val = values[i];
-            
-            graph[a].push_back({b, val});
-            graph[b].push_back({a, 1.0 / val});
-        }
-        
-        vector<double> result;
-        for(auto& query : queries) {
-            string start = query[0];
-            string end = query[1];
-            
-            if(graph.find(start) == graph.end() || graph.find(end) == graph.end()) {
-                result.push_back(-1.0);
-                continue;
-            }
-            
-            unordered_set<string> visited;
-            double ans = dfs(start, end, graph, visited, 1.0);
-            result.push_back(ans);
-        }
-        
-        return result;
-    }
-    
-private:
-    double dfs(string curr, string target, unordered_map<string, vector<pair<string, double>>>& graph, 
-               unordered_set<string>& visited, double product) {
-        if(curr == target) {
-            return product;
-        }
-        
-        visited.insert(curr);
-        
-        for(auto& [neighbor, weight] : graph[curr]) {
-            if(visited.find(neighbor) == visited.end()) {
-                double result = dfs(neighbor, target, graph, visited, product * weight);
-                if(result != -1.0) {
-                    return result;
-                }
-            }
-        }
-        
-        visited.erase(curr);
-        return -1.0;
-    }
-};
-```
-
-### How Solution 2 Works
-
-1. **Build Bidirectional Graph**:
-   - For `a / b = value`, add edges: `a → b` with weight `value`, `b → a` with weight `1/value`
-
-2. **DFS Search**:
-   - Start from dividend, search for divisor
-   - Multiply weights along path
-   - Return product when target found
-
-3. **Backtracking**:
-   - Use visited set to avoid cycles
-   - Remove from visited when backtracking
-
-## Comparison of Approaches
-
-| Aspect | Union-Find | Graph DFS |
-|--------|-----------|-----------|
-| **Time Complexity** | O((E+Q)×α(n)) | O(E + Q×V) |
-| **Space Complexity** | O(n) | O(E + V) |
-| **Query Time** | O(α(n)) | O(V) |
-| **Code Complexity** | Moderate | Simple |
-| **Best For** | Many queries | Few queries |
-
 ## Example Walkthrough
 
 **Input:** `equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"]]`
@@ -314,14 +252,13 @@ Query "a / c":
     Found! Return 6.0
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | Union-Find | O((E+Q)×α(n)) | O(n) | Optimal for many queries |
 | Graph DFS | O(E + Q×V) | O(E+V) | Simple, good for few queries |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Variable not in equations**: Return `-1.0`
 2. **Same variable query**: `a / a = 1.0`
@@ -329,19 +266,10 @@ Query "a / c":
 4. **Single equation**: Handle minimal input
 5. **Transitive relationships**: `a/b=2, b/c=3` → `a/c=6`
 
-## Common Mistakes
-
 1. **Path compression**: Not updating weights during path compression
 2. **Union weight calculation**: Wrong formula for connecting roots
 3. **Division by zero**: Should not occur per problem constraints
 4. **Missing variables**: Not checking if variables exist before querying
-
-## Key Insights
-
-1. **Weighted Union-Find**: Maintains ratios relative to root
-2. **Path compression**: Updates weights along path for efficiency
-3. **Union by weight**: Connects roots with correct ratio
-4. **Query formula**: `dividend_weight / divisor_weight` when same root
 
 ## Optimization Tips
 
@@ -351,9 +279,9 @@ Query "a / c":
 
 ## Related Problems
 
-- [990. Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) - Similar Union-Find structure
-- [547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Union-Find for connectivity
-- [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/) - Union-Find for cycle detection
+- [990. Satisfiability of Equality Equations](https://www.leetcode.com/problems/satisfiability-of-equality-equations/) - Similar Union-Find structure
+- [547. Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) - Union-Find for connectivity
+- [684. Redundant Connection](https://www.leetcode.com/problems/redundant-connection/) - Union-Find for cycle detection
 
 ## Pattern Recognition
 
@@ -373,3 +301,15 @@ Similar problems:
 
 {% endraw %}
 
+## References
+
+- [LC 399: Evaluate Division on LeetCode](https://www.leetcode.com/problems/evaluate-division/)
+- [LeetCode Discuss — LC 399: Evaluate Division](https://www.leetcode.com/problems/evaluate-division/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/evaluate-division/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Weighted Union-Find**: Maintains ratios relative to root
+2. **Path compression**: Updates weights along path for efficiency
+3. **Union by weight**: Connects roots with correct ratio
+4. **Query formula**: `dividend_weight / divisor_weight` when same root

@@ -6,7 +6,6 @@ categories: [leetcode, medium, design, binary-search]
 tags: [leetcode, medium, design, binary-search, map]
 permalink: /2026/03/19/medium-1146-snapshot-array/
 ---
-
 Implement a `SnapshotArray` that supports:
 - `SnapshotArray(int length)` -- initializes an array of the given length (all zeros)
 - `void set(index, val)` -- sets the element at `index` to `val`
@@ -61,7 +60,35 @@ On `get(index, snap_id)`: binary search for the latest entry at or before `snap_
 
 A `map<int,int>` per index gives this naturally with `upper_bound`.
 
-## Solution 1: Naive (Copy Array) -- $O(n)$ per snap
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
+
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Standard binary search | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| **Binary search on rotated array** *(this problem)* | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -90,75 +117,24 @@ private:
     vector<int> arr;
 };
 ```
-{% endraw %}
 
-| Operation | Time | Space |
-|---|---|---|
-| `set` | $O(1)$ | -- |
-| `snap` | $O(n)$ | $O(n)$ per snapshot |
-| `get` | $O(1)$ | -- |
+### Solution Explanation
 
-Works for small inputs but TLEs / MLEs with many snapshots.
+**Approach:** Binary search on rotated array (this problem)
 
-## Solution 2: Map per Index + Binary Search (Optimal) -- $O(\log S)$ per get
+**Key idea:** ### Naive: Copy Entire Array -- $O(n)$ per snap
 
-Each index stores a `map<snap_id, value>`. Only write when `set` is called. On `get`, find the latest snapshot at or before the queried `snap_id` using `upper_bound`.
+**How the code works:**
+- `set`: $O(1)$
+- `snap`: $O(n)$ -- copies the full array
+- `get`: $O(1)$
 
-{% raw %}
-```cpp
-class SnapshotArray {
-public:
-    SnapshotArray(int length) {
-        snap_id = 0;
-        data.resize(length);
-        for (int i = 0; i < length; ++i) {
-            data[i][0] = 0;
-        }
-    }
+**Walkthrough** — input `SnapshotArray(3), set(0,5), snap(), set(0,6), get(0,0)`, expected output `null, null, 0, null, 5`:
 
-    void set(int index, int val) {
-        data[index][snap_id] = val;
-    }
-
-    int snap() {
-        return snap_id++;
-    }
-
-    int get(int index, int snap_id) {
-        auto it = data[index].upper_bound(snap_id);
-        if (it == data[index].begin()) return 0;
-        --it;
-        return it->second;
-    }
-
-private:
-    int snap_id;
-    vector<map<int, int>> data;
-};
-```
-{% endraw %}
-
-| Operation | Time | Space |
-|---|---|---|
-| `set` | $O(\log S)$ | -- |
-| `snap` | $O(1)$ | -- |
-| `get` | $O(\log S)$ | -- |
-
-Where $S$ = number of `set` calls on that index.
-
-### Why `upper_bound` then `--it`?
-
-`upper_bound(snap_id)` returns the first entry **strictly greater** than `snap_id`. Stepping back one gives the latest entry at or before `snap_id` -- exactly the value that was active at that snapshot.
-
-```
-data[0] = {0: 5, 3: 10, 7: 2}
-
-get(0, 5):
-  upper_bound(5) → points to {7: 2}
-  --it → {3: 10}
-  return 10  ✓  (snap 3 was the last set before snap 5)
-```
-
+set(0,5) → arr = [5,0,0]
+  snap()   → snap_id 0 captures [5,0,0]
+  set(0,6) → arr = [6,0,0]
+  get(0,0) → value at index 0 in snap 0 = 5
 ## Comparison
 
 | Approach | `set` | `snap` | `get` | Space |
@@ -182,9 +158,15 @@ The map approach wins when snapshots are frequent but changes are sparse.
 
 ## Related Problems
 
-- [981. Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/) -- same binary search on timestamps
-- [362. Design Hit Counter](https://leetcode.com/problems/design-hit-counter/) -- time-based design
-- [155. Min Stack](https://leetcode.com/problems/min-stack/) -- data structure design with history
+- [981. Time Based Key-Value Store](https://www.leetcode.com/problems/time-based-key-value-store/) -- same binary search on timestamps
+- [362. Design Hit Counter](https://www.leetcode.com/problems/design-hit-counter/) -- time-based design
+- [155. Min Stack](https://www.leetcode.com/problems/min-stack/) -- data structure design with history
+
+## References
+
+- [LC 1146: Snapshot Array on LeetCode](https://www.leetcode.com/problems/snapshot-array/)
+- [LeetCode Discuss — LC 1146: Snapshot Array](https://www.leetcode.com/problems/snapshot-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/snapshot-array/editorial/) *(may require premium)*
 
 ## Template Reference
 

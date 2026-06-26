@@ -6,11 +6,6 @@ categories: [leetcode, easy, string, hash-table]
 permalink: /2026/01/19/easy-1624-largest-substring-between-two-equal-characters/
 tags: [leetcode, easy, string, hash-table, substring, two-pointers]
 ---
-
-# 1624. Largest Substring Between Two Equal Characters
-
-## Problem Statement
-
 Given a string `s`, return the **length of the longest substring** between two equal characters, **excluding** the two equal characters themselves. If no such substring exists, return `-1`.
 
 A **substring** is a contiguous sequence of characters within a string.
@@ -50,56 +45,40 @@ Explanation: The optimal substring is "abba" which is of length 4.
 - `1 <= s.length <= 300`
 - `s` contains only lowercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Two-Pass Approach**: First pass tracks indices, second pass calculates distances
 
-1. **Substring definition**: What defines a valid substring? (Assumption: Substring between two equal characters, excluding the two equal characters themselves)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **Length calculation**: How is length calculated - number of characters between or including endpoints? (Assumption: Number of characters between the two equal characters, not including them)
 
-3. **No valid substring**: What should we return if no character appears twice? (Assumption: Return -1 - no valid substring exists)
 
-4. **Multiple occurrences**: If a character appears more than twice, which pair should we consider? (Assumption: Consider the pair that gives the maximum length substring)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-For each character in the string, find all its occurrences. For each pair of occurrences, calculate the length of substring between them. Track the maximum length found. This approach requires O(n²) comparisons where n is string length, as we check all pairs of positions for each character.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Use a hash map to store the first and last occurrence of each character. For each character, calculate the distance between first and last occurrence. Track the maximum distance. This reduces to O(n) time for a single pass to build the map, then O(k) to check all characters where k is the number of unique characters (at most 26).
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use a single pass: maintain a hash map storing the first occurrence index of each character. As we iterate through the string, if we encounter a character we've seen before, calculate the distance from the first occurrence to the current position (excluding both endpoints). Update the maximum. This achieves O(n) time with O(k) space where k is the number of unique characters. The key insight is that we only need the first occurrence of each character to calculate the maximum substring length ending at the current position.
-
-## Solution Approach
-
-This problem requires finding the maximum distance between two occurrences of the same character. The key insight is:
-
-1. **Track First and Last Occurrences**: For each character, track its leftmost and rightmost positions
-2. **Calculate Distance**: The substring length between two equal characters is `right_index - left_index - 1`
-3. **Find Maximum**: Return the maximum such distance, or `-1` if no character appears twice
-
-### Key Insights:
-
-1. **Character Tracking**: Use hash maps to store first and last occurrence indices
-2. **Distance Calculation**: Length between indices `i` and `j` is `j - i - 1` (excluding both endpoints)
-3. **Single Pass**: Can track first occurrence, then update last occurrence as we iterate
-4. **Edge Case**: Return `-1` if no character appears twice
-
-### Algorithm:
-
-1. Initialize hash maps for leftmost and rightmost indices
-2. First pass: Record leftmost index for each character
-3. Second pass: Record rightmost index for characters that appeared before
-4. Calculate maximum distance: `right - left - 1` for all characters with both indices
-5. Return maximum or `-1`
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
 ## Solution
 
@@ -124,87 +103,22 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Initialize Maps**:
-   - `LeftIdx`: Stores the first occurrence index of each character
-   - `RightIdx`: Stores the last occurrence index (only for characters appearing multiple times)
-   - `maxLen`: Tracks maximum substring length, initialized to `-1`
+**Approach:** Opposite ends (this problem)
 
-2. **First Pass - Track Indices**:
-   - Iterate through string with index `i`
-   - If character `s[i]` not seen before (`!LeftIdx.contains(s[i])`):
-     - Record its first occurrence: `LeftIdx[s[i]] = i`
-   - Else (character seen before):
-     - Update its last occurrence: `RightIdx[s[i]] = i`
+**Key idea:** 1. **Two-Pass Approach**: First pass tracks indices, second pass calculates distances
 
-3. **Second Pass - Calculate Maximum**:
-   - Iterate through `RightIdx` (characters that appear at least twice)
-   - For each character `c`:
-     - Calculate substring length: `RightIdx[c] - LeftIdx[c] - 1`
-     - Update `maxLen` if this length is greater
-
-4. **Return Result**:
-   - Returns `maxLen` (will be `-1` if no character appears twice)
-
-### Example Walkthrough:
-
-**Input:** `s = "abca"`
-
-```
-Step 1: First pass
-  i=0, s[0]='a': LeftIdx['a'] = 0
-  i=1, s[1]='b': LeftIdx['b'] = 1
-  i=2, s[2]='c': LeftIdx['c'] = 2
-  i=3, s[3]='a': 'a' already in LeftIdx → RightIdx['a'] = 3
-
-Step 2: Calculate maximum
-  For 'a': RightIdx['a'] - LeftIdx['a'] - 1 = 3 - 0 - 1 = 2
-  maxLen = max(-1, 2) = 2
-
-Return: 2 ✓
-```
-
-**Input:** `s = "cabbac"`
-
-```
-Step 1: First pass
-  i=0, s[0]='c': LeftIdx['c'] = 0
-  i=1, s[1]='a': LeftIdx['a'] = 1
-  i=2, s[2]='b': LeftIdx['b'] = 2
-  i=3, s[3]='b': 'b' already in LeftIdx → RightIdx['b'] = 3
-  i=4, s[4]='a': 'a' already in LeftIdx → RightIdx['a'] = 4
-  i=5, s[5]='c': 'c' already in LeftIdx → RightIdx['c'] = 5
-
-Step 2: Calculate maximum
-  For 'c': 5 - 0 - 1 = 4
-  For 'a': 4 - 1 - 1 = 2
-  For 'b': 3 - 2 - 1 = 0
-  maxLen = max(-1, 4, 2, 0) = 4
-
-Return: 4 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - First pass: O(n) to iterate through string
-  - Second pass: O(k) where k = number of unique characters appearing multiple times (≤ 26)
-  - Total: O(n)
-
-- **Space Complexity:** O(1)
-  - `LeftIdx` and `RightIdx` store at most 26 entries (lowercase letters)
-  - Constant space regardless of input size
-
-## Key Insights
-
+**How the code works:**
 1. **Two-Pass Approach**: First pass tracks indices, second pass calculates distances
-2. **Hash Map Efficiency**: O(1) lookup and insertion for character tracking
-3. **Distance Formula**: Length between indices `i` and `j` is `j - i - 1` (excluding endpoints)
-4. **Edge Case Handling**: Return `-1` when no character appears twice
-5. **Optimization**: Only track rightmost index for characters that appear multiple times
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-## Edge Cases
+**Walkthrough** — input `s = "aa"`, expected output `0`:
+
+The optimal substring here is an empty substring between the two 'a's.
+## Common Mistakes
 
 1. **No duplicate characters**: `s = "abc"` → return `-1`
 2. **Adjacent duplicates**: `s = "aa"` → return `0` (empty substring)
@@ -213,72 +127,11 @@ Return: 4 ✓
 5. **Multiple pairs**: `s = "cabbac"` → return `4` (between first and last 'c')
 6. **Overlapping pairs**: `s = "abba"` → return `2` (between first and last 'a')
 
-## Common Mistakes
-
 1. **Incorrect distance calculation**: Using `right - left` instead of `right - left - 1`
 2. **Not handling single occurrence**: Forgetting to return `-1` when no duplicates
 3. **Off-by-one errors**: Incorrect substring length calculation
 4. **Not updating rightmost**: Only tracking first occurrence, missing last occurrence
 5. **Initialization**: Not initializing `maxLen` to `-1` correctly
-
-## Alternative Approaches
-
-### Single Pass with Array
-
-```cpp
-class Solution {
-public:
-    int maxLengthBetweenEqualCharacters(string s) {
-        vector<int> first(26, -1);
-        int maxLen = -1;
-        for(int i = 0; i < (int)s.length(); i++) {
-            int c = s[i] - 'a';
-            if(first[c] == -1) {
-                first[c] = i;
-            } else {
-                maxLen = max(maxLen, i - first[c] - 1);
-            }
-        }
-        return maxLen;
-    }
-};
-```
-
-**Pros**: More efficient, single pass, uses array instead of hash map  
-**Cons**: Assumes lowercase letters only (which matches constraints)
-
-### Two-Pass with Last Index Only
-
-```cpp
-class Solution {
-public:
-    int maxLengthBetweenEqualCharacters(string s) {
-        unordered_map<char, int> lastIdx;
-        for(int i = 0; i < (int)s.length(); i++) {
-            lastIdx[s[i]] = i;
-        }
-        
-        int maxLen = -1;
-        for(int i = 0; i < (int)s.length(); i++) {
-            if(lastIdx[s[i]] != i) {
-                maxLen = max(maxLen, lastIdx[s[i]] - i - 1);
-            }
-        }
-        return maxLen;
-    }
-};
-```
-
-**Pros**: Clear separation of tracking and calculation  
-**Cons**: Two full passes, slightly more complex
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Passes | Pros |
-|----------|------|-------|--------|------|
-| **Hash Map (Provided)** | O(n) | O(1) | 2 | Flexible, handles any characters |
-| **Array Single Pass** | O(n) | O(1) | 1 | Most efficient, single pass |
-| **Last Index Only** | O(n) | O(1) | 2 | Clear logic, easy to understand |
 
 ## When to Use This Pattern
 
@@ -291,12 +144,25 @@ public:
 ## Related Problems
 
 - [LC 3: Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) - Finding longest substring with unique characters
-- [LC 159: Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) - Substring with character constraints
-- [LC 340: Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) - Generalization of LC 159
-- [LC 424: Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) - Substring with replacements
-- [LC 904: Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/) - Similar sliding window pattern
+- [LC 159: Longest Substring with At Most Two Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) - Substring with character constraints
+- [LC 340: Longest Substring with At Most K Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) - Generalization of LC 159
+- [LC 424: Longest Repeating Character Replacement](https://www.leetcode.com/problems/longest-repeating-character-replacement/) - Substring with replacements
+- [LC 904: Fruit Into Baskets](https://www.leetcode.com/problems/fruit-into-baskets/) - Similar sliding window pattern
 
----
+## Key Takeaways
 
-*This problem demonstrates **efficient character tracking** using hash maps to find the maximum distance between equal characters. The key insight is tracking first and last occurrences, then calculating the substring length between them.*
+1. **Two-Pass Approach**: First pass tracks indices, second pass calculates distances
+2. **Hash Map Efficiency**: O(1) lookup and insertion for character tracking
+3. **Distance Formula**: Length between indices `i` and `j` is `j - i - 1` (excluding endpoints)
+4. **Edge Case Handling**: Return `-1` when no character appears twice
+5. **Optimization**: Only track rightmost index for characters that appear multiple times
 
+## References
+
+- [LC 1624: Largest Substring Between Two Equal Characters on LeetCode](https://www.leetcode.com/problems/largest-substring-between-two-equal-characters/)
+- [LeetCode Discuss — LC 1624: Largest Substring Between Two Equal Characters](https://www.leetcode.com/problems/largest-substring-between-two-equal-characters/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/largest-substring-between-two-equal-characters/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

@@ -6,11 +6,6 @@ categories: [leetcode, hard, array, backtracking, recursion]
 permalink: /2026/01/12/hard-51-n-queens/
 tags: [leetcode, hard, array, backtracking, recursion, constraint-satisfaction]
 ---
-
-# 51. N-Queens
-
-## Problem Statement
-
 The **n-queens** puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other.
 
 Given an integer `n`, return *all distinct solutions to the **n-queens puzzle***. You may return the answer in **any order**.
@@ -36,88 +31,39 @@ Output: [["Q"]]
 
 - `1 <= n <= 9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Row-by-Row Placement**: Eliminates row conflicts automatically
+- Diagonal: `row - col + n` (shifted to avoid negatives)
+- Anti-diagonal: `row + col`
 
-1. **Queen attack rules**: How do queens attack each other? (Assumption: Queens attack horizontally, vertically, and diagonally - no two queens can be in same row, column, or diagonal)
+- Build solution incrementally; undo (backtrack) when constraints fail.
+- Prune branches early to avoid exploring invalid partial states.
+- Sort input to skip duplicate combinations efficiently.
 
-2. **Output format**: What should we return - all solutions or just one? (Assumption: Return all distinct solutions - list of all possible board configurations)
 
-3. **Board representation**: How should we represent the board? (Assumption: List of strings, where each string represents a row, '.' for empty, 'Q' for queen)
 
-4. **Solution uniqueness**: Are solutions considered distinct if they're rotations/reflections? (Assumption: Yes - rotations and reflections are considered distinct solutions)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
 
-5. **Constraint satisfaction**: Do we need to find all solutions or can we stop after finding one? (Assumption: Find all solutions - exhaustive search required)
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
 
-## Interview Deduction Process (30 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to place n queens on n×n board. Let me try all possible placements."
+## Common Approaches
 
-**Naive Solution**: Generate all possible queen placements (n² choose n combinations), then check if each configuration satisfies constraints.
+Typical techniques for this pattern:
 
-**Complexity**: O(C(n², n) × n²) time, O(n²) space
-
-**Issues**:
-- Exponential number of combinations
-- Redundant constraint checking
-- Very inefficient for n > 4
-- Doesn't prune invalid partial solutions early
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can place queens row by row, checking constraints as I go. This prunes invalid branches early."
-
-**Improved Solution**: Use backtracking with row-by-row placement. For each row, try placing queen in each column, check constraints (column, diagonal, anti-diagonal), then recurse to next row.
-
-**Complexity**: O(n!) worst case, but much better in practice due to pruning
-
-**Improvements**:
-- Early pruning of invalid configurations
-- Row-by-row placement reduces search space
-- Constraint checking becomes O(1) with proper tracking
-- Much faster than brute-force
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "I can optimize constraint checking using boolean arrays instead of checking board each time."
-
-**Best Solution**: Use backtracking with boolean arrays to track:
-- Columns: which columns are occupied
-- Diagonals: track using `row - col` (constant for each diagonal)
-- Anti-diagonals: track using `row + col` (constant for each anti-diagonal)
-
-**Complexity**: O(n!) worst case, but heavily pruned in practice
-
-**Key Realizations**:
-1. Backtracking is the natural approach for constraint satisfaction
-2. Row-by-row placement guarantees no row conflicts
-3. Boolean arrays make constraint checking O(1)
-4. Diagonal tracking using arithmetic is elegant
-5. Early pruning makes it feasible for n ≤ 9
-
-## Solution Approach
-
-This is a classic **backtracking with constraint satisfaction** problem. The key insight is to place queens row by row, ensuring no two queens attack each other.
-
-### Key Insights:
-
-1. **Row-by-Row Placement**: Place one queen per row (guarantees no row conflicts)
-2. **Constraint Checking**: Need to check:
-   - **Column**: No other queen in same column
-   - **Diagonal** (top-left to bottom-right): `row - col` is constant
-   - **Anti-diagonal** (top-right to bottom-left): `row + col` is constant
-3. **Optimization**: Use boolean arrays to track constraints instead of checking board each time
-4. **Backtracking**: Try each column, place queen, recurse, then undo
-
-### Algorithm:
-
-1. **Initialize**: Create board, boolean arrays for columns, diagonals, anti-diagonals
-2. **DFS**: For each row, try each column:
-   - Check if position is valid (not in conflict)
-   - Place queen and mark constraints
-   - Recurse to next row
-   - Remove queen and unmark constraints (backtrack)
-3. **Base Case**: When `row == n`, add board configuration to result
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
+| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
+| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
+| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
 
 ## Solution
 
@@ -159,6 +105,24 @@ private:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Choose / explore / unchoose (this problem)
+
+**Key idea:** 1. **Row-by-Row Placement**: Eliminates row conflicts automatically
+
+**How the code works:**
+1. **Row-by-Row Placement**: Eliminates row conflicts automatically
+- Diagonal: `row - col + n` (shifted to avoid negatives)
+- Anti-diagonal: `row + col`
+- Build solution incrementally; undo (backtrack) when constraints fail.
+- Prune branches early to avoid exploring invalid partial states.
+- Sort input to skip duplicate combinations efficiently.
+
+**Walkthrough** — input `n = 4`, expected output `[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]`:
+
+There exist two distinct solutions to the 4-queens puzzle as shown above.
 
 ### **Algorithm Explanation:**
 
@@ -276,8 +240,26 @@ Final: When row=4, add board to result
   - `col`, `diag`, `anti`: O(n) each
   - Recursion stack: O(n) depth
   - Result: O(n! × n²) for storing all solutions
+## Common Mistakes
 
-## Key Insights
+1. **n = 1**: Return `[["Q"]]`
+2. **n = 2, 3**: No solutions (impossible to place n queens)
+3. **n = 4**: 2 solutions
+4. **n = 8**: 92 solutions (classic 8-queens problem)
+
+1. **Wrong diagonal indexing**: Not shifting `row - col` correctly
+2. **Missing backtrack**: Forgetting to unmark constraints after recursion
+3. **Array bounds**: Diagonal array size should be `2 * n` (not `n`)
+4. **Board initialization**: Not initializing board with `'.'` characters
+5. **Constraint checking order**: Should check all three constraints before placing
+
+## Related Problems
+
+- [LC 52: N-Queens II](https://www.leetcode.com/problems/n-queens-ii/) - Count number of solutions (same problem, just count)
+- [LC 37: Sudoku Solver](https://www.leetcode.com/problems/sudoku-solver/) - Similar constraint satisfaction
+- [LC 51: N-Queens](https://www.leetcode.com/problems/n-queens/) - This problem
+
+## Key Takeaways
 
 1. **Row-by-Row Placement**: Eliminates row conflicts automatically
 2. **Optimized Constraint Checking**: Boolean arrays provide O(1) checking vs O(n) scanning
@@ -286,78 +268,12 @@ Final: When row=4, add board to result
    - Anti-diagonal: `row + col`
 4. **Backtracking Pattern**: Place → Recurse → Undo
 
-## Edge Cases
+## References
 
-1. **n = 1**: Return `[["Q"]]`
-2. **n = 2, 3**: No solutions (impossible to place n queens)
-3. **n = 4**: 2 solutions
-4. **n = 8**: 92 solutions (classic 8-queens problem)
+- [LC 51: N-Queens on LeetCode](https://www.leetcode.com/problems/n-queens/)
+- [LeetCode Discuss — LC 51: N-Queens](https://www.leetcode.com/problems/n-queens/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/n-queens/editorial/) *(may require premium)*
 
-## Common Mistakes
+## Template Reference
 
-1. **Wrong diagonal indexing**: Not shifting `row - col` correctly
-2. **Missing backtrack**: Forgetting to unmark constraints after recursion
-3. **Array bounds**: Diagonal array size should be `2 * n` (not `n`)
-4. **Board initialization**: Not initializing board with `'.'` characters
-5. **Constraint checking order**: Should check all three constraints before placing
-
-## Alternative Approaches
-
-### **Approach 2: Check Board Each Time (Less Efficient)**
-
-```cpp
-class Solution {
-public:
-    vector<vector<string>> solveNQueens(int n) {
-        vector<string> board(n, string(n, '.'));
-        vector<vector<string>> result;
-        dfs(board, 0, n, result);
-        return result;
-    }
-    
-private:
-    void dfs(vector<string>& board, int row, int n, vector<vector<string>>& result) {
-        if(row == n) {
-            result.push_back(board);
-            return;
-        }
-        for(int col = 0; col < n; col++) {
-            if(isValid(board, row, col, n)) {
-                board[row][col] = 'Q';
-                dfs(board, row + 1, n, result);
-                board[row][col] = '.';
-            }
-        }
-    }
-    
-    bool isValid(vector<string>& board, int row, int col, int n) {
-        // Check column above
-        for(int i = 0; i < row; i++) {
-            if(board[i][col] == 'Q') return false;
-        }
-        // Check diagonal \
-        for(int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-            if(board[i][j] == 'Q') return false;
-        }
-        // Check diagonal /
-        for(int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
-            if(board[i][j] == 'Q') return false;
-        }
-        return true;
-    }
-};
-```
-
-**Time Complexity:** O(n! × n) (slower due to O(n) validation)  
-**Space Complexity:** O(n²)
-
-## Related Problems
-
-- [LC 52: N-Queens II](https://leetcode.com/problems/n-queens-ii/) - Count number of solutions (same problem, just count)
-- [LC 37: Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) - Similar constraint satisfaction
-- [LC 51: N-Queens](https://leetcode.com/problems/n-queens/) - This problem
-
----
-
-*This problem demonstrates backtracking with constraint satisfaction. The key optimization is using boolean arrays for O(1) constraint checking instead of scanning the board each time, which reduces time complexity significantly.*
-
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

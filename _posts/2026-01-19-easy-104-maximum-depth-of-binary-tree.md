@@ -6,323 +6,129 @@ categories: [leetcode, easy, tree, dfs]
 permalink: /2026/01/19/easy-104-maximum-depth-of-binary-tree/
 tags: [leetcode, easy, tree, dfs, bfs, recursion]
 ---
-
-# 104. Maximum Depth of Binary Tree
-
-## Problem Statement
-
-Given the `root` of a binary tree, return *its maximum depth*.
-
-A binary tree's **maximum depth** is the number of nodes along the longest path from the root node down to the farthest leaf node.
+Given the `root` of a binary tree, return its **maximum depth** — the number of nodes along the longest path from the root down to the farthest leaf.
 
 ## Examples
 
 **Example 1:**
+
 ```
 Input: root = [3,9,20,null,null,15,7]
 Output: 3
-Explanation: The maximum depth is 3, which is the path: 3 → 20 → 15 (or 3 → 20 → 7).
 ```
 
 **Example 2:**
+
 ```
 Input: root = [1,null,2]
 Output: 2
-Explanation: The maximum depth is 2, which is the path: 1 → 2.
 ```
 
 ## Constraints
 
-- The number of nodes in the tree is in the range `[0, 10^4]`.
+- The number of nodes is in `[0, 10^4]`
 - `-100 <= Node.val <= 100`
 
-## Clarification Questions
+## Common Approaches
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Typical techniques for this pattern:
 
-1. **Tree type**: Is this a binary tree, BST, or general tree? (Assumption: Binary tree - each node has at most 2 children)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
-2. **Depth definition**: How is depth defined - number of nodes or number of edges? (Assumption: Typically depth = number of nodes from root to deepest leaf, but should clarify)
+## Thinking Process
 
-3. **Empty tree**: What should we return for an empty tree (null root)? (Assumption: Return 0 - no nodes means depth 0)
+Depth counts **nodes**, not edges. The tree is empty when `root` is null → depth 0.
 
-4. **Single node**: What's the depth of a tree with only root? (Assumption: Return 1 - root node itself has depth 1)
+**Bottom-up DFS** is the cleanest formulation:
 
-5. **Tree modification**: Should we modify the tree or just traverse it? (Assumption: Just traverse - no modification needed)
+- Base case: null node → 0
+- Otherwise → `1 + max(left depth, right depth)`
 
-## Interview Deduction Process (10 minutes)
+Each subtree returns its own height; the parent adds one for the current node. BFS level counting also works but needs a queue.
 
-**Step 1: Brute-Force Approach (2 minutes)**
 
-Use BFS to traverse level by level, counting the number of levels. Alternatively, use DFS to explore all paths and track the maximum depth reached. This straightforward approach works but may require maintaining additional state or using extra space for level tracking.
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-Use iterative BFS with a queue, processing nodes level by level. Maintain a depth counter and increment it after processing each level. This requires O(n) time and O(w) space where w is the maximum width. Alternatively, use iterative DFS with a stack, maintaining depth for each node, but this is more complex.
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-**Step 3: Optimized Solution (5 minutes)**
+</svg>
 
-Use recursive DFS: for each node, recursively find the maximum depth of left and right subtrees, then return 1 + max(left_depth, right_depth). Base case: if node is null, return 0. This achieves O(n) time to visit all nodes and O(h) space for recursion stack where h is height, which is optimal. The recursive solution is elegant and naturally handles the tree structure without extra data structures beyond the call stack.
-
-## Solution Approach
-
-This problem requires finding the longest path from root to any leaf node. There are several approaches:
-
-1. **Recursive DFS with Depth Tracking**: Track current depth and return maximum
-2. **Recursive DFS (Post-order)**: Return depth from bottom up
-3. **Iterative BFS**: Level-order traversal counting levels
-4. **Iterative DFS**: Use stack to simulate recursion
-
-### Key Insights:
-
-1. **Depth Definition**: Number of nodes from root to leaf (not edges)
-2. **Recursive Structure**: Max depth = 1 + max(left_depth, right_depth)
-3. **Base Case**: Empty tree has depth 0
-4. **Leaf Node**: Node with no children contributes depth 1
-
-## Solution: Recursive DFS with Depth Tracking
-
-```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
-class Solution {
-public:
-    int maxDepth(TreeNode* root) {
-        return dfs(root, 0);
-    }
-    
-private:
-    int dfs(TreeNode* node, int maxDepth) {
-        if(!node) return maxDepth;
-        return max(dfs(node->left, maxDepth + 1), dfs(node->right, maxDepth + 1));
-    }
-};
-```
-
-### Algorithm Explanation:
-
-1. **Base Case**: If node is `nullptr`, return current `maxDepth` (no increment)
-
-2. **Recursive Case**: 
-   - For each non-null node, increment depth by 1
-   - Recursively explore left and right subtrees
-   - Return the maximum depth from both subtrees
-
-3. **Depth Tracking**: 
-   - `maxDepth` parameter tracks current depth from root
-   - Each recursive call increments depth by 1
-   - Leaf nodes return their depth (no children to explore)
-
-### Example Walkthrough:
-
-**Input:** `root = [3,9,20,null,null,15,7]`
-
-```
-Tree structure:
-      3
-     / \
-    9   20
-       /  \
-      15   7
-
-dfs(3, 0):
-  node = 3, maxDepth = 0
-  left = dfs(9, 1)
-    node = 9, maxDepth = 1
-    left = dfs(null, 2) → return 2
-    right = dfs(null, 2) → return 2
-    return max(2, 2) = 2
-  
-  right = dfs(20, 1)
-    node = 20, maxDepth = 1
-    left = dfs(15, 2)
-      node = 15, maxDepth = 2
-      left = dfs(null, 3) → return 3
-      right = dfs(null, 3) → return 3
-      return max(3, 3) = 3
-    
-    right = dfs(7, 2)
-      node = 7, maxDepth = 2
-      left = dfs(null, 3) → return 3
-      right = dfs(null, 3) → return 3
-      return max(3, 3) = 3
-    
-    return max(3, 3) = 3
-  
-  return max(2, 3) = 3 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - Visit each node exactly once
-  - n = number of nodes in tree
-
-- **Space Complexity:** O(h)
-  - Recursion call stack depth = height of tree
-  - Best case (balanced): O(log n)
-  - Worst case (skewed): O(n)
-
-## Alternative Approaches
-
-### Solution 2: Standard Recursive DFS (Post-order)
+## Solution — $O(n)$ time, $O(h)$ space
 
 ```cpp
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
         if (!root) return 0;
-        int leftDepth = maxDepth(root->left);
-        int rightDepth = maxDepth(root->right);
-        return max(leftDepth, rightDepth) + 1;
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
     }
 };
 ```
 
-**Key Difference**: 
-- Returns depth from bottom up (post-order)
-- Simpler: no depth parameter needed
-- Base case returns 0 for null, then adds 1 at each level
+### Solution Explanation
 
-**Complexity**: Same as Solution 1
+**Approach:** Recursive DFS (this problem)
 
-### Solution 3: Iterative BFS (Level-order Traversal)
+**Key idea:** Depth counts **nodes**, not edges. The tree is empty when `root` is null → depth 0.
 
-```cpp
-class Solution {
-public:
-    int maxDepth(TreeNode* root) {
-        if (!root) return 0;
-        
-        queue<TreeNode*> q;
-        q.push(root);
-        int depth = 0;
-        
-        while (!q.empty()) {
-            int levelSize = q.size();
-            depth++;
-            
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode* node = q.front();
-                q.pop();
-                
-                if (node->left) q.push(node->left);
-                if (node->right) q.push(node->right);
-            }
-        }
-        
-        return depth;
-    }
-};
-```
+**How the code works:**
+**Bottom-up DFS** is the cleanest formulation:
+- Base case: null node → 0
+- Otherwise → `1 + max(left depth, right depth)`
 
-**Algorithm**:
-1. Use queue for level-order traversal
-2. Process all nodes at current level
-3. Increment depth for each level
-4. Add children to queue for next level
+**Walkthrough** — input `root = [3,9,20,null,null,15,7]`, expected output `3`:
 
-**Complexity**:
-- Time: O(n) - visit each node once
-- Space: O(w) - where w is maximum width (worst case O(n))
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
-### Solution 4: Iterative DFS with Stack
-
-```cpp
-class Solution {
-public:
-    int maxDepth(TreeNode* root) {
-        if (!root) return 0;
-        
-        stack<pair<TreeNode*, int>> st;
-        st.push({root, 1});
-        int maxDepth = 0;
-        
-        while (!st.empty()) {
-            auto [node, depth] = st.top();
-            st.pop();
-            
-            maxDepth = max(maxDepth, depth);
-            
-            if (node->right) st.push({node->right, depth + 1});
-            if (node->left) st.push({node->left, depth + 1});
-        }
-        
-        return maxDepth;
-    }
-};
-```
-
-**Complexity**: Same as recursive DFS
-
-## Key Insights
-
-1. **Depth vs Height**: 
-   - Depth: distance from root (this problem)
-   - Height: distance from leaf (often same value)
-
-2. **Recursive Structure**: 
-   - Max depth = 1 + max(left_depth, right_depth)
-   - Base case: null node returns 0
-
-3. **Top-down vs Bottom-up**:
-   - Top-down: Pass depth parameter down (Solution 1)
-   - Bottom-up: Return depth from children (Solution 2)
-
-4. **Tree Traversal**:
-   - DFS: Natural for depth calculation
-   - BFS: Count levels for depth
-
-## Edge Cases
-
-1. **Empty tree**: `root = null` → return `0`
-2. **Single node**: `root = [1]` → return `1`
-3. **Skewed tree**: `[1,2,null,3,null,4]` → return `4`
-4. **Balanced tree**: `[3,9,20,null,null,15,7]` → return `3`
-5. **Left-only tree**: `[1,2,null,3]` → return `3`
-
+**Time:** $O(n) · **Space:** $O(h)
 ## Common Mistakes
 
-1. **Wrong base case**: Returning `-1` or `1` for null instead of `0`
-2. **Off-by-one error**: Counting edges instead of nodes
-3. **Not handling null**: Accessing children without null check
-4. **Wrong return**: Returning `maxDepth` instead of `max(left, right) + 1`
-5. **Stack overflow**: Deep recursion without iterative alternative
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **DFS with Depth Tracking** | O(n) | O(h) | Explicit depth tracking | Extra parameter |
-| **Standard Recursive DFS** | O(n) | O(h) | Simplest, most elegant | Recursion overhead |
-| **Iterative BFS** | O(n) | O(w) | No recursion, level-by-level | More code, queue space |
-| **Iterative DFS** | O(n) | O(h) | No recursion | More complex than recursive |
-
-## When to Use Each Approach
-
-- **Standard Recursive DFS**: Most common, simplest solution
-- **DFS with Depth Tracking**: When you need current depth during traversal
-- **Iterative BFS**: When recursion depth is a concern, or need level information
-- **Iterative DFS**: When avoiding recursion, similar to recursive logic
+- Returning `1` for null instead of `0` (off-by-one on empty tree)
+- Counting edges instead of nodes
+- Top-down depth tracking with a running max — works but more error-prone than bottom-up
 
 ## Related Problems
 
-- [LC 111: Minimum Depth of Binary Tree](https://leetcode.com/problems/minimum-depth-of-binary-tree/) - Find minimum depth
-- [LC 110: Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) - Check if tree is balanced
-- [LC 543: Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) - Longest path between any two nodes
-- [LC 559: Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree/) - Extension to N-ary tree
-- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) - BFS traversal
+- [111. Minimum Depth of Binary Tree](https://www.leetcode.com/problems/minimum-depth-of-binary-tree/)
+- [110. Balanced Binary Tree](https://www.leetcode.com/problems/balanced-binary-tree/)
+- [543. Diameter of Binary Tree](https://www.leetcode.com/problems/diameter-of-binary-tree/)
+- [102. Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/) — BFS alternative
 
----
+## Key Takeaways
 
-*This problem demonstrates fundamental **tree traversal** techniques. The recursive DFS approach elegantly captures the recursive nature of trees: the depth of a tree is one more than the maximum depth of its subtrees.*
+- **Post-order DFS** (`return 1 + max(left, right)`) is the standard tree depth/height template
+- Depth from root (this problem) vs height from leaves — same recurrence, different framing
+- First of many tree DFS problems — master this before LCA, diameter, and path sums
 
+## References
+
+- [LC 104: Maximum Depth of Binary Tree on LeetCode](https://www.leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [LeetCode Discuss — LC 104: Maximum Depth of Binary Tree](https://www.leetcode.com/problems/maximum-depth-of-binary-tree/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-depth-of-binary-tree/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

@@ -6,7 +6,6 @@ categories: [leetcode, medium, greedy, array]
 tags: [leetcode, medium, greedy, array]
 permalink: /2026/03/22/medium-134-gas-station/
 ---
-
 There are `n` gas stations along a circular route. Station `i` has `gas[i]` units of gas. It costs `cost[i]` units to travel from station `i` to station `i+1`. Starting with an empty tank, return the starting station index if you can complete the circuit, or `-1` if impossible. The answer is guaranteed to be **unique** if it exists.
 
 ## Examples
@@ -70,7 +69,31 @@ i=4: currGain = 6 ≥ 0   → keep going
 totalGain = 0 ≥ 0 → return rtn = 3 ✓
 ```
 
-## Solution: Greedy -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
+
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -91,11 +114,27 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- single pass
-**Space**: $O(1)$
+### Solution Explanation
 
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** ### Key Observations
+
+**How the code works:**
+**Observation 1**: If `totalGain = sum(gas[i] - cost[i]) < 0`, no starting point works -- there simply isn't enough fuel for the full circuit.
+**Observation 2**: If the total is non-negative, a solution exists. The question is *where* to start.
+- No station in `[start, i]` can be the answer (they'd all run out at or before `i`)
+- Reset the candidate to `i + 1` and reset `currGain = 0`
+
+**Walkthrough** — input `gas = [1,2,3,4,5], cost = [3,4,5,1,2]`, expected output `3`:
+
+Start at station 3 (gas=4).
+  3→4: tank = 4-1 = 3
+  4→0: tank = 3+5-2 = 6
+  0→1: tank = 6+1-3 = 4
+  1→2: tank = 4+2-4 = 2
+  2→3: tank = 2+3-5 = 0  ✓
 ## Why This Works
 
 The algorithm maintains two invariants:
@@ -119,9 +158,15 @@ Since the answer is unique (given by the problem), the last candidate standing a
 
 ## Related Problems
 
-- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) -- Kadane's algorithm (same reset-on-negative idea)
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) -- greedy scheduling
-- [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/) -- greedy with constraints
+- [53. Maximum Subarray](https://www.leetcode.com/problems/maximum-subarray/) -- Kadane's algorithm (same reset-on-negative idea)
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) -- greedy scheduling
+- [621. Task Scheduler](https://www.leetcode.com/problems/task-scheduler/) -- greedy with constraints
+
+## References
+
+- [LC 134: Gas Station on LeetCode](https://www.leetcode.com/problems/gas-station/)
+- [LeetCode Discuss — LC 134: Gas Station](https://www.leetcode.com/problems/gas-station/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/gas-station/editorial/) *(may require premium)*
 
 ## Template Reference
 

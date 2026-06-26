@@ -6,7 +6,6 @@ categories: [leetcode, medium, bfs]
 tags: [leetcode, medium, bfs, chess, shortest-path]
 permalink: /2026/03/19/medium-1197-minimum-knight-moves/
 ---
-
 In an infinite chess board with coordinates from `-infinity` to `+infinity`, a knight starts at `(0, 0)`. Return the **minimum number of moves** to reach `(x, y)`.
 
 A knight moves in an "L" shape: 2 squares in one direction and 1 square perpendicular (8 possible moves).
@@ -62,7 +61,34 @@ Allowing coordinates down to `-1` (not `-2` or beyond) is sufficient because aft
 4. Track visited states to avoid revisits
 5. Return steps when we reach `(x, y)`
 
-## Solution: BFS -- $O(|x| \cdot |y|)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -97,19 +123,23 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(|x| \cdot |y|)$ -- BFS explores a bounded region around the target
-**Space**: $O(|x| \cdot |y|)$ -- visited map
+### Solution Explanation
 
-## Key Details
+**Approach:** Queue BFS (this problem)
 
-**Why `map<pair<int,int>, int>` instead of a 2D array?**
-The board is infinite, so we can't pre-allocate a fixed grid. A map handles arbitrary coordinates. For better performance, an `unordered_map` with a custom hash or an offset-based 2D array (since coordinates are bounded by ~300) would work.
+**Key idea:** ### Why BFS?
 
-**Why not check goal when generating instead of when dequeuing?**
-Either works. Checking at dequeue is simpler since `steps` is already stored in the visited map. Checking at generation would short-circuit one BFS level earlier.
+**How the code works:**
+1. Fold target to first quadrant: `x = abs(x)`, `y = abs(y)`
+2. BFS from `(0,0)` with all 8 knight moves
+3. Prune: only enqueue positions with `nx >= -1` and `ny >= -1`
+4. Track visited states to avoid revisits
+5. Return steps when we reach `(x, y)`
 
+**Walkthrough** — input `x = 2, y = 1`, expected output `1`:
+
+(0,0) → (2,1)
 ## Common Mistakes
 
 - Not using `abs(x)`, `abs(y)` to exploit symmetry -- BFS explores 4x the area unnecessarily
@@ -124,10 +154,16 @@ Either works. Checking at dequeue is simpler since `steps` is already stored in 
 
 ## Related Problems
 
-- [433. Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) -- BFS shortest path with transformations
-- [1091. Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/) -- BFS on grid
-- [752. Open the Lock](https://leetcode.com/problems/open-the-lock/) -- BFS with state transitions
-- [286. Walls and Gates](https://leetcode.com/problems/walls-and-gates/) -- multi-source BFS
+- [433. Minimum Genetic Mutation](https://www.leetcode.com/problems/minimum-genetic-mutation/) -- BFS shortest path with transformations
+- [1091. Shortest Path in Binary Matrix](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/) -- BFS on grid
+- [752. Open the Lock](https://www.leetcode.com/problems/open-the-lock/) -- BFS with state transitions
+- [286. Walls and Gates](https://www.leetcode.com/problems/walls-and-gates/) -- multi-source BFS
+
+## References
+
+- [LC 1197: Minimum Knight Moves on LeetCode](https://www.leetcode.com/problems/minimum-knight-moves/)
+- [LeetCode Discuss — LC 1197: Minimum Knight Moves](https://www.leetcode.com/problems/minimum-knight-moves/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-knight-moves/editorial/) *(may require premium)*
 
 ## Template Reference
 

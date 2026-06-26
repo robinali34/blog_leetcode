@@ -4,19 +4,13 @@ title: "[Medium] 77. Combinations"
 date: 2025-09-29 00:00:00 -0000
 categories: leetcode algorithm backtracking data-structures recursion medium cpp combinations dfs problem-solving
 ---
-
-# [Medium] 77. Combinations
-
 This is a classic backtracking problem that requires generating all possible combinations of k numbers chosen from the range [1, n]. The key insight is using DFS with backtracking to explore all possible paths while avoiding duplicates.
-
-## Problem Description
 
 Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
 
 You may return the answer in any order.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: n = 4, k = 2
@@ -35,66 +29,11 @@ Input: n = 3, k = 3
 Output: [[1,2,3]]
 ```
 
-### Constraints
+## Constraints
 - 1 <= n <= 20
 - 1 <= k <= n
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Combination definition**: What is a combination? (Assumption: Selection of k elements from n elements, order doesn't matter - {1,2} same as {2,1})
-
-2. **Element range**: What are the available elements? (Assumption: Numbers from 1 to n inclusive - [1, 2, ..., n])
-
-3. **Output format**: Should we return all combinations or just count? (Assumption: Return all distinct combinations - list of lists)
-
-4. **Order requirement**: Does the order of combinations matter? (Assumption: No - can return in any order, but typically lexicographic)
-
-5. **Empty combination**: Should we include empty combination? (Assumption: No - k >= 1 per constraints, so no empty combinations)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to generate combinations. Let me try all possible selections."
-
-**Naive Solution**: Generate all possible k-element selections from [1..n], filter duplicates.
-
-**Complexity**: O(C(n,k) × k) time, O(C(n,k) × k) space
-
-**Issues**:
-- Generates duplicates that need filtering
-- Doesn't leverage ordering constraint
-- Inefficient duplicate handling
-- More complex than needed
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use backtracking with ordering constraint to avoid duplicates naturally."
-
-**Improved Solution**: Use backtracking (DFS). For each position, try numbers from current number+1 to n. This ensures ascending order and avoids duplicates.
-
-**Complexity**: O(C(n,k) × k) time, O(k) space
-
-**Improvements**:
-- Avoids duplicates naturally through ordering
-- Backtracking is natural for combinations
-- O(k) space for recursion stack
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Backtracking with ordering constraint is optimal. Can optimize with early termination."
-
-**Best Solution**: Backtracking with ordering constraint is optimal. Start from current+1 in each recursive call to ensure ascending order. Early termination when not enough numbers remain.
-
-**Complexity**: O(C(n,k) × k) time, O(k) space
-
-**Key Realizations**:
-1. Backtracking is natural approach for combinations
-2. Ordering constraint prevents duplicates
-3. O(C(n,k) × k) time is optimal - must generate all combinations
-4. O(k) space is optimal for recursion stack
-
-## Approach
+## Thinking Process
 
 The solution uses backtracking (DFS) with the following strategy:
 
@@ -104,8 +43,41 @@ The solution uses backtracking (DFS) with the following strategy:
 4. **Backtrack**: Remove the last element before trying the next number
 5. **Avoid Duplicates**: Start from `i + 1` in the next recursive call to ensure ascending order
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
+
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
+## Solution
 **Time Complexity:** O(C(n,k) × k) - We generate C(n,k) combinations, each taking O(k) time  
 **Space Complexity:** O(k) - For the recursion stack and current path
 
@@ -137,6 +109,24 @@ private:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** The solution uses backtracking (DFS) with the following strategy:
+
+**How the code works:**
+1. **Base Case**: When the current path has k elements, add it to the result
+2. **Early Termination**: If not enough numbers remain to form a valid combination, return early
+3. **Recursive Case**: For each number from `first_num` to n, add it to the path and recurse
+4. **Backtrack**: Remove the last element before trying the next number
+5. **Avoid Duplicates**: Start from `i + 1` in the next recursive call to ensure ascending order
+
+**Walkthrough** — input `n = 4, k = 2`, expected output `[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Step-by-Step Example
 
 Let's trace through the solution with n = 4, k = 2:
@@ -171,14 +161,6 @@ Let's trace through the solution with n = 4, k = 2:
 
 **Result:** `[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]`
 
-## Key Insights
-
-1. **Backtracking Pattern**: Add → Recurse → Remove
-2. **Avoiding Duplicates**: Use `first_num` parameter to ensure ascending order
-3. **Early Termination**: Prune branches where `path.size() + (n - first_num + 1) < k`
-4. **Pruning**: Stop when `i > n` or when remaining numbers can't form a valid combination
-5. **Base Case**: When path size equals k, we have a valid combination
-
 ## Backtracking Template
 
 This problem follows the classic backtracking template:
@@ -200,57 +182,6 @@ void backtrack(parameters) {
         // Undo choice (backtrack)
         undo_choice(choice);
     }
-}
-```
-
-## Alternative Approaches
-
-### Iterative Solution
-```cpp
-vector<vector<int>> combine(int n, int k) {
-    vector<vector<int>> result;
-    vector<int> combination(k);
-    
-    for (int i = 0; i < k; i++) {
-        combination[i] = i + 1;
-    }
-    
-    while (true) {
-        result.push_back(combination);
-        
-        int i = k - 1;
-        while (i >= 0 && combination[i] == n - k + i + 1) {
-            i--;
-        }
-        
-        if (i < 0) break;
-        
-        combination[i]++;
-        for (int j = i + 1; j < k; j++) {
-            combination[j] = combination[j - 1] + 1;
-        }
-    }
-    
-    return result;
-}
-```
-
-### Mathematical Approach (Using Next Permutation)
-```cpp
-vector<vector<int>> combine(int n, int k) {
-    vector<vector<int>> result;
-    vector<int> combination(k);
-    
-    // Initialize with first k numbers
-    for (int i = 0; i < k; i++) {
-        combination[i] = i + 1;
-    }
-    
-    do {
-        result.push_back(combination);
-    } while (next_combination(combination, n, k));
-    
-    return result;
 }
 ```
 
@@ -311,3 +242,17 @@ dfs(4,2,[],1)
 ```
 
 ---
+
+## References
+
+- [LC 77: Combinations on LeetCode](https://www.leetcode.com/problems/combinations/)
+- [LeetCode Discuss — LC 77: Combinations](https://www.leetcode.com/problems/combinations/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/combinations/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Backtracking Pattern**: Add → Recurse → Remove
+2. **Avoiding Duplicates**: Use `first_num` parameter to ensure ascending order
+3. **Early Termination**: Prune branches where `path.size() + (n - first_num + 1) < k`
+4. **Pruning**: Stop when `i > n` or when remaining numbers can't form a valid combination
+5. **Base Case**: When path size equals k, we have a valid combination

@@ -5,11 +5,6 @@ date: 2025-12-31 20:30:00 -0700
 categories: [leetcode, hard, dynamic-programming, graph, optimization]
 permalink: /2025/12/31/hard-568-maximum-vacation-days/
 ---
-
-# 568. Maximum Vacation Days
-
-## Problem Statement
-
 LeetCode wants to give one of its best employees the option to travel among `n` cities to collect algorithm problems. But all work and no play makes Jack a dull boy, you could take vacations in some particular cities and weeks. Your job is to schedule the traveling to maximize the number of vacation days you could take, but there are certain rules and restrictions you need to follow.
 
 **Rules and restrictions:**
@@ -54,51 +49,42 @@ For each week, you only have one day off, so the maximum number of vacation days
 - `flights[i][j]` is `0` or `1`.
 - `0 <= days[i][j] <= 7`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+LeetCode wants to give one of its best employees the option to travel among `n` cities to collect algorithm problems. But all work and no play makes Jack a dull boy, you could take vacations in some particular cities and weeks. Your job is to schedule the traveling to maximize the number of vacation days you could take, but there are certain rules and restrictions you need to follow.
 
-1. **Flight matrix**: How are flights represented? (Assumption: flights[i][j] = 1 means can fly from city i to city j, 0 means cannot)
+**Rules and restrictions:**
 
-2. **Vacation days**: What are vacation days? (Assumption: days[i][j] = vacation days available in city i on week j)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum total vacation days over k weeks starting from city 0)
 
-4. **Return value**: What should we return? (Assumption: Integer - maximum vacation days possible)
 
-5. **Travel rules**: When can we travel? (Assumption: Can fly between cities at start of each week, then stay for the week)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-## Interview Deduction Process (30 minutes)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-**Step 1: Brute-Force Approach (8 minutes)**
+</svg>
 
-Use DFS to explore all possible paths: for each week, try staying in the current city or flying to any reachable city. Recursively explore all possibilities and track the maximum vacation days. This approach has exponential time complexity O(n^k) where n is the number of cities and k is the number of weeks, which is too slow for the constraints.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (10 minutes)**
+Typical techniques for this pattern:
 
-Use DFS with memoization: memoize results for (city, week) pairs. For each state, compute the maximum vacation days achievable from that city starting at that week. However, we need to consider that we can stay in a city or fly to reachable cities. The state space is O(n × k), and each state requires checking O(n) cities, giving O(n² × k) time complexity.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use dynamic programming with bottom-up approach: `dp[city][week]` represents the maximum vacation days achievable ending at `city` for `week`. Process weeks from end to beginning (or beginning to end). For each city and week, consider staying in the city or flying from other cities (if flight exists). This achieves O(n² × k) time complexity, which is optimal for this problem structure. Alternatively, we can optimize space by using 1D DP arrays since we only need previous week's results. The key insight is that this is a classic DP problem with state (city, week) and transitions based on flight availability and vacation days.
-
-## Solution Approach
-
-This problem requires maximizing vacation days over `k` weeks by choosing which city to be in each week, subject to flight constraints. We can solve this using **dynamic programming** with a bottom-up approach.
-
-### Key Insights:
-
-1. **DP State**: `dp[city]` = maximum vacation days achievable ending at `city` for current week
-2. **Bottom-Up**: Process weeks from end to beginning (or beginning to end)
-3. **State Transition**: For each city, consider staying or flying from other cities
-4. **Optimization**: Choose maximum vacation days among all options
-
-### Algorithm:
-
-1. **Initialize**: Start with last week, compute maximum for each city
-2. **Backward DP**: For each week, compute optimal choice for each city
-3. **State Update**: Consider staying in same city or flying from other cities
-4. **Result**: Return maximum vacation days starting from city 0
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -127,6 +113,26 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** LeetCode wants to give one of its best employees the option to travel among `n` cities to collect algorithm problems. But all work and no play makes Jack a dull boy, you could take vacations in some particular cities and weeks. Your job is to schedule the traveling to maximize the number of vacation days you could take, but there are certain rules and restrictions you need to follow.
+
+**How the code works:**
+**Rules and restrictions:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `flights = [[0,1,1],[1,0,1],[1,1,0]], days = [[1,3,1],[6,0,3],[3,3,3]]`, expected output `12`:
+
+One of the best strategies is:
+1st week: fly from city 0 to city 1 on Monday, and play 6 days and work 1 day.
+2nd week: fly from city 1 to city 2 on Monday, and play 3 days and work 4 days.
+3rd week: stay at city 2, and play 3 days and work 4 days.
+Ans = 6 + 3 + 3 = 12.
 
 ### **Algorithm Explanation:**
 
@@ -217,7 +223,6 @@ Week 1: City 1 → City 2 (fly), days = 3
 Week 2: City 2 (stay), days = 3
 Total: 6 + 3 + 3 = 12
 ```
-
 ## Algorithm Breakdown
 
 ### **Key Insight: Bottom-Up DP**
@@ -243,8 +248,7 @@ Processing backwards ensures:
 - `dp[city]` represents future optimal value
 - Current week's decision uses future optimal values
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(M × N²)
 - **Outer loop**: O(M) - iterate through each week
 - **City loop**: O(N) - for each city
@@ -263,25 +267,6 @@ Processing backwards ensures:
 3. **Two Options**: Stay in same city or fly to another city
 4. **Optimal Substructure**: Optimal solution uses optimal subproblems
 5. **Starting City**: Result is `dp[0]` since we start in city 0
-
-## Alternative Approaches
-
-### **Approach 1: Bottom-Up DP (Current Solution)**
-- **Time**: O(M × N²)
-- **Space**: O(N)
-- **Best for**: Space-efficient solution
-
-### **Approach 2: Top-Down DP with Memoization**
-- **Time**: O(M × N²)
-- **Space**: O(M × N) for memoization
-- **Recursive**: Start from week 0, recurse to end
-- **More intuitive**: But uses more space
-
-### **Approach 3: 2D DP Table**
-- **Time**: O(M × N²)
-- **Space**: O(M × N)
-- **Store all states**: `dp[week][city]` for all weeks
-- **Easier to understand**: But uses more space
 
 ## Detailed Example Walkthrough
 
@@ -323,14 +308,36 @@ The solution uses **space optimization**:
 - Uses `dp[city]` and `temp[city]` (O(N) space)
 - Processes one week at a time, reusing space
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [568. Maximum Vacation Days](https://leetcode.com/problems/maximum-vacation-days/) - Current problem
-- [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) - Similar DP with flights
-- [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) - DP on grid
-- [120. Triangle](https://leetcode.com/problems/triangle/) - DP optimization
+- [568. Maximum Vacation Days](https://www.leetcode.com/problems/maximum-vacation-days/) - Current problem
+- [787. Cheapest Flights Within K Stops](https://www.leetcode.com/problems/cheapest-flights-within-k-stops/) - Similar DP with flights
+- [64. Minimum Path Sum](https://www.leetcode.com/problems/minimum-path-sum/) - DP on grid
+- [120. Triangle](https://www.leetcode.com/problems/triangle/) - DP optimization
 
 ## Tags
 
 `Dynamic Programming`, `Graph`, `Optimization`, `Hard`
 
+## Key Takeaways
+
+- Rules and restrictions:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+
+## References
+
+- [LC 568: Maximum Vacation Days on LeetCode](https://www.leetcode.com/problems/maximum-vacation-days/)
+- [LeetCode Discuss — LC 568: Maximum Vacation Days](https://www.leetcode.com/problems/maximum-vacation-days/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-vacation-days/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

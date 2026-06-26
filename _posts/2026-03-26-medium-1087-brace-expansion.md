@@ -6,7 +6,6 @@ categories: [leetcode, medium, backtracking, string]
 tags: [leetcode, medium, backtracking, string, parsing]
 permalink: /2026/03/26/medium-1087-brace-expansion/
 ---
-
 Given a string `s` representing a list of words, where each letter can be replaced by a group of letters inside braces `{a,b,c}`, return all possible words in **sorted** order.
 
 For example, `"{a,b}c{d,e}f"` means the first letter can be `a` or `b`, the second is `c`, the third can be `d` or `e`, and the fourth is `f`.
@@ -63,7 +62,31 @@ DFS tree:
 Output: ["acdf", "acef", "bcdf", "bcef"]
 ```
 
-## Solution: Parse + Backtracking -- $O(k^n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
+
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
+| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
+| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
+| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -110,19 +133,24 @@ private:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(k^m \cdot m)$ where $m$ = number of groups, $k$ = max options per group, and $m$ for string copy
-**Space**: $O(m)$ recursion depth + $O(k^m \cdot m)$ output
+### Solution Explanation
 
-## Key Details
+**Approach:** Choose / explore / unchoose (this problem)
 
-**Parsing**: Skip commas by only collecting `isalpha(s[i])` characters inside braces. Characters outside braces become single-element groups.
+**Key idea:** ### Two-Phase Approach
 
-**Sorted output without post-sort**: Sorting each group during parsing ensures DFS explores characters in order. Since groups are processed left-to-right, the lexicographic order is maintained throughout.
+**How the code works:**
+**Phase 1: Parse** the string into a list of "groups." Each group is either:
+- A single character (literal like `c`)
+- A sorted list of characters (options like `{a,b}`)
+**Phase 2: Backtrack** through the groups, picking one character from each, to generate all combinations.
 
-**Backtracking pattern**: Push → recurse → pop. Identical to subset/permutation generation, except here we pick exactly one from each group.
+**Walkthrough** — input `s = "{a,b}c{d,e}f"`, expected output `["acdf","acef","bcdf","bcef"]`:
 
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Common Mistakes
 
 - Forgetting to skip commas during parsing (adding `,` as a character option)
@@ -137,10 +165,16 @@ private:
 
 ## Related Problems
 
-- [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) -- same pattern: groups of choices → backtrack
-- [78. Subsets](https://leetcode.com/problems/subsets/) -- backtracking enumeration
-- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) -- constrained backtracking
-- [394. Decode String](https://leetcode.com/problems/decode-string/) -- string parsing with brackets
+- [17. Letter Combinations of a Phone Number](https://www.leetcode.com/problems/letter-combinations-of-a-phone-number/) -- same pattern: groups of choices → backtrack
+- [78. Subsets](https://www.leetcode.com/problems/subsets/) -- backtracking enumeration
+- [22. Generate Parentheses](https://www.leetcode.com/problems/generate-parentheses/) -- constrained backtracking
+- [394. Decode String](https://www.leetcode.com/problems/decode-string/) -- string parsing with brackets
+
+## References
+
+- [LC 1087: Brace Expansion on LeetCode](https://www.leetcode.com/problems/brace-expansion/)
+- [LeetCode Discuss — LC 1087: Brace Expansion](https://www.leetcode.com/problems/brace-expansion/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/brace-expansion/editorial/) *(may require premium)*
 
 ## Template Reference
 

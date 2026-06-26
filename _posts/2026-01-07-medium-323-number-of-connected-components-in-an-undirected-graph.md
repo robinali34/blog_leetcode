@@ -6,11 +6,6 @@ categories: [leetcode, medium, graph, bfs, dfs, union-find]
 permalink: /2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/
 tags: [leetcode, medium, graph, bfs, connected-components, undirected-graph]
 ---
-
-# 323. Number of Connected Components in an Undirected Graph
-
-## Problem Statement
-
 You have a graph of `n` nodes labeled from `0` to `n - 1`. You are given an integer `n` and an array `edges` where `edges[i] = [ai, bi]` indicates that there is an undirected edge between nodes `ai` and `bi` in the graph.
 
 Return *the number of connected components in the graph*.
@@ -43,35 +38,18 @@ Explanation:
 - `ai != bi`
 - There are no repeated edges.
 
-## Clarification Questions
+## Common Approaches
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Typical techniques for this pattern:
 
-1. **Graph type**: Is the graph directed or undirected? (Assumption: Undirected - edges have no direction, represented as bidirectional)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
 
-2. **Connected component definition**: What defines a connected component? (Assumption: A set of nodes where every pair of nodes is connected by a path)
-
-3. **Isolated nodes**: Are isolated nodes (no edges) considered components? (Assumption: Yes - each isolated node is its own component)
-
-4. **Node range**: What is the range of node labels? (Assumption: Nodes are labeled 0 to n-1, where n is number of nodes)
-
-5. **Return value**: What should we return - count or list of components? (Assumption: Return count - integer representing number of connected components)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Use DFS or BFS to traverse the graph. Start from an unvisited node, mark all reachable nodes as visited. Count how many times we need to start a new traversal (one for each connected component). This approach has O(V + E) time, which is actually optimal, but we can optimize the implementation.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use Union-Find (Disjoint Set Union): initialize each node as its own component. For each edge, union the two nodes if they're in different components. The number of components equals the number of distinct roots. This achieves O(V + E × α(V)) time where α is the inverse Ackermann function, which is nearly constant.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use Union-Find with path compression and union by rank: maintain a DSU data structure. Initialize with V components (one per node). For each edge, if the two nodes are in different components, union them and decrement component count. After processing all edges, return the component count. This achieves O(V + E × α(V)) ≈ O(V + E) amortized time, which is optimal. The key insight is that Union-Find efficiently tracks connected components as edges are added, and we can maintain the count incrementally.
-
-## Solution Approach
+## Thinking Process
 
 This problem requires counting the number of **connected components** in an undirected graph. A connected component is a maximal set of nodes where every pair of nodes is connected by a path.
 
@@ -91,6 +69,22 @@ This problem requires counting the number of **connected components** in an undi
    - Mark all reachable nodes as visited
    - Increment component count
 4. **Return**: Total number of components
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
 
 ## Solutions
 
@@ -133,6 +127,25 @@ private:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** This problem requires counting the number of **connected components** in an undirected graph. A connected component is a maximal set of nodes where every pair of nodes is connected by a path.
+
+**How the code works:**
+1. **Connected Components**: Groups of nodes that are reachable from each other
+2. **Graph Traversal**: Use BFS or DFS to explore all nodes in a component
+3. **Visited Tracking**: Mark visited nodes to avoid revisiting and to identify new components
+4. **Component Counting**: Each unvisited node starts a new component
+1. **Build adjacency list**: Create graph representation from edges
+2. **Initialize visited array**: Track which nodes have been explored
+
+**Walkthrough** — input `n = 5, edges = [[0,1],[1,2],[3,4]]`, expected output `2`:
+
+0 - 1 - 2  (component 1)
+3 - 4      (component 2)
 
 ### **Algorithm Explanation:**
 
@@ -352,22 +365,33 @@ private:
 | BFS | O(n + m) | O(n + m) | Level-by-level exploration, intuitive |
 | DFS | O(n + m) | O(n + m) | Recursive, simpler code |
 | Union-Find | O(n + m) | O(n) | Most space efficient, no graph building |
+## Related Problems
 
-## Key Insights
+- [LC 547: Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) - Same problem with adjacency matrix
+- [LC 200: Number of Islands](https://www.leetcode.com/problems/number-of-islands/) - Connected components in grid
+- [LC 684: Redundant Connection](https://www.leetcode.com/problems/redundant-connection/) - Find edge that creates cycle
+- [LC 1319: Number of Operations to Make Network Connected](https://www.leetcode.com/problems/number-of-operations-to-make-network-connected/) - Connect components
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Connected Components**: Groups of nodes reachable from each other
 2. **Graph Traversal**: BFS/DFS explores all nodes in a component
 3. **Visited Tracking**: Essential to avoid revisiting and count components correctly
 4. **Unvisited = New Component**: Each unvisited node starts a new component
 
-## Related Problems
+## References
 
-- [LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Same problem with adjacency matrix
-- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) - Connected components in grid
-- [LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/) - Find edge that creates cycle
-- [LC 1319: Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/) - Connect components
+- [LC 323: Number of Connected Components in an Undirected Graph on LeetCode](https://www.leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
+- [LeetCode Discuss — LC 323: Number of Connected Components in an Undirected Graph](https://www.leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/editorial/) *(may require premium)*
 
----
+## Template Reference
 
-*This problem demonstrates the fundamental pattern for counting connected components using graph traversal algorithms.*
-
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

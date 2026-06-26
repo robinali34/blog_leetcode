@@ -6,11 +6,6 @@ categories: [leetcode, hard, array, union-find, graph]
 permalink: /2026/01/16/hard-305-number-of-islands-ii/
 tags: [leetcode, hard, array, union-find, disjoint-set, incremental, dynamic]
 ---
-
-# 305. Number of Islands II
-
-## Problem Statement
-
 You are given an empty 2D binary grid `grid` of size `m x n`. The grid represents a map where `0`'s represent **water** and `1`'s represent **land**. Initially, all the cells of `grid` are water cells (i.e., all the cells are `0`'s).
 
 We may perform an **add land** operation which turns the water at position into a land. You are given an array `positions` where `positions[i] = [ri, ci]` is the position `(ri, ci)` at which we should operate the `i`th operation.
@@ -47,56 +42,37 @@ Output: [1]
 - `0 <= ri < m`
 - `0 <= ci < n`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Union-Find for Incremental Problems**: Perfect for dynamic connectivity
 
-1. **Island definition**: What is an island? (Assumption: Group of connected land cells (1s) - horizontally or vertically adjacent)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Dynamic operations**: What operations are performed? (Assumption: Add land at positions[i] = [ri, ci] - turn water (0) to land (1))
 
-3. **Return format**: What should we return? (Assumption: Array of integers - island count after each addLand operation)
 
-4. **Connection rules**: How are cells connected? (Assumption: Horizontal or vertical adjacency - not diagonal)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
-5. **Initial state**: What is the initial state? (Assumption: Grid filled with water (0) - no islands initially)
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
 
-## Interview Deduction Process (30 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (8 minutes)**
+## Common Approaches
 
-After each `addLand` operation, run BFS/DFS from all land cells to count connected components (islands). This approach has O(m × n × k) time complexity where k is the number of operations, which is too slow for large grids and many operations.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use Union-Find (Disjoint Set Union) with incremental updates: when adding a land cell, check its four neighbors. If a neighbor is land, union the current cell with that neighbor's component. Track the number of components and update it as unions occur. This reduces time to O(k × α(m×n)) per operation where α is the inverse Ackermann function, which is nearly constant.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use Union-Find with path compression and union by rank: maintain a DSU data structure. When adding land at position (r, c), increment island count. Check four neighbors: if a neighbor is land and belongs to a different component, union them and decrement island count. Use path compression and union by rank for optimal performance. This achieves O(k × α(m×n)) ≈ O(k) amortized time, which is optimal. The key insight is that Union-Find efficiently handles dynamic connectivity queries, and we can maintain the island count incrementally as we add land cells.
-
-## Solution Approach
-
-This is an **incremental/dynamic** problem where we add land cells one by one and need to track the number of islands after each addition. Unlike [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/), we can't rebuild the entire grid each time (too slow).
-
-### Key Insights:
-
-1. **Union-Find (DSU)**: Perfect for incremental connectivity problems
-2. **Dynamic Island Counting**: Track count as we add lands and merge islands
-3. **Coordinate Mapping**: Map 2D coordinates `(r, c)` to 1D index: `id = r * n + c`
-4. **Neighbor Checking**: When adding land, check 4 neighbors and union if they're also land
-5. **Duplicate Handling**: Skip if position is already land
-
-### Algorithm:
-
-1. **Initialize Union-Find**: Create DSU for `m * n` cells (all initially water)
-2. **For Each Position**:
-   - Convert `(r, c)` to 1D index
-   - If already land, skip (duplicate)
-   - Add land: mark cell as land in DSU
-   - Check 4 neighbors: if neighbor is land, union current cell with neighbor
-   - Record current island count
-3. **Return Results**: Array of island counts after each operation
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
 
 ## Solution
 
@@ -178,6 +154,26 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Prefix sum (this problem)
+
+**Key idea:** 1. **Union-Find for Incremental Problems**: Perfect for dynamic connectivity
+
+**How the code works:**
+1. **Union-Find for Incremental Problems**: Perfect for dynamic connectivity
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `m = 3, n = 3, positions = [[0,0],[0,1],[1,2],[2,1]]`, expected output `[1,1,2,3]`:
+
+Initially, the 2d grid is filled with water.
+- Operation #1: addLand(0, 0) turns the water at grid[0][0] into a land. We have 1 island.
+- Operation #2: addLand(0, 1) turns the water at grid[0][1] into a land. We have 1 island.
+- Operation #3: addLand(1, 2) turns the water at grid[1][2] into a land. We have 2 islands.
+- Operation #4: addLand(2, 1) turns the water at grid[2][1] into a land. We have 3 islands.
 
 ### **Algorithm Explanation:**
 
@@ -277,8 +273,29 @@ Step 4: Add (2, 1)
   - `rank` array: O(mn)
   - Result array: O(k)
   - Overall: O(mn)
+## Common Mistakes
 
-## Key Insights
+1. **Empty positions**: `positions = []` → return `[]`
+2. **Single cell**: `m = 1, n = 1` → return `[1]`
+3. **Duplicate positions**: Same position added twice → count unchanged
+4. **All positions form one island**: All adjacent → final count = 1
+5. **No adjacent positions**: All isolated → count = number of positions
+
+1. **Not handling duplicates**: Adding same position twice should not change count
+2. **Wrong coordinate mapping**: Using `r * m + c` instead of `r * n + c`
+3. **Not checking bounds**: Forgetting to validate neighbor coordinates
+4. **Incorrect union logic**: Not decrementing count when merging islands
+5. **Initializing parent incorrectly**: Should use `-1` for water, not `0`
+
+## Related Problems
+
+- [LC 200: Number of Islands](https://www.leetcode.com/problems/number-of-islands/) - Static island counting with DFS/BFS
+- [LC 323: Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - Union-Find for connectivity
+- [LC 547: Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) - Union-Find for connected components
+- [LC 721: Accounts Merge](https://robinali34.github.io/blog_leetcode/2026/01/11/medium-721-accounts-merge/) - Union-Find for grouping
+- [LC 990: Satisfiability of Equality Equations](https://www.leetcode.com/problems/satisfiability-of-equality-equations/) - Union-Find for equality constraints
+
+## Key Takeaways
 
 1. **Union-Find for Incremental Problems**: Perfect for dynamic connectivity
 2. **Coordinate Mapping**: 2D to 1D: `id = r * n + c`
@@ -287,91 +304,12 @@ Step 4: Add (2, 1)
 5. **Union by Rank**: Keeps tree balanced for efficiency
 6. **Duplicate Handling**: Skip already-land positions
 
-## Edge Cases
+## References
 
-1. **Empty positions**: `positions = []` → return `[]`
-2. **Single cell**: `m = 1, n = 1` → return `[1]`
-3. **Duplicate positions**: Same position added twice → count unchanged
-4. **All positions form one island**: All adjacent → final count = 1
-5. **No adjacent positions**: All isolated → count = number of positions
+- [LC 305: Number of Islands II on LeetCode](https://www.leetcode.com/problems/number-of-islands-ii/)
+- [LeetCode Discuss — LC 305: Number of Islands II](https://www.leetcode.com/problems/number-of-islands-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-islands-ii/editorial/) *(may require premium)*
 
-## Common Mistakes
+## Template Reference
 
-1. **Not handling duplicates**: Adding same position twice should not change count
-2. **Wrong coordinate mapping**: Using `r * m + c` instead of `r * n + c`
-3. **Not checking bounds**: Forgetting to validate neighbor coordinates
-4. **Incorrect union logic**: Not decrementing count when merging islands
-5. **Initializing parent incorrectly**: Should use `-1` for water, not `0`
-
-## Alternative Approaches
-
-### **Approach 2: Brute-Force DFS/BFS (Not Recommended)**
-
-Rebuild island count from scratch after each addition. This approach is too slow for large inputs.
-
-```cpp
-class Solution {
-public:
-    vector<int> numIslands2(int m, int n, vector<vector<int>>& positions) {
-        vector<vector<int>> grid(m, vector<int>(n, 0));
-        vector<int> result;
-        for (auto& pos : positions) {
-            int r = pos[0], c = pos[1];
-            if (grid[r][c] == 1) {
-                // duplicate: count stays same
-                result.push_back(countIslands(grid));
-            } else {
-                grid[r][c] = 1;
-                result.push_back(countIslands(grid));
-            }
-        }
-        return result;
-    }
-private:
-    int countIslands(vector<vector<int>>& grid) {
-        int m = grid.size(), n = grid[0].size();
-        vector<vector<bool>> visited(m, vector<bool>(n, false));
-        int count = 0;
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (grid[i][j] == 1 && !visited[i][j]) {
-                    dfs(grid, visited, i, j);
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-    void dfs(vector<vector<int>>& grid, vector<vector<bool>>& visited, int r, int c) {
-        int m = grid.size(), n = grid[0].size();
-        if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == 0 || visited[r][c]) {
-            return;
-        }
-        visited[r][c] = true;
-        dfs(grid, visited, r + 1, c);
-        dfs(grid, visited, r - 1, c);
-        dfs(grid, visited, r, c + 1);
-        dfs(grid, visited, r, c - 1);
-    }
-};
-```
-
-**Time Complexity:** O(k × m × n) - Too slow for large inputs  
-**Space Complexity:** O(m × n)
-
-**Why Union-Find is Better:**
-- Union-Find: O(k × α(mn)) ≈ O(k) - Very efficient
-- Brute-Force: O(k × m × n) - Rebuilds entire grid each time
-
-## Related Problems
-
-- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/) - Static island counting with DFS/BFS
-- [LC 323: Number of Connected Components in an Undirected Graph](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-323-number-of-connected-components-in-an-undirected-graph/) - Union-Find for connectivity
-- [LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/) - Union-Find for connected components
-- [LC 721: Accounts Merge](https://robinali34.github.io/blog_leetcode/2026/01/11/medium-721-accounts-merge/) - Union-Find for grouping
-- [LC 990: Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) - Union-Find for equality constraints
-
----
-
-*This problem demonstrates the **Union-Find (DSU)** pattern for incremental connectivity problems. The key insight is to track island count dynamically as lands are added and merged, rather than rebuilding the entire grid each time.*
-
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

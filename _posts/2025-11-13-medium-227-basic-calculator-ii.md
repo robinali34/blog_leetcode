@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp string stack expression-evaluation pro
 permalink: /posts/2025-11-13-medium-227-basic-calculator-ii/
 tags: [leetcode, medium, string, stack, calculator, expression-evaluation]
 ---
-
-# [Medium] 227. Basic Calculator II
-
 Given a string `s` which represents an expression, evaluate this expression and return its value.
 
 The integer division should truncate toward zero.
@@ -45,62 +42,40 @@ Output: 5
 - All the integers in the expression are non-negative integers in the range `[0, 2^31 - 1]`.
 - The answer is guaranteed to fit in a 32-bit integer.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
 
-1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', multiplication '*', division '/' - no parentheses)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Operator precedence**: What is the precedence? (Assumption: Standard - multiplication and division before addition and subtraction)
 
-3. **Division handling**: How should division be handled? (Assumption: Integer division - truncate toward zero)
 
-4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to evaluate expression. Let me parse and compute manually."
+## Common Approaches
 
-**Naive Solution**: Parse expression, convert to postfix notation, evaluate using stack.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- Two-pass approach (infix to postfix, then evaluate)
-- More complex than needed
-- Doesn't leverage operator precedence directly
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use stack to handle operator precedence. Process * and / immediately, + and - later."
-
-**Improved Solution**: Use stack to store numbers. When encountering * or /, pop and compute immediately. When + or -, push number with sign. At end, sum all numbers in stack.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Handles operator precedence correctly
-- Single pass through expression
-- Stack enables correct evaluation order
-- Can optimize space
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Can optimize to O(1) space by processing * and / immediately, tracking running sum."
-
-**Best Solution**: Process * and / immediately, maintain running sum for + and -. Use variables to track current number and last number. This achieves O(1) space.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Process high-precedence operators immediately
-2. O(n) time is optimal - single pass
-3. O(1) space is possible with careful tracking
-4. Stack alternative uses O(n) space but is clearer
-
-## Solution 1: Stack-Based Approach
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -156,51 +131,28 @@ public:
 };
 ```
 
-## Solution 2: Optimized Without Stack
+### Solution Explanation
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
+**Approach:** Monotonic stack (this problem)
 
-Instead of using a stack, use variables to track the last value and current result. This avoids the need for a stack since we process `*` and `/` immediately and only need to remember the last value for `+` and `-`.
+**Key idea:** 1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
 
-```cpp
-class Solution {
-public:
-    int calculate(string s) {
-        const int len = s.length();
-        if (len == 0) return 0;
-        
-        int curr = 0, last = 0, rtn = 0;
-        char sign = '+';
-        
-        for(int i = 0; i < len; i++) {
-            char ch = s[i];
-            
-            if(isdigit(ch)) {
-                curr = (curr * 10) + (ch - '0');
-            }
-            
-            if(!isdigit(ch) && !isspace(ch) || i == len - 1) {
-                if(sign == '+' || sign == '-') {
-                    rtn += last;
-                    last = (sign == '+') ? curr : -curr;
-                } else if(sign == '*') {
-                    last = last * curr;
-                } else if(sign == '/') {
-                    last = last / curr;
-                }
-                
-                sign = ch;
-                curr = 0;
-            }
-        }
-        
-        rtn += last;
-        return rtn;
-    }
-};
-```
+**How the code works:**
+1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
+**Walkthrough** — input `s = "3+2*2"`, expected output `7`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Stack-Based** | O(n) | O(n) | Clear logic, uses stack |
+| **Optimized** | O(n) | O(1) | No stack needed |
 ## How the Algorithms Work
 
 ### Key Insight: Operator Precedence
@@ -321,14 +273,6 @@ I see - when we see an operator, we process the PREVIOUS operator with the curre
 
 Yes! That's correct now.
 
-## Key Insights
-
-1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
-2. **Immediate Evaluation**: Evaluate `*` and `/` immediately when encountered
-3. **Deferred Evaluation**: Defer `+` and `-` until the end
-4. **Number Building**: Build multi-digit numbers by `curr = curr * 10 + digit`
-5. **Sign Handling**: For `-`, push negative number or set `last` to negative
-
 ## Algorithm Breakdown
 
 ### Solution 1: Stack-Based
@@ -398,8 +342,7 @@ if(sign == '+' || sign == '-') {
 rtn += last;  // Add remaining last value
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | **Stack-Based** | O(n) | O(n) | Clear logic, uses stack |
@@ -454,7 +397,7 @@ Actually, when we see an operator, we process the PREVIOUS operator. So:
 
 Perfect!
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single number**: `"42"` → `42`
 2. **Only spaces**: `"   "` → `0` (handled by initial check)
@@ -462,8 +405,6 @@ Perfect!
 4. **Negative results**: `"1-2"` → `-1`
 5. **Multiple spaces**: `"3  +  2"` → `5` (spaces are ignored)
 6. **Consecutive operators**: Not possible (given expression is valid)
-
-## Common Mistakes
 
 1. **Wrong operator precedence**: Evaluating `+` before `*`
 2. **Number building**: Not handling multi-digit numbers correctly
@@ -537,10 +478,10 @@ Step 11: end → process sign='/' with curr=2
 
 ## Related Problems
 
-- [224. Basic Calculator](https://leetcode.com/problems/basic-calculator/) - With parentheses
-- [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) - Postfix notation
-- [772. Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) - With parentheses and all operators
-- [394. Decode String](https://leetcode.com/problems/decode-string/) - Nested structure evaluation
+- [224. Basic Calculator](https://www.leetcode.com/problems/basic-calculator/) - With parentheses
+- [150. Evaluate Reverse Polish Notation](https://www.leetcode.com/problems/evaluate-reverse-polish-notation/) - Postfix notation
+- [772. Basic Calculator III](https://www.leetcode.com/problems/basic-calculator-iii/) - With parentheses and all operators
+- [394. Decode String](https://www.leetcode.com/problems/decode-string/) - Nested structure evaluation
 
 ## Pattern Recognition
 
@@ -573,7 +514,20 @@ This problem demonstrates the **Expression Evaluation** pattern:
 3. **Correctness**: Both handle operator precedence correctly
 4. **Maintainability**: Stack approach is easier to extend
 
----
+## Key Takeaways
 
-*This problem demonstrates how to handle operator precedence in expression evaluation. The key is to evaluate high-precedence operators immediately while deferring low-precedence operators.*
+1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
+2. **Immediate Evaluation**: Evaluate `*` and `/` immediately when encountered
+3. **Deferred Evaluation**: Defer `+` and `-` until the end
+4. **Number Building**: Build multi-digit numbers by `curr = curr * 10 + digit`
+5. **Sign Handling**: For `-`, push negative number or set `last` to negative
 
+## References
+
+- [LC 227: Basic Calculator II on LeetCode](https://www.leetcode.com/problems/basic-calculator-ii/)
+- [LeetCode Discuss — LC 227: Basic Calculator II](https://www.leetcode.com/problems/basic-calculator-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/basic-calculator-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

@@ -6,7 +6,6 @@ categories: [leetcode, medium, graph, dfs, bfs]
 tags: [leetcode, medium, graph, dfs, bfs, reachability]
 permalink: /2026/03/12/medium-841-keys-and-rooms/
 ---
-
 There are `n` rooms labeled `0` to `n-1`. All rooms are locked except room `0`. Each room contains a set of keys to other rooms. Given `rooms[i]` -- the set of keys in room `i` -- return `true` if you can visit **all** rooms.
 
 ## Examples
@@ -36,6 +35,17 @@ Explanation: Room 2 is never reachable.
 - `0 <= rooms[i][j] < n`
 - All values of `rooms[i]` are unique
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
 ## Thinking Process
 
 ### Graph Abstraction
@@ -50,6 +60,22 @@ This is a **graph reachability** problem -- standard DFS or BFS from a starting 
 2. Traverse reachable rooms using DFS or BFS
 3. Track visited rooms
 4. If `visited.size() == n`, all rooms are reachable
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
 
 ## Approach 1: DFS (Stack) -- $O(V + E)$
 
@@ -81,11 +107,22 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(V + E)$ where $V$ = rooms, $E$ = total keys
-**Space**: $O(V)$
+### Solution Explanation
 
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** ### Graph Abstraction
+
+**How the code works:**
+1. Start from room 0
+2. Traverse reachable rooms using DFS or BFS
+3. Track visited rooms
+4. If `visited.size() == n`, all rooms are reachable
+
+**Walkthrough** — input `rooms = [[1],[2],[3],[]]`, expected output `true`:
+
+Room 0 → key 1 → Room 1 → key 2 → Room 2 → key 3 → Room 3
 ## Approach 2: BFS (Queue) -- $O(V + E)$
 
 {% raw %}
@@ -135,10 +172,16 @@ public:
 
 ## Related Problems
 
-- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) -- DFS/BFS grid traversal
-- [547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/) -- connected components
-- [1091. Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/) -- BFS shortest path
-- [323. Number of Connected Components](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) -- connectivity
+- [200. Number of Islands](https://www.leetcode.com/problems/number-of-islands/) -- DFS/BFS grid traversal
+- [547. Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/) -- connected components
+- [1091. Shortest Path in Binary Matrix](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/) -- BFS shortest path
+- [323. Number of Connected Components](https://www.leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) -- connectivity
+
+## References
+
+- [LC 841: Keys and Rooms on LeetCode](https://www.leetcode.com/problems/keys-and-rooms/)
+- [LeetCode Discuss — LC 841: Keys and Rooms](https://www.leetcode.com/problems/keys-and-rooms/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/keys-and-rooms/editorial/) *(may require premium)*
 
 ## Template Reference
 

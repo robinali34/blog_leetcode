@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, dynamic-programming]
 permalink: /2026/01/09/medium-673-number-of-longest-increasing-subsequence/
 tags: [leetcode, medium, array, dynamic-programming, longest-increasing-subsequence]
 ---
-
-# 673. Number of Longest Increasing Subsequence
-
-## Problem Statement
-
 Given an integer array `nums`, return *the number of longest increasing subsequences*.
 
 **Notice** that the sequence has to be **strictly increasing**.
@@ -36,85 +31,41 @@ Explanation: The longest increasing subsequence is of length 1, and there are 5 
 - `1 <= nums.length <= 2000`
 - `-10^6 <= nums[i] <= 10^6`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Dual DP Arrays**: Need both length (`dp`) and count (`cnt`) arrays
+- Longer subsequence → reset count
+- Equal-length subsequence → accumulate count
 
-1. **Subsequence definition**: What is a subsequence? (Assumption: Subsequence maintains relative order but doesn't need to be contiguous - can skip elements)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **Increasing definition**: What makes a subsequence increasing? (Assumption: Strictly increasing - each element must be greater than the previous one)
 
-3. **Count requirement**: Do we need to count all LIS or just find the length? (Assumption: Count how many longest increasing subsequences exist - not just the length)
 
-4. **Duplicate values**: How should we handle duplicate values? (Assumption: Based on "increasing", duplicates don't count - need strictly greater values)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-5. **Output format**: What should we return - count or list of subsequences? (Assumption: Return count - integer representing number of LIS)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to count LIS. Let me generate all subsequences and count longest ones."
+## Common Approaches
 
-**Naive Solution**: Generate all possible subsequences, check if each is increasing, find maximum length, count subsequences with that length.
+Typical techniques for this pattern:
 
-**Complexity**: O(2^n × n) time, O(n) space
-
-**Issues**:
-- Exponential time complexity
-- Generates many invalid subsequences
-- Very inefficient
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use DP to track both length and count of LIS ending at each position."
-
-**Improved Solution**: Use DP where dp[i] = length of LIS ending at i, count[i] = number of LIS ending at i. For each i, check previous positions j where nums[j] < nums[i], update length and count.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- Leverages optimal substructure
-- O(n²) time instead of exponential
-- Tracks both length and count
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DP approach is optimal. Can optimize with binary search but more complex."
-
-**Best Solution**: DP approach is optimal. Track length and count separately. For each position, find all previous positions that can extend LIS, sum their counts if they have maximum length.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Key Realizations**:
-1. DP is natural approach - optimal substructure
-2. Track both length and count
-3. O(n²) time is optimal for DP approach
-4. Sum counts for positions with maximum length
-
-## Solution Approach
-
-This is a follow-up to [LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/). Instead of just finding the length, we need to **count** how many longest increasing subsequences exist.
-
-### Key Insights:
-
-1. **Two DP Arrays**: 
-   - `dp[i]`: Length of longest increasing subsequence ending at position `i`
-   - `cnt[i]`: Number of longest increasing subsequences ending at position `i`
-
-2. **Update Logic**:
-   - If we find a longer subsequence: update `dp[i]` and reset `cnt[i] = cnt[j]`
-   - If we find an equal-length subsequence: add `cnt[j]` to `cnt[i]`
-
-3. **Final Count**: Sum all `cnt[i]` where `dp[i] == maxLen`
-
-### Algorithm:
-
-1. **Initialize**: `dp[i] = 1`, `cnt[i] = 1` for all positions
-2. **For each position `i`**, check all previous positions `j`:
-   - If `nums[i] > nums[j]`:
-     - If `dp[j] + 1 > dp[i]`: Found longer subsequence → update `dp[i]` and `cnt[i] = cnt[j]`
-     - Else if `dp[j] + 1 == dp[i]`: Found equal-length subsequence → add `cnt[j]` to `cnt[i]`
-3. **Track maximum length** and sum counts for positions with maximum length
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -151,6 +102,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** 1. **Dual DP Arrays**: Need both length (`dp`) and count (`cnt`) arrays
+
+**How the code works:**
+1. **Dual DP Arrays**: Need both length (`dp`) and count (`cnt`) arrays
+- Longer subsequence → reset count
+- Equal-length subsequence → accumulate count
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `nums = [1,3,5,4,7]`, expected output `2`:
+
+The two longest increasing subsequences are [1, 3, 4, 7] and [1, 3, 5, 7].
 
 ### **Algorithm Explanation:**
 
@@ -356,117 +325,12 @@ Final result: 2
 The two longest increasing subsequences are:
 - `[1,3,5,7]` (extending from position 2)
 - `[1,3,4,7]` (extending from position 3)
-
-## Solution 2: Binary Search with Patience Sorting
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
-
-This approach uses binary search similar to the patience sorting technique from LC 300, but extends it to track counts.
-
-```cpp
-class Solution {
-    int binarySearch(int n, function<bool(int)> f) {
-        int l = 0, r = n;
-        while (l < r) {
-            int mid = (l + r) / 2;
-            if (f(mid)) {
-                r = mid;
-            } else {
-                l = mid + 1;
-            }
-        }
-        return l;
-    }
-
-public:
-    int findNumberOfLIS(vector<int> &nums) {
-        vector<vector<int>> d, cnt;
-        for (int v : nums) {
-            int i = binarySearch(d.size(), [&](int i) { return d[i].back() >= v; });
-            int c = 1;
-            if (i > 0) {
-                int k = binarySearch(d[i - 1].size(), [&](int k) { return d[i - 1][k] < v; });
-                c = cnt[i - 1].back() - cnt[i - 1][k];
-            }
-            if (i == d.size()) {
-                d.push_back({v});
-                cnt.push_back({0, c});
-            } else {
-                d[i].push_back(v);
-                cnt[i].push_back(cnt[i].back() + c);
-            }
-        }
-        return cnt.back().back();
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Data Structures**:
-   - `d[i]`: Array of ending values for subsequences of length `i+1` (maintained in sorted order)
-   - `cnt[i]`: Prefix sum array where `cnt[i][j]` = total count of subsequences of length `i+1` ending with values up to `d[i][j]`
-
-2. **For each value `v`**:
-   - **Find length `i`**: Binary search to find where `v` should be inserted (first position where `d[i].back() >= v`)
-   - **Calculate count `c`**: 
-     - If `i == 0`: `c = 1` (new subsequence of length 1)
-     - If `i > 0`: Find how many subsequences of length `i` end with value < `v`
-       - Binary search in `d[i-1]` to find first position `k` where `d[i-1][k] >= v`
-       - Count = `cnt[i-1].back() - cnt[i-1][k]` (prefix sum difference)
-   - **Update structures**:
-     - If `i == d.size()`: New length discovered, create new arrays
-     - Otherwise: Append `v` to `d[i]` and update prefix sum in `cnt[i]`
-
-3. **Return**: `cnt.back().back()` (total count of longest subsequences)
-
-### **Key Insights:**
-
-- **Patience Sorting**: Similar to LC 300, maintains smallest tail elements for each length
-- **Prefix Sums**: `cnt[i]` uses prefix sums to efficiently count subsequences ending with values < `v`
-- **Binary Search**: Uses binary search twice per element (O(log n) each) for O(n log n) total
-- **Sorted Arrays**: `d[i]` arrays are maintained in sorted order as we process elements
-
-### **How It Works:**
-
-The algorithm maintains:
-- `d[i]`: Sorted array of ending values for subsequences of length `i+1`
-- `cnt[i]`: Prefix sum array where `cnt[i][j]` represents the cumulative count
-
-For each value `v`:
-1. Find the length `i` where `v` should be placed (using binary search)
-2. Calculate the count by finding how many subsequences of length `i-1` end with values < `v`
-3. Update the arrays accordingly
-
-**Note**: The binary search solution is more complex and requires careful understanding of the prefix sum logic. The DP solution (Solution 1) is recommended for interviews due to its clarity and correctness.
-
-### **Complexity Analysis:**
-
-- **Time Complexity:** O(n log n)
-  - For each of n elements: two binary searches (O(log n) each)
-  - Total: O(n × log n) = O(n log n)
-- **Space Complexity:** O(n)
-  - `d` and `cnt` arrays store at most n elements total
-  - O(n) space
-
-## Key Insights
-
-1. **Dual DP Arrays**: Need both length (`dp`) and count (`cnt`) arrays
-2. **Two Update Cases**: 
-   - Longer subsequence → reset count
-   - Equal-length subsequence → accumulate count
-3. **Count Accumulation**: When multiple paths lead to same length, sum their counts
-4. **Final Sum**: Sum all counts for positions with maximum length
-
-## Edge Cases
+## Common Mistakes
 
 1. **All same elements**: `nums = [2,2,2,2,2]` → return `5` (each element is a subsequence of length 1)
 2. **Strictly increasing**: `nums = [1,2,3,4,5]` → return `1` (only one LIS)
 3. **Single element**: `nums = [1]` → return `1`
 4. **Multiple paths**: `nums = [1,3,5,4,7]` → return `2` (two ways to form length 4)
-
-## Common Mistakes
 
 1. **Not resetting count**: When finding longer subsequence, must reset `cnt[i] = cnt[j]`, not add
 2. **Wrong accumulation**: Only accumulate when lengths are equal, not when longer
@@ -475,12 +339,30 @@ For each value `v`:
 
 ## Related Problems
 
-- [LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) - Find length of LIS
-- [LC 354: Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/) - 2D version of LIS
-- [LC 646: Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) - Similar pattern
-- [LC 334: Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/) - Check if triplet exists
+- [LC 300: Longest Increasing Subsequence](https://www.leetcode.com/problems/longest-increasing-subsequence/) - Find length of LIS
+- [LC 354: Russian Doll Envelopes](https://www.leetcode.com/problems/russian-doll-envelopes/) - 2D version of LIS
+- [LC 646: Maximum Length of Pair Chain](https://www.leetcode.com/problems/maximum-length-of-pair-chain/) - Similar pattern
+- [LC 334: Increasing Triplet Subsequence](https://www.leetcode.com/problems/increasing-triplet-subsequence/) - Check if triplet exists
 
 ---
 
 *This problem extends LC 300 by adding count tracking. The key is maintaining both length and count information, and correctly handling the two cases: when a longer subsequence is found (reset count) and when an equal-length subsequence is found (accumulate count).*
 
+## Key Takeaways
+
+1. **Dual DP Arrays**: Need both length (`dp`) and count (`cnt`) arrays
+2. **Two Update Cases**: 
+   - Longer subsequence → reset count
+   - Equal-length subsequence → accumulate count
+3. **Count Accumulation**: When multiple paths lead to same length, sum their counts
+4. **Final Sum**: Sum all counts for positions with maximum length
+
+## References
+
+- [LC 673: Number of Longest Increasing Subsequence on LeetCode](https://www.leetcode.com/problems/number-of-longest-increasing-subsequence/)
+- [LeetCode Discuss — LC 673: Number of Longest Increasing Subsequence](https://www.leetcode.com/problems/number-of-longest-increasing-subsequence/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-longest-increasing-subsequence/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

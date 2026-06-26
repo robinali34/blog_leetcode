@@ -5,12 +5,42 @@ date: 2025-12-30 19:30:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, sliding-window]
 permalink: /2025/12/30/medium-487-max-consecutive-ones-ii/
 ---
+Given a binary array `nums`, return *the maximum number of consecutive `1`'s in the array if you can flip at most one `0`*.
 
-# 487. Max Consecutive Ones II
-
-## Problem Statement
+## Thinking Process
 
 Given a binary array `nums`, return *the maximum number of consecutive `1`'s in the array if you can flip at most one `0`*.
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
+
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Examples
 
@@ -36,172 +66,6 @@ Flipping the zero at index 4 gives us [1,0,1,1,1,1] with 4 consecutive ones.
 
 - `1 <= nums.length <= 10^5`
 - `nums[i]` is either `0` or `1`.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Flip operation**: What does "flip at most one 0" mean? (Assumption: Can change at most one 0 to 1 - can flip zero or one zero)
-
-2. **Consecutive definition**: What does "consecutive ones" mean? (Assumption: Ones that appear next to each other without any zeros in between)
-
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum length of consecutive ones after flipping at most one 0)
-
-4. **Array modification**: Can we modify the array? (Assumption: No - just find the maximum length, don't actually modify)
-
-5. **All ones**: What if array contains only ones? (Assumption: Return array length - all ones are consecutive, no flip needed)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find maximum consecutive ones. Let me try flipping each 0."
-
-**Naive Solution**: For each 0, flip it to 1, find maximum consecutive ones, track maximum across all flips.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Repeats consecutive ones counting
-- Doesn't leverage sliding window
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use sliding window that allows at most one 0."
-
-**Improved Solution**: Use sliding window with two pointers. Expand right pointer, when encountering second 0, shrink left pointer until window contains at most one 0.
-
-**Complexity**: O(n) time, O(1) space
-
-**Improvements**:
-- Sliding window avoids redundant counting
-- O(n) time is much better
-- Handles at most one flip correctly
-- Clean and efficient
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Sliding window approach is optimal. Track last zero position."
-
-**Best Solution**: Sliding window approach is optimal. Track last zero position. When encountering second zero, move left pointer to after last zero. Window always contains at most one zero.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Sliding window is perfect for consecutive problems
-2. O(n) time is optimal - single pass
-3. Track last zero position for efficient shrinking
-4. O(1) space is optimal
-
-## Solution Approach
-
-This problem requires finding the longest sequence of consecutive 1s when we can flip at most one 0 to 1. We can solve this using **dynamic programming** with two states: one without flipping and one with at most one flip.
-
-### Key Insights:
-
-1. **Two States**: Track two values for each position:
-   - `dp0`: Max consecutive ones ending here **without** flipping
-   - `dp1`: Max consecutive ones ending here **with at most one flip**
-
-2. **State Transitions**:
-   - If current is `1`: Both states increment
-   - If current is `0`: `dp1` uses previous `dp0` + 1 (flip this 0), `dp0` resets to 0
-
-3. **Result**: Track maximum of `dp0` and `dp1` at each position
-
-### Algorithm:
-
-1. **Initialize**: `dp0 = 0`, `dp1 = 0` (no consecutive ones initially)
-2. **Iterate**: For each element, update both states
-3. **Update result**: Track maximum across all positions
-4. **Return**: Maximum consecutive ones found
-
-## Solution
-
-### **Solution: Dynamic Programming with Two States**
-
-```cpp
-class Solution {
-public:
-    int findMaxConsecutiveOnes(vector<int>& nums) {
-        const int n = nums.size();
-        int rtn = 0, dp0 = 0, dp1 = 0;
-        for(int i = 0; i < n; i++) {
-            if(nums[i]) {
-                dp1++;
-                dp0++;
-            } else {
-                dp1 = dp0 + 1;
-                dp0 = 0;
-            }
-            rtn = max(rtn, max(dp0, dp1));
-        }
-        return rtn;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Initialization (Line 4)**:
-   - `rtn`: Maximum consecutive ones found so far
-   - `dp0`: Max consecutive ones ending at current position **without flipping**
-   - `dp1`: Max consecutive ones ending at current position **with at most one flip**
-
-2. **Process Each Element (Lines 5-13)**:
-   - **If `nums[i] == 1` (Lines 6-8)**:
-     - `dp1++`: Extend sequence with flip (or continue without needing flip)
-     - `dp0++`: Extend sequence without flip
-   - **If `nums[i] == 0` (Lines 9-11)**:
-     - `dp1 = dp0 + 1`: Use previous sequence without flip, flip this 0
-     - `dp0 = 0`: Reset sequence without flip
-
-3. **Update Result (Line 12)**:
-   - Track maximum of `dp0` and `dp1` at each position
-
-### **Example Walkthrough:**
-
-**For `nums = [1,0,1,1,0]`:**
-
-```
-Step 1: i=0, nums[0]=1
-  dp0 = 0 + 1 = 1  (extend without flip)
-  dp1 = 0 + 1 = 1  (extend, no flip needed)
-  rtn = max(0, max(1, 1)) = 1
-
-Step 2: i=1, nums[1]=0
-  dp1 = dp0 + 1 = 1 + 1 = 2  (flip this 0, use previous sequence)
-  dp0 = 0  (reset, can't extend without flip)
-  rtn = max(1, max(0, 2)) = 2
-
-Step 3: i=2, nums[2]=1
-  dp1 = 2 + 1 = 3  (extend sequence with flip)
-  dp0 = 0 + 1 = 1  (start new sequence without flip)
-  rtn = max(2, max(1, 3)) = 3
-
-Step 4: i=3, nums[3]=1
-  dp1 = 3 + 1 = 4  (extend sequence with flip)
-  dp0 = 1 + 1 = 2  (extend sequence without flip)
-  rtn = max(3, max(2, 4)) = 4
-
-Step 5: i=4, nums[4]=0
-  dp1 = dp0 + 1 = 2 + 1 = 3  (flip this 0, use sequence from dp0)
-  dp0 = 0  (reset)
-  rtn = max(4, max(0, 3)) = 4
-
-Result: 4
-```
-
-**Visual Representation:**
-
-```
-nums:  [1, 0, 1, 1, 0]
-        ↑  ↑  ↑  ↑  ↑
-        i=0 i=1 i=2 i=3 i=4
-
-dp0:   [1, 0, 1, 2, 0]  (without flip)
-dp1:   [1, 2, 3, 4, 3]  (with at most one flip)
-rtn:   [1, 2, 3, 4, 4]  (maximum so far)
-```
 
 ## Algorithm Breakdown
 
@@ -240,8 +104,7 @@ if(nums[i] == 1) {
    - We can extend `dp1` by flipping this 0 and using the previous `dp0` sequence
 4. **Result**: Maximum of both states gives us the answer
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n)
 - **Single pass**: Iterate through array once
 - **Each iteration**: O(1) operations
@@ -259,25 +122,6 @@ if(nums[i] == 1) {
 3. **Space Efficient**: O(1) space, only track current states
 4. **Single Pass**: O(n) time, process each element once
 5. **Optimal**: Finds maximum consecutive ones with at most one flip
-
-## Alternative Approaches
-
-### **Approach 1: Two-State DP (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Space-efficient solution
-
-### **Approach 2: Sliding Window**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Maintain window**: Keep at most one 0 in window
-- **Expand/Shrink**: Adjust window based on zero count
-
-### **Approach 3: Track Zero Indices**
-- **Time**: O(n)
-- **Space**: O(k) where k = number of zeros
-- **Store indices**: Keep track of zero positions
-- **Calculate**: Max window with at most one zero
 
 ## Detailed Example Walkthrough
 
@@ -343,14 +187,36 @@ Best sequence: [1,0,1,1] with flip at index 1 → [1,1,1,1] = 4 consecutive ones
 4. **Single zero**: `[0]` → Return 1 (flip it)
 5. **Alternating**: `[1,0,1,0,1]` → Return 3 (flip one zero)
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [485. Max Consecutive Ones](https://leetcode.com/problems/max-consecutive-ones/) - Without flipping
-- [487. Max Consecutive Ones II](https://leetcode.com/problems/max-consecutive-ones-ii/) - Current problem (flip at most 1)
-- [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) - Flip at most k zeros
-- [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) - Similar sliding window
+- [485. Max Consecutive Ones](https://www.leetcode.com/problems/max-consecutive-ones/) - Without flipping
+- [487. Max Consecutive Ones II](https://www.leetcode.com/problems/max-consecutive-ones-ii/) - Current problem (flip at most 1)
+- [1004. Max Consecutive Ones III](https://www.leetcode.com/problems/max-consecutive-ones-iii/) - Flip at most k zeros
+- [424. Longest Repeating Character Replacement](https://www.leetcode.com/problems/longest-repeating-character-replacement/) - Similar sliding window
 
 ## Tags
 
 `Array`, `Dynamic Programming`, `Sliding Window`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 487: Max Consecutive Ones II on LeetCode](https://www.leetcode.com/problems/max-consecutive-ones-ii/)
+- [LeetCode Discuss — LC 487: Max Consecutive Ones II](https://www.leetcode.com/problems/max-consecutive-ones-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/max-consecutive-ones-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -6,7 +6,6 @@ categories: [leetcode, medium, bit-manipulation, prefix]
 tags: [leetcode, medium, bit-manipulation, xor, prefix]
 permalink: /2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/
 ---
-
 You are given an integer array `pref` of size `n`. Find and return the array `arr` of size `n` that satisfies:
 
 $$\text{pref}[i] = \text{arr}[0] \oplus \text{arr}[1] \oplus \ldots \oplus \text{arr}[i]$$
@@ -57,7 +56,28 @@ This is the XOR analog of prefix sum difference: just as `arr[i] = prefixSum[i] 
 
 Base case: `arr[0] = pref[0]`.
 
-## Solution 1: New Array -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
+
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
+| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
+| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
+| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -74,37 +94,19 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ for output
+### Solution Explanation
 
-## Solution 2: In-Place (Reverse Pass) -- $O(1)$ auxiliary
+**Approach:** XOR tricks (this problem)
 
-Process right-to-left so each `pref[i-1]` is still the original value when we compute `pref[i] ^ pref[i-1]`.
+**Key idea:** ### XOR Prefix Sum Property
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    vector<int> findArray(vector<int>& pref) {
-        int n = pref.size();
-        for (int i = n - 1; i > 0; --i) {
-            pref[i] = pref[i] ^ pref[i - 1];
-        }
-        return pref;
-    }
-};
-```
-{% endraw %}
+**Walkthrough** — input `pref = [5,2,0,3,1]`, expected output `[5,7,2,3,2]`:
 
-**Time**: $O(n)$
-**Space**: $O(1)$ auxiliary
-
-### Why Reverse Order?
-
-If we process left-to-right in-place, modifying `pref[1]` corrupts the value needed for `pref[2]`. Going right-to-left, each `pref[i]` only depends on `pref[i-1]`, which hasn't been modified yet.
-
+pref[0] = 5             → arr[0] = 5
+  pref[1] = 5 ^ 7 = 2    → arr[1] = 7
+  pref[2] = 5 ^ 7 ^ 2 = 0 → arr[2] = 2
+  ...
 ## Common Mistakes
 
 - Processing left-to-right in-place (corrupts values needed for later computations)
@@ -118,10 +120,16 @@ If we process left-to-right in-place, modifying `pref[1]` corrupts the value nee
 
 ## Related Problems
 
-- [260. Single Number III](https://leetcode.com/problems/single-number-iii/) -- XOR partitioning
-- [136. Single Number](https://leetcode.com/problems/single-number/) -- XOR cancellation
-- [389. Find the Difference](https://leetcode.com/problems/find-the-difference/) -- XOR to find extra element
-- [303. Range Sum Query](https://leetcode.com/problems/range-sum-query-immutable/) -- addition prefix sum analog
+- [260. Single Number III](https://www.leetcode.com/problems/single-number-iii/) -- XOR partitioning
+- [136. Single Number](https://www.leetcode.com/problems/single-number/) -- XOR cancellation
+- [389. Find the Difference](https://www.leetcode.com/problems/find-the-difference/) -- XOR to find extra element
+- [303. Range Sum Query](https://www.leetcode.com/problems/range-sum-query-immutable/) -- addition prefix sum analog
+
+## References
+
+- [LC 2433: Find The Original Array of Prefix Xor on LeetCode](https://www.leetcode.com/problems/find-the-original-array-of-prefix-xor/)
+- [LeetCode Discuss — LC 2433: Find The Original Array of Prefix Xor](https://www.leetcode.com/problems/find-the-original-array-of-prefix-xor/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/find-the-original-array-of-prefix-xor/editorial/) *(may require premium)*
 
 ## Template Reference
 

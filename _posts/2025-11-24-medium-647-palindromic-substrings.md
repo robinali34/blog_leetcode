@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp string two-pointers problem-solving
 permalink: /posts/2025-11-24-medium-647-palindromic-substrings/
 tags: [leetcode, medium, string, two-pointers, palindrome, expand-around-center]
 ---
-
-# [Medium] 647. Palindromic Substrings
-
 Given a string `s`, return *the number of **palindromic substrings** in it*.
 
 A string is a **palindrome** when it reads the same backward as forward.
@@ -44,62 +41,42 @@ Palindromic substrings: "r", "a", "c", "e", "c", "a", "r", "ceec", "aceca", "rac
 - `1 <= s.length <= 1000`
 - `s` consists of lowercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Two types of centers**: Every palindrome has either a single-character center (odd-length) or a two-character center (even-length)
 
-1. **Substring definition**: Does substring need to be contiguous? (Assumption: Yes - substring is contiguous by definition)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **Palindrome definition**: What makes a substring a palindrome? (Assumption: Reads same forwards and backwards - symmetric string)
 
-3. **Return value**: Should we return substrings or count? (Assumption: Return count - integer representing number of palindromic substrings)
 
-4. **Single characters**: Do single characters count? (Assumption: Yes - single character is a palindrome)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Duplicate substrings**: Should we count duplicate palindromes? (Assumption: Yes - if "aa" appears twice, count both occurrences)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to count palindromic substrings. Let me check all possible substrings."
+## Common Approaches
 
-**Naive Solution**: Check all possible substrings, for each check if it's palindrome, count valid ones.
+Typical techniques for this pattern:
 
-**Complexity**: O(n³) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
-**Issues**:
-- O(n³) time - very inefficient
-- Repeats palindrome checking for overlapping substrings
-- Doesn't leverage palindrome properties
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use DP to check palindromes efficiently, or expand around centers."
-
-**Improved Solution**: Use DP table to check palindromes. dp[i][j] = true if s[i..j] is palindrome. Fill table and count true values.
-
-**Complexity**: O(n²) time, O(n²) space
-
-**Improvements**:
-- DP eliminates redundant palindrome checks
-- O(n²) time is much better
-- Handles all cases correctly
-- Can optimize space
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Expand around centers is more space-efficient than DP."
-
-**Best Solution**: Expand around centers. For each center (character or between characters), expand outward while palindromic. Count all palindromes found.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Key Realizations**:
-1. Expand around centers is elegant approach
-2. O(n²) time is optimal - must check all centers
-3. O(1) space is optimal
-4. Handles odd and even length palindromes
-
-## Solution: Expand Around Centers
+## Solution
 
 **Time Complexity:** O(n²)  
 **Space Complexity:** O(1)
@@ -140,72 +117,30 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Two Types of Centers
+**Approach:** Opposite ends (this problem)
 
-1. **Odd-length palindromes**: Center at index `i`
-   - Example: "aba" with center at index 1 ('b')
-   - Expand: `i-1` and `i+1`, then `i-2` and `i+2`, etc.
+**Key idea:** 1. **Two types of centers**: Every palindrome has either a single-character center (odd-length) or a two-character center (even-length)
 
-2. **Even-length palindromes**: Center between indices `i` and `i+1`
-   - Example: "abba" with center between indices 1 and 2
-   - Expand: `i` and `i+1`, then `i-1` and `i+2`, etc.
+**How the code works:**
+1. **Two types of centers**: Every palindrome has either a single-character center (odd-length) or a two-character center (even-length)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-### Step-by-Step Example: `s = "abc"`
+**Walkthrough** — input `s = "abc"`, expected output `3`:
 
-```
-i = 0: 'a'
-  Odd:  center at 0 → expand (0,0) → "a" ✓ count = 1
-  Even: center between 0,1 → expand (0,1) → 'a' != 'b' ✗ count = 0
-  Total: 1
+Three palindromic strings: "a", "b", "c".
 
-i = 1: 'b'
-  Odd:  center at 1 → expand (1,1) → "b" ✓ count = 1
-  Even: center between 1,2 → expand (1,2) → 'b' != 'c' ✗ count = 0
-  Total: 1
+**Time Complexity:** O(n²)
+- We iterate through each position: O(n)
+- For each position, we expand outward: O(n) in worst case
+- Total: O(n²)
 
-i = 2: 'c'
-  Odd:  center at 2 → expand (2,2) → "c" ✓ count = 1
-  Even: center between 2,3 → expand (2,3) → out of bounds ✗ count = 0
-  Total: 1
-
-Final count: 1 + 1 + 1 = 3
-```
-
-### Step-by-Step Example: `s = "aaa"`
-
-```
-i = 0: 'a'
-  Odd:  center at 0 → expand (0,0) → "a" ✓
-        expand (-1,1) → out of bounds
-        count = 1
-  Even: center between 0,1 → expand (0,1) → "aa" ✓
-        expand (-1,2) → out of bounds
-        count = 1
-  Total: 2
-
-i = 1: 'a'
-  Odd:  center at 1 → expand (1,1) → "a" ✓
-        expand (0,2) → "aaa" ✓
-        expand (-1,3) → out of bounds
-        count = 2
-  Even: center between 1,2 → expand (1,2) → "aa" ✓
-        expand (0,3) → out of bounds
-        count = 1
-  Total: 3
-
-i = 2: 'a'
-  Odd:  center at 2 → expand (2,2) → "a" ✓
-        expand (1,3) → out of bounds
-        count = 1
-  Even: center between 2,3 → expand (2,3) → out of bounds
-        count = 0
-  Total: 1
-
-Final count: 2 + 3 + 1 = 6
-```
-
+**Space Complexity:** O(1)
+- Only using a few variables
+- No extra data structures
 ## Algorithm Breakdown
 
 ### Helper Function: `countPalindromesAroundCenter`
@@ -252,8 +187,7 @@ int countSubstrings(string s) {
 2. Sum all palindromic substrings found
 3. Return total count
 
-## Complexity Analysis
-
+### Complexity
 **Time Complexity:** O(n²)
 - We iterate through each position: O(n)
 - For each position, we expand outward: O(n) in worst case
@@ -263,85 +197,11 @@ int countSubstrings(string s) {
 - Only using a few variables
 - No extra data structures
 
-## Alternative Approaches
-
-### Approach 2: Dynamic Programming
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n²)
-
-Use DP table `dp[i][j]` to track if substring `s[i..j]` is a palindrome.
-
-```cpp
-class Solution {
-public:
-    int countSubstrings(string s) {
-        int n = s.size();
-        vector<vector<bool>> dp(n, vector<bool>(n, false));
-        int count = 0;
-        
-        // Every single character is a palindrome
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = true;
-            count++;
-        }
-        
-        // Check for palindromes of length 2
-        for (int i = 0; i < n - 1; i++) {
-            if (s[i] == s[i + 1]) {
-                dp[i][i + 1] = true;
-                count++;
-            }
-        }
-        
-        // Check for palindromes of length >= 3
-        for (int len = 3; len <= n; len++) {
-            for (int i = 0; i <= n - len; i++) {
-                int j = i + len - 1;
-                if (s[i] == s[j] && dp[i + 1][j - 1]) {
-                    dp[i][j] = true;
-                    count++;
-                }
-            }
-        }
-        
-        return count;
-    }
-};
-```
-
-**Pros:**
-- More intuitive for some
-- Can be extended to find longest palindromic substring
-
-**Cons:**
-- Uses O(n²) space
-- More complex implementation
-
-### Approach 3: Manacher's Algorithm
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-Advanced algorithm that finds all palindromes in linear time. More complex but optimal.
-
-## Key Insights
-
-1. **Two types of centers**: Every palindrome has either a single-character center (odd-length) or a two-character center (even-length)
-
-2. **Expand outward**: For each center, expand while characters match
-
-3. **Count incrementally**: Each successful expansion creates a new palindromic substring
-
-4. **No overlap**: Each center is checked independently, so we count all palindromes exactly once
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single character**: Returns 1 (the character itself is a palindrome)
 2. **All same characters**: Returns n(n+1)/2 (all substrings are palindromes)
 3. **No palindromes longer than 1**: Returns n (only single characters are palindromes)
-
-## Common Mistakes
 
 1. **Missing even-length palindromes**: Forgetting to check centers between characters
 2. **Double counting**: Not properly handling boundaries
@@ -356,10 +216,10 @@ Advanced algorithm that finds all palindromes in linear time. More complex but o
 
 ## Related Problems
 
-- [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) - Find the longest palindrome (can use same technique) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/)
-- [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) - Find longest palindromic subsequence (DP)
-- [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
-- [680. Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/) - Check if string can be palindrome after deleting at most one character
+- [5. Longest Palindromic Substring](https://www.leetcode.com/problems/longest-palindromic-substring/) - Find the longest palindrome (can use same technique) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/)
+- [516. Longest Palindromic Subsequence](https://www.leetcode.com/problems/longest-palindromic-subsequence/) - Find longest palindromic subsequence (DP)
+- [125. Valid Palindrome](https://www.leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
+- [680. Valid Palindrome II](https://www.leetcode.com/problems/valid-palindrome-ii/) - Check if string can be palindrome after deleting at most one character
 
 ## Pattern Recognition
 
@@ -383,7 +243,22 @@ Similar problems:
 3. **Algorithm Design**: Understanding palindrome detection techniques
 4. **Interview Preparation**: Common pattern in coding interviews
 
----
+## Key Takeaways
 
-*This problem demonstrates the expand-around-centers technique, which is efficient for palindrome-related problems. The key is recognizing that every palindrome has a center and can be found by expanding outward from that center.*
+1. **Two types of centers**: Every palindrome has either a single-character center (odd-length) or a two-character center (even-length)
 
+2. **Expand outward**: For each center, expand while characters match
+
+3. **Count incrementally**: Each successful expansion creates a new palindromic substring
+
+4. **No overlap**: Each center is checked independently, so we count all palindromes exactly once
+
+## References
+
+- [LC 647: Palindromic Substrings on LeetCode](https://www.leetcode.com/problems/palindromic-substrings/)
+- [LeetCode Discuss — LC 647: Palindromic Substrings](https://www.leetcode.com/problems/palindromic-substrings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/palindromic-substrings/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

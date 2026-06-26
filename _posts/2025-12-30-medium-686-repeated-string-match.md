@@ -5,14 +5,44 @@ date: 2025-12-30 14:30:00 -0700
 categories: [leetcode, medium, string-matching, kmp, rabin-karp, rolling-hash]
 permalink: /2025/12/30/medium-686-repeated-string-match/
 ---
+Given two strings `a` and `b`, return the minimum number of times you should repeat string `a` so that string `b` is a substring of it. If it is impossible for `b` to be a substring of `a` after repeating it, return `-1`.
 
-# 686. Repeated String Match
+**Notice:** String `"abc"` repeated 0 times is `""`, repeated 1 time is `"abc"`, and repeated 2 times is `"abcabc"`.
 
-## Problem Statement
+## Thinking Process
 
 Given two strings `a` and `b`, return the minimum number of times you should repeat string `a` so that string `b` is a substring of it. If it is impossible for `b` to be a substring of `a` after repeating it, return `-1`.
 
 **Notice:** String `"abc"` repeated 0 times is `""`, repeated 1 time is `"abc"`, and repeated 2 times is `"abcabc"`.
+
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
 ## Examples
 
@@ -45,77 +75,6 @@ Output: -1
 
 - `1 <= a.length, b.length <= 10^4`
 - `a` and `b` consist of lowercase English letters.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Repetition definition**: What does "repeated string match" mean? (Assumption: Repeat string 'a' multiple times until 'b' becomes a substring of the repeated string)
-
-2. **Minimum repetitions**: What are we trying to find? (Assumption: Minimum number of times to repeat 'a' so that 'b' is a substring)
-
-3. **Substring matching**: Does 'b' need to be an exact substring? (Assumption: Yes - 'b' must appear as a contiguous substring in the repeated 'a')
-
-4. **No match**: What should we return if 'b' can never be a substring? (Assumption: Return -1 - impossible to form 'b' as substring)
-
-5. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find minimum repetitions. Let me try repeating string a and checking if b is substring."
-
-**Naive Solution**: Repeat string a multiple times, check if b is substring using simple string matching. Try repetitions from 1 to some upper bound.
-
-**Complexity**: O(n × m) per repetition check, where n = len(a), m = len(b)
-
-**Issues**:
-- Simple substring matching is inefficient
-- May need many repetitions
-- Doesn't leverage string matching algorithms
-- Timeout for large strings
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use KMP algorithm for efficient substring matching, or optimize repetition checking."
-
-**Improved Solution**: Use KMP algorithm for substring matching. Repeat a until length >= b, then check if b is substring. Can also use Rabin-Karp for alternative.
-
-**Complexity**: O(n + m) per check with KMP, but need multiple repetitions
-
-**Improvements**:
-- KMP makes substring matching efficient
-- Still need to determine upper bound for repetitions
-- Much faster than naive matching
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can determine upper bound: need at most ceil(m/n) + 1 repetitions. Use KMP for matching."
-
-**Best Solution**: Calculate upper bound: need at most ceil(len(b)/len(a)) + 1 repetitions. Use KMP algorithm for efficient substring matching. Can also use Rabin-Karp as alternative.
-
-**Complexity**: O(n + m) time with KMP, O(n + m) space
-
-**Key Realizations**:
-1. Upper bound is ceil(m/n) + 1 repetitions
-2. KMP algorithm is optimal for substring matching
-3. O(n + m) time is optimal for string matching
-4. Rabin-Karp is alternative with similar complexity
-
-## Solution Approach
-
-This problem requires finding the minimum number of repetitions of string `a` such that string `b` becomes a substring. This is a **string matching problem** that can be efficiently solved using advanced algorithms like **Knuth-Morris-Pratt (KMP)** or **Rabin-Karp**.
-
-### Key Insights:
-
-1. **Minimum Repetitions**: Need at least `⌈b.length / a.length⌉` repetitions
-2. **Maximum Repetitions**: At most `⌈b.length / a.length⌉ + 1` repetitions needed
-3. **Circular Matching**: Since `a` is repeated, we can use circular string matching
-4. **Efficient Algorithms**: KMP or Rabin-Karp provide O(n + m) time complexity
-
-### Algorithm Options:
-
-1. **KMP Algorithm**: Preprocess pattern to avoid backtracking
-2. **Rabin-Karp**: Use rolling hash for efficient substring matching
-3. **Naive Approach**: O(n × m) - check each position
 
 ## String Matching Algorithms
 
@@ -187,211 +146,6 @@ hash = (s[i] * base^(m-1) + s[i+1] * base^(m-2) + ... + s[i+m-1]) % mod
 To slide window from i to i+1:
 new_hash = ((old_hash - s[i] * base^(m-1)) * base + s[i+m]) % mod
 ```
-
-## Solution 1: KMP Algorithm (Recommended)
-
-### **Solution: KMP with Circular String Matching**
-
-```cpp
-class Solution {
-private:
-    int strStr(string &haystack, string &needle) {
-        const int n = haystack.size(), m = needle.size();
-        if(m == 0) return 0;
-        vector<int> pi(m);
-        for(int i = 1, j = 0; i < m; i++) {
-            while(j > 0 && needle[i] != needle[j]) {
-                j = pi[j - 1];
-            }
-            if(needle[i] == needle[j]) {
-                j++;
-            }
-            pi[i] = j;
-        }
-        for(int i = 0, j = 0; i - j < n; i++) {
-            while(j > 0 && haystack[i % n] != needle[j]) {
-                j = pi[j - 1];
-            }
-            if(haystack[i % n] == needle[j]) {
-                j++;
-            }
-            if(j == m) {
-                return i - m + 1;
-            }
-        }
-        return -1;
-    }
-public:
-    int repeatedStringMatch(string a, string b) {
-        const int an = a.size(), bn = b.size();
-        int idx = strStr(a, b);
-        if(idx == -1) return -1;
-        if(an - idx >= bn) {
-            return 1;
-        }
-        return (bn + idx - an - 1) / an + 2;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Prefix Function Construction (Lines 7-15)**:
-   - Build `pi` array for pattern `needle`
-   - `pi[i]` = length of longest prefix-suffix for `needle[0..i]`
-   - Use previous values to compute efficiently
-
-2. **KMP Search with Circular Matching (Lines 16-28)**:
-   - Search for `needle` in circular `haystack`
-   - Use `i % n` to handle circular indexing
-   - On mismatch: `j = pi[j - 1]` (skip using prefix function)
-   - On match: increment `j`
-   - When `j == m`: pattern found at position `i - m + 1`
-
-3. **Calculate Minimum Repetitions (Lines 30-38)**:
-   - If pattern found at `idx`:
-     - If remaining characters in first repetition ≥ `bn`: return 1
-     - Otherwise: calculate repetitions needed
-     - Formula: `(bn + idx - an - 1) / an + 2`
-
-### **Example Walkthrough:**
-
-**For `a = "abcd", b = "cdabcdab"`:**
-
-```
-Step 1: Build prefix function for "cdabcdab"
-Pattern: c  d  a  b  c  d  a  b
-π[i]:    0  0  0  0  1  2  3  4
-
-Step 2: KMP search in circular "abcd"
-Text (circular): a b c d a b c d a b c d ...
-Pattern:         c d a b c d a b
-
-i=0: 'a' vs 'c' → mismatch, j=0
-i=1: 'b' vs 'c' → mismatch, j=0
-i=2: 'c' vs 'c' → match, j=1
-i=3: 'd' vs 'd' → match, j=2
-i=4: 'a' vs 'a' → match, j=3
-i=5: 'b' vs 'b' → match, j=4
-i=6: 'c' vs 'c' → match, j=5
-i=7: 'd' vs 'd' → match, j=6
-i=8: 'a' vs 'a' → match, j=7
-i=9: 'b' vs 'b' → match, j=8 → FOUND!
-
-idx = 9 - 8 + 1 = 2
-an = 4, bn = 8
-an - idx = 4 - 2 = 2 < 8
-repetitions = (8 + 2 - 4 - 1) / 4 + 2 = 5/4 + 2 = 1 + 2 = 3
-```
-
-## Solution 2: Rabin-Karp Algorithm
-
-### **Solution: Rabin-Karp with Rolling Hash**
-
-```cpp
-class Solution {
-private:
-    const long long BASE = 256;
-    const long long MOD = 1e9 + 7;
-    
-    long long computeHash(const string& s, int start, int len) {
-        long long hash = 0;
-        for(int i = 0; i < len; i++) {
-            hash = (hash * BASE + s[start + i]) % MOD;
-        }
-        return hash;
-    }
-    
-    long long updateHash(long long oldHash, char remove, char add, long long power) {
-        oldHash = (oldHash - (remove * power) % MOD + MOD) % MOD;
-        oldHash = (oldHash * BASE + add) % MOD;
-        return oldHash;
-    }
-    
-    bool verifyMatch(const string& text, int start, const string& pattern) {
-        for(int i = 0; i < pattern.size(); i++) {
-            if(text[start + i] != pattern[i]) return false;
-        }
-        return true;
-    }
-    
-    int rabinKarpSearch(const string& text, const string& pattern, bool circular) {
-        int n = text.size(), m = pattern.size();
-        if(m == 0) return 0;
-        if(n < m) return -1;
-        
-        // Compute pattern hash
-        long long patternHash = computeHash(pattern, 0, m);
-        
-        // Compute power for rolling hash
-        long long power = 1;
-        for(int i = 0; i < m - 1; i++) {
-            power = (power * BASE) % MOD;
-        }
-        
-        // Compute initial window hash
-        long long textHash = computeHash(text, 0, m);
-        
-        // Check first window
-        if(textHash == patternHash && verifyMatch(text, 0, pattern)) {
-            return 0;
-        }
-        
-        // Rolling hash
-        int maxIterations = circular ? n + m - 1 : n - m + 1;
-        for(int i = 1; i < maxIterations; i++) {
-            int removeIdx = (i - 1) % n;
-            int addIdx = (i + m - 1) % n;
-            
-            textHash = updateHash(textHash, text[removeIdx], text[addIdx], power);
-            
-            if(textHash == patternHash) {
-                int start = i % n;
-                if(verifyMatch(text, start, pattern)) {
-                    return i;
-                }
-            }
-        }
-        
-        return -1;
-    }
-    
-public:
-    int repeatedStringMatch(string a, string b) {
-        int an = a.size(), bn = b.size();
-        
-        // Try circular search
-        int idx = rabinKarpSearch(a, b, true);
-        if(idx == -1) return -1;
-        
-        if(an - idx >= bn) {
-            return 1;
-        }
-        return (bn + idx - an - 1) / an + 2;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Hash Computation (Lines 6-11)**:
-   - Compute hash for substring using polynomial rolling hash
-   - Formula: `hash = (hash * BASE + char) % MOD`
-
-2. **Rolling Hash Update (Lines 13-17)**:
-   - Remove leftmost character: subtract `remove * power`
-   - Add rightmost character: multiply by BASE and add
-   - Handle modulo arithmetic correctly
-
-3. **Verification (Lines 19-24)**:
-   - When hashes match, verify with character-by-character comparison
-   - Prevents false positives from hash collisions
-
-4. **Rabin-Karp Search (Lines 26-58)**:
-   - Precompute pattern hash and power value
-   - Slide window and update hash in O(1)
-   - Check hash matches, verify if needed
-   - Support circular string matching
 
 ## KMP Template
 
@@ -536,8 +290,7 @@ public:
    - Always verify hash matches with actual string comparison
    - Prevents false positives
 
-## Complexity Analysis
-
+### Complexity
 ### **Solution 1: KMP**
 
 **Time Complexity:** O(n + m)
@@ -582,31 +335,32 @@ public:
 | **Implementation** | More complex | Simpler |
 | **Recommended** | ✅ Yes (guaranteed performance) | ⚠️ Good for average case |
 
-## Alternative Approaches
+## Key Takeaways
 
-### **Approach 1: KMP (Current Solution 1)**
-- **Time**: O(n + m)
-- **Space**: O(m)
-- **Best for**: Guaranteed performance, no worst-case degradation
+- Notice:** String `"abc"` repeated 0 times is `""`, repeated 1 time is `"abc"`, and repeated 2 times is `"abcabc"`.
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
 
-### **Approach 2: Rabin-Karp (Current Solution 2)**
-- **Time**: O(n + m) average
-- **Space**: O(1)
-- **Use case**: When space is limited, average case is acceptable
+## References
 
-### **Approach 3: Naive String Matching**
-- **Time**: O(n × m)
-- **Space**: O(1)
-- **Use case**: Simple but inefficient for large inputs
+- [LC 686: Repeated String Match on LeetCode](https://www.leetcode.com/problems/repeated-string-match/)
+- [LeetCode Discuss — LC 686: Repeated String Match](https://www.leetcode.com/problems/repeated-string-match/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/repeated-string-match/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 
 ## Related Problems
 
-- [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) - KMP application
-- [214. Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/) - KMP for palindrome
-- [1392. Longest Happy Prefix](https://leetcode.com/problems/longest-happy-prefix/) - Prefix function
-- [187. Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) - Rolling hash
+- [28. Find the Index of the First Occurrence in a String](https://www.leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) - KMP application
+- [214. Shortest Palindrome](https://www.leetcode.com/problems/shortest-palindrome/) - KMP for palindrome
+- [1392. Longest Happy Prefix](https://www.leetcode.com/problems/longest-happy-prefix/) - Prefix function
+- [187. Repeated DNA Sequences](https://www.leetcode.com/problems/repeated-dna-sequences/) - Rolling hash
 
 ## Tags
 
 `String Matching`, `KMP`, `Knuth-Morris-Pratt`, `Rabin-Karp`, `Rolling Hash`, `Prefix Function`, `Medium`
-

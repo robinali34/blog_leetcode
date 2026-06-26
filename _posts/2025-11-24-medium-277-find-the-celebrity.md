@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp graph two-pointers problem-solving
 permalink: /posts/2025-11-24-medium-277-find-the-celebrity/
 tags: [leetcode, medium, graph, two-pointers, celebrity]
 ---
-
-# [Medium] 277. Find the Celebrity
-
 Suppose you are at a party with `n` people (labeled from `0` to `n - 1`) and among them, there may exist one celebrity. The definition of a celebrity is that all the other `n - 1` people know him/her, but he/she does not know any of them.
 
 Now you want to find out who the celebrity is or verify that there is not one. The only thing you are allowed to do is to ask questions like: "Hi, A. Do you know B?" to get information about whether A knows B. You need to find out the celebrity (or verify there is not one) by asking as few questions as possible (in the asymptotic sense).
@@ -40,35 +37,42 @@ Explanation: There is no celebrity.
 - `graph[i][j]` is `0` or `1`.
 - `graph[i][i] == 1` (everyone knows themselves)
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Elimination Property**: If candidate knows someone, they can't be celebrity
 
-1. **Celebrity definition**: What is a celebrity? (Assumption: Person who knows nobody (except themselves) but is known by everyone)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Knows function**: What does knows(a, b) return? (Assumption: graph[a][b] = 1 means a knows b, 0 means a doesn't know b)
 
-3. **Return value**: What should we return? (Assumption: Integer - celebrity's index if exists, -1 if no celebrity)
 
-4. **Uniqueness**: Can there be multiple celebrities? (Assumption: No - at most one celebrity can exist)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Self-knowledge**: Does everyone know themselves? (Assumption: Yes - graph[i][i] = 1 per constraints)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each person i, check if they are a celebrity: verify that knows(i, j) is false for all j != i, and knows(j, i) is true for all j != i. This requires O(n²) calls to the knows() function, which is inefficient. The challenge is that we need to check all pairs of relationships.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| BFS / DFS traversal | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
+| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
+| **Union-Find (DSU)** *(this problem)* | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
+| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
 
-Use the fact that if knows(a, b) is true, then a cannot be a celebrity (they know someone). If knows(a, b) is false, then b cannot be a celebrity (not known by a). Use this to eliminate candidates: start with candidate 0, and for each person i, if knows(candidate, i), then candidate cannot be celebrity, so set candidate = i. After one pass, we have a potential celebrity candidate.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a two-pass algorithm: First pass finds a candidate by elimination. Start with candidate = 0. For each person i from 1 to n-1, if knows(candidate, i), then candidate cannot be celebrity (knows someone), so set candidate = i. Second pass verifies the candidate: check that candidate doesn't know anyone (except themselves) and everyone knows the candidate. This achieves O(n) calls to knows() function, which is optimal. The key insight is that the elimination property allows us to find the only possible candidate in one pass, then verify in a second pass.
-
-## Solution: Two-Pass Algorithm
+## Solution
 
 **Time Complexity:** O(n) - makes at most 3n calls to `knows()`  
 **Space Complexity:** O(1)
@@ -113,70 +117,28 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Candidate Elimination
+**Approach:** Union-Find (DSU) (this problem)
 
-**Celebrity Properties:**
-- Celebrity knows **nobody** (except themselves)
-- **Everyone** knows the celebrity
+**Key idea:** 1. **Elimination Property**: If candidate knows someone, they can't be celebrity
 
-**Elimination Logic:**
-- If `knows(candidate, i)` is true → candidate cannot be celebrity (knows someone)
-- Therefore, `i` becomes the new candidate
-- After first pass, candidate is the only person who could be celebrity
-
-### Step-by-Step Example: `n = 3`, Celebrity is person 1
-
-```
-Graph:
-    0  1  2
-0 [ 1  1  0 ]
-1 [ 0  1  0 ]
-2 [ 1  1  1 ]
-
-First Pass (Find Candidate):
-- candidate = 0
-- i = 1: knows(0, 1) = true → candidate = 1
-- i = 2: knows(1, 2) = false → candidate stays 1
-- Candidate found: 1
-
-Second Pass (Verify):
-- i = 0: 
-  - knows(1, 0) = false ✓ (celebrity doesn't know 0)
-  - knows(0, 1) = true ✓ (0 knows celebrity)
-- i = 2:
-  - knows(1, 2) = false ✓ (celebrity doesn't know 2)
-  - knows(2, 1) = true ✓ (2 knows celebrity)
-- Verification passed: return 1
-```
-
-**Visual Representation:**
-```
-Party:
-  0 ──knows──> 1 <──knows── 2
-  │            │             │
-  └────────────┴─────────────┘
-            (celebrity)
-
-First Pass:
-- Start with candidate = 0
-- knows(0, 1) = true → eliminate 0, candidate = 1
-- knows(1, 2) = false → keep candidate = 1
-
-Second Pass:
-- Verify 1 doesn't know anyone: ✓
-- Verify everyone knows 1: ✓
-- Return 1
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Elimination Property**: If candidate knows someone, they can't be celebrity
-2. **Single Candidate**: After first pass, at most one candidate remains
-3. **Verification Needed**: Must verify candidate meets both celebrity conditions
-4. **Efficient**: Only O(n) calls to `knows()` instead of O(n²)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
+**Walkthrough** — input `graph = [[1,1,0],[0,1,0],[1,1,1]]`, expected output `1`:
+
+There are three persons labeled with 0, 1 and 2. 
+graph[i][j] = 1 means person i knows person j, otherwise graph[i][j] = 0 means person i does not know person j.
+The celebrity is the person labeled as 1 because both 0 and 2 know him but 1 does not know anybody.
+
+| Approach | Time | Space | Calls to knows() | Pros | Cons |
+|----------|------|-------|------------------|------|------|
+| **Two-Pass** | O(n) | O(1) | ~3n | Optimal | Requires two passes |
+| **Brute Force** | O(n²) | O(1) | ~n² | Simple | Inefficient |
 ## Algorithm Breakdown
 
 ### First Pass: Find Candidate
@@ -214,64 +176,7 @@ for (int i = 0; i < n; i++) {
 - Check everyone knows the celebrity
 - If either fails, return -1 (no celebrity)
 
-## Edge Cases
-
-1. **No celebrity**: Return -1 after verification fails
-2. **Celebrity is person 0**: First pass keeps candidate = 0
-3. **Celebrity is last person**: First pass updates to last person
-4. **Everyone knows everyone**: No celebrity (candidate knows someone)
-5. **Nobody knows anyone**: No celebrity (nobody knows candidate)
-
-## Alternative Approaches
-
-### Approach 2: Brute Force (O(n²))
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
-
-```cpp
-class Solution {
-public:
-    int findCelebrity(int n) {
-        for (int i = 0; i < n; i++) {
-            bool isCelebrity = true;
-            
-            // Check if i knows anyone
-            for (int j = 0; j < n; j++) {
-                if (i != j && knows(i, j)) {
-                    isCelebrity = false;
-                    break;
-                }
-            }
-            
-            if (!isCelebrity) continue;
-            
-            // Check if everyone knows i
-            for (int j = 0; j < n; j++) {
-                if (i != j && !knows(j, i)) {
-                    isCelebrity = false;
-                    break;
-                }
-            }
-            
-            if (isCelebrity) return i;
-        }
-        
-        return -1;
-    }
-};
-```
-
-**Pros:**
-- Simple and straightforward
-- Easy to understand
-
-**Cons:**
-- O(n²) calls to `knows()` - inefficient
-- Doesn't leverage elimination property
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Calls to knows() | Pros | Cons |
 |----------|------|-------|------------------|------|------|
 | **Two-Pass** | O(n) | O(1) | ~3n | Optimal | Requires two passes |
@@ -347,6 +252,12 @@ int findCelebrity(int n) {
 
 ## Common Mistakes
 
+1. **No celebrity**: Return -1 after verification fails
+2. **Celebrity is person 0**: First pass keeps candidate = 0
+3. **Celebrity is last person**: First pass updates to last person
+4. **Everyone knows everyone**: No celebrity (candidate knows someone)
+5. **Nobody knows anyone**: No celebrity (nobody knows candidate)
+
 1. **Skipping verification**: Must verify candidate meets both conditions
 2. **Wrong elimination logic**: Must check `knows(candidate, i)`, not `knows(i, candidate)`
 3. **Not handling self-loops**: `knows(i, i)` is always true (everyone knows themselves)
@@ -361,8 +272,8 @@ int findCelebrity(int n) {
 
 ## Related Problems
 
-- [997. Find the Town Judge](https://leetcode.com/problems/find-the-town-judge/) - Similar concept with trust relationships
-- [277. Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) - This problem
+- [997. Find the Town Judge](https://www.leetcode.com/problems/find-the-town-judge/) - Similar concept with trust relationships
+- [277. Find the Celebrity](https://www.leetcode.com/problems/find-the-celebrity/) - This problem
 - Graph problems with in-degree/out-degree concepts
 
 ## Real-World Applications
@@ -443,7 +354,19 @@ Second Pass:
 - But celebrity must be known by everyone
 - Contradiction → at most one celebrity
 
----
+## Key Takeaways
 
-*This problem demonstrates how to efficiently find a special node in a graph using candidate elimination and verification, achieving optimal O(n) time complexity.*
+1. **Elimination Property**: If candidate knows someone, they can't be celebrity
+2. **Single Candidate**: After first pass, at most one candidate remains
+3. **Verification Needed**: Must verify candidate meets both celebrity conditions
+4. **Efficient**: Only O(n) calls to `knows()` instead of O(n²)
 
+## References
+
+- [LC 277: Find the Celebrity on LeetCode](https://www.leetcode.com/problems/find-the-celebrity/)
+- [LeetCode Discuss — LC 277: Find the Celebrity](https://www.leetcode.com/problems/find-the-celebrity/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/find-the-celebrity/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

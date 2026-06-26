@@ -6,11 +6,6 @@ categories: [leetcode, hard, array, binary-search, design, segment-tree, ordered
 permalink: /2026/01/18/hard-732-my-calendar-iii/
 tags: [leetcode, hard, array, binary-search, design, segment-tree, lazy-propagation, sweep-line, difference-array]
 ---
-
-# 732. My Calendar III
-
-## Problem Statement
-
 A `k`-booking happens when `k` events have some non-empty intersection (i.e., there is some time that is common to all `k` events).
 
 You are given some events `[startTime, endTime)`, after each given event, return an integer `k` representing the maximum `k`-booking from all the previous events.
@@ -47,50 +42,41 @@ myCalendarThree.book(25, 55); // return 3
 - `0 <= startTime < endTime <= 10^9`
 - At most `400` calls will be made to `book`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Sweep Line**: Most intuitive, tracks active bookings at each time point
 
-1. **K-booking definition**: What does "k-booking" mean? (Assumption: At most k events can overlap at any time point - k is the maximum concurrent bookings)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Half-open interval [start, end) - start is inclusive, end is exclusive)
 
-3. **Return value**: What should book() return? (Assumption: Return the maximum k (maximum number of overlapping events) after this booking)
 
-4. **Overlap counting**: How do we count overlapping events? (Assumption: Count how many events are active at any point in time - use sweep line or difference array)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= startTime < endTime <= 10^9 per constraints)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-## Interview Deduction Process (30 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (8 minutes)**
+## Common Approaches
 
-Maintain a list of all booked intervals. For each booking, add the interval and scan all time points to find the maximum overlap. This requires checking every existing interval against the new one, and for each time point, count how many intervals contain it. This approach has O(n²) complexity per booking, which is too slow for up to 400 calls.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use a difference array (sweep line technique). For each booking [start, end), increment a counter at start and decrement at end. Then scan through all time points to find the maximum prefix sum, which represents the maximum overlap. However, with coordinates up to 10^9, we need coordinate compression. This reduces to O(n log n) per booking for sorting and scanning, but can be optimized further.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use a map (ordered map) to store time points and their delta values (+1 for start, -1 for end). When booking, update the map at start and end positions. Then iterate through the map entries in sorted order, maintaining a running sum. The maximum running sum during iteration is the answer. This achieves O(n log n) per booking where n is the number of existing bookings, but the map automatically handles coordinate compression and sorting. Alternatively, use a segment tree with lazy propagation for range updates, but the map approach is simpler and sufficient for the constraint of 400 calls.
-
-## Solution Approach
-
-This problem requires finding the **maximum number of overlapping intervals** after each booking. Unlike [LC 729: My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) which only checks for any overlap, we need to count and track the maximum overlap.
-
-### Key Insights:
-
-1. **Sweep Line Algorithm**: Use difference array to track interval starts (+1) and ends (-1)
-2. **Segment Tree**: For range updates and range maximum queries over large ranges
-3. **Split Intervals**: Maintain active intervals and split at boundaries
-4. **Maximum Overlap**: Track the maximum count at any point in time
-
-### Algorithm:
-
-1. **Sweep Line**: Mark start with +1, end with -1, then sweep to find maximum
-2. **Segment Tree**: Update range [start, end-1] with +1, query maximum
-3. **Split Intervals**: Split intervals at boundaries and track counts
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
 
 ## Solution
 
@@ -127,6 +113,18 @@ private:
  * int param_1 = obj->book(startTime, endTime);
  */
 ```
+
+### Solution Explanation
+
+**Approach:** Standard binary search (this problem)
+
+**Key idea:** 1. **Sweep Line**: Most intuitive, tracks active bookings at each time point
+
+**How the code works:**
+1. **Sweep Line**: Most intuitive, tracks active bookings at each time point
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
 ### **Algorithm Explanation:**
 
@@ -321,16 +319,7 @@ Step 2: book(10, 40)
 - **Space Complexity:** O(n)
   - Store up to 2n boundaries
   - Overall: O(n)
-
-## Key Insights
-
-1. **Sweep Line**: Most intuitive, tracks active bookings at each time point
-2. **Segment Tree**: Efficient for large ranges, supports range updates
-3. **Split Intervals**: Maintains explicit intervals with counts
-4. **Half-Open Intervals**: End is exclusive, so `[10, 20)` and `[20, 30)` don't overlap
-5. **Maximum Tracking**: Need to track maximum across all time points
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single booking**: `book(10, 20)` → return `1`
 2. **No overlap**: `book(10, 20)`, `book(30, 40)` → return `1`
@@ -338,30 +327,33 @@ Step 2: book(10, 40)
 4. **Partial overlap**: `book(10, 30)`, `book(20, 40)` → return `2`
 5. **Multiple overlaps**: `book(10, 20)`, `book(15, 25)`, `book(18, 22)` → return `3`
 
-## Common Mistakes
-
 1. **Inclusive end**: Treating end as inclusive instead of exclusive
 2. **Not tracking maximum**: Forgetting to update maximum after each booking
 3. **Segment tree range**: Using [start, end] instead of [start, end-1]
 4. **Split logic**: Not properly splitting intervals at boundaries
 5. **Iterator errors**: Invalidating iterators during iteration
 
-## Comparison of Approaches
-
-| Approach | Time per book() | Space | Code Complexity | Best For |
-|----------|----------------|-------|-----------------|----------|
-| **Sweep Line (Map)** | O(n log n) | O(n) | Simple | General purpose, easy to understand |
-| **Segment Tree** | O(log M) | O(n log M) | Complex | Large ranges, many bookings |
-| **Split Intervals** | O(n) | O(n) | Moderate | When explicit intervals needed |
-
 ## Related Problems
 
 - [LC 729: My Calendar I](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) - Check for any overlap
-- [LC 731: My Calendar II](https://leetcode.com/problems/my-calendar-ii/) - Allow double booking, prevent triple
+- [LC 731: My Calendar II](https://www.leetcode.com/problems/my-calendar-ii/) - Allow double booking, prevent triple
 - [LC 56: Merge Intervals](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/) - Merge overlapping intervals
 - [LC 218: The Skyline Problem](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) - Similar sweep line approach
 
----
+## Key Takeaways
 
-*This problem demonstrates multiple approaches for **maximum overlap counting**: Sweep Line (difference array), Segment Tree with lazy propagation, and Split Intervals. The key insight is tracking active bookings at each time point and finding the maximum.*
+1. **Sweep Line**: Most intuitive, tracks active bookings at each time point
+2. **Segment Tree**: Efficient for large ranges, supports range updates
+3. **Split Intervals**: Maintains explicit intervals with counts
+4. **Half-Open Intervals**: End is exclusive, so `[10, 20)` and `[20, 30)` don't overlap
+5. **Maximum Tracking**: Need to track maximum across all time points
 
+## References
+
+- [LC 732: My Calendar III on LeetCode](https://www.leetcode.com/problems/my-calendar-iii/)
+- [LeetCode Discuss — LC 732: My Calendar III](https://www.leetcode.com/problems/my-calendar-iii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/my-calendar-iii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

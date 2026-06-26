@@ -4,12 +4,7 @@ title: "[Hard] 25. Reverse Nodes in k-Group"
 date: 2025-09-24 22:00:00 -0000
 categories: leetcode algorithm linked-list recursive data-structures pointers hard cpp reverse-nodes k-group recursion problem-solving
 ---
-
-# [Hard] 25. Reverse Nodes in k-Group
-
 This is a complex linked list problem that requires reversing nodes in groups of k. The key insight is using recursion to handle the grouping and a helper function to reverse individual groups.
-
-## Problem Description
 
 Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
 
@@ -17,8 +12,7 @@ Given the head of a linked list, reverse the nodes of the list k at a time, and 
 - If the number of nodes is not a multiple of k, then left-out nodes should remain as-is
 - You may not alter the values in the list's nodes, only the nodes themselves
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: head = [1,2,3,4,5], k = 2
@@ -37,67 +31,12 @@ Input: head = [1,2,3,4,5], k = 1
 Output: [1,2,3,4,5]
 ```
 
-### Constraints
+## Constraints
 - The number of nodes in the list is n
 - 1 <= k <= n <= 5000
 - 0 <= Node.val <= 1000
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **K-group definition**: What does "reverse nodes in k-group" mean? (Assumption: Reverse every k consecutive nodes - if k=3, reverse first 3, then next 3, etc.)
-
-2. **Remaining nodes**: What if remaining nodes are less than k? (Assumption: Leave them as is - don't reverse if fewer than k nodes remain)
-
-3. **In-place modification**: Should we modify the list in-place? (Assumption: Yes - modify the existing list, return head of modified list)
-
-4. **K value**: What is the range of k? (Assumption: 1 <= k <= n, where n is number of nodes)
-
-5. **Return value**: What should we return? (Assumption: Head of the modified linked list)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to reverse nodes in k-groups. Let me collect values, rearrange, rebuild list."
-
-**Naive Solution**: Collect all node values, rearrange in k-groups, rebuild linked list.
-
-**Complexity**: O(n) time, O(n) space
-
-**Issues**:
-- Uses O(n) extra space
-- Modifies values instead of pointers
-- Not truly in-place
-- Doesn't demonstrate pointer manipulation
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can reverse k nodes at a time by manipulating pointers. Need to track group boundaries."
-
-**Improved Solution**: Traverse list, reverse each group of k nodes by manipulating pointers. Track previous group's tail to connect groups.
-
-**Complexity**: O(n) time, O(1) space
-
-**Improvements**:
-- O(1) space - true in-place operation
-- Manipulates pointers directly
-- Handles group boundaries correctly
-- More complex than simple reversal
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "Recursive or iterative approach. Recursive is cleaner, iterative is more space-efficient."
-
-**Best Solution**: Recursive approach: reverse first k nodes, recursively reverse remaining list, connect. Iterative approach: use loop to process each group, reverse and connect.
-
-**Complexity**: O(n) time, O(n/k) space recursive, O(1) space iterative
-
-**Key Realizations**:
-1. Pointer manipulation is key skill
-2. Group boundary handling is crucial
-3. Recursive is cleaner but uses stack space
-4. Iterative is more space-efficient
-
-## Approach
+## Thinking Process
 
 The solution uses a recursive approach:
 
@@ -106,8 +45,36 @@ The solution uses a recursive approach:
 3. **Recursive Call**: Recursively process the remaining list
 4. **Connect Groups**: Link the reversed group with the result from recursion
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
+
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+
+## Solution
 **Time Complexity:** O(n) - Each node is visited once  
 **Space Complexity:** O(n/k) - Recursion stack depth
 
@@ -154,6 +121,23 @@ private:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Iterative pointer walk (this problem)
+
+**Key idea:** The solution uses a recursive approach:
+
+**How the code works:**
+1. **Count Check**: Verify if there are at least k nodes remaining
+2. **Reverse Group**: Reverse the first k nodes using a helper function
+3. **Recursive Call**: Recursively process the remaining list
+4. **Connect Groups**: Link the reversed group with the result from recursion
+
+**Walkthrough** — input `head = [1,2,3,4,5], k = 2`, expected output `[2,1,4,3,5]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Step-by-Step Example
 
 Let's trace through the solution with head = `[1,2,3,4,5]` and k = 2:
@@ -174,13 +158,6 @@ Let's trace through the solution with head = `[1,2,3,4,5]` and k = 2:
 - head->next (which is 1) points to the result from recursion
 - Final result: [2,1,4,3,5]
 
-## Key Insights
-
-1. **Recursive Structure**: Each group is processed independently
-2. **Count Validation**: Always check if there are enough nodes before reversing
-3. **Pointer Management**: Careful handling of head pointers and connections
-4. **Base Case**: Return original head if insufficient nodes remain
-
 ## Helper Function Breakdown
 
 The `reverseLinkedList` function:
@@ -188,14 +165,12 @@ The `reverseLinkedList` function:
 2. **Pointer Swapping**: Uses three pointers for safe reversal
 3. **Count Control**: Uses k counter to limit reversal to exactly k nodes
 
-## Edge Cases
+## Common Mistakes
 
 - **k = 1**: No reversal needed, return original list
 - **k = n**: Reverse entire list once
 - **Insufficient Nodes**: Return remaining nodes unchanged
 - **Empty List**: Handle null head gracefully
-
-## Common Mistakes
 
 - **Incorrect Count Check**: Not verifying enough nodes before reversal
 - **Pointer Confusion**: Mixing up head pointers after reversal
@@ -203,3 +178,16 @@ The `reverseLinkedList` function:
 - **Connection Errors**: Not properly linking reversed groups
 
 ---
+
+## References
+
+- [LC 25: Reverse Nodes in k-Group on LeetCode](https://www.leetcode.com/problems/reverse-nodes-in-k-group/)
+- [LeetCode Discuss — LC 25: Reverse Nodes in k-Group](https://www.leetcode.com/problems/reverse-nodes-in-k-group/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/reverse-nodes-in-k-group/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Recursive Structure**: Each group is processed independently
+2. **Count Validation**: Always check if there are enough nodes before reversing
+3. **Pointer Management**: Careful handling of head pointers and connections
+4. **Base Case**: Return original head if insufficient nodes remain

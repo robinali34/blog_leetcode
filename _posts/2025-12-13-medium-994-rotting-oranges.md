@@ -4,9 +4,7 @@ title: "[Medium] 994. Rotting Oranges"
 date: 2025-12-13 00:00:00 -0800
 categories: leetcode algorithm medium cpp array matrix bfs problem-solving
 ---
-
 {% raw %}
-# [Medium] 994. Rotting Oranges
 
 You are given an `m x n` grid where each cell can have one of three values:
 
@@ -47,35 +45,42 @@ Explanation: Since there are no fresh oranges at minute 0, the answer is just 0.
 - `1 <= m, n <= 10`
 - `grid[i][j]` is `0`, `1`, or `2`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Multi-source BFS**: Start from all rotten oranges simultaneously
 
-1. **Cell types**: What do the values represent? (Assumption: 0 = empty cell, 1 = fresh orange, 2 = rotten orange)
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
-2. **Rotting process**: How do oranges rot? (Assumption: Rotten oranges rot adjacent fresh oranges (up, down, left, right) each minute)
 
-3. **Return value**: What should we return? (Assumption: Integer - minimum minutes until no fresh oranges remain, or -1 if impossible)
 
-4. **All rotten**: What if all oranges are already rotten? (Assumption: Return 0 - no time needed)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **No fresh oranges**: What if there are no fresh oranges? (Assumption: Return 0 - nothing to rot)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Simulate minute by minute: for each minute, find all fresh oranges adjacent to rotten oranges and mark them as rotten. Repeat until no more fresh oranges can rot. Count the number of minutes. This approach works but requires scanning the entire grid each minute, giving O(m × n × minutes) complexity, which can be inefficient if many minutes are needed.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
 
-Use BFS starting from all rotten oranges simultaneously (multi-source BFS). Add all rotten oranges to the queue initially. Process level by level, where each level represents one minute. For each level, process all oranges, rot adjacent fresh oranges, and add them to the next level. This reduces redundant scanning but still requires careful level tracking.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use multi-source BFS with a level marker (sentinel value or separate level tracking). Initialize queue with all rotten oranges. Use a sentinel value (like -1) to mark level boundaries, or process level-by-level by tracking queue size before processing. For each level, process all nodes, rot adjacent fresh oranges, and add them to the queue. Track minutes as levels. After BFS completes, check if any fresh oranges remain (return -1) or return the number of minutes. This achieves O(m × n) time complexity, visiting each cell at most once, which is optimal.
-
-## Solution 1: Multi-Source BFS with Level Marker (Recommended)
+## Solution
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  
 **Space Complexity:** O(m × n) - For the queue
@@ -136,6 +141,30 @@ public:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** 1. **Multi-source BFS**: Start from all rotten oranges simultaneously
+
+**How the code works:**
+1. **Multi-source BFS**: Start from all rotten oranges simultaneously
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
+
+**Walkthrough** — input `grid = [[2,1,1],[1,1,0],[0,1,1]]`, expected output `4`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Operation | Time | Space |
+|-----------|------|-------|
+| Initial scan | O(m×n) | O(1) |
+| BFS traversal | O(m×n) | O(m×n) |
+| **Overall** | **O(m×n)** | **O(m×n)** |
+
 ### How Solution 1 Works
 
 1. **Initialization**: 
@@ -158,134 +187,6 @@ The `{-1, -1}` marker acts as a level separator:
 - All oranges at the same level (same minute) are processed together
 - When we encounter the marker, we know we've finished one minute
 - This allows us to track time without maintaining a separate distance/time array
-
-## Solution 2: Multi-Source BFS with Level-by-Level Processing
-
-**Time Complexity:** O(m × n)  
-**Space Complexity:** O(m × n)
-
-This approach processes each level explicitly by tracking queue size.
-
-```cpp
-class Solution {
-public:
-    int orangesRotting(vector<vector<int>>& grid) {
-        queue<pair<int, int>> q;
-        int freshOranges = 0;
-        const int ROWS = grid.size(), COLS = grid[0].size();
-        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-
-        // Find all rotten oranges and count fresh oranges
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
-                if(grid[r][c] == 2) {
-                    q.push({r, c});
-                } else if(grid[r][c] == 1) {
-                    freshOranges++;
-                }
-            }
-        }
-
-        int minutes = 0;
-        while(!q.empty() && freshOranges > 0) {
-            int levelSize = q.size();
-            for(int i = 0; i < levelSize; i++) {
-                auto [row, col] = q.front();
-                q.pop();
-                
-                for(auto& d: dirs) {
-                    int nr = row + d[0];
-                    int nc = col + d[1];
-                    if(nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && grid[nr][nc] == 1) {
-                        grid[nr][nc] = 2;
-                        freshOranges--;
-                        q.push({nr, nc});
-                    }
-                }
-            }
-            if(freshOranges > 0) minutes++;
-        }
-        
-        return freshOranges == 0 ? minutes : -1;
-    }
-};
-```
-
-### How Solution 2 Works
-
-1. **Level-by-level processing**: Process all nodes at current level before moving to next
-2. **Queue size tracking**: `levelSize = q.size()` captures all nodes at current minute
-3. **Increment minutes**: Only increment after processing a level (if fresh oranges remain)
-
-## Solution 3: BFS with Distance Array
-
-**Time Complexity:** O(m × n)  
-**Space Complexity:** O(m × n)
-
-This approach maintains a separate distance/time array to track when each orange rots.
-
-```cpp
-class Solution {
-public:
-    int orangesRotting(vector<vector<int>>& grid) {
-        const int ROWS = grid.size(), COLS = grid[0].size();
-        queue<pair<int, int>> q;
-        vector<vector<int>> time(ROWS, vector<int>(COLS, -1));
-        int freshOranges = 0;
-        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-
-        // Initialize: add rotten oranges to queue
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
-                if(grid[r][c] == 2) {
-                    q.push({r, c});
-                    time[r][c] = 0;
-                } else if(grid[r][c] == 1) {
-                    freshOranges++;
-                }
-            }
-        }
-
-        int maxTime = 0;
-        while(!q.empty()) {
-            auto [row, col] = q.front();
-            q.pop();
-            
-            for(auto& d: dirs) {
-                int nr = row + d[0];
-                int nc = col + d[1];
-                if(nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && 
-                   grid[nr][nc] == 1 && time[nr][nc] == -1) {
-                    time[nr][nc] = time[row][col] + 1;
-                    maxTime = max(maxTime, time[nr][nc]);
-                    grid[nr][nc] = 2;
-                    freshOranges--;
-                    q.push({nr, nc});
-                }
-            }
-        }
-        
-        return freshOranges == 0 ? maxTime : -1;
-    }
-};
-```
-
-### How Solution 3 Works
-
-1. **Distance array**: `time[r][c]` stores when orange at `(r, c)` becomes rotten
-2. **Track maximum time**: Keep track of maximum time needed
-3. **Visited check**: Use `time[nr][nc] == -1` to check if not yet processed
-
-## Comparison of Approaches
-
-| Aspect | Solution 1 (Marker) | Solution 2 (Level Size) | Solution 3 (Distance) |
-|--------|---------------------|------------------------|----------------------|
-| **Time Complexity** | O(m×n) | O(m×n) | O(m×n) |
-| **Space Complexity** | O(m×n) | O(m×n) | O(m×n) |
-| **Extra Space** | None | None | Distance array |
-| **Code Clarity** | Good | Excellent | Good |
-| **Level Tracking** | Marker-based | Size-based | Distance-based |
-
 ## Example Walkthrough
 
 **Input:** `grid = [[2,1,1],[1,1,0],[0,1,1]]`
@@ -327,15 +228,14 @@ Minute 4:
 Result: 4 minutes
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time | Space |
 |-----------|------|-------|
 | Initial scan | O(m×n) | O(1) |
 | BFS traversal | O(m×n) | O(m×n) |
 | **Overall** | **O(m×n)** | **O(m×n)** |
 
-## Edge Cases
+## Common Mistakes
 
 1. **No fresh oranges**: `[[0,2]]` → return 0
 2. **Impossible to rot all**: Isolated fresh orange → return -1
@@ -343,20 +243,11 @@ Result: 4 minutes
 4. **All fresh initially**: No rotten oranges → return -1
 5. **Empty grid**: Not possible per constraints
 
-## Common Mistakes
-
 1. **Not counting initial fresh oranges**: Must count before BFS starts
 2. **Wrong level tracking**: Forgetting to increment minutes at right time
 3. **Boundary checks**: Not checking array bounds before accessing
 4. **Visited tracking**: Not marking as rotten immediately (could process same cell twice)
 5. **Return value**: Returning minutes when freshOranges > 0 (should return -1)
-
-## Key Insights
-
-1. **Multi-source BFS**: Start from all rotten oranges simultaneously
-2. **Level separation**: Need to track time/levels to know when all oranges at current level are processed
-3. **Fresh count tracking**: Decrement count when rotting, check if zero at end
-4. **Grid modification**: Mark as rotten immediately to avoid reprocessing
 
 ## Optimization Tips
 
@@ -366,11 +257,11 @@ Result: 4 minutes
 
 ## Related Problems
 
-- [286. Walls and Gates](https://leetcode.com/problems/walls-and-gates/) - Similar multi-source BFS
-- [317. Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/) - Multi-source BFS with distance
-- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) - Connected components
-- [542. 01 Matrix](https://leetcode.com/problems/01-matrix/) - Distance from nearest 0
-- [1162. As Far from Land as Possible](https://leetcode.com/problems/as-far-from-land-as-possible/) - Multi-source BFS
+- [286. Walls and Gates](https://www.leetcode.com/problems/walls-and-gates/) - Similar multi-source BFS
+- [317. Shortest Distance from All Buildings](https://www.leetcode.com/problems/shortest-distance-from-all-buildings/) - Multi-source BFS with distance
+- [200. Number of Islands](https://www.leetcode.com/problems/number-of-islands/) - Connected components
+- [542. 01 Matrix](https://www.leetcode.com/problems/01-matrix/) - Distance from nearest 0
+- [1162. As Far from Land as Possible](https://www.leetcode.com/problems/as-far-from-land-as-possible/) - Multi-source BFS
 
 ## Pattern Recognition
 
@@ -399,3 +290,16 @@ Similar problems:
 5. **Information Diffusion**: Track information spread in social networks
 
 {% endraw %}
+
+## References
+
+- [LC 994: Rotting Oranges on LeetCode](https://www.leetcode.com/problems/rotting-oranges/)
+- [LeetCode Discuss — LC 994: Rotting Oranges](https://www.leetcode.com/problems/rotting-oranges/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/rotting-oranges/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Multi-source BFS**: Start from all rotten oranges simultaneously
+2. **Level separation**: Need to track time/levels to know when all oranges at current level are processed
+3. **Fresh count tracking**: Decrement count when rotting, check if zero at end
+4. **Grid modification**: Mark as rotten immediately to avoid reprocessing

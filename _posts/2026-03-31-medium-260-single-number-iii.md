@@ -6,7 +6,6 @@ categories: [leetcode, medium, bit-manipulation]
 tags: [leetcode, medium, bit-manipulation, xor]
 permalink: /2026/03/31/medium-260-single-number-iii/
 ---
-
 Given an integer array `nums` where **exactly two** elements appear once and all other elements appear exactly twice, find the two elements that appear only once. Return them in any order. Your algorithm should run in linear time and constant space.
 
 ## Examples
@@ -82,7 +81,28 @@ Step 3: Partition by bit 1:
 Answer: [3, 5] ✓
 ```
 
-## Solution: XOR + Bit Partitioning -- $O(n)$ time, $O(1)$ space
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
+
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **XOR tricks** *(this problem)* | $O(n)$ | $O(1)$ | Single number, swap without temp |
+| Bit masks | $O(2^n)$ | $O(n)$ | Subset enumeration |
+| Brian Kernighan | $O(\log n)$ | $O(1)$ | Count set bits |
+| Shift operations | $O(n)$ | $O(1)$ | Power of two, divide by 2 |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -101,11 +121,23 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- two passes
-**Space**: $O(1)$
+### Solution Explanation
 
+**Approach:** XOR tricks (this problem)
+
+**Key idea:** ### Step 1: XOR Everything
+
+**How the code works:**
+-x   = 1010  (two's complement)
+- Group 1: numbers with that bit **set**
+- Group 2: numbers with that bit **clear**
+
+**Walkthrough** — input `nums = [1,2,1,3,2,5]`, expected output `[3,5]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Why `x & (-x)` Works
 
 In two's complement, `-x = ~x + 1`. This flips all bits and adds 1, which propagates through the trailing zeros and flips the lowest `1` bit's position. The AND with the original isolates exactly that bit:
@@ -139,10 +171,16 @@ x&-x = 0000 0100  ← lowest set bit
 
 ## Related Problems
 
-- [136. Single Number](https://leetcode.com/problems/single-number/) -- one unique element (simpler)
-- [137. Single Number II](https://leetcode.com/problems/single-number-ii/) -- triples instead of pairs
-- [389. Find the Difference](https://leetcode.com/problems/find-the-difference/) -- XOR to find extra element
-- [268. Missing Number](https://leetcode.com/problems/missing-number/) -- XOR with indices
+- [136. Single Number](https://www.leetcode.com/problems/single-number/) -- one unique element (simpler)
+- [137. Single Number II](https://www.leetcode.com/problems/single-number-ii/) -- triples instead of pairs
+- [389. Find the Difference](https://www.leetcode.com/problems/find-the-difference/) -- XOR to find extra element
+- [268. Missing Number](https://www.leetcode.com/problems/missing-number/) -- XOR with indices
+
+## References
+
+- [LC 260: Single Number III on LeetCode](https://www.leetcode.com/problems/single-number-iii/)
+- [LeetCode Discuss — LC 260: Single Number III](https://www.leetcode.com/problems/single-number-iii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/single-number-iii/editorial/) *(may require premium)*
 
 ## Template Reference
 

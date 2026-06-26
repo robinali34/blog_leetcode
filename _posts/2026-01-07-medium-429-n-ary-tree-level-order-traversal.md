@@ -6,11 +6,6 @@ categories: [leetcode, medium, tree, bfs, n-ary-tree]
 permalink: /2026/01/07/medium-429-n-ary-tree-level-order-traversal/
 tags: [leetcode, medium, tree, bfs, level-order-traversal, n-ary-tree]
 ---
-
-# 429. N-ary Tree Level Order Traversal
-
-## Problem Statement
-
 Given an n-ary tree, return *the level order traversal of its nodes' values*.
 
 Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
@@ -38,85 +33,40 @@ Output: [[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]
 - The height of the n-ary tree is less than or equal to `1000`
 - The total number of nodes is between `[0, 10^4]`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **BFS Structure**: Queue naturally maintains level-by-level order
 
-1. **Tree type**: Is this a binary tree or N-ary tree? (Assumption: N-ary tree - each node can have multiple children)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Level definition**: How are levels defined? (Assumption: Level 0 is root, level 1 is root's children, etc. - BFS levels)
 
-3. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level, nodes in order)
 
-4. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Children order**: Should children be processed in any specific order? (Assumption: Process in the order they appear in children array)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to traverse N-ary tree level by level. Let me use DFS with level tracking."
+## Common Approaches
 
-**Naive Solution**: Use DFS with level tracking. Store nodes by level in map, then convert to result.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(n) space
-
-**Issues**:
-- DFS doesn't naturally maintain level order
-- Need to sort levels or use map
-- Doesn't leverage BFS naturally
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "BFS naturally processes nodes level by level, works for N-ary trees too."
-
-**Improved Solution**: Use BFS (queue). Process nodes level by level. For each node, add all children to queue. Process all nodes at current level before next level.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- BFS naturally maintains level order
-- Works for N-ary trees (multiple children)
-- O(n) time is optimal
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "BFS approach is optimal. Track level size to process level by level."
-
-**Best Solution**: BFS approach is optimal. Use queue, track level size, process all nodes at current level, add all children to queue for next level.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. BFS is perfect for level-order traversal
-2. Works for both binary and N-ary trees
-3. O(n) time is optimal - visit each node once
-4. Level size tracking enables level-by-level processing
-
-## Solution Approach
-
-This is a classic **BFS (Breadth-First Search)** problem for N-ary trees. The key insight is to:
-1. Use a queue to traverse the tree level by level
-2. Process all nodes at the current level before moving to the next
-3. Track the level size to know when we've processed all nodes at a level
-4. Handle multiple children per node (unlike binary trees with only left/right)
-
-### Key Insights:
-
-1. **Level-by-Level Processing**: Process all nodes at the current level before moving to the next
-2. **Queue for BFS**: Use a queue to maintain the order of nodes to be processed
-3. **Level Size Tracking**: Store the queue size before processing a level to know how many nodes belong to that level
-4. **Multiple Children**: Iterate through `children` vector instead of checking left/right
-
-### Algorithm:
-
-1. **Initialize**: Create result vector and queue, push root if it exists
-2. **For each level**:
-   - Get current level size (number of nodes at this level)
-   - Process all nodes at current level
-   - Add their values to the level vector
-   - Add all their children to the queue for next level
-3. **Return**: Result vector containing all levels
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Queue BFS | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| **Level-order BFS** *(this problem)* | $O(n)$ | $O(w)$ | Process by depth/layer |
 
 ## Solution
 
@@ -167,6 +117,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Level-order BFS (this problem)
+
+**Key idea:** 1. **BFS Structure**: Queue naturally maintains level-by-level order
+
+**How the code works:**
+1. **BFS Structure**: Queue naturally maintains level-by-level order
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [1,null,3,2,4,null,5,6]`, expected output `[[1],[3,2,4],[5,6]]`:
+
+Level 0: [1]
+Level 1: [3, 2, 4]
+Level 2: [5, 6]
 
 ### **Algorithm Explanation:**
 
@@ -249,14 +217,6 @@ Queue empty, return result
 - **Space Complexity:** O(n) for the result and O(w) for the queue where w is maximum width
   - Result stores all n node values
   - Queue stores at most one level of nodes (maximum width of tree)
-
-## Key Insights
-
-1. **BFS Structure**: Queue naturally maintains level-by-level order
-2. **Level Size Tracking**: Critical to know when we've finished processing a level
-3. **Multiple Children**: Use loop to iterate through `children` vector instead of checking specific child pointers
-4. **Same Pattern as Binary Tree**: The algorithm is identical to binary tree level order, just iterate through children instead of left/right
-
 ## Comparison with Binary Tree Level Order
 
 **Similarities:**
@@ -271,13 +231,31 @@ Queue empty, return result
 
 ## Related Problems
 
-- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) - Binary tree version
-- [LC 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) - Zigzag traversal
-- [LC 107: Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
-- [LC 559: Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree/) - Find depth of N-ary tree
+- [LC 102: Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/) - Binary tree version
+- [LC 103: Binary Tree Zigzag Level Order Traversal](https://www.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) - Zigzag traversal
+- [LC 107: Binary Tree Level Order Traversal II](https://www.leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
+- [LC 559: Maximum Depth of N-ary Tree](https://www.leetcode.com/problems/maximum-depth-of-n-ary-tree/) - Find depth of N-ary tree
 
----
+## Common Mistakes
 
-*This problem demonstrates the BFS pattern for N-ary trees, which extends naturally from binary tree level order traversal.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 
+## Key Takeaways
+
+1. **BFS Structure**: Queue naturally maintains level-by-level order
+2. **Level Size Tracking**: Critical to know when we've finished processing a level
+3. **Multiple Children**: Use loop to iterate through `children` vector instead of checking specific child pointers
+4. **Same Pattern as Binary Tree**: The algorithm is identical to binary tree level order, just iterate through children instead of left/right
+
+## References
+
+- [LC 429: N-ary Tree Level Order Traversal on LeetCode](https://www.leetcode.com/problems/n-ary-tree-level-order-traversal/)
+- [LeetCode Discuss — LC 429: N-ary Tree Level Order Traversal](https://www.leetcode.com/problems/n-ary-tree-level-order-traversal/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/n-ary-tree-level-order-traversal/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

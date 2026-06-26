@@ -5,11 +5,6 @@ date: 2026-01-03 02:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting, intervals, dynamic-programming]
 permalink: /2026/01/03/medium-435-non-overlapping-intervals/
 ---
-
-# 435. Non-overlapping Intervals
-
-## Problem Statement
-
 Given an array of intervals `intervals` where `intervals[i] = [starti, endi]`, return *the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping*.
 
 Note that intervals that only touch at the boundary (e.g., `[1,2]` and `[2,3]`) are considered non-overlapping.
@@ -43,51 +38,39 @@ Explanation: You don't need to remove any of the intervals since they're already
 - `intervals[i].length == 2`
 - `-5 * 10^4 <= starti < endi <= 5 * 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an array of intervals `intervals` where `intervals[i] = [starti, endi]`, return *the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping*.
 
-1. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common point - [a, b] overlaps [c, d] if max(a, c) <= min(b, d))
+Note that intervals that only touch at the boundary (e.g., `[1,2]` and `[2,3]`) are considered non-overlapping.
 
-2. **Interval boundaries**: Are boundaries inclusive or exclusive? (Assumption: Typically inclusive on both ends [start, end] - need to clarify)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of intervals to remove so remaining intervals are non-overlapping)
 
-4. **Return value**: What should we return? (Assumption: Integer - minimum number of intervals to remove)
 
-5. **Tie-breaking**: If multiple intervals overlap, which should we remove? (Assumption: Greedy approach - remove interval with later end time to maximize remaining space)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
-## Interview Deduction Process (20 minutes)
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible combinations of intervals to keep. For each subset of intervals, check if they are non-overlapping, and find the subset with maximum size. The number of removals is n - max_size. This approach has exponential time complexity O(2^n), which is infeasible for n up to 10^5. The challenge is exploring all possible combinations efficiently.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming: sort intervals by start time, then dp[i] = maximum number of non-overlapping intervals we can keep ending at or before interval i. For each interval, find the last interval that doesn't overlap with it using binary search, and update dp[i] = max(dp[i-1], dp[last_non_overlapping] + 1). This gives O(n log n) time complexity, which works but can be simplified further with a greedy approach.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a greedy approach: sort intervals by end time. Greedily keep intervals that don't overlap with the last kept interval. The key insight is that if we want to maximize the number of intervals we keep, we should always choose the interval with the earliest end time among overlapping intervals, as it leaves the most room for future intervals. This reduces the problem to a simple greedy selection: sort by end time O(n log n), then one pass O(n) to count how many we can keep. The number of removals is n - count_kept. This achieves O(n log n) time, which is optimal for the sorting step.
-
-## Solution Approach
-
-This is a classic **greedy interval scheduling** problem. The key insight is to **sort intervals by end time** and greedily keep intervals that don't overlap with the last kept interval.
-
-### Key Insights:
-
-1. **Sort by End Time**: Sort intervals by their end time (not start time)
-2. **Greedy Choice**: Keep intervals with earlier end times (maximizes remaining space)
-3. **Overlap Check**: Two intervals overlap if `start < previous_end`
-4. **Optimal**: This greedy strategy minimizes removals (maximizes kept intervals)
-
-### Algorithm:
-
-1. **Sort**: Sort intervals by end time
-2. **Track**: Keep track of the end time of the last kept interval
-3. **Iterate**: For each interval, if it overlaps with the last kept interval, remove it
-4. **Count**: Return the number of removals
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -114,6 +97,23 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** Given an array of intervals `intervals` where `intervals[i] = [starti, endi]`, return *the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping*.
+
+**How the code works:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `intervals = [[1,2],[2,3],[3,4],[1,3]]`, expected output `1`:
+
+[1,3] can be removed and the rest of the intervals are non-overlapping.
+
+**Time:** - **Sorting**: O(n log n) where n is the number of intervals · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -214,7 +214,6 @@ i=1: [2,3]
 Result: 0 removals
 Kept intervals: [1,2], [2,3]
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Sort by End Time?**
@@ -282,26 +281,7 @@ This maximizes the number of kept intervals, which minimizes removals.
 4. **Optimal**: Greedy approach finds optimal solution
 5. **Simple**: Straightforward implementation after sorting
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with End Time Sorting (Current Solution)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming**
-- **Time**: O(n²)
-- **Space**: O(n)
-- **Use when**: Need to track which intervals to keep
-- **Idea**: `dp[i]` = max intervals we can keep ending at interval i
-
-### **Approach 3: Sort by Start Time (Incorrect)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Problem**: Doesn't guarantee optimal solution
-- **Example**: Fails on `[[1,10], [2,3], [4,5]]`
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty array**: `[]` → return 0
 2. **Single interval**: `[[1,2]]` → return 0
@@ -309,8 +289,6 @@ This maximizes the number of kept intervals, which minimizes removals.
 4. **All overlap**: `[[1,3],[1,3],[1,3]]` → return 2
 5. **Boundary touch**: `[[1,2],[2,3]]` → return 0 (non-overlapping)
 6. **Nested intervals**: `[[1,5],[2,3],[4,6]]` → return 1
-
-## Common Mistakes
 
 1. **Wrong sort key**: Sorting by start time instead of end time
 2. **Wrong overlap condition**: Using `<=` instead of `<`
@@ -320,13 +298,28 @@ This maximizes the number of kept intervals, which minimizes removals.
 
 ## Related Problems
 
-- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) - Merge overlapping intervals
-- [252. Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) - Check if intervals overlap
-- [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
-- [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Similar greedy interval problem
-- [646. Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) - Find longest chain of non-overlapping intervals
+- [56. Merge Intervals](https://www.leetcode.com/problems/merge-intervals/) - Merge overlapping intervals
+- [252. Meeting Rooms](https://www.leetcode.com/problems/meeting-rooms/) - Check if intervals overlap
+- [253. Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
+- [452. Minimum Number of Arrows to Burst Balloons](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Similar greedy interval problem
+- [646. Maximum Length of Pair Chain](https://www.leetcode.com/problems/maximum-length-of-pair-chain/) - Find longest chain of non-overlapping intervals
 
 ## Tags
 
 `Array`, `Greedy`, `Sorting`, `Intervals`, `Dynamic Programming`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 435: Non-overlapping Intervals on LeetCode](https://www.leetcode.com/problems/non-overlapping-intervals/)
+- [LeetCode Discuss — LC 435: Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/non-overlapping-intervals/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

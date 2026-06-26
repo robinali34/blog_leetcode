@@ -6,11 +6,6 @@ categories: [leetcode, medium, dynamic-programming]
 permalink: /2026/02/09/medium-91-decode-ways/
 tags: [leetcode, medium, dynamic-programming, string]
 ---
-
-# 91. Decode Ways
-
-## Problem Statement
-
 A message containing letters from `A-Z` can be **encoded** into numbers using the following mapping:
 
 ```
@@ -62,22 +57,18 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
 *   `1 <= s.length <= 100`
 *   `s` contains only digits and may contain leading zero(s).
 
-## Clarification Questions
+## Common Approaches
 
-1.  **Leading zeros**: Does a string starting with '0' have any valid decodings? (No, '0' doesn't map to anything and leading zeros are invalid for 2-digit mappings)
-2.  **Invalid characters**: Can the string contain non-digit characters? (Constraint says only digits)
-3.  **Result size**: Does the result fit in a standard integer? (Yes, fits in 32-bit integer)
+Typical techniques for this pattern:
 
-## Interview Deduction Process
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
-1.  **Subproblem identification**: To find the ways to decode a string of length `n`, we can look at the ways to decode the string up to `n-1` (if the last digit is valid) and the string up to `n-2` (if the last two digits are valid).
-2.  **State definition**: Let `dp[i]` be the number of ways to decode the prefix of the string of length `i+1`.
-3.  **Transitions**:
-    *   **Single digit**: If `s[i] != '0'`, we can append `s[i]` to any decoding of `s[0...i-1]`. So `dp[i] += dp[i-1]`.
-    *   **Two digits**: If the substring `s[i-1...i]` represents a number between 10 and 26, we can append this 2-digit number to any decoding of `s[0...i-2]`. So `dp[i] += dp[i-2]`.
-4.  **Space optimization**: Notice that `dp[i]` only depends on `dp[i-1]` and `dp[i-2]`. We can reduce space complexity from $O(n)$ to $O(1)$ by using two variables.
-
-## Solution Approach
+## Thinking Process
 
 This is a classic 1D dynamic programming problem, similar to the Fibonacci sequence or the Climbing Stairs problem, but with added validity checks for the digits.
 
@@ -137,18 +128,51 @@ public:
 };
 ```
 
-## Complexity Analysis
-
+### Complexity
 *   **Time Complexity**: $O(n)$, where $n$ is the length of the string. We iterate through the string once.
 *   **Space Complexity**: 
     *   Solution 1: $O(n)$ for the DP array.
     *   Solution 2: $O(1)$ as we only use a few integer variables.
 
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-*   [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
-*   [639. Decode Ways II](https://leetcode.com/problems/decode-ways-ii/)
-*   [198. House Robber](https://leetcode.com/problems/house-robber/)
+*   [70. Climbing Stairs](https://www.leetcode.com/problems/climbing-stairs/)
+*   [639. Decode Ways II](https://www.leetcode.com/problems/decode-ways-ii/)
+*   [198. House Robber](https://www.leetcode.com/problems/house-robber/)
+
+## Key Takeaways
+
+- Time Complexity**: $O(n)$, where $n$ is the length of the string. We iterate through the string once.
+- Space Complexity**:
+- Solution 1: $O(n)$ for the DP array.
+
+## References
+
+- [LC 91: Decode Ways on LeetCode](https://www.leetcode.com/problems/decode-ways/)
+- [LeetCode Discuss — LC 91: Decode Ways](https://www.leetcode.com/problems/decode-ways/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/decode-ways/editorial/) *(may require premium)*
 
 ## Template Reference
 

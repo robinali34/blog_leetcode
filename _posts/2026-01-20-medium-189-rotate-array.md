@@ -6,11 +6,6 @@ categories: [leetcode, medium, array]
 permalink: /2026/01/20/medium-189-rotate-array/
 tags: [leetcode, medium, array, rotation, two-pointers]
 ---
-
-# 189. Rotate Array
-
-## Problem Statement
-
 Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
 
 ## Examples
@@ -40,35 +35,42 @@ rotate 2 steps to the right: [3,99,-1,-100]
 - `-2^31 <= nums[i] <= 2^31 - 1`
 - `0 <= k <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
 
-1. **Rotation direction**: Which direction should we rotate - left or right? (Assumption: Rotate right by k positions - elements move to the right)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **In-place modification**: Should we modify the array in-place or return a new array? (Assumption: Modify in-place - O(1) extra space requirement)
 
-3. **K larger than array size**: What if k is larger than the array length? (Assumption: Use modulo - `k % nums.length` to handle this case)
 
-4. **Edge case - k = 0**: What should happen if k is 0? (Assumption: Array remains unchanged)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Negative k**: Can k be negative? (Assumption: Based on constraints, k >= 0, but should clarify if negative k means left rotation)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Create a new array, copy elements to their rotated positions. Then copy back to original array. This requires O(n) extra space, which doesn't meet the O(1) space requirement. Alternatively, rotate one position at a time, repeating k times, but this has O(n × k) time complexity, which is too slow for large k.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
-Use a temporary array to store the last k elements, shift the first n-k elements right by k positions, then place the stored elements at the beginning. This requires O(k) extra space. Alternatively, use reverse operations: reverse entire array, then reverse first k elements and last n-k elements separately. However, need to handle k > n by using k % n.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use reverse operations: first reverse the entire array, then reverse the first k elements, and finally reverse the last n-k elements. This achieves O(n) time with O(1) extra space, which is optimal. The key insight is that rotating right by k is equivalent to: reverse all, then reverse first k, then reverse last n-k. This elegant approach requires only three reverse operations and no extra space beyond a few variables.
-
-## Solution 1: Brute Force Rotation (Simulate k Steps)
+## Solution
 
 This solution rotates the array by 1 step, `k` times.
 
@@ -90,75 +92,27 @@ public:
 };
 ```
 
-### Explanation
+### Solution Explanation
 
-- Normalize `k` with `k %= nums.size()` so that rotating by array length does nothing.
-- For each of the `k` rotations:
-  - Store the last element in `previous`.
-  - Iterate through the array from left to right, swapping each element with `previous`.
-  - This effectively shifts all elements to the right by 1, with the last element moved to the front.
+**Approach:** Opposite ends (this problem)
 
-### Complexity
+**Key idea:** Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
+
+**How the code works:**
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
+
+**Walkthrough** — input `nums = [1,2,3,4,5,6,7], k = 3`, expected output `[5,6,7,1,2,3,4]`:
+
+rotate 1 steps to the right: [7,1,2,3,4,5,6]
+rotate 2 steps to the right: [6,7,1,2,3,4,5]
+rotate 3 steps to the right: [5,6,7,1,2,3,4]
 
 - **Time Complexity:** O(n × k) — For each of the `k` steps, we traverse `n` elements.
 - **Space Complexity:** O(1) — Only a few extra variables.
 
 This approach is simple but can be too slow when `k` and `n` are large.
-
-## Solution 2: Reverse Array Trick (Optimal)
-
-We can rotate the array in-place using the **reverse** operation three times:
-
-1. Reverse the entire array.
-2. Reverse the first `k` elements.
-3. Reverse the remaining `n - k` elements.
-
-```cpp
-class Solution {
-public:
-    void rotate(vector<int>& nums, int k) {
-        const int N = nums.size();
-        k %= N;
-        reverse(nums, 0, N - 1);
-        reverse(nums, 0, k - 1);
-        reverse(nums, k, N - 1);
-    }
-private:
-    void reverse(vector<int>& nums, int start, int end) {
-        while(start < end) {
-            int tmp = nums[start];
-            nums[start] = nums[end];
-            nums[end] = tmp;
-            start++;
-            end--;
-        }
-    }
-};
-```
-
-### Why This Works
-
-Let the array be split into two parts with respect to rotation by `k`:
-- Original: `[A B]` where `A` is the first `n-k` elements, `B` is the last `k` elements.
-- Rotated: `[B A]`.
-
-The reverse trick does:
-1. Reverse `[A B]` → `[B^R A^R]` (both parts reversed, order swapped)
-2. Reverse `B^R` back to `B` → `[B A^R]`
-3. Reverse `A^R` back to `A` → `[B A]`
-
-### Complexity
-
-- **Time Complexity:** O(n) — Each element is moved a constant number of times.
-- **Space Complexity:** O(1) — In-place, using only a few extra variables.
-
-## Comparison of Approaches
-
-| Approach                    | Time Complexity | Space Complexity | Notes                          |
-|----------------------------|-----------------|------------------|--------------------------------|
-| Brute Force (k simulations)| O(n × k)        | O(1)             | Simple but slow for large k,n |
-| Reverse Array (Optimal)    | O(n)            | O(1)             | Recommended in interviews      |
-
 ## Edge Cases
 
 1. `k = 0` → Array remains unchanged.
@@ -166,9 +120,31 @@ The reverse trick does:
 3. Single element array → Always unchanged.
 4. Large `k` (e.g., `k > n`) → Handled by `k %= n`.
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [LC 61. Rotate List](https://leetcode.com/problems/rotate-list/)
-- [LC 189. Rotate Array](https://leetcode.com/problems/rotate-array/) — This problem
-- [LC 396. Rotate Function](https://leetcode.com/problems/rotate-function/)
+- [LC 61. Rotate List](https://www.leetcode.com/problems/rotate-list/)
+- [LC 189. Rotate Array](https://www.leetcode.com/problems/rotate-array/) — This problem
+- [LC 396. Rotate Function](https://www.leetcode.com/problems/rotate-function/)
 
+## Key Takeaways
+
+- **Pattern:** Opposite ends (this problem)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+
+## References
+
+- [LC 189: Rotate Array on LeetCode](https://www.leetcode.com/problems/rotate-array/)
+- [LeetCode Discuss — LC 189: Rotate Array](https://www.leetcode.com/problems/rotate-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/rotate-array/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

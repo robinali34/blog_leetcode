@@ -6,7 +6,6 @@ categories: [leetcode, medium, graph, bfs]
 tags: [leetcode, medium, graph, bfs, grid, shortest-path]
 permalink: /2026/03/11/medium-1091-shortest-path-in-binary-matrix/
 ---
-
 Given an `n x n` binary matrix `grid`, return the length of the shortest **clear path** from top-left `(0,0)` to bottom-right `(n-1,n-1)`. A clear path consists of cells with value `0`, and you can move in **8 directions** (including diagonals). The path length is the number of cells visited. Return `-1` if no such path exists.
 
 ## Examples
@@ -42,6 +41,17 @@ Explanation: Starting cell is blocked.
 - `1 <= n <= 100`
 - `grid[i][j]` is `0` or `1`
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
+
 ## Thinking Process
 
 ### Why BFS?
@@ -56,6 +66,19 @@ Unlike typical grid BFS (4 directions), this problem allows diagonal movement. T
 
 - Start or end cell is `1` (blocked) → return `-1` immediately
 - Grid is `1x1` with `grid[0][0] = 0` → return `1`
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
+
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
 
 ## Approach: BFS -- $O(n^2)$
 
@@ -107,11 +130,20 @@ private:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n^2)$ -- each cell visited at most once
-**Space**: $O(n^2)$ for the visited array and queue
+### Solution Explanation
 
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** ### Why BFS?
+
+**How the code works:**
+- Start or end cell is `1` (blocked) → return `-1` immediately
+- Grid is `1x1` with `grid[0][0] = 0` → return `1`
+
+**Walkthrough** — input `grid = [[0,1],[1,0]]`, expected output `2`:
+
+Path (0,0) → (1,1), length = 2
 ## Common Mistakes
 
 - Forgetting to check both start **and** end cells (either being blocked means no path)
@@ -127,10 +159,16 @@ private:
 
 ## Related Problems
 
-- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) -- BFS/DFS grid traversal
-- [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) -- multi-source BFS on grid
-- [542. 01 Matrix](https://leetcode.com/problems/01-matrix/) -- BFS from all zeros simultaneously
-- [127. Word Ladder](https://leetcode.com/problems/word-ladder/) -- BFS shortest path on implicit graph
+- [200. Number of Islands](https://www.leetcode.com/problems/number-of-islands/) -- BFS/DFS grid traversal
+- [994. Rotting Oranges](https://www.leetcode.com/problems/rotting-oranges/) -- multi-source BFS on grid
+- [542. 01 Matrix](https://www.leetcode.com/problems/01-matrix/) -- BFS from all zeros simultaneously
+- [127. Word Ladder](https://www.leetcode.com/problems/word-ladder/) -- BFS shortest path on implicit graph
+
+## References
+
+- [LC 1091: Shortest Path in Binary Matrix on LeetCode](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/)
+- [LeetCode Discuss — LC 1091: Shortest Path in Binary Matrix](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/editorial/) *(may require premium)*
 
 ## Template Reference
 

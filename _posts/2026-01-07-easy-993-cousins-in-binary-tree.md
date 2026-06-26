@@ -6,11 +6,6 @@ categories: [leetcode, easy, tree, bfs, binary-tree]
 permalink: /2026/01/07/easy-993-cousins-in-binary-tree/
 tags: [leetcode, easy, tree, bfs, binary-tree, level-order-traversal]
 ---
-
-# 993. Cousins in Binary Tree
-
-## Problem Statement
-
 Given the `root` of a binary tree with unique values and the values of two different nodes of the tree `x` and `y`, return `true` *if the nodes corresponding to the values* `x` *and* `y` *are **cousins**, or* `false` *otherwise*.
 
 Two nodes of a binary tree are **cousins** if they have the same depth with different parents.
@@ -48,55 +43,40 @@ Explanation: Nodes 2 and 3 are siblings (same parent), not cousins.
 - `x != y`
 - `x` and `y` are guaranteed to exist in the tree.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Cousins = Same Depth + Different Parents**: Both conditions must be satisfied
 
-1. **Cousin definition**: What are cousins? (Assumption: Nodes at same depth (level) but with different parents - not siblings)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Depth requirement**: What does "same depth" mean? (Assumption: Same distance from root - same level in tree)
 
-3. **Return value**: What should we return? (Assumption: Boolean - true if x and y are cousins, false otherwise)
 
-4. **Node existence**: Are x and y guaranteed to exist? (Assumption: Yes - per constraints, both nodes exist in tree)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Sibling check**: What if nodes are siblings? (Assumption: Return false - cousins must have different parents)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-Find the parent and depth of node x, then find the parent and depth of node y. Check if they have the same depth but different parents. To find parent and depth, use DFS or BFS to traverse the tree, tracking parent and depth for each node. This approach works but requires two traversals or careful tracking during one traversal.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Use BFS level by level. For each level, check if both x and y are present. If they are in the same level, check if they have different parents. However, tracking parents during BFS requires storing parent information, which adds complexity. Alternatively, use DFS to find both nodes and their properties in one pass.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use a single DFS or BFS traversal. For each node, track its depth and parent. When we find x, store its depth and parent. When we find y, store its depth and parent. After traversal, check if depths are equal and parents are different. This achieves O(n) time to visit all nodes and O(h) space for recursion/queue, which is optimal. The key insight is that we can find both nodes' properties in a single traversal by tracking depth and parent information as we explore the tree.
-
-## Solution Approach
-
-This problem requires checking if two nodes are **cousins**, which means:
-1. They are at the **same depth** (level)
-2. They have **different parents**
-
-### Key Insights:
-
-1. **Cousins Definition**: Same depth, different parents
-2. **BFS with Parent Tracking**: Use BFS to traverse level by level, tracking parent for each node
-3. **Early Termination**: Once both nodes are found, we can break early
-4. **Parent Comparison**: Check if parents are different after finding both nodes
-
-### Algorithm:
-
-1. **Initialize**: Queue with (node, parent) pairs, start with (root, nullptr)
-2. **For each level**:
-   - Process all nodes at current level
-   - Track parent and depth for nodes x and y
-   - If both found, break early
-3. **Check conditions**: Same depth AND different parents
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
 
 ## Solution
 
@@ -146,6 +126,22 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** 1. **Cousins = Same Depth + Different Parents**: Both conditions must be satisfied
+
+**How the code works:**
+1. **Cousins = Same Depth + Different Parents**: Both conditions must be satisfied
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [1,2,3,4], x = 4, y = 3`, expected output `false`:
+
+Nodes 4 and 3 are at the same depth but have the same parent (node 2).
 
 ### **Algorithm Explanation:**
 
@@ -233,14 +229,6 @@ Result: true (they are cousins)
 - **Space Complexity:** O(n) for the queue
   - Queue stores at most one level of nodes (maximum width of tree)
   - O(1) extra space for tracking variables
-
-## Key Insights
-
-1. **Cousins = Same Depth + Different Parents**: Both conditions must be satisfied
-2. **BFS for Level Tracking**: BFS naturally processes nodes level by level
-3. **Parent Tracking**: Store parent with each node to compare later
-4. **Early Termination**: Break once both nodes are found to optimize
-
 ## Edge Cases
 
 1. **Root is one of the nodes**: Root has no parent (nullptr), so it can't be cousin with any other node
@@ -250,12 +238,30 @@ Result: true (they are cousins)
 
 ## Related Problems
 
-- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) - Level order traversal
-- [LC 863: All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) - Find nodes at distance k
-- [LC 236: Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) - Find LCA
+- [LC 102: Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/) - Level order traversal
+- [LC 863: All Nodes Distance K in Binary Tree](https://www.leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) - Find nodes at distance k
+- [LC 236: Lowest Common Ancestor of a Binary Tree](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) - Find LCA
 
----
+## Common Mistakes
 
-*This problem demonstrates BFS with parent tracking to check relationships between nodes in a binary tree.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 
+## Key Takeaways
+
+1. **Cousins = Same Depth + Different Parents**: Both conditions must be satisfied
+2. **BFS for Level Tracking**: BFS naturally processes nodes level by level
+3. **Parent Tracking**: Store parent with each node to compare later
+4. **Early Termination**: Break once both nodes are found to optimize
+
+## References
+
+- [LC 993: Cousins in Binary Tree on LeetCode](https://www.leetcode.com/problems/cousins-in-binary-tree/)
+- [LeetCode Discuss — LC 993: Cousins in Binary Tree](https://www.leetcode.com/problems/cousins-in-binary-tree/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/cousins-in-binary-tree/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp arrays hash-map prefix-sum problem-sol
 permalink: /posts/2025-11-04-medium-525-contiguous-array/
 tags: [leetcode, medium, array, hash-map, prefix-sum, subarray]
 ---
-
-# [Medium] 525. Contiguous Array
-
 Given a binary array `nums`, return *the maximum length of a contiguous subarray with an equal number of `0` and `1`*.
 
 ## Examples
@@ -32,35 +29,40 @@ Explanation: [0, 1] or [1, 0] is the longest contiguous subarray with an equal n
 - `1 <= nums.length <= 10^5`
 - `nums[i]` is either `0` or `1`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Transformation**: `0 → -1`, `1 → +1` converts the problem to finding subarrays with sum 0
 
-1. **Contiguous subarray**: What is a contiguous subarray? (Assumption: Subarray with consecutive elements - must be contiguous)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-2. **Equal count**: What does "equal number of 0s and 1s" mean? (Assumption: Subarray has same count of 0s and 1s - balanced)
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum length of contiguous subarray with equal 0s and 1s)
 
-4. **Return value**: What should we return? (Assumption: Integer - maximum length of such subarray, 0 if none exists)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Empty subarray**: Can empty subarray be considered? (Assumption: No - need at least one element to have equal counts)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Check all possible contiguous subarrays: for each starting position, try all ending positions, count 0s and 1s in each subarray, and track the maximum length where counts are equal. This approach has O(n³) time complexity: O(n²) subarrays, each requiring O(n) to count 0s and 1s, which is too slow for large arrays.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
 
-Use prefix sums to optimize counting: maintain prefix sums for 0s and 1s. For each subarray [i, j], compute the count of 0s and 1s in O(1) using prefix sums. This reduces time to O(n²) but is still too slow for large inputs.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Convert to prefix sum problem: replace 0s with -1 and 1s with +1. A subarray has equal 0s and 1s if and only if its sum is 0. Use a hash map to track the first occurrence of each prefix sum. When we encounter a prefix sum we've seen before, the subarray between those positions has sum 0. This achieves O(n) time with O(n) space, which is optimal. The key insight is that equal counts of 0s and 1s translates to a sum of 0 when we map 0→-1 and 1→+1, allowing us to use prefix sum techniques.
-
-## Solution: Prefix Sum with Hash Map
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -90,70 +92,26 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Prefix Sum Transformation
+**Approach:** Prefix sum (this problem)
 
-1. **Convert to sum array:** `0` → `-1`, `1` → `+1`
-2. **Calculate prefix sums:** Track cumulative count
-3. **Find equal subarrays:** When prefix sum repeats, the subarray between has net sum 0 (equal 0s and 1s)
+**Key idea:** 1. **Transformation**: `0 → -1`, `1 → +1` converts the problem to finding subarrays with sum 0
 
-### Step-by-Step Example: `nums = [0,1,0,0,1,1,0]`
-
-| i | nums[i] | Count | Prefix Sum | Map Contains? | Action | maxLen |
-|---|---------|-------|------------|---------------|--------|--------|
-| -1 | - | - | 0 | - | Initialize `map[0] = -1` | 0 |
-| 0 | 0 | -1 | -1 | No | `map[-1] = 0` | 0 |
-| 1 | 1 | +1 | 0 | Yes | `0 - (-1) = 1` → maxLen = 2 | 2 |
-| 2 | 0 | -1 | -1 | Yes | `2 - 0 = 2` → maxLen = 2 | 2 |
-| 3 | 0 | -1 | -2 | No | `map[-2] = 3` | 2 |
-| 4 | 1 | +1 | -1 | Yes | `4 - 0 = 4` → maxLen = 4 | 4 |
-| 5 | 1 | +1 | 0 | Yes | `5 - (-1) = 6` → maxLen = 6 | 6 |
-| 6 | 0 | -1 | -1 | Yes | `6 - 0 = 6` → maxLen = 6 | 6 |
-
-**Final Answer:** 6
-
-**Hash Map State:**
-```
-map = {0: -1, -1: 0, -2: 3}
-```
-
-### Visual Representation
-
-```
-nums:    [0, 1, 0, 0, 1, 1, 0]
-values:  [-1,+1,-1,-1,+1,+1,-1]
-prefix:  [-1, 0,-1,-2,-1, 0, -1]
-          ↑        ↑
-          i=0      i=4
-          count=-1 count=-1
-          
-Subarray [0,4]: [0,1,0,0,1]
-  Count: -1 + 1 - 1 - 1 + 1 = -1 (not equal)
-
-Wait, let me recalculate:
-nums:    [0, 1, 0, 0, 1, 1, 0]
-         0  1  2  3  4  5  6
-values:  [-1,+1,-1,-1,+1,+1,-1]
-prefix:  [-1, 0,-1,-2,-1, 0, -1]
-          ↑        ↑
-          i=-1     i=5
-          count=0  count=0
-          
-Subarray [0,5]: [0,1,0,0,1,1]
-  0s: 3 (indices 0,2,3)
-  1s: 3 (indices 1,4,5)
-  Equal! Length = 6
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Transformation**: `0 → -1`, `1 → +1` converts the problem to finding subarrays with sum 0
-2. **Prefix Sum**: Track cumulative count from start
-3. **Hash Map**: Store first occurrence of each prefix sum for longest subarray
-4. **Base Case**: `map[0] = -1` handles subarrays starting from index 0
-5. **Repeated Prefix**: If `prefix[i] == prefix[j]`, then `subarray[i+1..j]` has sum 0
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
+**Walkthrough** — input `nums = [0,1]`, expected output `2`:
+
+[0, 1] is the longest contiguous subarray with an equal number of 0 and 1.
+
+| Aspect | Complexity |
+|--------|------------|
+| **Time** | O(n) - Single pass through array, hash map operations are O(1) |
+| **Space** | O(n) - Hash map stores at most n prefix sums |
 ## Algorithm Breakdown
 
 ### 1. Initialize Hash Map
@@ -228,83 +186,18 @@ Subarray [1,5]: prefix[5] = 0 = prefix[1]
   Length = 5 - 1 = 4 ✓
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Aspect | Complexity |
 |--------|------------|
 | **Time** | O(n) - Single pass through array, hash map operations are O(1) |
 | **Space** | O(n) - Hash map stores at most n prefix sums |
 
-## Alternative Approaches
-
-### Approach 1: Brute Force (TLE)
-
-```cpp
-int findMaxLength(vector<int>& nums) {
-    int maxLen = 0;
-    for(int i = 0; i < nums.size(); i++) {
-        int zeros = 0, ones = 0;
-        for(int j = i; j < nums.size(); j++) {
-            if(nums[j] == 0) zeros++;
-            else ones++;
-            
-            if(zeros == ones) {
-                maxLen = max(maxLen, j - i + 1);
-            }
-        }
-    }
-    return maxLen;
-}
-```
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
-
-### Approach 2: Using Array Instead of Hash Map
-
-Since prefix sums can only range from `-n` to `n`, we can use an array:
-
-```cpp
-int findMaxLength(vector<int>& nums) {
-    int n = nums.size();
-    vector<int> map(2 * n + 1, -2);  // Offset by n
-    map[n] = -1;  // map[0] = -1 with offset
-    int maxLen = 0, count = 0;
-    
-    for(int i = 0; i < n; i++) {
-        count += (nums[i] == 1 ? 1 : -1);
-        int idx = count + n;  // Offset to positive index
-        
-        if(map[idx] != -2) {
-            maxLen = max(maxLen, i - map[idx]);
-        } else {
-            map[idx] = i;
-        }
-    }
-    
-    return maxLen;
-}
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - But fixed size array instead of hash map
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Notes |
-|----------|------|-------|-------|
-| Brute Force | O(n²) | O(1) | Simple but inefficient |
-| Hash Map | O(n) | O(n) | Flexible, handles any range |
-| Array | O(n) | O(n) | Fixed size, faster lookups |
-
-## Edge Cases
+## Common Mistakes
 
 1. **All zeros or all ones**: `[0,0,0]` or `[1,1,1]` → `0` (no equal subarray)
 2. **Single element**: `[0]` or `[1]` → `0`
 3. **Perfect balance**: `[0,1]` → `2`
 4. **Multiple valid subarrays**: `[0,1,0,1,0,1]` → `6`
-
-## Common Mistakes
 
 1. **Missing base case**: Forgetting `map[0] = -1` causes issues with subarrays starting at index 0
 2. **Wrong length calculation**: Using `i - map[count] + 1` instead of `i - map[count]`
@@ -396,11 +289,11 @@ Therefore, we should store only the first occurrence.
 
 ## Related Problems
 
-- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) - Find subarrays with sum k
-- [974. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/) - Similar prefix sum pattern
-- [325. Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/) - Very similar
-- [1124. Longest Well-Performing Interval](https://leetcode.com/problems/longest-well-performing-interval/) - Similar technique
-- [523. Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/) - Check for multiples
+- [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/) - Find subarrays with sum k
+- [974. Subarray Sums Divisible by K](https://www.leetcode.com/problems/subarray-sums-divisible-by-k/) - Similar prefix sum pattern
+- [325. Maximum Size Subarray Sum Equals k](https://www.leetcode.com/problems/maximum-size-subarray-sum-equals-k/) - Very similar
+- [1124. Longest Well-Performing Interval](https://www.leetcode.com/problems/longest-well-performing-interval/) - Similar technique
+- [523. Continuous Subarray Sum](https://www.leetcode.com/problems/continuous-subarray-sum/) - Check for multiples
 
 ## Pattern Recognition
 
@@ -449,3 +342,20 @@ Both are O(1) average case, but `contains()` is more readable.
 
 *This problem is a classic example of transforming a problem into a prefix sum problem. The key insight is converting the "equal 0s and 1s" constraint into "sum equals 0" after transformation.*
 
+## Key Takeaways
+
+1. **Transformation**: `0 → -1`, `1 → +1` converts the problem to finding subarrays with sum 0
+2. **Prefix Sum**: Track cumulative count from start
+3. **Hash Map**: Store first occurrence of each prefix sum for longest subarray
+4. **Base Case**: `map[0] = -1` handles subarrays starting from index 0
+5. **Repeated Prefix**: If `prefix[i] == prefix[j]`, then `subarray[i+1..j]` has sum 0
+
+## References
+
+- [LC 525: Contiguous Array on LeetCode](https://www.leetcode.com/problems/contiguous-array/)
+- [LeetCode Discuss — LC 525: Contiguous Array](https://www.leetcode.com/problems/contiguous-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/contiguous-array/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

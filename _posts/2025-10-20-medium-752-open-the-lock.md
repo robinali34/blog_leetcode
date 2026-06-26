@@ -5,11 +5,6 @@ date: 2025-10-20 15:30:00 -0700
 categories: [leetcode, medium, bfs, shortest-path, lock]
 permalink: /2025/10/20/medium-752-open-the-lock/
 ---
-
-# 752. Open the Lock
-
-## Problem Statement
-
 You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: `'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'`. The wheels can rotate freely and wrap around: for example we can turn `'9'` to be `'0'`, or `'0'` to be `'9'`. Each move consists of turning one wheel one slot.
 
 The lock initially starts at `'0000'`, a string representing the state of the 4 wheels.
@@ -51,80 +46,42 @@ Explanation: We cannot reach the target without getting stuck in a deadend.
 - `target.length == 4`
 - target and deadends[i] consist of digits only.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: `'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'`. The wheels can rotate freely and wrap around: for example we can turn `'9'` to be `'0'`, or `'0'` to be `'9'`. Each move consists of turning one wheel one slot.
 
-1. **Lock state**: What is the lock state? (Assumption: 4-digit combination lock - each wheel can be 0-9, starting at "0000")
+The lock initially starts at `'0000'`, a string representing the state of the 4 wheels.
 
-2. **Wheel movement**: How can we move wheels? (Assumption: Turn one wheel one position up or down - "0000" can become "1000" or "9000")
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
-3. **Deadends**: What are deadends? (Assumption: States we cannot visit - if we reach a deadend, we're stuck)
 
-4. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of moves to reach target from "0000")
 
-5. **Return value**: What should we return? (Assumption: Integer - minimum moves, or -1 if target unreachable)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-## Interview Deduction Process (20 minutes)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find minimum moves. Let me try all possible sequences."
+</svg>
 
-**Naive Solution**: Try all possible lock combinations, find shortest path from "0000" to target avoiding deadends.
+## Common Approaches
 
-**Complexity**: Exponential time, O(1) space
+Typical techniques for this pattern:
 
-**Issues**:
-- Exponential time complexity
-- Tries many invalid paths
-- Very inefficient
-- Doesn't leverage BFS
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This is a shortest path problem. I can use BFS to find minimum moves."
-
-**Improved Solution**: Use BFS starting from "0000". For each state, generate all 8 possible next states (4 wheels × 2 directions). Skip deadends and visited states.
-
-**Complexity**: O(10^4) time worst case (10000 states), O(10^4) space
-
-**Improvements**:
-- BFS finds shortest path
-- O(10^4) time is much better than exponential
-- Handles deadends correctly
-- Visited tracking prevents cycles
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "BFS approach is optimal. Use queue and visited set."
-
-**Best Solution**: BFS is optimal. Use queue for BFS, visited set to track explored states. Generate next states by rotating each wheel up/down. Return depth when target found.
-
-**Complexity**: O(10^4) time, O(10^4) space
-
-**Key Realizations**:
-1. BFS is perfect for shortest path problems
-2. O(10^4) time is optimal - at most 10000 states
-3. Visited set prevents revisiting
-4. Generate next states systematically
-
-## Solution Approach
-
-This is a **shortest path problem** that can be solved using **BFS**. We need to find the minimum number of moves to reach the target from "0000" while avoiding deadends.
-
-### Key Insights:
-
-1. **State space**: Each lock state is a 4-digit string (0000-9999)
-2. **Transitions**: For each position, we can turn up (+1) or down (-1)
-3. **Shortest path**: BFS guarantees minimum number of moves
-4. **Deadends**: Act as obstacles that block certain states
-5. **Wrapping**: 9 → 0 and 0 → 9 (circular nature)
-
-### Algorithm:
-
-1. **BFS from "0000"**: Use queue to explore all possible states
-2. **Level-by-level**: Each level represents one move
-3. **State transitions**: Generate all 8 possible next states (4 positions × 2 directions)
-4. **Avoid deadends**: Skip states that are in deadends set
-5. **Visited tracking**: Prevent revisiting states
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
 
 ## Solution
 
@@ -165,6 +122,23 @@ public:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: `'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'`. The wheels can rotate freely and wrap around: for example we can turn `'9'` to be `'0'`, or `'0'` to be `'9'`. Each move consists of turning one wheel one slot.
+
+**How the code works:**
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
+
+**Walkthrough** — input `deadends = ["0201","0101","0102","1212","2002"], target = "0202"`, expected output `6`:
+
+A sequence of valid moves would be "0000" -> "1000" -> "1100" -> "1200" -> "1201" -> "1202" -> "0202".
+Note that a sequence like "0000" -> "0001" -> "0002" -> "0102" -> "0202" would be invalid,
+because the wheels of the lock become stuck after the display becomes the deadend "0102".
+
 ### **Algorithm Explanation:**
 
 1. **Initialize**: Create deadends set and visited set
@@ -201,8 +175,6 @@ next[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
 // For dir = +1: (9 + 1 + 10) % 10 = 0 (9 → 0)
 ```
 
-## Complexity Analysis
-
 ### **Time Complexity:** O(10^4) = O(1)
 - **State space**: At most 10,000 states (0000-9999)
 - **BFS traversal**: Each state visited at most once
@@ -214,7 +186,6 @@ next[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
 - **Visited set**: O(10,000) - stores visited states
 - **Deadends set**: O(500) - stores deadend states
 - **Total**: O(10,000) = O(1) constant space
-
 ## Key Points
 
 1. **BFS for shortest path**: Guarantees minimum number of moves
@@ -224,54 +195,35 @@ next[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
 5. **Visited tracking**: Prevent infinite loops
 6. **Level counting**: Each BFS level represents one move
 
-## Alternative Approaches
+## Common Mistakes
 
-### **Bidirectional BFS**
-```cpp
-class Solution {
-public:
-    int openLock(vector<string>& deadends, string target) {
-        unordered_set<string> deads(deadends.begin(), deadends.end());
-        if(deads.contains("0000") || deads.contains(target)) return -1;
-        
-        unordered_set<string> begin, end, visited;
-        begin.insert("0000");
-        end.insert(target);
-        int steps = 0;
-        
-        while(!begin.empty() && !end.empty()) {
-            if(begin.size() > end.size()) swap(begin, end);
-            
-            unordered_set<string> next;
-            for(string curr : begin) {
-                if(end.contains(curr)) return steps;
-                if(deads.contains(curr) || visited.contains(curr)) continue;
-                
-                visited.insert(curr);
-                for(int i = 0; i < 4; i++) {
-                    for(int dir = -1; dir <= 1; dir += 2) {
-                        string next_state = curr;
-                        next_state[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
-                        if(!deads.contains(next_state) && !visited.contains(next_state)) {
-                            next.insert(next_state);
-                        }
-                    }
-                }
-            }
-            begin = next;
-            steps++;
-        }
-        return -1;
-    }
-};
-```
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 
 ## Related Problems
 
-- [127. Word Ladder](https://leetcode.com/problems/word-ladder/) - Similar BFS shortest path
-- [433. Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) - String transformation
-- [126. Word Ladder II](https://leetcode.com/problems/word-ladder-ii/) - Find all shortest paths
+- [127. Word Ladder](https://www.leetcode.com/problems/word-ladder/) - Similar BFS shortest path
+- [433. Minimum Genetic Mutation](https://www.leetcode.com/problems/minimum-genetic-mutation/) - String transformation
+- [126. Word Ladder II](https://www.leetcode.com/problems/word-ladder-ii/) - Find all shortest paths
 
 ## Tags
 
 `BFS`, `Shortest Path`, `Lock`, `State Space`, `Medium`
+
+## Key Takeaways
+
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
+
+## References
+
+- [LC 752: Open the Lock on LeetCode](https://www.leetcode.com/problems/open-the-lock/)
+- [LeetCode Discuss — LC 752: Open the Lock](https://www.leetcode.com/problems/open-the-lock/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/open-the-lock/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [BFS](/blog_leetcode/posts/2025-11-24-leetcode-templates-bfs/)

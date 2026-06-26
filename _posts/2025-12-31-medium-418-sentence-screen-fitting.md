@@ -5,11 +5,6 @@ date: 2025-12-31 19:30:00 -0700
 categories: [leetcode, medium, dynamic-programming, string, simulation]
 permalink: /2025/12/31/medium-418-sentence-screen-fitting/
 ---
-
-# 418. Sentence Screen Fitting
-
-## Problem Statement
-
 Given a `rows x cols` screen and a sentence represented as a list of strings, return *the number of times the given sentence can be fitted on the screen*.
 
 The order of words in the sentence must remain unchanged, and a word cannot be split into two lines. A single space must separate two consecutive words on a line.
@@ -55,50 +50,41 @@ The character '-' signifies an empty space on the screen.
 - `1 <= sentence[i].length <= 10`
 - `1 <= rows, cols <= 2 * 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given a `rows x cols` screen and a sentence represented as a list of strings, return *the number of times the given sentence can be fitted on the screen*.
 
-1. **Screen layout**: How is the screen laid out? (Assumption: rows x cols grid - words are placed left to right, wrapping to next row when needed)
+The order of words in the sentence must remain unchanged, and a word cannot be split into two lines. A single space must separate two consecutive words on a line.
 
-2. **Word placement**: How are words placed? (Assumption: Words separated by single space, words don't wrap - whole word must fit on same row)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Sentence repetition**: Can sentence repeat? (Assumption: Yes - sentence can be repeated multiple times to fill screen)
 
-4. **Return value**: What should we return? (Assumption: Integer - number of times sentence can be fitted on screen)
 
-5. **Space handling**: How are spaces handled? (Assumption: Single space between words, spaces at end of row are allowed)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-## Interview Deduction Process (20 minutes)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Simulate each row character by character: for each row, try to fit words one by one, checking if each word fits with a space. When a word doesn't fit, move to the next row. Count how many complete sentences fit across all rows. This approach has O(rows × cols) time complexity, which is too slow for large inputs.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Concatenate the sentence into a single string with spaces, then simulate row by row by tracking a pointer in the concatenated string. For each row, try to fit as many characters as possible, wrapping to the next row when needed. Count complete sentences. This reduces some overhead but still requires O(rows × cols) time in worst case.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use dynamic programming to precompute results: for each starting word position, compute how many complete sentences fit in one row and which word starts the next row. Store these in `dp[i]` and `next[i]` arrays. Then simulate rows using these precomputed values. This achieves O(N × cols + rows) time: O(N × cols) for precomputation and O(rows) for simulation. The key insight is that starting positions repeat (since sentences repeat), so we can reuse precomputed results instead of recalculating for each row.
-
-## Solution Approach
-
-This problem requires fitting a sentence on a screen row by row, where words cannot be split and must be separated by spaces. We can solve this efficiently using **dynamic programming** to precompute how many complete sentences fit starting from each word position.
-
-### Key Insights:
-
-1. **DP Precomputation**: For each starting word, compute how many complete sentences fit in one row
-2. **Next Word Tracking**: Track which word starts the next row after fitting current row
-3. **Row Simulation**: Simulate each row using precomputed values
-4. **Optimization**: Avoid recomputing for same starting positions
-
-### Algorithm:
-
-1. **Precompute DP**: For each word as starting position, calculate sentences and next word
-2. **Simulate Rows**: For each row, use DP to get sentences and move to next word
-3. **Accumulate Count**: Sum up complete sentences across all rows
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -134,6 +120,23 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** Given a `rows x cols` screen and a sentence represented as a list of strings, return *the number of times the given sentence can be fitted on the screen*.
+
+**How the code works:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `sentence = ["hello","world"], rows = 2, cols = 8`, expected output `1`:
+
+hello---
+world---
+The character '-' signifies an empty space on the screen.
 
 ### **Algorithm Explanation:**
 
@@ -212,7 +215,6 @@ Row 0: a-bcd-  (starts with "a", ends at "bcd", next starts with "e")
 Row 1: e-a---  (starts with "e", completes sentence, next starts with "bcd")
 Row 2: bcd-e-  (starts with "bcd", completes sentence, next starts with "a")
 ```
-
 ## Algorithm Breakdown
 
 ### **Key Insight: DP Precomputation**
@@ -236,8 +238,7 @@ This allows O(1) lookup per row instead of O(cols) simulation.
 3. **Efficient Lookup**: O(1) per row instead of O(cols) simulation
 4. **Accumulation**: Sum DP values across all rows
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(N × cols + rows)
 - **Precomputation**: O(N × cols) - for each word, simulate up to cols characters
 - **Row simulation**: O(rows) - one lookup per row
@@ -254,26 +255,6 @@ This allows O(1) lookup per row instead of O(cols) simulation.
 3. **Row Simulation**: Use precomputed values for each row
 4. **Efficient**: O(rows) for row simulation instead of O(rows × cols)
 5. **Space Optimization**: Only store O(N) state
-
-## Alternative Approaches
-
-### **Approach 1: DP with Next Tracking (Current Solution)**
-- **Time**: O(N × cols + rows)
-- **Space**: O(N)
-- **Best for**: Optimal solution with precomputation
-
-### **Approach 2: Character-by-Character Simulation**
-- **Time**: O(rows × cols)
-- **Space**: O(1)
-- **Simulate**: Place each character, track position
-- **Inefficient**: O(rows × cols) time
-
-### **Approach 3: String Concatenation**
-- **Time**: O(rows + N)
-- **Space**: O(N)
-- **Concatenate**: Join sentence with spaces
-- **Simulate**: Track pointer in concatenated string
-- **Efficient**: But different approach
 
 ## Detailed Example Walkthrough
 
@@ -358,13 +339,35 @@ The algorithm efficiently handles:
 - **Fast lookup**: O(1) per row instead of O(cols)
 - **Memory efficient**: Only O(N) space for DP arrays
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [418. Sentence Screen Fitting](https://leetcode.com/problems/sentence-screen-fitting/) - Current problem
-- [68. Text Justification](https://leetcode.com/problems/text-justification/) - Similar text fitting
-- [1592. Rearrange Spaces Between Words](https://leetcode.com/problems/rearrange-spaces-between-words/) - Text formatting
+- [418. Sentence Screen Fitting](https://www.leetcode.com/problems/sentence-screen-fitting/) - Current problem
+- [68. Text Justification](https://www.leetcode.com/problems/text-justification/) - Similar text fitting
+- [1592. Rearrange Spaces Between Words](https://www.leetcode.com/problems/rearrange-spaces-between-words/) - Text formatting
 
 ## Tags
 
 `Dynamic Programming`, `String`, `Simulation`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 418: Sentence Screen Fitting on LeetCode](https://www.leetcode.com/problems/sentence-screen-fitting/)
+- [LeetCode Discuss — LC 418: Sentence Screen Fitting](https://www.leetcode.com/problems/sentence-screen-fitting/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/sentence-screen-fitting/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

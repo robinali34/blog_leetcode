@@ -6,9 +6,6 @@ categories: leetcode algorithm easy cpp string two-pointers problem-solving
 permalink: /posts/2025-11-24-easy-408-valid-word-abbreviation/
 tags: [leetcode, easy, string, two-pointers, parsing]
 ---
-
-# [Easy] 408. Valid Word Abbreviation
-
 A string can be abbreviated by replacing any number of non-adjacent, non-empty substrings with their lengths. The lengths should not have leading zeros.
 
 For example, a string such as `"substitution"` could be abbreviated as (but not limited to):
@@ -75,35 +72,42 @@ Explanation: Cannot have adjacent number replacements (would need to be "s5u5n")
 - `abbr` consists of lowercase English letters and digits.
 - `abbr` does not contain any leading zeros.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Position tracking**: Track where we are in the word (`abbrLen`)
 
-1. **Abbreviation format**: What is the abbreviation format? (Assumption: Mix of letters and numbers - numbers represent skipped characters, letters represent actual characters)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **Validation rules**: What makes an abbreviation valid? (Assumption: Abbreviation must match word exactly - numbers skip that many characters, letters must match)
 
-3. **Return value**: What should we return? (Assumption: Boolean - true if abbreviation is valid, false otherwise)
 
-4. **Leading zeros**: Are leading zeros allowed? (Assumption: No - per constraints, no leading zeros in abbreviation)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Number parsing**: How are numbers parsed? (Assumption: Consecutive digits form a number - skip that many characters in word)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-Expand the abbreviation: parse the abbreviation, convert numbers to skipped characters, and reconstruct the full string. Then compare the reconstructed string with the original word character by character. This approach works but requires building an intermediate string, which uses extra space.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
-Use two pointers: one for the word and one for the abbreviation. Parse the abbreviation character by character. When encountering a digit, parse the number and advance the word pointer by that amount. When encountering a letter, compare with the current word character. This avoids building an intermediate string but requires careful handling of number parsing and boundary checks.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use single-pass with position tracking: maintain pointers `i` for word and `j` for abbreviation. While both pointers are valid, if `abbr[j]` is a digit, parse the number (handling consecutive digits) and advance `i` by that amount. If `abbr[j]` is a letter, compare with `word[i]` and advance both pointers. After processing, check if both pointers reached the end. This achieves O(n) time with O(1) space, which is optimal. The key insight is that we can validate the abbreviation by simulating the expansion process without actually building the expanded string.
-
-## Solution: Single-Pass with Position Tracking
+## Solution
 
 **Time Complexity:** O(n) where n is the length of `abbr`  
 **Space Complexity:** O(1)
@@ -144,83 +148,32 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Track Word Position
+**Approach:** Opposite ends (this problem)
 
-**Variables:**
-- `abbrLen`: Current position in the word (characters processed so far)
-- `num`: Current number being parsed from abbreviation
+**Key idea:** 1. **Position tracking**: Track where we are in the word (`abbrLen`)
 
-**Logic:**
-- When we see a **letter**: Add `num` (skip) + 1 (current letter) to `abbrLen`, verify match
-- When we see a **digit**: Build the number, check for leading zeros
-- At the end: `abbrLen + num` should equal `wordLen`
-
-### Step-by-Step Example: `word = "internationalization"`, `abbr = "i12iz4n"`
-
-```
-Initial: abbrLen = 0, num = 0
-
-i=0: 'i' (letter)
-  abbrLen = 0 + 0 + 1 = 1
-  num = 0
-  Check: word[0] == 'i' ✓
-  abbrLen = 1
-
-i=1: '1' (digit)
-  num = 0 * 10 + 1 = 1
-
-i=2: '2' (digit)
-  num = 1 * 10 + 2 = 12
-
-i=3: 'i' (letter)
-  abbrLen = 1 + 12 + 1 = 14
-  num = 0
-  Check: word[13] == 'i' ✓ (position 14 - 1 = 13)
-  abbrLen = 14
-
-i=4: 'z' (letter)
-  abbrLen = 14 + 0 + 1 = 15
-  num = 0
-  Check: word[14] == 'z' ✓
-  abbrLen = 15
-
-i=5: '4' (digit)
-  num = 0 * 10 + 4 = 4
-
-i=6: 'n' (letter)
-  abbrLen = 15 + 4 + 1 = 20
-  num = 0
-  Check: word[19] == 'n' ✓
-  abbrLen = 20
-
-Final: abbrLen + num = 20 + 0 = 20 == wordLen (20) ✓
-```
-
-**Visual Representation:**
-```
-word:  i n t e r n a t i o n a l i z a t i o n
-       0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-
-abbr:  i 12 i z 4 n
-       │ │  │ │ │ │
-       │ │  │ │ │ └─> pos 19: 'n' ✓
-       │ │  │ │ └───> skip 4: pos 15→19
-       │ │  │ └─────> pos 14: 'z' ✓
-       │ │  └───────> pos 13: 'i' ✓
-       │ └───────────> skip 12: pos 1→13
-       └─────────────> pos 0: 'i' ✓
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Position tracking**: Track where we are in the word (`abbrLen`)
-2. **Number accumulation**: Build multi-digit numbers digit by digit
-3. **Leading zero check**: Reject if digit is '0' when `num == 0`
-4. **Final validation**: Ensure total length matches word length
-5. **Bounds checking**: Verify we don't exceed word length
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
+**Walkthrough** — input `word = "internationalization", abbr = "i12iz4n"`, expected output `true`:
+
+"i12iz4n" represents:
+  - "i" (1 character)
+  - "12" (skip 12 characters: "nternational")
+  - "iz" (2 characters: "iz")
+  - "4" (skip 4 characters: "atio")
+  - "n" (1 character: "n")
+  Total: 1 + 12 + 2 + 4 + 1 = 20 characters ✓
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Position Tracking** | O(n) | O(1) | Single pass, concise | Less intuitive |
+| **Two-Pointer** | O(n) | O(1) | More intuitive | Slightly more code |
 ## Algorithm Breakdown
 
 ### Letter Handling
@@ -270,67 +223,7 @@ return abbrLen + num == wordLen;
 - `abbrLen + num` should equal total word length
 - Ensures we've processed exactly the right number of characters
 
-## Edge Cases
-
-1. **Leading zeros**: `"s010n"` → invalid (leading zero)
-2. **Exact match**: `"word"` and `"4"` → valid (skip all 4 characters)
-3. **No skips**: `"word"` and `"word"` → valid (all letters)
-4. **Overflow**: `"word"` and `"w5d"` → invalid (skip 5 but only 3 chars remain)
-5. **Underflow**: `"word"` and `"w2d"` → invalid (skip 2, but 'd' doesn't match position)
-6. **Empty abbreviation**: Not possible per constraints
-
-## Alternative Approaches
-
-### Approach 2: Two-Pointer Method
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
-
-```cpp
-class Solution {
-public:
-    bool validWordAbbreviation(string word, string abbr) {
-        int i = 0, j = 0;  // i for word, j for abbr
-        
-        while(i < word.length() && j < abbr.length()) {
-            if(abbr[j] >= 'a' && abbr[j] <= 'z') {
-                // Letter: must match
-                if(word[i] != abbr[j]) {
-                    return false;
-                }
-                i++;
-                j++;
-            } else {
-                // Digit: parse number and skip
-                if(abbr[j] == '0') {
-                    return false;  // Leading zero
-                }
-                
-                int num = 0;
-                while(j < abbr.length() && isdigit(abbr[j])) {
-                    num = num * 10 + (abbr[j] - '0');
-                    j++;
-                }
-                
-                i += num;  // Skip num characters in word
-            }
-        }
-        
-        return i == word.length() && j == abbr.length();
-    }
-};
-```
-
-**Pros:**
-- More intuitive: two pointers for word and abbreviation
-- Easier to understand flow
-
-**Cons:**
-- Slightly more verbose
-- Same complexity as single-pass approach
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Position Tracking** | O(n) | O(1) | Single pass, concise | Less intuitive |
@@ -378,6 +271,13 @@ num = num * 10 + abbr[i] - '0';
 
 ## Common Mistakes
 
+1. **Leading zeros**: `"s010n"` → invalid (leading zero)
+2. **Exact match**: `"word"` and `"4"` → valid (skip all 4 characters)
+3. **No skips**: `"word"` and `"word"` → valid (all letters)
+4. **Overflow**: `"word"` and `"w5d"` → invalid (skip 5 but only 3 chars remain)
+5. **Underflow**: `"word"` and `"w2d"` → invalid (skip 2, but 'd' doesn't match position)
+6. **Empty abbreviation**: Not possible per constraints
+
 1. **Off-by-one errors**: Forgetting `abbrLen - 1` for array indexing
 2. **Leading zeros**: Not checking for '0' as first digit
 3. **Final check**: Forgetting to add remaining `num` at the end
@@ -393,9 +293,9 @@ num = num * 10 + abbr[i] - '0';
 
 ## Related Problems
 
-- [411. Minimum Unique Word Abbreviation](https://leetcode.com/problems/minimum-unique-word-abbreviation/) - Generate valid abbreviations
-- [320. Generalized Abbreviation](https://leetcode.com/problems/generalized-abbreviation/) - Generate all abbreviations
-- [422. Valid Word Square](https://leetcode.com/problems/valid-word-square/) - Similar validation problem
+- [411. Minimum Unique Word Abbreviation](https://www.leetcode.com/problems/minimum-unique-word-abbreviation/) - Generate valid abbreviations
+- [320. Generalized Abbreviation](https://www.leetcode.com/problems/generalized-abbreviation/) - Generate all abbreviations
+- [422. Valid Word Square](https://www.leetcode.com/problems/valid-word-square/) - Similar validation problem
 - String parsing and validation problems
 
 ## Real-World Applications
@@ -462,7 +362,20 @@ i=2: 'e' (letter)
 - Constant space: Only a few variables
 - Early termination: Returns false immediately on error
 
----
+## Key Takeaways
 
-*This problem demonstrates how to parse and validate string abbreviations by tracking position and handling both letters and numbers correctly.*
+1. **Position tracking**: Track where we are in the word (`abbrLen`)
+2. **Number accumulation**: Build multi-digit numbers digit by digit
+3. **Leading zero check**: Reject if digit is '0' when `num == 0`
+4. **Final validation**: Ensure total length matches word length
+5. **Bounds checking**: Verify we don't exceed word length
 
+## References
+
+- [LC 408: Valid Word Abbreviation on LeetCode](https://www.leetcode.com/problems/valid-word-abbreviation/)
+- [LeetCode Discuss — LC 408: Valid Word Abbreviation](https://www.leetcode.com/problems/valid-word-abbreviation/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/valid-word-abbreviation/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

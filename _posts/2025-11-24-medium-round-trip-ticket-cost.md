@@ -6,12 +6,10 @@ categories: algorithm medium cpp array optimization problem-solving
 permalink: /posts/2025-11-24-medium-round-trip-ticket-cost/
 tags: [algorithm, medium, array, optimization, greedy, two-pointers]
 ---
-
 # [Medium] Round Trip Ticket Cost Minimization
 
 Given two lists representing round trip ticket prices, select the cheapest outbound and return tickets where the return follows the outbound. Implement a function to find the minimum total cost of the trip.
 
-## Problem Statement
 
 You are given two lists of ticket prices:
 - `outbound`: List of outbound ticket prices
@@ -100,7 +98,41 @@ But if j >= i:
 - `1 <= outbound[i], return_trip[i] <= 1000`
 - Both lists have the same length `n`
 
-## Solution: Find Minimum Return Price
+## Thinking Process
+
+1. **Precompute minimums**: Build array of minimum return prices from right to left
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1)
@@ -136,6 +168,49 @@ int minimizeRoundTripCost(vector<int>& outbound, vector<int>& returnTrip) {
 }
 ```
 
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** 1. **Precompute minimums**: Build array of minimum return prices from right to left
+
+**How the code works:**
+1. **Precompute minimums**: Build array of minimum return prices from right to left
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `outbound = {9, 1, 5}`, expected output `5`:
+
+- Select outbound[1] = 1 (index 1)
+  - Select return_trip[0] = 4 (index 0)
+  - Total: 1 + 4 = 5
+  
+  All possible pairings:
+  - outbound[0] = 9 with return_trip[0] = 4 → 13
+  - outbound[0] = 9 with return_trip[1] = 5 → 14
+  - outbound[0] = 9 with return_trip[2] = 3 → 12
+  - outbound[1] = 1 with return_trip[0] = 4 → 5 ✓ (minimum)
+  - outbound[1] = 1 with return_trip[1] = 5 → 6
+  - outbound[1] = 1 with return_trip[2] = 3 → 4
+  - outbound[2] = 5 with return_trip[0] = 4 → 9
+  - outbound[2] = 5 with return_trip[1] = 5 → 10
+  - outbound[2] = 5 with return_trip[2] = 3 → 8
+  
+  Minimum: min(13, 14, 12, 5, 6, 4, 9, 10, 8) = 4
+  
+  Wait, the minimum is actually 4 (outbound[1] = 1 + return_trip[2] = 3), but the example says 5.
+  This suggests the example might be showing one valid solution (1 + 4 = 5) rather than the optimal.
+  Or there might be additional constraints not stated.
+  
+  For the solution, we'll find the true minimum cost.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Precompute Array** | O(n) | O(n) | Clear logic, easy to understand | Extra space |
+| **O(1) Space** | O(n) | O(1) | Memory efficient | Backwards iteration |
+| **Brute Force** | O(n²) | O(1) | Simple | Too slow |
+
 ### Solution 2: Optimized - Find Minimums Separately (O(n))
 
 ```cpp
@@ -169,8 +244,6 @@ int minimizeRoundTripCost(vector<int>& outbound, vector<int>& returnTrip) {
 
 **Time Complexity:** O(n) - one pass to find min return, one pass through outbound  
 **Space Complexity:** O(1)
-
-## How the Algorithm Works
 
 ### Key Insight: Precompute Minimum Return Prices
 
@@ -218,14 +291,6 @@ returnTrip: {4,  5,  3}
               minReturn = {3, 3, 3}
 ```
 {% endraw %}
-
-## Key Insights
-
-1. **Precompute minimums**: Build array of minimum return prices from right to left
-2. **Pair optimally**: For each outbound, pair with minimum available return
-3. **Boundary handling**: Last outbound ticket cannot pair with any return
-4. **Greedy approach**: Always choose minimum return price for each outbound
-
 ## Algorithm Breakdown
 
 ### Step 1: Precompute Minimum Return Prices
@@ -343,21 +408,12 @@ int minimizeRoundTripCost(vector<int>& outbound, vector<int>& returnTrip) {
 - O(n²) time complexity
 - Inefficient for large inputs
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Precompute Array** | O(n) | O(n) | Clear logic, easy to understand | Extra space |
 | **O(1) Space** | O(n) | O(1) | Memory efficient | Backwards iteration |
 | **Brute Force** | O(n²) | O(1) | Simple | Too slow |
-
-## Edge Cases
-
-1. **Single ticket**: `n = 1` → No valid pairing, return infinity or handle appropriately
-2. **Two tickets**: `n = 2` → Only one possible pairing
-3. **All same prices**: Algorithm still works correctly
-4. **Decreasing return prices**: Optimal to choose later return tickets
-5. **Increasing return prices**: Optimal to choose earlier return tickets
 
 ## Implementation Details
 
@@ -387,6 +443,12 @@ if (n < 2) {
 
 ## Common Mistakes
 
+1. **Single ticket**: `n = 1` → No valid pairing, return infinity or handle appropriately
+2. **Two tickets**: `n = 2` → Only one possible pairing
+3. **All same prices**: Algorithm still works correctly
+4. **Decreasing return prices**: Optimal to choose later return tickets
+5. **Increasing return prices**: Optimal to choose earlier return tickets
+
 1. **Wrong index constraint**: Using `j >= i` instead of `j > i` (or vice versa)
 2. **Missing boundary check**: Not handling case when `n < 2`
 3. **Wrong minimum calculation**: Not correctly computing minimum return prices
@@ -401,9 +463,9 @@ if (n < 2) {
 
 ## Related Problems
 
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar pattern of finding min/max with ordering constraint
-- [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Multiple transactions
-- [123. Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) - At most two transactions
+- [121. Best Time to Buy and Sell Stock](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar pattern of finding min/max with ordering constraint
+- [122. Best Time to Buy and Sell Stock II](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Multiple transactions
+- [123. Best Time to Buy and Sell Stock III](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) - At most two transactions
 - Array problems with ordering constraints
 
 ## Real-World Applications
@@ -579,7 +641,19 @@ int main() {
 ```
 {% endraw %}
 
----
+## Key Takeaways
 
-*This problem demonstrates how precomputing minimums can optimize array problems with ordering constraints, reducing time complexity from O(n²) to O(n).*
+1. **Precompute minimums**: Build array of minimum return prices from right to left
+2. **Pair optimally**: For each outbound, pair with minimum available return
+3. **Boundary handling**: Last outbound ticket cannot pair with any return
+4. **Greedy approach**: Always choose minimum return price for each outbound
 
+## References
+
+- [round trip ticket cost on LeetCode](https://www.leetcode.com/problems/round-trip-ticket-cost/)
+- [LeetCode Discuss — round trip ticket cost](https://www.leetcode.com/problems/round-trip-ticket-cost/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/round-trip-ticket-cost/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

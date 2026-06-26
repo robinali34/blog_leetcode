@@ -4,9 +4,6 @@ title: "[Medium] 1424. Diagonal Traverse II"
 date: 2025-11-17 00:00:00 -0800
 categories: leetcode algorithm medium cpp array matrix hash-map bfs problem-solving
 ---
-
-# [Medium] 1424. Diagonal Traverse II
-
 Given a 2D integer array `nums`, return *all elements of `nums` in diagonal order*.
 
 ## Examples
@@ -42,35 +39,42 @@ Output: [1,2,3,4,5,6]
 - `1 <= sum(nums[i].length) <= 10^5`
 - `1 <= nums[i][j] <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Diagonal Property**: Elements on the same diagonal share the same `row + col` sum.
 
-1. **Diagonal definition**: What defines a diagonal? (Assumption: Elements at same (row + col) sum are on same diagonal - diagonal index = i + j)
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
-2. **Traversal order**: What is the traversal order? (Assumption: Traverse diagonals from top-left to bottom-right, within each diagonal from bottom to top)
 
-3. **Array structure**: Can rows have different lengths? (Assumption: Yes - per constraints, nums[i].length can vary)
 
-4. **Return format**: What should we return? (Assumption: 1D array with elements in diagonal traversal order)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Empty array**: What if array is empty? (Assumption: Return empty array)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Traverse the 2D array row by row, and for each element, calculate its diagonal index (row + col). Store elements in a 2D structure indexed by diagonal, then flatten the result. However, since rows have different lengths, we need to handle out-of-bounds carefully. This approach works but requires extra space to store elements by diagonal, and the traversal order needs careful handling to get the correct bottom-to-top order within each diagonal.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| Level-order BFS | $O(n)$ | $O(w)$ | Process by depth/layer |
 
-Use BFS starting from (0,0). For each diagonal level, process all elements at that level. Maintain a queue of (row, col) pairs, and for each level, collect all elements with the same (row + col) sum. However, BFS naturally processes level by level, but we need to process diagonals in order and within each diagonal from bottom to top, which requires additional sorting or careful queue management.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a hash map to group elements by their diagonal index (row + col). Iterate through the 2D array, adding each element to its corresponding diagonal bucket. Then, iterate through diagonals in order (0, 1, 2, ...), and for each diagonal, iterate through rows from bottom to top (larger row index first) to get the correct traversal order. This achieves O(n) time where n is the total number of elements, and O(n) space for the hash map. The key insight is that diagonal index = row + col uniquely identifies each diagonal, and within each diagonal, processing rows in reverse order gives the bottom-to-top traversal we need.
-
-## Solution: Hash Map Grouping and BFS Approaches
+## Solution
 
 **Time Complexity:** O(n) where n is total number of elements  
 **Space Complexity:** O(n)
@@ -115,6 +119,26 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** 1. **Diagonal Property**: Elements on the same diagonal share the same `row + col` sum.
+
+**How the code works:**
+1. **Diagonal Property**: Elements on the same diagonal share the same `row + col` sum.
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
+
+**Walkthrough** — input `nums = [[1,2,3],[4,5,6],[7,8,9]]`, expected output `[1,4,2,7,5,3,8,6,9]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+**Time:** O(n) - Each element is visited once · **Space Complexity:** O(n)
 
 **C++20 Optimizations:**
 - `groups.find(curr) != groups.end()` for map lookup (C++20 compatible)
@@ -177,7 +201,6 @@ public:
    - If in the first column (`col == 0`), add the cell below: `(row + 1, 0)`
    - Always add the cell to the right: `(row, col + 1)`
 4. **Continue BFS**: Process all cells in the queue until empty.
-
 ## Step-by-Step Example
 
 **Input:** `nums = [[1,2,3],[4,5,6],[7,8,9]]`
@@ -247,15 +270,7 @@ Diagonal 4: [9]
 Result: [1, 4, 2, 7, 5, 3, 8, 6, 9]
 ```
 
-## Key Insights
-
-1. **Diagonal Property**: Elements on the same diagonal share the same `row + col` sum.
-2. **Traversal Order**: Bottom-to-top traversal ensures correct ordering when processing diagonals sequentially.
-3. **BFS Alternative**: BFS naturally explores diagonals when we prioritize right moves over down moves.
-4. **Jagged Arrays**: Both solutions handle jagged arrays (rows of different lengths) correctly.
-
-## Complexity Analysis
-
+### Complexity
 ### Solution 1: Hash Map
 - **Time:** O(n) - Each element is visited once
 - **Space:** O(n) - Hash map stores all elements
@@ -264,10 +279,22 @@ Result: [1, 4, 2, 7, 5, 3, 8, 6, 9]
 - **Time:** O(n) - Each element is processed once
 - **Space:** O(n) - Queue can contain up to O(n) elements in worst case
 
-## When to Use Each Approach
+## References
 
-- **Hash Map Approach**: More intuitive, easier to understand the diagonal grouping concept.
-- **BFS Approach**: More natural for graph-like traversal, but requires careful neighbor selection logic.
+- [LC 1424: Diagonal Traverse II on LeetCode](https://www.leetcode.com/problems/diagonal-traverse-ii/)
+- [LeetCode Discuss — LC 1424: Diagonal Traverse II](https://www.leetcode.com/problems/diagonal-traverse-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/diagonal-traverse-ii/editorial/) *(may require premium)*
 
-Both approaches are efficient and handle jagged arrays well. Choose based on your preference and coding style.
+## Common Mistakes
 
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+1. **Diagonal Property**: Elements on the same diagonal share the same `row + col` sum.
+2. **Traversal Order**: Bottom-to-top traversal ensures correct ordering when processing diagonals sequentially.
+3. **BFS Alternative**: BFS naturally explores diagonals when we prioritize right moves over down moves.
+4. **Jagged Arrays**: Both solutions handle jagged arrays (rows of different lengths) correctly.

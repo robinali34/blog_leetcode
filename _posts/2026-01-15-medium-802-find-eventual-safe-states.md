@@ -6,11 +6,6 @@ categories: [leetcode, medium, graph, dfs, cycle-detection]
 permalink: /2026/01/15/medium-802-find-eventual-safe-states/
 tags: [leetcode, medium, graph, dfs, cycle-detection, three-state-coloring]
 ---
-
-# 802. Find Eventual Safe States
-
-## Problem Statement
-
 There is a directed graph of `n` nodes with each node labeled from `0` to `n - 1`. The graph is represented by a **0-indexed** 2D integer array `graph` where `graph[i]` is an integer array of nodes adjacent to node `i`, meaning there is an edge from node `i` to each node in `graph[i]`.
 
 A node is a **terminal node** if there are no outgoing edges. A node is a **safe node** if every possible path starting from that node leads to a terminal node (or another safe node).
@@ -44,57 +39,40 @@ Explanation: Only node 4 is a terminal node, and every path starting at node 4 l
 - The graph may contain self-loops.
 - The number of edges in the graph will be in the range `[0, n * (n - 1) / 2]`.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Safe state definition**: What makes a node "safe"? (Assumption: A node is safe if all paths starting from it eventually lead to a terminal node - no cycles reachable)
-
-2. **Terminal node**: What is a terminal node? (Assumption: A node with no outgoing edges - it's a sink node)
-
-3. **Graph type**: Is the graph directed or undirected? (Assumption: Directed - edges have direction, represented as adjacency list)
-
-4. **Self-loops**: Can nodes have self-loops? (Assumption: Yes - per constraints, graph may contain self-loops)
-
-5. **Cycle handling**: How should we handle cycles? (Assumption: Nodes in cycles are not safe - they can never reach a terminal node)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each node, check if it's part of a cycle by doing DFS starting from that node. If DFS encounters a node that's already in the current path (back edge), there's a cycle and the node is unsafe. This approach requires O(n × (V + E)) time as we check each node, which is too slow for large graphs.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use DFS with coloring: mark nodes as white (unvisited), gray (currently in path), or black (processed). If we encounter a gray node during DFS, we found a cycle. All nodes in the cycle and nodes that can reach the cycle are unsafe. However, identifying all unsafe nodes requires careful tracking of which nodes can reach cycles.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use reverse graph + topological sort: reverse all edges, then nodes with no outgoing edges (sinks) in the original graph become sources in the reversed graph. Use topological sort starting from these sources. All nodes reachable from sources in the reversed graph are safe (they eventually reach a terminal node). Alternatively, use DFS with memoization: for each node, check if all paths lead to terminal nodes. Nodes that can reach cycles are unsafe. The reverse graph approach is cleaner: safe nodes are those that can reach terminal nodes, which is equivalent to being reachable from terminal nodes in the reversed graph.
-
-## Solution Approach
-
-This problem requires finding all nodes that do **not** lead to any cycle. A node is safe if all paths starting from it eventually reach a terminal node (a node with no outgoing edges).
-
-### Key Insights:
+## Thinking Process
 
 1. **Safe Nodes**: Nodes that don't lead to cycles and eventually reach terminal nodes
-2. **Terminal Nodes**: Nodes with no outgoing edges (empty `graph[i]`)
-3. **Cycle Detection**: Nodes in cycles are unsafe
-4. **Three-State Coloring**: Use `0=unvisited`, `1=visiting`, `2=safe` to track node states
-5. **DFS Traversal**: Recursively check if all paths from a node lead to safe nodes
 
-### Algorithm:
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-1. **Initialize Color Array**: All nodes start as unvisited (`0`)
-2. **DFS from Each Node**: Check if node is safe
-3. **State Transitions**:
-   - If node is already visited (`color[x] > 0`), return whether it's safe (`color[x] == 2`)
-   - Mark node as visiting (`color[x] = 1`)
-   - Recursively check all neighbors
-   - If any neighbor is unsafe, current node is unsafe
-   - If all neighbors are safe, mark current node as safe (`color[x] = 2`)
-4. **Collect Safe Nodes**: Return all nodes with `color[i] == 2`
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Solution
 
@@ -127,6 +105,23 @@ private:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Safe Nodes**: Nodes that don't lead to cycles and eventually reach terminal nodes
+
+**How the code works:**
+1. **Safe Nodes**: Nodes that don't lead to cycles and eventually reach terminal nodes
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `graph = [[1,2],[2,3],[5],[0],[5],[],[]]`, expected output `[2,4,5,6]`:
+
+The graph is shown above.
+Nodes 5 and 6 are terminal nodes, and every path starting at nodes 2, 4, 5, and 6 all lead to either node 5 or 6.
 
 ### **Algorithm Explanation:**
 
@@ -208,16 +203,7 @@ Result: [2, 4, 5, 6]
   - Recursion stack: O(V) in worst case
   - Result array: O(V)
   - Overall: O(V)
-
-## Key Insights
-
-1. **Safe Nodes**: Nodes that don't lead to cycles and eventually reach terminal nodes
-2. **Three-State Coloring**: Efficient way to detect cycles and memoize safe nodes
-3. **Terminal Nodes**: Automatically safe (no outgoing edges)
-4. **Cycle Detection**: If we encounter a "visiting" node during DFS, cycle exists
-5. **Memoization**: Once a node is determined safe, reuse the result
-
-## Edge Cases
+## Common Mistakes
 
 1. **All terminal nodes**: `graph = [[],[],[]]` → return `[0,1,2]`
 2. **All nodes in cycle**: `graph = [[1],[0]]` → return `[]`
@@ -225,189 +211,34 @@ Result: [2, 4, 5, 6]
 4. **Disconnected components**: Some safe, some unsafe
 5. **Self-loops**: Node pointing to itself is unsafe
 
-## Common Mistakes
-
 1. **Not detecting cycles correctly**: Forgetting to check if node is "visiting"
 2. **Incorrect state transitions**: Not marking node as safe after checking neighbors
 3. **Not handling terminal nodes**: Terminal nodes should be automatically safe
 4. **Wrong return condition**: Returning `false` when encountering visiting node
 5. **Not sorting result**: Result should be sorted in ascending order
 
-## Alternative Approaches
-
-### **Approach 2: Reverse Graph + Topological Sort (BFS - Kahn's Algorithm)**
-
-Reverse the graph and use topological sort (Kahn's algorithm) starting from terminal nodes. This approach works backwards: terminal nodes are safe, and nodes that only lead to safe nodes become safe.
-
-```cpp
-class Solution {
-public:
-    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        const int N = graph.size();
-
-        // Reverse graph: edge v -> u means u can reach v in original graph
-        vector<vector<int>> reverseGraph(N);
-        vector<int> outDegree(N);
-        for(int u = 0; u < N; u++) {
-            for(int v: graph[u]) {
-                reverseGraph[v].emplace_back(u);
-            }
-            outDegree[u]= graph[u].size();
-        }
-
-        // Start with terminal nodes (outDegree == 0)
-        queue<int> q;
-        for(int i = 0; i < N; i++) {
-            if(outDegree[i] == 0) {
-                q.push(i);
-            }
-        }
-
-        // Kahn's algorithm on reverse graph
-        while(!q.empty()) {
-            int safe = q.front();
-            q.pop();
-            for(int prev: reverseGraph[safe]) {
-                if(--outDegree[prev] == 0) {
-                    q.push(prev);
-                }
-            }
-        }
-
-        // Nodes with outDegree == 0 are eventually safe
-        vector<int> rtn;
-        for(int i = 0; i < N; i++) {
-            if(outDegree[i] == 0) {
-                rtn.emplace_back(i);
-            }
-        }
-        return rtn;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Build Reverse Graph (Lines 6-13)**:
-   - Create `reverseGraph` where `reverseGraph[v]` contains all nodes `u` that have an edge `u -> v` in the original graph
-   - Count `outDegree[u]` = number of outgoing edges from node `u` in original graph
-   - This allows us to traverse backwards from terminal nodes
-
-2. **Initialize Queue (Lines 15-20)**:
-   - Start with all terminal nodes (nodes with `outDegree == 0`)
-   - These are automatically safe since they have no outgoing edges
-
-3. **Kahn's Algorithm (Lines 22-30)**:
-   - Process each safe node from the queue
-   - For each predecessor `prev` in the reverse graph:
-     - Decrement `outDegree[prev]` (removing the edge to the safe node)
-     - If `outDegree[prev] == 0`, all paths from `prev` lead to safe nodes, so `prev` becomes safe
-     - Add `prev` to queue for further processing
-
-4. **Collect Safe Nodes (Lines 32-37)**:
-   - After processing, all nodes with `outDegree == 0` are eventually safe
-   - Nodes in cycles will have `outDegree > 0` (they can't reach terminal nodes)
-
-### **How It Works:**
-
-- **Terminal Nodes**: Start with nodes that have no outgoing edges (automatically safe)
-- **Propagation**: If all outgoing edges from a node lead to safe nodes, that node becomes safe
-- **Cycle Detection**: Nodes in cycles will never have their `outDegree` reduced to 0, so they remain unsafe
-- **Reverse Graph**: Allows us to efficiently find predecessors and propagate safety backwards
-
-### **Example Walkthrough:**
-
-**Input:** `graph = [[1,2],[2,3],[5],[0],[5],[],[]]`
-
-```
-Original graph:
-0 -> 1, 2
-1 -> 2, 3
-2 -> 5
-3 -> 0
-4 -> 5
-5 -> [] (terminal)
-6 -> [] (terminal)
-
-Reverse graph:
-0 -> 3
-1 -> 0
-2 -> 0, 1
-3 -> 1
-5 -> 2, 4
-6 -> [] (no incoming edges)
-
-outDegree = [2, 2, 1, 1, 1, 0, 0]
-
-Step 1: Initialize queue with terminal nodes
-  q = [5, 6]
-  outDegree = [2, 2, 1, 1, 1, 0, 0]
-
-Step 2: Process node 5
-  Predecessors: [2, 4]
-  outDegree[2] = 1 - 1 = 0 → q.push(2)
-  outDegree[4] = 1 - 1 = 0 → q.push(4)
-  outDegree = [2, 2, 0, 1, 0, 0, 0]
-  q = [6, 2, 4]
-
-Step 3: Process node 6
-  No predecessors
-  outDegree = [2, 2, 0, 1, 0, 0, 0]
-  q = [2, 4]
-
-Step 4: Process node 2
-  Predecessors: [0, 1]
-  outDegree[0] = 2 - 1 = 1
-  outDegree[1] = 2 - 1 = 1
-  outDegree = [1, 1, 0, 1, 0, 0, 0]
-  q = [4]
-
-Step 5: Process node 4
-  Predecessors: [] (none in reverse graph)
-  outDegree = [1, 1, 0, 1, 0, 0, 0]
-  q = []
-
-Final: outDegree == 0 → [2, 4, 5, 6] are safe
-```
-
-### **Complexity Analysis:**
-
-- **Time Complexity:** O(V + E)
-  - Building reverse graph: O(V + E)
-  - BFS traversal: O(V + E)
-  - Collecting result: O(V)
-  - Overall: O(V + E)
-
-- **Space Complexity:** O(V + E)
-  - Reverse graph: O(V + E)
-  - `outDegree` array: O(V)
-  - Queue: O(V)
-  - Result: O(V)
-  - Overall: O(V + E)
-
-### **Comparison: DFS vs BFS Approach**
-
-| Aspect | DFS (Three-State Coloring) | BFS (Reverse Graph) |
-|--------|----------------------------|---------------------|
-| **Intuition** | Directly detects cycles via state tracking | Works backwards from terminal nodes |
-| **Recursion** | Uses recursion stack (O(V) space) | Iterative, no recursion |
-| **Memory** | O(V) for color array + recursion | O(V + E) for reverse graph |
-| **Cycle Detection** | Explicit via "visiting" state | Implicit: nodes in cycles never reach outDegree 0 |
-| **Implementation** | More concise, recursive | More verbose, iterative |
-| **Stack Overflow Risk** | Possible on deep graphs | No recursion, more stable |
-| **Best For** | When you want direct cycle detection | When you prefer iterative approach or have deep graphs |
-
-Both approaches are valid and have the same time complexity. Choose based on preference and constraints.
-
 ## Related Problems
 
-- [LC 207: Course Schedule](https://leetcode.com/problems/course-schedule/) - Cycle detection in directed graph
-- [LC 210: Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) - Topological sort ordering
+- [LC 207: Course Schedule](https://www.leetcode.com/problems/course-schedule/) - Cycle detection in directed graph
+- [LC 210: Course Schedule II](https://www.leetcode.com/problems/course-schedule-ii/) - Topological sort ordering
 - [LCR 113: Course Schedule II (CN)](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-lcr113-course-schedule-ii/) - DFS with three-state coloring
 - [LC 310: Minimum Height Trees](https://robinali34.github.io/blog_leetcode/2026/01/14/medium-310-minimum-height-trees/) - Graph traversal, BFS/DFS
 - [LC 269: Alien Dictionary](https://robinali34.github.io/blog_leetcode/2026/01/14/hard-269-alien-dictionary/) - Topological sort
 
----
+## Key Takeaways
 
-*This problem demonstrates the **Three-State Coloring** pattern for cycle detection in directed graphs. The key insight is that safe nodes are those that don't lead to cycles and eventually reach terminal nodes.*
+1. **Safe Nodes**: Nodes that don't lead to cycles and eventually reach terminal nodes
+2. **Three-State Coloring**: Efficient way to detect cycles and memoize safe nodes
+3. **Terminal Nodes**: Automatically safe (no outgoing edges)
+4. **Cycle Detection**: If we encounter a "visiting" node during DFS, cycle exists
+5. **Memoization**: Once a node is determined safe, reuse the result
 
+## References
+
+- [LC 802: Find Eventual Safe States on LeetCode](https://www.leetcode.com/problems/find-eventual-safe-states/)
+- [LeetCode Discuss — LC 802: Find Eventual Safe States](https://www.leetcode.com/problems/find-eventual-safe-states/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/find-eventual-safe-states/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

@@ -6,11 +6,6 @@ categories: [leetcode, medium, tree, bfs, binary-tree]
 permalink: /2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/
 tags: [leetcode, medium, tree, bfs, level-order-traversal, deque, binary-tree]
 ---
-
-# 103. Binary Tree Zigzag Level Order Traversal
-
-## Problem Statement
-
 Given the `root` of a binary tree, return *the zigzag level order traversal of its nodes' values*. (i.e., from left to right, then right to left for the next level and alternate between).
 
 ## Examples
@@ -42,56 +37,40 @@ Output: []
 - The number of nodes in the tree is in the range `[0, 2000]`.
 - `-100 <= Node.val <= 100`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **BFS Structure**: Maintains level-by-level traversal
 
-1. **Zigzag pattern**: What is the zigzag pattern? (Assumption: Level 0 left-to-right, level 1 right-to-left, level 2 left-to-right, alternating)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Level definition**: How are levels numbered? (Assumption: Level 0 is root, level 1 is root's children, etc.)
 
-3. **Output format**: How should we represent the result? (Assumption: List of lists - each inner list represents one level in zigzag order)
 
-4. **Empty tree**: What should we return for an empty tree? (Assumption: Return empty list [])
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-5. **Starting direction**: Which direction should level 0 use? (Assumption: Left-to-right - even levels go left-to-right, odd levels go right-to-left)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Perform level-order traversal (BFS), collect all nodes level by level. Then reverse every other level (odd-indexed levels) to achieve zigzag order. This approach works but requires storing all levels and then reversing, which uses extra space and time.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use BFS with a flag to track direction: perform level-order traversal, but when adding nodes to the result for odd levels, insert them in reverse order or use a deque to add from the front. This avoids the need to reverse entire levels but requires careful handling of the direction flag.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use BFS with level tracking: perform standard BFS, but for each level, check if it's an odd level. If odd, reverse the level's nodes before adding to result. Alternatively, use a deque and add nodes from the front for odd levels. This achieves O(n) time (visit each node once) with O(n) space for the queue and result, which is optimal. The key insight is that we can achieve zigzag order by reversing the order of nodes at odd levels during BFS, without needing to modify the traversal itself.
-
-## Solution Approach
-
-This problem is a variation of **level-order traversal** (BFS) where we alternate the direction of traversal at each level. The key insight is to:
-1. Use BFS to traverse level by level
-2. Alternate the direction of adding values to each level
-3. Use a deque for efficient insertion at both ends
-
-### Key Insights:
-
-1. **Level-by-Level Processing**: Process all nodes at the current level before moving to the next
-2. **Direction Alternation**: Toggle between left-to-right and right-to-left at each level
-3. **Deque for Efficiency**: Use `deque` to efficiently insert at the beginning when going right-to-left
-4. **Standard BFS**: Always add children in the same order (left, then right) to maintain level structure
-
-### Algorithm:
-
-1. **Initialize**: Use a deque for BFS, start with root, set `leftToRight = true`
-2. **For each level**:
-   - Process all nodes at current level
-   - Add values to level vector based on direction
-   - Toggle direction for next level
-3. **Add children**: Always add left child first, then right child (maintains level order)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Queue BFS | $O(n)$ | $O(n)$ | Shortest path in unweighted graphs |
+| Multi-source BFS | $O(n)$ | $O(n)$ | Start from all sources simultaneously |
+| 0-1 BFS / deque | $O(n)$ | $O(n)$ | Weights 0 or 1 |
+| **Level-order BFS** *(this problem)* | $O(n)$ | $O(w)$ | Process by depth/layer |
 
 ## Solution
 
@@ -140,6 +119,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Level-order BFS (this problem)
+
+**Key idea:** 1. **BFS Structure**: Maintains level-by-level traversal
+
+**How the code works:**
+1. **BFS Structure**: Maintains level-by-level traversal
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [3,9,20,null,null,15,7]`, expected output `[[3],[20,9],[15,7]]`:
+
+Level 0: [3] (left to right)
+Level 1: [20,9] (right to left)
+Level 2: [15,7] (left to right)
 
 ### **Algorithm Explanation:**
 
@@ -212,65 +209,12 @@ Level 2 (leftToRight = true):
 - **Space Complexity:** O(n) for the result and O(w) for the deque where w is maximum width
   - Result stores all n node values
   - Deque stores at most one level of nodes (maximum width)
-
-## Alternative Approaches
-
-### **Approach 2: Using Index Calculation**
-
-Instead of inserting at the beginning, we can pre-allocate the level vector and calculate the index:
-
-```cpp
-vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-    vector<vector<int>> result;
-    if (!root) return result;
-    
-    queue<TreeNode*> q;
-    q.push(root);
-    bool leftToRight = true;
-    
-    while (!q.empty()) {
-        int size = q.size();
-        vector<int> level(size);
-        
-        for (int i = 0; i < size; ++i) {
-            TreeNode* node = q.front();
-            q.pop();
-            
-            int index = leftToRight ? i : size - 1 - i;
-            level[index] = node->val;
-            
-            if (node->left) q.push(node->left);
-            if (node->right) q.push(node->right);
-        }
-        
-        result.push_back(level);
-        leftToRight = !leftToRight;
-    }
-    
-    return result;
-}
-```
-
-**Advantages:**
-- More efficient: O(1) index assignment vs O(n) insertion
-- Pre-allocated vector avoids reallocation
-
-**Trade-off:**
-- Slightly more complex index calculation
-
-## Key Insights
-
-1. **BFS Structure**: Maintains level-by-level traversal
-2. **Direction Toggle**: Simple boolean flag to alternate direction
-3. **Insertion Strategy**: Choose insertion method based on direction
-4. **Children Order**: Always process left then right to maintain level structure
-
 ## Related Problems
 
-- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) - Standard level order
-- [LC 107: Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
-- [LC 314: Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) - Vertical traversal
-- [LC 199: Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) - Right side view
+- [LC 102: Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/) - Standard level order
+- [LC 107: Binary Tree Level Order Traversal II](https://www.leetcode.com/problems/binary-tree-level-order-traversal-ii/) - Reverse level order
+- [LC 314: Binary Tree Vertical Order Traversal](https://www.leetcode.com/problems/binary-tree-vertical-order-traversal/) - Vertical traversal
+- [LC 199: Binary Tree Right Side View](https://www.leetcode.com/problems/binary-tree-right-side-view/) - Right side view
 
 ## Implementation Notes
 
@@ -279,7 +223,26 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 3. **Direction Flag**: Simple boolean toggle is cleaner than using level number % 2
 4. **Null Check**: Always check for null root before processing
 
----
+## Common Mistakes
 
-*This problem demonstrates how to modify standard BFS to achieve zigzag traversal by alternating the insertion direction at each level.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
+
+## Key Takeaways
+
+1. **BFS Structure**: Maintains level-by-level traversal
+2. **Direction Toggle**: Simple boolean flag to alternate direction
+3. **Insertion Strategy**: Choose insertion method based on direction
+4. **Children Order**: Always process left then right to maintain level structure
+
+## References
+
+- [LC 103: Binary Tree Zigzag Level Order Traversal on LeetCode](https://www.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+- [LeetCode Discuss — LC 103: Binary Tree Zigzag Level Order Traversal](https://www.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

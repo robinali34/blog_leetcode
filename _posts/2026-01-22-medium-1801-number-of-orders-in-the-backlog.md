@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, heap, priority-queue, simulation]
 permalink: /2026/01/22/medium-1801-number-of-orders-in-the-backlog/
 tags: [leetcode, medium, array, heap, priority-queue, simulation, greedy]
 ---
-
-# 1801. Number of Orders in the Backlog
-
-## Problem Statement
-
 You are given a 2D integer array `orders`, where `orders[i] = [price_i, amount_i, orderType_i]` denotes that `amount_i` orders have been placed of type `orderType_i` at price `price_i`. The `orderType_i` is:
 
 - `0` if it is a batch of **buy orders**, or
@@ -60,51 +55,40 @@ Finally, the backlog has (10^9 - 3) + 999999994 = 1999999991 orders. So we retur
 - `1 <= price_i, amount_i <= 10^9`
 - `orderType_i` is either `0` or `1`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Heap Selection**:
+- Max heap for buy orders (want highest price)
+- Min heap for sell orders (want lowest price)
+- Always match with best available price
 
-1. **Order matching**: When does a buy order match with a sell order? (Assumption: Buy order matches sell order if buy price >= sell price, and vice versa - sell matches buy if sell price <= buy price)
+- Heap gives fast access to min/max without full sorting.
+- Size-$k$ heap handles Top-K in $O(n \log k)$.
+- Lazy deletion when elements leave the heap before removal.
 
-2. **Partial matching**: Can orders be partially matched, or must they be fully matched? (Assumption: Orders can be partially matched - we match the minimum of available amounts)
 
-3. **Order priority**: When multiple orders can match, which one should we match first? (Assumption: For buy orders, match with lowest sell price first; for sell orders, match with highest buy price first - greedy matching)
 
-4. **Modulo requirement**: Should the final result be modulo 10^9 + 7? (Assumption: Yes - to prevent integer overflow, return result modulo 10^9 + 7)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
 
-5. **Order processing**: Are orders processed in the given order, or can we process them in any order? (Assumption: Process orders sequentially in the given order - this is a simulation problem)
+  <circle cx="140" cy="35" r="16" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="39" text-anchor="middle" font-size="11">1</text>
+  <circle cx="90" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="90" y="79" text-anchor="middle" font-size="10">3</text>
+  <circle cx="190" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="190" y="79" text-anchor="middle" font-size="10">2</text>
+  <line x1="140" y1="51" x2="90" y2="61" stroke="#9A9792"/><line x1="140" y1="51" x2="190" y2="61" stroke="#9A9792"/>
+  <text x="140" y="110" text-anchor="middle" font-size="11" fill="#6B6560">parent ≤ children (min-heap)</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Maintain two lists (one for buy orders, one for sell orders). For each incoming order, iterate through the opposite list to find matching orders. When matching, remove matched orders from the list. This approach is straightforward but has O(n²) complexity since for each order we might scan all existing orders. With up to 10^5 orders, this becomes too slow.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use sorted data structures (like sorted vectors or balanced BSTs) to maintain buy and sell orders. Buy orders should be sorted in descending order of price (highest first), and sell orders in ascending order of price (lowest first). When matching, we can quickly find the best matching order, but updating the data structure after partial matches still requires careful handling. Insertion and removal operations are O(log n), giving O(n log n) overall complexity.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use two priority queues (heaps): a max-heap for buy orders (highest price first) and a min-heap for sell orders (lowest price first). For each incoming order, try to match with orders from the opposite heap. When matching, remove fully matched orders and update partially matched orders. Priority queues provide O(log n) insertion and O(1) access to the best matching order. The key insight is that we only need the best (highest buy or lowest sell) order at any time, which priority queues provide efficiently. This achieves O(n log n) time complexity, which is optimal for this problem.
-
-## Solution Approach
-
-This problem requires efficiently matching buy and sell orders based on price conditions. We need to:
-- Keep buy orders in a **max heap** (highest price first)
-- Keep sell orders in a **min heap** (lowest price first)
-- Match orders when price conditions are met
-- Track remaining amounts after partial matches
-
-### Key Insights:
-
-1. **Priority Queues**: Use heaps to efficiently find best matching orders
-2. **Buy Orders**: Max heap (highest price first) - want to match with highest buy price
-3. **Sell Orders**: Min heap (lowest price first) - want to match with lowest sell price
-4. **Matching Logic**: 
-   - Buy order matches if `buy_price >= sell_price`
-   - Sell order matches if `sell_price <= buy_price`
-5. **Partial Matching**: Orders can be partially matched, remaining amount stays in backlog
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
+| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
+| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
+| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
 
 ## Solution
 
@@ -161,111 +145,29 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-#### **Data Structures:**
+**Approach:** Min/max heap (this problem)
 
-1. **`buy`**: Max heap (priority queue) storing `{price, amount}` pairs
-   - Highest price orders are at the top
-   - Used to match with sell orders
+**Key idea:** 1. **Heap Selection**:
 
-2. **`sell`**: Min heap (priority queue) storing `{price, amount}` pairs
-   - Lowest price orders are at the top
-   - Used to match with buy orders
+**How the code works:**
+1. **Heap Selection**:
+- Max heap for buy orders (want highest price)
+- Min heap for sell orders (want lowest price)
+- Always match with best available price
+- Heap gives fast access to min/max without full sorting.
+- Size-$k$ heap handles Top-K in $O(n \log k)$.
 
-#### **Processing Buy Orders (type == 0):**
+**Walkthrough** — input `orders = [[10,5,0],[15,2,1],[25,1,1],[30,4,0]]`, expected output `6`:
 
-1. **Match with Sell Orders**:
-   - While `amount > 0` and sell orders exist with `sellPrice <= buyPrice`:
-     - Pop the smallest sell order
-     - Calculate matched amount: `min(amount, sellAmount)`
-     - Reduce both amounts by matched quantity
-     - If sell order has remaining amount, push it back
-
-2. **Add to Backlog**:
-   - If buy order has remaining amount after matching, add to buy heap
-
-#### **Processing Sell Orders (type == 1):**
-
-1. **Match with Buy Orders**:
-   - While `amount > 0` and buy orders exist with `buyPrice >= sellPrice`:
-     - Pop the largest buy order
-     - Calculate matched amount: `min(amount, buyAmount)`
-     - Reduce both amounts by matched quantity
-     - If buy order has remaining amount, push it back
-
-2. **Add to Backlog**:
-   - If sell order has remaining amount after matching, add to sell heap
-
-#### **Calculate Result:**
-
-1. Sum all remaining amounts in buy heap
-2. Sum all remaining amounts in sell heap
-3. Return total modulo `10^9 + 7`
-
-### Example Walkthrough:
-
-**Input:** `orders = [[10,5,0],[15,2,1],[25,1,1],[30,4,0]]`
-
-```
-Step 1: Process [10,5,0] (Buy 5 at price 10)
-  sell heap empty → add to buy heap
-  buy: {(10, 5)}
-
-Step 2: Process [15,2,1] (Sell 2 at price 15)
-  buy.top() = (10, 5), but 10 < 15 → no match
-  add to sell heap
-  buy: {(10, 5)}, sell: {(15, 2)}
-
-Step 3: Process [25,1,1] (Sell 1 at price 25)
-  buy.top() = (10, 5), but 10 < 25 → no match
-  add to sell heap
-  buy: {(10, 5)}, sell: {(15, 2), (25, 1)}
-
-Step 4: Process [30,4,0] (Buy 4 at price 30)
-  Match with sell.top() = (15, 2):
-    matched = min(4, 2) = 2
-    amount = 4 - 2 = 2
-    sellAmount = 2 - 2 = 0 → remove from heap
-  Match with sell.top() = (25, 1):
-    matched = min(2, 1) = 1
-    amount = 2 - 1 = 1
-    sellAmount = 1 - 1 = 0 → remove from heap
-  Remaining amount = 1 → add to buy heap
-  buy: {(10, 5), (30, 1)}, sell: {}
-
-Result: 5 + 1 = 6 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n log n)
-  - Processing each order: O(n)
-  - Heap operations (push/pop): O(log n) per operation
-  - Matching may require multiple heap operations per order
-  - Worst case: O(n log n) when many matches occur
-
-- **Space Complexity:** O(n)
-  - Buy heap: O(n) in worst case
-  - Sell heap: O(n) in worst case
-  - Overall: O(n)
-
-## Key Insights
-
-1. **Heap Selection**: 
-   - Max heap for buy orders (want highest price)
-   - Min heap for sell orders (want lowest price)
-2. **Matching Strategy**: 
-   - Always match with best available price
-   - Partial matching is allowed
-3. **Order Processing**: 
-   - Process orders sequentially
-   - Match greedily until no more matches possible
-4. **Modulo Arithmetic**: 
-   - Use modulo when summing to prevent overflow
-   - Apply modulo at each addition step
-
-## Edge Cases
+Here is what happens with the orders:
+- 5 orders of type buy with price 10 are placed. There are no sell orders in the backlog, so the 5 orders are added to the backlog.
+- 2 orders of type sell with price 15 are placed. There are no buy orders in the backlog with price >= 15, so the 2 orders are added to the backlog.
+- 1 order of type sell with price 25 is placed. There are no buy orders in the backlog with price >= 25, so it is added to the backlog.
+- 4 orders of type buy with price 30 are placed. The first sell order with price 15 is matched and removed, and 4 is reduced by 1 to 3. The second sell order with price 15 is matched and removed, and 3 is reduced by 2 to 1. The third sell order with price 25 is matched and removed, and 1 is reduced by 1 to 0. The 4 buy orders with price 30 are now added to the backlog.
+Finally, the backlog has 5 + 1 = 6 orders. So we return 6.
+## Common Mistakes
 
 1. **No matches**: All orders added to backlog
    - `orders = [[10,5,0],[20,3,1]]` → buy: 5, sell: 3, total: 8
@@ -282,8 +184,6 @@ Result: 5 + 1 = 6 ✓
 5. **Empty backlog**: No orders remain
    - All orders matched perfectly
 
-## Common Mistakes
-
 1. **Wrong heap type**: Using min heap for buy orders or max heap for sell orders
 2. **Incorrect matching condition**: 
    - Buy matches when `buyPrice >= sellPrice` (not `>`)
@@ -293,38 +193,34 @@ Result: 5 + 1 = 6 ✓
 5. **Empty heap access**: Not checking if heap is empty before accessing top
 6. **Integer overflow**: Not using `long long` for result accumulation
 
-## Alternative Approaches
-
-### Using Separate Structs for Orders
-
-```cpp
-struct Order {
-    int price, amount;
-    Order(int p, int a) : price(p), amount(a) {}
-};
-
-// Custom comparators
-auto buyCmp = [](const Order& a, const Order& b) {
-    return a.price < b.price; // Max heap
-};
-auto sellCmp = [](const Order& a, const Order& b) {
-    return a.price > b.price; // Min heap
-};
-
-priority_queue<Order, vector<Order>, decltype(buyCmp)> buy(buyCmp);
-priority_queue<Order, vector<Order>, decltype(sellCmp)> sell(sellCmp);
-```
-
-**Pros**: More structured, clearer intent  
-**Cons**: More verbose, slightly more overhead
-
 ## Related Problems
 
 - [LC 1701: Average Waiting Time](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-1701-average-waiting-time/) - Order processing simulation
-- [LC 1834: Single-Threaded CPU](https://leetcode.com/problems/single-threaded-cpu/) - Priority queue for task scheduling
-- [LC 621: Task Scheduler](https://leetcode.com/problems/task-scheduler/) - Task scheduling with constraints
-- [LC 253: Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) - Resource allocation
+- [LC 1834: Single-Threaded CPU](https://www.leetcode.com/problems/single-threaded-cpu/) - Priority queue for task scheduling
+- [LC 621: Task Scheduler](https://www.leetcode.com/problems/task-scheduler/) - Task scheduling with constraints
+- [LC 253: Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) - Resource allocation
 
----
+## Key Takeaways
 
-*This problem demonstrates the use of **priority queues (heaps)** for efficient order matching in a trading system. The key insight is using max heap for buy orders and min heap for sell orders to always match with the best available price.*
+1. **Heap Selection**: 
+   - Max heap for buy orders (want highest price)
+   - Min heap for sell orders (want lowest price)
+2. **Matching Strategy**: 
+   - Always match with best available price
+   - Partial matching is allowed
+3. **Order Processing**: 
+   - Process orders sequentially
+   - Match greedily until no more matches possible
+4. **Modulo Arithmetic**: 
+   - Use modulo when summing to prevent overflow
+   - Apply modulo at each addition step
+
+## References
+
+- [LC 1801: Number of Orders in the Backlog on LeetCode](https://www.leetcode.com/problems/number-of-orders-in-the-backlog/)
+- [LeetCode Discuss — LC 1801: Number of Orders in the Backlog](https://www.leetcode.com/problems/number-of-orders-in-the-backlog/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-orders-in-the-backlog/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

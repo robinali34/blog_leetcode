@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, dynamic-programming, matrix]
 permalink: /2026/01/21/medium-63-unique-paths-ii/
 tags: [leetcode, medium, array, dynamic-programming, matrix, grid, obstacles]
 ---
-
-# 63. Unique Paths II
-
-## Problem Statement
-
 You are given an `m x n` integer array `grid`. There is a robot initially located at the **top-left corner** (i.e., `grid[0][0]`). The robot tries to move to the **bottom-right corner** (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.
 
 An obstacle and space are marked as `1` and `0` respectively in `grid`. A path that the robot takes cannot include **any square that is an obstacle**.
@@ -49,54 +44,42 @@ Explanation: The starting cell is blocked, so no path exists.
 - `1 <= m, n <= 100`
 - `obstacleGrid[i][j]` is `0` or `1`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You are given an `m x n` integer array `grid`. There is a robot initially located at the **top-left corner** (i.e., `grid[0][0]`). The robot tries to move to the **bottom-right corner** (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.
 
-1. **Obstacle representation**: How are obstacles represented in the grid? (Assumption: `1` represents an obstacle, `0` represents an empty cell)
+An obstacle and space are marked as `1` and `0` respectively in `grid`. A path that the robot takes cannot include **any square that is an obstacle**.
 
-2. **Starting/ending cells**: Can the start or end cell be an obstacle? (Assumption: If start or end is obstacle, return 0 - no path exists)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Movement direction**: In which directions can we move? (Assumption: Only right and down - typical grid path problem constraint)
 
-4. **Path uniqueness**: Do we need to find all unique paths or just count them? (Assumption: Just count the number of unique paths, not enumerate them)
 
-5. **Grid boundaries**: Can we move outside the grid boundaries? (Assumption: No - must stay within grid bounds [0, m-1] x [0, n-1])
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">2D DP on grid</text>
 
-## Interview Deduction Process (20 minutes)
+  <rect x="40" y="40" width="32" height="28" rx="2" fill="#D4D8E0" stroke="#8B8680"/><text x="56" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="72" y="40" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="88" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="104" y="40" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="56" text-anchor="middle" font-size="10">1</text>
+  <rect x="40" y="68" width="32" height="28" rx="2" fill="#E8E3D8" stroke="#B8B5B0"/><text x="56" y="84" text-anchor="middle" font-size="10">1</text>
+  <rect x="72" y="68" width="32" height="28" rx="2" fill="#E0D8E4" stroke="#A098A8"/><text x="88" y="84" text-anchor="middle" font-size="10">2</text>
+  <rect x="104" y="68" width="32" height="28" rx="2" fill="#E8D5D0" stroke="#B8A5A0"/><text x="120" y="84" text-anchor="middle" font-size="10">3</text>
+  <text x="140" y="65" font-size="10" fill="#C4956A">← + ↑</text>
+  <text x="90" y="115" text-anchor="middle" font-size="11" fill="#6B6560">cell from top + left neighbors</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible paths from start to end using recursive DFS. At each cell, try moving right and down (if valid and not obstacle). Count all paths that reach the destination. This approach has exponential complexity as we explore all possible paths, which is too slow for large grids.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming with memoization: dp[i][j] = number of paths from (0,0) to (i,j). Base cases: dp[0][0] = 1 if not obstacle, 0 otherwise. First row and column can only come from one direction. For other cells: if obstacle, dp[i][j] = 0; otherwise, dp[i][j] = dp[i-1][j] + dp[i][j-1]. This requires O(m × n) time and space, which works well.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use bottom-up DP with space optimization. Since we only need the previous row to compute the current row, we can use a 1D array instead of 2D. Maintain dp[j] representing paths to current row, column j. Update: if obstacle, dp[j] = 0; otherwise, dp[j] += dp[j-1] (from left) and inherit from above (previous dp[j]). This achieves O(m × n) time with O(n) space, which is optimal for space. The key insight is that we only need the previous row's values to compute the current row, allowing space optimization from O(m × n) to O(n).
-
-## Solution Approach
-
-This is a **2D dynamic programming** problem similar to Unique Paths (LC 62), but with obstacles blocking certain cells. The key insight is that if a cell contains an obstacle, there are 0 ways to reach it.
-
-### Key Insights:
-
-1. **DP State**: `dp[i][j]` = number of unique paths to reach cell `(i, j)`
-2. **Base Cases**: 
-   - If `obstacleGrid[0][0] == 1`, return 0 (starting cell blocked)
-   - `dp[0][0] = 1` if no obstacle
-   - First row: can only come from left, but if obstacle encountered, all subsequent cells are 0
-   - First column: can only come from top, but if obstacle encountered, all subsequent cells are 0
-3. **Recurrence**: 
-   - If `obstacleGrid[i][j] == 1`: `dp[i][j] = 0`
-   - Otherwise: `dp[i][j] = dp[i-1][j] + dp[i][j-1]`
-4. **Answer**: `dp[m-1][n-1]` (bottom-right corner)
-
-### Space Optimization:
-
-We can optimize space from O(m×n) to O(n) by using a 1D array since we only need the previous row.
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -128,6 +111,24 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** You are given an `m x n` integer array `grid`. There is a robot initially located at the **top-left corner** (i.e., `grid[0][0]`). The robot tries to move to the **bottom-right corner** (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.
+
+**How the code works:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]`, expected output `2`:
+
+There is one obstacle in the middle of the 3x3 grid.
+There are two ways to reach the bottom-right corner:
+1. Right -> Right -> Down -> Down
+2. Down -> Down -> Right -> Right
 
 ### **Algorithm Explanation:**
 
@@ -255,6 +256,28 @@ public:
 
 ### **Related Problems:**
 
-- [LC 62: Unique Paths](https://leetcode.com/problems/unique-paths/) - Same problem without obstacles
-- [LC 64: Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) - Find minimum cost path
-- [LC 980: Unique Paths III](https://leetcode.com/problems/unique-paths-iii/) - Must visit all empty cells exactly once
+- [LC 62: Unique Paths](https://www.leetcode.com/problems/unique-paths/) - Same problem without obstacles
+- [LC 64: Minimum Path Sum](https://www.leetcode.com/problems/minimum-path-sum/) - Find minimum cost path
+- [LC 980: Unique Paths III](https://www.leetcode.com/problems/unique-paths-iii/) - Must visit all empty cells exactly once
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 63: Unique Paths II on LeetCode](https://www.leetcode.com/problems/unique-paths-ii/)
+- [LeetCode Discuss — LC 63: Unique Paths II](https://www.leetcode.com/problems/unique-paths-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/unique-paths-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

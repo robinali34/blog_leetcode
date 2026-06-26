@@ -6,14 +6,46 @@ categories: leetcode algorithm medium cpp array stack monotonic-stack problem-so
 permalink: /posts/2025-11-24-medium-1762-buildings-with-an-ocean-view/
 tags: [leetcode, medium, array, stack, monotonic-stack, greedy, two-pointers]
 ---
-
-# [Medium] 1762. Buildings With an Ocean View
-
 There are `n` buildings in a line. You are given an integer array `heights` of size `n` that represents the heights of the buildings in the line.
 
 The ocean is to the right of the buildings. A building has an **ocean view** if the building can see the ocean without obstructions. Formally, a building has an ocean view if all the buildings to its right have a smaller height.
 
 Return a list of indices (0-indexed) of buildings that have an ocean view, sorted in increasing order.
+
+## Thinking Process
+
+1. **Right-to-left iteration**: Essential for efficiently checking if buildings to the right are shorter
+
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
 ## Examples
 
@@ -50,34 +82,6 @@ Explanation: Only the rightmost building has an ocean view (buildings of equal h
 - `1 <= heights.length <= 10^5`
 - `1 <= heights[i] <= 10^9`
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Ocean view definition**: What gives a building an ocean view? (Assumption: Building has ocean view if no taller building to its right blocks the view)
-
-2. **Building positions**: How are buildings positioned? (Assumption: Buildings are in a row, ocean is to the right - heights[i] is height of building at index i)
-
-3. **Return format**: What should we return? (Assumption: Array of indices of buildings with ocean view, sorted in ascending order)
-
-4. **Height comparison**: How do we check for blocking? (Assumption: Building at index i has ocean view if all buildings at indices > i have height <= heights[i])
-
-5. **Rightmost building**: Does the rightmost building always have ocean view? (Assumption: Yes - no buildings to its right to block it)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each building, check all buildings to its right to see if any building is taller or equal. If no taller building exists to the right, the building has an ocean view. This approach has O(n²) time complexity, which is inefficient for large arrays.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Traverse from right to left, maintaining the maximum height seen so far. For each building, if its height is greater than the maximum seen, it has an ocean view. Update the maximum. This achieves O(n) time with O(1) extra space. However, we need to collect indices in increasing order, which may require storing them and sorting, or processing in reverse and reversing the result.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a monotonic stack (decreasing order). Traverse from right to left: for each building, pop all buildings from the stack that are shorter than or equal to the current building (they're blocked). If the stack is empty after popping, the current building has an ocean view. Push the current building onto the stack. Alternatively, traverse right to left maintaining maximum height, and collect indices of buildings taller than the maximum. Reverse the result to get increasing order. This achieves O(n) time with O(n) space in worst case. The key insight is that a building has an ocean view if and only if no building to its right is taller, which can be determined by tracking the maximum height seen from right to left.
-
 ## Solution Approaches
 
 The key insight is that a building has an ocean view if it's taller than all buildings to its right. We can solve this by:
@@ -113,6 +117,27 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Monotonic stack (this problem)
+
+**Key idea:** 1. **Right-to-left iteration**: Essential for efficiently checking if buildings to the right are shorter
+
+**How the code works:**
+1. **Right-to-left iteration**: Essential for efficiently checking if buildings to the right are shorter
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
+
+**Walkthrough** — input `heights = [4,2,3,1]`, expected output `[0,2,3]`:
+
+Building at index 1 (height 2) does not have an ocean view because building at index 2 (height 3) is taller.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Simple Greedy** | O(n) | O(1) | Simple, efficient, no extra space | - |
+| **Monotonic Stack** | O(n) | O(n) | More general pattern | Extra space, more complex |
 
 **How it works:**
 1. Start from the rightmost building (index `n-1`)
@@ -172,8 +197,6 @@ public:
 - Stack maintains buildings in decreasing order of height
 - If a building is shorter than current, it can't block current's view
 - If stack is empty, no building to the right can block current's view
-
-## How the Algorithm Works
 
 ### Key Insight: Right-to-Left Iteration
 
@@ -246,7 +269,6 @@ i = 0: heights[0] = 1
 
 After reverse: rtn = [3]
 ```
-
 ## Algorithm Breakdown
 
 ### Solution 1: Simple Greedy
@@ -306,14 +328,13 @@ vector<int> findBuildings(vector<int>& heights) {
 - **Check if empty**: Empty stack means no blocking buildings
 - **Push current**: Add current building to stack
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Simple Greedy** | O(n) | O(1) | Simple, efficient, no extra space | - |
 | **Monotonic Stack** | O(n) | O(n) | More general pattern | Extra space, more complex |
 
-## Edge Cases
+## Common Mistakes
 
 1. **All buildings same height**: Only rightmost building has ocean view
    - `heights = [2,2,2,2]` → `[3]`
@@ -326,18 +347,6 @@ vector<int> findBuildings(vector<int>& heights) {
 
 4. **Single building**: Always has ocean view
    - `heights = [5]` → `[0]`
-
-## Key Insights
-
-1. **Right-to-left iteration**: Essential for efficiently checking if buildings to the right are shorter
-
-2. **Track maximum only**: We only need the maximum height, not all heights
-
-3. **Greedy approach**: Local optimal (taller than max) leads to global optimal
-
-4. **Equal heights**: Buildings of equal height block each other (use `<` not `<=`)
-
-## Common Mistakes
 
 1. **Left-to-right iteration**: Can't efficiently check if buildings to right are shorter
 2. **Wrong comparison**: Using `<=` instead of `<` for equal heights
@@ -352,11 +361,11 @@ vector<int> findBuildings(vector<int>& heights) {
 
 ## Related Problems
 
-- [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) - Similar monotonic stack pattern
-- [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) - Monotonic stack
-- [503. Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) - Monotonic stack with circular array
-- [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) - Monotonic stack, water trapping
-- [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) - Monotonic stack
+- [739. Daily Temperatures](https://www.leetcode.com/problems/daily-temperatures/) - Similar monotonic stack pattern
+- [496. Next Greater Element I](https://www.leetcode.com/problems/next-greater-element-i/) - Monotonic stack
+- [503. Next Greater Element II](https://www.leetcode.com/problems/next-greater-element-ii/) - Monotonic stack with circular array
+- [42. Trapping Rain Water](https://www.leetcode.com/problems/trapping-rain-water/) - Monotonic stack, water trapping
+- [84. Largest Rectangle in Histogram](https://www.leetcode.com/problems/largest-rectangle-in-histogram/) - Monotonic stack
 
 ## Pattern Recognition
 
@@ -397,7 +406,22 @@ Similar problems:
 
 For this problem, Solution 1 (Simple Greedy) is the optimal choice.
 
----
+## Key Takeaways
 
-*This problem demonstrates the importance of choosing the right direction for iteration and the power of simple greedy approaches over more complex data structures when the problem allows it.*
+1. **Right-to-left iteration**: Essential for efficiently checking if buildings to the right are shorter
 
+2. **Track maximum only**: We only need the maximum height, not all heights
+
+3. **Greedy approach**: Local optimal (taller than max) leads to global optimal
+
+4. **Equal heights**: Buildings of equal height block each other (use `<` not `<=`)
+
+## References
+
+- [LC 1762: Buildings With an Ocean View on LeetCode](https://www.leetcode.com/problems/buildings-with-an-ocean-view/)
+- [LeetCode Discuss — LC 1762: Buildings With an Ocean View](https://www.leetcode.com/problems/buildings-with-an-ocean-view/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/buildings-with-an-ocean-view/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

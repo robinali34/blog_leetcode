@@ -5,11 +5,6 @@ date: 2025-12-31 22:30:00 -0700
 categories: [leetcode, medium, bit-manipulation, string, array]
 permalink: /2025/12/31/medium-393-utf-8-validation/
 ---
-
-# 393. UTF-8 Validation
-
-## Problem Statement
-
 Given an integer array `data` representing the data, return whether it is a valid **UTF-8** encoding (i.e., it translates to a sequence of valid UTF-8 encoded characters).
 
 A character in **UTF8** can be from **1 to 4 bytes** long, subjected to the following rules:
@@ -30,6 +25,37 @@ This is how the UTF-8 encoding would work:
 ```
 
 **Note:** The input is an array of integers. Only the **least significant 8 bits** of each integer is used to store the data. This means each integer represents only 1 byte of data.
+
+## Thinking Process
+
+Given an integer array `data` representing the data, return whether it is a valid **UTF-8** encoding (i.e., it translates to a sequence of valid UTF-8 encoded characters).
+
+A character in **UTF8** can be from **1 to 4 bytes** long, subjected to the following rules:
+
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
+
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
 ## Examples
 
@@ -55,190 +81,6 @@ But the second continuation byte does not start with 10, so it is invalid.
 
 - `1 <= data.length <= 2 * 10^4`
 - `0 <= data[i] <= 255`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **UTF-8 encoding**: What is UTF-8 encoding? (Assumption: Variable-length encoding - 1 to 4 bytes per character, first byte indicates length)
-
-2. **Byte format**: How are bytes represented? (Assumption: Each integer represents one byte - only least significant 8 bits used)
-
-3. **Validation rules**: What makes encoding valid? (Assumption: Follow UTF-8 rules - proper byte sequences, correct continuation bytes)
-
-4. **Return value**: What should we return? (Assumption: Boolean - true if valid UTF-8 encoding, false otherwise)
-
-5. **Incomplete sequences**: What if sequence is incomplete? (Assumption: Invalid - all bytes for multi-byte character must be present)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Process the array sequentially. For each byte, check if it starts with `0` (1-byte), `110` (2-byte), `1110` (3-byte), or `11110` (4-byte) by converting to binary string and checking prefixes. Then validate that the following bytes start with `10`. This approach works but string operations are inefficient and error-prone.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use bit manipulation with hardcoded checks: for each byte, check specific bit patterns using bitwise operations. Check if byte matches `0xxxxxxx`, `110xxxxx`, `1110xxxx`, or `11110xxx` by comparing with masks. Then validate continuation bytes by checking if they match `10xxxxxx`. This is more efficient but requires careful handling of bit masks and edge cases.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use bit masks and helper functions: define `MASK1 = 0x80` (checks bit 7) and `MASK2 = 0xC0` (checks bits 7-6). Create `getBytes()` function that counts leading 1s to determine character length (1-4 bytes). Create `isValid()` function that checks if a byte is a valid continuation byte (must start with `10`). Process the array sequentially: for each character, get its byte count, ensure enough bytes are available, validate continuation bytes, and advance the pointer. This achieves O(n) time with O(1) space, which is optimal. The key insight is using bit masks to efficiently check UTF-8 patterns without string conversions.
-
-## Solution Approach
-
-This problem requires validating UTF-8 encoding by checking bit patterns. UTF-8 has specific rules for how bytes are structured, and we need to verify the sequence follows these rules.
-
-### Key Insights:
-
-1. **UTF-8 Byte Patterns**:
-   - 1-byte: `0xxxxxxx` (starts with 0)
-   - 2-byte: `110xxxxx 10xxxxxx`
-   - 3-byte: `1110xxxx 10xxxxxx 10xxxxxx`
-   - 4-byte: `11110xxx 10xxxxxx 10xxxxxx 10xxxxxx`
-
-2. **Bit Masks**: Use bit masks to check byte patterns
-3. **Continuation Bytes**: All bytes after the first must start with `10`
-4. **Length Validation**: Ensure we have enough bytes for multi-byte characters
-
-### Algorithm:
-
-1. **Check first byte**: Determine number of bytes in character
-2. **Validate continuation**: Check that following bytes start with `10`
-3. **Length check**: Ensure enough bytes available
-4. **Process**: Move to next character
-
-## Solution
-
-### **Solution: Bit Manipulation with Masks**
-
-```cpp
-class Solution {
-private:
-    static const int MASK1 = 1 << 7;
-    static const int MASK2 = MASK1 + (1 << 6);
-
-    bool isValid(int num) {
-        return (num & MASK2) == MASK1;
-    }
-
-    int getBytes(int num) {
-        if((num & MASK1) == 0) return 1;
-        int n = 0, mask = MASK1;
-        while ((num & mask) != 0) {
-            n++;
-            if(n > 4) return -1;
-            mask >>= 1;
-        }
-        return n >=2 ? n : -1;
-    }
-public:
-    bool validUtf8(vector<int>& data) {
-        const int M = data.size();
-        int idx = 0;
-        while(idx < M) {
-            int num = data[idx];
-            int n = getBytes(num);
-            if(n < 0 || idx + n > M) return false;
-            for(int i = 1; i < n; i++) {
-                if(!isValid(data[idx + i])) return false;
-            }
-            idx += n;
-        }
-        return true;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Bit Masks (Lines 3-4)**:
-   - `MASK1 = 1 << 7 = 10000000` (0x80): Checks if bit 7 is set
-   - `MASK2 = MASK1 + (1 << 6) = 11000000` (0xC0): Checks bits 7 and 6
-
-2. **isValid Helper (Lines 6-8)**:
-   - Checks if a byte is a valid continuation byte
-   - Continuation bytes must start with `10` (bits 7=1, 6=0)
-   - `(num & MASK2) == MASK1` checks: bit 7=1 AND bit 6=0
-
-3. **getBytes Helper (Lines 10-20)**:
-   - Determines number of bytes in UTF-8 character
-   - **1-byte check**: If `(num & MASK1) == 0`, return 1
-   - **Multi-byte**: Count leading 1s
-     - Start with `mask = MASK1` (bit 7)
-     - Count consecutive 1s from left
-     - If count > 4: invalid (return -1)
-     - If count < 2: invalid (return -1)
-     - Return count (2, 3, or 4)
-
-4. **Main Validation (Lines 21-33)**:
-   - Process data array sequentially
-   - For each character:
-     - Get byte count: `n = getBytes(data[idx])`
-     - Check validity: `n < 0` or not enough bytes → return false
-     - Validate continuation bytes: Check bytes `idx+1` to `idx+n-1`
-     - Move to next character: `idx += n`
-
-### **Example Walkthrough:**
-
-**Example 1: `data = [197,130,1]`**
-
-```
-Step 1: Process first byte (197)
-197 in binary: 11000101
-getBytes(197):
-  (197 & MASK1) = (197 & 128) = 128 ≠ 0 → not 1-byte
-  Count leading 1s:
-    mask = 128 (10000000)
-    197 & 128 = 128 ≠ 0 → n=1, mask = 64
-    197 & 64 = 64 ≠ 0 → n=2, mask = 32
-    197 & 32 = 0 → stop
-  n = 2 → 2-byte character
-  Check: idx + 2 = 0 + 2 = 2 <= 3 ✓
-
-Step 2: Validate continuation byte
-data[1] = 130
-130 in binary: 10000010
-isValid(130):
-  (130 & MASK2) = (130 & 192) = 128
-  MASK1 = 128
-  128 == 128 ✓ → valid continuation byte
-
-Step 3: Process next character (1)
-1 in binary: 00000001
-getBytes(1):
-  (1 & MASK1) = (1 & 128) = 0 → 1-byte character ✓
-
-Result: true
-```
-
-**Example 2: `data = [235,140,4]`**
-
-```
-Step 1: Process first byte (235)
-235 in binary: 11101011
-getBytes(235):
-  Count leading 1s:
-    235 & 128 = 128 ≠ 0 → n=1
-    235 & 64 = 64 ≠ 0 → n=2
-    235 & 32 = 32 ≠ 0 → n=3
-    235 & 16 = 0 → stop
-  n = 3 → 3-byte character
-  Check: idx + 3 = 0 + 3 = 3 <= 3 ✓
-
-Step 2: Validate first continuation byte
-data[1] = 140
-140 in binary: 10001100
-isValid(140):
-  (140 & 192) = 128 == 128 ✓ → valid
-
-Step 3: Validate second continuation byte
-data[2] = 4
-4 in binary: 00000100
-isValid(4):
-  (4 & 192) = 0 ≠ 128 ✗ → invalid continuation byte
-
-Result: false
-```
 
 ## Algorithm Breakdown
 
@@ -292,8 +134,7 @@ Bits 7-3 = 11110, then continuation bytes with 10
 3. **Continuation bytes**: All following bytes must start with `10`
 4. **Move pointer**: Advance by character length
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n)
 - **Single pass**: Process each byte exactly once
 - **Bit operations**: O(1) per byte
@@ -329,25 +170,6 @@ Bits 7-3 = 11110, then continuation bytes with 10
 2. **Continuation bytes**: Must start with `10` (bits 7=1, 6=0)
 3. **Length**: Must have exactly `n` bytes for `n`-byte character
 4. **Range**: Character length must be 1-4 bytes
-
-## Alternative Approaches
-
-### **Approach 1: Bit Masks (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Clear and efficient solution
-
-### **Approach 2: Right Shift Comparison**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Use right shift**: Compare with patterns like `0b110`, `0b1110`
-- **Similar performance**: Different implementation style
-
-### **Approach 3: State Machine**
-- **Time**: O(n)
-- **Space**: O(1)
-- **State tracking**: Track expected continuation bytes
-- **More complex**: But can be more readable
 
 ## Detailed Example Walkthrough
 
@@ -419,14 +241,36 @@ while ((num & mask) != 0 && count < 4) {
 }
 ```
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [393. UTF-8 Validation](https://leetcode.com/problems/utf-8-validation/) - Current problem
-- [191. Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) - Bit manipulation
-- [190. Reverse Bits](https://leetcode.com/problems/reverse-bits/) - Bit manipulation
-- [136. Single Number](https://leetcode.com/problems/single-number/) - Bit manipulation
+- [393. UTF-8 Validation](https://www.leetcode.com/problems/utf-8-validation/) - Current problem
+- [191. Number of 1 Bits](https://www.leetcode.com/problems/number-of-1-bits/) - Bit manipulation
+- [190. Reverse Bits](https://www.leetcode.com/problems/reverse-bits/) - Bit manipulation
+- [136. Single Number](https://www.leetcode.com/problems/single-number/) - Bit manipulation
 
 ## Tags
 
 `Bit Manipulation`, `Array`, `String`, `Medium`
 
+## Key Takeaways
+
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
+
+## References
+
+- [LC 393: UTF-8 Validation on LeetCode](https://www.leetcode.com/problems/utf-8-validation/)
+- [LeetCode Discuss — LC 393: UTF-8 Validation](https://www.leetcode.com/problems/utf-8-validation/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/utf-8-validation/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Math & Bit Manipulation](/blog_leetcode/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)

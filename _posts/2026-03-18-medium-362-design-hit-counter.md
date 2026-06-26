@@ -6,7 +6,6 @@ categories: [leetcode, medium, design, queue]
 tags: [leetcode, medium, design, queue, deque, sliding-window]
 permalink: /2026/03/18/medium-362-design-hit-counter/
 ---
-
 Design a hit counter that counts the number of hits received in the past 5 minutes (300 seconds).
 
 Implement `HitCounter`:
@@ -45,7 +44,34 @@ We need a **sliding window** of hits within the last 300 seconds. The key questi
 
 Since timestamps arrive in non-decreasing order, older hits are always at the front -- a natural fit for a **queue/deque**.
 
-## Solution 1: Deque (Optimal) -- $O(1)$ amortized
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
+
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
+| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
+| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
+| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+
+## Solution
 
 Use a deque to store timestamps. On `getHits`, pop from the front while the oldest hit is outside the window.
 
@@ -70,80 +96,18 @@ private:
     deque<int> hits;
 };
 ```
-{% endraw %}
 
-| Operation | Time | Space |
-|---|---|---|
-| `hit` | $O(1)$ | $O(n)$ total |
-| `getHits` | $O(k)$ amortized $O(1)$ | -- |
+### Solution Explanation
 
-Each element is pushed once and popped once, so across all operations the total work for eviction is $O(n)$.
+**Approach:** Fixed-size window (this problem)
 
-## Solution 2: Sorted Vector + Binary Search
+**Key idea:** We need a **sliding window** of hits within the last 300 seconds. The key question is: how do we efficiently expire old hits?
 
-Maintain a sorted vector. On `getHits`, use `lower_bound` to find the window boundary and erase expired entries.
+**Walkthrough** — input `hit(1), hit(2), hit(3), getHits(4), hit(300), getHits(300), getHits(301)`, expected output `null, null, null, 3, null, 4, 3`:
 
-{% raw %}
-```cpp
-class HitCounter {
-public:
-    HitCounter() {}
-
-    void hit(int timestamp) {
-        auto it = lower_bound(cache.begin(), cache.end(), timestamp);
-        cache.insert(it, timestamp);
-    }
-
-    int getHits(int timestamp) {
-        auto it_old = lower_bound(cache.begin(), cache.end(), timestamp - 300 + 1);
-        cache.erase(cache.begin(), it_old);
-        return cache.size();
-    }
-
-private:
-    vector<int> cache;
-};
-```
-{% endraw %}
-
-| Operation | Time | Space |
-|---|---|---|
-| `hit` | $O(n)$ (vector insert shifts elements) | $O(n)$ |
-| `getHits` | $O(\log n + k)$ (binary search + erase) | -- |
-
-Since timestamps arrive in order, `lower_bound` always finds the end, making `hit` effectively $O(1)$ in practice. However the vector insert is still $O(n)$ worst case due to shifting.
-
-## Solution 3: Multiset + Binary Search
-
-A balanced BST gives $O(\log n)$ insert and $O(\log n)$ per element erased.
-
-{% raw %}
-```cpp
-class HitCounter {
-public:
-    HitCounter() {}
-
-    void hit(int timestamp) {
-        hits.insert(timestamp);
-    }
-
-    int getHits(int timestamp) {
-        auto it = hits.lower_bound(timestamp - 300 + 1);
-        hits.erase(hits.begin(), it);
-        return hits.size();
-    }
-
-private:
-    multiset<int> hits;
-};
-```
-{% endraw %}
-
-| Operation | Time | Space |
-|---|---|---|
-| `hit` | $O(\log n)$ | $O(n)$ |
-| `getHits` | $O(k \log n)$ | -- |
-
+getHits(4):   hits at 1,2,3 → 3
+  getHits(300): hits at 1,2,3,300 → 4
+  getHits(301): hit at 1 is outside [2,301] → hits at 2,3,300 → 3
 ## Comparison
 
 | Approach | `hit` | `getHits` | Best For |
@@ -166,9 +130,15 @@ private:
 
 ## Related Problems
 
-- [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) -- nearly identical (queue + time window)
-- [346. Moving Average from Data Stream](https://leetcode.com/problems/moving-average-from-data-stream/) -- sliding window with queue
-- [155. Min Stack](https://leetcode.com/problems/min-stack/) -- data structure design
+- [933. Number of Recent Calls](https://www.leetcode.com/problems/number-of-recent-calls/) -- nearly identical (queue + time window)
+- [346. Moving Average from Data Stream](https://www.leetcode.com/problems/moving-average-from-data-stream/) -- sliding window with queue
+- [155. Min Stack](https://www.leetcode.com/problems/min-stack/) -- data structure design
+
+## References
+
+- [LC 362: Design Hit Counter on LeetCode](https://www.leetcode.com/problems/design-hit-counter/)
+- [LeetCode Discuss — LC 362: Design Hit Counter](https://www.leetcode.com/problems/design-hit-counter/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/design-hit-counter/editorial/) *(may require premium)*
 
 ## Template Reference
 

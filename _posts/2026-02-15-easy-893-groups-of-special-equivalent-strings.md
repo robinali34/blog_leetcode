@@ -6,7 +6,6 @@ categories: [leetcode, easy, string, hash]
 tags: [leetcode, easy, string, hash, canonical-form]
 permalink: /2026/02/15/easy-893-groups-of-special-equivalent-strings/
 ---
-
 Two strings are **special-equivalent** if you can swap characters at even indices among themselves and swap characters at odd indices among themselves, any number of times. Return the number of groups of special-equivalent strings.
 
 ## Examples
@@ -32,6 +31,17 @@ Output: 3
 - `1 <= words[i].length <= 20`
 - `words[i]` consist of lowercase English letters
 - All `words[i]` have the same length
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -68,6 +78,22 @@ All strings with the same signature belong to one group. The answer is the numbe
 
 Each string defines a pair `(E_multiset, O_multiset)`. Swaps only permute within E and within O. So equivalence class = identical pair of multisets. This is a classic **"group by canonical representation under allowed transformations"** pattern, similar to Group Anagrams (LC 49).
 
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
 ## Approach 1: Sort-Based Signature -- $O(nk \log k)$
 
 For each word, sort even-index and odd-index characters separately, concatenate into a key, and insert into a set.
@@ -97,11 +123,24 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(nk \log k)$ -- sorting twice per word
-**Space**: $O(nk)$
+### Solution Explanation
 
+**Approach:** Two pointers on string (this problem)
+
+**Key idea:** Swapping within even positions and within odd positions means:
+
+**How the code works:**
+- **Order inside even positions doesn't matter**
+- **Order inside odd positions doesn't matter**
+- The **multiset** of even-index characters
+- The **multiset** of odd-index characters
+1. Extract even-index characters
+2. Extract odd-index characters
+
+**Walkthrough** — input `words = ["abcd","cdab","cbad","xyzz","zzxy","zzyx"]`, expected output `3`:
+
+Groups are ["abcd","cdab","cbad"], ["xyzz","zzxy"], ["zzyx"].
 ## Approach 2: Frequency Count -- $O(nk)$
 
 Since characters are lowercase letters (only 26), we can avoid sorting by counting character frequencies instead.
@@ -154,8 +193,14 @@ This problem tests:
 
 ## Related Problems
 
-- [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/) -- group by sorted canonical form
-- [205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) -- transformation invariant
+- [49. Group Anagrams](https://www.leetcode.com/problems/group-anagrams/) -- group by sorted canonical form
+- [205. Isomorphic Strings](https://www.leetcode.com/problems/isomorphic-strings/) -- transformation invariant
+
+## References
+
+- [LC 893: Groups of Special-Equivalent Strings on LeetCode](https://www.leetcode.com/problems/groups-of-special-equivalent-strings/)
+- [LeetCode Discuss — LC 893: Groups of Special-Equivalent Strings](https://www.leetcode.com/problems/groups-of-special-equivalent-strings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/groups-of-special-equivalent-strings/editorial/) *(may require premium)*
 
 ## Template Reference
 

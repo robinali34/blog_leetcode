@@ -6,7 +6,6 @@ categories: [leetcode, medium, string, graph, dsu]
 tags: [leetcode, medium, string, graph, dsu, union-find, sorting]
 permalink: /2026/03/09/medium-1202-smallest-string-with-swaps/
 ---
-
 You are given a string `s` and an array of index pairs `pairs` where `pairs[i] = [a, b]` indicates you can swap the characters at indices `a` and `b` **any number of times**. Return the lexicographically smallest string achievable after performing the swaps.
 
 ## Examples
@@ -41,6 +40,17 @@ Output: "abc"
 - `0 <= pairs[i][0], pairs[i][1] < s.length`
 - `s` contains only lowercase English letters
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
+| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
+| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
+| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+
 ## Thinking Process
 
 ### Key Insight: Transitive Swaps
@@ -57,6 +67,22 @@ This is a **connectivity** problem -- use DSU (Union-Find) to find connected com
 4. **Place** sorted characters back into the sorted indices
 
 Within each connected component, we can achieve any permutation. The lexicographically smallest result comes from sorting the characters and placing them in index order.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
 
 ## Approach: DSU + Group Sort -- $O(n \log n)$
 
@@ -114,11 +140,22 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n \log n)$ -- sorting within groups dominates (all groups together have $n$ elements total)
-**Space**: $O(n)$ for DSU and grouping
+### Solution Explanation
 
+**Approach:** BFS / DFS traversal (this problem)
+
+**Key idea:** ### Key Insight: Transitive Swaps
+
+**How the code works:**
+1. **Union** all pairs -- indices that can swap (directly or transitively) end up in the same component
+2. **Group** indices by their root parent
+3. **Sort** the characters within each group
+4. **Place** sorted characters back into the sorted indices
+
+**Walkthrough** — input `s = "dcab", pairs = [[0,3],[1,2]]`, expected output `"bacd"`:
+
+Swap s[0] and s[3] → "bcad", swap s[1] and s[2] → "bacd"
 ## Walk-Through: s = "dcab", pairs = [[0,3],[1,2],[0,2]]
 
 ```
@@ -153,9 +190,15 @@ Step 4 — Place back:
 
 ## Related Problems
 
-- [1584. Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) -- DSU for MST
-- [721. Accounts Merge](https://leetcode.com/problems/accounts-merge/) -- DSU to group connected accounts
-- [839. Similar String Groups](https://leetcode.com/problems/similar-string-groups/) -- DSU on string similarity
+- [1584. Min Cost to Connect All Points](https://www.leetcode.com/problems/min-cost-to-connect-all-points/) -- DSU for MST
+- [721. Accounts Merge](https://www.leetcode.com/problems/accounts-merge/) -- DSU to group connected accounts
+- [839. Similar String Groups](https://www.leetcode.com/problems/similar-string-groups/) -- DSU on string similarity
+
+## References
+
+- [LC 1202: Smallest String With Swaps on LeetCode](https://www.leetcode.com/problems/smallest-string-with-swaps/)
+- [LeetCode Discuss — LC 1202: Smallest String With Swaps](https://www.leetcode.com/problems/smallest-string-with-swaps/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/smallest-string-with-swaps/editorial/) *(may require premium)*
 
 ## Template Reference
 

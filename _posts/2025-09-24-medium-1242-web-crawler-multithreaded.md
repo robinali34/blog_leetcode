@@ -4,12 +4,7 @@ title: "[Medium] 1242. Web Crawler Multithreaded"
 date: 2025-09-24 18:00:00 -0000
 categories: leetcode algorithm multithreading concurrency data-structures synchronization medium cpp web-crawler concurrent-programming problem-solving
 ---
-
-# [Medium] 1242. Web Crawler Multithreaded
-
 This is a multithreading problem that requires implementing a concurrent web crawler. The key insight is using proper synchronization mechanisms to avoid race conditions while crawling URLs from the same domain concurrently.
-
-## Problem Description
 
 Given a start URL and an HTML parser, implement a multithreaded web crawler that:
 1. Crawls all URLs from the same domain as the start URL
@@ -17,8 +12,7 @@ Given a start URL and an HTML parser, implement a multithreaded web crawler that
 3. Avoids visiting the same URL multiple times
 4. Returns all discovered URLs
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: 
@@ -49,68 +43,13 @@ startUrl = "http://news.google.com"
 Output: ["http://news.google.com"]
 ```
 
-### Constraints
+## Constraints
 - 1 <= urls.length <= 1000
 - 1 <= urls[i].length <= 300
 - startUrl is one of the urls
 - All URLs have the same hostname
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Crawling scope**: What URLs should we crawl? (Assumption: Only URLs with the same hostname as startUrl - per constraints, all URLs have same hostname)
-
-2. **Thread safety**: Do we need thread-safe operations? (Assumption: Yes - multithreaded environment, need synchronization for shared state)
-
-3. **URL format**: What constitutes a valid URL? (Assumption: Standard URL format, startUrl is guaranteed to be in urls list)
-
-4. **Duplicate handling**: How should we handle duplicate URLs? (Assumption: Each URL should be crawled only once - need to track visited URLs)
-
-5. **Return format**: What should we return? (Assumption: List of all URLs that can be reached from startUrl with same hostname)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to crawl web pages. Let me start from startUrl and follow links sequentially."
-
-**Naive Solution**: Start from startUrl, fetch HTML, extract URLs, filter by hostname, recursively crawl each URL sequentially.
-
-**Complexity**: O(n) time where n is number of URLs, O(n) space
-
-**Issues**:
-- Sequential crawling is slow
-- Doesn't leverage multithreading
-- Not optimal for concurrent operations
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use BFS/DFS with thread pool to crawl URLs concurrently."
-
-**Improved Solution**: Use BFS/DFS with thread pool. Maintain queue of URLs to crawl. Use multiple threads to fetch URLs concurrently. Track visited URLs to avoid duplicates.
-
-**Complexity**: O(n) time with better concurrency, O(n) space
-
-**Improvements**:
-- Concurrent crawling is faster
-- Thread pool manages threads efficiently
-- Handles visited URLs correctly
-- Better utilizes resources
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "BFS with thread pool and proper synchronization is optimal."
-
-**Best Solution**: BFS with thread pool. Use queue for URLs to crawl, visited set for tracking. Use thread pool to fetch URLs concurrently. Synchronize access to shared data structures.
-
-**Complexity**: O(n) time with concurrency, O(n) space
-
-**Key Realizations**:
-1. BFS is natural for web crawling
-2. Thread pool enables concurrent fetching
-3. Synchronization is crucial for thread safety
-4. Visited tracking prevents infinite loops
-
-## Approach
+## Thinking Process
 
 The solution involves:
 
@@ -120,8 +59,32 @@ The solution involves:
 4. **URL Filtering**: Only crawl URLs from the same domain
 5. **Visited Tracking**: Avoid revisiting the same URL
 
-## Solution in C++
 
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+
+## Solution
 **Time Complexity:** O(n) where n is the number of URLs in the same domain  
 **Space Complexity:** O(n) for storing visited URLs and results
 
@@ -192,46 +155,24 @@ private:
 };
 ```
 
-## Solution in Python
+### Solution Explanation
 
-**Time Complexity:** O(n) where n is the number of URLs in the same domain  
-**Space Complexity:** O(n) for storing visited URLs and results
+**Approach:** Brute force (this problem)
 
-```python
-from threading import Lock
-from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
+**Key idea:** The solution involves:
 
-class Solution:
-    def crawl(self, startUrl: str, htmlParser: 'HtmlParser') -> List[str]:
-        def host(u: str) -> str:
-            return u.split('/')[2]
-        
-        base = host(startUrl)
-        visited = set([startUrl])
-        lock = Lock()
+**How the code works:**
+1. **Domain Extraction**: Extract the base domain from the start URL
+2. **Thread Pool**: Use multiple threads for concurrent crawling
+3. **Synchronization**: Use locks to prevent race conditions
+4. **URL Filtering**: Only crawl URLs from the same domain
+5. **Visited Tracking**: Avoid revisiting the same URL
 
-        def worker(url: str) -> List[str]:
-            next_urls = []
-            for u in htmlParser.getUrls(url):
-                if host(u) == base:
-                    with lock:
-                        if u in visited:
-                            continue
-                        visited.add(u)
-                    next_urls.append(u)
-            return next_urls
-        
-        with ThreadPoolExecutor(max_workers=32) as ex:
-            pending = {ex.submit(worker, startUrl)}
-            while pending:
-                done, pending = wait(pending, return_when=FIRST_COMPLETED)
-                for fut in done:
-                    for nxt in fut.result():
-                        pending.add(ex.submit(worker, nxt))
-        
-        return list(visited)
-```
+**Walkthrough** — input `urls = [`, expected output `[`:
 
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Step-by-Step Example
 
 Let's trace through the Python solution with startUrl = "http://news.yahoo.com/news/topics/":
@@ -255,14 +196,6 @@ Let's trace through the Python solution with startUrl = "http://news.yahoo.com/n
 - Wait for completion and process results
 - Repeat until all URLs are processed
 
-## Key Insights
-
-1. **Thread Safety**: Use locks to protect shared data structures
-2. **Domain Filtering**: Only process URLs from the same domain
-3. **Concurrent Processing**: Use thread pools for parallel execution
-4. **Deadlock Prevention**: Careful lock ordering and timeout handling
-5. **Memory Management**: Proper cleanup of thread resources
-
 ## Synchronization Patterns
 
 ### C++ Approach:
@@ -284,3 +217,17 @@ Let's trace through the Python solution with startUrl = "http://news.yahoo.com/n
 - **Domain Mismatch**: Processing URLs from different domains
 
 ---
+
+## References
+
+- [LC 1242: Web Crawler Multithreaded on LeetCode](https://www.leetcode.com/problems/web-crawler-multithreaded/)
+- [LeetCode Discuss — LC 1242: Web Crawler Multithreaded](https://www.leetcode.com/problems/web-crawler-multithreaded/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/web-crawler-multithreaded/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Thread Safety**: Use locks to protect shared data structures
+2. **Domain Filtering**: Only process URLs from the same domain
+3. **Concurrent Processing**: Use thread pools for parallel execution
+4. **Deadlock Prevention**: Careful lock ordering and timeout handling
+5. **Memory Management**: Proper cleanup of thread resources

@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, string, trie, sorting]
 permalink: /2026/01/23/medium-1233-remove-sub-folders-from-the-filesystem/
 tags: [leetcode, medium, array, string, trie, sorting, prefix-matching]
 ---
-
-# 1233. Remove Sub-Folders from the Filesystem
-
-## Problem Statement
-
 Given a list of folders `folder`, return *the folders after removing all **sub-folders** in those folders*. You may return the answer in **any order**.
 
 If a `folder[i]` is located within another `folder[j]`, it is called a **sub-folder** of it.
@@ -53,46 +48,43 @@ Explanation: None of the folders are subfolders of another folder.
 - `folder[i]` always starts with `'/'`
 - Each folder name is **unique**
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Subfolder definition**: What exactly defines a subfolder? (Assumption: Folder A is a subfolder of folder B if A's path starts with B's path followed by '/', e.g., "/a/b" is subfolder of "/a")
-
-2. **Path format**: Are all paths absolute (starting with '/')? (Assumption: Yes - all paths start with '/' and don't have trailing '/')
-
-3. **Case sensitivity**: Are folder names case-sensitive? (Assumption: Yes - only lowercase letters are allowed per constraints)
-
-4. **Empty folders**: Can there be empty folder paths? (Assumption: No - minimum length is 2, so at least "/a" format)
-
-5. **Duplicate folders**: Can the same folder path appear multiple times? (Assumption: Based on constraints, folder names are unique, so no duplicates)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each folder path, check if it's a subfolder of any other folder by checking if any other path is a prefix of it. Remove all folders that are subfolders of others. This requires comparing each folder with every other folder, giving O(n² × m) complexity where n is the number of folders and m is the average path length. This is too slow for large inputs.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Sort the folder paths lexicographically. After sorting, if a folder is a subfolder of another, its parent must appear before it in the sorted order. Iterate through sorted paths, and for each path, check if it starts with the previous path followed by '/'. If yes, it's a subfolder and should be removed. This reduces complexity to O(n log n + n × m) for sorting and checking, which is better but can be optimized further.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a Trie data structure to efficiently check prefix relationships. Insert all folder paths into a trie, marking nodes that represent complete folder paths. When inserting, if we encounter a node already marked as a complete path, the current path is a subfolder and should be skipped. Alternatively, after building the trie, traverse it and collect only paths that are not subfolders. This achieves O(n × m) time complexity where m is the average path length, as we process each character once. The trie naturally handles prefix checking efficiently, making it the optimal approach for this problem.
-
-## Solution Approach
-
-This problem requires identifying and removing folder paths that are subfolders of other folders. A folder is a subfolder if its path is a prefix of another folder's path.
-
-### Key Insights:
+## Thinking Process
 
 1. **Prefix Matching**: A folder is a subfolder if its path is a prefix of another folder
-2. **Trie Approach**: Build a trie of all folders, then check if any prefix is marked as end
-3. **Sorting Approach**: Sort folders lexicographically, then check if current folder is a prefix of previous
-4. **Path Parsing**: Split paths by `'/'` to process folder names individually
+- Efficient for checking if any prefix exists
+- More memory intensive but clearer logic
+- Simpler code, more efficient
 
-## Solution 1: Trie-Based Approach
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+
+## Solution
 
 ```cpp
 struct TrieNode{
@@ -158,146 +150,45 @@ private:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-#### **TrieNode Structure:**
+**Approach:** Two pointers on string (this problem)
 
-1. **`isEnd`**: Marks if this node represents the end of a folder path
-2. **`children`**: Map from folder name to child TrieNode
+**Key idea:** 1. **Prefix Matching**: A folder is a subfolder if its path is a prefix of another folder
 
-#### **Build Trie (First Pass):**
+**How the code works:**
+1. **Prefix Matching**: A folder is a subfolder if its path is a prefix of another folder
+- Efficient for checking if any prefix exists
+- More memory intensive but clearer logic
+- Simpler code, more efficient
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
 
-1. **Parse Each Path**: Split path by `'/'` using `istringstream` and `getline`
-2. **Skip Empty**: Ignore empty strings (from leading `/`)
-3. **Create Nodes**: For each folder name, create node if missing
-4. **Mark End**: Mark final node as `isEnd = true`
+**Walkthrough** — input `folder = ["/a","/a/b","/c/d","/c/d/e","/c/f"]`, expected output `["/a","/c/d","/c/f"]`:
 
-#### **Check Subfolders (Second Pass):**
+Folders "/a/b" is a subfolder of "/a" and "/c/d/e" is inside of folder "/c/d" in our filesystem.
+## Common Mistakes
 
-1. **Traverse Path**: For each folder path, traverse trie following folder names
-2. **Check Prefix**: If we encounter a node with `isEnd = true` and there are more folders remaining (`iss.rdbuf()->in_avail() != 0`), it's a subfolder
-3. **Add to Result**: Only add folders that are not subfolders
+1. **Single folder**: `["/a"]` → `["/a"]`
+2. **No subfolders**: `["/a/b", "/c/d"]` → `["/a/b", "/c/d"]`
+3. **All subfolders**: `["/a", "/a/b", "/a/b/c"]` → `["/a"]`
+4. **Similar prefixes**: `["/a/b", "/a/bc"]` → Both kept (not subfolders)
+5. **Deep nesting**: `["/a", "/a/b", "/a/b/c", "/a/b/c/d"]` → `["/a"]`
 
-#### **Memory Management:**
+1. **False prefix match**: `/a/bc` matching `/a/b` without checking next character
+2. **Wrong comparison**: Using `startsWith` without verifying `/` boundary
+3. **Memory leaks**: Not deleting trie nodes in C++
+4. **Empty string handling**: Not skipping empty strings from leading `/`
+5. **Sorting order**: Not understanding lexicographic ordering
 
-- **Destructor**: Recursively deletes all nodes to prevent memory leaks
-- **`deleteTrie`**: Helper function for recursive deletion
+## Related Problems
 
-### Example Walkthrough:
+- [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Trie basics
+- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie for prefix replacement
+- [LC 720: Longest Word in Dictionary](https://www.leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
+- [LC 14: Longest Common Prefix](https://www.leetcode.com/problems/longest-common-prefix/) - Prefix matching
 
-**Input:** `folder = ["/a","/a/b","/c/d","/c/d/e","/c/f"]`
-
-```
-Step 1: Build Trie
-  "/a": root -> "a" (isEnd=true)
-  "/a/b": root -> "a" -> "b" (isEnd=true)
-  "/c/d": root -> "c" -> "d" (isEnd=true)
-  "/c/d/e": root -> "c" -> "d" -> "e" (isEnd=true)
-  "/c/f": root -> "c" -> "f" (isEnd=true)
-
-Step 2: Check Each Path
-  "/a": Traverse "a", isEnd=true, no more folders → NOT subfolder ✓
-  "/a/b": Traverse "a", isEnd=true, more folders exist → IS subfolder ✗
-  "/c/d": Traverse "c" -> "d", isEnd=true, no more → NOT subfolder ✓
-  "/c/d/e": Traverse "c" -> "d", isEnd=true, more exist → IS subfolder ✗
-  "/c/f": Traverse "c" -> "f", isEnd=true, no more → NOT subfolder ✓
-
-Result: ["/a","/c/d","/c/f"] ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n × m)
-  - Building trie: O(n × m) where n = number of folders, m = average path length
-  - Checking subfolders: O(n × m)
-  - Overall: O(n × m)
-
-- **Space Complexity:** O(n × m)
-  - Trie structure: O(n × m) in worst case
-  - Result array: O(n)
-  - Overall: O(n × m)
-
-## Solution 2: Sorting-Based Approach
-
-```cpp
-class Solution {
-public:
-    vector<string> removeSubfolders(vector<string>& folder) {
-        sort(folder.begin(), folder.end());
-        vector<string> rtn;
-        for(const string& f: folder) {
-            if(rtn.empty() || f.compare(0, rtn.back().size(), rtn.back()) != 0 ||
-                f[rtn.back().size()] != '/'){
-                    rtn.push_back(f);
-                }
-        }
-        return rtn;
-    }
-};
-```
-
-### Algorithm Explanation:
-
-1. **Sort Folders**: Sort all folders lexicographically
-   - After sorting, parent folders come before their subfolders
-   - Example: `["/a", "/a/b", "/c/d"]` stays in order
-
-2. **Check Prefix**: For each folder:
-   - If result is empty, add it
-   - Otherwise, check if current folder is a prefix of the last added folder
-   - **Key Check**: `f.compare(0, rtn.back().size(), rtn.back()) != 0`
-     - Compares first `rtn.back().size()` characters of `f` with `rtn.back()`
-     - Returns non-zero if they differ
-   - **Additional Check**: `f[rtn.back().size()] != '/'`
-     - Ensures the next character after prefix is `/` (not just a prefix match)
-     - Prevents false positives like `/a/bc` matching `/a/b`
-
-3. **Add to Result**: Only add if not a subfolder
-
-### Example Walkthrough:
-
-**Input:** `folder = ["/a","/a/b","/c/d","/c/d/e","/c/f"]`
-
-```
-Step 1: Sort
-  ["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"]
-
-Step 2: Process
-  "/a": rtn empty → add → rtn = ["/a"]
-  "/a/b": compare("/a/b", 0, 2, "/a") = 0 (matches)
-          "/a/b"[2] = '/' → IS subfolder ✗
-  "/c/d": compare("/c/d", 0, 2, "/a") != 0 → NOT subfolder ✓
-          rtn = ["/a", "/c/d"]
-  "/c/d/e": compare("/c/d/e", 0, 4, "/c/d") = 0 (matches)
-            "/c/d/e"[4] = '/' → IS subfolder ✗
-  "/c/f": compare("/c/f", 0, 4, "/c/d") != 0 → NOT subfolder ✓
-          rtn = ["/a", "/c/d", "/c/f"]
-
-Result: ["/a","/c/d","/c/f"] ✓
-```
-
-### Why the Additional Check is Needed:
-
-Consider: `folder = ["/a/b", "/a/bc"]`
-
-- Without `f[rtn.back().size()] != '/'` check:
-  - `/a/bc` would be incorrectly identified as subfolder of `/a/b`
-- With the check:
-  - `"/a/bc"[4] = 'c'` (not `/`) → NOT subfolder ✓
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n log n + n × m)
-  - Sorting: O(n log n)
-  - Processing: O(n × m) where m = average path length
-  - Overall: O(n log n + n × m)
-
-- **Space Complexity:** O(1) excluding output
-  - Sorting: O(1) if in-place
-  - Result array: O(n)
-  - Overall: O(n) for output
-
-## Key Insights
+## Key Takeaways
 
 1. **Prefix Matching**: A folder is a subfolder if its path is a prefix of another folder
 2. **Trie Approach**: 
@@ -309,40 +200,12 @@ Consider: `folder = ["/a/b", "/a/bc"]`
 4. **Path Parsing**: Use `istringstream` and `getline` to split by `/`
 5. **Edge Case**: Check that prefix match is followed by `/` to avoid false positives
 
-## Edge Cases
+## References
 
-1. **Single folder**: `["/a"]` → `["/a"]`
-2. **No subfolders**: `["/a/b", "/c/d"]` → `["/a/b", "/c/d"]`
-3. **All subfolders**: `["/a", "/a/b", "/a/b/c"]` → `["/a"]`
-4. **Similar prefixes**: `["/a/b", "/a/bc"]` → Both kept (not subfolders)
-5. **Deep nesting**: `["/a", "/a/b", "/a/b/c", "/a/b/c/d"]` → `["/a"]`
+- [LC 1233: Remove Sub-Folders from the Filesystem on LeetCode](https://www.leetcode.com/problems/remove-sub-folders-from-the-filesystem/)
+- [LeetCode Discuss — LC 1233: Remove Sub-Folders from the Filesystem](https://www.leetcode.com/problems/remove-sub-folders-from-the-filesystem/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/remove-sub-folders-from-the-filesystem/editorial/) *(may require premium)*
 
-## Common Mistakes
+## Template Reference
 
-1. **False prefix match**: `/a/bc` matching `/a/b` without checking next character
-2. **Wrong comparison**: Using `startsWith` without verifying `/` boundary
-3. **Memory leaks**: Not deleting trie nodes in C++
-4. **Empty string handling**: Not skipping empty strings from leading `/`
-5. **Sorting order**: Not understanding lexicographic ordering
-
-## Comparison of Approaches
-
-| Aspect | Trie Approach | Sorting Approach |
-|--------|---------------|------------------|
-| **Time** | O(n × m) | O(n log n + n × m) |
-| **Space** | O(n × m) | O(n) |
-| **Code Complexity** | More verbose | Simpler |
-| **Memory Management** | Requires cleanup | No cleanup needed |
-| **Clarity** | More explicit | More concise |
-| **Best For** | When paths are long | When simplicity preferred |
-
-## Related Problems
-
-- [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Trie basics
-- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie for prefix replacement
-- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
-- [LC 14: Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) - Prefix matching
-
----
-
-*This problem demonstrates two approaches to prefix matching: **Trie** for explicit path structure representation and **Sorting** for leveraging lexicographic ordering. The sorting approach is generally preferred for its simplicity and efficiency.*
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -4,9 +4,6 @@ title: "[Medium] 648. Replace Words"
 date: 2025-10-17 16:17:34 -0700
 categories: leetcode algorithm medium cpp trie hash-set string-processing problem-solving
 ---
-
-# [Medium] 648. Replace Words
-
 In English, we have a concept called **root**, which can be followed by some other word to form another longer word. Let's call this word **successor**. For example, when the root `"an"` is followed by the successor word `"other"`, we can form a new word `"another"`.
 
 Given a `dictionary` consisting of roots and a `sentence` consisting of words separated by spaces, replace all the successors in the sentence with the root forming it. If a successor can be formed by more than one root, replace it with the root that has the **shortest length**.
@@ -46,62 +43,41 @@ Explanation:
 - The length of each word in `sentence` is in the range `[1, 1000]`
 - Each word in `sentence` consists of only lower-case letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Simple implementation:** Easy to understand and implement
+1. **Efficient traversal:** Character-by-character matching
 
-1. **Root replacement**: When should we replace a word? (Assumption: If word starts with a root from dictionary, replace with shortest matching root)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Shortest root**: What if multiple roots match? (Assumption: Use shortest root - lexicographically smallest if same length)
 
-3. **Word boundaries**: How are words separated? (Assumption: Words separated by spaces - standard sentence format)
 
-4. **Case sensitivity**: Are comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Return format**: What should we return? (Assumption: Modified sentence with words replaced by roots where applicable)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to replace words with roots. Let me check each word against all dictionary roots."
+## Common Approaches
 
-**Naive Solution**: For each word in sentence, check all dictionary roots to find shortest prefix match.
+Typical techniques for this pattern:
 
-**Complexity**: O(m × n × k) time where m = words, n = dictionary size, k = average word length, O(m × k) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
-**Issues**:
-- O(m × n × k) time - inefficient
-- Repeats prefix checking
-- Doesn't leverage prefix structure
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use hash set for dictionary and check prefixes efficiently."
-
-**Improved Solution**: Store dictionary in hash set. For each word, check all prefixes from shortest to longest, replace with first matching root.
-
-**Complexity**: O(m × k²) time, O(n × k) space
-
-**Improvements**:
-- Hash set enables O(1) lookup
-- O(m × k²) is better than O(m × n × k)
-- Still checks all prefixes
-- Can optimize further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use Trie to efficiently find shortest matching prefix."
-
-**Best Solution**: Build Trie from dictionary. For each word, traverse Trie to find shortest matching root. Trie enables efficient prefix matching without checking all prefixes.
-
-**Complexity**: O(n × k + m × k) time, O(n × k) space
-
-**Key Realizations**:
-1. Trie is perfect for prefix matching
-2. O(n × k + m × k) time is optimal
-3. Trie space is O(n × k) for dictionary
-4. Much more efficient than hash set approach
-
-## Solution 1: Hash Set with Prefix Matching
+## Solution
 
 **Time Complexity:** O(n * m) where n is number of words, m is average word length  
 **Space Complexity:** O(d) where d is dictionary size
@@ -139,76 +115,35 @@ public:
 };
 ```
 
-## Solution 2: Trie Data Structure
+### Solution Explanation
 
-**Time Complexity:** O(n * m) where n is number of words, m is average word length  
-**Space Complexity:** O(d * k) where d is dictionary size, k is average root length
+**Approach:** Brute force (this problem)
 
-Use a trie to efficiently find the shortest root prefix for each word.
+**Key idea:** 1. **Simple implementation:** Easy to understand and implement
 
-```cpp
-class TrieNode{
-public:
-    bool isEnd;
-    vector<TrieNode*> children;
-    TrieNode(): children(26, nullptr) {isEnd = false;}
-};
+**How the code works:**
+1. **Simple implementation:** Easy to understand and implement
+1. **Efficient traversal:** Character-by-character matching
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-class Trie {
-private:
-    TrieNode* root;
+**Walkthrough** — input `dictionary = ["cat","bat","rat"], sentence = "the cattle was rattled by the battery"`, expected output `"the cat was rat by the bat"`:
 
-public:
-    Trie() {root = new TrieNode();}
+- "cattle" can be replaced by "cat" (shortest root)
+- "rattled" can be replaced by "rat" (shortest root)
+- "battery" can be replaced by "bat" (shortest root)
 
-    void insert(string word) {
-        TrieNode * current = root;
-        for(char c: word) {
-            if(current->children[c - 'a'] == nullptr) {
-                current->children[c - 'a'] = new TrieNode();
-            }
-            current = current->children[c - 'a'];
-        }
-        current->isEnd = true;
-    }
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Hash Set | O(n * m) | O(d) |
+| Trie | O(n * m) | O(d * k) |
 
-    string shortestRoot(string word) {
-        TrieNode* current = root;
-        for(int i = 0; i < word.size(); i++) {
-            char ch = word[i];
-            if(current->children[ch - 'a'] == nullptr) {
-                return word;
-            }
-            current = current->children[ch - 'a'];
-            if(current->isEnd) {
-                return word.substr(0, i + 1);
-            }
-        }
-        return word;
-    }
-};
-
-class Solution {
-public:
-    string replaceWords(vector<string>& dictionary, string sentence) {
-        istringstream sStream(sentence);
-        Trie dicTrie;
-        
-        for(string& word: dictionary) {
-            dicTrie.insert(word);
-        }
-        
-        string word, newSentence;
-        while(getline(sStream, word, ' ')) {
-            newSentence.append(dicTrie.shortestRoot(word) + " ");
-        }
-        
-        if(!newSentence.empty()) newSentence.pop_back();
-        return newSentence;
-    }
-};
-```
-
+Where:
+- n = number of words in sentence
+- m = average word length
+- d = dictionary size
+- k = average root length
 ## How the Algorithms Work
 
 ### Solution 1: Hash Set Approach
@@ -308,8 +243,7 @@ string shortestRoot(string word) {
 2. **Return prefix** when reaching end node
 3. **Return original word** if path doesn't exist
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Hash Set | O(n * m) | O(d) |
@@ -321,28 +255,12 @@ Where:
 - d = dictionary size
 - k = average root length
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single word:** `dictionary = ["a"]`, `sentence = "a"` → `"a"`
 2. **No matches:** `dictionary = ["cat"]`, `sentence = "dog"` → `"dog"`
 3. **Empty dictionary:** `dictionary = []`, `sentence = "hello"` → `"hello"`
 4. **Single character roots:** `dictionary = ["a","b"]`, `sentence = "abc"` → `"a"`
-
-## Key Insights
-
-### Solution 1 (Hash Set):
-1. **Simple implementation:** Easy to understand and implement
-2. **Prefix checking:** Check all possible prefixes systematically
-3. **Shortest first:** Return first match (shortest root)
-4. **Space efficient:** Only stores dictionary roots
-
-### Solution 2 (Trie):
-1. **Efficient traversal:** Character-by-character matching
-2. **Early termination:** Stop at first end node found
-3. **Structured storage:** Organized prefix tree structure
-4. **Scalable:** Better for large dictionaries
-
-## Common Mistakes
 
 1. **Wrong prefix order:** Not checking shortest prefixes first
 2. **Missing edge cases:** Not handling empty dictionary or sentence
@@ -381,70 +299,12 @@ root
 
 **Final result:** `"a a a"`
 
-## Alternative Approaches
-
-### Approach 1: Brute Force
-```cpp
-class Solution {
-public:
-    string replaceWords(vector<string>& dictionary, string sentence) {
-        istringstream sStream(sentence);
-        string word, result;
-        
-        while(getline(sStream, word, ' ')) {
-            string shortest = word;
-            for(string& root : dictionary) {
-                if(word.substr(0, root.size()) == root && root.size() < shortest.size()) {
-                    shortest = root;
-                }
-            }
-            result += shortest + " ";
-        }
-        
-        if(!result.empty()) result.pop_back();
-        return result;
-    }
-};
-```
-
-**Time Complexity:** O(n * d * m)  
-**Space Complexity:** O(1)
-
-### Approach 2: Sorted Dictionary
-```cpp
-class Solution {
-public:
-    string replaceWords(vector<string>& dictionary, string sentence) {
-        sort(dictionary.begin(), dictionary.end());
-        istringstream sStream(sentence);
-        string word, result;
-        
-        while(getline(sStream, word, ' ')) {
-            string shortest = word;
-            for(string& root : dictionary) {
-                if(word.substr(0, root.size()) == root) {
-                    shortest = root;
-                    break;
-                }
-            }
-            result += shortest + " ";
-        }
-        
-        if(!result.empty()) result.pop_back();
-        return result;
-    }
-};
-```
-
-**Time Complexity:** O(d log d + n * d * m)  
-**Space Complexity:** O(1)
-
 ## Related Problems
 
-- [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
-- [211. Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
-- [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
-- [720. Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/)
+- [208. Implement Trie (Prefix Tree)](https://www.leetcode.com/problems/implement-trie-prefix-tree/)
+- [211. Design Add and Search Words Data Structure](https://www.leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [212. Word Search II](https://www.leetcode.com/problems/word-search-ii/)
+- [720. Longest Word in Dictionary](https://www.leetcode.com/problems/longest-word-in-dictionary/)
 
 ## Why These Solutions Work
 
@@ -459,3 +319,23 @@ public:
 2. **Early termination:** Stops at first end node
 3. **Structured approach:** Organized prefix tree
 4. **Scalable design:** Better for large dictionaries
+
+## References
+
+- [LC 648: Replace Words on LeetCode](https://www.leetcode.com/problems/replace-words/)
+- [LeetCode Discuss — LC 648: Replace Words](https://www.leetcode.com/problems/replace-words/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/replace-words/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Solution 1 (Hash Set):
+1. **Simple implementation:** Easy to understand and implement
+2. **Prefix checking:** Check all possible prefixes systematically
+3. **Shortest first:** Return first match (shortest root)
+4. **Space efficient:** Only stores dictionary roots
+
+### Solution 2 (Trie):
+1. **Efficient traversal:** Character-by-character matching
+2. **Early termination:** Stop at first end node found
+3. **Structured storage:** Organized prefix tree structure
+4. **Scalable:** Better for large dictionaries

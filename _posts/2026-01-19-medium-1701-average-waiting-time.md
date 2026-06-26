@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, simulation]
 permalink: /2026/01/19/medium-1701-average-waiting-time/
 tags: [leetcode, medium, array, simulation, greedy]
 ---
-
-# 1701. Average Waiting Time
-
-## Problem Statement
-
 There is a restaurant with a single chef. You are given an array `customers`, where `customers[i] = [arrival_i, time_i]`:
 
 - `arrival_i` is the arrival time of the `i`th customer. The arrival times are sorted in **non-decreasing** order.
@@ -51,46 +46,39 @@ So the average waiting time = (2 + 6 + 4 + 2) / 4 = 3.25000.
 - `1 <= arrival_i, time_i <= 10^4`
 - `arrival_i <= arrival_{i+1}` (arrival times are sorted in non-decreasing order)
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Single Server Queue**: Classic queueing theory problem
 
-1. **Single server**: Is there only one chef/server processing orders? (Assumption: Yes - single server queue system)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-2. **Order processing**: Are orders processed in arrival order or can they be reordered? (Assumption: Process in arrival order - FIFO queue)
 
-3. **Waiting time definition**: How is waiting time calculated? (Assumption: Waiting time = finish_time - arrival_time, includes both waiting and service time)
 
-4. **Chef availability**: What happens if the chef is idle when a customer arrives? (Assumption: Chef starts immediately - no waiting, but service time still counts)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-5. **Precision**: What precision is required for the average? (Assumption: Return as double with appropriate precision - typically 5 decimal places)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Simulate the queue system step by step. Maintain a timeline and process each customer arrival and service completion as events. Track when each customer arrives, when service starts, and when service ends. Calculate waiting time for each customer and compute the average. This approach works but requires careful event management and can be complex to implement correctly.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
-Process customers sequentially. Maintain a current time variable. For each customer, if they arrive after the current time, the chef starts immediately at arrival time. If they arrive before the current time, they wait until the chef finishes previous orders. Update current time and accumulate waiting times. This simplifies the simulation by processing in order, avoiding event scheduling complexity.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a single pass through customers. Maintain the chef's finish time. For each customer, the start time is max(arrival_time, chef_finish_time). The finish time is start_time + order_time. Waiting time is finish_time - arrival_time. Accumulate total waiting time and divide by number of customers. This achieves O(n) time with O(1) space. The key insight is that we don't need to simulate events - we can compute start and finish times directly based on the chef's availability and customer arrivals.
-
-## Solution Approach
-
-This problem simulates a single-server queue system where customers arrive and wait for service. The key is to track when the chef becomes available and calculate waiting time for each customer.
-
-### Key Insights:
-
-1. **Chef Availability**: Chef can start next order only when idle
-2. **Waiting Time**: `waiting_time = finish_time - arrival_time`
-3. **Finish Time**: `finish_time = max(chef_free_time, arrival_time) + order_time`
-4. **Sequential Processing**: Orders are processed in the given order
-
-## Solution 1: Explicit Simulation (If-Else)
+## Solution
 
 ```cpp
 class Solution {
@@ -112,130 +100,24 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Initialize Variables**:
-   - `t`: Current time when chef becomes free (finish time of previous order)
-   - `totalTime`: Cumulative waiting time for all customers
+**Approach:** Sort + greedy (this problem)
 
-2. **Process Each Customer**:
-   - Extract `arrival` and `order` time
-   - **If chef is busy** (`t > arrival`):
-     - Customer waits: `totalTime += t - arrival`
-   - **If chef is idle** (`t <= arrival`):
-     - Chef starts immediately: `t = arrival`
-   - Add order preparation time: `totalTime += order`
-   - Update chef free time: `t += order`
+**Key idea:** 1. **Single Server Queue**: Classic queueing theory problem
 
-3. **Return Average**: `totalTime / customers.size()`
+**How the code works:**
+1. **Single Server Queue**: Classic queueing theory problem
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-### Example Walkthrough:
+**Walkthrough** — input `customers = [[1,2],[2,5],[4,3]]`, expected output `5.00000`:
 
-**Input:** `customers = [[1,2],[2,5],[4,3]]`
-
-```
-Customer 1: arrival=1, order=2
-  t=0 <= arrival=1 → chef idle, start at 1
-  totalTime += 0 (no wait) + 2 (order) = 2
-  t = 1 + 2 = 3
-  Waiting time: 3 - 1 = 2 ✓
-
-Customer 2: arrival=2, order=5
-  t=3 > arrival=2 → chef busy, wait until 3
-  totalTime += (3 - 2) = 1 + 5 = 6
-  t = 3 + 5 = 8
-  Waiting time: 8 - 2 = 6 ✓
-
-Customer 3: arrival=4, order=3
-  t=8 > arrival=4 → chef busy, wait until 8
-  totalTime += (8 - 4) = 4 + 3 = 7
-  t = 8 + 3 = 11
-  Waiting time: 11 - 4 = 7 ✓
-
-Average: (2 + 6 + 7) / 3 = 5.0 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - Single pass through customers array
-  - Each customer processed in O(1) time
-
-- **Space Complexity:** O(1)
-  - Only using constant extra variables (`t`, `totalTime`)
-  - No additional data structures
-
-## Solution 2: Simplified with `max()` (More Concise)
-
-```cpp
-class Solution {
-public:
-    double averageWaitingTime(vector<vector<int>>& customers) {
-        long long t = 0, totalTime = 0;
-        for(auto& c: customers) {
-            int arrival = c[0], order = c[1];
-            t = max(t, (long long)arrival) + order;
-            totalTime += t - arrival;
-        }
-        return (double) totalTime / customers.size();
-    }
-};
-```
-
-### Algorithm Explanation:
-
-1. **Initialize Variables**: Same as Solution 1
-
-2. **Process Each Customer**:
-   - **Update chef free time**: `t = max(t, arrival) + order`
-     - `max(t, arrival)` ensures chef starts at the later of:
-       - When chef becomes free (`t`)
-       - When customer arrives (`arrival`)
-   - **Calculate waiting time**: `totalTime += t - arrival`
-     - `t` is now the finish time
-     - Waiting time = finish time - arrival time
-
-3. **Return Average**: `totalTime / customers.size()`
-
-### Key Insight:
-
-The `max(t, arrival)` elegantly handles both cases:
-- **Chef idle**: `t <= arrival` → start at `arrival`
-- **Chef busy**: `t > arrival` → start at `t`
-
-### Example Walkthrough:
-
-**Input:** `customers = [[1,2],[2,5],[4,3]]`
-
-```
-Customer 1: arrival=1, order=2
-  t = max(0, 1) + 2 = 1 + 2 = 3
-  totalTime += 3 - 1 = 2
-  Waiting time: 2 ✓
-
-Customer 2: arrival=2, order=5
-  t = max(3, 2) + 5 = 3 + 5 = 8
-  totalTime += 8 - 2 = 6
-  Waiting time: 6 ✓
-
-Customer 3: arrival=4, order=3
-  t = max(8, 4) + 3 = 8 + 3 = 11
-  totalTime += 11 - 4 = 7
-  Waiting time: 7 ✓
-
-Average: (2 + 6 + 7) / 3 = 5.0 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - Single pass through customers array
-  - Each customer processed in O(1) time
-
-- **Space Complexity:** O(1)
-  - Only using constant extra variables
-  - More concise than Solution 1
-
+1) The first customer arrives at time 1, the chef takes his order and starts preparing it immediately at time 1, and finishes at time 3, so the waiting time of the first customer is 3 - 1 = 2.
+2) The second customer arrives at time 2, the chef takes his order and starts preparing it at time 3, and finishes at time 8, so the waiting time of the second customer is 8 - 2 = 6.
+3) The third customer arrives at time 4, the chef takes his order and starts preparing it at time 8, and finishes at time 11, so the waiting time of the third customer is 11 - 4 = 7.
+So the average waiting time = (2 + 6 + 7) / 3 = 5.00000.
 ## Comparison of Solutions
 
 | Solution | Code Length | Readability | Logic Clarity |
@@ -243,15 +125,7 @@ Average: (2 + 6 + 7) / 3 = 5.0 ✓
 | **Solution 1** | Longer | More explicit | Clear if-else logic |
 | **Solution 2** | Shorter | More concise | Elegant `max()` usage |
 
-## Key Insights
-
-1. **Single Server Queue**: Classic queueing theory problem
-2. **Sequential Processing**: Orders processed in arrival order
-3. **Waiting Time Formula**: `finish_time - arrival_time`
-4. **Chef Availability**: `start_time = max(chef_free_time, arrival_time)`
-5. **Finish Time**: `finish_time = start_time + order_time`
-
-## Edge Cases
+## Common Mistakes
 
 1. **All customers arrive before chef finishes**: Chef always busy
    - `customers = [[1,10],[2,5],[3,3]]`
@@ -268,8 +142,6 @@ Average: (2 + 6 + 7) / 3 = 5.0 ✓
    - `customers = [[5,2],[5,4],[5,3]]`
    - Processed sequentially, later ones wait longer
 
-## Common Mistakes
-
 1. **Wrong waiting time calculation**: Using `start_time - arrival` instead of `finish_time - arrival`
 2. **Not handling chef idle case**: Assuming chef is always busy
 3. **Integer overflow**: Not using `long long` for large sums
@@ -278,12 +150,25 @@ Average: (2 + 6 + 7) / 3 = 5.0 ✓
 
 ## Related Problems
 
-- [LC 1834: Single-Threaded CPU](https://leetcode.com/problems/single-threaded-cpu/) - Similar queue processing with priority
-- [LC 1882: Process Tasks Using Servers](https://leetcode.com/problems/process-tasks-using-servers/) - Multiple servers, task scheduling
-- [LC 621: Task Scheduler](https://leetcode.com/problems/task-scheduler/) - Task scheduling with cooldown
-- [LC 253: Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) - Resource allocation, similar simulation
+- [LC 1834: Single-Threaded CPU](https://www.leetcode.com/problems/single-threaded-cpu/) - Similar queue processing with priority
+- [LC 1882: Process Tasks Using Servers](https://www.leetcode.com/problems/process-tasks-using-servers/) - Multiple servers, task scheduling
+- [LC 621: Task Scheduler](https://www.leetcode.com/problems/task-scheduler/) - Task scheduling with cooldown
+- [LC 253: Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) - Resource allocation, similar simulation
 
----
+## Key Takeaways
 
-*This problem demonstrates **simulation of a single-server queue system**. The key insight is using `max(chef_free_time, arrival_time)` to determine when the chef can start the next order, elegantly handling both idle and busy states.*
+1. **Single Server Queue**: Classic queueing theory problem
+2. **Sequential Processing**: Orders processed in arrival order
+3. **Waiting Time Formula**: `finish_time - arrival_time`
+4. **Chef Availability**: `start_time = max(chef_free_time, arrival_time)`
+5. **Finish Time**: `finish_time = start_time + order_time`
 
+## References
+
+- [LC 1701: Average Waiting Time on LeetCode](https://www.leetcode.com/problems/average-waiting-time/)
+- [LeetCode Discuss — LC 1701: Average Waiting Time](https://www.leetcode.com/problems/average-waiting-time/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/average-waiting-time/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -5,14 +5,43 @@ date: 2025-12-30 17:30:00 -0700
 categories: [leetcode, medium, string, array, greedy]
 permalink: /2025/12/30/medium-616-add-bold-tag-in-string/
 ---
+You are given a string `s` and an array of strings `words`. You should add a closed pair of bold tag `<b>` and `</b>` to wrap the substrings in `s` that exist in `words`. If two such substrings overlap, you should wrap them together by only one pair of closed bold tag. If two consecutive substrings are wrapped, you should combine them.
 
-# 616. Add Bold Tag in String
+Return `s` *after adding the bold tags*.
 
-## Problem Statement
+## Thinking Process
 
 You are given a string `s` and an array of strings `words`. You should add a closed pair of bold tag `<b>` and `</b>` to wrap the substrings in `s` that exist in `words`. If two such substrings overlap, you should wrap them together by only one pair of closed bold tag. If two consecutive substrings are wrapped, you should combine them.
 
 Return `s` *after adding the bold tags*.
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
+
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Examples
 
@@ -36,173 +65,6 @@ Explanation: The substrings "aaa" and "aab" overlap, so they are wrapped togethe
 - `1 <= words[i].length <= 1000`
 - `s` and `words[i]` consist of English letters and digits.
 - All the values of `words` are **unique**.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Bold tag format**: What is the bold tag format? (Assumption: `<b>text</b>` - wrap matching substrings with bold tags)
-
-2. **Matching rules**: What substrings should be bolded? (Assumption: All substrings in s that match any word in words array)
-
-3. **Overlapping substrings**: How should overlapping substrings be handled? (Assumption: Merge overlapping/consecutive bold regions into single bold tag)
-
-4. **Return format**: What should we return? (Assumption: String with bold tags added around matching substrings)
-
-5. **Case sensitivity**: Is matching case-sensitive? (Assumption: Per constraints, English letters - typically case-sensitive unless specified)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each word in the words array, find all occurrences in string `s` using string search. Mark all matching positions as bold. Then iterate through `s` and add `<b>` tags around marked regions. This approach works but requires careful handling of overlapping regions and merging consecutive bold regions.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use a boolean array to mark bold positions: create an array `bold[i]` indicating if character `i` should be bold. For each word, find all occurrences and mark corresponding positions. Then iterate through `s` and add bold tags when entering or leaving bold regions. This simplifies the logic but still requires O(n × m × L) time where n is string length, m is number of words, and L is average word length.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use interval merging: for each word, find all occurrences and create intervals [start, end). Merge overlapping and consecutive intervals. Then iterate through the string and add bold tags at interval boundaries. Alternatively, use a boolean array to mark bold positions, then build the result string by tracking when we enter/exit bold regions. This achieves O(n × m × L) time for finding matches and O(n) time for building the result, which is efficient enough for the constraints. The key insight is that we can merge intervals to handle overlapping regions, then build the result string in a single pass.
-
-## Solution Approach
-
-This problem requires identifying all substrings in `s` that match any word in `words`, and wrapping them with bold tags. The key challenge is handling **overlapping** and **consecutive** substrings by merging them into a single bold tag.
-
-### Key Insights:
-
-1. **Mark Bold Characters**: Use a boolean array to mark which characters should be bold
-2. **Check All Matches**: For each position, check if any word matches starting there
-3. **Merge Overlaps**: Overlapping matches automatically merge when we mark all characters
-4. **Insert Tags**: Insert `<b>` at start of bold sequences and `</b>` at end
-
-### Algorithm:
-
-1. **Create mask array**: Boolean array to mark bold characters
-2. **Find matches**: For each position, check all words for matches
-3. **Mark characters**: Mark all characters in matched substrings
-4. **Build result**: Traverse string and insert tags at boundaries
-
-## Solution
-
-### **Solution: Boolean Mask with String Matching**
-
-```cpp
-class Solution {
-public:
-    string addBoldTag(string s, vector<string>& words) {
-        const int n = s.size();
-        if(n == 0) return "";
-        vector<bool> mask(n, false);
-        for(int i = 0; i < n; i++) {
-            for(string& word: words) {
-                int word_len = word.size();
-                if(i + word_len <= n && s.substr(i, word_len) == word) {
-                    for(int j = i; j < i + word_len; j++)
-                        mask[j] = true;
-                }
-            }
-        }
-        string res = "";
-        for(int i = 0; i < n; i++) {
-            if(mask[i] == true && (i == 0 || mask[i - 1] == false)) {
-                res += "<b>";
-            }
-            res.push_back(s[i]);
-            if(mask[i] == true && (i == n - 1 || mask[i+1] == false)) {
-                res += "</b>";
-            }
-        }
-        return res;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Edge Case (Line 5)**:
-   - Return empty string if input is empty
-
-2. **Initialize Mask (Line 6)**:
-   - Create boolean array `mask` of size `n`
-   - `mask[i] = true` means character at position `i` should be bold
-
-3. **Find and Mark Matches (Lines 7-14)**:
-   - For each position `i` in string `s`:
-     - Check each word in `words`
-     - If word matches substring starting at `i`:
-       - Mark all characters from `i` to `i + word_len - 1` as bold
-   - This automatically handles overlapping matches
-
-4. **Build Result String (Lines 15-24)**:
-   - Traverse string character by character
-   - **Insert `<b>` tag**: When entering a bold sequence
-     - Current character is bold AND
-     - Either at start OR previous character is not bold
-   - **Add character**: Always add current character
-   - **Insert `</b>` tag**: When exiting a bold sequence
-     - Current character is bold AND
-     - Either at end OR next character is not bold
-
-### **Example Walkthrough:**
-
-**For `s = "abcxyz123", words = ["abc","123"]`:**
-
-```
-Step 1: Initialize mask
-mask = [false, false, false, false, false, false, false, false, false]
-
-Step 2: Find matches and mark
-i=0: Check "abc" → matches! Mark positions 0,1,2
-i=1: Check "abc" → no match
-i=2: Check "abc" → no match
-i=6: Check "123" → matches! Mark positions 6,7,8
-
-mask = [true, true, true, false, false, false, true, true, true]
-        a    b    c    x    y    z    1    2    3
-
-Step 3: Build result string
-i=0: mask[0]=true, i==0 → Insert "<b>", add 'a'
-     Result: "<b>a"
-i=1: mask[1]=true, mask[0]=true → No tag, add 'b'
-     Result: "<b>ab"
-i=2: mask[2]=true, mask[1]=true → No tag, add 'c'
-     Result: "<b>abc"
-i=3: mask[3]=false, mask[2]=true → Insert "</b>", add 'x'
-     Result: "<b>abc</b>x"
-i=4: mask[4]=false → No tag, add 'y'
-     Result: "<b>abc</b>xy"
-i=5: mask[5]=false → No tag, add 'z'
-     Result: "<b>abc</b>xyz"
-i=6: mask[6]=true, mask[5]=false → Insert "<b>", add '1'
-     Result: "<b>abc</b>xyz<b>1"
-i=7: mask[7]=true, mask[6]=true → No tag, add '2'
-     Result: "<b>abc</b>xyz<b>12"
-i=8: mask[8]=true, mask[7]=true, i==n-1 → Add '3', Insert "</b>"
-     Result: "<b>abc</b>xyz<b>123</b>"
-```
-
-**For `s = "aaabbcc", words = ["aaa","aab","bc"]`:**
-
-```
-Step 1: Find matches
-i=0: "aaa" matches → mark 0,1,2
-i=0: "aab" matches → mark 0,1,2 (already marked)
-i=1: "aab" matches → mark 1,2,3
-i=4: "bc" matches → mark 4,5
-
-mask = [true, true, true, true, true, true, false]
-        a    a    a    b    b    c    c
-
-Step 2: Build result
-i=0: Start bold → "<b>a"
-i=1: Continue → "<b>aa"
-i=2: Continue → "<b>aaa"
-i=3: Continue → "<b>aaab"
-i=4: Continue → "<b>aaabb"
-i=5: Continue → "<b>aaabbc"
-i=6: End bold → "<b>aaabbc</b>c"
-```
 
 ## Algorithm Breakdown
 
@@ -238,8 +100,7 @@ if(i + word_len <= n && s.substr(i, word_len) == word)
 - Bounds check: `i + word_len <= n`
 - Substring comparison: `s.substr(i, word_len) == word`
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n × m × k)
 - **Outer loop**: O(n) - iterate through each position in string
 - **Word loop**: O(m) - check each word in dictionary
@@ -284,23 +145,6 @@ Instead of marking each character, use intervals:
 - Find all match intervals
 - Merge overlapping intervals
 - Insert tags at interval boundaries
-
-## Alternative Approaches
-
-### **Approach 1: Boolean Mask (Current Solution)**
-- **Time**: O(n × m × k)
-- **Space**: O(n)
-- **Best for**: Simple and straightforward
-
-### **Approach 2: Interval Merging**
-- **Time**: O(n × m × k) for finding, O(n log n) for merging
-- **Space**: O(n)
-- **Use case**: When many overlaps expected
-
-### **Approach 3: Trie + Interval Merging**
-- **Time**: O(n × k + n log n)
-- **Space**: O(n + total word length)
-- **Best for**: Large word dictionaries
 
 ## Detailed Example Walkthrough
 
@@ -354,13 +198,35 @@ Result: "<b>aaabbc</b>c"
 4. **Overlapping matches**: Merged into single region
 5. **Consecutive matches**: Merged into single region
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [616. Add Bold Tag in String](https://leetcode.com/problems/add-bold-tag-in-string/) - Current problem
-- [758. Bold Words in String](https://leetcode.com/problems/bold-words-in-string/) - Similar problem
-- [28. Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) - String matching
+- [616. Add Bold Tag in String](https://www.leetcode.com/problems/add-bold-tag-in-string/) - Current problem
+- [758. Bold Words in String](https://www.leetcode.com/problems/bold-words-in-string/) - Similar problem
+- [28. Find the Index of the First Occurrence in a String](https://www.leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) - String matching
 
 ## Tags
 
 `String`, `Array`, `Greedy`, `Medium`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 616: Add Bold Tag in String on LeetCode](https://www.leetcode.com/problems/add-bold-tag-in-string/)
+- [LeetCode Discuss — LC 616: Add Bold Tag in String](https://www.leetcode.com/problems/add-bold-tag-in-string/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/add-bold-tag-in-string/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

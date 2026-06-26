@@ -6,7 +6,6 @@ categories: [leetcode, medium, linked-list]
 tags: [leetcode, medium, linked-list, pointer-manipulation]
 permalink: /2026/04/15/medium-1669-merge-in-between-linked-lists/
 ---
-
 You are given two linked lists: `list1` and `list2` of sizes `n` and `m` respectively. Remove `list1`'s nodes from the `a`-th node to the `b`-th node (0-indexed), and put `list2` in their place.
 
 ## Examples
@@ -82,7 +81,36 @@ Step 4: Rewire
 Result: 10 → 1 → 13 → 1000000 → 1000001 → 1000002 → 5  ✓
 ```
 
-## Solution: Pointer Manipulation -- $O(n + m)$ time, $O(1)$ space
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
+
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -115,19 +143,25 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time:** $O(n + m)$ -- traverse `list1` up to index `b`, then traverse all of `list2`
-**Space:** $O(1)$ -- only pointer variables
+### Solution Explanation
 
-## Key Details
+**Approach:** Iterative pointer walk (this problem)
 
-| Detail | Explanation |
-|---|---|
-| Why `dummy`? | Although the head is never removed (since `a >= 1`), using a dummy keeps the traversal logic uniform -- `prevA` starts at dummy and walks `a` steps |
-| Finding `afterB` from `prevA` | Starting from `prevA` (index `a-1`), we walk `b - a + 1` steps to reach the node at index `b`, then one more `.next` to get `afterB` |
-| Finding `tail2` separately | We can't assume anything about `list2`'s length, so we walk to its end |
+**Key idea:** ### What Do We Need?
 
+**How the code works:**
+1. **`prevA`** -- the node at index `a - 1` (just before the removed segment)
+2. **`afterB`** -- the node at index `b + 1` (just after the removed segment)
+3. **`tail2`** -- the last node of `list2`
+
+**Walkthrough** — input `list1 = [10,1,13,6,9,5], a = 3, b = 4, list2 = [1000000,1000001,1000002]`, expected output `[10,1,13,1000000,1000001,1000002,5]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+**Time:** $O(n + m)$ -- traverse `list1` up to index `b`, then traverse all of `list2` · **Space:** $O(1)$ -- only pointer variables## Key Details
 ## Without Dummy (Slightly Simpler)
 
 Since the constraints guarantee `a >= 1`, we can skip the dummy:
@@ -175,10 +209,16 @@ public:
 
 ## Related Problems
 
-- [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) -- basic pointer manipulation
-- [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) -- segment-based list surgery
-- [86. Partition List](https://leetcode.com/problems/partition-list/) -- pointer rewiring with dummy nodes
-- [143. Reorder List](https://leetcode.com/problems/reorder-list/) -- find middle, reverse, merge
+- [206. Reverse Linked List](https://www.leetcode.com/problems/reverse-linked-list/) -- basic pointer manipulation
+- [25. Reverse Nodes in k-Group](https://www.leetcode.com/problems/reverse-nodes-in-k-group/) -- segment-based list surgery
+- [86. Partition List](https://www.leetcode.com/problems/partition-list/) -- pointer rewiring with dummy nodes
+- [143. Reorder List](https://www.leetcode.com/problems/reorder-list/) -- find middle, reverse, merge
+
+## References
+
+- [LC 1669: Merge In Between Linked Lists on LeetCode](https://www.leetcode.com/problems/merge-in-between-linked-lists/)
+- [LeetCode Discuss — LC 1669: Merge In Between Linked Lists](https://www.leetcode.com/problems/merge-in-between-linked-lists/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/merge-in-between-linked-lists/editorial/) *(may require premium)*
 
 ## Template Reference
 

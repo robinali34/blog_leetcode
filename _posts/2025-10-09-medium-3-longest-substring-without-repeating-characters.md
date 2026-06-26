@@ -4,9 +4,6 @@ title: "[Medium] 3. Longest Substring Without Repeating Characters"
 date: 2025-10-09 21:47:51 -0700
 categories: leetcode algorithm medium cpp sliding-window hash-map string two-pointers problem-solving
 ---
-
-# [Medium] 3. Longest Substring Without Repeating Characters
-
 Given a string `s`, find the length of the **longest substring** without repeating characters.
 
 ## Examples
@@ -38,62 +35,42 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 - `0 <= s.length <= 5 * 10^4`
 - `s` consists of English letters, digits, symbols and spaces.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Sliding Window**: Use two pointers (`start` and `end`) to maintain a valid window
 
-1. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters)
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
 
-2. **Character uniqueness**: What makes characters "repeating"? (Assumption: No character should appear more than once in the substring)
 
-3. **Empty string**: What should we return for an empty string? (Assumption: Return 0 - no substring exists)
 
-4. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different characters)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
-5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest substring length)
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find longest substring. Let me check all possible substrings."
+## Common Approaches
 
-**Naive Solution**: Check all possible substrings, for each check if it has no repeating characters, track maximum length.
+Typical techniques for this pattern:
 
-**Complexity**: O(n³) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
+| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
+| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
+| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
 
-**Issues**:
-- O(n³) time - very inefficient
-- Checks many redundant substrings
-- Repeats character checking for overlapping substrings
-- Doesn't leverage sliding window property
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use sliding window. Expand window until duplicate found, then shrink from left."
-
-**Improved Solution**: Use sliding window with two pointers. Expand right pointer, when duplicate found, move left pointer until duplicate removed. Track maximum window size.
-
-**Complexity**: O(n) time, O(min(n, charset)) space
-
-**Improvements**:
-- O(n) time - much better
-- Sliding window avoids redundant checks
-- Hash map/set tracks characters in window
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "The sliding window approach is already optimal. Can optimize by storing last occurrence index."
-
-**Best Solution**: Sliding window with hash map storing last occurrence index of each character. When duplicate found, jump left pointer to last occurrence + 1. This avoids unnecessary shrinking.
-
-**Complexity**: O(n) time, O(min(n, charset)) space
-
-**Key Realizations**:
-1. Sliding window is optimal approach
-2. O(n) time is optimal - must check each character
-3. Storing last occurrence optimizes left pointer movement
-4. O(min(n, charset)) space is optimal
-
-## Solution: Sliding Window with Hash Map
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(min(m, n)) where m is the size of the charset
@@ -123,46 +100,27 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `s = "abcabcbb"`
+**Approach:** Fixed-size window (this problem)
 
-| Step | end | cur | hashmap | start | window | max_len |
-|------|-----|-----|---------|-------|--------|---------|
-| 1 | 0 | 'a' | {'a': 0} | 0 | "a" | 1 |
-| 2 | 1 | 'b' | {'a': 0, 'b': 1} | 0 | "ab" | 2 |
-| 3 | 2 | 'c' | {'a': 0, 'b': 1, 'c': 2} | 0 | "abc" | 3 |
-| 4 | 3 | 'a' | {'a': 3, 'b': 1, 'c': 2} | 1 | "bca" | 3 |
-| 5 | 4 | 'b' | {'a': 3, 'b': 4, 'c': 2} | 2 | "cab" | 3 |
-| 6 | 5 | 'c' | {'a': 3, 'b': 4, 'c': 5} | 3 | "abc" | 3 |
-| 7 | 6 | 'b' | {'a': 3, 'b': 6, 'c': 5} | 5 | "cb" | 3 |
-| 8 | 7 | 'b' | {'a': 3, 'b': 7, 'c': 5} | 7 | "b" | 3 |
+**Key idea:** 1. **Sliding Window**: Use two pointers (`start` and `end`) to maintain a valid window
 
-**Final Answer:** 3
-
-### Visual Representation
-
-```
-String: "abcabcbb"
-        01234567
-
-Step 1-3: "abc" (length 3)
-Step 4:   "bca" (length 3) 
-Step 5:   "cab" (length 3)
-Step 6:   "abc" (length 3)
-Step 7:   "cb"  (length 2)
-Step 8:   "b"   (length 1)
-
-Maximum length: 3
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Sliding Window**: Use two pointers (`start` and `end`) to maintain a valid window
-2. **Hash Map Tracking**: Store the last position of each character
-3. **Efficient Updates**: When a duplicate is found, move `start` to `hashmap[cur] + 1`
-4. **Single Pass**: Process each character exactly once
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
 
+**Walkthrough** — input `s = "abcabcbb"`, expected output `3`:
+
+The answer is "abc", with the length of 3.
+
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Brute Force | O(n³) | O(min(m, n)) |
+| Sliding Window + Set | O(n) | O(min(m, n)) |
+| Sliding Window + Hash Map | O(n) | O(min(m, n)) |
 ## Algorithm Breakdown
 
 ### 1. Initialize Variables
@@ -190,49 +148,12 @@ hashmap[cur] = end;  // Update character position
 max_len = max(max_len, end - start + 1);  // Update max length
 ```
 
-## Alternative Approaches
-
-### Approach 1: Brute Force
-```cpp
-// Check all possible substrings - O(n³)
-for (int i = 0; i < n; i++) {
-    for (int j = i; j < n; j++) {
-        if (isUnique(s, i, j)) {
-            max_len = max(max_len, j - i + 1);
-        }
-    }
-}
-```
-
-### Approach 2: Sliding Window with Set
-```cpp
-// Use set to track characters in current window
-unordered_set<char> window;
-int start = 0;
-for (int end = 0; end < s.length(); end++) {
-    while (window.count(s[end])) {
-        window.erase(s[start]);
-        start++;
-    }
-    window.insert(s[end]);
-    max_len = max(max_len, end - start + 1);
-}
-```
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Brute Force | O(n³) | O(min(m, n)) |
 | Sliding Window + Set | O(n) | O(min(m, n)) |
 | Sliding Window + Hash Map | O(n) | O(min(m, n)) |
-
-## Edge Cases
-
-1. **Empty string**: `s = ""` → `0`
-2. **Single character**: `s = "a"` → `1`
-3. **All same characters**: `s = "aaaa"` → `1`
-4. **No duplicates**: `s = "abcdef"` → `6`
 
 ## Why This Solution is Optimal
 
@@ -243,6 +164,11 @@ for (int end = 0; end < s.length(); end++) {
 
 ## Common Mistakes
 
+1. **Empty string**: `s = ""` → `0`
+2. **Single character**: `s = "a"` → `1`
+3. **All same characters**: `s = "aaaa"` → `1`
+4. **No duplicates**: `s = "abcdef"` → `6`
+
 1. **Not checking if duplicate is within current window**
 2. **Using `start = end` instead of `start = hashmap[cur] + 1`**
 3. **Forgetting to update `max_len` after each iteration**
@@ -250,7 +176,20 @@ for (int end = 0; end < s.length(); end++) {
 
 ## Related Problems
 
-- [159. Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)
-- [340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
-- [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
-- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+- [159. Longest Substring with At Most Two Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)
+- [340. Longest Substring with At Most K Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
+- [424. Longest Repeating Character Replacement](https://www.leetcode.com/problems/longest-repeating-character-replacement/)
+- [76. Minimum Window Substring](https://www.leetcode.com/problems/minimum-window-substring/)
+
+## References
+
+- [LC 3: Longest Substring Without Repeating Characters on LeetCode](https://www.leetcode.com/problems/longest-substring-without-repeating-characters/)
+- [LeetCode Discuss — LC 3: Longest Substring Without Repeating Characters](https://www.leetcode.com/problems/longest-substring-without-repeating-characters/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/longest-substring-without-repeating-characters/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Sliding Window**: Use two pointers (`start` and `end`) to maintain a valid window
+2. **Hash Map Tracking**: Store the last position of each character
+3. **Efficient Updates**: When a duplicate is found, move `start` to `hashmap[cur] + 1`
+4. **Single Pass**: Process each character exactly once

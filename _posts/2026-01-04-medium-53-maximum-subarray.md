@@ -5,14 +5,45 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, dynamic-programming, greedy, divide-and-conquer]
 permalink: /2026/01/04/medium-53-maximum-subarray/
 ---
+Given an integer array `nums`, find the **subarray** with the largest sum, and return *its sum*.
 
-# 53. Maximum Subarray
+A **subarray** is a contiguous non-empty sequence of elements within an array.
 
-## Problem Statement
+## Thinking Process
 
 Given an integer array `nums`, find the **subarray** with the largest sum, and return *its sum*.
 
 A **subarray** is a contiguous non-empty sequence of elements within an array.
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Examples
 
@@ -41,219 +72,6 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
-
-2. **Empty subarray**: Can an empty subarray be considered? (Assumption: No - subarray must be non-empty, at least one element)
-
-3. **Negative values**: Can the array contain negative numbers? (Assumption: Yes - per constraints, values can be negative)
-
-4. **Return value**: Should we return the sum or the subarray itself? (Assumption: Return the maximum sum - integer value)
-
-5. **All negative**: What if all numbers are negative? (Assumption: Return the least negative number - the maximum element)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find maximum subarray sum. Let me check all possible subarrays."
-
-**Naive Solution**: Check all possible subarrays, compute sum, track maximum.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Repeats sum computation for overlapping subarrays
-- Doesn't leverage Kadane's algorithm
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use prefix sum to compute subarray sums efficiently."
-
-**Improved Solution**: Build prefix sum array. For each ending position, find minimum prefix sum before it. Maximum subarray sum = current prefix - minimum prefix.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Prefix sum enables O(1) subarray sum queries
-- O(n) time is optimal
-- Still uses O(n) space
-- Can optimize space
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Kadane's algorithm achieves O(1) space."
-
-**Best Solution**: Kadane's algorithm. Track maximum sum ending at current position. If current sum < 0, reset to 0. Track global maximum.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Kadane's algorithm is optimal
-2. O(n) time is optimal - single pass
-3. O(1) space is optimal
-4. Reset to 0 when sum becomes negative is key insight
-
-## Solution Approach
-
-This is a classic **Kadane's Algorithm** problem, which can be solved using either **greedy** or **dynamic programming** approach. The key insight is to decide at each position whether to extend the previous subarray or start a new one.
-
-### Key Insights:
-
-1. **Local vs Global Maximum**: At each position, decide whether to extend the previous subarray or start fresh
-2. **Greedy Choice**: If the current element alone is better than extending the previous subarray, start a new subarray
-3. **Optimal Substructure**: The maximum subarray ending at position `i` depends on the maximum subarray ending at position `i-1`
-4. **Single Pass**: Can solve in O(n) time with O(1) space
-
-### Algorithm:
-
-1. **Initialize**: `maxSum = nums[0]`, `currSum = nums[0]`
-2. **For each element**: 
-   - Update `currSum = max(nums[i], currSum + nums[i])`
-   - Update `maxSum = max(maxSum, currSum)`
-3. **Return**: `maxSum`
-
-## Solution
-
-### **Solution: Kadane's Algorithm (Greedy/DP)**
-
-```cpp
-class Solution {
-public:
-    int maxSubArray(vector<int>& nums) {
-        int maxSum = nums[0], currSum = nums[0];
-        for(int i = 1; i < (int)nums.size(); i++) {
-            currSum = max(nums[i], currSum + nums[i]);
-            maxSum = max(maxSum, currSum);
-        }
-        return maxSum;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Initialize (Line 4)**:
-   - `maxSum`: Maximum subarray sum found so far (starts with first element)
-   - `currSum`: Maximum subarray sum ending at current position (starts with first element)
-
-2. **Process Each Element (Lines 5-7)**:
-   - **For each element** from index 1 to end:
-     - **Update `currSum`**: `currSum = max(nums[i], currSum + nums[i])`
-       - **Option 1**: Start fresh with `nums[i]` alone
-       - **Option 2**: Extend previous subarray by adding `nums[i]`
-       - **Choose the maximum**: This is the greedy choice
-     - **Update `maxSum`**: `maxSum = max(maxSum, currSum)`
-       - Track the global maximum across all positions
-
-3. **Return (Line 8)**:
-   - Return the maximum subarray sum
-
-### **Why This Works:**
-
-**Key Insight**: At each position, we decide whether to extend the previous subarray or start a new one.
-
-**Greedy Choice**: 
-- If `currSum + nums[i] < nums[i]`, then `currSum` is negative
-- Starting fresh with `nums[i]` is better than extending a negative sum
-- This locally optimal choice leads to a globally optimal solution
-
-**Optimal Substructure**:
-- `currSum[i]` = maximum subarray sum ending at position `i`
-- `currSum[i] = max(nums[i], currSum[i-1] + nums[i])`
-- `maxSum = max(currSum[0], currSum[1], ..., currSum[n-1])`
-
-**Example Walkthrough:**
-
-**Example 1: `nums = [-2,1,-3,4,-1,2,1,-5,4]`**
-
-**Execution:**
-```
-Initial: maxSum = -2, currSum = -2
-
-i=1: nums[1] = 1
-  currSum = max(1, -2 + 1) = max(1, -1) = 1
-  maxSum = max(-2, 1) = 1
-  State: maxSum=1, currSum=1
-
-i=2: nums[2] = -3
-  currSum = max(-3, 1 + (-3)) = max(-3, -2) = -2
-  maxSum = max(1, -2) = 1
-  State: maxSum=1, currSum=-2
-
-i=3: nums[3] = 4
-  currSum = max(4, -2 + 4) = max(4, 2) = 4
-  maxSum = max(1, 4) = 4
-  State: maxSum=4, currSum=4
-
-i=4: nums[4] = -1
-  currSum = max(-1, 4 + (-1)) = max(-1, 3) = 3
-  maxSum = max(4, 3) = 4
-  State: maxSum=4, currSum=3
-
-i=5: nums[5] = 2
-  currSum = max(2, 3 + 2) = max(2, 5) = 5
-  maxSum = max(4, 5) = 5
-  State: maxSum=5, currSum=5
-
-i=6: nums[6] = 1
-  currSum = max(1, 5 + 1) = max(1, 6) = 6
-  maxSum = max(5, 6) = 6
-  State: maxSum=6, currSum=6
-
-i=7: nums[7] = -5
-  currSum = max(-5, 6 + (-5)) = max(-5, 1) = 1
-  maxSum = max(6, 1) = 6
-  State: maxSum=6, currSum=1
-
-i=8: nums[8] = 4
-  currSum = max(4, 1 + 4) = max(4, 5) = 5
-  maxSum = max(6, 5) = 6
-  State: maxSum=6, currSum=5
-
-Result: 6
-Subarray: [4, -1, 2, 1] (indices 3-6)
-```
-
-**Example 2: `nums = [1]`**
-
-**Execution:**
-```
-Initial: maxSum = 1, currSum = 1
-No iterations (array size 1)
-
-Result: 1
-Subarray: [1]
-```
-
-**Example 3: `nums = [5,4,-1,7,8]`**
-
-**Execution:**
-```
-Initial: maxSum = 5, currSum = 5
-
-i=1: nums[1] = 4
-  currSum = max(4, 5 + 4) = 9
-  maxSum = max(5, 9) = 9
-
-i=2: nums[2] = -1
-  currSum = max(-1, 9 + (-1)) = 8
-  maxSum = max(9, 8) = 9
-
-i=3: nums[3] = 7
-  currSum = max(7, 8 + 7) = 15
-  maxSum = max(9, 15) = 15
-
-i=4: nums[4] = 8
-  currSum = max(8, 15 + 8) = 23
-  maxSum = max(15, 23) = 23
-
-Result: 23
-Subarray: [5, 4, -1, 7, 8] (entire array)
-```
 
 ## Algorithm Breakdown
 
@@ -307,55 +125,13 @@ nums = [-2, 1, -3, 4]
 4. **Efficient**: O(n) time, O(1) space
 5. **Simple**: Straightforward implementation
 
-## Alternative Approaches
-
-### **Approach 1: Kadane's Algorithm (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming (Explicit DP Array)**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Idea**: Store `dp[i]` = maximum subarray sum ending at `i`
-- **Code**:
-```cpp
-int maxSubArray(vector<int>& nums) {
-    vector<int> dp(nums.size());
-    dp[0] = nums[0];
-    int maxSum = nums[0];
-    for(int i = 1; i < nums.size(); i++) {
-        dp[i] = max(nums[i], dp[i-1] + nums[i]);
-        maxSum = max(maxSum, dp[i]);
-    }
-    return maxSum;
-}
-```
-
-### **Approach 3: Divide and Conquer**
-- **Time**: O(n log n)
-- **Space**: O(log n) for recursion
-- **Idea**: 
-  - Divide array into two halves
-  - Maximum subarray is either in left half, right half, or crosses the middle
-  - Recurse and combine results
-- **Overkill**: Not needed, Kadane's is simpler and faster
-
-### **Approach 4: Brute Force**
-- **Time**: O(n²)
-- **Space**: O(1)
-- **Idea**: Try all possible subarrays
-- **Not practical**: Too slow for large inputs
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single element**: `[5]` → return 5
 2. **All negative**: `[-2,-1,-3]` → return -1 (least negative)
 3. **All positive**: `[1,2,3,4]` → return 10 (sum of all)
 4. **Mixed**: `[-2,1,-3,4,-1,2,1,-5,4]` → return 6
 5. **One positive**: `[-1,-2,5,-3]` → return 5
-
-## Common Mistakes
 
 1. **Not initializing correctly**: Starting with 0 instead of `nums[0]`
 2. **Wrong update**: Using `currSum += nums[i]` without checking if it's better to start fresh
@@ -365,11 +141,11 @@ int maxSubArray(vector<int>& nums) {
 
 ## Related Problems
 
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar greedy approach
-- [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) - Similar but for product
-- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) - Find minimum subarray with sum >= target
-- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) - Find subarrays with sum k
-- [918. Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/) - Extension to circular array
+- [121. Best Time to Buy and Sell Stock](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Similar greedy approach
+- [152. Maximum Product Subarray](https://www.leetcode.com/problems/maximum-product-subarray/) - Similar but for product
+- [209. Minimum Size Subarray Sum](https://www.leetcode.com/problems/minimum-size-subarray-sum/) - Find minimum subarray with sum >= target
+- [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/) - Find subarrays with sum k
+- [918. Maximum Sum Circular Subarray](https://www.leetcode.com/problems/maximum-sum-circular-subarray/) - Extension to circular array
 
 ## Follow-Up: Finding the Subarray Indices
 
@@ -405,3 +181,18 @@ vector<int> maxSubArrayIndices(vector<int>& nums) {
 
 `Array`, `Dynamic Programming`, `Greedy`, `Divide and Conquer`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 53: Maximum Subarray on LeetCode](https://www.leetcode.com/problems/maximum-subarray/)
+- [LeetCode Discuss — LC 53: Maximum Subarray](https://www.leetcode.com/problems/maximum-subarray/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-subarray/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

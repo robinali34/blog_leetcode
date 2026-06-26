@@ -4,9 +4,6 @@ title: "[Medium] 2799. Count Complete Subarrays in an Array"
 date: 2025-10-17 10:09:13 -0700
 categories: leetcode algorithm medium cpp sliding-window hash-map problem-solving
 ---
-
-# [Medium] 2799. Count Complete Subarrays in an Array
-
 You are given an integer array `nums`.
 
 We call a subarray **complete** if:
@@ -51,62 +48,42 @@ Explanation: The complete subarrays are the following:
 - `1 <= nums.length <= 1000`
 - `1 <= nums[i] <= 2000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Two Pointers:** Use left and right pointers to maintain sliding window
 
-1. **Complete subarray definition**: What is a "complete subarray"? (Assumption: Subarray that contains all distinct elements present in the original array)
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
 
-2. **Subarray requirement**: Does subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
 
-3. **Distinct elements**: How do we determine distinct elements? (Assumption: Count unique values in original array - complete subarray must contain all of them)
 
-4. **Return value**: What should we return? (Assumption: Count of complete subarrays - integer)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
 
-5. **Empty subarray**: Can an empty subarray be complete? (Assumption: No - need at least one element to contain distinct values)
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to count complete subarrays. Let me check all possible subarrays."
+## Common Approaches
 
-**Naive Solution**: Check all possible subarrays, for each check if it contains all distinct values from original array, count valid ones.
+Typical techniques for this pattern:
 
-**Complexity**: O(n² × m) time where m is distinct count, O(m) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
+| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
+| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
+| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
 
-**Issues**:
-- O(n² × m) time - inefficient
-- Repeats checking for overlapping subarrays
-- Doesn't leverage sliding window
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use sliding window. Expand window until it's complete, then count valid subarrays."
-
-**Improved Solution**: Use sliding window. Expand right pointer until window contains all distinct values. Then all subarrays ending at right pointer and starting from left to some point are valid.
-
-**Complexity**: O(n) time, O(m) space
-
-**Improvements**:
-- Sliding window avoids redundant checks
-- O(n) time is much better
-- Handles all cases correctly
-- Can optimize counting
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Sliding window approach is optimal. Track distinct count and count valid subarrays efficiently."
-
-**Best Solution**: Sliding window with hash map tracking distinct values. When window is complete, count all valid starting positions. Shrink window when needed.
-
-**Complexity**: O(n) time, O(m) space
-
-**Key Realizations**:
-1. Sliding window is perfect for subarray problems
-2. O(n) time is optimal - single pass
-3. Hash map tracks distinct values efficiently
-4. Count valid subarrays when window is complete
-
-## Solution: Optimized Sliding Window
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -138,48 +115,31 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Optimized Sliding Window
+**Approach:** Fixed-size window (this problem)
 
-Use two pointers to maintain a window that contains all distinct elements. When the window is complete, count all subarrays that extend from the current position to the end.
+**Key idea:** 1. **Two Pointers:** Use left and right pointers to maintain sliding window
 
-**Steps:**
-1. **Count total distinct elements** in the array
-2. **Expand right pointer** to include new elements
-3. **When window is complete**, count all valid subarrays and shrink from left
-4. **Continue until** all subarrays are processed
+**How the code works:**
+1. **Two Pointers:** Use left and right pointers to maintain sliding window
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
 
-### Step-by-Step Example: `nums = [1,3,1,2,2]`
+**Walkthrough** — input `nums = [1,3,1,2,2]`, expected output `4`:
 
-| Step | Left | Right | Window | Freq Map | Complete? | Action |
-|------|------|-------|--------|----------|-----------|--------|
-| 1 | 0 | 0 | [1] | {1:1} | No | Expand right |
-| 2 | 0 | 1 | [1,3] | {1:1,3:1} | No | Expand right |
-| 3 | 0 | 2 | [1,3,1] | {1:2,3:1} | No | Expand right |
-| 4 | 0 | 3 | [1,3,1,2] | {1:2,3:1,2:1} | **Yes** | Count: 5-3=2, shrink left |
-| 5 | 1 | 3 | [3,1,2] | {3:1,1:1,2:1} | **Yes** | Count: 5-3=2, shrink left |
-| 6 | 2 | 3 | [1,2] | {1:1,2:1} | No | Expand right |
-| 7 | 2 | 4 | [1,2,2] | {1:1,2:2} | No | End |
+The complete subarrays are the following:
+- [1,3,1,2,2] at position 0 to 4
+- [1,3,1,2] at position 0 to 3  
+- [3,1,2,2] at position 1 to 4
+- [1,2,2] at position 2 to 4
 
-**Total distinct elements:** 3 (1, 3, 2)  
-**Complete subarrays:** 4 (2 + 2)
-
-### Visual Representation
-
-```
-nums = [1, 3, 1, 2, 2]
-       0  1  2  3  4
-
-Complete subarrays:
-[1,3,1,2]     (indices 0-3) ✓
-[1,3,1,2,2]   (indices 0-4) ✓  
-[3,1,2]       (indices 1-3) ✓
-[3,1,2,2]     (indices 1-4) ✓
-
-Total: 4 complete subarrays
-```
-
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Optimized Sliding Window | O(n) | O(n) |
+| Nested Loops | O(n²) | O(n) |
+| Brute Force | O(n³) | O(n) |
 ## Algorithm Breakdown
 
 ### 1. Initialize Variables
@@ -256,89 +216,19 @@ Indices:    0  1  2  3  4
 - We already have all distinct elements: {1, 3, 2}
 - Adding duplicates (like the second '2') doesn't change distinct count
 
-## Alternative Approaches
-
-### Approach 1: Nested Loops (Original)
-```cpp
-class Solution {
-public:
-    int countCompleteSubarrays(vector<int>& nums) {
-        int cnt = 0;
-        unordered_set<int> distinct(nums.begin(), nums.end());
-        int total_unique = distinct.size();
-
-        for (int left = 0; left < nums.size(); ++left) {
-            unordered_map<int, int> window_counts;
-            for (int right = left; right < nums.size(); ++right) {
-                window_counts[nums[right]]++;
-                if (window_counts.size() == total_unique) {
-                    cnt++;
-                }
-            }
-        }
-
-        return cnt;
-    }
-};
-```
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
-
-### Approach 2: Brute Force with Set
-```cpp
-class Solution {
-public:
-    int countCompleteSubarrays(vector<int>& nums) {
-        int n = nums.size();
-        unordered_set<int> distinct(nums.begin(), nums.end());
-        int total_unique = distinct.size();
-        int cnt = 0;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                unordered_set<int> subarray_elements;
-                for (int k = i; k <= j; k++) {
-                    subarray_elements.insert(nums[k]);
-                }
-                if (subarray_elements.size() == total_unique) {
-                    cnt++;
-                }
-            }
-        }
-
-        return cnt;
-    }
-};
-```
-
-**Time Complexity:** O(n³)  
-**Space Complexity:** O(n)
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Optimized Sliding Window | O(n) | O(n) |
 | Nested Loops | O(n²) | O(n) |
 | Brute Force | O(n³) | O(n) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single element:** `nums = [1]` → `1`
 2. **All same elements:** `nums = [5,5,5,5]` → `10`
 3. **All distinct elements:** `nums = [1,2,3,4]` → `1`
 4. **Two distinct elements:** `nums = [1,2,1,2]` → `3`
-
-## Key Insights
-
-1. **Two Pointers:** Use left and right pointers to maintain sliding window
-2. **Complete Window:** When window contains all distinct elements, count all valid subarrays
-3. **Efficient Counting:** `cnt += nums.size() - right` counts all subarrays from current position to end
-4. **Window Shrinking:** Remove elements from left until window is no longer complete
-5. **Linear Time:** Each element is processed at most twice (once by each pointer)
-
-## Common Mistakes
 
 1. **Wrong distinct count:** Not counting total distinct elements correctly
 2. **Incomplete window check:** Not checking if window has all distinct elements
@@ -410,10 +300,10 @@ unordered_set<int> window_elements;
 
 ## Related Problems
 
-- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
-- [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
-- [159. Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)
-- [340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
+- [76. Minimum Window Substring](https://www.leetcode.com/problems/minimum-window-substring/)
+- [3. Longest Substring Without Repeating Characters](https://www.leetcode.com/problems/longest-substring-without-repeating-characters/)
+- [159. Longest Substring with At Most Two Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)
+- [340. Longest Substring with At Most K Distinct Characters](https://www.leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
 
 ## Why This Solution is Optimal
 
@@ -422,3 +312,17 @@ unordered_set<int> window_elements;
 3. **Efficient Counting:** Counts all valid subarrays in one operation
 4. **Optimal Space:** O(n) space for frequency tracking
 5. **Clear Logic:** Easy to understand and implement
+
+## References
+
+- [LC 2799: Count Complete Subarrays in an Array on LeetCode](https://www.leetcode.com/problems/count-complete-subarrays-in-an-array/)
+- [LeetCode Discuss — LC 2799: Count Complete Subarrays in an Array](https://www.leetcode.com/problems/count-complete-subarrays-in-an-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/count-complete-subarrays-in-an-array/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Two Pointers:** Use left and right pointers to maintain sliding window
+2. **Complete Window:** When window contains all distinct elements, count all valid subarrays
+3. **Efficient Counting:** `cnt += nums.size() - right` counts all subarrays from current position to end
+4. **Window Shrinking:** Remove elements from left until window is no longer complete
+5. **Linear Time:** Each element is processed at most twice (once by each pointer)

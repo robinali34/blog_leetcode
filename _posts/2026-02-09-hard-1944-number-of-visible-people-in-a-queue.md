@@ -6,11 +6,6 @@ categories: [leetcode, hard, stack, monotonic-stack]
 permalink: /2026/02/09/hard-1944-number-of-visible-people-in-a-queue/
 tags: [leetcode, hard, stack, monotonic-stack]
 ---
-
-# 1944. Number of Visible People in a Queue
-
-## Problem Statement
-
 There are `n` people standing in a queue numbered from `0` to `n - 1` from left to right. You are given an array `heights` of **distinct** integers where `heights[i]` represents the height of the `i-th` person.
 
 A person `i` can see person `j` (where `i < j`) if everyone between them is **shorter** than both of them. More formally, person `i` can see person `j` if:
@@ -51,23 +46,18 @@ Output: [4,1,1,1,0]
 *   `1 <= heights[i] <= 10^5`
 *   All the values of `heights` are **unique**.
 
-## Clarification Questions
+## Common Approaches
 
-1.  **Strictly shorter?**: Does "everyone between them is shorter" mean strictly shorter? (Assumption: Yes, and since all heights are unique, this is simplified)
-2.  **Can someone see themselves?**: No, only people to their right ($i < j$).
-3.  **Does height[j] block people behind them?**: Yes, if someone to the right of person $j$ is being viewed by person $i$, person $j$ must be shorter than person $i$.
+Typical techniques for this pattern:
 
-## Interview Deduction Process
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-1.  **Understand the constraint**: For person $i$ to see person $j$, every person in between $[i+1, j-1]$ must be shorter than both $i$ and $j$.
-2.  **Monotonic Property**: 
-    *   If person $i$ is looking to the right, they can see a sequence of people with increasing heights (from their perspective).
-    *   Once they encounter someone taller than themselves, they can't see anyone beyond that person.
-    *   Also, any person $j$ that is shorter than a person already seen by $i$ *and* located further right won't be seen by $i$ because that intermediate person blocks the view.
-3.  **Choosing the Tool**: This "next greater" or "range visibility" pattern strongly suggests a **Monotonic Stack**.
-4.  **Processing Order**: Processing from **right to left** allows us to maintain a stack of people to the right of the current person $i$ that could potentially be seen.
-
-## Solution Approach
+## Thinking Process
 
 We maintain a **monotonic decreasing stack** from right to left.
 
@@ -82,6 +72,20 @@ We maintain a **monotonic decreasing stack** from right to left.
         *   Increment the count for person $i$.
         *   This person blocks person $i$ from seeing anyone further to the right.
     *   Push the current person `heights[i]` onto the stack.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
+
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
+
+</svg>
 
 ## Solution Code
 
@@ -113,6 +117,33 @@ public:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Monotonic stack (this problem)
+
+**Key idea:** We maintain a **monotonic decreasing stack** from right to left.
+
+**How the code works:**
+1.  Iterate through the `heights` array from right to left ($n-1$ down to $0$).
+2.  For each person $i$:
+*   While the stack is not empty and the current person `heights[i]` is taller than the person at the top of the stack `st.top()`:
+*   Person $i$ can see `st.top()`.
+*   Pop `st.top()` and increment the count for person $i$.
+*   Why? Because `st.top()` was the shortest person currently available to the right, and `heights[i]` blocks anyone behind them from seeing `st.top()`, but person $i$ sees them.
+
+**Walkthrough** — input `heights = [10,6,8,5,11,9]`, expected output `[3,1,2,1,1,0]`:
+
+- Person 0 can see person 1, 2, and 4.
+  - Person 3 is blocked by person 2.
+  - Person 5 is blocked by person 4.
+- Person 1 can see person 2.
+- Person 2 can see person 3 and 4.
+- Person 3 can see person 4.
+- Person 4 can see person 5.
+- Person 5 can see no one since nobody is to the right of them.
+
+*   **Time Complexity**: $O(n)$. Each element is pushed and popped from the stack at most once.
+*   **Space Complexity**: $O(n)$ for the stack and the result array.
 ## Example Walkthrough
 
 Let's walk through **Example 1**: `heights = [10, 6, 8, 5, 11, 9]`
@@ -134,16 +165,34 @@ We process from **right to left** ($i = 5 \to 0$):
 1.  **Popping shorter people**: If current person $i$ is taller than person $j$ on the stack, person $i$ can definitely see person $j$. Person $j$ is then removed because anyone to the left of person $i$ will have their view of person $j$ blocked by person $i$.
 2.  **The "+1" logic**: After popping everyone shorter, if the stack isn't empty, the person at the top is the first person taller than current person $i$. Person $i$ can see this person, but they block person $i$ from seeing anyone further right.
 
-## Complexity Analysis
-
+### Complexity
 *   **Time Complexity**: $O(n)$. Each element is pushed and popped from the stack at most once.
 *   **Space Complexity**: $O(n)$ for the stack and the result array.
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-*   [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
-*   [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
-*   [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+*   [739. Daily Temperatures](https://www.leetcode.com/problems/daily-temperatures/)
+*   [496. Next Greater Element I](https://www.leetcode.com/problems/next-greater-element-i/)
+*   [84. Largest Rectangle in Histogram](https://www.leetcode.com/problems/largest-rectangle-in-histogram/)
+
+## Key Takeaways
+
+- **Pattern:** Monotonic stack (this problem)
+- While the stack is not empty and the current person `heights[i]` is taller than the person at the top of the stack `st.top()`:
+- Person $i$ can see `st.top()`.
+
+## References
+
+- [LC 1944: Number of Visible People in a Queue on LeetCode](https://www.leetcode.com/problems/number-of-visible-people-in-a-queue/)
+- [LeetCode Discuss — LC 1944: Number of Visible People in a Queue](https://www.leetcode.com/problems/number-of-visible-people-in-a-queue/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-visible-people-in-a-queue/editorial/) *(may require premium)*
 
 ## Template Reference
 

@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, greedy, segment-tree]
 permalink: /2026/01/16/medium-3477-number-of-unplaced-fruits/
 tags: [leetcode, medium, array, greedy, segment-tree, data-structure]
 ---
-
-# 3477. Number of Unplaced Fruits
-
-## Problem Statement
-
 You are given two integer arrays `fruits` and `baskets`.
 
 - `fruits[i]` represents the quantity of the `i`-th type of fruit.
@@ -54,52 +49,37 @@ Result: 0 unplaced fruits
 - `1 <= fruits[i] <= 10^9`
 - `1 <= baskets[j] <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Segment Tree for Range Max**: Efficiently find leftmost index with capacity >= value
 
-1. **Placement rule**: What is the rule for placing fruits in baskets? (Assumption: Place each fruit in the leftmost basket with capacity >= fruit size)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-2. **One fruit per basket**: Can a basket hold multiple fruits or just one? (Assumption: One fruit per basket - each basket can hold at most one fruit)
 
-3. **Basket capacity**: What does basket capacity represent? (Assumption: Maximum size of fruit that can be placed in that basket)
 
-4. **Fruit order**: Are fruits processed in the given order? (Assumption: Yes - process fruits sequentially in the given order)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-5. **Return value**: What should we return - count of unplaced fruits or list of unplaced fruits? (Assumption: Return count of unplaced fruits - integer)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Start with a straightforward solution: for each fruit, scan all baskets from left to right to find the first available basket with capacity >= fruit quantity. Use a boolean array to track which baskets are already used. This approach is simple but has O(n × m) time complexity, which is too slow for large inputs (up to 10^5).
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Optimize the basket search using a sorted data structure. Sort baskets by capacity and use a balanced BST or multiset to maintain unused baskets. However, maintaining the "leftmost" property becomes tricky since we need to preserve original index order, not just capacity order. This approach improves query time but still requires careful handling of the leftmost constraint.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a Segment Tree to efficiently find the leftmost index with capacity >= fruit quantity. Build a segment tree storing maximum capacity in each range. For each fruit, query the tree to find the leftmost basket that can hold it, then update the tree to mark that basket as used (set capacity to 0). This achieves O(n log m) time complexity, which is optimal for this problem. The segment tree naturally handles the leftmost property by checking the left child first during queries.
-
-## Solution Approach
-
-This is a **greedy matching** problem where we need to find the leftmost available basket for each fruit. The challenge is to do this efficiently for large inputs.
-
-### Key Insights:
-
-1. **Greedy Strategy**: Always use the leftmost available basket that can hold the fruit
-2. **Leftmost Requirement**: Must maintain original index order (not just any basket)
-3. **Capacity Constraint**: Basket capacity must be >= fruit quantity
-4. **One-to-One Matching**: Each basket can only hold one fruit
-5. **Efficient Query**: Need to find leftmost index with capacity >= value quickly
-
-### Algorithm:
-
-1. **Segment Tree**: Build segment tree storing maximum capacity in each range
-2. **Query**: Find leftmost index with capacity >= fruit quantity
-3. **Update**: Mark basket as used (set capacity to 0) after placing fruit
-4. **Count Unplaced**: Track fruits that can't find a suitable basket
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -169,6 +149,25 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** 1. **Segment Tree for Range Max**: Efficiently find leftmost index with capacity >= value
+
+**How the code works:**
+1. **Segment Tree for Range Max**: Efficiently find leftmost index with capacity >= value
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `fruits = [4, 2, 5], baskets = [3, 5, 4]`, expected output `1`:
+
+- Fruit 4: Place in leftmost basket with capacity >= 4 → baskets[1] = 5 (placed)
+- Fruit 2: Place in leftmost basket with capacity >= 2 → baskets[0] = 3 (placed)
+- Fruit 5: Requires capacity >= 5, but remaining basket baskets[2] = 4 < 5 → unplaced
+Result: 1 unplaced fruit
 
 ### **Algorithm Explanation:**
 
@@ -260,16 +259,7 @@ Result: 1 unplaced fruit
   - Segment tree: O(4m) = O(m)
   - Other variables: O(1)
   - Overall: O(m)
-
-## Key Insights
-
-1. **Segment Tree for Range Max**: Efficiently find leftmost index with capacity >= value
-2. **Left-First Traversal**: Check left child first to maintain leftmost property
-3. **Greedy Matching**: Always use leftmost available basket
-4. **Update Strategy**: Mark basket as used by setting capacity to 0
-5. **Early Termination**: If max capacity in range < required, skip entire range
-
-## Edge Cases
+## Common Mistakes
 
 1. **All fruits placed**: `fruits = [1, 2], baskets = [2, 3]` → return `0`
 2. **No fruits placed**: `fruits = [5, 6], baskets = [1, 2]` → return `2`
@@ -277,73 +267,33 @@ Result: 1 unplaced fruit
 4. **Single basket**: `fruits = [1, 2], baskets = [2]` → return `1`
 5. **Large capacities**: Handle up to 10^9 values
 
-## Common Mistakes
-
 1. **Not maintaining leftmost order**: Using any basket instead of leftmost
 2. **Wrong query logic**: Not checking left child first
 3. **Incorrect update**: Not properly updating parent nodes after marking basket used
 4. **Off-by-one errors**: Incorrect index calculations in segment tree
 5. **Not handling duplicates**: Same basket capacity appearing multiple times
 
-## Alternative Approaches
-
-### **Approach 2: Greedy with Boolean Array (Brute Force)**
-
-Simple approach for small inputs:
-
-```cpp
-class Solution {
-public:
-    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
-        int n = baskets.size();
-        vector<bool> used(n, false);
-        int unplaced = 0;
-        
-        for (int f : fruits) {
-            bool placed = false;
-            for (int j = 0; j < n; j++) {
-                if (!used[j] && baskets[j] >= f) {
-                    used[j] = true;
-                    placed = true;
-                    break;
-                }
-            }
-            if (!placed) unplaced++;
-        }
-        
-        return unplaced;
-    }
-};
-```
-
-**Time Complexity:** O(n × m) - Too slow for large inputs  
-**Space Complexity:** O(m)
-
-**When to Use:**
-- Small inputs (n, m ≤ 1000)
-- Simple implementation preferred
-- Not suitable for constraints up to 10^5
-
-### **Approach 3: Multiset/Balanced BST (Alternative)**
-
-Use ordered set to maintain unused baskets, but maintaining leftmost property is tricky.
-
-**Comparison:**
-
-| Approach | Time | Space | Complexity | Notes |
-|----------|------|-------|------------|-------|
-| **Brute Force** | O(n × m) | O(m) | Low | Simple, only for small inputs |
-| **Segment Tree** | O(n log m) | O(m) | Medium | Efficient, handles large inputs |
-| **Multiset** | O(n log m) | O(m) | Medium | Harder to maintain leftmost property |
-
 ## Related Problems
 
-- [LC 307: Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) - Segment tree for range queries
+- [LC 307: Range Sum Query - Mutable](https://www.leetcode.com/problems/range-sum-query-mutable/) - Segment tree for range queries
 - [LC 850: Rectangle Area II](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) - Segment tree with coordinate compression
-- [LC 699: Falling Squares](https://leetcode.com/problems/falling-squares/) - Segment tree for range max updates
-- [LC 715: Range Module](https://leetcode.com/problems/range-module/) - Segment tree for interval operations
+- [LC 699: Falling Squares](https://www.leetcode.com/problems/falling-squares/) - Segment tree for range max updates
+- [LC 715: Range Module](https://www.leetcode.com/problems/range-module/) - Segment tree for interval operations
 
----
+## Key Takeaways
 
-*This problem demonstrates the **Segment Tree** pattern for efficient range queries with leftmost property. The key insight is using segment tree to find the leftmost index satisfying a capacity constraint, then updating it to mark as used.*
+1. **Segment Tree for Range Max**: Efficiently find leftmost index with capacity >= value
+2. **Left-First Traversal**: Check left child first to maintain leftmost property
+3. **Greedy Matching**: Always use leftmost available basket
+4. **Update Strategy**: Mark basket as used by setting capacity to 0
+5. **Early Termination**: If max capacity in range < required, skip entire range
 
+## References
+
+- [LC 3477: Number of Unplaced Fruits on LeetCode](https://www.leetcode.com/problems/number-of-unplaced-fruits/)
+- [LeetCode Discuss — LC 3477: Number of Unplaced Fruits](https://www.leetcode.com/problems/number-of-unplaced-fruits/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/number-of-unplaced-fruits/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

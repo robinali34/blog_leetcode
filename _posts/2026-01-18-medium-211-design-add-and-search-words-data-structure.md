@@ -6,11 +6,6 @@ categories: [leetcode, medium, string, design, trie]
 permalink: /2026/01/19/medium-211-design-add-and-search-words-data-structure/
 tags: [leetcode, medium, string, design, trie, wildcard-search, dfs]
 ---
-
-# 211. Design Add and Search Words Data Structure
-
-## Problem Statement
-
 Design a data structure that supports adding new words and finding if a string matches any previously added string.
 
 Implement the `WordDictionary` class:
@@ -47,53 +42,47 @@ wordDictionary.search("b.."); // return True
 - `word` in `search` consist of `'.'` or lowercase English letters.
 - There will be at most `10^4` calls to `addWord` and `search`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Trie Foundation**: Builds on standard Trie structure
 
-1. **Wildcard behavior**: What does '.' represent in search? (Assumption: '.' matches any single lowercase letter - wildcard character)
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
 
-2. **Exact match vs prefix**: Does search look for exact word match or prefix match? (Assumption: Exact word match - must match the entire word, not just prefix)
 
-3. **Case sensitivity**: Are word comparisons case-sensitive? (Assumption: No - only lowercase letters are used per constraints)
 
-4. **Empty string**: How should we handle empty strings? (Assumption: Based on constraints, word length >= 1, but should clarify)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-5. **Duplicate insertion**: What happens if we add the same word multiple times? (Assumption: Word can be added multiple times, but it's the same word in the Trie)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Store all words in a list or set. For search, if the word contains no wildcards, check if it exists in the set. If it contains wildcards, try all possible combinations by replacing '.' with each possible character and check each combination. This approach has exponential complexity for words with many wildcards, which is too slow.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use a Trie for exact word searches (O(m) where m is word length). For wildcard searches, use DFS on the Trie: when encountering '.', try all possible children. This reduces the search space compared to brute force but still requires exploring multiple paths in the Trie for wildcard characters.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a Trie data structure. Insert: traverse/create path character by character, mark end nodes. Search: use recursive DFS. For regular characters, follow the corresponding child. For '.', recursively try all children. This achieves O(m) time for insertion and O(26^d × m) worst-case time for search where d is number of wildcards, but average case is much better. The key insight is that Trie naturally handles prefix matching, and DFS handles wildcard exploration efficiently by pruning invalid paths early.
-
-## Solution Approach
-
-This problem extends [LC 208: Implement Trie](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) with **wildcard search** support. The key challenge is handling the `'.'` character which can match any letter.
-
-### Key Insights:
-
-1. **Trie Structure**: Use Trie to store words efficiently
-2. **Wildcard Matching**: When encountering `'.'`, explore all possible child paths
-3. **DFS Search**: Use recursive DFS to handle wildcard exploration
-4. **Memory Management**: Proper destructor to prevent memory leaks
-
-### Algorithm:
-
-1. **addWord**: Same as standard Trie - traverse and create nodes, mark end
-2. **search**: 
-   - Use DFS with index tracking
-   - If character is `'.'`, try all children
-   - If character is specific, follow that path
-   - Return true if any path leads to a word
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Solution
 
@@ -164,91 +153,18 @@ private:
  */
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-#### **TrieNode Structure:**
+**Approach:** Recursive DFS (this problem)
 
-1. **children**: `unordered_map` storing child nodes (more flexible than array)
-2. **isWord**: Boolean flag marking end of word
+**Key idea:** 1. **Trie Foundation**: Builds on standard Trie structure
 
-#### **WordDictionary Class:**
-
-1. **Constructor**: Creates root node
-2. **Destructor**: Recursively deletes all nodes to prevent memory leaks
-3. **addWord(word)**:
-   - Start from root
-   - For each character, create node if missing
-   - Traverse to next node
-   - Mark final node as word
-
-4. **search(word)**:
-   - Calls helper `searchInNode` starting at index 0
-   - Returns true if any matching word found
-
-5. **searchInNode(word, idx, node)** (Helper):
-   - **Base Cases**:
-     - If node is null, return false
-     - If reached end of word, return `node->isWord`
-   
-   - **Wildcard Handling** (`curr == '.'`):
-     - Try all children paths
-     - Return true if any path succeeds
-     - Return false if all paths fail
-   
-   - **Specific Character**:
-     - Check if child exists
-     - Recursively search in that child
-
-6. **deleteTrie(node)** (Helper):
-   - Recursively delete all children
-   - Delete current node
-
-### Example Walkthrough:
-
-**Operations:** `addWord("bad")`, `addWord("dad")`, `search(".ad")`
-
-```
-Step 1: addWord("bad")
-  root -> 'b' -> 'a' -> 'd' (marked as word)
-
-Step 2: addWord("dad")
-  root -> 'd' -> 'a' -> 'd' (marked as word)
-
-Step 3: search(".ad")
-  searchInNode(".ad", 0, root):
-    curr = '.', try all children:
-      Try 'b': searchInNode(".ad", 1, node['b'])
-        curr = 'a', follow 'a': searchInNode(".ad", 2, node['b']['a'])
-          curr = 'd', follow 'd': searchInNode(".ad", 3, node['b']['a']['d'])
-            idx == word.size(), return node->isWord = true ✓
-      Return true (early exit)
-  Return: true ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:**
-  - `addWord(word)`: O(m) where m = word length
-  - `search(word)`: 
-    - **Best Case**: O(m) when no wildcards
-    - **Worst Case**: O(26^k × m) where k = number of `'.'` characters
-    - In practice, much better due to early termination
-
-- **Space Complexity:**
-  - **Worst Case**: O(N × M) where N = number of words, M = average word length
-  - **Best Case**: O(unique prefixes) - shared prefixes reduce space
-  - Each node stores a map, so space depends on unique characters used
-
-## Key Insights
-
+**How the code works:**
 1. **Trie Foundation**: Builds on standard Trie structure
-2. **Wildcard Handling**: DFS explores all paths when encountering `'.'`
-3. **Early Termination**: Returns true immediately when match found
-4. **Memory Safety**: Destructor prevents memory leaks
-5. **Map vs Array**: Using `unordered_map` is more flexible but slightly slower than array
-6. **Recursive Search**: Clean recursive approach for wildcard matching
-
-## Edge Cases
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
+## Common Mistakes
 
 1. **Single wildcard**: `search(".")` when no single-letter words exist
 2. **All wildcards**: `search("...")` explores all 3-letter words
@@ -258,62 +174,12 @@ Step 3: search(".ad")
 6. **Empty word**: Not applicable (constraints guarantee length ≥ 1)
 7. **Multiple wildcards**: `search("b..")` handles multiple wildcards
 
-## Common Mistakes
-
 1. **Not handling null nodes**: Forgetting to check if node exists before accessing
 2. **Incorrect base case**: Not checking `idx == word.size()` before checking `isWord`
 3. **Wildcard logic**: Not trying all children when encountering `'.'`
 4. **Memory leaks**: Forgetting to implement destructor
 5. **Early exit**: Not returning immediately when match found in wildcard search
 6. **Index management**: Off-by-one errors in recursive calls
-
-## Alternative Approaches
-
-### Using Array Instead of Map
-
-```cpp
-struct TrieNode {
-    TrieNode* children[26] = {};
-    bool isWord = false;
-};
-```
-
-**Pros**: Faster lookups, less memory overhead  
-**Cons**: Less flexible, assumes only lowercase letters
-
-### Iterative Search (Non-Recursive)
-
-```cpp
-bool search(string word) {
-    queue<pair<TrieNode*, int>> q;
-    q.push({root, 0});
-    
-    while(!q.empty()) {
-        auto [node, idx] = q.front();
-        q.pop();
-        
-        if(idx == word.size()) {
-            if(node->isWord) return true;
-            continue;
-        }
-        
-        char curr = word[idx];
-        if(curr == '.') {
-            for(auto& [_, child]: node->children) {
-                q.push({child, idx + 1});
-            }
-        } else {
-            if(node->children.contains(curr)) {
-                q.push({node->children[curr], idx + 1});
-            }
-        }
-    }
-    return false;
-}
-```
-
-**Pros**: Avoids recursion stack overflow for very long words  
-**Cons**: More complex, uses more memory for queue
 
 ## When to Use This Structure
 
@@ -324,25 +190,34 @@ bool search(string word) {
 5. **Game Development**: Word games like Scrabble, Boggle
 6. **Search Engines**: Prefix-based search with pattern support
 
-## Comparison with LC 208
-
-| Feature | LC 208 (Trie) | LC 211 (WordDictionary) |
-|---------|---------------|-------------------------|
-| **Wildcard Support** | No | Yes (`.`) |
-| **Search Complexity** | O(m) | O(26^k × m) worst case |
-| **Use Case** | Exact match, prefix | Pattern matching |
-| **Implementation** | Simpler | More complex (DFS) |
-
 ## Related Problems
 
 - [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode/2026/01/18/medium-208-implement-trie/) - Basic Trie without wildcards
-- [LC 212: Word Search II](https://leetcode.com/problems/word-search-ii/) - Trie + DFS on board
-- [LC 642: Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/) - Trie with frequency tracking
+- [LC 212: Word Search II](https://www.leetcode.com/problems/word-search-ii/) - Trie + DFS on board
+- [LC 642: Design Search Autocomplete System](https://www.leetcode.com/problems/design-search-autocomplete-system/) - Trie with frequency tracking
 - [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-648-replace-words/) - Trie for prefix replacement
-- [LC 677: Map Sum Pairs](https://leetcode.com/problems/map-sum-pairs/) - Trie with value storage
-- [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
+- [LC 677: Map Sum Pairs](https://www.leetcode.com/problems/map-sum-pairs/) - Trie with value storage
+- [LC 720: Longest Word in Dictionary](https://www.leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
 
 ---
 
 *This problem extends the **Trie data structure** with **wildcard search** capabilities. The key is using DFS to explore all possible paths when encountering wildcard characters, making it useful for pattern matching and flexible word search applications.*
 
+## Key Takeaways
+
+1. **Trie Foundation**: Builds on standard Trie structure
+2. **Wildcard Handling**: DFS explores all paths when encountering `'.'`
+3. **Early Termination**: Returns true immediately when match found
+4. **Memory Safety**: Destructor prevents memory leaks
+5. **Map vs Array**: Using `unordered_map` is more flexible but slightly slower than array
+6. **Recursive Search**: Clean recursive approach for wildcard matching
+
+## References
+
+- [LC 211: Design Add and Search Words Data Structure on LeetCode](https://www.leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [LeetCode Discuss — LC 211: Design Add and Search Words Data Structure](https://www.leetcode.com/problems/design-add-and-search-words-data-structure/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/design-add-and-search-words-data-structure/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

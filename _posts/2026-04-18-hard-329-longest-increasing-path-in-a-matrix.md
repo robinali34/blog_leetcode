@@ -6,7 +6,6 @@ categories: [leetcode, hard, dynamic-programming, dfs]
 tags: [leetcode, hard, dfs, memoization, topological-sort, bfs, matrix]
 permalink: /2026/04/18/hard-329-longest-increasing-path-in-a-matrix/
 ---
-
 Given an `m x n` integers matrix, return the length of the **longest strictly increasing path**.
 
 From each cell, you can move in four directions: up, down, left, or right. You may not move diagonally or outside the boundary.
@@ -75,7 +74,31 @@ Think of the grid as a **DAG**: draw an edge `u → v` whenever `matrix[v] > mat
 3. Process layer by layer; each layer = one step in the path
 4. Number of BFS layers = answer
 
-## Solution 1: DFS + Memoization -- $O(mn)$ time, $O(mn)$ space
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
+
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -118,104 +141,24 @@ private:
     }
 };
 ```
-{% endraw %}
 
-### Why No Visited Array?
+### Solution Explanation
 
-Unlike typical grid DFS, we don't need a `visited` set. The **strictly increasing** constraint guarantees no cycles -- you can never return to a cell you've already visited on the current path since its value would have to be both smaller and larger.
+**Approach:** Recursive DFS (this problem)
 
-### Why Memoization Works
+**Key idea:** ### Why Brute Force Fails
 
-Once `dp[r][c]` is computed, every future call that reaches `(r, c)` returns immediately. Each cell is fully explored exactly once, so total work across all DFS calls is $O(mn)$.
+**How the code works:**
+1. Compute **indegree** of each cell (number of strictly-smaller neighbors)
+2. Start BFS from all cells with indegree 0 (local minima)
+3. Process layer by layer; each layer = one step in the path
+4. Number of BFS layers = answer
 
-## Solution 2: Topological Sort (BFS) -- $O(mn)$ time, $O(mn)$ space
+**Walkthrough** — input `9  9  4`, expected output `4`:
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    int longestIncreasingPath(vector<vector<int>>& matrix) {
-        if (matrix.empty()) return 0;
-        int rows = matrix.size();
-        int cols = matrix[0].size();
-
-        vector<vector<int>> indegree(rows, vector<int>(cols, 0));
-        int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-
-        for (int r = 0; r < rows; ++r) {
-            for (int c = 0; c < cols; ++c) {
-                for (auto& d : dirs) {
-                    int nr = r + d[0];
-                    int nc = c + d[1];
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
-                        matrix[nr][nc] < matrix[r][c]) {
-                        indegree[r][c]++;
-                    }
-                }
-            }
-        }
-
-        queue<pair<int, int>> q;
-        for (int r = 0; r < rows; ++r) {
-            for (int c = 0; c < cols; ++c) {
-                if (indegree[r][c] == 0) {
-                    q.push({r, c});
-                }
-            }
-        }
-
-        int pathLen = 0;
-        while (!q.empty()) {
-            int size = q.size();
-            pathLen++;
-            for (int i = 0; i < size; ++i) {
-                auto [r, c] = q.front();
-                q.pop();
-                for (auto& d : dirs) {
-                    int nr = r + d[0];
-                    int nc = c + d[1];
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
-                        matrix[nr][nc] > matrix[r][c]) {
-                        if (--indegree[nr][nc] == 0) {
-                            q.push({nr, nc});
-                        }
-                    }
-                }
-            }
-        }
-        return pathLen;
-    }
-};
-```
-{% endraw %}
-
-### Walk-through
-
-```
-Matrix:
-  9  9  4
-  6  6  8
-  2  1  1
-
-Indegree (# of strictly smaller neighbors):
-  2  2  1
-  1  1  2
-  0  0  0
-
-Layer 0 (indegree=0): (2,0)=2, (2,1)=1, (2,2)=1   pathLen=1
-  Process: decrement neighbors' indegrees
-
-Layer 1: (1,0)=6, (1,1)=6, (0,2)=4                  pathLen=2
-
-Layer 2: (0,0)=9, (0,1)=9, (1,2)=8                  pathLen=3
-
-Layer 3: (nothing new? let's trace...)
-  Actually: after layer 1, (1,2)=8 gets indegree 0
-  After layer 2, nothing remains
-
-pathLen = 4  ✓
-```
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Aspect | DFS + Memoization | Topological Sort (BFS) |
@@ -241,11 +184,17 @@ pathLen = 4  ✓
 
 ## Related Problems
 
-- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) -- grid DFS without memoization
-- [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) -- grid DFS with multi-source
-- [1091. Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/) -- grid BFS
-- [221. Maximal Square](https://leetcode.com/problems/maximal-square/) -- grid DP with neighbor transitions
-- [207. Course Schedule](https://leetcode.com/problems/course-schedule/) -- topological sort on explicit DAG
+- [200. Number of Islands](https://www.leetcode.com/problems/number-of-islands/) -- grid DFS without memoization
+- [417. Pacific Atlantic Water Flow](https://www.leetcode.com/problems/pacific-atlantic-water-flow/) -- grid DFS with multi-source
+- [1091. Shortest Path in Binary Matrix](https://www.leetcode.com/problems/shortest-path-in-binary-matrix/) -- grid BFS
+- [221. Maximal Square](https://www.leetcode.com/problems/maximal-square/) -- grid DP with neighbor transitions
+- [207. Course Schedule](https://www.leetcode.com/problems/course-schedule/) -- topological sort on explicit DAG
+
+## References
+
+- [LC 329: Longest Increasing Path in a Matrix on LeetCode](https://www.leetcode.com/problems/longest-increasing-path-in-a-matrix/)
+- [LeetCode Discuss — LC 329: Longest Increasing Path in a Matrix](https://www.leetcode.com/problems/longest-increasing-path-in-a-matrix/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/longest-increasing-path-in-a-matrix/editorial/) *(may require premium)*
 
 ## Template Reference
 

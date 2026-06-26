@@ -6,9 +6,6 @@ categories: leetcode algorithm easy cpp linked-list iteration problem-solving
 permalink: /posts/2025-11-18-easy-203-remove-linked-list-elements/
 tags: [leetcode, easy, linked-list, two-pointers, dummy-node]
 ---
-
-# [Easy] 203. Remove Linked List Elements
-
 Given the `head` of a linked list and an integer `val`, remove all the nodes of the linked list that has `Node.val == val`, and return *the new head*.
 
 ## Examples
@@ -37,62 +34,42 @@ Output: []
 - `1 <= Node.val <= 50`
 - `0 <= val <= 50`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Dummy Node**: Using a dummy node simplifies edge cases, especially when the head needs to be removed
 
-1. **Removal operation**: What does "remove" mean? (Assumption: Remove all nodes with value equal to val from the linked list)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
-2. **In-place requirement**: Should we remove in-place? (Assumption: Yes - modify pointers, not create new list)
 
-3. **Return value**: What should we return? (Assumption: Head of modified linked list - may be different if head was removed)
 
-4. **Empty list**: What if list is empty? (Assumption: Return nullptr - no nodes to process)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **All nodes removed**: What if all nodes have value val? (Assumption: Return nullptr - empty list after removal)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to remove nodes. Let me traverse and remove nodes with matching value."
+## Common Approaches
 
-**Naive Solution**: Traverse list, when finding node with val, remove it by updating previous node's next pointer.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
 
-**Issues**:
-- Need to handle head removal specially
-- Complex pointer manipulation
-- Error-prone edge cases
-- Can be simplified
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I can use dummy node to simplify head removal handling."
-
-**Improved Solution**: Use dummy node before head. Traverse list, remove nodes with val by updating pointers. Dummy node handles head removal uniformly.
-
-**Complexity**: O(n) time, O(1) space
-
-**Improvements**:
-- Dummy node simplifies logic
-- Handles head removal uniformly
-- Cleaner code
-- O(1) space is optimal
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "Dummy node approach is optimal. Can also use recursive approach."
-
-**Best Solution**: Dummy node approach is optimal. Dummy node eliminates special case for head removal. Traverse and remove nodes with val.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Dummy node is key technique for linked list problems
-2. O(n) time is optimal - must visit each node
-3. O(1) space is optimal
-4. Handles all edge cases elegantly
-
-## Solution: Dummy Node Approach
+## Solution
 
 **Time Complexity:** O(n) - We visit each node once  
 **Space Complexity:** O(1) - Only using constant extra space
@@ -143,76 +120,29 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `head = [1,2,6,3,4,5,6]`, `val = 6`
+**Approach:** Iterative pointer walk (this problem)
 
-```
-Initial:  dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
-          ↑       ↑
-         prev    curr
+**Key idea:** 1. **Dummy Node**: Using a dummy node simplifies edge cases, especially when the head needs to be removed
 
-Step 1:   curr->val = 1 ≠ 6, move prev forward
-          dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                  ↑    ↑
-                 prev curr
-
-Step 2:   curr->val = 2 ≠ 6, move prev forward
-          dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                       ↑    ↑
-                      prev curr
-
-Step 3:   curr->val = 6 == 6, remove node
-          prev->next = curr->next (skip 6)
-          delete curr
-          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                       ↑    ↑
-                      prev curr
-
-Step 4:   curr->val = 3 ≠ 6, move prev forward
-          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                            ↑    ↑
-                           prev curr
-
-Step 5:   curr->val = 4 ≠ 6, move prev forward
-          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                                 ↑    ↑
-                                prev curr
-
-Step 6:   curr->val = 5 ≠ 6, move prev forward
-          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
-                                      ↑    ↑
-                                     prev curr
-
-Step 7:   curr->val = 6 == 6, remove node
-          prev->next = curr->next (skip 6)
-          delete curr
-          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> nullptr
-                                      ↑    ↑
-                                     prev curr (nullptr)
-
-Result:   Return dummy.next = [1,2,3,4,5]
-```
-
-### Visual Representation
-
-```
-Before:  [1] -> [2] -> [6] -> [3] -> [4] -> [5] -> [6] -> nullptr
-         ↑
-        head
-
-After:   [1] -> [2] -> [3] -> [4] -> [5] -> nullptr
-         ↑
-        head
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Dummy Node**: Using a dummy node simplifies edge cases, especially when the head needs to be removed
-2. **Two Pointers**: `prev` tracks the previous valid node, `curr` traverses the list
-3. **Memory Management**: Properly delete removed nodes to prevent memory leaks
-4. **Pointer Updates**: Only update `prev` when we don't remove a node; otherwise, `prev` stays the same
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
+**Walkthrough** — input `head = [1,2,6,3,4,5,6], val = 6`, expected output `[1,2,3,4,5]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Iterative with Dummy** | O(n) | O(1) | Space efficient, handles all cases | Requires memory management |
+| **Recursive** | O(n) | O(n) | Elegant, concise | Stack overflow risk for long lists |
+| **Simplified Iterative** | O(n) | O(1) | Simple, no memory management | Doesn't free memory (fine for LeetCode) |
 ## Algorithm Breakdown
 
 ```cpp
@@ -250,7 +180,7 @@ ListNode* removeElements(ListNode* head, int val) {
 }
 ```
 
-## Edge Cases
+## Common Mistakes
 
 1. **Empty list**: `head = []` → return `[]`
 2. **Head needs removal**: `head = [7,7,7,7], val = 7` → return `[]`
@@ -258,62 +188,13 @@ ListNode* removeElements(ListNode* head, int val) {
 4. **No nodes removed**: `head = [1,2,3], val = 4` → return `[1,2,3]`
 5. **Remove from middle**: `head = [1,2,3,2,4], val = 2` → return `[1,3,4]`
 
-## Common Mistakes
-
 1. **Not using dummy node**: Makes it harder to handle head removal
 2. **Incorrect pointer updates**: Forgetting to update `prev` only when keeping a node
 3. **Memory leaks**: Not deleting removed nodes
 4. **Returning wrong pointer**: Should return `dummy.next`, not `head`
 5. **Null pointer dereference**: Not checking if `head` is `nullptr` first
 
-## Alternative Approaches
-
-### Approach 2: Recursive Solution
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Due to recursion stack
-
-```cpp
-class Solution {
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-        if(head == nullptr) return head;
-        
-        head->next = removeElements(head->next, val);
-        
-        return head->val == val ? head->next : head;
-    }
-};
-```
-
-### Approach 3: Simplified Iterative (No Memory Deletion)
-
-For LeetCode submissions where memory management isn't required:
-
-```cpp
-class Solution {
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-        ListNode dummy(0, head);
-        ListNode* prev = &dummy;
-        ListNode* curr = head;
-        
-        while(curr != nullptr) {
-            if(curr->val == val) {
-                prev->next = curr->next;
-            } else {
-                prev = curr;
-            }
-            curr = curr->next;
-        }
-        
-        return dummy.next;
-    }
-};
-```
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Iterative with Dummy** | O(n) | O(1) | Space efficient, handles all cases | Requires memory management |
@@ -322,10 +203,10 @@ public:
 
 ## Related Problems
 
-- [83. Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) - Remove duplicates
-- [82. Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) - Remove all duplicates
-- [237. Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/) - Delete without head reference
-- [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) - Remove specific node
+- [83. Remove Duplicates from Sorted List](https://www.leetcode.com/problems/remove-duplicates-from-sorted-list/) - Remove duplicates
+- [82. Remove Duplicates from Sorted List II](https://www.leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) - Remove all duplicates
+- [237. Delete Node in a Linked List](https://www.leetcode.com/problems/delete-node-in-a-linked-list/) - Delete without head reference
+- [19. Remove Nth Node From End of List](https://www.leetcode.com/problems/remove-nth-node-from-end-of-list/) - Remove specific node
 
 ## Optimization Notes
 
@@ -334,7 +215,19 @@ public:
 3. **Early Termination**: Could optimize by checking if list is empty first
 4. **Pointer Safety**: Always check for `nullptr` before dereferencing
 
----
+## Key Takeaways
 
-*This problem demonstrates the importance of using dummy nodes to handle edge cases in linked list manipulation, and proper memory management in C++.*
+1. **Dummy Node**: Using a dummy node simplifies edge cases, especially when the head needs to be removed
+2. **Two Pointers**: `prev` tracks the previous valid node, `curr` traverses the list
+3. **Memory Management**: Properly delete removed nodes to prevent memory leaks
+4. **Pointer Updates**: Only update `prev` when we don't remove a node; otherwise, `prev` stays the same
 
+## References
+
+- [LC 203: Remove Linked List Elements on LeetCode](https://www.leetcode.com/problems/remove-linked-list-elements/)
+- [LeetCode Discuss — LC 203: Remove Linked List Elements](https://www.leetcode.com/problems/remove-linked-list-elements/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/remove-linked-list-elements/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Linked List](/blog_leetcode/posts/2025-11-24-leetcode-templates-linked-list/)

@@ -5,11 +5,6 @@ date: 2025-12-31 17:30:00 -0700
 categories: [leetcode, medium, array, two-pointers, math, parabola]
 permalink: /2025/12/31/medium-360-sort-transformed-array/
 ---
-
-# 360. Sort Transformed Array
-
-## Problem Statement
-
 Given a **sorted** integer array `nums` and three integers `a`, `b`, and `c`, apply a quadratic function `f(x) = ax² + bx + c` to each element `nums[i]` in the array, and return the array in a **sorted order**.
 
 ## Examples
@@ -44,60 +39,40 @@ Sorted: [-23,-5,1,7]
 - `-100 <= nums[i], a, b, c <= 100`
 - `nums` is sorted in **ascending order**.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given a **sorted** integer array `nums` and three integers `a`, `b`, and `c`, apply a quadratic function `f(x) = ax² + bx + c` to each element `nums[i]` in the array, and return the array in a **sorted order**.
 
-1. **Transformation function**: What is the transformation? (Assumption: f(x) = ax² + bx + c - quadratic function)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-2. **Sorting requirement**: Should we sort the transformed array? (Assumption: Yes - return sorted array of transformed values)
 
-3. **Return format**: What should we return? (Assumption: Array of transformed and sorted values)
 
-4. **Input order**: Is input array sorted? (Assumption: Yes - nums is sorted in ascending order per constraints)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-5. **Parabola direction**: How does parabola direction affect sorting? (Assumption: If a > 0, parabola opens upward (min at center), if a < 0, opens downward (max at center))
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Apply the transformation f(x) = ax² + bx + c to each element, then sort the resulting array. This straightforward approach has O(n log n) time complexity for sorting, which works but can be optimized further by leveraging the properties of the quadratic function.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Recognize that the transformation is a quadratic function. If a > 0, the function has a minimum (parabola opens upward), so values are smallest near the vertex and increase toward both ends. If a < 0, the function has a maximum (parabola opens downward), so values are largest near the vertex and decrease toward both ends. Use two pointers from both ends, comparing transformed values. However, handling the vertex and determining the merge order requires careful logic.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use two pointers technique based on the sign of 'a'. If a >= 0 (parabola opens upward), transformed values are smallest at the ends and largest in the middle. Use two pointers starting from both ends, merge in descending order (largest first), then reverse. If a < 0 (parabola opens downward), transformed values are largest at the ends and smallest in the middle. Use two pointers merging in ascending order (smallest first). This achieves O(n) time with O(n) space, which is optimal since we must process all elements. The key insight is that the quadratic transformation preserves the relative ordering from the ends (for a >= 0) or reverses it (for a < 0), allowing linear-time merging.
-
-## Solution Approach
-
-This problem requires applying a quadratic function to each element and returning results in sorted order. The key insight is understanding how quadratic functions behave on sorted arrays.
-
-### Key Insights:
-
-1. **Parabola Properties**:
-   - If `a > 0`: Parabola opens **upward** → maximum values at ends
-   - If `a < 0`: Parabola opens **downward** → minimum values at ends
-   - If `a = 0`: Linear function → preserves order
-
-2. **Two-Pointer Technique**: 
-   - Compare transformed values at both ends
-   - Fill result from appropriate end based on `a`
-   - Move pointers inward
-
-3. **Merge Strategy**:
-   - For `a >= 0`: Fill from end (largest first)
-   - For `a < 0`: Fill from start (smallest first)
-
-### Algorithm:
-
-1. **Transform function**: `f(x) = ax² + bx + c`
-2. **Two pointers**: Start from both ends of sorted array
-3. **Compare and fill**: Based on `a`, fill result from appropriate end
-4. **Move pointers**: Move pointer that contributed the value
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
 ## Solution
 
@@ -127,6 +102,26 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Opposite ends (this problem)
+
+**Key idea:** Given a **sorted** integer array `nums` and three integers `a`, `b`, and `c`, apply a quadratic function `f(x) = ax² + bx + c` to each element `nums[i]` in the array, and return the array in a **sorted order**.
+
+**How the code works:**
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
+
+**Walkthrough** — input `nums = [-4,-2,2,4], a = 1, b = 3, c = 5`, expected output `[3,9,15,33]`:
+
+The function is f(x) = x² + 3x + 5
+f(-4) = 16 - 12 + 5 = 9
+f(-2) = 4 - 6 + 5 = 3
+f(2) = 4 + 6 + 5 = 15
+f(4) = 16 + 12 + 5 = 33
+Sorted: [3,9,15,33]
 
 ### **Algorithm Explanation:**
 
@@ -228,7 +223,6 @@ Step 4: i=2, j=2, index=3
 
 Result: [-23, -5, 1, 7] ✓
 ```
-
 ## Algorithm Breakdown
 
 ### **Key Insight: Parabola Properties**
@@ -264,8 +258,7 @@ The algorithm works like merging two sorted arrays:
 3. **End Values**: Extreme values (max/min) are at ends for parabolas
 4. **Merge Pattern**: Similar to merging sorted arrays, but filling from appropriate end
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n)
 - **Single pass**: Process each element exactly once
 - **Transformations**: O(1) per element
@@ -283,26 +276,6 @@ The algorithm works like merging two sorted arrays:
 3. **O(n) Time**: Single pass through array
 4. **No Sorting Needed**: Direct placement in correct position
 5. **Handles All Cases**: Works for a > 0, a < 0, and a = 0
-
-## Alternative Approaches
-
-### **Approach 1: Two-Pointer (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Best for**: Optimal solution using parabola properties
-
-### **Approach 2: Transform and Sort**
-- **Time**: O(n log n)
-- **Space**: O(n)
-- **Simple**: Transform all, then sort
-- **Inefficient**: Doesn't use parabola properties
-
-### **Approach 3: Find Vertex and Merge**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Find vertex**: Calculate parabola vertex, split array
-- **Merge**: Merge two sorted halves
-- **More complex**: Similar performance to current solution
 
 ## Detailed Example Walkthrough
 
@@ -367,14 +340,36 @@ Result: [0, 1, 3, 6, 15] ✓
 - For downward parabola: values decrease as we move away from vertex
 - Ends have extreme values (max for upward, min for downward)
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [360. Sort Transformed Array](https://leetcode.com/problems/sort-transformed-array/) - Current problem
-- [977. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/) - Similar two-pointer approach
-- [88. Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) - Merge two sorted arrays
-- [977. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/) - Transform and sort
+- [360. Sort Transformed Array](https://www.leetcode.com/problems/sort-transformed-array/) - Current problem
+- [977. Squares of a Sorted Array](https://www.leetcode.com/problems/squares-of-a-sorted-array/) - Similar two-pointer approach
+- [88. Merge Sorted Array](https://www.leetcode.com/problems/merge-sorted-array/) - Merge two sorted arrays
+- [977. Squares of a Sorted Array](https://www.leetcode.com/problems/squares-of-a-sorted-array/) - Transform and sort
 
 ## Tags
 
 `Array`, `Two Pointers`, `Math`, `Parabola`, `Medium`
 
+## Key Takeaways
+
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
+
+## References
+
+- [LC 360: Sort Transformed Array on LeetCode](https://www.leetcode.com/problems/sort-transformed-array/)
+- [LeetCode Discuss — LC 360: Sort Transformed Array](https://www.leetcode.com/problems/sort-transformed-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/sort-transformed-array/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

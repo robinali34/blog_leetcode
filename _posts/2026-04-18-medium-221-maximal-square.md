@@ -6,7 +6,6 @@ categories: [leetcode, medium, dynamic-programming]
 tags: [leetcode, medium, dynamic-programming, matrix, dp]
 permalink: /2026/04/18/medium-221-maximal-square/
 ---
-
 Given an `m x n` binary matrix filled with `'0'`s and `'1'`s, find the largest square containing only `'1'`s and return its area.
 
 ## Examples
@@ -97,7 +96,33 @@ Key cells:
 
 Max value = 2, so answer = $2^2 = 4$.
 
-## Solution 1: 2D DP -- $O(mn)$ time, $O(mn)$ space
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -131,77 +156,26 @@ public:
     }
 };
 ```
-{% endraw %}
 
-The first row and first column are base cases: if `matrix[i][j] == '1'`, then `dp[i][j] = 1` (a 1x1 square at most).
+### Solution Explanation
 
-## Solution 2: Space-Optimized 1D DP -- $O(mn)$ time, $O(n)$ space
+**Approach:** 1D DP (this problem)
 
-Since each row only depends on the current and previous row, we can use a single 1D array.
+**Key idea:** ### The DP Definition
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    int maximalSquare(vector<vector<char>>& matrix) {
-        if (matrix.empty()) return 0;
-        int rows = matrix.size();
-        int cols = matrix[0].size();
+**How the code works:**
+- A square of side `k-1` ending at `(i-1, j)` (top)
+- A square of side `k-1` ending at `(i, j-1)` (left)
+- A square of side `k-1` ending at `(i-1, j-1)` (diagonal)
+- `dp[2][3]`: `min(top=1, left=1, diag=1) + 1 = 2` -- a 2x2 square forms
+- `dp[2][4]`: `min(top=1, left=2, diag=1) + 1 = 2` -- another 2x2 square
+- `dp[3][3]`: `min(top=2, left=0, diag=1) + 1 = 1` -- left is 0, so only 1x1
 
-        vector<int> dp(cols, 0);
-        int maxSide = 0;
-        int prev = 0;
+**Walkthrough** — input `1 0 1 0 0`, expected output `4   (a 2x2 square)`:
 
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                int temp = dp[j];
-                if (matrix[i][j] == '1') {
-                    if (i == 0 || j == 0) {
-                        dp[j] = 1;
-                    } else {
-                        dp[j] = 1 + min({dp[j], dp[j - 1], prev});
-                    }
-                    maxSide = max(maxSide, dp[j]);
-                } else {
-                    dp[j] = 0;
-                }
-                prev = temp;
-            }
-        }
-        return maxSide * maxSide;
-    }
-};
-```
-{% endraw %}
-
-### Variable Mapping
-
-| 1D variable | Equivalent in 2D |
-|---|---|
-| `dp[j]` (before update) | `dp[i-1][j]` (top) |
-| `dp[j-1]` (already updated) | `dp[i][j-1]` (left) |
-| `prev` (saved before overwriting) | `dp[i-1][j-1]` (diagonal) |
-
-The trick is saving `dp[j]` into `prev` **before** overwriting it, so the diagonal value from the previous row isn't lost.
-
-## Why `min` of Three Neighbors?
-
-Consider why we can't just check one or two neighbors:
-
-```
-Case: top=3, left=3, diag=1
-
-    . . . .
-    . 1 1 .
-    . 1 1 .      ← diag is the bottleneck
-    . . 1 ?
-
-Even though top and left support a 3x3,
-the diagonal gap limits us to a 2x2.
-```
-
-All three must agree for a larger square to exist. The minimum captures the tightest constraint.
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Common Mistakes
 
 - **Returning `maxSide` instead of `maxSide * maxSide`:** The problem asks for **area**, not side length
@@ -217,10 +191,16 @@ All three must agree for a larger square to exist. The minimum captures the tigh
 
 ## Related Problems
 
-- [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) -- harder generalization using histogram approach
-- [1277. Count Square Submatrices with All Ones](https://leetcode.com/problems/count-square-submatrices-with-all-ones/) -- same DP, sum all `dp[i][j]` values
-- [62. Unique Paths](https://leetcode.com/problems/unique-paths/) -- similar 2D DP grid pattern
-- [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) -- 2D DP with neighbor transitions
+- [85. Maximal Rectangle](https://www.leetcode.com/problems/maximal-rectangle/) -- harder generalization using histogram approach
+- [1277. Count Square Submatrices with All Ones](https://www.leetcode.com/problems/count-square-submatrices-with-all-ones/) -- same DP, sum all `dp[i][j]` values
+- [62. Unique Paths](https://www.leetcode.com/problems/unique-paths/) -- similar 2D DP grid pattern
+- [64. Minimum Path Sum](https://www.leetcode.com/problems/minimum-path-sum/) -- 2D DP with neighbor transitions
+
+## References
+
+- [LC 221: Maximal Square on LeetCode](https://www.leetcode.com/problems/maximal-square/)
+- [LeetCode Discuss — LC 221: Maximal Square](https://www.leetcode.com/problems/maximal-square/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximal-square/editorial/) *(may require premium)*
 
 ## Template Reference
 

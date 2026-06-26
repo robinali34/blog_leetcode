@@ -5,13 +5,9 @@ date: 2025-10-20 14:05:00 -0700
 categories: leetcode algorithm medium backtracking recursion duplicates
 permalink: /2025/10/20/medium-47-permutations-ii/
 ---
-
-# 47. Permutations II
-
 **Difficulty:** Medium  
 **Category:** Backtracking, Recursion, Duplicates
 
-## Problem Statement
 
 Given a collection of numbers, `nums`, that might contain **duplicates**, return all the possible **unique permutations** in any order.
 
@@ -34,62 +30,7 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 - `1 <= nums.length <= 8`
 - `-10 <= nums[i] <= 10`
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Permutation definition**: What is a permutation? (Assumption: All possible arrangements of array elements - order matters)
-
-2. **Duplicate handling**: How should we handle duplicate elements? (Assumption: Avoid duplicate permutations - if [1,1,2], don't generate [1,1,2] twice)
-
-3. **Output format**: Should we return all permutations or just count? (Assumption: Return all distinct permutations - list of lists)
-
-4. **Array modification**: Can we modify the input array? (Assumption: Typically yes for backtracking, but should clarify)
-
-5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to generate all permutations. Let me use standard permutation generation and filter duplicates."
-
-**Naive Solution**: Generate all permutations using standard backtracking, then filter out duplicates using a set.
-
-**Complexity**: O(n! × n) time, O(n! × n) space
-
-**Issues**:
-- Generates many duplicate permutations
-- Inefficient - creates all permutations then filters
-- Wastes computation on duplicates
-- Doesn't prevent duplicates during generation
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can prevent duplicates during generation by skipping duplicate elements at same position."
-
-**Improved Solution**: Sort array first. During backtracking, skip duplicate elements at current position if previous duplicate wasn't used.
-
-**Complexity**: O(n! × n) time worst case, but much better in practice due to pruning, O(n) space
-
-**Improvements**:
-- Prevents duplicates during generation
-- Prunes invalid branches early
-- More efficient than filtering afterwards
-- Still generates all valid permutations
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "The backtracking with duplicate skipping is optimal. Can also use next_permutation for iterative approach."
-
-**Best Solution**: Sort array, use backtracking with visited array and duplicate skipping logic. When choosing element at current position, skip if same as previous and previous wasn't used.
-
-**Complexity**: O(n! × n) time worst case, O(n) space
-
-**Key Realizations**:
-1. Sorting enables efficient duplicate detection
-2. Skip duplicates at same position to avoid duplicate permutations
-3. Backtracking is natural approach for permutation generation
-4. Can also use iterative next_permutation approach
-
-## Approach
+## Thinking Process
 
 This is an extension of **LC 46 Permutations** that handles **duplicate elements**. The key challenge is avoiding duplicate permutations when the input contains repeated numbers.
 
@@ -105,6 +46,30 @@ When we have duplicates, we need to ensure that identical elements don't create 
 
 ### Algorithm 2: STL next_permutation (Unchanged)
 The STL approach works the same as LC 46 because `next_permutation()` automatically handles duplicates correctly.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
+
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | $O(2^n)$ | $O(n)$ | Subsets, combinations |
+| Constraint pruning | Reduced search | $O(n)$ | Early exit on invalid partial |
+| Sort + skip duplicates | $O(2^n)$ | $O(n)$ | Combination sum II style |
+| Path recording | $O(n!)$ worst | $O(n)$ | Permutations |
 
 ## Solution
 
@@ -145,6 +110,21 @@ private:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Choose / explore / unchoose (this problem)
+
+**Key idea:** This is an extension of **LC 46 Permutations** that handles **duplicate elements**. The key challenge is avoiding duplicate permutations when the input contains repeated numbers.
+
+**How the code works:**
+1. **Sort the array** to group identical elements together
+2. **Use swapping** like in LC 46, but skip duplicates
+3. **Skip condition:** If `nums[i] == nums[i-1]` and `i > start`, skip
+4. **Recursively generate** permutations for remaining positions
+5. **Backtrack** by swapping back to original positions
+
+**Time:** O(6 × 4) = O(24) · **Space Complexity** | O(n! × n) | O(n) |
+
 ### Solution 2: STL next_permutation (Same as LC 46)
 
 ```cpp
@@ -159,9 +139,7 @@ public:
         return rtn;
     }
 };
-```
-
-## Why `current` Array is Essential
+```## Why `current` Array is Essential
 
 ### **Problem with In-Place Swapping Approach**
 
@@ -557,9 +535,7 @@ private:
         }
     }
 };
-```
-
-## Complete Solution Comparison & Trade-offs
+```## Complete Solution Comparison & Trade-offs
 
 ### **Comprehensive Comparison Table**
 
@@ -724,7 +700,6 @@ private:
 **For Quick Implementation:** Use Solution 3 (Hash Set) - simplest to code
 
 **For Custom Requirements:** Use Solution 4b (Manual Dedup) - most control
-
 ## Explanation
 
 **Key Changes from LC 46:**
@@ -776,8 +751,7 @@ The skip condition `if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;` e
 - **Add each permutation** to result vector
 - **`next_permutation()` automatically handles duplicates** correctly
 
-## Complexity Analysis
-
+### Complexity
 ### Solution 1: Backtracking with Duplicate Handling
 **Time Complexity:** O(n! × n)
 - **Unique permutations:** Less than n! due to duplicates
@@ -799,14 +773,6 @@ The skip condition `if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;` e
 - **No recursion:** Iterative approach
 - **No additional space** beyond input and output
 
-## Key Insights
-
-1. **Duplicate Handling:** Skip identical elements at the same recursion level
-2. **Sorting Required:** Must sort array to group duplicates together
-3. **Skip Condition:** `nums[i] == nums[i-1] && !used[i-1]`
-4. **STL Advantage:** `next_permutation()` handles duplicates automatically
-5. **State Tracking:** Need to track which elements are used
-
 ## Comparison with LC 46
 
 | Aspect | LC 46 (No Duplicates) | LC 47 (With Duplicates) |
@@ -817,93 +783,6 @@ The skip condition `if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;` e
 | **STL** | Works perfectly | Works perfectly |
 | **Complexity** | O(n! × n) | O(unique_perms × n) |
 
-## Alternative Approaches
-
-### Approach 3: Set-based Deduplication
-```cpp
-class Solution {
-public:
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
-        vector<vector<int>> result;
-        permute(nums, 0, result);
-        
-        // Remove duplicates using set
-        set<vector<int>> unique_perms(result.begin(), result.end());
-        return vector<vector<int>>(unique_perms.begin(), unique_perms.end());
-    }
-    
-private:
-    void permute(vector<int>& nums, int idx, vector<vector<int>>& result) {
-        if(idx == nums.size()) {
-            result.push_back(nums);
-            return;
-        }
-        
-        for(int i = idx; i < nums.size(); i++) {
-            swap(nums[idx], nums[i]);
-            permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
-        }
-    }
-};
-```
-
-### Approach 4: Frequency-based Backtracking
-```cpp
-class Solution {
-public:
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
-        vector<vector<int>> result;
-        unordered_map<int, int> freq;
-        
-        // Count frequency of each number
-        for(int num : nums) {
-            freq[num]++;
-        }
-        
-        vector<int> current;
-        backtrack(freq, current, result, nums.size());
-        return result;
-    }
-    
-private:
-    void backtrack(unordered_map<int, int>& freq, vector<int>& current,
-                   vector<vector<int>>& result, int target_size) {
-        if(current.size() == target_size) {
-            result.push_back(current);
-            return;
-        }
-        
-        for(auto& pair : freq) {
-            if(pair.second > 0) {
-                pair.second--;
-                current.push_back(pair.first);
-                backtrack(freq, current, result, target_size);
-                current.pop_back();
-                pair.second++;
-            }
-        }
-    }
-};
-```
-
-## When to Use Each Approach
-
-### Use Backtracking with Used Array when:
-- **Need to understand** the algorithm deeply
-- **Custom modifications** are required
-- **Memory is not a constraint**
-
-### Use STL next_permutation when:
-- **Code simplicity** is priority
-- **Performance** is critical
-- **Lexicographic order** is desired
-
-### Use Set-based Deduplication when:
-- **Quick solution** is needed
-- **Memory is abundant**
-- **Don't mind** generating all permutations first
-
 ## Key Concepts
 
 1. **Duplicate Handling:** Preventing duplicate permutations in output
@@ -913,3 +792,24 @@ private:
 5. **Frequency Counting:** Alternative approach using element counts
 
 This problem extends the classic permutation generation to handle duplicates, requiring careful state management to avoid duplicate outputs while maintaining efficiency.
+
+## References
+
+- [LC 47: Permutations II on LeetCode](https://www.leetcode.com/problems/permutations-ii/)
+- [LeetCode Discuss — LC 47: Permutations II](https://www.leetcode.com/problems/permutations-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/permutations-ii/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+1. **Duplicate Handling:** Skip identical elements at the same recursion level
+2. **Sorting Required:** Must sort array to group duplicates together
+3. **Skip Condition:** `nums[i] == nums[i-1] && !used[i-1]`
+4. **STL Advantage:** `next_permutation()` handles duplicates automatically
+5. **State Tracking:** Need to track which elements are used

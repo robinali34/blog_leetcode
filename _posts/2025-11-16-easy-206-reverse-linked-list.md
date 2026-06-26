@@ -4,9 +4,6 @@ title: "[Easy] 206. Reverse Linked List"
 date: 2025-11-16 00:00:00 -0800
 categories: leetcode algorithm easy cpp linked-list recursion iteration problem-solving
 ---
-
-# [Easy] 206. Reverse Linked List
-
 Given the `head` of a singly linked list, reverse the list, and return *the reversed list*.
 
 ## Examples
@@ -34,60 +31,44 @@ Output: []
 - The number of nodes in the list is the range `[0, 5000]`.
 - `-5000 <= Node.val <= 5000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given the `head` of a singly linked list, reverse the list, and return *the reversed list*.
 
-1. **Reversal definition**: What does "reverse" mean? (Assumption: Reverse the order of nodes - first becomes last, last becomes first)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
-2. **In-place requirement**: Should we reverse in-place? (Assumption: Yes - modify pointers, not create new nodes)
 
-3. **Return value**: What should we return? (Assumption: Head of reversed linked list - new head node)
 
-4. **Empty list**: What if list is empty? (Assumption: Return nullptr - no nodes to reverse)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
-5. **Single node**: What if list has one node? (Assumption: Return same node - already reversed)
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to reverse the list. Let me think about the simplest approach."
+## Common Approaches
 
-**Naive Solution**: Collect all node values into an array, then rebuild the list by assigning values in reverse order.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
 
-**Issues**:
-- Uses O(n) extra space for array
-- Modifies node values instead of pointers
-- Not truly "in-place" reversal
-- Doesn't demonstrate understanding of pointer manipulation
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I can reverse pointers without extra space, but need to track previous node."
-
-**Improved Solution**: Use three pointers (prev, curr, next) to reverse links iteratively. Save next node before reversing link, then advance pointers.
-
-**Complexity**: O(n) time, O(1) space
-
-**Improvements**:
-- O(1) space complexity - true in-place reversal
-- Modifies pointers directly, not values
-- Handles edge cases (empty list, single node)
-- Demonstrates pointer manipulation skills
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "The iterative approach is already optimal. Let me verify edge cases and consider recursive alternative."
-
-**Best Solution**: Refine the three-pointer iterative approach with cleaner code structure. Consider recursive approach as alternative (though uses O(n) stack space).
-
-**Key Realizations**:
-1. Three-pointer technique is optimal for iterative approach
-2. Recursive approach exists but uses O(n) stack space
-3. Iterative is preferred for production code due to space efficiency
-4. Both approaches are valid, but iterative is more practical
-
-## Solution: Iterative and Recursive Approaches
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1) iterative, O(n) recursive
@@ -124,7 +105,27 @@ public:
 };
 ```
 
-**Note**: This approach modifies node values instead of pointers, which is not ideal for interview purposes.
+### Solution Explanation
+
+**Approach:** Iterative pointer walk (this problem)
+
+**Key idea:** Given the `head` of a singly linked list, reverse the list, and return *the reversed list*.
+
+**How the code works:**
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
+
+**Walkthrough** — input `head = [1,2,3,4,5]`, expected output `[5,4,3,2,1]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Approach | Time | Space |
+|----------|------|-------|
+| **Iterative** | O(n) | O(1) |
+| **Recursive** | O(n) | O(n) |
 
 ### Solution 2: Iterative Approach (Recommended - C++20 Optimized)
 
@@ -209,9 +210,7 @@ public:
         return prev;
     }
 };
-```
-
-## How the Iterative Algorithm Works
+```## How the Iterative Algorithm Works
 
 ### Step-by-Step Example: `head = [1,2,3,4,5]`
 
@@ -254,7 +253,6 @@ After:   [1] <- [2] <- [3] <- [4] <- [5]
          ↑                            ↑
        tail                         head
 ```
-
 ## How the Recursive Algorithm Works
 
 ### Recursive Call Stack
@@ -304,8 +302,7 @@ head (now tail)
 3. **No unnecessary operations**: Direct pointer manipulation
 4. **Simple and efficient**: O(1) space for iterative approach
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space |
 |----------|------|-------|
 | **Iterative** | O(n) | O(1) |
@@ -317,33 +314,6 @@ head (now tail)
 - **No stack overflow risk**: For very long lists
 - **Better performance**: No function call overhead
 - **Easier to understand**: Linear flow
-
-## Solution Structure Breakdown
-
-### Evolution from Naive to Optimized
-
-**Naive Approach** (Brute-Force):
-- **Structure**: Collect values → Rebuild list
-- **Complexity**: O(n) time, O(n) space
-- **Limitation**: Not true in-place reversal
-
-**Semi-Optimized Approach** (Three Pointers):
-- **Structure**: Track prev, curr, next → Reverse links iteratively
-- **Complexity**: O(n) time, O(1) space
-- **Improvement**: True in-place reversal
-
-**Optimized Approach** (Final):
-- **Structure**: Same as semi-optimized (already optimal)
-- **Complexity**: O(n) time, O(1) space
-- **Enhancement**: Cleaner code, better edge case handling
-
-### Code Structure Comparison
-
-| Approach | Key Operations | Space Usage | Production Ready |
-|----------|---------------|-------------|------------------|
-| **Naive** | Array collection + rebuild | O(n) array | ❌ |
-| **Semi-Opt** | Three-pointer reversal | O(1) pointers | ✅ |
-| **Optimized** | Three-pointer (refined) | O(1) pointers | ✅ |
 
 ## Algorithm Breakdown
 
@@ -396,14 +366,12 @@ ListNode* reverseList(ListNode* head) {
 3. Reverse current node's link
 4. Return new head from recursion
 
-## Edge Cases
+## Common Mistakes
 
 1. **Empty list**: `head = nullptr` → return `nullptr`
 2. **Single node**: `head = [1]` → return `[1]`
 3. **Two nodes**: `head = [1,2]` → return `[2,1]`
 4. **Long list**: Works for lists up to 5000 nodes
-
-## Common Mistakes
 
 1. **Losing reference to next node**: Must save `next` before reversing
 2. **Not setting head->next to nullptr**: In recursive, must break old link
@@ -421,10 +389,21 @@ ListNode* reverseList(ListNode* head) {
 | **Readability** | Straightforward | More elegant |
 | **When to use** | Production code | Interviews/learning |
 
+## Key Takeaways
+
+- **Pattern:** Iterative pointer walk (this problem)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+
+## References
+
+- [LC 206: Reverse Linked List on LeetCode](https://www.leetcode.com/problems/reverse-linked-list/)
+- [LeetCode Discuss — LC 206: Reverse Linked List](https://www.leetcode.com/problems/reverse-linked-list/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/reverse-linked-list/editorial/) *(may require premium)*
+
 ## Related Problems
 
-- [92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/) - Reverse portion of list
-- [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) - Reverse in groups
-- [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) - Swap adjacent nodes
-- [143. Reorder List](https://leetcode.com/problems/reorder-list/) - Reorder list
-
+- [92. Reverse Linked List II](https://www.leetcode.com/problems/reverse-linked-list-ii/) - Reverse portion of list
+- [25. Reverse Nodes in k-Group](https://www.leetcode.com/problems/reverse-nodes-in-k-group/) - Reverse in groups
+- [24. Swap Nodes in Pairs](https://www.leetcode.com/problems/swap-nodes-in-pairs/) - Swap adjacent nodes
+- [143. Reorder List](https://www.leetcode.com/problems/reorder-list/) - Reorder list

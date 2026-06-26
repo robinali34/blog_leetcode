@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp string stack expression-evaluation pro
 permalink: /posts/2025-11-13-medium-224-basic-calculator/
 tags: [leetcode, medium, string, stack, calculator, expression-evaluation, parentheses]
 ---
-
-# [Medium] 224. Basic Calculator
-
 Given a string `s` representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.
 
 **Note:** You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as `eval()`.
@@ -43,62 +40,40 @@ Output: 23
 - There will be no two consecutive operators in the input.
 - Every number and running calculation will fit in a signed 32-bit integer.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Stack for Parentheses**: Save state (result and sign) before `(`, restore after `)`
 
-1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', parentheses '()' - no multiplication/division)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Unary operators**: How should we handle unary operators? (Assumption: '-' can be unary (negative numbers), '+' cannot be unary)
 
-3. **Parentheses**: How should parentheses be handled? (Assumption: Standard precedence - evaluate inner parentheses first)
 
-4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to evaluate expression. Let me parse and compute manually."
+## Common Approaches
 
-**Naive Solution**: Parse expression manually, handle parentheses by recursive evaluation, compute step by step.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- Complex parsing logic
-- Hard to handle nested parentheses
-- Error-prone
-- Doesn't leverage stack structure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use stack to handle parentheses and operator precedence."
-
-**Improved Solution**: Use stack to track signs and numbers. When encountering '(', push current result and sign. When ')', pop and combine.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Stack naturally handles parentheses
-- Cleaner parsing logic
-- Handles nested parentheses correctly
-- O(n) time is optimal
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Stack-based approach is optimal. Track sign and number separately."
-
-**Best Solution**: Stack-based approach is optimal. Use stack to track signs for parentheses. Process numbers and operators, handle unary minus. Stack enables correct evaluation order.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Stack is perfect for nested structures
-2. Sign tracking handles unary operations
-3. O(n) time is optimal - single pass
-4. O(n) space for stack is necessary
-
-## Solution 1: Stack-Based Approach
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n) - Stack for parentheses
@@ -154,98 +129,29 @@ public:
 };
 ```
 
-## Solution 2: Optimized Recursive Approach
+### Solution Explanation
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Recursion stack
+**Approach:** Monotonic stack (this problem)
 
-Use recursion to naturally handle nested parentheses. This approach is cleaner and more intuitive.
+**Key idea:** 1. **Stack for Parentheses**: Save state (result and sign) before `(`, restore after `)`
 
-```cpp
-class Solution {
-private:
-    int parseExpr(const string& s, int& idx) {
-        int result = 0;
-        int sign = 1;
-        int num = 0;
-        
-        while(idx < s.length()) {
-            char c = s[idx];
-            
-            if(isdigit(c)) {
-                num = num * 10 + (c - '0');
-            } else if(c == '+') {
-                result += sign * num;
-                sign = 1;
-                num = 0;
-            } else if(c == '-') {
-                result += sign * num;
-                sign = -1;
-                num = 0;
-            } else if(c == '(') {
-                idx++;  // Skip '('
-                num = parseExpr(s, idx);  // Recursive call
-            } else if(c == ')') {
-                result += sign * num;
-                return result;  // Return to parent
-            }
-            
-            idx++;
-        }
-        
-        return result + sign * num;
-    }
-    
-public:
-    int calculate(string s) {
-        int idx = 0;
-        return parseExpr(s, idx);
-    }
-};
-```
+**How the code works:**
+1. **Stack for Parentheses**: Save state (result and sign) before `(`, restore after `)`
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-## Solution 3: Simplified Iterative (No Stack for Numbers)
+**Walkthrough** — input `s = "1 + 1"`, expected output `2`:
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Only for signs
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
-A cleaner iterative approach that only uses stack for signs, not numbers.
-
-```cpp
-class Solution {
-public:
-    int calculate(string s) {
-        stack<int> signs;
-        int sign = 1;
-        int result = 0;
-        int num = 0;
-        
-        signs.push(1);  // Initial sign
-        
-        for(char c : s) {
-            if(isdigit(c)) {
-                num = num * 10 + (c - '0');
-            } else if(c == '+' || c == '-') {
-                result += signs.top() * sign * num;
-                num = 0;
-                sign = (c == '+') ? 1 : -1;
-            } else if(c == '(') {
-                signs.push(signs.top() * sign);
-                sign = 1;
-            } else if(c == ')') {
-                result += signs.top() * sign * num;
-                num = 0;
-                signs.pop();
-                sign = 1;
-            }
-        }
-        
-        result += signs.top() * sign * num;
-        return result;
-    }
-};
-```
-
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Stack-Based** | O(n) | O(n) | Explicit state management |
+| **Recursive** | O(n) | O(n) | Natural for nesting |
+| **Sign Stack** | O(n) | O(n) | Only stores signs |
 ## How the Algorithms Work
 
 ### Key Insight: Sign Propagation
@@ -376,14 +282,6 @@ Final: result += signs.top()*sign*num = 0 + 1*1*0 = 0
 But the answer should be 0, which is correct! (1 + (2-3) = 1 + (-1) = 0)
 ```
 
-## Key Insights
-
-1. **Stack for Parentheses**: Save state (result and sign) before `(`, restore after `)`
-2. **Sign Handling**: Track current sign (1 or -1) for each number
-3. **Number Building**: Accumulate multi-digit numbers
-4. **Final Number**: Don't forget to add the last number at the end
-5. **Recursion Alternative**: Natural way to handle nested parentheses
-
 ## Algorithm Breakdown
 
 ### Solution 1: Stack-Based
@@ -496,15 +394,14 @@ result += signs.top() * sign * num;
 - `sign`: Current operator sign
 - `num`: Current number
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | **Stack-Based** | O(n) | O(n) | Explicit state management |
 | **Recursive** | O(n) | O(n) | Natural for nesting |
 | **Sign Stack** | O(n) | O(n) | Only stores signs |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single number**: `"42"` → `42`
 2. **Negative start**: `"-1"` → `-1` (unary minus)
@@ -512,8 +409,6 @@ result += signs.top() * sign * num;
 4. **Only spaces**: `"   "` → `0`
 5. **Multiple spaces**: `"1  +  2"` → `3`
 6. **Empty parentheses**: `"()"` → `0` (handled by current number being 0)
-
-## Common Mistakes
 
 1. **Forgetting final number**: Not adding `sign * curr` at the end
 2. **Wrong stack order**: Pushing/popping in wrong order
@@ -584,10 +479,10 @@ After ')':
 
 ## Related Problems
 
-- [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) - Adds `*` and `/`
-- [772. Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/) - All operators + parentheses
-- [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) - Postfix notation
-- [394. Decode String](https://leetcode.com/problems/decode-string/) - Nested structure evaluation
+- [227. Basic Calculator II](https://www.leetcode.com/problems/basic-calculator-ii/) - Adds `*` and `/`
+- [772. Basic Calculator III](https://www.leetcode.com/problems/basic-calculator-iii/) - All operators + parentheses
+- [150. Evaluate Reverse Polish Notation](https://www.leetcode.com/problems/evaluate-reverse-polish-notation/) - Postfix notation
+- [394. Decode String](https://www.leetcode.com/problems/decode-string/) - Nested structure evaluation
 
 ## Pattern Recognition
 
@@ -624,3 +519,20 @@ Solution 3 only stores signs, not results, which can be more memory-efficient in
 
 *This problem is the foundation for more complex calculator problems. Understanding how to handle parentheses with a stack is crucial for expression evaluation.*
 
+## Key Takeaways
+
+1. **Stack for Parentheses**: Save state (result and sign) before `(`, restore after `)`
+2. **Sign Handling**: Track current sign (1 or -1) for each number
+3. **Number Building**: Accumulate multi-digit numbers
+4. **Final Number**: Don't forget to add the last number at the end
+5. **Recursion Alternative**: Natural way to handle nested parentheses
+
+## References
+
+- [LC 224: Basic Calculator on LeetCode](https://www.leetcode.com/problems/basic-calculator/)
+- [LeetCode Discuss — LC 224: Basic Calculator](https://www.leetcode.com/problems/basic-calculator/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/basic-calculator/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

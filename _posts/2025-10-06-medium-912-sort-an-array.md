@@ -4,9 +4,6 @@ title: "[Medium] 912. Sort an Array"
 date: 2025-10-06 00:00:00 -0000
 categories: leetcode algorithm medium cpp sorting merge-sort heap-sort counting-sort data-structures divide-conquer problem-solving
 ---
-
-# [Medium] 912. Sort an Array
-
 Given an array of integers `nums`, sort the array in ascending order and return it.
 
 You must solve the problem in **O(n log n)** time complexity and with the smallest possible space complexity.
@@ -30,62 +27,39 @@ Output: [0,0,1,1,2,5]
 - `1 <= nums.length <= 5 * 10^4`
 - `-5 * 10^4 <= nums[i] <= 5 * 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Merge Sort** guarantees O(n log n) time complexity and is stable
 
-1. **Sorting algorithm**: Can we use built-in sort? (Assumption: Problem asks to implement sorting algorithm - need to implement manually)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Sort order**: What order should we sort in? (Assumption: Ascending order - smallest to largest)
 
-3. **Stability**: Does sort need to be stable? (Assumption: Not specified, but stable sort is preferred - maintain relative order of equal elements)
 
-4. **In-place sorting**: Should we sort in-place? (Assumption: Can modify input array - typically O(n) space for merge sort)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
-5. **Time complexity**: What time complexity is expected? (Assumption: O(n log n) - optimal comparison-based sorting)
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to sort array. Let me use bubble sort or selection sort."
+## Common Approaches
 
-**Naive Solution**: Use simple O(n²) sorting algorithms like bubble sort or selection sort.
+Typical techniques for this pattern:
 
-**Complexity**: O(n²) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Brute force | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| **Sort + scan** *(this problem)* | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
-**Issues**:
-- O(n²) time is too slow for large arrays
-- Doesn't meet O(n log n) requirement
-- Very inefficient
-- Not optimal solution
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I should use O(n log n) sorting algorithm. Merge sort or quick sort."
-
-**Improved Solution**: Implement merge sort - divide array into halves, sort recursively, merge sorted halves.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Improvements**:
-- O(n log n) time meets requirement
-- Stable sorting algorithm
-- Handles all cases correctly
-- Can be optimized further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Merge sort is optimal. Can also use heap sort or counting sort for specific cases."
-
-**Best Solution**: Merge sort is optimal for general case. Can also use heap sort (O(1) space) or counting sort (O(n+k) for small range).
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Key Realizations**:
-1. Merge sort is standard O(n log n) algorithm
-2. O(n log n) time is optimal for comparison-based sorting
-3. O(n) space for merge sort is acceptable
-4. Alternative algorithms exist for specific cases
-
-## Solution 1: Merge Sort
+## Solution
 
 **Time Complexity:** O(n log n)  
 **Space Complexity:** O(n)
@@ -152,115 +126,23 @@ private:
 };
 ```
 
-### How Merge Sort Works:
+### Solution Explanation
 
-1. **Divide**: Split the array into two halves
-2. **Conquer**: Recursively sort both halves
-3. **Combine**: Merge the sorted halves back together
+**Approach:** Sort + scan (this problem)
 
-The merge operation compares elements from both halves and places them in the correct order.
+**Key idea:** 1. **Merge Sort** guarantees O(n log n) time complexity and is stable
 
-## Solution 2: Heap Sort
+**How the code works:**
+1. **Merge Sort** guarantees O(n log n) time complexity and is stable
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(1)
+**Walkthrough** — input `nums = [5,2,3,1]`, expected output `[1,2,3,5]`:
 
-Heap sort uses a max-heap to sort the array in-place.
-
-```cpp
-class Solution {
-private:
-    void heapify(vector<int>& arr, int n, int i) {
-        int largest = i, left = 2 * i + 1, right = 2 * i + 2;
-        
-        // Find the largest among root and children
-        if(left < n && arr[left] > arr[largest]) {
-            largest = left;
-        }
-        if(right < n && arr[right] > arr[largest]) {
-            largest = right;
-        }
-        
-        // If largest is not root, swap and heapify
-        if(largest != i) {
-            swap(arr[i], arr[largest]);
-            heapify(arr, n, largest);
-        }
-    }
-    
-    void heapSort(vector<int>& arr) {
-        int n = arr.size();
-        
-        // Build max heap
-        for(int i = n / 2 - 1; i >= 0; i--) {
-            heapify(arr, n, i);
-        }
-        
-        // Extract elements from heap one by one
-        for(int i = n - 1; i >= 0; i--) {
-            swap(arr[0], arr[i]);  // Move max to end
-            heapify(arr, i, 0);    // Heapify reduced heap
-        }
-    }
-
-public:
-    vector<int> sortArray(vector<int>& nums) {
-        heapSort(nums);
-        return nums;
-    }
-};
-```
-
-### How Heap Sort Works:
-
-1. **Build Max Heap**: Convert array to max-heap
-2. **Extract Maximum**: Repeatedly extract the maximum element and place it at the end
-3. **Heapify**: Maintain heap property after each extraction
-
-## Solution 3: Counting Sort
-
-**Time Complexity:** O(n + k) where k is the range of input  
-**Space Complexity:** O(k)
-
-Counting sort works well when the range of numbers is small.
-
-```cpp
-class Solution {
-private:    
-    void countSort(vector<int>& arr) {
-        unordered_map<int, int> counts;
-        int minVal = *min_element(arr.begin(), arr.end());
-        int maxVal = *max_element(arr.begin(), arr.end());
-        
-        // Count frequency of each element
-        for(auto& val: arr) counts[val]++;
-        
-        // Reconstruct sorted array
-        int idx = 0;
-        for(int val = minVal; val <= maxVal; val++) {
-            if(counts.find(val) != counts.end()) {
-                while(counts[val] > 0) {
-                    arr[idx] = val;
-                    idx++;
-                    counts[val] -= 1;
-                }
-            }
-        }
-    }
-
-public:
-    vector<int> sortArray(vector<int>& nums) {
-        countSort(nums);
-        return nums;
-    }
-};
-```
-
-### How Counting Sort Works:
-
-1. **Count**: Count frequency of each element
-2. **Reconstruct**: Place elements back in sorted order based on their counts
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Algorithm Comparison
 
 | Algorithm | Time Complexity | Space Complexity | Stability | In-Place |
@@ -275,15 +157,28 @@ public:
 - **Heap Sort**: When you need in-place sorting and don't care about stability
 - **Counting Sort**: When the range of numbers is small compared to array size
 
-## Key Insights
+## Related Problems
+
+- [75. Sort Colors](https://www.leetcode.com/problems/sort-colors/) - Counting sort variant
+- [148. Sort List](https://www.leetcode.com/problems/sort-list/) - Merge sort on linked list
+- [215. Kth Largest Element in an Array](https://www.leetcode.com/problems/kth-largest-element-in-an-array/) - Heap-based approach
+
+## References
+
+- [LC 912: Sort an Array on LeetCode](https://www.leetcode.com/problems/sort-an-array/)
+- [LeetCode Discuss — LC 912: Sort an Array](https://www.leetcode.com/problems/sort-an-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/sort-an-array/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Merge Sort** guarantees O(n log n) time complexity and is stable
 2. **Heap Sort** is in-place but not stable
 3. **Counting Sort** can be very fast when the range is small
 4. All three solutions meet the O(n log n) requirement for this problem
-
-## Related Problems
-
-- [75. Sort Colors](https://leetcode.com/problems/sort-colors/) - Counting sort variant
-- [148. Sort List](https://leetcode.com/problems/sort-list/) - Merge sort on linked list
-- [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) - Heap-based approach

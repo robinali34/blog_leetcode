@@ -4,9 +4,6 @@ title: "[Medium] 281. Zigzag Iterator"
 date: 2025-12-10 00:00:00 -0800
 categories: leetcode algorithm medium cpp design iterator problem-solving
 ---
-
-# [Medium] 281. Zigzag Iterator
-
 Given two 1d vectors, implement an iterator to return their elements alternately.
 
 ## Examples
@@ -37,35 +34,39 @@ Output: [1]
 - `1 <= v1.length + v2.length <= 2000`
 - `-2^31 <= v1[i], v2[i] <= 2^31 - 1`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given two 1d vectors, implement an iterator to return their elements alternately.
 
-1. **Zigzag pattern**: What is the zigzag iteration pattern? (Assumption: Alternate between v1 and v2 - take one element from v1, then one from v2, repeat)
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
 
-2. **Unequal lengths**: What happens when vectors have different lengths? (Assumption: Continue with remaining elements from the longer vector after shorter one is exhausted)
 
-3. **Empty vectors**: How should we handle empty vectors? (Assumption: Skip empty vectors and continue with non-empty ones)
 
-4. **Iterator interface**: What methods should the iterator support? (Assumption: next() returns next element, hasNext() checks if more elements exist)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-5. **Return value**: What should next() return when no elements? (Assumption: Typically throw exception or return sentinel value - but per problem, vectors are non-empty initially)
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Store both vectors and maintain two separate indices. Alternate between vectors by checking which one has more elements remaining. When one vector is exhausted, continue with the other. This approach works but becomes complex when handling edge cases like empty vectors or different lengths. The logic for cycling through vectors and tracking positions can be error-prone.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
+| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
+| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
+| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
 
-Use a single array to store all elements in zigzag order during initialization. Flatten the vectors by interleaving elements: take one from v1, one from v2, repeat until both are exhausted. Then implement a simple iterator over this flattened array. This simplifies next() and hasNext() to O(1) operations, but uses O(n) extra space and requires preprocessing time.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a queue-based approach that stores (vector_index, element_index) pairs. Initialize by adding the first position of each non-empty vector to the queue. For next(), pop from the queue, return the element, and if that vector has more elements, push the next position back into the queue. This naturally maintains zigzag order, handles empty vectors gracefully, and easily extends to k vectors. Time complexity is O(1) per operation, and space is O(k) where k is the number of vectors, making it both efficient and extensible.
-
-## Solution 1: Pointer-Based Approach
+## Solution
 
 **Time Complexity:** O(1) for `next()` and `hasNext()`  
 **Space Complexity:** O(n) where n is the total number of elements
@@ -122,6 +123,22 @@ public:
  */
 ```
 
+### Solution Explanation
+
+**Approach:** Hash map + list (this problem)
+
+**Key idea:** Given two 1d vectors, implement an iterator to return their elements alternately.
+
+**How the code works:**
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+
+**Walkthrough** — input `v1 = [1,2], v2 = [3,4,5,6]`, expected output `[1,3,2,4,5,6]`:
+
+By calling next repeatedly until hasNext returns false, 
+             the order of elements returned by next should be: [1,3,2,4,5,6].
+
 ### How Solution 1 Works
 
 1. **Initialization**: Store both vectors in `cache` and calculate total number of elements
@@ -133,78 +150,6 @@ public:
    - When we complete a full cycle (`pVec == 0`), increment `pElem`
 4. **Skip Empty Vectors**: If current vector is exhausted, skip to next vector
 5. **Termination**: Track `outputCount` to know when all elements are returned
-
-## Solution 2: Queue-Based Approach
-
-**Time Complexity:** O(1) for `next()` and `hasNext()`  
-**Space Complexity:** O(k) where k is the number of vectors
-
-This approach uses a queue to store pairs of `(vector_index, element_index)`, making it easier to handle vectors of different lengths and extendable to k vectors.
-
-```cpp
-class ZigzagIterator {
-private:
-    vector<vector<int>> cache;
-    queue<pair<int, int>> q;
-
-public:
-    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
-        cache.push_back(v1);
-        cache.push_back(v2);
-        for(int i = 0; i < (int)cache.size(); i++) {
-            if(!cache[i].empty()) {
-                q.push({i, 0});
-            }
-        }
-    }
-
-    int next() {
-        if (!hasNext()) {
-            throw runtime_error("No more elements");
-        }
-        auto [vec_index, elem_index] = q.front();
-        q.pop();
-        int next_elem_index = elem_index + 1;
-        if(next_elem_index < cache[vec_index].size()) {
-            q.push({vec_index, next_elem_index});
-        }
-        return cache[vec_index][elem_index];
-    }
-
-    bool hasNext() {
-        return !q.empty();
-    }
-};
-
-/**
- * Your ZigzagIterator object will be instantiated and called as such:
- * ZigzagIterator i(v1, v2);
- * while (i.hasNext()) cout << i.next();
- */
-```
-
-### How Solution 2 Works
-
-1. **Initialization**: Store vectors in `cache` and add initial positions `(vector_index, 0)` for non-empty vectors to the queue
-2. **Queue Management**: 
-   - Queue stores `(vector_index, element_index)` pairs
-   - Each pair represents the next element to be returned from that vector
-3. **Next Element**:
-   - Pop front of queue to get next element
-   - If vector has more elements, push `(vector_index, element_index + 1)` back to queue
-4. **Zigzag Pattern**: Queue naturally maintains zigzag order as we cycle through vectors
-5. **Termination**: Queue is empty when all elements are processed
-
-## Comparison of Approaches
-
-| Aspect | Pointer-Based | Queue-Based |
-|--------|---------------|-------------|
-| **Time Complexity** | O(1) | O(1) |
-| **Space Complexity** | O(n) | O(k) where k = number of vectors |
-| **Extensibility** | Requires modification for k vectors | Easily extends to k vectors |
-| **Code Clarity** | More complex pointer logic | Cleaner, more intuitive |
-| **Handling Empty Vectors** | Requires skip logic | Automatically handled |
-
 ## Example Walkthrough
 
 **Input:** `v1 = [1,2]`, `v2 = [3,4,5,6]`
@@ -286,12 +231,31 @@ public:
 };
 ```
 
+## Key Takeaways
+
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
+
+## References
+
+- [LC 281: Zigzag Iterator on LeetCode](https://www.leetcode.com/problems/zigzag-iterator/)
+- [LeetCode Discuss — LC 281: Zigzag Iterator](https://www.leetcode.com/problems/zigzag-iterator/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/zigzag-iterator/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) - Iterator pattern for BST
-- [341. Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/) - Iterator for nested structures
-- [251. Flatten 2D Vector](https://leetcode.com/problems/flatten-2d-vector/) - Flatten 2D vector to 1D
-- [1424. Diagonal Traverse II](https://leetcode.com/problems/diagonal-traverse-ii/) - Diagonal traversal pattern
+- [173. Binary Search Tree Iterator](https://www.leetcode.com/problems/binary-search-tree-iterator/) - Iterator pattern for BST
+- [341. Flatten Nested List Iterator](https://www.leetcode.com/problems/flatten-nested-list-iterator/) - Iterator for nested structures
+- [251. Flatten 2D Vector](https://www.leetcode.com/problems/flatten-2d-vector/) - Flatten 2D vector to 1D
+- [1424. Diagonal Traverse II](https://www.leetcode.com/problems/diagonal-traverse-ii/) - Diagonal traversal pattern
 
 ## Pattern Recognition
 
@@ -309,4 +273,3 @@ Similar patterns:
 - Iterator for complex data structures
 - Lazy evaluation
 - Stream processing
-

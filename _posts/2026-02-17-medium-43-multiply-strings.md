@@ -6,7 +6,6 @@ categories: [leetcode, medium, string, math, simulation]
 tags: [leetcode, medium, string, math, big-integer, simulation]
 permalink: /2026/02/17/medium-43-multiply-strings/
 ---
-
 Given two non-negative integers represented as strings `num1` and `num2`, return their product as a string. You **cannot** convert the inputs to integers directly (numbers can be very large).
 
 ## Examples
@@ -30,6 +29,17 @@ Output: "56088"
 - `1 <= num1.length, num2.length <= 200`
 - `num1` and `num2` consist of digits only
 - Neither contains leading zeros (except `"0"` itself)
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
 ## Thinking Process
 
@@ -71,6 +81,22 @@ This is because position `i` from the end of `num1` and position `j` from the en
 
 Wait -- `123 × 45 = 5535`. Correct!
 
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
 ## Approach: Grade School Multiplication -- $O(nm)$
 
 Multiply each digit pair, accumulate into a result array with carry propagation.
@@ -106,11 +132,23 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n \times m)$
-**Space**: $O(n + m)$ for the result array
+### Solution Explanation
 
+**Approach:** Two pointers on string (this problem)
+
+**Key idea:** This is **big integer multiplication** -- simulate digit-by-digit multiplication exactly like grade school arithmetic.
+
+**How the code works:**
+- The product has **at most `n + m` digits**
+- Allocate a result array of size `n + m`
+-----------
+
+**Walkthrough** — input `num1 = "2", num2 = "3"`, expected output `"6"`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Common Mistakes
 
 - Forgetting the early return for `"0"` inputs (otherwise you get `"000..."`)
@@ -126,9 +164,15 @@ public:
 
 ## Related Problems
 
-- [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) -- big integer addition on linked lists
-- [67. Add Binary](https://leetcode.com/problems/add-binary/) -- string addition with carry
-- [415. Add Strings](https://leetcode.com/problems/add-strings/) -- big integer addition on strings
+- [2. Add Two Numbers](https://www.leetcode.com/problems/add-two-numbers/) -- big integer addition on linked lists
+- [67. Add Binary](https://www.leetcode.com/problems/add-binary/) -- string addition with carry
+- [415. Add Strings](https://www.leetcode.com/problems/add-strings/) -- big integer addition on strings
+
+## References
+
+- [LC 43: Multiply Strings on LeetCode](https://www.leetcode.com/problems/multiply-strings/)
+- [LeetCode Discuss — LC 43: Multiply Strings](https://www.leetcode.com/problems/multiply-strings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/multiply-strings/editorial/) *(may require premium)*
 
 ## Template Reference
 

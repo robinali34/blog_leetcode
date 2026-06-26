@@ -6,11 +6,6 @@ categories: [leetcode, easy, string, array]
 permalink: /2026/01/18/easy-3110-score-of-a-string/
 tags: [leetcode, easy, string, array, simulation, ascii]
 ---
-
-# 3110. Score of a String
-
-## Problem Statement
-
 You are given a string `s`. The **score** of a string is defined as the sum of the absolute difference between the ASCII values of adjacent characters.
 
 Return the **score** of `s`.
@@ -42,56 +37,38 @@ So, the score of s would be |122 - 97| + |97 - 122| = 25 + 25 = 50.
 - `2 <= s.length <= 100`
 - `s` consists only of lowercase English letters.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Simple Simulation**: No complex algorithm needed, just iterate and sum
 
-1. **Score calculation**: How is the score calculated? (Assumption: Sum of absolute differences between ASCII values of adjacent characters)
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
 
-2. **Adjacent pairs**: Which pairs should we consider? (Assumption: All consecutive pairs - (s[0], s[1]), (s[1], s[2]), ..., (s[n-2], s[n-1]))
 
-3. **Character set**: What characters can appear in the string? (Assumption: Only lowercase English letters 'a'-'z' - 26 characters)
 
-4. **Empty string**: What should we return for an empty string? (Assumption: Based on constraints, length >= 2, so empty string not possible)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Single character**: What if string has only one character? (Assumption: Based on constraints, length >= 2, so single character not possible)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-Iterate through the string, for each adjacent pair, calculate the absolute difference of their ASCII values and add to a running sum. This straightforward approach has O(n) time complexity, which is already optimal. However, we can consider if there's a more elegant implementation.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Use a single loop with index i from 0 to n-2, calculate abs(s[i] - s[i+1]) for each pair. This is essentially the same as the brute-force but written more concisely. The time complexity remains O(n), which is optimal.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use a single pass: iterate through the string with index i from 0 to n-2, calculate the absolute difference between s[i] and s[i+1], and accumulate the sum. This achieves O(n) time with O(1) space, which is optimal. The problem is straightforward and doesn't require complex optimizations - the key is understanding that we need to process all adjacent pairs exactly once.
-
-## Solution Approach
-
-This is a straightforward **simulation** problem. We need to:
-1. Iterate through all adjacent pairs of characters
-2. Calculate the absolute difference between their ASCII values
-3. Sum all the differences
-
-### Key Insights:
-
-1. **Adjacent Pairs**: Only consider consecutive characters `(s[i], s[i+1])`
-2. **Absolute Difference**: Use `abs()` to get positive values
-3. **ASCII Values**: Characters are automatically converted to integers in C++
-4. **Single Pass**: Process the string in one iteration
-
-### Algorithm:
-
-1. Initialize `sum = 0`
-2. Loop from `i = 0` to `i = s.length() - 2`
-3. For each pair `(s[i], s[i+1])`:
-   - Calculate `abs(s[i] - s[i+1])`
-   - Add to `sum`
-4. Return `sum`
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
 ## Solution
 
@@ -108,51 +85,23 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Initialization**: `sum = 0` to accumulate the score
-2. **Iteration**: Loop from `0` to `s.length() - 2` to access all adjacent pairs
-   - Note: Cast `s.length()` to `int` to avoid unsigned integer issues
-3. **Calculation**: For each adjacent pair:
-   - `s[i] - s[i+1]` computes the difference in ASCII values
-   - `abs()` ensures we get the absolute (positive) difference
-   - Add to `sum`
-4. **Return**: Return the total sum
+**Approach:** Two pointers on string (this problem)
 
-### Example Walkthrough:
+**Key idea:** 1. **Simple Simulation**: No complex algorithm needed, just iterate and sum
 
-**Input:** `s = "hello"`
-
-```
-i=0: |'h' - 'e'| = |104 - 101| = 3, sum = 3
-i=1: |'e' - 'l'| = |101 - 108| = 7, sum = 10
-i=2: |'l' - 'l'| = |108 - 108| = 0, sum = 10
-i=3: |'l' - 'o'| = |108 - 111| = 3, sum = 13
-Return: 13 ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - Single pass through the string
-  - n = length of string
-  - Each iteration does constant work
-  - Overall: O(n)
-
-- **Space Complexity:** O(1)
-  - Only using a few variables (`sum`, `i`)
-  - No additional data structures
-  - Overall: O(1) extra space
-
-## Key Insights
-
+**How the code works:**
 1. **Simple Simulation**: No complex algorithm needed, just iterate and sum
-2. **ASCII Conversion**: Characters automatically convert to integers in C++
-3. **Boundary Handling**: Loop from `0` to `length-2` to access all adjacent pairs
-4. **Type Safety**: Cast `s.length()` to `int` to avoid unsigned comparison issues
-5. **Absolute Value**: Always use `abs()` to ensure positive differences
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
 
-## Edge Cases
+**Walkthrough** — input `s = "hello"`, expected output `13`:
+
+The ASCII values of the characters in s are: 'h' = 104, 'e' = 101, 'l' = 108, 'l' = 108, 'o' = 111.
+So, the score of s would be |104 - 101| + |101 - 108| + |108 - 108| + |108 - 111| = 3 + 7 + 0 + 3 = 13.
+## Common Mistakes
 
 1. **Minimum length (n=2)**: `s = "ab"` → `|97 - 98| = 1`
 2. **Same characters**: `s = "aa"` → `|97 - 97| = 0`
@@ -160,37 +109,16 @@ Return: 13 ✓
 4. **Repeated characters**: `s = "aaa"` → `0 + 0 = 0`
 5. **Alternating**: `s = "abab"` → `1 + 1 + 1 = 3`
 
-## Common Mistakes
-
 1. **Off-by-one error**: Looping to `s.length()` instead of `s.length() - 1`
 2. **Unsigned comparison**: Not casting `s.length()` to `int` can cause issues
 3. **Forgetting absolute value**: Using `s[i] - s[i+1]` without `abs()`
 4. **Empty string**: Not handling (though constraints guarantee `n >= 2`)
 5. **Integer overflow**: Not an issue here since ASCII values are small (97-122)
 
-## Alternative Approaches
-
-### Using `std::accumulate` (C++)
-
-```cpp
-class Solution {
-public:
-    int scoreOfString(string s) {
-        int sum = 0;
-        for(int i = 0; i < (int)s.length() - 1; i++) {
-            sum += abs(s[i] - s[i + 1]);
-        }
-        return sum;
-    }
-};
-```
-
-The provided solution is already optimal. Alternative approaches would be similar in complexity.
-
 ## Related Problems
 
-- [LC 3111: Minimum Rectangles to Cover Points](https://leetcode.com/problems/minimum-rectangles-to-cover-points/) - Similar string/array processing
-- [LC 3112: Minimum Time to Visit Disappearing Nodes](https://leetcode.com/problems/minimum-time-to-visit-disappearing-nodes/) - Graph traversal
+- [LC 3111: Minimum Rectangles to Cover Points](https://www.leetcode.com/problems/minimum-rectangles-to-cover-points/) - Similar string/array processing
+- [LC 3112: Minimum Time to Visit Disappearing Nodes](https://www.leetcode.com/problems/minimum-time-to-visit-disappearing-nodes/) - Graph traversal
 - [LC 13: Roman to Integer](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-13-roman-to-integer/) - Character value processing
 - [LC 171: Excel Sheet Column Number](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-171-excel-sheet-column-number/) - Character to number conversion
 
@@ -198,3 +126,20 @@ The provided solution is already optimal. Alternative approaches would be simila
 
 *This problem is a simple **simulation** exercise that demonstrates basic string iteration and ASCII value manipulation. The key is to iterate through adjacent pairs and sum their absolute differences.*
 
+## Key Takeaways
+
+1. **Simple Simulation**: No complex algorithm needed, just iterate and sum
+2. **ASCII Conversion**: Characters automatically convert to integers in C++
+3. **Boundary Handling**: Loop from `0` to `length-2` to access all adjacent pairs
+4. **Type Safety**: Cast `s.length()` to `int` to avoid unsigned comparison issues
+5. **Absolute Value**: Always use `abs()` to ensure positive differences
+
+## References
+
+- [LC 3110: Score of a String on LeetCode](https://www.leetcode.com/problems/score-of-a-string/)
+- [LeetCode Discuss — LC 3110: Score of a String](https://www.leetcode.com/problems/score-of-a-string/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/score-of-a-string/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

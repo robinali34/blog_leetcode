@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, matrix, simulation]
 permalink: /2026/01/20/medium-498-diagonal-traverse/
 tags: [leetcode, medium, array, matrix, simulation]
 ---
-
-# 498. Diagonal Traverse
-
-## Problem Statement
-
 Given an `m x n` matrix `mat`, return an array of all the elements of the matrix in a **diagonal order**.
 
 ## Examples
@@ -35,47 +30,39 @@ Output: [1,2,3,4]
 - `1 <= m * n <= 10^4`
 - `-10^5 <= mat[i][j] <= 10^5`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an `m x n` matrix `mat`, return an array of all the elements of the matrix in a **diagonal order**.
 
-1. **Traversal direction**: What is the starting direction and how does it alternate? (Assumption: Start going up-right, then alternate between up-right and down-left)
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
 
-2. **Boundary handling**: What happens when we hit a boundary? (Assumption: Change direction and adjust position - up-right becomes down-left when hitting top or right edge)
 
-3. **Matrix shape**: Can the matrix be non-square (rectangular)? (Assumption: Yes - m and n can be different)
 
-4. **Output format**: Should we return a 1D array with all elements? (Assumption: Yes - return elements in diagonal traversal order as a 1D array)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
-5. **Empty matrix**: How should we handle an empty matrix? (Assumption: Return empty array)
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Identify all diagonals (elements with same (row + col) sum). For each diagonal, collect elements and append to result, reversing order for even-indexed diagonals. This requires identifying diagonal groups, which can be done by grouping elements by (row + col) sum. However, the traversal order and direction changes need careful handling.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Row/column traversal** *(this problem)* | $O(nm)$ | $O(1)$ | Simulation, spiral |
+| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
+| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
+| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
 
-Use BFS starting from (0,0). Process diagonals level by level, where each level represents elements with the same (row + col) sum. For each level, collect elements and reverse if needed based on diagonal index. This works but requires careful level tracking and direction management.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a hash map to group elements by diagonal index (row + col). Iterate through the matrix, adding each element to its diagonal bucket. Then iterate through diagonals in order (0, 1, 2, ...), and for each diagonal, reverse the order if diagonal index is even (for upward direction). This achieves O(m × n) time where m and n are matrix dimensions, and O(m × n) space for the hash map, which is optimal since we must visit all elements. Alternatively, simulate the traversal directly by tracking current position and direction, but the hash map approach is simpler and more intuitive.
-
-## Solution Approach (Direction Simulation)
-
-We simulate moving along diagonals with two directions:
-
-- **Up-right**: `(-1, +1)`
-- **Down-left**: `(+1, -1)`
-
-Whenever the next move would go **out of bounds**, we “bounce” by:
-
-- flipping direction, and
-- moving to the next valid boundary cell (either move right or move down depending on which edge we hit and the current direction).
-
-## C++ Solution
+## Solution
 
 {% raw %}
 ```cpp
@@ -110,16 +97,50 @@ private:
     const vector<vector<int>> DIRS = {{-1, 1}, {1, -1}};
 };
 ```
-{% endraw %}
 
-## Complexity Analysis
+### Solution Explanation
+
+**Approach:** Row/column traversal (this problem)
+
+**Key idea:** Given an `m x n` matrix `mat`, return an array of all the elements of the matrix in a **diagonal order**.
+
+**How the code works:**
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
+
+**Walkthrough** — input `mat = [[1,2,3],[4,5,6],[7,8,9]]`, expected output `[1,2,4,7,5,3,6,8,9]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 - **Time Complexity:** O(m × n) — visit each cell exactly once
 - **Space Complexity:** O(1) extra space (excluding the output array)
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 
 ## Related Problems
 
-- [LC 54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
-- [LC 1424. Diagonal Traverse II](https://leetcode.com/problems/diagonal-traverse-ii/)
+- [LC 54. Spiral Matrix](https://www.leetcode.com/problems/spiral-matrix/)
+- [LC 1424. Diagonal Traverse II](https://www.leetcode.com/problems/diagonal-traverse-ii/)
 
+## Key Takeaways
 
+- **Pattern:** Row/column traversal (this problem)
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+
+## References
+
+- [LC 498: Diagonal Traverse on LeetCode](https://www.leetcode.com/problems/diagonal-traverse/)
+- [LeetCode Discuss — LC 498: Diagonal Traverse](https://www.leetcode.com/problems/diagonal-traverse/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/diagonal-traverse/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

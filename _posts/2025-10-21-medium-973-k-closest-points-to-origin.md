@@ -6,14 +6,10 @@ categories: leetcode medium array sorting
 permalink: /posts/2025-10-21-medium-973-k-closest-points-to-origin/
 tags: [leetcode, medium, array, sorting, heap, quickselect]
 ---
-
-# LC 973: K Closest Points to Origin
-
 **Difficulty:** Medium  
 **Category:** Array, Sorting, Heap, Quickselect  
 **Companies:** Amazon, Google, Facebook, Microsoft
 
-## Problem Statement
 
 Given an array of `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane and an integer `k`, return the `k` closest points to the origin `(0, 0)`.
 
@@ -21,8 +17,7 @@ The distance between two points on the X-Y plane is the Euclidean distance (i.e.
 
 You may return the answer in **any order**. The answer is **guaranteed** to be **unique** (except for the order that it is in).
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: points = [[1,1],[2,2],[3,3]], k = 1
@@ -41,40 +36,22 @@ Output: [[3,3],[-2,4]]
 Explanation: The answer [[-2,4],[3,3]] would also be accepted.
 ```
 
-### Constraints
-
+## Constraints
 - `1 <= k <= points.length <= 10^4`
 - `-10^4 <= xi, yi <= 10^4`
 
-## Clarification Questions
+## Common Approaches
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Typical techniques for this pattern:
 
-1. **Distance calculation**: How is distance calculated? (Assumption: Euclidean distance from origin - sqrt(x² + y²), can use squared distance for comparison)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Min/max heap** *(this problem)* | $O(n \log k)$ | $O(k)$ | Top-K, streaming median |
+| Two heaps | $O(n \log n)$ | $O(n)$ | Median from data stream |
+| Heap + lazy deletion | $O(n \log n)$ | $O(n)$ | Delayed removal |
+| Priority-driven search | $O(n \log n)$ | $O(n)$ | Dijkstra, best-first expansion |
 
-2. **K closest**: What does "k closest" mean? (Assumption: K points with smallest distances to origin)
-
-3. **Return format**: What should we return? (Assumption: Array of k closest points - can be in any order)
-
-4. **Tie-breaking**: What if multiple points have same distance? (Assumption: Return any k points - order doesn't matter)
-
-5. **K value**: What is the range of k? (Assumption: Per constraints, 1 <= k <= points.length)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Calculate the distance from origin for each point, sort all points by distance, and return the first k points. This approach has O(n log n) time complexity due to sorting, which works but is not optimal when k is much smaller than n.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use a max-heap of size k: iterate through all points, calculate distances, and maintain a max-heap of the k smallest distances. When the heap size exceeds k, remove the maximum element. After processing all points, return the k points in the heap. This achieves O(n log k) time, which is better than sorting when k << n.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use quickselect (partial sorting): use a partition-based algorithm similar to quicksort to find the k-th smallest distance. Partition the array so that the first k elements are the k smallest distances. Then return these k points. This achieves O(n) average time with O(1) space (if we modify the array in-place), which is optimal. Alternatively, the max-heap approach with O(n log k) is simpler to implement and has better worst-case guarantees. The key insight is that we don't need full sorting - we only need the k smallest elements, which can be found more efficiently.
-
-## Solution Approach
+## Thinking Process
 
 ### Key Insight
 
@@ -187,20 +164,25 @@ private:
 };
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity | Best When |
 |----------|-----------------|------------------|-----------|
 | Sorting | O(n log n) | O(1) | General purpose, simple |
 | Max Heap | O(n log k) | O(k) | k << n, memory constrained |
 | Quickselect | O(n) avg | O(1) | Large datasets, k ≈ n |
 
-## Key Insights
 
-1. **Distance Simplification**: Use squared distance `x² + y²` instead of `√(x² + y²)` for comparison
-2. **Sorting Trade-offs**: Simple but sorts all elements even when we only need k
-3. **Heap Optimization**: Better when k is much smaller than n
-4. **Quickselect Advantage**: Optimal average case but more complex implementation
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
+
+  <circle cx="140" cy="35" r="16" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="39" text-anchor="middle" font-size="11">1</text>
+  <circle cx="90" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="90" y="79" text-anchor="middle" font-size="10">3</text>
+  <circle cx="190" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="190" y="79" text-anchor="middle" font-size="10">2</text>
+  <line x1="140" y1="51" x2="90" y2="61" stroke="#9A9792"/><line x1="140" y1="51" x2="190" y2="61" stroke="#9A9792"/>
+  <text x="140" y="110" text-anchor="middle" font-size="11" fill="#6B6560">parent ≤ children (min-heap)</text>
+
+</svg>
 
 ## Follow-up Questions
 
@@ -210,10 +192,30 @@ private:
 
 ## Related Problems
 
-- [LC 215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
-- [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
-- [LC 692: Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/)
+- [LC 215: Kth Largest Element in an Array](https://www.leetcode.com/problems/kth-largest-element-in-an-array/)
+- [LC 347: Top K Frequent Elements](https://www.leetcode.com/problems/top-k-frequent-elements/)
+- [LC 692: Top K Frequent Words](https://www.leetcode.com/problems/top-k-frequent-words/)
 
----
+## Common Mistakes
 
-*This problem demonstrates the importance of choosing the right data structure and algorithm based on the constraints and requirements.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+1. **Distance Simplification**: Use squared distance `x² + y²` instead of `√(x² + y²)` for comparison
+2. **Sorting Trade-offs**: Simple but sorts all elements even when we only need k
+3. **Heap Optimization**: Better when k is much smaller than n
+4. **Quickselect Advantage**: Optimal average case but more complex implementation
+
+## References
+
+- [LC 973: K Closest Points to Origin on LeetCode](https://www.leetcode.com/problems/k-closest-points-to-origin/)
+- [LeetCode Discuss — LC 973: K Closest Points to Origin](https://www.leetcode.com/problems/k-closest-points-to-origin/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/k-closest-points-to-origin/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

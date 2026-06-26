@@ -5,13 +5,9 @@ date: 2025-10-20 13:45:00 -0700
 categories: leetcode algorithm medium tree dfs bfs graph
 permalink: /2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/
 ---
-
-# 1443. Minimum Time to Collect All Apples in a Tree
-
 **Difficulty:** Medium  
 **Category:** Tree, DFS, BFS, Graph
 
-## Problem Statement
 
 Given an undirected tree consisting of `n` vertices numbered from `0` to `n-1`, which has some apples in their vertices. You spend 1 second to walk over one edge of the tree. Return the minimum time in seconds you have to spend to collect all apples in the tree, starting at vertex 0 and coming back to this vertex.
 
@@ -48,62 +44,7 @@ Output: 0
 - `fromi < toi`
 - `hasApple.length == n`
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Tree structure**: What is the tree structure? (Assumption: Undirected tree with n nodes, edges connect nodes - standard tree)
-
-2. **Apple collection**: How do we collect apples? (Assumption: Must visit nodes with apples - hasApple[i] = true means node i has apple)
-
-3. **Time calculation**: How is time calculated? (Assumption: 2 seconds per edge traversed - need to count unique edges)
-
-4. **Starting position**: Where do we start? (Assumption: Start at node 0 - root of the tree)
-
-5. **Return value**: What should we return? (Assumption: Minimum time in seconds to collect all apples and return to start)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to collect all apples. Let me try all possible paths."
-
-**Naive Solution**: Try all possible paths to collect apples, find minimum time path.
-
-**Complexity**: Exponential time, O(n) space
-
-**Issues**:
-- Exponential time complexity
-- Tries many redundant paths
-- Very inefficient
-- Doesn't leverage tree structure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use DFS to traverse tree, only visit subtrees that contain apples."
-
-**Improved Solution**: Use DFS to traverse tree. For each node, check if subtree contains apples. If yes, must visit that subtree. Count edges that need to be traversed.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- DFS naturally traverses tree
-- Only visits necessary subtrees
-- O(n) time is optimal
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DFS approach is optimal. Count edges that need traversal (subtrees with apples)."
-
-**Best Solution**: DFS approach is optimal. For each node, check if subtree has apples. If subtree has apples, must traverse edge to that subtree. Return 2 × number of edges that need traversal.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. DFS is natural for tree problems
-2. Only traverse edges to subtrees with apples
-3. O(n) time is optimal - visit each node once
-4. Each edge traversed twice (to and from)
-
-## Approach
+## Thinking Process
 
 This problem can be solved using either **DFS** or **BFS** approaches. The key insight is that we only need to visit subtrees that contain apples or lead to apples.
 
@@ -118,6 +59,33 @@ This problem can be solved using either **DFS** or **BFS** approaches. The key i
 2. **For each apple node**, trace path back to root
 3. **Count edges** in the path, avoiding duplicates
 4. **Return total time** (2 seconds per unique edge)
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Solution
 
@@ -147,100 +115,19 @@ public:
 };
 ```
 
-### Approach 2: BFS with Path Tracing
+### Solution Explanation
 
-```cpp
-class Solution {
-public:
-    int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
-        vector<vector<int>> adj(n);
-        for(auto& e: edges) {
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
-        }
+**Approach:** Recursive DFS (this problem)
 
-        vector<int> parent(n, -1);
-        queue<int> q;
-        q.push(0);
-        vector<bool> visited(n, false);
-        visited[0] = true;
-        while(!q.empty()) {
-            int node = q.front();
-            q.pop();
-            for(int neighbor : adj[node]) {
-                if(!visited[neighbor]) {
-                    visited[neighbor] = true;
-                    parent[neighbor] = node;
-                    q.push(neighbor);
-                }
-            }
-        }
+**Key idea:** This problem can be solved using either **DFS** or **BFS** approaches. The key insight is that we only need to visit subtrees that contain apples or lead to apples.
 
-        unordered_set<int> visitedNodes;
-        int time = 0;
-        for(int i = 0; i < n; i++) {
-            if(!hasApple[i]) continue;
-            int curr = i;
-            while(curr != 0 && !visitedNodes.contains(curr)) {
-                visitedNodes.insert(curr);
-                time += 2;
-                curr = parent[curr];
-            }
-        }
-        return time;
-    }
-};
-```
-
-## Explanation
-
-### DFS Approach (Recommended):
-
-**Step-by-Step Process:**
-1. **Build adjacency list** from edges (undirected graph)
-2. **DFS from root (0)** with parent parameter to avoid cycles
-3. **For each child subtree:**
-   - Calculate time needed for that subtree
-   - If subtree has apples OR contains apples, add `childTime + 2`
-   - The `+2` accounts for going to subtree and coming back
-4. **Return total time** for current subtree
-
-**Key Insight:** We only visit edges that lead to apples or are on the path to apples.
-
-### BFS Approach:
-
-**Step-by-Step Process:**
+**How the code works:**
+1. **Build adjacency list** from edges
+2. **DFS from root (0)** with parent tracking to avoid cycles
+3. **For each subtree**, calculate time needed if it contains apples
+4. **Return total time** including 2 seconds per edge (going and coming back)
 1. **Build adjacency list** and **parent mapping** using BFS
 2. **For each apple node**, trace path back to root
-3. **Count unique edges** in the path (avoid duplicates)
-4. **Return total time** (2 seconds per unique edge)
-
-**Key Insight:** We trace paths from each apple back to root and count unique edges.
-
-### Example Walkthrough (DFS):
-For `n=7, edges=[[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple=[false,false,true,false,true,true,false]`:
-
-- **DFS(0):** Check children 1, 2
-- **DFS(1):** Check children 4, 5
-  - **DFS(4):** hasApple[4]=true, return 0+2=2
-  - **DFS(5):** hasApple[5]=true, return 0+2=2
-  - **DFS(1):** return 2+2+2=6
-- **DFS(2):** Check children 3, 6
-  - **DFS(3):** hasApple[3]=false, return 0
-  - **DFS(6):** hasApple[6]=false, return 0
-  - **DFS(2):** return 0
-- **DFS(0):** return 6+0=6, but hasApple[2]=true, so return 6+2=8
-
-## Complexity Analysis
-
-### DFS Approach:
-- **Time Complexity:** O(n) - each node visited once
-- **Space Complexity:** O(n) - adjacency list + recursion stack
-
-### BFS Approach:
-- **Time Complexity:** O(n) - BFS + path tracing
-- **Space Complexity:** O(n) - adjacency list + parent array + visited set
-
 ## Which Approach is More Optimal?
 
 **DFS Approach is more optimal** for the following reasons:
@@ -256,43 +143,23 @@ For `n=7, edges=[[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple=[false,false,tru
 - **More Memory:** Uses parent array and visited set
 - **Complex Logic:** More complex path tracing logic
 
-## Key Insights
+## References
+
+- [LC 1443: Minimum Time to Collect All Apples in a Tree on LeetCode](https://www.leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/)
+- [LeetCode Discuss — LC 1443: Minimum Time to Collect All Apples in a Tree](https://www.leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Tree Structure:** Undirected tree with n-1 edges
 2. **Edge Cost:** Each edge costs 2 seconds (going + coming back)
 3. **Optimal Path:** Only visit edges that lead to apples
 4. **DFS Advantage:** Natural fit for tree traversal problems
 5. **Parent Tracking:** Essential to avoid cycles in undirected graph
-
-## Alternative Approaches
-
-### Iterative DFS:
-```cpp
-int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
-    vector<vector<int>> adj(n);
-    for(auto& edge: edges) {
-        adj[edge[0]].push_back(edge[1]);
-        adj[edge[1]].push_back(edge[0]);
-    }
-    
-    stack<pair<int, int>> stk; // {node, parent}
-    stk.push({0, -1});
-    vector<int> subtreeTime(n, 0);
-    
-    while(!stk.empty()) {
-        auto [node, parent] = stk.top();
-        stk.pop();
-        
-        // Process children
-        for(int child : adj[node]) {
-            if(child != parent) {
-                stk.push({child, node});
-            }
-        }
-    }
-    
-    return subtreeTime[0];
-}
-```
-
-The **DFS approach is the most optimal** solution for this problem, providing the best balance of time complexity, space efficiency, and code clarity.

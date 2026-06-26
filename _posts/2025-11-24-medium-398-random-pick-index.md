@@ -6,9 +6,6 @@ categories: leetcode algorithm medium cpp hash-table reservoir-sampling problem-
 permalink: /posts/2025-11-24-medium-398-random-pick-index/
 tags: [leetcode, medium, hash-table, reservoir-sampling, design, randomization]
 ---
-
-# [Medium] 398. Random Pick Index
-
 Given an integer array `nums` with possible duplicates, randomly output the index of a given `target` number. You can assume that the given target number must exist in the array.
 
 Implement the `Solution` class:
@@ -54,35 +51,39 @@ solution.pick(3); // Should return either index 2, 3, or 4 randomly.
 - `target` is an integer from `nums`.
 - At most `10^4` calls will be made to `pick`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Preprocessing pays off**: One-time O(n) cost amortized over many `pick()` calls
 
-1. **Pick operation**: What does pick() do? (Assumption: Randomly selects one index where nums[index] == target, returns that index)
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
 
-2. **Randomness requirement**: What is the randomness requirement? (Assumption: All indices with target value should have equal probability of being selected)
 
-3. **Return value**: What should pick() return? (Assumption: Integer - randomly selected index where nums[index] == target)
 
-4. **Multiple calls**: Are pick() calls independent? (Assumption: Yes - each call is independent random selection)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-5. **Target existence**: Is target guaranteed to exist? (Assumption: Yes - per constraints, target is an integer from nums)
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each `pick(target)` call, scan the array to find all indices where `nums[i] == target`, store them in a list, then randomly select one index from the list. This approach has O(n) time per `pick()` call, which is inefficient if `pick()` is called many times.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Hash map + list** *(this problem)* | $O(1)$ avg | $O(n)$ | LRU cache pattern |
+| Heap + hash map | $O(\log n)$ | $O(n)$ | LFU, time-based store |
+| Trie (prefix tree) | $O(m)$ | $O(nm)$ | Word search, autocomplete |
+| Deque / circular buffer | $O(1)$ | $O(n)$ | Queue with fixed capacity |
 
-Preprocess the array once: build a hash map mapping each value to a list of indices where it appears. For `pick(target)`, get the list of indices from the hash map and randomly select one. This reduces `pick()` to O(1) average time (assuming random selection is O(1)), but requires O(n) space and O(n) preprocessing time.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use hash map preprocessing with reservoir sampling: preprocess to build `value -> [indices]` mapping. For `pick(target)`, use the hash map to get indices in O(1), then randomly select one index. Alternatively, if we want to avoid preprocessing, we can use reservoir sampling: scan the array once per `pick()` call, maintaining a random candidate. However, preprocessing is more efficient for multiple calls. The preprocessing approach achieves O(1) average time per `pick()` call with O(n) preprocessing time and O(n) space, which is optimal for this use case.
-
-## Solution: Hash Map Preprocessing (Optimized)
+## Solution
 
 **Time Complexity:** O(n) preprocessing, O(1) per `pick()` call  
 **Space Complexity:** O(n)
@@ -112,57 +113,17 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Preprocessing for Fast Lookup
+**Approach:** Hash map + list (this problem)
 
-**Problem:** Need to randomly pick an index where `nums[i] == target` with equal probability.
+**Key idea:** 1. **Preprocessing pays off**: One-time O(n) cost amortized over many `pick()` calls
 
-**Naive Approach:** Scan array each time → O(n) per `pick()` call → **TIMEOUT** if called many times
-
-**Optimized Approach:** 
-- Preprocess once: Build hash map of value → list of indices
-- Each `pick()` call: O(1) lookup and random selection
-
-### Step-by-Step Example: `nums = [1, 2, 3, 3, 3]`
-
-```
-Step 1: Constructor - Build hash map
-  pos[1] = [0]
-  pos[2] = [1]
-  pos[3] = [2, 3, 4]
-
-Step 2: pick(3)
-  indices = pos[3] = [2, 3, 4]
-  Random index: rand() % 3 could be 0, 1, or 2
-  Return indices[random_index] = one of {2, 3, 4}
-
-Step 3: pick(3) again
-  Same process, returns a random index from {2, 3, 4}
-```
-
-**Visual Representation:**
-```
-nums = [1, 2, 3, 3, 3]
-       0  1  2  3  4
-
-Hash Map:
-  1 → [0]
-  2 → [1]
-  3 → [2, 3, 4]
-
-pick(3): Randomly select from [2, 3, 4]
-  - Each index has 1/3 probability
-  - Returns 2, 3, or 4 with equal chance
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Preprocessing pays off**: One-time O(n) cost amortized over many `pick()` calls
-2. **Hash map lookup**: O(1) average case for finding indices
-3. **Random selection**: Use `rand() % size` for uniform distribution
-4. **Space-time tradeoff**: Use O(n) space to achieve O(1) time per pick
-
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized $O(1)$ often needs lazy cleanup or doubly-linked lists.
 ## Algorithm Breakdown
 
 ### Constructor: Build Index Map
@@ -244,85 +205,6 @@ public:
 - Hash map: **Amortized cost** per pick is O(1) after preprocessing
 - Reservoir sampling: **Per-call cost** is O(n), expensive for many calls
 
-## Edge Cases
-
-1. **Single occurrence**: `pick()` returns the only index
-2. **All same values**: All indices have equal probability
-3. **Large array**: Hash map handles efficiently
-4. **Many pick calls**: Hash map approach scales better
-
-## Alternative Approaches
-
-### Approach 2: Reservoir Sampling (For Reference)
-
-**Use when:** Memory is critical or only few picks needed
-
-```cpp
-class Solution {
-    vector<int>& nums;
-
-public:
-    Solution(vector<int>& nums) : nums(nums) {}
-    
-    int pick(int target) {
-        int count = 0;
-        int result = -1;
-        
-        for(int i = 0; i < (int)nums.size(); i++) {
-            if(nums[i] == target) {
-                count++;
-                // With probability 1/count, select current index
-                if(rand() % count == 0) {
-                    result = i;
-                }
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-**How Reservoir Sampling Works:**
-- For each occurrence of target, increment count
-- With probability `1/count`, replace current selection
-- Ensures uniform distribution: each index has `1/k` probability (where k = total occurrences)
-
-**Proof of Uniformity:**
-- Index 1 selected with probability: 1/1 = 1
-- Index 2 replaces index 1 with probability: 1/2
-- Index 3 replaces current with probability: 1/3
-- Final probability for index k: (1/k) × (k/(k+1)) × ... × ((n-1)/n) = 1/n
-
-### Approach 3: Two-Pass (Less Efficient)
-
-```cpp
-class Solution {
-    vector<int> nums;
-
-public:
-    Solution(vector<int>& nums) : nums(nums) {}
-    
-    int pick(int target) {
-        // First pass: collect all indices
-        vector<int> indices;
-        for(int i = 0; i < nums.size(); i++) {
-            if(nums[i] == target) {
-                indices.push_back(i);
-            }
-        }
-        
-        // Second pass: random selection
-        return indices[rand() % indices.size()];
-    }
-};
-```
-
-**Why not optimal:**
-- Rebuilds indices list on each `pick()` call
-- O(n) time per call, same as reservoir sampling
-- No preprocessing benefit
-
 ## Implementation Details
 
 ### Why Hash Map is Optimal
@@ -368,6 +250,11 @@ return indices[dis(gen)];
 
 ## Common Mistakes
 
+1. **Single occurrence**: `pick()` returns the only index
+2. **All same values**: All indices have equal probability
+3. **Large array**: Hash map handles efficiently
+4. **Many pick calls**: Hash map approach scales better
+
 1. **Using reservoir sampling for many picks**: Times out
 2. **Not preprocessing**: Rebuilding indices each time
 3. **Wrong random selection**: Not using modulo correctly
@@ -385,10 +272,10 @@ return indices[dis(gen)];
 
 ## Related Problems
 
-- [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) - Similar randomization with hash map
-- [381. Insert Delete GetRandom O(1) - Duplicates allowed](https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/) - Extension with duplicates
-- [528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) - Weighted random selection
-- [710. Random Pick with Blacklist](https://leetcode.com/problems/random-pick-with-blacklist/) - Random selection with exclusions
+- [380. Insert Delete GetRandom O(1)](https://www.leetcode.com/problems/insert-delete-getrandom-o1/) - Similar randomization with hash map
+- [381. Insert Delete GetRandom O(1) - Duplicates allowed](https://www.leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/) - Extension with duplicates
+- [528. Random Pick with Weight](https://www.leetcode.com/problems/random-pick-with-weight/) - Weighted random selection
+- [710. Random Pick with Blacklist](https://www.leetcode.com/problems/random-pick-with-blacklist/) - Random selection with exclusions
 
 ## Real-World Applications
 
@@ -469,7 +356,19 @@ pick(3) call 3:
 
 Both approaches guarantee uniform distribution!
 
----
+## Key Takeaways
 
-*This problem demonstrates the importance of choosing the right data structure and algorithm based on usage patterns. For multiple queries, preprocessing with a hash map provides optimal performance.*
+1. **Preprocessing pays off**: One-time O(n) cost amortized over many `pick()` calls
+2. **Hash map lookup**: O(1) average case for finding indices
+3. **Random selection**: Use `rand() % size` for uniform distribution
+4. **Space-time tradeoff**: Use O(n) space to achieve O(1) time per pick
 
+## References
+
+- [LC 398: Random Pick Index on LeetCode](https://www.leetcode.com/problems/random-pick-index/)
+- [LeetCode Discuss — LC 398: Random Pick Index](https://www.leetcode.com/problems/random-pick-index/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/random-pick-index/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode/posts/2025-11-24-leetcode-templates-data-structure-design/)

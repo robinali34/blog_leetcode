@@ -5,11 +5,6 @@ date: 2026-01-03 03:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting, intervals]
 permalink: /2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/
 ---
-
-# 452. Minimum Number of Arrows to Burst Balloons
-
-## Problem Statement
-
 There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D array `points` where `points[i] = [xstart, xend]` denotes a balloon whose **horizontal diameter** stretches between `xstart` and `xend`. You do not know the exact y-coordinates of the balloons.
 
 Arrows can be shot up **directly vertically** (in the positive y-direction) from different points along the x-axis. A balloon with `xstart` and `xend` is **burst** by an arrow shot at `x` if `xstart <= x <= xend`. There is **no limit** to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
@@ -49,52 +44,39 @@ Explanation: The balloons can be burst by 2 arrows:
 - `points[i].length == 2`
 - `-2^31 <= xstart < xend <= 2^31 - 1`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D array `points` where `points[i] = [xstart, xend]` denotes a balloon whose **horizontal diameter** stretches between `xstart` and `xend`. You do not know the exact y-coordinates of the balloons.
 
-1. **Balloon representation**: How are balloons represented? (Assumption: [xstart, xend] - horizontal span of balloon)
+Arrows can be shot up **directly vertically** (in the positive y-direction) from different points along the x-axis. A balloon with `xstart` and `xend` is **burst** by an arrow shot at `x` if `xstart <= x <= xend`. There is **no limit** to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
 
-2. **Arrow shooting**: How do arrows work? (Assumption: Arrow shot at x-coordinate bursts all balloons that span that x-coordinate)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of arrows needed to burst all balloons)
 
-4. **Return value**: What should we return? (Assumption: Integer - minimum number of arrows)
 
-5. **Overlapping balloons**: Can one arrow burst multiple balloons? (Assumption: Yes - if balloons overlap, one arrow can burst all overlapping balloons)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (20 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible arrow positions. For each balloon, we could shoot an arrow at any x-coordinate within its span. Try all combinations of arrow positions and find the minimum number needed. This approach has exponential complexity and is infeasible. The challenge is that we need to find the optimal set of arrow positions that cover all balloons.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use a greedy approach: sort balloons by start position. For each balloon, if it doesn't overlap with the current arrow position, shoot a new arrow at its end position (or start position). However, choosing where to shoot the arrow (start vs end) requires careful consideration. Shooting at the end position maximizes the chance of hitting overlapping balloons.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Sort balloons by end position. Greedily shoot arrows: for the first balloon, shoot an arrow at its end position. For subsequent balloons, if they start after the current arrow position, they're already burst. Otherwise, shoot a new arrow at the current balloon's end position. This ensures we always shoot at the rightmost position that can burst the current balloon, maximizing overlap coverage. This achieves O(n log n) time for sorting plus O(n) for processing, which is optimal. The key insight is that sorting by end position and shooting at end positions maximizes the number of balloons each arrow can burst.
-
-## Solution Approach
-
-This is a **greedy interval scheduling** problem similar to "Non-overlapping Intervals". The key insight is to **sort balloons by end coordinate** and shoot arrows at the end of each group of overlapping balloons.
-
-### Key Insights:
-
-1. **Sort by End Coordinate**: Sort balloons by their end coordinate (xend)
-2. **Greedy Choice**: Shoot arrow at the end of the first balloon in each group
-3. **Overlap Detection**: Balloons overlap if `start <= previous_end`
-4. **Boundary Touch**: Balloons touching at boundary can be burst by same arrow
-5. **Optimal**: This greedy strategy minimizes number of arrows
-
-### Algorithm:
-
-1. **Sort**: Sort balloons by end coordinate
-2. **Track**: Keep track of the arrow position (end of last burst balloon)
-3. **Iterate**: For each balloon, if it doesn't overlap with current arrow position, shoot new arrow
-4. **Count**: Return the number of arrows needed
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -120,6 +102,25 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D array `points` where `points[i] = [xstart, xend]` denotes a balloon whose **horizontal diameter** stretches between `xstart` and `xend`. You do not know the exact y-coordinates of the balloons.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `points = [[10,16],[2,8],[1,6],[7,12]]`, expected output `2`:
+
+The balloons can be burst by 2 arrows:
+- Shoot an arrow at x = 6, bursting the balloons [2,8] and [1,6].
+- Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12].
+
+**Time:** - **Sorting**: O(n log n) where n is the number of balloons · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -232,7 +233,6 @@ i=3: [4,5]
 Result: 2 arrows
 Arrow positions: x=2 (bursts [1,2], [2,3]), x=4 (bursts [3,4], [4,5])
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Sort by End Coordinate?**
@@ -330,26 +330,7 @@ This minimizes the number of arrows needed.
 4. **Boundary Touch**: Balloons touching at boundary can be burst by same arrow
 5. **Optimal**: Greedy approach finds optimal solution
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with End Coordinate Sorting (Current Solution)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Sort by Start Coordinate**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Problem**: Doesn't guarantee optimal solution in all cases
-- **Example**: May use more arrows than necessary
-
-### **Approach 3: Dynamic Programming**
-- **Time**: O(n²)
-- **Space**: O(n)
-- **Use when**: Need to track which balloons are burst by which arrows
-- **Idea**: `dp[i]` = min arrows to burst first i balloons
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty array**: `[]` → return 0
 2. **Single balloon**: `[[1,2]]` → return 1
@@ -357,8 +338,6 @@ This minimizes the number of arrows needed.
 4. **All overlap**: `[[1,5],[2,6],[3,7]]` → return 1
 5. **Boundary touch**: `[[1,2],[2,3],[3,4]]` → return 2
 6. **Nested balloons**: `[[1,10],[2,3],[4,5]]` → return 1
-
-## Common Mistakes
 
 1. **Wrong sort key**: Sorting by start coordinate instead of end coordinate
 2. **Wrong overlap condition**: Using `>=` instead of `>`
@@ -368,26 +347,27 @@ This minimizes the number of arrows needed.
 
 ## Related Problems
 
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) - Remove minimum intervals (similar greedy)
-- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) - Merge overlapping intervals
-- [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
-- [646. Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) - Find longest chain
-
-## Comparison with LC 435
-
-**LC 435 (Non-overlapping Intervals):**
-- Goal: Remove minimum intervals to make non-overlapping
-- Overlap check: `start < previous_end` (use `<`)
-- Boundary touch: Considered non-overlapping
-
-**LC 452 (Minimum Arrows to Burst Balloons):**
-- Goal: Find minimum arrows to burst all balloons
-- Overlap check: `start > previous_end` (use `>`)
-- Boundary touch: Can be burst by same arrow (considered overlapping)
-
-The key difference is in the overlap condition due to the problem requirements.
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) - Remove minimum intervals (similar greedy)
+- [56. Merge Intervals](https://www.leetcode.com/problems/merge-intervals/) - Merge overlapping intervals
+- [253. Meeting Rooms II](https://www.leetcode.com/problems/meeting-rooms-ii/) - Count overlapping intervals
+- [646. Maximum Length of Pair Chain](https://www.leetcode.com/problems/maximum-length-of-pair-chain/) - Find longest chain
 
 ## Tags
 
 `Array`, `Greedy`, `Sorting`, `Intervals`, `Medium`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 452: Minimum Number of Arrows to Burst Balloons on LeetCode](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/)
+- [LeetCode Discuss — LC 452: Minimum Number of Arrows to Burst Balloons](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

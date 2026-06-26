@@ -5,14 +5,46 @@ date: 2026-01-03 05:00:00 -0700
 categories: [leetcode, easy, string, two-pointers, greedy, dynamic-programming]
 permalink: /2026/01/03/easy-392-is-subsequence/
 ---
+Given two strings `s` and `t`, return `true` *if* `s` *is a **subsequence** of* `t`*, or* `false` *otherwise*.
 
-# 392. Is Subsequence
+A **subsequence** of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
 
-## Problem Statement
+## Thinking Process
 
 Given two strings `s` and `t`, return `true` *if* `s` *is a **subsequence** of* `t`*, or* `false` *otherwise*.
 
 A **subsequence** of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Examples
 
@@ -35,158 +67,6 @@ Explanation: "axc" is not a subsequence of "ahbgdc" because 'x' is not found in 
 - `0 <= s.length <= 100`
 - `0 <= t.length <= 10^4`
 - `s` and `t` consist only of lowercase English letters.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Subsequence definition**: What is a subsequence? (Assumption: Sequence of characters that appear in same order in t, but not necessarily contiguous)
-
-2. **Matching rules**: How do we check if s is subsequence of t? (Assumption: Match characters of s in order within t - maintain relative order)
-
-3. **Return value**: What should we return? (Assumption: Boolean - true if s is subsequence of t, false otherwise)
-
-4. **Empty strings**: What if s is empty? (Assumption: Return true - empty string is subsequence of any string)
-
-5. **Character uniqueness**: Can characters repeat? (Assumption: Yes - characters can appear multiple times, match first occurrence)
-
-## Interview Deduction Process (10 minutes)
-
-**Step 1: Brute-Force Approach (2 minutes)**
-
-Try all possible ways to match characters of s in t. Use recursive approach: for each character in s, try to find it in t, and recursively check if remaining characters of s form a subsequence of remaining characters of t. This approach has exponential complexity as we explore all possible matching positions.
-
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Use two pointers: one for s and one for t. For each character in s, find its first occurrence in t starting from the current position. If found, advance both pointers; if not found, return false. This requires scanning t for each character in s, giving O(m × n) time where m and n are string lengths.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use greedy two-pointer approach: maintain pointer i for s and j for t. For each character s[i], find its first occurrence in t starting from j. If found, advance both pointers. If we finish s (i reaches end), return true. If we finish t before s, return false. This achieves O(n) time where n is length of t, which is optimal since we must scan t at least once. The key insight is that we should greedily match characters in order, taking the first available match in t, which ensures we don't miss valid subsequences.
-
-## Solution Approach
-
-This is a **two-pointer** problem that can be solved with a greedy approach. The key insight is to use two pointers to match characters of `s` in `t` while maintaining their relative order.
-
-### Key Insights:
-
-1. **Two Pointers**: Use one pointer for `s` and one for `t`
-2. **Greedy Matching**: Match characters in order, always moving forward
-3. **Order Preservation**: Characters must appear in the same order in `t`
-4. **Simple Check**: If we match all characters in `s`, it's a subsequence
-
-### Algorithm:
-
-1. **Initialize**: Two pointers `i` (for `s`) and `j` (for `t`)
-2. **Iterate**: While both pointers are within bounds:
-   - If characters match, advance both pointers
-   - Otherwise, only advance `j` (pointer in `t`)
-3. **Check**: Return `true` if `i == N` (all characters in `s` matched)
-
-## Solution
-
-### **Solution: Two Pointers**
-
-```cpp
-class Solution {
-public:
-    bool isSubsequence(string s, string t) {
-        const int N = s.length(), M = t.length();
-        int i = 0, j = 0;
-        while(i < N && j < M) {
-            if(s[i] == t[j]) {
-                i++;
-                j++;
-            }
-            j++;
-        }
-        return i == N;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Initialize (Lines 4-5)**:
-   - `N`: Length of string `s`
-   - `M`: Length of string `t`
-   - `i`: Pointer for string `s` (starts at 0)
-   - `j`: Pointer for string `t` (starts at 0)
-
-2. **Match Characters (Lines 6-11)**:
-   - **While both pointers are valid**:
-     - **If characters match**: `s[i] == t[j]`
-       - Advance both pointers (`i++`, `j++`)
-       - We found a match, move to next character in both strings
-     - **Always advance `j`**: Move pointer in `t` forward
-       - Whether match or not, we always check next character in `t`
-
-3. **Check Result (Line 12)**:
-   - Return `true` if `i == N` (all characters in `s` were matched)
-   - Return `false` otherwise
-
-### **Example Walkthrough:**
-
-**Example 1: `s = "abc"`, `t = "ahbgdc"`**
-
-```
-Initial: i=0, j=0, N=3, M=6
-
-Step 1: s[0]='a', t[0]='a'
-  Match: i=1, j=1
-  Then: j++ → j=2
-
-Step 2: s[1]='b', t[2]='b'
-  Match: i=2, j=3
-  Then: j++ → j=4
-
-Step 3: s[2]='c', t[4]='d'
-  No match: j++ → j=5
-
-Step 4: s[2]='c', t[5]='c'
-  Match: i=3, j=6
-  Then: j++ → j=7
-
-Loop ends: i=3 == N
-Return: true
-```
-
-**Example 2: `s = "axc"`, `t = "ahbgdc"`**
-
-```
-Initial: i=0, j=0, N=3, M=6
-
-Step 1: s[0]='a', t[0]='a'
-  Match: i=1, j=1
-  Then: j++ → j=2
-
-Step 2: s[1]='x', t[2]='b'
-  No match: j++ → j=3
-
-Step 3: s[1]='x', t[3]='g'
-  No match: j++ → j=4
-
-Step 4: s[1]='x', t[4]='d'
-  No match: j++ → j=5
-
-Step 5: s[1]='x', t[5]='c'
-  No match: j++ → j=6
-
-Loop ends: i=1 != N
-Return: false ('x' not found)
-```
-
-**Example 3: `s = ""`, `t = "abc"`**
-
-```
-Initial: i=0, j=0, N=0, M=3
-
-Loop condition: 0 < 0 && 0 < 3 → false
-Loop doesn't execute
-
-Check: i=0 == N=0
-Return: true (empty string is subsequence of any string)
-```
 
 ## Algorithm Breakdown
 
@@ -241,26 +121,7 @@ A subsequence maintains the **relative order** of characters:
 4. **Simple Check**: All characters matched if `i == N`
 5. **Edge Case**: Empty string `s` is always a subsequence
 
-## Alternative Approaches
-
-### **Approach 1: Two Pointers (Current Solution)**
-- **Time**: O(m)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming (LCS)**
-- **Time**: O(n × m)
-- **Space**: O(n × m)
-- **Use when**: Need to find longest common subsequence
-- **Overkill**: Not needed for this problem
-
-### **Approach 3: Binary Search (For Multiple Queries)**
-- **Time**: O(m + n log m) per query
-- **Space**: O(m)
-- **Use when**: Need to check many strings `s` against same `t`
-- **Idea**: Preprocess `t` to store character positions, use binary search
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty `s`**: `s = ""` → return `true` (empty is subsequence of any string)
 2. **Empty `t`**: `s = "a"`, `t = ""` → return `false`
@@ -268,8 +129,6 @@ A subsequence maintains the **relative order** of characters:
 4. **Single character**: `s = "a"`, `t = "abc"` → return `true`
 5. **No match**: `s = "x"`, `t = "abc"` → return `false`
 6. **Repeated characters**: `s = "aa"`, `t = "abac"` → return `true`
-
-## Common Mistakes
 
 1. **Wrong pointer logic**: Not advancing `j` when no match
 2. **Order violation**: Matching characters out of order
@@ -279,10 +138,10 @@ A subsequence maintains the **relative order** of characters:
 
 ## Related Problems
 
-- [524. Longest Word in Dictionary through Deleting](https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/) - Find longest subsequence
-- [792. Number of Matching Subsequences](https://leetcode.com/problems/number-of-matching-subsequences/) - Count subsequences
-- [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) - Find LCS (DP)
-- [727. Minimum Window Subsequence](https://leetcode.com/problems/minimum-window-subsequence/) - Find minimum window containing subsequence
+- [524. Longest Word in Dictionary through Deleting](https://www.leetcode.com/problems/longest-word-in-dictionary-through-deleting/) - Find longest subsequence
+- [792. Number of Matching Subsequences](https://www.leetcode.com/problems/number-of-matching-subsequences/) - Count subsequences
+- [1143. Longest Common Subsequence](https://www.leetcode.com/problems/longest-common-subsequence/) - Find LCS (DP)
+- [727. Minimum Window Subsequence](https://www.leetcode.com/problems/minimum-window-subsequence/) - Find minimum window containing subsequence
 
 ## Follow-Up: Multiple Queries
 
@@ -313,3 +172,18 @@ bool isSubsequence(string s, unordered_map<char, vector<int>>& pos) {
 
 `String`, `Two Pointers`, `Greedy`, `Dynamic Programming`, `Easy`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 392: Is Subsequence on LeetCode](https://www.leetcode.com/problems/is-subsequence/)
+- [LeetCode Discuss — LC 392: Is Subsequence](https://www.leetcode.com/problems/is-subsequence/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/is-subsequence/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

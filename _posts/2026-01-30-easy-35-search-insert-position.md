@@ -6,11 +6,6 @@ categories: [leetcode, easy, array, binary-search]
 permalink: /2026/01/30/easy-35-search-insert-position/
 tags: [leetcode, easy, array, binary-search]
 ---
-
-# 35. Search Insert Position
-
-## Problem Statement
-
 Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
 You must write an algorithm with `O(log n)` runtime complexity.
@@ -56,45 +51,43 @@ Explanation: The target value 0 is not found, so it would be inserted at index 0
 - `nums` contains **distinct** values sorted in **ascending** order.
 - `-10^4 <= target <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Lower Bound Pattern**: This problem is a direct application of the lower bound binary search pattern
 
-1. **Array properties**: What are the array properties? (Assumption: Array is sorted in ascending order with distinct values - no duplicates)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Target found**: What if target is found? (Assumption: Return the index where target is located)
 
-3. **Target not found**: What if target is not found? (Assumption: Return the index where target should be inserted to maintain sorted order)
 
-4. **Time complexity**: What time complexity is required? (Assumption: O(log n) - must use binary search, not linear scan)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-5. **Insertion position**: How is insertion position determined? (Assumption: First position where target can be inserted while maintaining sorted order - same as lower bound)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+## Common Approaches
 
-Scan through the array from left to right. If target is found, return its index. If not found, find the first position where `nums[i] > target` and return `i`. If all elements are less than target, return `nums.length`. This approach has O(n) time complexity, which doesn't meet the O(log n) requirement.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
 
-Since the array is sorted, we can use binary search. However, we need to handle both cases: when target is found and when it's not found. The key insight is that the insertion position is exactly the lower bound - the first position where `nums[i] >= target`.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use binary search to find the lower bound of target. The lower bound is the first position where we can insert target while maintaining sorted order. This is exactly what we need: if target exists, lower bound returns its index; if not, it returns where it should be inserted. This achieves O(log n) time complexity and O(1) space complexity.
-
-## Solution Approach
-
-This problem is essentially finding the **lower bound** of the target value in a sorted array. The lower bound is the first position where `nums[i] >= target`, which is exactly the insertion position we need.
-
-### Key Insights:
-
-1. **Lower Bound = Insertion Position**: The insertion position is the same as the lower bound
-2. **Binary Search**: Use binary search to find the lower bound efficiently
-3. **Unified Solution**: The same algorithm works for both finding and inserting
-
-## Solution: Binary Search (Lower Bound)
+## Solution
 
 ```cpp
 class Solution {
@@ -111,179 +104,51 @@ public:
 };
 ```
 
-### Algorithm Breakdown:
+### Solution Explanation
 
-1. **Initialize**: Set `left = 0` and `right = nums.size()` (note: `right` is exclusive)
-2. **Binary Search Loop**: While `left < right`:
-   - Calculate `mid = left + (right - left) / 2`
-   - If `nums[mid] < target`: Target is to the right, so `left = mid + 1`
-   - Otherwise: Target is at `mid` or to the left, so `right = mid`
-3. **Return**: When `left == right`, we've found the insertion position at `left`
+**Approach:** Standard binary search (this problem)
 
-### Why This Works:
+**Key idea:** 1. **Lower Bound Pattern**: This problem is a direct application of the lower bound binary search pattern
 
-- **Lower Bound Logic**: This is the standard lower bound binary search
-- **If target exists**: Lower bound returns the first occurrence (exact index)
-- **If target doesn't exist**: Lower bound returns where it should be inserted
-- **Boundary Cases**: 
-  - If target < all elements: returns 0
-  - If target > all elements: returns `nums.size()`
+**How the code works:**
+1. **Lower Bound Pattern**: This problem is a direct application of the lower bound binary search pattern
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-### Sample Test Case Run:
+**Walkthrough** — input `nums = [1,3,5,6], target = 5`, expected output `2`:
 
-**Input:** `nums = [1,3,5,6]`, `target = 5`
-
-```
-Initial: left = 0, right = 4
-
-Iteration 1:
-  mid = 0 + (4 - 0) / 2 = 2
-  nums[2] = 5, target = 5
-  Since nums[2] >= target (5 >= 5), move left
-  right = mid = 2
-  Search range: [0, 2]
-
-Iteration 2:
-  mid = 0 + (2 - 0) / 2 = 1
-  nums[1] = 3, target = 5
-  Since nums[1] < target (3 < 5), move right
-  left = mid + 1 = 2
-  Search range: [2, 2]
-
-Loop condition: left (2) < right (2) is false, exit loop
-
-Return: left = 2
-```
-
-**Verification:** `nums[2] = 5 == target = 5` ✓
-
-**Output:** `2` ✓
-
----
-
-**Another Example:** `nums = [1,3,5,6]`, `target = 2`
-
-```
-Initial: left = 0, right = 4
-
-Iteration 1:
-  mid = 0 + (4 - 0) / 2 = 2
-  nums[2] = 5, target = 2
-  Since nums[2] >= target (5 >= 2), move left
-  right = mid = 2
-  Search range: [0, 2]
-
-Iteration 2:
-  mid = 0 + (2 - 0) / 2 = 1
-  nums[1] = 3, target = 2
-  Since nums[1] >= target (3 >= 2), move left
-  right = mid = 1
-  Search range: [0, 1]
-
-Iteration 3:
-  mid = 0 + (1 - 0) / 2 = 0
-  nums[0] = 1, target = 2
-  Since nums[0] < target (1 < 2), move right
-  left = mid + 1 = 1
-  Search range: [1, 1]
-
-Loop condition: left (1) < right (1) is false, exit loop
-
-Return: left = 1
-```
-
-**Verification:** 
-- `nums[1] = 3 > target = 2` ✓ (insertion position)
-- `nums[0] = 1 < target = 2` ✓ (before insertion)
-
-**Output:** `1` ✓
-
----
-
-**Edge Case:** `nums = [1,3,5,6]`, `target = 7`
-
-```
-Initial: left = 0, right = 4
-
-Iteration 1:
-  mid = 0 + (4 - 0) / 2 = 2
-  nums[2] = 5, target = 7
-  Since nums[2] < target (5 < 7), move right
-  left = mid + 1 = 3
-  Search range: [3, 4]
-
-Iteration 2:
-  mid = 3 + (4 - 3) / 2 = 3
-  nums[3] = 6, target = 7
-  Since nums[3] < target (6 < 7), move right
-  left = mid + 1 = 4
-  Search range: [4, 4]
-
-Loop condition: left (4) < right (4) is false, exit loop
-
-Return: left = 4
-```
-
-**Verification:** 
-- `left = 4 == nums.size()` ✓ (insert at end)
-- All elements are less than target ✓
-
-**Output:** `4` ✓
-
----
-
-**Edge Case:** `nums = [1,3,5,6]`, `target = 0`
-
-```
-Initial: left = 0, right = 4
-
-Iteration 1:
-  mid = 0 + (4 - 0) / 2 = 2
-  nums[2] = 5, target = 0
-  Since nums[2] >= target (5 >= 0), move left
-  right = mid = 2
-  Search range: [0, 2]
-
-Iteration 2:
-  mid = 0 + (2 - 0) / 2 = 1
-  nums[1] = 3, target = 0
-  Since nums[1] >= target (3 >= 0), move left
-  right = mid = 1
-  Search range: [0, 1]
-
-Iteration 3:
-  mid = 0 + (1 - 0) / 2 = 0
-  nums[0] = 1, target = 0
-  Since nums[0] >= target (1 >= 0), move left
-  right = mid = 0
-  Search range: [0, 0]
-
-Loop condition: left (0) < right (0) is false, exit loop
-
-Return: left = 0
-```
-
-**Verification:** 
-- `left = 0` ✓ (insert at beginning)
-- All elements are greater than target ✓
-
-**Output:** `0` ✓
-
-## Complexity Analysis
+The target value 5 is found at index 2.
 
 - **Time Complexity**: O(log n) - Binary search eliminates half of the search space at each step
 - **Space Complexity**: O(1) - Only using a constant amount of extra space
+## Related Problems
 
-## Key Insights
+- [34. Find First and Last Position of Element in Sorted Array](https://www.leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) - Uses lower bound and upper bound
+- [704. Binary Search](https://www.leetcode.com/problems/binary-search/) - Standard binary search
+- [33. Search in Rotated Sorted Array](https://www.leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on rotated array
+- [162. Find Peak Element](https://www.leetcode.com/problems/find-peak-element/) - Binary search variant
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Lower Bound Pattern**: This problem is a direct application of the lower bound binary search pattern
 2. **Unified Logic**: The same algorithm handles both finding and inserting cases
 3. **Exclusive Right Bound**: Using `right = nums.size()` (exclusive) simplifies boundary handling
 4. **Loop Invariant**: At each step, we maintain that the insertion position is in `[left, right]`
 
-## Related Problems
+## References
 
-- [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) - Uses lower bound and upper bound
-- [704. Binary Search](https://leetcode.com/problems/binary-search/) - Standard binary search
-- [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on rotated array
-- [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/) - Binary search variant
+- [LC 35: Search Insert Position on LeetCode](https://www.leetcode.com/problems/search-insert-position/)
+- [LeetCode Discuss — LC 35: Search Insert Position](https://www.leetcode.com/problems/search-insert-position/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/search-insert-position/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

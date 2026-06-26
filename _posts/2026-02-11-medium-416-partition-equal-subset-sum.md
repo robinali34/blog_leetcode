@@ -6,7 +6,6 @@ categories: [leetcode, medium, dynamic-programming]
 tags: [leetcode, medium, dp, knapsack]
 permalink: /2026/02/11/medium-416-partition-equal-subset-sum/
 ---
-
 Given an integer array `nums`, return `true` *if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or* `false` *otherwise*.
 
 ## Examples
@@ -32,7 +31,7 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 - `1 <= nums.length <= 200`
 - `1 <= nums[i] <= 100`
 
-## Approach
+## Thinking Process
 
 This problem is a classic variation of the **0/1 Knapsack Problem**. 
 
@@ -71,6 +70,32 @@ When iterating through the 1D array, we must iterate **backwards** from `target`
 Time Complexity: $O(n \cdot \text{target})$
 Space Complexity: $O(\text{target})$
 
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
 ## Solution
 
 ### Approach 1: DFS (Time Limit Exceeded)
@@ -94,101 +119,42 @@ private:
     }
 };
 ```
-{% endraw %}
 
-### Approach 2: DFS with Memoization
+### Solution Explanation
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    bool canPartition(vector<int>& nums) {
-        int totalSum = accumulate(nums.begin(), nums.end(), 0);
-        if (totalSum % 2 != 0) return false;
-        int subSetSum = totalSum / 2;
-        int n = nums.size();
+**Approach:** 1D DP (this problem)
 
-        // memo[i][j]: -1 unvisited, 0 false, 1 true
-        vector<vector<int>> memo(n, vector<int>(subSetSum + 1, -1));
-        return dfs(nums, n - 1, subSetSum, memo);
-    }
+**Key idea:** This problem is a classic variation of the **0/1 Knapsack Problem**.
 
-private:
-    bool dfs(vector<int>& nums, int i, int target, vector<vector<int>>& memo) {
-        if (target == 0) return true;
-        if (i < 0 || target < 0) return false;
-        
-        if (memo[i][target] != -1) return memo[i][target];
-        
-        bool result = dfs(nums, i - 1, target - nums[i], memo) || 
-                      dfs(nums, i - 1, target, memo);
-        
-        return memo[i][target] = result;
-    }
-};
-```
-{% endraw %}
+**How the code works:**
+1.  **Total Sum Check**: First, calculate the sum of all elements. If the total sum is odd, it's impossible to split it into two equal integer partitions, so return `false`.
+2.  **Target Sum**: If the total sum is even, our goal is to find a subset of elements that sums up to `target = totalSum / 2`. If we find such a subset, the remaining elements will automatically sum to `target` as well.
+3.  **Transformation**: The problem becomes: "Can we pick a subset of items from `nums` such that their sum is exactly `target`?"
+- **Base Case**: If `target == 0`, we found a subset. If `target < 0` or we run out of elements, return `false`.
+- **Recursive Step**: For index `i`, we can either:
+- Include `nums[i]` in the sum (subtract from target).
 
-### Approach 3: 2D Dynamic Programming
+**Walkthrough** — input `nums = [1,5,11,5]`, expected output `true`:
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    bool canPartition(vector<int>& nums) {
-        int sum = accumulate(nums.begin(), nums.end(), 0);
-        if (sum % 2) return false;
+The array can be partitioned as [1, 5, 5] and [11].
+## Common Mistakes
 
-        int subSetSum = sum / 2;
-        int n = nums.size();
-        // dp[i][j] means whether sum j is possible using first i items
-        vector<vector<bool>> dp(n + 1, vector<bool>(subSetSum + 1, false));
-        
-        // Base case: sum 0 is always possible (by choosing nothing)
-        for (int i = 0; i <= n; i++) dp[i][0] = true;
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
-        for (int i = 1; i <= n; i++) {
-            int curr = nums[i - 1];
-            for (int j = 1; j <= subSetSum; j++) {
-                if (j < curr) {
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - curr];
-                }
-            }
-        }
-        return dp[n][subSetSum];
-    }
-};
-```
-{% endraw %}
 
-### Approach 4: 1D Dynamic Programming (Space Optimized)
+## Key Takeaways
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    bool canPartition(vector<int>& nums) {
-        int sum = accumulate(nums.begin(), nums.end(), 0);
-        if (sum % 2) return false;
+- **Pattern:** 1D DP (this problem)
+- **Base Case**: If `target == 0`, we found a subset. If `target < 0` or we run out of elements, return `false`.
+- **Recursive Step**: For index `i`, we can either:
 
-        int target = sum / 2;
-        vector<bool> dp(target + 1, false);
-        dp[0] = true;
+## References
 
-        for (int num : nums) {
-            // Iterate backwards to avoid using the same element multiple times for the same sum
-            for (int j = target; j >= num; j--) {
-                dp[j] = dp[j] || dp[j - num];
-            }
-        }
-
-        return dp[target];
-    }
-};
-```
-{% endraw %}
+- [LC 416: Partition Equal Subset Sum on LeetCode](https://www.leetcode.com/problems/partition-equal-subset-sum/)
+- [LeetCode Discuss — LC 416: Partition Equal Subset Sum](https://www.leetcode.com/problems/partition-equal-subset-sum/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/partition-equal-subset-sum/editorial/) *(may require premium)*
 
 ## Template Reference
 

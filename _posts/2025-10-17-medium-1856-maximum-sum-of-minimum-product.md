@@ -4,9 +4,6 @@ title: "[Medium] 1856. Maximum Sum of Minimum Product"
 date: 2025-10-17 22:36:25 -0700
 categories: leetcode algorithm medium cpp stack monotonic-stack prefix-sum problem-solving
 ---
-
-# [Medium] 1856. Maximum Sum of Minimum Product
-
 The **minimum product** of a subarray is the minimum value in the subarray multiplied by the sum of the subarray.
 
 Given an array of integers `nums`, return the **maximum minimum product** of any non-empty subarray of `nums`.
@@ -56,62 +53,42 @@ Explanation:
 - `1 <= nums.length <= 10^5`
 - `1 <= nums[i] <= 10^7`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Maintains order:** Elements in decreasing order
+1. **Range sum calculation:** O(1) for any subarray sum
+1. **Minimum as pivot:** Consider each element as minimum
 
-1. **Subarray definition**: Does a subarray need to be contiguous? (Assumption: Yes - subarray is contiguous by definition)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Minimum product calculation**: How is minimum product calculated? (Assumption: For each subarray, find minimum value and sum, then multiply them - min(subarray) * sum(subarray))
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum value among all minimum products from all subarrays)
 
-4. **Return value**: What should we return? (Assumption: Maximum minimum product - integer, modulo 10^9 + 7)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Empty subarray**: Can an empty subarray be considered? (Assumption: No - subarray must be non-empty)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find maximum sum × minimum. Let me check all possible subarrays."
+## Common Approaches
 
-**Naive Solution**: Check all possible subarrays, for each compute sum and minimum, calculate product, track maximum.
+Typical techniques for this pattern:
 
-**Complexity**: O(n³) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- O(n³) time - very inefficient
-- Repeats computation for overlapping subarrays
-- Doesn't leverage any optimization
-- Can be optimized significantly
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can fix minimum value and find maximum sum subarray with that minimum."
-
-**Improved Solution**: For each element as minimum, find maximum sum subarray where this element is minimum. Use prefix sum to compute sums efficiently.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- O(n²) time is better
-- Prefix sum enables O(1) sum queries
-- Still O(n²) for checking all subarrays
-- Can optimize further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use monotonic stack to find range where each element is minimum."
-
-**Best Solution**: Use monotonic stack to find left and right boundaries where each element is minimum. Use prefix sum for range sums. For each element, compute sum × minimum for its range.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Monotonic stack finds minimum ranges efficiently
-2. Prefix sum enables O(1) range sum queries
-3. O(n) time is optimal - process each element once
-4. O(n) space for stack and prefix sum is necessary
-
-## Solution: Monotonic Stack with Prefix Sum
+## Solution
 
 **Time Complexity:** O(n) where n is the length of array  
 **Space Complexity:** O(n) for prefix array and stack
@@ -158,8 +135,7 @@ public:
 };
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** For each element, find the largest subarray where it is the minimum, then calculate the product of minimum value and subarray sum.
 
 **Steps:**
@@ -241,8 +217,7 @@ for(int i = 0; i < n; i++) {
 2. **Multiply by minimum value** (current element)
 3. **Update maximum product**
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | Prefix sum | O(n) | O(n) |
@@ -251,31 +226,6 @@ for(int i = 0; i < n; i++) {
 | **Total** | **O(n)** | **O(n)** |
 
 Where n is the length of the array.
-
-## Edge Cases
-
-1. **Single element:** `nums = [5]` → `5 * 5 = 25`
-2. **All same elements:** `nums = [3,3,3]` → `3 * 9 = 27`
-3. **Increasing array:** `nums = [1,2,3,4]` → `1 * 10 = 10`
-4. **Decreasing array:** `nums = [4,3,2,1]` → `1 * 10 = 10`
-
-## Key Insights
-
-### Monotonic Stack:
-1. **Maintains order:** Elements in decreasing order
-2. **Efficient removal:** Can remove multiple elements at once
-3. **Boundary finding:** Finds nearest smaller elements efficiently
-4. **O(n) complexity:** Each element pushed and popped once
-
-### Prefix Sum:
-1. **Range sum calculation:** O(1) for any subarray sum
-2. **Efficient computation:** Pre-computed sums
-3. **Memory trade-off:** Uses O(n) extra space for O(1) queries
-
-### Product Maximization:
-1. **Minimum as pivot:** Consider each element as minimum
-2. **Largest subarray:** Find maximum subarray where element is minimum
-3. **Greedy approach:** Take largest possible subarray for each minimum
 
 ## Detailed Example Walkthrough
 
@@ -311,58 +261,12 @@ right = [3, 3, 3, 5, 5]
 
 **Maximum product:** 16
 
-## Alternative Approaches
-
-### Approach 1: Brute Force
-```cpp
-class Solution {
-public:
-    int maxSumMinProduct(vector<int>& nums) {
-        long long maxProduct = 0;
-        int n = nums.size();
-        
-        for(int i = 0; i < n; i++) {
-            for(int j = i; j < n; j++) {
-                int minVal = *min_element(nums.begin() + i, nums.begin() + j + 1);
-                long long sum = accumulate(nums.begin() + i, nums.begin() + j + 1, 0LL);
-                maxProduct = max(maxProduct, minVal * sum);
-            }
-        }
-        
-        return (int)(maxProduct % 1000000007);
-    }
-};
-```
-
-**Time Complexity:** O(n^3)  
-**Space Complexity:** O(1)
-
-### Approach 2: Divide and Conquer
-```cpp
-class Solution {
-private:
-    long long maxProduct(vector<int>& nums, int left, int right) {
-        if(left > right) return 0;
-        if(left == right) return (long long)nums[left] * nums[left];
-        
-        int minIdx = min_element(nums.begin() + left, nums.begin() + right + 1) - nums.begin();
-        long long sum = accumulate(nums.begin() + left, nums.begin() + right + 1, 0LL);
-        long long product = (long long)nums[minIdx] * sum;
-        
-        return max({product, maxProduct(nums, left, minIdx - 1), maxProduct(nums, minIdx + 1, right)});
-    }
-    
-public:
-    int maxSumMinProduct(vector<int>& nums) {
-        return (int)(maxProduct(nums, 0, nums.size() - 1) % 1000000007);
-    }
-};
-```
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(log n)
-
 ## Common Mistakes
+
+1. **Single element:** `nums = [5]` → `5 * 5 = 25`
+2. **All same elements:** `nums = [3,3,3]` → `3 * 9 = 27`
+3. **Increasing array:** `nums = [1,2,3,4]` → `1 * 10 = 10`
+4. **Decreasing array:** `nums = [4,3,2,1]` → `1 * 10 = 10`
 
 1. **Wrong boundary calculation:** Not handling empty stack correctly
 2. **Index off-by-one:** Incorrect prefix sum calculation
@@ -371,10 +275,10 @@ public:
 
 ## Related Problems
 
-- [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
-- [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
-- [907. Sum of Subarray Minimums](https://leetcode.com/problems/sum-of-subarray-minimums/)
-- [2104. Sum of Subarray Ranges](https://leetcode.com/problems/sum-of-subarray-ranges/)
+- [84. Largest Rectangle in Histogram](https://www.leetcode.com/problems/largest-rectangle-in-histogram/)
+- [85. Maximal Rectangle](https://www.leetcode.com/problems/maximal-rectangle/)
+- [907. Sum of Subarray Minimums](https://www.leetcode.com/problems/sum-of-subarray-minimums/)
+- [2104. Sum of Subarray Ranges](https://www.leetcode.com/problems/sum-of-subarray-ranges/)
 
 ## Why This Solution Works
 
@@ -394,3 +298,27 @@ public:
 2. **Largest subarray:** Find maximum subarray where element is minimum
 3. **Greedy approach:** Take largest possible subarray for each minimum
 4. **Optimal result:** Ensures maximum product calculation
+
+## References
+
+- [LC 1856: Maximum Sum of Minimum Product on LeetCode](https://www.leetcode.com/problems/maximum-sum-of-minimum-product/)
+- [LeetCode Discuss — LC 1856: Maximum Sum of Minimum Product](https://www.leetcode.com/problems/maximum-sum-of-minimum-product/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-sum-of-minimum-product/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Monotonic Stack:
+1. **Maintains order:** Elements in decreasing order
+2. **Efficient removal:** Can remove multiple elements at once
+3. **Boundary finding:** Finds nearest smaller elements efficiently
+4. **O(n) complexity:** Each element pushed and popped once
+
+### Prefix Sum:
+1. **Range sum calculation:** O(1) for any subarray sum
+2. **Efficient computation:** Pre-computed sums
+3. **Memory trade-off:** Uses O(n) extra space for O(1) queries
+
+### Product Maximization:
+1. **Minimum as pivot:** Consider each element as minimum
+2. **Largest subarray:** Find maximum subarray where element is minimum
+3. **Greedy approach:** Take largest possible subarray for each minimum

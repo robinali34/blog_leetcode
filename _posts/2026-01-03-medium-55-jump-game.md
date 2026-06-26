@@ -5,11 +5,6 @@ date: 2026-01-03 04:00:00 -0700
 categories: [leetcode, medium, array, greedy, dynamic-programming]
 permalink: /2026/01/03/medium-55-jump-game/
 ---
-
-# 55. Jump Game
-
-## Problem Statement
-
 You are given an integer array `nums`. You are initially positioned at the array's **first index**, and each element in the array represents your maximum jump length at that position.
 
 Return `true` *if you can reach the last index, or* `false` *otherwise*.
@@ -35,80 +30,41 @@ Explanation: You will always arrive at index 3. Its maximum jump length is 0, wh
 - `1 <= nums.length <= 10^4`
 - `0 <= nums[i] <= 10^5`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You are given an integer array `nums`. You are initially positioned at the array's **first index**, and each element in the array represents your maximum jump length at that position.
 
-1. **Jump definition**: How do jumps work? (Assumption: From index i, can jump to any index from i+1 to i+nums[i] inclusive)
+Return `true` *if you can reach the last index, or* `false` *otherwise*.
 
-2. **Reachability**: What are we checking? (Assumption: Whether we can reach the last index starting from index 0)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-3. **Return value**: What should we return? (Assumption: Boolean - true if can reach last index, false otherwise)
 
-4. **Starting position**: Where do we start? (Assumption: Start at index 0 - first element)
 
-5. **Zero values**: What if nums[i] is 0? (Assumption: Cannot jump forward from that position - stuck unless already past it)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-## Interview Deduction Process (20 minutes)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to check if I can reach the end. Let me try all possible paths."
+</svg>
 
-**Naive Solution**: Use DFS/BFS to explore all possible jump paths from start to end.
+## Common Approaches
 
-**Complexity**: O(2^n) worst case time, O(n) space
+Typical techniques for this pattern:
 
-**Issues**:
-- Exponential time complexity
-- Explores many redundant paths
-- Very inefficient
-- Doesn't leverage greedy property
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use DP to track reachability from each position."
-
-**Improved Solution**: Use DP where dp[i] = true if position i is reachable. For each position, mark all reachable positions as true.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- O(n²) time instead of exponential
-- Correctly finds reachability
-- Still can be optimized
-- Better than brute-force
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use greedy approach - track rightmost reachable position."
-
-**Best Solution**: Greedy approach. Track rightmost reachable position. For each position, if it's reachable, update rightmost position. If rightmost < current position, cannot reach.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Greedy approach is optimal
-2. O(n) time is optimal - single pass
-3. O(1) space is optimal
-4. Track rightmost reachable position is key insight
-
-## Solution Approach
-
-This is a **greedy algorithm** problem. The key insight is to track the **rightmost reachable position** as we iterate through the array. If we can reach an index, we can potentially reach further positions from there.
-
-### Key Insights:
-
-1. **Rightmost Reachable**: Track the farthest position we can reach
-2. **Greedy Update**: At each index, update the rightmost reachable position
-3. **Reachability Check**: Only update if current index is reachable (`i <= rightMost`)
-4. **Early Termination**: If rightmost position reaches last index, return `true`
-
-### Algorithm:
-
-1. **Initialize**: `rightMost = 0` (starting position)
-2. **Iterate**: For each index `i`:
-   - Check if `i` is reachable (`i <= rightMost`)
-   - If reachable, update `rightMost = max(rightMost, i + nums[i])`
-   - If `rightMost >= N - 1`, return `true`
-3. **Return**: `false` if we can't reach the last index
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -130,6 +86,23 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** You are given an integer array `nums`. You are initially positioned at the array's **first index**, and each element in the array represents your maximum jump length at that position.
+
+**How the code works:**
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `nums = [2,3,1,1,4]`, expected output `true`:
+
+Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+**Time:** O(n) where n is the length of the array · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -219,7 +192,6 @@ i=0: nums[0]=2
   Check: 2 >= 2? Yes ✓
   Return: true
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -260,33 +232,13 @@ The condition `if(i <= rightMost)` ensures:
 4. **Optimal**: Greedy approach finds the answer in one pass
 5. **Simple**: Straightforward implementation
 
-## Alternative Approaches
-
-### **Approach 1: Greedy (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming (Bottom-Up)**
-- **Time**: O(n²)
-- **Space**: O(n)
-- **Use when**: Need to track all reachable positions
-- **Idea**: `dp[i]` = true if index `i` is reachable
-
-### **Approach 3: Backtracking**
-- **Time**: O(2^n) worst case
-- **Space**: O(n) for recursion stack
-- **Not practical**: Too slow for large inputs
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single element**: `[0]` → return `true` (already at last index)
 2. **All zeros except first**: `[2,0,0,0]` → return `false`
 3. **Can reach immediately**: `[5,1,1,1,1]` → return `true` (jump from index 0)
 4. **Zero at start**: `[0,1,2]` → return `false` (cannot move from index 0)
 5. **Large jump**: `[1,1,1,100]` → return `true`
-
-## Common Mistakes
 
 1. **Not checking reachability**: Updating `rightMost` from unreachable indices
 2. **Wrong condition**: Using `i < rightMost` instead of `i <= rightMost`
@@ -296,24 +248,27 @@ The condition `if(i <= rightMost)` ensures:
 
 ## Related Problems
 
-- [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/) - Minimum jumps to reach last index
-- [1306. Jump Game III](https://leetcode.com/problems/jump-game-iii/) - Can reach index with value 0
-- [1345. Jump Game IV](https://leetcode.com/problems/jump-game-iv/) - Minimum jumps with additional rules
-- [1696. Jump Game VI](https://leetcode.com/problems/jump-game-vi/) - Maximum score with sliding window
-
-## Comparison with LC 45 (Jump Game II)
-
-**LC 55 (Jump Game):**
-- Goal: Check if we can reach the last index
-- Approach: Track rightmost reachable position
-- Return: `true` or `false`
-
-**LC 45 (Jump Game II):**
-- Goal: Find minimum number of jumps to reach last index
-- Approach: Track current jump level and farthest reachable
-- Return: Minimum number of jumps
+- [45. Jump Game II](https://www.leetcode.com/problems/jump-game-ii/) - Minimum jumps to reach last index
+- [1306. Jump Game III](https://www.leetcode.com/problems/jump-game-iii/) - Can reach index with value 0
+- [1345. Jump Game IV](https://www.leetcode.com/problems/jump-game-iv/) - Minimum jumps with additional rules
+- [1696. Jump Game VI](https://www.leetcode.com/problems/jump-game-vi/) - Maximum score with sliding window
 
 ## Tags
 
 `Array`, `Greedy`, `Dynamic Programming`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 55: Jump Game on LeetCode](https://www.leetcode.com/problems/jump-game/)
+- [LeetCode Discuss — LC 55: Jump Game](https://www.leetcode.com/problems/jump-game/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/jump-game/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

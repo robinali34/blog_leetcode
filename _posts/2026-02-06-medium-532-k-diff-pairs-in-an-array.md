@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, hash-table]
 permalink: /2026/02/06/medium-532-k-diff-pairs-in-an-array/
 tags: [leetcode, medium, array, hash-table]
 ---
-
-# 532. K-diff Pairs in an Array
-
-## Problem Statement
-
 Given an array of integers `nums` and an integer `k`, return the number of **unique** k-diff pairs in the array.
 
 A **k-diff pair** is an integer pair `(nums[i], nums[j])` where:
@@ -53,12 +48,40 @@ Explanation: The only 0-diff pair is (1, 1).
 - `-10^7 <= nums[i] <= 10^7`
 - `0 <= k <= 10^7`
 
-## Solution Approach
+## Thinking Process
 
-- **k == 0:** We need pairs of the same value. Count how many distinct numbers appear more than once; each such number contributes one unique pair.
-- **k > 0:** We need pairs with difference exactly k. For each distinct value `num`, check whether `num + k` exists (checking only `num + k` avoids double-counting (a, a+k) and (a+k, a)). Use a frequency map or a set of values.
+1. **Unique pairs:** Count by distinct values (or by one representative of each pair), not by indices.
 
-## Solution 1: Single Hash Map (Frequencies)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
+
+## Solution
 
 One pass to build frequency map; then handle k==0 (count values with freq > 1) and k>0 (count values where num+k exists).
 
@@ -88,53 +111,48 @@ public:
 };
 ```
 
-- **k == 0:** Each value that appears at least twice gives exactly one unique pair (that value with itself).
-- **k > 0:** For each distinct `num`, we only check `num + k` so each pair is counted once.
-- **Time:** O(n). **Space:** O(n).
+### Solution Explanation
 
-## Solution 2: Map for k==0, Set for k>0
+**Approach:** Prefix sum (this problem)
 
-Same logic; k==0 uses a map to count frequencies, k>0 uses a set and checks `num + k`.
+**Key idea:** 1. **Unique pairs:** Count by distinct values (or by one representative of each pair), not by indices.
 
-```cpp
-class Solution {
-public:
-    int findPairs(vector<int>& nums, int k) {
-        int rtn = 0;
-        if (k == 0) {
-            unordered_map<int, int> hm;
-            for (int num : nums) {
-                hm[num]++;
-            }
-            for (auto it = hm.begin(); it != hm.end(); ++it) {
-                if (it->second > 1) rtn++;
-            }
-        } else {
-            unordered_set<int> hs;
-            for (int num : nums) {
-                hs.insert(num);
-            }
-            for (auto it = hs.begin(); it != hs.end(); ++it) {
-                if (hs.contains(*it + k)) {
-                    rtn++;
-                }
-            }
-        }
-        return rtn;
-    }
-};
-```
+**How the code works:**
+1. **Unique pairs:** Count by distinct values (or by one representative of each pair), not by indices.
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-- **Time:** O(n). **Space:** O(n).
+**Walkthrough** — input `nums = [3,1,4,1,5], k = 2`, expected output `2`:
 
-## Key Insights
+The two 2-diff pairs are (1, 3) and (3, 5). (Two 1s yield one unique pair (1,3).)
+
+**Time:** O(n). **Space:** O(n).
+## Related Problems
+
+- [1. Two Sum](https://www.leetcode.com/problems/two-sum/) — Find pairs with a target sum
+- [454. 4Sum II](https://www.leetcode.com/problems/4sum-ii/) — Count pairs from four arrays
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Unique pairs:** Count by distinct values (or by one representative of each pair), not by indices.
 2. **k == 0:** Count distinct numbers that appear more than once.
 3. **k > 0:** Only check `num + k` (or only `num - k`) to count each pair once.
 4. **Avoid k < 0:** Problem states `k >= 0`; no need to handle negative k.
 
-## Related Problems
+## References
 
-- [1. Two Sum](https://leetcode.com/problems/two-sum/) — Find pairs with a target sum
-- [454. 4Sum II](https://leetcode.com/problems/4sum-ii/) — Count pairs from four arrays
+- [LC 532: K-diff Pairs in an Array on LeetCode](https://www.leetcode.com/problems/k-diff-pairs-in-an-array/)
+- [LeetCode Discuss — LC 532: K-diff Pairs in an Array](https://www.leetcode.com/problems/k-diff-pairs-in-an-array/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/k-diff-pairs-in-an-array/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

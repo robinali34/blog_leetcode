@@ -4,9 +4,6 @@ title: "[Medium] 437. Path Sum III"
 date: 2025-10-19 17:25:53 -0700
 categories: leetcode algorithm medium cpp tree dfs recursion problem-solving
 ---
-
-# [Medium] 437. Path Sum III
-
 Given the `root` of a binary tree and an integer `targetSum`, return the number of paths where the sum of the values along the path equals `targetSum`.
 
 The path does not need to start or end at the root or a leaf, but it must go downwards (i.e., traveling only from parent nodes to child nodes).
@@ -39,62 +36,50 @@ Explanation: The paths that sum to 22 are:
 - `-10^9 <= Node.val <= 10^9`
 - `-1000 <= targetSum <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Start from each node:** Check all paths starting from each node
+1. **Current node check:** If node value equals target, count it
 
-1. **Path definition**: What defines a valid path? (Assumption: Path from any node to any descendant node - doesn't need to start at root or end at leaf)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Path sum calculation**: How is path sum calculated? (Assumption: Sum of all node values along the path)
 
-3. **Return value**: What should we return? (Assumption: Count of paths with sum equal to targetSum - integer)
 
-4. **Negative values**: Can node values and targetSum be negative? (Assumption: Yes - per constraints, both can be negative)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-5. **Path direction**: Can paths go upward in the tree? (Assumption: No - paths go downward from parent to child - standard tree path)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find paths with target sum. Let me check all possible paths."
+## Common Approaches
 
-**Naive Solution**: For each node, check all paths starting from that node, count paths with target sum.
+Typical techniques for this pattern:
 
-**Complexity**: O(n²) time, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
-**Issues**:
-- O(n²) time - checks many paths
-- Repeats work for overlapping paths
-- Doesn't leverage prefix sum
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use DFS with prefix sum tracking. Track sum from root to current node."
-
-**Improved Solution**: Use DFS with prefix sum. For each node, check if any prefix sum difference equals target. Use hash map to track prefix sums.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Prefix sum enables efficient checking
-- O(n) time - single DFS pass
-- Hash map tracks prefix sums
-- Handles all paths correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DFS with prefix sum hash map is optimal. Backtrack map updates."
-
-**Best Solution**: DFS with prefix sum hash map. Track running sum, check if (current_sum - target) exists in map. Backtrack map updates when leaving subtree.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Prefix sum is key technique for path sum problems
-2. Hash map enables O(1) lookup
-3. O(n) time is optimal - visit each node once
-4. Backtracking ensures correct counting
-
-## Solution: DFS with Recursion
+## Solution
 
 **Time Complexity:** O(n²) where n is the number of nodes  
 **Space Complexity:** O(h) where h is the height of the tree
@@ -119,8 +104,7 @@ public:
 };
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** For each node, check all paths starting from that node, then recursively check paths starting from its children.
 
 **Steps:**
@@ -192,8 +176,7 @@ int pathSum(TreeNode* root, int targetSum) {
 3. **Recursive calls:** Count paths starting from left and right subtrees
 4. **Return total count** from all sources
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | DFS from each node | O(n) | O(h) |
@@ -201,27 +184,6 @@ int pathSum(TreeNode* root, int targetSum) {
 | **Total** | **O(n²)** | **O(h)** |
 
 Where n is the number of nodes and h is the height of the tree.
-
-## Edge Cases
-
-1. **Empty tree:** `root = null` → `0`
-2. **Single node:** `root = [5]`, `targetSum = 5` → `1`
-3. **No valid paths:** `root = [1,2,3]`, `targetSum = 10` → `0`
-4. **Negative values:** `root = [1,-2,3]`, `targetSum = 1` → `2`
-
-## Key Insights
-
-### DFS Approach:
-1. **Start from each node:** Check all paths starting from each node
-2. **Path continuation:** Paths can start from any node and go downwards
-3. **Target reduction:** Subtract current node value from target
-4. **Recursive exploration:** Explore all possible paths
-
-### Path Counting:
-1. **Current node check:** If node value equals target, count it
-2. **Subtree exploration:** Continue checking with updated target
-3. **Sum accumulation:** Add counts from all subtrees
-4. **Complete coverage:** Check all possible starting points
 
 ## Detailed Example Walkthrough
 
@@ -255,76 +217,12 @@ Where n is the number of nodes and h is the height of the tree.
 
 **Total count:** 2 + 1 = 3
 
-## Alternative Approaches
-
-### Approach 1: Prefix Sum with Hash Map
-```cpp
-class Solution {
-private:
-    int dfs(TreeNode* node, int targetSum, unordered_map<long, int>& prefixSum, long currentSum) {
-        if(!node) return 0;
-        
-        currentSum += node->val;
-        int count = prefixSum[currentSum - targetSum];
-        prefixSum[currentSum]++;
-        
-        count += dfs(node->left, targetSum, prefixSum, currentSum);
-        count += dfs(node->right, targetSum, prefixSum, currentSum);
-        
-        prefixSum[currentSum]--;
-        return count;
-    }
-    
-public:
-    int pathSum(TreeNode* root, int targetSum) {
-        unordered_map<long, int> prefixSum;
-        prefixSum[0] = 1;
-        return dfs(root, targetSum, prefixSum, 0);
-    }
-};
-```
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-### Approach 2: Iterative DFS
-```cpp
-class Solution {
-public:
-    int pathSum(TreeNode* root, int targetSum) {
-        if(!root) return 0;
-        
-        stack<TreeNode*> stk;
-        stk.push(root);
-        int count = 0;
-        
-        while(!stk.empty()) {
-            TreeNode* node = stk.top();
-            stk.pop();
-            
-            count += dfs(node, targetSum);
-            
-            if(node->left) stk.push(node->left);
-            if(node->right) stk.push(node->right);
-        }
-        
-        return count;
-    }
-    
-private:
-    int dfs(TreeNode* node, int targetSum) {
-        if(!node) return 0;
-        int cnt = 0;
-        if(targetSum == node->val) cnt++;
-        return cnt + dfs(node->left, targetSum - node->val) + dfs(node->right, targetSum - node->val);
-    }
-};
-```
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
-
 ## Common Mistakes
+
+1. **Empty tree:** `root = null` → `0`
+2. **Single node:** `root = [5]`, `targetSum = 5` → `1`
+3. **No valid paths:** `root = [1,2,3]`, `targetSum = 10` → `0`
+4. **Negative values:** `root = [1,-2,3]`, `targetSum = 1` → `2`
 
 1. **Wrong path direction:** Allowing paths to go upwards
 2. **Missing base cases:** Not handling null nodes properly
@@ -333,10 +231,10 @@ private:
 
 ## Related Problems
 
-- [112. Path Sum](https://leetcode.com/problems/path-sum/)
-- [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
-- [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
-- [257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/)
+- [112. Path Sum](https://www.leetcode.com/problems/path-sum/)
+- [113. Path Sum II](https://www.leetcode.com/problems/path-sum-ii/)
+- [124. Binary Tree Maximum Path Sum](https://www.leetcode.com/problems/binary-tree-maximum-path-sum/)
+- [257. Binary Tree Paths](https://www.leetcode.com/problems/binary-tree-paths/)
 
 ## Why This Solution Works
 
@@ -357,3 +255,23 @@ private:
 2. **Completeness:** Checks all possible paths
 3. **Efficiency:** O(n²) time complexity
 4. **Simplicity:** Easy to understand and implement
+
+## References
+
+- [LC 437: Path Sum III on LeetCode](https://www.leetcode.com/problems/path-sum-iii/)
+- [LeetCode Discuss — LC 437: Path Sum III](https://www.leetcode.com/problems/path-sum-iii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/path-sum-iii/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### DFS Approach:
+1. **Start from each node:** Check all paths starting from each node
+2. **Path continuation:** Paths can start from any node and go downwards
+3. **Target reduction:** Subtract current node value from target
+4. **Recursive exploration:** Explore all possible paths
+
+### Path Counting:
+1. **Current node check:** If node value equals target, count it
+2. **Subtree exploration:** Continue checking with updated target
+3. **Sum accumulation:** Add counts from all subtrees
+4. **Complete coverage:** Check all possible starting points

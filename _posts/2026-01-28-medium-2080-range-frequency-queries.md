@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, hash-map, binary-search, design]
 permalink: /2026/01/28/medium-2080-range-frequency-queries/
 tags: [leetcode, medium, array, hash-map, binary-search, design]
 ---
-
-# 2080. Range Frequency Queries
-
-## Problem Statement
-
 Design a data structure that can query the frequency of a given value in a given subarray.
 
 Implement the `RangeFreqQuery` class:
@@ -44,47 +39,46 @@ rangeFreqQuery.query(0, 11, 33); // return 2. The value 33 occurs 2 times in the
 - `0 <= left <= right < arr.length`
 - At most `10^5` calls will be made to `query`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Preprocessing is Key**: Building index map once allows fast queries
+- `lower_bound`: First index `>= left` (inclusive start)
+- `upper_bound`: First index `> right` (exclusive end)
+- Difference gives count in range
 
-1. **Array mutability**: Is the array immutable after construction, or can it be modified? (Assumption: Array is immutable - only queries are performed, no updates)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Range inclusivity**: Are both `left` and `right` indices inclusive in the range? (Assumption: Yes, the range `[left, right]` is inclusive on both ends)
 
-3. **Value existence**: What should we return if the queried `value` doesn't exist in the array at all? (Assumption: Return `0` - zero frequency)
 
-4. **Query frequency**: What's the expected ratio of constructor calls vs query calls? (Assumption: Many queries per construction, so preprocessing is beneficial)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-5. **Memory constraints**: Are there any memory limitations we should consider? (Assumption: O(n) space is acceptable for preprocessing to achieve O(log n) queries)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each query, iterate through the range [left, right] and count how many elements equal `value`. This approach has O(n) time per query, which is too slow if there are many queries.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
 
-Preprocess: build a hash map mapping each value to a list of indices where it appears. For each query, use binary search to find how many indices in the list fall within [left, right]. This achieves O(log n) per query after O(n) preprocessing, but requires O(n) space to store indices for each value.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use hash map + sorted lists: preprocess by building `value -> sorted list of indices` mapping. For each query, get the sorted list for the value, use binary search to find the count of indices in range [left, right]. This achieves O(log n) per query with O(n) preprocessing time and O(n) space. The key insight is that we can preprocess once to organize data by value, then use binary search for efficient range queries.
-
-## Solution Approach
-
-This problem requires efficiently answering multiple range frequency queries. The key insight is to preprocess the array by grouping indices by value, then use binary search to quickly count occurrences in a range.
-
-### Key Insights:
-
-1. **Hash Map + Indices**: Store all indices where each value appears
-2. **Binary Search**: Use `lower_bound` and `upper_bound` to find indices in range `[left, right]`
-3. **Frequency = Count**: Number of indices in range equals frequency
-4. **Preprocessing**: O(n) time to build the data structure
-5. **Query**: O(log n) time per query using binary search
-
-## Solution: Hash Map with Binary Search
+## Solution
 
 ```cpp
 class RangeFreqQuery {
@@ -114,131 +108,41 @@ private:
  */
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-#### **Step 1: Preprocessing - Build Index Map**
+**Approach:** Standard binary search (this problem)
 
-```cpp
-RangeFreqQuery(vector<int>& arr) {
-    for(int i = 0; i < (int)arr.size(); i++) {
-        freqArray[arr[i]].push_back(i);
-    }
-}
-```
+**Key idea:** 1. **Preprocessing is Key**: Building index map once allows fast queries
 
-- For each value, store all indices where it appears
-- `freqArray[value]` = sorted list of indices containing `value`
-- Since we iterate in order, indices are automatically sorted
+**How the code works:**
+1. **Preprocessing is Key**: Building index map once allows fast queries
+- `lower_bound`: First index `>= left` (inclusive start)
+- `upper_bound`: First index `> right` (exclusive end)
+- Difference gives count in range
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+## Common Mistakes
 
-**Example:** `arr = [12, 33, 4, 56, 22, 2, 34, 33, 22, 12, 34, 56]`
+1. **Value not in array**: `query(0, 5, 99)` → return `0`
+2. **Value not in range**: `query(3, 5, 33)` when `33` only at indices `[1, 7]` → return `0`
+3. **Single occurrence**: `query(0, 11, 4)` → return `1`
+4. **All occurrences**: `query(0, 11, 33)` → return `2`
+5. **Single element range**: `query(2, 2, 4)` → return `1` if `arr[2] == 4`
 
-```
-freqArray[12] = [0, 9]
-freqArray[33] = [1, 7]
-freqArray[4] = [2]
-freqArray[56] = [3, 11]
-freqArray[22] = [4, 8]
-freqArray[2] = [5]
-freqArray[34] = [6, 10]
-```
+1. **Wrong binary search bounds**: Using `upper_bound` for both ends
+2. **Not checking existence**: Accessing `freqArray[value]` without checking
+3. **Index confusion**: Mixing 0-indexed and 1-indexed arrays
+4. **Not using sorted indices**: Assuming indices are sorted without verification
+5. **Inefficient approach**: Linear scan for each query (O(n) per query)
 
-#### **Step 2: Query - Binary Search for Range**
+## Related Problems
 
-```cpp
-int query(int left, int right, int value) {
-    if(!freqArray.contains(value)) return 0;
-    vector<int>& v = freqArray[value];
-    auto itLeft = lower_bound(v.begin(), v.end(), left);
-    auto itRight = upper_bound(v.begin(), v.end(), right);
-    return itRight - itLeft;
-}
-```
+- [LC 303: Range Sum Query - Immutable](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) - Range sum queries
+- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) - Range sum with updates
+- [LC 315: Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) - Counting in ranges
+- [LC 327: Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) - Range counting
 
-**Key Operations:**
-
-1. **Check if value exists**: If `value` not in map, return `0`
-
-2. **Find first index >= left**: `lower_bound(v.begin(), v.end(), left)`
-   - Returns iterator to first element `>= left`
-   - Points to first occurrence of `value` in range `[left, right]` (or end if none)
-
-3. **Find first index > right**: `upper_bound(v.begin(), v.end(), right)`
-   - Returns iterator to first element `> right`
-   - Points to first occurrence after range `[left, right]`
-
-4. **Count occurrences**: `itRight - itLeft`
-   - Number of elements between `itLeft` and `itRight`
-   - Equals frequency of `value` in range `[left, right]`
-
-### Example Walkthrough:
-
-**Input:** `arr = [12, 33, 4, 56, 22, 2, 34, 33, 22, 12, 34, 56]`
-
-**Query 1:** `query(1, 2, 4)`
-
-```
-Step 1: Check if value exists
-  freqArray.contains(4) = true
-  v = freqArray[4] = [2]
-
-Step 2: Find indices in range [1, 2]
-  lower_bound([2], 1) → points to index 0 (value 2 >= 1)
-  upper_bound([2], 2) → points to index 1 (first value > 2)
-  
-Step 3: Count
-  itRight - itLeft = 1 - 0 = 1
-  
-Result: return 1 ✓
-```
-
-**Query 2:** `query(0, 11, 33)`
-
-```
-Step 1: Check if value exists
-  freqArray.contains(33) = true
-  v = freqArray[33] = [1, 7]
-
-Step 2: Find indices in range [0, 11]
-  lower_bound([1, 7], 0) → points to index 0 (value 1 >= 0)
-  upper_bound([1, 7], 11) → points to index 2 (first value > 11)
-  
-Step 3: Count
-  itRight - itLeft = 2 - 0 = 2
-  
-Result: return 2 ✓
-```
-
-**Query 3:** `query(3, 5, 33)`
-
-```
-Step 1: Check if value exists
-  freqArray.contains(33) = true
-  v = freqArray[33] = [1, 7]
-
-Step 2: Find indices in range [3, 5]
-  lower_bound([1, 7], 3) → points to index 1 (value 7 >= 3)
-  upper_bound([1, 7], 5) → points to index 1 (first value > 5)
-  
-Step 3: Count
-  itRight - itLeft = 1 - 1 = 0
-  
-Result: return 0 ✓ (no occurrences in range [3, 5])
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:**
-  - **Constructor:** O(n) where n is array length
-  - **Query:** O(log m) where m is number of occurrences of `value`
-    - Binary search on sorted indices: O(log m)
-    - In worst case, m = n, so O(log n)
-  - **Overall:** O(n) preprocessing + O(q log n) for q queries
-
-- **Space Complexity:** O(n)
-  - Hash map stores all indices: O(n) total space
-  - Each index stored exactly once
-
-## Key Insights
+## Key Takeaways
 
 1. **Preprocessing is Key**: Building index map once allows fast queries
 2. **Sorted Indices**: Since we iterate in order, indices are naturally sorted
@@ -250,66 +154,12 @@ Result: return 0 ✓ (no occurrences in range [3, 5])
 
 5. **Hash Map Lookup**: O(1) average case to get indices for a value
 
-## Edge Cases
+## References
 
-1. **Value not in array**: `query(0, 5, 99)` → return `0`
-2. **Value not in range**: `query(3, 5, 33)` when `33` only at indices `[1, 7]` → return `0`
-3. **Single occurrence**: `query(0, 11, 4)` → return `1`
-4. **All occurrences**: `query(0, 11, 33)` → return `2`
-5. **Single element range**: `query(2, 2, 4)` → return `1` if `arr[2] == 4`
+- [LC 2080: Range Frequency Queries on LeetCode](https://www.leetcode.com/problems/range-frequency-queries/)
+- [LeetCode Discuss — LC 2080: Range Frequency Queries](https://www.leetcode.com/problems/range-frequency-queries/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/range-frequency-queries/editorial/) *(may require premium)*
 
-## Common Mistakes
+## Template Reference
 
-1. **Wrong binary search bounds**: Using `upper_bound` for both ends
-2. **Not checking existence**: Accessing `freqArray[value]` without checking
-3. **Index confusion**: Mixing 0-indexed and 1-indexed arrays
-4. **Not using sorted indices**: Assuming indices are sorted without verification
-5. **Inefficient approach**: Linear scan for each query (O(n) per query)
-
-## Alternative Approaches
-
-### Approach 1: Naive Linear Scan (TLE)
-
-```cpp
-int query(int left, int right, int value) {
-    int count = 0;
-    for(int i = left; i <= right; i++) {
-        if(arr[i] == value) count++;
-    }
-    return count;
-}
-```
-
-**Time:** O(n) per query  
-**Space:** O(1)  
-**Problem:** Too slow for `10^5` queries
-
-### Approach 2: Segment Tree (Overkill)
-
-```cpp
-// Build segment tree storing frequency map for each range
-// Query: Merge frequency maps from segments
-```
-
-**Time:** O(n log n) build, O(log n) query  
-**Space:** O(n log n)  
-**Problem:** More complex, not necessary for this problem
-
-## Comparison of Approaches
-
-| Approach | Preprocessing | Query Time | Space | Best For |
-|----------|--------------|------------|-------|----------|
-| **Hash Map + Binary Search** | O(n) | O(log n) | O(n) | This problem ✓ |
-| **Naive Linear Scan** | O(1) | O(n) | O(1) | Small arrays |
-| **Segment Tree** | O(n log n) | O(log n) | O(n log n) | Range updates needed |
-
-## Related Problems
-
-- [LC 303: Range Sum Query - Immutable](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) - Range sum queries
-- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) - Range sum with updates
-- [LC 315: Count of Smaller Numbers After Self](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) - Counting in ranges
-- [LC 327: Count of Range Sum](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) - Range counting
-
----
-
-*This problem demonstrates **hash map preprocessing with binary search** for efficient range frequency queries. The key insight is storing sorted indices for each value, then using binary search to quickly count occurrences in a range.*
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -4,9 +4,6 @@ title: "[Medium] 1865. Finding Pairs With a Certain Sum"
 date: 2025-10-19 17:38:17 -0700
 categories: leetcode algorithm medium cpp hash-map data-structure problem-solving
 ---
-
-# [Medium] 1865. Finding Pairs With a Certain Sum
-
 You are given two integer arrays `nums1` and `nums2`. You are tasked to implement a data structure that supports the following operations:
 
 1. **`FindSumPairs(int[] nums1, int[] nums2)`** - Initializes the `FindSumPairs` object with two integer arrays.
@@ -56,62 +53,41 @@ findSumPairs.count(2);  // return 1. Pair (0,0)
 - `1 <= tot <= 10^9`
 - At most `1000` calls will be made to `add` and `count` each.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Count tracking:** Use hash map to track frequency of nums2 values
+1. **Complement approach:** For each nums1 value, find complement in nums2
 
-1. **Pair definition**: What constitutes a valid pair? (Assumption: Pair (i, j) where nums1[i] + nums2[j] == target - one element from each array)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Update operations**: What does add() do? (Assumption: Adds val to nums2[index] - modifies nums2 array)
 
-3. **Count operation**: What should count() return? (Assumption: Number of pairs (i, j) where nums1[i] + nums2[j] == target)
 
-4. **Pair uniqueness**: Can pairs be counted multiple times? (Assumption: Yes - if same pair appears multiple times, count each occurrence)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Return value**: What should count() return? (Assumption: Integer count of valid pairs)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find pairs with certain sum. Let me check all possible pairs."
+## Common Approaches
 
-**Naive Solution**: For each count() call, iterate through nums1 and nums2, count pairs where nums1[i] + nums2[j] == target.
+Typical techniques for this pattern:
 
-**Complexity**: O(m × n) per count() call, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
-**Issues**:
-- O(m × n) per query is inefficient
-- Repeats work for repeated queries
-- Doesn't leverage hash map
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use hash map to store nums2 frequencies, then for each nums1 element, lookup complement."
-
-**Improved Solution**: Store nums2 frequencies in hash map. For count(), iterate nums1, for each element lookup (target - nums1[i]) in map, add frequency to count.
-
-**Complexity**: O(m) per count() call, O(n) space
-
-**Improvements**:
-- Hash map enables O(1) lookup
-- O(m) per query is much better
-- Handles add() efficiently by updating map
-- Correctly counts all pairs
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Hash map approach is optimal. Update map on add() calls."
-
-**Best Solution**: Maintain hash map of nums2 frequencies. On add(), update frequency. On count(), iterate nums1 and sum frequencies of complements.
-
-**Complexity**: O(1) add(), O(m) count(), O(n) space
-
-**Key Realizations**:
-1. Hash map is perfect for frequency tracking
-2. O(m) per count() is optimal - must check nums1
-3. O(1) add() is optimal - just update map
-4. Space O(n) is necessary for frequency map
-
-## Solution: Hash Map with Count Tracking
+## Solution
 
 **Time Complexity:** 
 - Constructor: O(n) where n is length of nums2
@@ -161,8 +137,7 @@ public:
  */
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** Use a hash map to track the count of each value in nums2, then for each count operation, iterate through nums1 and check if the complement exists in nums2.
 
 **Steps:**
@@ -266,8 +241,7 @@ int count(int tot) {
 3. **Check existence:** If complement exists, add its count
 4. **Return total:** Sum of all valid pairs
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | Constructor | O(n) | O(n) |
@@ -276,27 +250,6 @@ int count(int tot) {
 | **Total** | **O(n + m)** | **O(n)** |
 
 Where n is the length of nums2 and m is the length of nums1.
-
-## Edge Cases
-
-1. **Single elements:** `nums1 = [1]`, `nums2 = [1]` → `count(2) = 1`
-2. **No pairs:** `nums1 = [1]`, `nums2 = [2]` → `count(1) = 0`
-3. **Multiple same values:** `nums1 = [1,1]`, `nums2 = [1,1]` → `count(2) = 4`
-4. **Large values:** Handle large integers correctly
-
-## Key Insights
-
-### Hash Map Optimization:
-1. **Count tracking:** Use hash map to track frequency of nums2 values
-2. **Fast lookup:** O(1) lookup for complement checking
-3. **Efficient updates:** O(1) update when nums2 values change
-4. **Memory trade-off:** Use extra space for faster operations
-
-### Pair Counting:
-1. **Complement approach:** For each nums1 value, find complement in nums2
-2. **Count multiplication:** Multiply by frequency of complement
-3. **Complete coverage:** Check all possible pairs
-4. **Efficient calculation:** Avoid nested loops
 
 ## Detailed Example Walkthrough
 
@@ -335,79 +288,12 @@ For each nums1 value:
 Total count = 2 + 0 = 2
 ```
 
-## Alternative Approaches
-
-### Approach 1: Brute Force
-```cpp
-class FindSumPairs {
-private:
-    vector<int> nums1, nums2;
-    
-public:
-    FindSumPairs(vector<int>& nums1, vector<int>& nums2) {
-        this->nums1 = nums1;
-        this->nums2 = nums2;
-    }
-    
-    void add(int index, int val) {
-        nums2[index] += val;
-    }
-    
-    int count(int tot) {
-        int cnt = 0;
-        for(int i = 0; i < nums1.size(); i++) {
-            for(int j = 0; j < nums2.size(); j++) {
-                if(nums1[i] + nums2[j] == tot) {
-                    cnt++;
-                }
-            }
-        }
-        return cnt;
-    }
-};
-```
-
-**Time Complexity:** O(m × n) for count operation  
-**Space Complexity:** O(1)
-
-### Approach 2: Two Hash Maps
-```cpp
-class FindSumPairs {
-private:
-    vector<int> nums1, nums2;
-    unordered_map<int, int> cnts1, cnts2;
-    
-public:
-    FindSumPairs(vector<int>& nums1, vector<int>& nums2) {
-        this->nums1 = nums1;
-        this->nums2 = nums2;
-        for(auto& num: nums1) cnts1[num]++;
-        for(auto& num: nums2) cnts2[num]++;
-    }
-    
-    void add(int index, int val) {
-        cnts2[nums2[index]]--;
-        nums2[index] += val;
-        cnts2[nums2[index]]++;
-    }
-    
-    int count(int tot) {
-        int cnt = 0;
-        for(auto& [num, freq]: cnts1) {
-            int rest = tot - num;
-            if(cnts2.contains(rest)) {
-                cnt += freq * cnts2[rest];
-            }
-        }
-        return cnt;
-    }
-};
-```
-
-**Time Complexity:** O(k) for count operation where k is unique values in nums1  
-**Space Complexity:** O(m + n)
-
 ## Common Mistakes
+
+1. **Single elements:** `nums1 = [1]`, `nums2 = [1]` → `count(2) = 1`
+2. **No pairs:** `nums1 = [1]`, `nums2 = [2]` → `count(1) = 0`
+3. **Multiple same values:** `nums1 = [1,1]`, `nums2 = [1,1]` → `count(2) = 4`
+4. **Large values:** Handle large integers correctly
 
 1. **Wrong count update:** Not properly updating count map in add operation
 2. **Missing edge cases:** Not handling empty arrays or single elements
@@ -416,10 +302,10 @@ public:
 
 ## Related Problems
 
-- [1. Two Sum](https://leetcode.com/problems/two-sum/)
-- [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
-- [170. Two Sum III - Data structure design](https://leetcode.com/problems/two-sum-iii-data-structure-design/)
-- [653. Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
+- [1. Two Sum](https://www.leetcode.com/problems/two-sum/)
+- [167. Two Sum II - Input Array Is Sorted](https://www.leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+- [170. Two Sum III - Data structure design](https://www.leetcode.com/problems/two-sum-iii-data-structure-design/)
+- [653. Two Sum IV - Input is a BST](https://www.leetcode.com/problems/two-sum-iv-input-is-a-bst/)
 
 ## Why This Solution Works
 
@@ -440,3 +326,23 @@ public:
 2. **Efficiency:** O(1) add, O(m) count operations
 3. **Scalability:** Handles large arrays efficiently
 4. **Simplicity:** Easy to understand and implement
+
+## References
+
+- [LC 1865: Finding Pairs With a Certain Sum on LeetCode](https://www.leetcode.com/problems/finding-pairs-with-a-certain-sum/)
+- [LeetCode Discuss — LC 1865: Finding Pairs With a Certain Sum](https://www.leetcode.com/problems/finding-pairs-with-a-certain-sum/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/finding-pairs-with-a-certain-sum/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Hash Map Optimization:
+1. **Count tracking:** Use hash map to track frequency of nums2 values
+2. **Fast lookup:** O(1) lookup for complement checking
+3. **Efficient updates:** O(1) update when nums2 values change
+4. **Memory trade-off:** Use extra space for faster operations
+
+### Pair Counting:
+1. **Complement approach:** For each nums1 value, find complement in nums2
+2. **Count multiplication:** Multiply by frequency of complement
+3. **Complete coverage:** Check all possible pairs
+4. **Efficient calculation:** Avoid nested loops

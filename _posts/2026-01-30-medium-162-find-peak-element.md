@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, binary-search]
 permalink: /2026/01/30/medium-162-find-peak-element/
 tags: [leetcode, medium, array, binary-search]
 ---
-
-# 162. Find Peak Element
-
-## Problem Statement
-
 A **peak element** is an element that is strictly greater than its neighbors.
 
 Given a **0-indexed** integer array `nums`, find a peak element, and return its index. If the array contains multiple peaks, return the index to **any of the peaks**.
@@ -51,45 +46,43 @@ Explanation: For arrays with a single element, that element is a peak.
 - `-2^31 <= nums[i] <= 2^31 - 1`
 - For all valid `i`, `nums[i] != nums[i + 1]`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Binary Search on Unsorted Array**: Even though the array isn't sorted, we can use binary search by comparing with neighbors
 
-1. **Peak definition**: What defines a peak element? (Assumption: Element strictly greater than both neighbors - nums[i] > nums[i-1] and nums[i] > nums[i+1])
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Boundary conditions**: How do we handle array boundaries? (Assumption: nums[-1] = nums[n] = -∞, so first/last element can be peaks if greater than their single neighbor)
 
-3. **Multiple peaks**: What if there are multiple peaks? (Assumption: Return index of any peak - problem allows any valid peak index)
 
-4. **Time complexity**: What time complexity is required? (Assumption: O(log n) - must use binary search, not linear scan)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-5. **Array properties**: Are there any guarantees about the array? (Assumption: Adjacent elements are never equal - nums[i] != nums[i+1] for all valid i)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-Scan through the array from left to right, checking each element to see if it's greater than both its neighbors. For the first element, only check if it's greater than the second element. For the last element, only check if it's greater than the second-to-last element. This approach has O(n) time complexity, which doesn't meet the O(log n) requirement.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | $O(\log n)$ | $O(1)$ | Sorted array, `left <= right` |
+| Lower / upper bound | $O(\log n)$ | $O(1)$ | First/last position, insert index |
+| Binary search on rotated array | $O(\log n)$ | $O(1)$ | Identify sorted half, discard other |
+| Binary search on answer | $O(n \log M)$ | $O(1)$ | Monotonic predicate over search space |
 
-Since we need O(log n) time complexity, we must use binary search. The key insight is that if we're at position `mid` and `nums[mid] < nums[mid + 1]`, then there must be a peak to the right (because the array goes up from mid, and eventually must come down or end at -∞). Similarly, if `nums[mid] > nums[mid + 1]`, there must be a peak to the left or at mid itself. This allows us to eliminate half of the search space at each step.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use binary search with the insight that we can always move toward a direction where a peak is guaranteed to exist. If `nums[mid] < nums[mid + 1]`, move right (left = mid + 1). Otherwise, move left (right = mid). The loop condition `left < right` ensures we converge to a single element, which will be a peak. This achieves O(log n) time complexity and O(1) space complexity.
-
-## Solution Approach
-
-This problem requires finding a peak element in O(log n) time, which strongly suggests using binary search. The key insight is that we don't need to find all peaks or a specific peak - we just need to find any peak.
-
-### Key Insights:
-
-1. **Binary Search Applicability**: Even though the array isn't sorted, we can still use binary search by comparing with neighbors
-2. **Peak Guarantee**: If `nums[mid] < nums[mid + 1]`, there must be a peak to the right
-3. **Convergence**: Using `left < right` and updating `right = mid` or `left = mid + 1` ensures convergence to a peak
-
-## Solution: Binary Search
+## Solution
 
 ```cpp
 class Solution {
@@ -109,105 +102,50 @@ public:
 };
 ```
 
-### Algorithm Breakdown:
+### Solution Explanation
 
-1. **Initialize**: Set `left = 0` and `right = nums.size() - 1`
-2. **Binary Search Loop**: While `left < right`:
-   - Calculate `mid = left + (right - left) / 2`
-   - If `nums[mid] < nums[mid + 1]`: Peak must be to the right, so `left = mid + 1`
-   - Otherwise: Peak is at `mid` or to the left, so `right = mid`
-3. **Return**: When `left == right`, we've found a peak at index `left`
+**Approach:** Standard binary search (this problem)
 
-### Why This Works:
+**Key idea:** 1. **Binary Search on Unsorted Array**: Even though the array isn't sorted, we can use binary search by comparing with neighbors
 
-- If `nums[mid] < nums[mid + 1]`, the array is increasing from `mid` to `mid + 1`. Since `nums[n] = -∞`, there must be a peak somewhere to the right (the array must eventually decrease or end).
-- If `nums[mid] >= nums[mid + 1]`, then either `mid` is a peak (if `nums[mid] > nums[mid - 1]`), or there's a peak to the left. We can safely set `right = mid` because we know a peak exists in `[left, mid]`.
+**How the code works:**
+1. **Binary Search on Unsorted Array**: Even though the array isn't sorted, we can use binary search by comparing with neighbors
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-### Sample Test Case Run:
+**Walkthrough** — input `nums = [1,2,3,1]`, expected output `2`:
 
-**Input:** `nums = [1,2,3,1]`
-
-```
-Initial: left = 0, right = 3
-
-Iteration 1:
-  mid = 0 + (3 - 0) / 2 = 1
-  nums[1] = 2, nums[2] = 3
-  Since nums[1] < nums[2] (2 < 3), peak must be to the right
-  left = mid + 1 = 2
-  Search range: [2, 3]
-
-Iteration 2:
-  mid = 2 + (3 - 2) / 2 = 2
-  nums[2] = 3, nums[3] = 1
-  Since nums[2] > nums[3] (3 > 1), peak is at mid or to the left
-  right = mid = 2
-  Search range: [2, 2]
-
-Loop condition: left (2) < right (2) is false, exit loop
-
-Return: left = 2
-```
-
-**Verification:** `nums[2] = 3` is greater than both neighbors:
-- `nums[1] = 2 < 3` ✓
-- `nums[3] = 1 < 3` ✓
-
-**Output:** `2` ✓
-
----
-
-**Another Example:** `nums = [1,2,1,3,5,6,4]`
-
-```
-Initial: left = 0, right = 6
-
-Iteration 1:
-  mid = 0 + (6 - 0) / 2 = 3
-  nums[3] = 3, nums[4] = 5
-  Since nums[3] < nums[4] (3 < 5), peak must be to the right
-  left = mid + 1 = 4
-  Search range: [4, 6]
-
-Iteration 2:
-  mid = 4 + (6 - 4) / 2 = 5
-  nums[5] = 6, nums[6] = 4
-  Since nums[5] > nums[6] (6 > 4), peak is at mid or to the left
-  right = mid = 5
-  Search range: [4, 5]
-
-Iteration 3:
-  mid = 4 + (5 - 4) / 2 = 4
-  nums[4] = 5, nums[5] = 6
-  Since nums[4] < nums[5] (5 < 6), peak must be to the right
-  left = mid + 1 = 5
-  Search range: [5, 5]
-
-Loop condition: left (5) < right (5) is false, exit loop
-
-Return: left = 5
-```
-
-**Verification:** `nums[5] = 6` is greater than both neighbors:
-- `nums[4] = 5 < 6` ✓
-- `nums[6] = 4 < 6` ✓
-
-**Output:** `5` ✓
-
-## Complexity Analysis
+3 is a peak element and your function should return the index number 2.
 
 - **Time Complexity**: O(log n) - Binary search eliminates half of the search space at each step
 - **Space Complexity**: O(1) - Only using a constant amount of extra space
+## Related Problems
 
-## Key Insights
+- [852. Peak Index in a Mountain Array](https://www.leetcode.com/problems/peak-index-in-a-mountain-array/) - Similar problem with guaranteed mountain shape
+- [33. Search in Rotated Sorted Array](https://www.leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on modified sorted array
+- [153. Find Minimum in Rotated Sorted Array](https://www.leetcode.com/problems/find-minimum-in-rotated-sorted-array/) - Binary search variant
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Binary Search on Unsorted Array**: Even though the array isn't sorted, we can use binary search by comparing with neighbors
 2. **Peak Guarantee**: The boundary conditions (nums[-1] = nums[n] = -∞) guarantee that a peak always exists
 3. **Direction Choice**: Comparing `nums[mid]` with `nums[mid + 1]` tells us which direction to search
 4. **Loop Invariant**: At each step, we maintain that a peak exists in the current search range [left, right]
 
-## Related Problems
+## References
 
-- [852. Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/) - Similar problem with guaranteed mountain shape
-- [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) - Binary search on modified sorted array
-- [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) - Binary search variant
+- [LC 162: Find Peak Element on LeetCode](https://www.leetcode.com/problems/find-peak-element/)
+- [LeetCode Discuss — LC 162: Find Peak Element](https://www.leetcode.com/problems/find-peak-element/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/find-peak-element/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

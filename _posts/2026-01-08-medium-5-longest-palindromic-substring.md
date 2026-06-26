@@ -6,11 +6,6 @@ categories: [leetcode, medium, string, two-pointers, dynamic-programming]
 permalink: /2026/01/08/medium-5-longest-palindromic-substring/
 tags: [leetcode, medium, string, two-pointers, palindrome, expand-around-center, manacher]
 ---
-
-# 5. Longest Palindromic Substring
-
-## Problem Statement
-
 Given a string `s`, return *the longest **palindromic substring** in* `s`.
 
 A **palindrome** is a string that reads the same backward as forward.
@@ -41,34 +36,6 @@ Output: "a"
 - `1 <= s.length <= 1000`
 - `s` consist of only digits and English letters.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Palindrome definition**: What makes a string a palindrome? (Assumption: Reads the same forwards and backwards - symmetric string)
-
-2. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters from the original string)
-
-3. **Multiple palindromes**: What if there are multiple palindromes of the same maximum length? (Assumption: Return any one of them - typically the first one found)
-
-4. **Case sensitivity**: Are character comparisons case-sensitive? (Assumption: Yes - 'A' and 'a' are different characters)
-
-5. **Single character**: Is a single character considered a palindrome? (Assumption: Yes - single character is a palindrome of length 1)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Check all possible substrings to see if they are palindromes. For each starting position i and ending position j, check if s[i:j+1] is a palindrome by comparing characters from both ends. Keep track of the longest palindrome found. This approach has O(n³) time complexity (O(n²) substrings × O(n) palindrome check), which is too slow for strings up to 1000 characters.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use dynamic programming: dp[i][j] = true if substring s[i:j+1] is a palindrome. Fill the DP table: base case is single characters and pairs, then for longer substrings, check if s[i] == s[j] and dp[i+1][j-1] is true. This reduces palindrome checking to O(1) per substring, giving O(n²) time complexity with O(n²) space. This works but can be optimized further.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use the "expand around center" approach: for each possible center (character or gap between characters), expand outward while characters match. There are 2n-1 centers (n characters + n-1 gaps). For each center, expand and track the longest palindrome. This achieves O(n²) time with O(1) space. Alternatively, use Manacher's algorithm for O(n) time, but it's more complex. The expand-around-center approach is simpler and sufficient for most cases, providing a good balance between complexity and performance.
-
 ## Solution Approaches
 
 There are several approaches to solve this problem:
@@ -93,7 +60,42 @@ The key insight is that every palindrome expands from a center. For each positio
 
 Uses preprocessing to transform the string and then uses symmetry properties to avoid redundant checks.
 
-## Solution 1: Expand Around Center
+## Thinking Process
+
+1. **Two Types of Centers**: Odd-length (single char) and even-length (between chars)
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
+
+## Solution
 
 ```cpp
 class Solution {
@@ -185,148 +187,12 @@ Result: s.substr(0, 3) = "bab"
 - **Space Complexity:** O(1)
   - Only using a few variables: `start`, `maxLen`, `left`, `right`
 
-## Solution 2: Manacher's Algorithm
-
-```cpp
-class Solution {
-private:
-    string preprocess(const string& s) {
-        string t = "^";
-        for (char c : s) {
-            t += "#";
-            t += c;
-        }
-        t += "#$";
-        return t;
-    }
-
-public:
-    string longestPalindrome(string s) {
-        if (s.empty()) return "";
-
-        string t = preprocess(s);
-        int n = t.size();
-        vector<int> p(n, 0);
-
-        int center = 0, right = 0;
-
-        for (int i = 1; i < n - 1; i++) {
-            int mirror = 2 * center - i;
-
-            if (i < right)
-                p[i] = min(right - i, p[mirror]);
-
-            // Expand around center i
-            while (t[i + p[i] + 1] == t[i - p[i] - 1])
-                p[i]++;
-
-            // Update center and right boundary
-            if (i + p[i] > right) {
-                center = i;
-                right = i + p[i];
-            }
-        }
-
-        // Find the longest palindrome
-        int maxLen = 0, centerIndex = 0;
-        for (int i = 1; i < n - 1; i++) {
-            if (p[i] > maxLen) {
-                maxLen = p[i];
-                centerIndex = i;
-            }
-        }
-
-        int start = (centerIndex - maxLen) / 2;
-        return s.substr(start, maxLen);
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Preprocessing (Lines 3-11)**:
-   - Transform string by inserting `#` between characters
-   - Add sentinels `^` at start and `$` at end
-   - Example: `"aba"` → `"^#a#b#a#$"`
-   - **Why?** This converts all palindromes to odd-length, simplifying the algorithm
-
-2. **Main Algorithm (Lines 17-33)**:
-   - `p[i]`: Length of palindrome centered at position `i` in transformed string
-   - `center`: Center of the rightmost palindrome found so far
-   - `right`: Right boundary of the palindrome centered at `center`
-   - **For each position `i`**:
-     - **Mirror symmetry**: If `i` is within current palindrome, use mirror position to initialize `p[i]`
-     - **Expand**: Try to expand palindrome centered at `i`
-     - **Update**: If palindrome extends beyond `right`, update `center` and `right`
-
-3. **Find Longest (Lines 35-42)**:
-   - Find the maximum value in `p` array
-   - Convert back to original string indices
-
-### **Key Insight: Mirror Symmetry**
-
-If we know a palindrome centered at `center` extends to `right`, and `i` is within this palindrome, then:
-- The palindrome centered at `i` will be at least as long as the palindrome at its mirror position `mirror = 2*center - i`
-- This avoids redundant checks, making it O(n)
-
-### **Example Walkthrough:**
-
-**For `s = "babad"`:**
-
-```
-Step 1: Preprocess
-t = "^#b#a#b#a#d#$"
-
-Step 2: Build p array
-i=1: p[1]=0, center=1, right=1
-i=2: p[2]=1 (palindrome "#b#"), center=2, right=3
-i=3: p[3]=0, center=2, right=3
-i=4: p[4]=3 (palindrome "#b#a#b#"), center=4, right=7
-i=5: p[5]=0, center=4, right=7
-i=6: p[6]=1 (palindrome "#a#b#"), center=6, right=7
-i=7: p[7]=0, center=4, right=7
-i=8: p[8]=0, center=4, right=7
-i=9: p[9]=0, center=4, right=7
-
-Step 3: Find maximum
-maxLen = 3, centerIndex = 4
-start = (4 - 3) / 2 = 0
-Result: s.substr(0, 3) = "bab"
-```
-
-### **Complexity Analysis:**
-
-- **Time Complexity:** O(n)
-  - Each character is processed at most once
-  - The `right` boundary only moves forward
-  - Total: O(n)
-- **Space Complexity:** O(n)
-  - O(n) for transformed string `t`
-  - O(n) for `p` array
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Notes |
-|----------|------|-------|-------|
-| Expand Around Center | O(n²) | O(1) | Simple, intuitive, good for interviews |
-| Manacher's Algorithm | O(n) | O(n) | Optimal, but more complex |
-| Dynamic Programming | O(n²) | O(n²) | Straightforward but uses more space |
-
-## Key Insights
-
-1. **Two Types of Centers**: Odd-length (single char) and even-length (between chars)
-2. **Expand Greedily**: For each center, expand as far as possible
-3. **Manacher's Symmetry**: Use previously computed palindromes to avoid redundant checks
-4. **Preprocessing**: Transform string to handle even-length palindromes uniformly
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single character**: `"a"` → return `"a"`
 2. **All same characters**: `"aaa"` → return `"aaa"`
 3. **No palindrome > 1**: `"abc"` → return `"a"` (or any single char)
 4. **Two palindromes of same length**: `"babad"` → return either `"bab"` or `"aba"`
-
-## Common Mistakes
 
 1. **Missing even-length palindromes**: Forgetting to check centers between characters
 2. **Index out of bounds**: Not checking bounds before accessing array
@@ -335,12 +201,24 @@ Result: s.substr(0, 3) = "bab"
 
 ## Related Problems
 
-- [LC 647: Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) - Count all palindromic substrings (same expand-around-center technique)
-- [LC 516: Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/) - Find longest palindromic subsequence (DP)
-- [LC 125: Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
-- [LC 680: Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/) - Can make palindrome with 1 deletion
+- [LC 647: Palindromic Substrings](https://www.leetcode.com/problems/palindromic-substrings/) - Count all palindromic substrings (same expand-around-center technique)
+- [LC 516: Longest Palindromic Subsequence](https://www.leetcode.com/problems/longest-palindromic-subsequence/) - Find longest palindromic subsequence (DP)
+- [LC 125: Valid Palindrome](https://www.leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
+- [LC 680: Valid Palindrome II](https://www.leetcode.com/problems/valid-palindrome-ii/) - Can make palindrome with 1 deletion
 
----
+## Key Takeaways
 
-*This problem demonstrates two fundamental approaches to palindrome problems: the intuitive expand-around-center technique and the optimal Manacher's algorithm. The expand-around-center approach is recommended for interviews due to its simplicity and clarity.*
+1. **Two Types of Centers**: Odd-length (single char) and even-length (between chars)
+2. **Expand Greedily**: For each center, expand as far as possible
+3. **Manacher's Symmetry**: Use previously computed palindromes to avoid redundant checks
+4. **Preprocessing**: Transform string to handle even-length palindromes uniformly
 
+## References
+
+- [LC 5: Longest Palindromic Substring on LeetCode](https://www.leetcode.com/problems/longest-palindromic-substring/)
+- [LeetCode Discuss — LC 5: Longest Palindromic Substring](https://www.leetcode.com/problems/longest-palindromic-substring/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/longest-palindromic-substring/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

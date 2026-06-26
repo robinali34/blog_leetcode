@@ -6,11 +6,6 @@ categories: [leetcode, medium, graph, topological-sort]
 permalink: /2026/02/08/medium-210-course-schedule-ii/
 tags: [leetcode, medium, graph, topological-sort]
 ---
-
-# 210. Course Schedule II
-
-## Problem Statement
-
 You have `numCourses` courses labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` means you must take course `bi` before course `ai`. Return any valid ordering of courses to finish all of them, or an empty array if it is impossible.
 
 ## Examples
@@ -46,14 +41,42 @@ Output: [0]
 - `0 <= ai, bi < numCourses`
 - `ai != bi`; all pairs are distinct
 
-## Solution Approach
+## Thinking Process
 
-This is **topological sort** on a directed graph: edge `(bi, ai)` means `bi` must come before `ai`. If the graph has a cycle, no valid order exists. Two standard approaches:
+1. **Prerequisite = edge:** `[a, b]` means `b → a` in the graph; topological order has predecessors before successors.
 
-1. **DFS + three-state coloring:** 0 = unvisited, 1 = visiting (on stack), 2 = visited. If we see a node with color 1 while DFS, there is a cycle. When we finish a node (color 2), append it to a list; reverse the list to get topological order.
-2. **Kahn's algorithm (BFS):** Compute indegree of each node. Repeatedly take a node with indegree 0, add it to the order, and decrease indegree of its neighbors. If the final order has size `numCourses`, no cycle; else return `[]`.
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-## Solution 1: DFS with Three-State Coloring
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **BFS / DFS traversal** *(this problem)* | $O(V+E)$ | $O(V)$ | Connectivity, flood fill |
+| Dijkstra | $O((V+E)\log V)$ | $O(V)$ | Non-negative edge weights |
+| Union-Find (DSU) | $O(\alpha(n))$ | $O(n)$ | Dynamic connectivity |
+| Topological sort | $O(V+E)$ | $O(V)$ | DAG ordering, cycle detection |
+
+## Solution
 
 ```cpp
 class Solution {
@@ -92,47 +115,23 @@ private:
 };
 ```
 
-- **Cycle:** Seeing `color[v] == 1` means `v` is on the current DFS stack → back edge → cycle.
-- **Order:** We push a node when we finish it (all descendants done), so the list is **reverse** topological order; one reverse gives a valid order.
-- **Time:** O(V + E). **Space:** O(V).
+### Solution Explanation
 
-## Solution 2: Kahn's Algorithm (BFS)
+**Approach:** BFS / DFS traversal (this problem)
 
-```cpp
-class Solution {
-public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        vector<int> indegree(numCourses, 0);
-        queue<int> q;
-        vector<int> order;
+**Key idea:** 1. **Prerequisite = edge:** `[a, b]` means `b → a` in the graph; topological order has predecessors before successors.
 
-        for (auto& p : prerequisites) {
-            adj[p[1]].emplace_back(p[0]);
-            indegree[p[0]]++;
-        }
+**How the code works:**
+1. **Prerequisite = edge:** `[a, b]` means `b → a` in the graph; topological order has predecessors before successors.
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) q.push(i);
-        }
+**Walkthrough** — input `numCourses = 2, prerequisites = [[1,0]]`, expected output `[0,1]`:
 
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            order.emplace_back(u);
-            for (int v : adj[u]) {
-                if (--indegree[v] == 0) q.push(v);
-            }
-        }
-        return order.size() == numCourses ? order : vector<int>{};
-    }
-};
-```
+To take course 1 you must take course 0 first. So [0,1] is valid.
 
-- **Indegree:** `indegree[v]` = number of edges into `v`. Process nodes with indegree 0 (no unmet prerequisites).
-- **Cycle:** If there is a cycle, some nodes never get indegree 0, so `order.size() < numCourses` → return `[]`.
-- **Time:** O(V + E). **Space:** O(V).
-
+**Time:** O(V + E). **Space:** O(V).
 ## Comparison
 
 | Approach        | Idea                    | Cycle check              |
@@ -140,13 +139,30 @@ public:
 | DFS + coloring | Finish order → reverse  | Back edge (color == 1)    |
 | Kahn (BFS)     | Indegree 0 → order      | order.size() != numCourses |
 
-## Key Insights
+## Related Problems
+
+- [207. Course Schedule](https://www.leetcode.com/problems/course-schedule/) — Only check if a valid order exists
+- [269. Alien Dictionary](https://www.leetcode.com/problems/alien-dictionary/) — Topological sort from character constraints
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
 
 1. **Prerequisite = edge:** `[a, b]` means `b → a` in the graph; topological order has predecessors before successors.
 2. **DFS order:** Finishing order is reverse topological; one reverse gives a valid schedule.
 3. **Kahn:** No need to reverse; order is built in topological order as we dequeue.
 
-## Related Problems
+## References
 
-- [207. Course Schedule](https://leetcode.com/problems/course-schedule/) — Only check if a valid order exists
-- [269. Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) — Topological sort from character constraints
+- [LC 210: Course Schedule II on LeetCode](https://www.leetcode.com/problems/course-schedule-ii/)
+- [LeetCode Discuss — LC 210: Course Schedule II](https://www.leetcode.com/problems/course-schedule-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/course-schedule-ii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode/posts/2025-10-29-leetcode-templates-graph/)

@@ -5,14 +5,53 @@ date: 2025-12-30 20:30:00 -0700
 categories: [leetcode, medium, binary-search-tree, tree, inorder-traversal]
 permalink: /2025/12/30/medium-285-inorder-successor-in-bst/
 ---
+Given the root of a binary search tree (BST) and a node `p` in it, return *the in-order successor of that node in the BST*. If the given node has no in-order successor in the tree, return `null`.
 
-# 285. Inorder Successor in BST
+The successor of a node `p` is the node with the smallest key greater than `p.val`.
 
-## Problem Statement
+## Thinking Process
 
 Given the root of a binary search tree (BST) and a node `p` in it, return *the in-order successor of that node in the BST*. If the given node has no in-order successor in the tree, return `null`.
 
 The successor of a node `p` is the node with the smallest key greater than `p.val`.
+
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
+
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Recursive DFS | $O(n)$ | $O(h)$ | Depth, path sum, subtree queries |
+| BFS level-order | $O(n)$ | $O(w)$ | Level traversal, zigzag |
+| **Inorder on BST** *(this problem)* | $O(n)$ | $O(h)$ | Sorted order, successor |
+| Divide & conquer on tree | $O(n)$ | $O(h)$ | Diameter, max path |
 
 ## Examples
 
@@ -35,181 +74,6 @@ Explanation: There is no in-order successor of the node 6, so the answer is null
 - The number of nodes in the tree will be in the range `[1, 10^4]`.
 - `-10^5 <= Node.val <= 10^5`
 - All Nodes will have unique values.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **In-order successor definition**: What is an in-order successor? (Assumption: Node with smallest value greater than given node's value - next node in in-order traversal)
-
-2. **BST properties**: What are BST properties? (Assumption: Left subtree < root < right subtree - can use this to navigate)
-
-3. **Return value**: What should we return? (Assumption: Pointer to successor node, or nullptr if no successor exists)
-
-4. **Node reference**: How is target node given? (Assumption: Given node pointer p - need to find its successor)
-
-5. **Rightmost node**: What if node is rightmost? (Assumption: Return nullptr - no successor exists)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Perform an in-order traversal of the BST, collect all nodes in a list, find the given node in the list, and return the next node. This approach works but requires O(n) time and O(n) space for the traversal, which is inefficient.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use in-order traversal with early termination: traverse the BST in-order, track the previous node. When we encounter the target node, return the next node we visit. However, we still need to traverse potentially the entire tree, and handling the case where the target is the rightmost node requires special care.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use BST properties: if the target node has a right child, the successor is the leftmost node in its right subtree. If the target node doesn't have a right child, the successor is the lowest ancestor whose left subtree contains the target node. Traverse from root to target, keeping track of the last node where we went left (this is the potential successor). This achieves O(h) time where h is the height of the tree, which is O(log n) for balanced BSTs. The key insight is leveraging BST properties: the successor is either in the right subtree (if it exists) or is an ancestor where we took a left turn.
-
-## Solution Approach
-
-This problem requires finding the in-order successor of a given node in a BST. The in-order successor is the node with the smallest value greater than the given node's value.
-
-### Key Insights:
-
-1. **Two Cases**: 
-   - **Case 1**: Node `p` has a right child → successor is the leftmost node in right subtree
-   - **Case 2**: Node `p` has no right child → successor is an ancestor (lowest ancestor with left child being ancestor of p)
-
-2. **BST Property**: Use BST property to traverse efficiently
-3. **Iterative Search**: Search from root to find the successor when p has no right child
-
-### Algorithm:
-
-1. **Check right child**: If `p->right` exists, find leftmost node in right subtree
-2. **Search from root**: If no right child, traverse from root to find successor
-3. **Track candidate**: Keep track of node with value greater than `p->val`
-
-## Solution
-
-### **Solution: Two-Case Handling**
-
-```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
-        TreeNode* successor = nullptr;
-        if(p->right != nullptr) {
-            successor = p->right;
-            while(successor->left != nullptr) {
-                successor = successor->left;
-            }
-            return successor;
-        }
-        TreeNode* node = root;
-        while(node != nullptr) {
-            if(node->val > p->val) {
-                successor = node;
-                node = node->left;
-            } else {
-                node = node->right;
-            }
-        }
-        return successor;
-    }
-};
-```
-
-### **Algorithm Explanation:**
-
-1. **Case 1: Node has Right Child (Lines 12-19)**:
-   - If `p->right` exists, the successor is in the right subtree
-   - Go to right child: `successor = p->right`
-   - Find leftmost node: Traverse left until `nullptr`
-   - Return the leftmost node (smallest value in right subtree)
-
-2. **Case 2: Node has No Right Child (Lines 20-29)**:
-   - If `p->right` is `nullptr`, successor is an ancestor
-   - Traverse from root to find successor
-   - **When `node->val > p->val`**:
-     - Current node is a candidate (greater than p)
-     - Update `successor = node`
-     - Go left to find smaller candidate (if exists)
-   - **When `node->val <= p->val`**:
-     - Current node is not greater than p
-     - Go right to find larger node
-   - Return `successor` (lowest ancestor with value > p->val)
-
-### **Example Walkthrough:**
-
-**Example 1: `root = [2,1,3], p = 1`**
-
-```
-BST:
-    2
-   / \
-  1   3
-
-Case 2: p (1) has no right child
-Traverse from root:
-
-Step 1: node = 2, p->val = 1
-  node->val (2) > p->val (1) → candidate found!
-  successor = 2
-  Go left: node = 1
-
-Step 2: node = 1, p->val = 1
-  node->val (1) <= p->val (1) → not a candidate
-  Go right: node = nullptr
-
-Result: successor = 2
-```
-
-**Example 2: `root = [5,3,6,2,4,null,null,1], p = 3`**
-
-```
-BST:
-        5
-       / \
-      3   6
-     / \
-    2   4
-   /
-  1
-
-Case 1: p (3) has right child (4)
-  successor = p->right = 4
-  Check left: 4->left = nullptr
-  Return: 4
-```
-
-**Example 3: `root = [5,3,6,2,4,null,null,1], p = 6`**
-
-```
-BST:
-        5
-       / \
-      3   6
-     / \
-    2   4
-   /
-  1
-
-Case 2: p (6) has no right child
-Traverse from root:
-
-Step 1: node = 5, p->val = 6
-  node->val (5) <= p->val (6) → not a candidate
-  Go right: node = 6
-
-Step 2: node = 6, p->val = 6
-  node->val (6) <= p->val (6) → not a candidate
-  Go right: node = nullptr
-
-Result: successor = nullptr (no successor)
-```
 
 ## Algorithm Breakdown
 
@@ -255,8 +119,7 @@ if(node->val > p->val) {
    - The successor is the first ancestor we haven't visited yet
    - This is the lowest ancestor whose left subtree contains `p`
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(h)
 - **Case 1**: O(h) - Find leftmost node in right subtree (at most h steps)
 - **Case 2**: O(h) - Traverse from root to find successor (at most h steps)
@@ -277,25 +140,6 @@ if(node->val > p->val) {
 3. **Leftmost Node**: In right subtree, find leftmost node
 4. **Ancestor Search**: When no right child, search from root
 5. **Space Efficient**: O(1) space, no recursion stack
-
-## Alternative Approaches
-
-### **Approach 1: Two-Case Handling (Current Solution)**
-- **Time**: O(h)
-- **Space**: O(1)
-- **Best for**: Space-efficient solution
-
-### **Approach 2: In-Order Traversal**
-- **Time**: O(n)
-- **Space**: O(h) for recursion
-- **Traverse**: Do in-order traversal, find p, return next
-- **Use case**: When you need to understand in-order sequence
-
-### **Approach 3: Recursive Search**
-- **Time**: O(h)
-- **Space**: O(h) for recursion stack
-- **Recursive**: Recursively search for successor
-- **Similar logic**: But uses recursion instead of iteration
 
 ## Detailed Example Walkthrough
 
@@ -357,14 +201,36 @@ For p = 6:
 4. **Single node tree**: If p is the only node, return `null`
 5. **Root node**: Successor depends on whether it has right child
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [285. Inorder Successor in BST](https://leetcode.com/problems/inorder-successor-in-bst/) - Current problem
-- [510. Inorder Successor in BST II](https://leetcode.com/problems/inorder-successor-in-bst-ii/) - With parent pointer
-- [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) - Iterator with next()
-- [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) - BST validation
+- [285. Inorder Successor in BST](https://www.leetcode.com/problems/inorder-successor-in-bst/) - Current problem
+- [510. Inorder Successor in BST II](https://www.leetcode.com/problems/inorder-successor-in-bst-ii/) - With parent pointer
+- [173. Binary Search Tree Iterator](https://www.leetcode.com/problems/binary-search-tree-iterator/) - Iterator with next()
+- [98. Validate Binary Search Tree](https://www.leetcode.com/problems/validate-binary-search-tree/) - BST validation
 
 ## Tags
 
 `Binary Search Tree`, `Tree`, `Inorder Traversal`, `Medium`
 
+## Key Takeaways
+
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+## References
+
+- [LC 285: Inorder Successor in BST on LeetCode](https://www.leetcode.com/problems/inorder-successor-in-bst/)
+- [LeetCode Discuss — LC 285: Inorder Successor in BST](https://www.leetcode.com/problems/inorder-successor-in-bst/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/inorder-successor-in-bst/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

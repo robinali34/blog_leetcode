@@ -4,9 +4,6 @@ title: "[Medium] 75. Sort Colors"
 date: 2025-12-02 00:00:00 -0800
 categories: leetcode algorithm medium cpp array two-pointers sorting problem-solving
 ---
-
-# [Medium] 75. Sort Colors
-
 Given an array `nums` with `n` objects colored red, white, or blue, sort them **in-place** so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
 
 We will use the integers `0`, `1`, and `2` to represent the color red, white, and blue, respectively.
@@ -33,35 +30,44 @@ Output: [0,1,2]
 - `1 <= n <= 300`
 - `nums[i]` is either `0`, `1`, or `2`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an array `nums` with `n` objects colored red, white, or blue, sort them **in-place** so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
 
-1. **Color representation**: What do 0, 1, 2 represent? (Assumption: 0 = red, 1 = white, 2 = blue - need to sort in this order)
+We will use the integers `0`, `1`, and `2` to represent the color red, white, and blue, respectively.
 
-2. **Sorting requirement**: What order should colors be in? (Assumption: All 0s first, then all 1s, then all 2s - ascending order)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-3. **In-place requirement**: Should we sort in-place? (Assumption: Yes - modify array in-place, O(1) extra space)
 
-4. **Return value**: What should we return? (Assumption: Void - modify array in-place)
 
-5. **Time complexity**: What time complexity is expected? (Assumption: O(n) - single pass using Dutch National Flag algorithm)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-## Interview Deduction Process (20 minutes)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Count the frequency of 0s, 1s, and 2s in the array. Then overwrite the array: first write all 0s, then all 1s, then all 2s. This approach requires two passes: one to count and one to write. It works but doesn't achieve the optimal single-pass solution and uses O(1) extra space for counters.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use two pointers: one for the boundary between 0s and 1s, another for the boundary between 1s and 2s. Iterate through the array, swapping elements to place them in the correct region. However, managing three regions with two pointers can be tricky and error-prone. Need to be careful about the order of swaps and pointer movements.
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | $O(n)$ | $O(1)$ | Sorted array pair search, reversal |
+| Slow / fast pointers | $O(n)$ | $O(1)$ | Linked list middle, cycle detection |
+| Same-direction chase | $O(n)$ | $O(1)$ | Remove duplicates in-place |
+| Sliding window (variable) | $O(n)$ | $O(1)$ | Subarray with constraint |
 
-**Step 3: Optimized Solution (8 minutes)**
-
-Use the Dutch National Flag algorithm with three pointers: `left` (end of 0s), `mid` (current element), and `right` (start of 2s). Maintain invariants: [0, left] contains 0s, [left+1, mid-1] contains 1s, [mid, right-1] is being processed, [right, n-1] contains 2s. If nums[mid] == 0, swap with left+1 and advance both. If nums[mid] == 1, advance mid. If nums[mid] == 2, swap with right-1 and decrement right. This achieves O(n) time with O(1) space in a single pass, which is optimal.
-
-## Solution: Dutch National Flag Algorithm (Two Pointers)
+## Solution
 
 **Time Complexity:** O(n) - Single pass through the array  
 **Space Complexity:** O(1) - In-place sorting with only constant extra space
@@ -93,67 +99,28 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Three-Way Partitioning
+**Approach:** Opposite ends (this problem)
 
-The algorithm maintains three regions:
-1. **0s region**: All elements before `p0` are 0s
-2. **1s region**: Elements between `p0` and `i` are 1s (or being processed)
-3. **2s region**: All elements after `p2` are 2s
+**Key idea:** Given an array `nums` with `n` objects colored red, white, or blue, sort them **in-place** so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
 
-### Algorithm Steps
+**How the code works:**
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+- Loop invariant: all indices outside `[left, right]` are already resolved.
 
-1. **Initialize pointers**:
-   - `p0 = 0`: Next position to place a 0
-   - `p2 = n - 1`: Next position to place a 2
-   - `i = 0`: Current element being processed
+**Walkthrough** — input `nums = [2,0,2,1,1,0]`, expected output `[0,0,1,1,2,2]`:
 
-2. **Process each element**:
-   - If `nums[i] == 2`: Swap with `nums[p2]` and decrement `p2` (use `while` to handle swapped 2s)
-   - If `nums[i] == 0`: Swap with `nums[p0]` and increment `p0`
-   - If `nums[i] == 1`: Leave it (it's in the correct region), increment `i`
-
-3. **Termination**: When `i > p2`, all elements are processed
-
-### Why the `while` Loop for 2s?
-
-When we swap `nums[i]` with `nums[p2]`, the element at `p2` might be a 2. We need to keep swapping until `nums[i]` is not 2, otherwise we might leave a 2 in the wrong position.
-
-### Example Walkthrough
-
-**Input:** `nums = [2,0,2,1,1,0]`
-
-```
-Initial: [2, 0, 2, 1, 1, 0]
-         i=0              p2=5, p0=0
-
-i=0: nums[0]=2, swap with nums[5]=0
-     [0, 0, 2, 1, 1, 2]
-     i=0              p2=4, p0=0
-     nums[0]=0, swap with nums[0] (no change), p0=1
-
-i=1: nums[1]=0, swap with nums[1] (no change), p0=2
-
-i=2: nums[2]=2, swap with nums[4]=1
-     [0, 0, 1, 1, 2, 2]
-     i=2          p2=3, p0=2
-     nums[2]=1, leave it
-
-i=3: nums[3]=1, leave it
-     i=3 > p2=3, done
-
-Result: [0, 0, 1, 1, 2, 2] ✓
-```
-
-## Complexity Analysis
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 | Operation | Time | Space |
 |-----------|------|-------|
 | Single pass | O(n) | O(1) |
 | Swaps | O(n) worst case | - |
 | **Overall** | **O(n)** | **O(1)** |
-
 ## Key Points
 
 1. **In-place sorting**: No extra space needed (except for variables)
@@ -162,14 +129,12 @@ Result: [0, 0, 1, 1, 2, 2] ✓
 4. **While loop for 2s**: Ensures swapped 2s are handled correctly
 5. **Order matters**: Handle 2s first (with while), then 0s
 
-## Edge Cases
+## Common Mistakes
 
 1. **All same color**: `[0,0,0]`, `[1,1,1]`, `[2,2,2]`
 2. **Already sorted**: `[0,1,2]`
 3. **Reverse sorted**: `[2,1,0]`
 4. **Single element**: `[1]`
-
-## Common Mistakes
 
 1. **Not using `while` for 2s**: If you use `if`, swapped 2s might be left in wrong position
 2. **Wrong loop condition**: Must use `i <= p2`, not `i < n`
@@ -202,12 +167,24 @@ public:
 
 However, the two-pointer approach is more general and can be extended to partition problems.
 
+## Key Takeaways
+
+- **Pattern:** Opposite ends (this problem)
+- Two indices move toward each other or in the same direction.
+- Works on sorted arrays or when in-place modification is required.
+
+## References
+
+- [LC 75: Sort Colors on LeetCode](https://www.leetcode.com/problems/sort-colors/)
+- [LeetCode Discuss — LC 75: Sort Colors](https://www.leetcode.com/problems/sort-colors/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/sort-colors/editorial/) *(may require premium)*
+
 ## Related Problems
 
-- [324. Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/) - Uses 3-way partition
-- [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) - Partitioning
-- [912. Sort an Array](https://leetcode.com/problems/sort-an-array/) - General sorting
-- [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) - Two-pointer partitioning
+- [324. Wiggle Sort II](https://www.leetcode.com/problems/wiggle-sort-ii/) - Uses 3-way partition
+- [215. Kth Largest Element in an Array](https://www.leetcode.com/problems/kth-largest-element-in-an-array/) - Partitioning
+- [912. Sort an Array](https://www.leetcode.com/problems/sort-an-array/) - General sorting
+- [283. Move Zeroes](https://www.leetcode.com/problems/move-zeroes/) - Two-pointer partitioning
 
 ## Pattern Recognition
 
@@ -492,4 +469,3 @@ This shows that sometimes prioritizing 0s first can result in fewer total swaps,
 1. **Order of operations**: Process 2s first, then 0s
 2. **Swap minimization**: Avoids redundant swaps
 3. **Goal**: Ensure 0s in front + maximize 2s at end (1s can be anywhere in middle)
-

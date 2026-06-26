@@ -4,9 +4,6 @@ title: "[Hard] 1206. Design Skiplist"
 date: 2025-12-03 00:00:00 -0800
 categories: leetcode algorithm hard cpp data-structures skiplist linked-list problem-solving
 ---
-
-# [Hard] 1206. Design Skiplist
-
 Design a **Skiplist** without using any built-in libraries.
 
 A **skiplist** is a data structure that takes O(log(n)) time to add, erase and search. Comparing with treap and red-black tree which has the same function and performance, the code length of Skiplist can be comparatively short and the idea behind Skiplists is just simple linked lists.
@@ -57,62 +54,46 @@ skiplist.search(1);   // return False, 1 has already been erased.
 - `0 <= num, target <= 20000`
 - At most `50000` calls will be made to `search`, `add`, and `erase`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Design a **Skiplist** without using any built-in libraries.
 
-1. **Skiplist definition**: What is a skiplist? (Assumption: A probabilistic data structure with multiple levels, allowing O(log n) search, insert, and delete operations)
+A **skiplist** is a data structure that takes O(log(n)) time to add, erase and search. Comparing with treap and red-black tree which has the same function and performance, the code length of Skiplist can be comparatively short and the idea behind Skiplists is just simple linked lists.
 
-2. **Duplicate handling**: Can the skiplist contain duplicate values? (Assumption: Yes - per examples, duplicates may exist, need to handle them)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
-3. **Operations**: What operations should we support? (Assumption: search(target) - find if target exists, add(num) - insert num, erase(num) - remove one occurrence of num)
 
-4. **Return values**: What should operations return? (Assumption: search returns bool, add returns void, erase returns bool indicating if num was found and removed)
 
-5. **Time complexity**: What time complexity is expected? (Assumption: O(log n) average case for all operations - probabilistic structure)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
-## Interview Deduction Process (30 minutes)
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
 
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to implement skiplist. Let me use sorted array or linked list."
+</svg>
 
-**Naive Solution**: Use sorted array for search/insert/erase. Binary search for O(log n) search, but insert/erase are O(n).
+## Common Approaches
 
-**Complexity**: O(log n) search, O(n) insert/erase, O(n) space
+Typical techniques for this pattern:
 
-**Issues**:
-- O(n) insert/erase is inefficient
-- Doesn't meet O(log n) requirement for all operations
-- Array shifting is expensive
-- Can be optimized
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
 
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "Skiplist uses multiple levels of linked lists with probabilistic promotion."
-
-**Improved Solution**: Implement skiplist with multiple levels. Each node has probability 0.5 to be promoted to next level. Search/insert/erase traverse levels from top to bottom.
-
-**Complexity**: O(log n) average case for all operations, O(n) space
-
-**Improvements**:
-- Probabilistic structure enables O(log n) operations
-- Multiple levels enable fast search
-- Handles all operations efficiently
-- More complex than simple structures
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "Skiplist implementation with proper level management is optimal."
-
-**Best Solution**: Skiplist with multiple levels. Use coin flip (probability 0.5) to determine node levels. Search/insert/erase traverse from top level down, maintaining proper links.
-
-**Complexity**: O(log n) average case, O(n) space
-
-**Key Realizations**:
-1. Probabilistic structure is key to efficiency
-2. Multiple levels enable logarithmic operations
-3. O(log n) average case is optimal for skiplist
-4. Proper level management is crucial
-
-## Solution: Skiplist Implementation
+## Solution
 
 **Time Complexity:** O(log n) average for all operations  
 **Space Complexity:** O(n)
@@ -224,85 +205,25 @@ public:
  */
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Skiplist Structure
+**Approach:** Iterative pointer walk (this problem)
 
-A skiplist consists of multiple levels of sorted linked lists:
-- **Level 0**: Contains all elements in sorted order
-- **Level 1+**: Contains a subset of elements, acting as "express lanes"
-- **Head node**: Dummy node with value -1, points to first node at each level
+**Key idea:** Design a **Skiplist** without using any built-in libraries.
 
-### Key Components
+**How the code works:**
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+- Slow/fast pointers find middle or detect cycles in one pass.
 
-1. **`SkiplistNode`**: Each node contains:
-   - `val_`: The value stored
-   - `forward_`: Array of pointers to next nodes at each level
+| Operation | Time (Average) | Time (Worst) | Space |
+|-----------|---------------|--------------|-------|
+| `search(target)` | O(log n) | O(n) | O(1) |
+| `add(num)` | O(log n) | O(n) | O(1) |
+| `erase(num)` | O(log n) | O(n) | O(1) |
+| **Overall** | **O(log n)** | **O(n)** | **O(n)** |
 
-2. **`randomLevel()`**: Determines the height of a new node:
-   - Starts at level 1
-   - With probability `P_FACTOR` (0.25), increases level
-   - Maximum level is `MAX_LEVEL` (32)
-   - Expected level is approximately 1.33
-
-3. **`level_`**: Current maximum level in the skiplist
-
-### Search Operation
-
-```cpp
-bool search(int target) {
-    // Start from head at highest level
-    // Traverse down levels, moving right while value < target
-    // At level 0, check if next node equals target
-}
-```
-
-**Algorithm:**
-1. Start from `head_` at level `level_ - 1`
-2. For each level from top to bottom:
-   - Move right while next node's value < target
-3. At level 0, check if next node equals target
-
-**Time Complexity:** O(log n) average
-
-### Add Operation
-
-```cpp
-void add(int num) {
-    // Find insertion points at each level
-    // Generate random level for new node
-    // Insert node and update pointers
-}
-```
-
-**Algorithm:**
-1. **Find update points**: For each level, find the rightmost node with value < num
-2. **Generate level**: Use `randomLevel()` to determine new node's height
-3. **Update level**: Set `level_ = max(level_, newLevel)`
-4. **Insert node**: Create new node and update pointers at each level
-
-**Time Complexity:** O(log n) average
-
-### Erase Operation
-
-```cpp
-bool erase(int num) {
-    // Find update points at each level
-    // Locate node to delete
-    // Update pointers to bypass deleted node
-    // Decrease level if necessary
-}
-```
-
-**Algorithm:**
-1. **Find update points**: For each level, find the rightmost node with value < num
-2. **Locate target**: Check if next node at level 0 equals num
-3. **Update pointers**: For each level where node exists, bypass it
-4. **Decrease level**: If highest level becomes empty, decrease `level_`
-5. **Delete node**: Free memory
-
-**Time Complexity:** O(log n) average
-
+**Note:** Worst case occurs when all nodes are at level 0 (degenerates to linked list), but probability is extremely low.
 ## Example Walkthrough
 
 **Adding elements: [1, 2, 3, 4]**
@@ -332,8 +253,7 @@ Level 1: head -> ... -> [2] -> ... (move right while < 3)
 Level 0: head -> ... -> [2] -> [3] (found!)
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time (Average) | Time (Worst) | Space |
 |-----------|---------------|--------------|-------|
 | `search(target)` | O(log n) | O(n) | O(1) |
@@ -361,15 +281,13 @@ Level 0: head -> ... -> [2] -> [3] (found!)
    - Increases when adding high-level nodes
    - Decreases when erasing removes highest level
 
-## Edge Cases
+## Common Mistakes
 
 1. **Empty skiplist**: `level_ = 0`, all `forward_` pointers are null
 2. **Duplicate values**: Multiple nodes can have same value
 3. **Erase non-existent**: Returns false, no changes
 4. **Single element**: Works correctly with one node
 5. **All same values**: Handles multiple nodes with same value
-
-## Common Mistakes
 
 1. **Not updating `level_`**: Must track current maximum level
 2. **Wrong update array initialization**: Should initialize to `head_` for `add()`
@@ -390,12 +308,24 @@ Level 0: head -> ... -> [2] -> [3] (found!)
 - **Worst case O(n)**: Can degenerate (very unlikely)
 - **Random number generation**: Requires good RNG
 
+## Key Takeaways
+
+- **Pattern:** Iterative pointer walk (this problem)
+- Draw pointers before rewriting links.
+- Dummy head simplifies insert/delete at the head.
+
+## References
+
+- [LC 1206: Design Skiplist on LeetCode](https://www.leetcode.com/problems/design-skiplist/)
+- [LeetCode Discuss — LC 1206: Design Skiplist](https://www.leetcode.com/problems/design-skiplist/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/design-skiplist/editorial/) *(may require premium)*
+
 ## Related Problems
 
-- [432. All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/) - Complex data structure design
-- [146. LRU Cache](https://leetcode.com/problems/lru-cache/) - Cache design
-- [460. LFU Cache](https://leetcode.com/problems/lfu-cache/) - Frequency-based cache
-- [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) - Randomized data structure
+- [432. All O`one Data Structure](https://www.leetcode.com/problems/all-oone-data-structure/) - Complex data structure design
+- [146. LRU Cache](https://www.leetcode.com/problems/lru-cache/) - Cache design
+- [460. LFU Cache](https://www.leetcode.com/problems/lfu-cache/) - Frequency-based cache
+- [380. Insert Delete GetRandom O(1)](https://www.leetcode.com/problems/insert-delete-getrandom-o1/) - Randomized data structure
 
 ## Pattern Recognition
 
@@ -412,4 +342,3 @@ Similar concepts:
 - Bloom filters (probabilistic membership)
 - Treap (randomized BST)
 - Skip lists (this problem)
-

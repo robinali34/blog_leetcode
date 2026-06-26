@@ -6,7 +6,6 @@ categories: [leetcode, medium, dp]
 tags: [leetcode, medium, dp, state-machine, stock]
 permalink: /2026/03/20/medium-309-best-time-to-buy-and-sell-stock-with-cooldown/
 ---
-
 You are given an array `prices` where `prices[i]` is the price of a stock on day `i`. Find the maximum profit with as many transactions as you like, subject to: after you sell, you must **cooldown for one day** before buying again.
 
 ## Examples
@@ -87,7 +86,33 @@ Day 4: hold=max(1, 2-2)=1,   sold=max(2, -1)=2, rest=1+2=3
 Answer: max(sold=2, rest=3) = 3 ✓
 ```
 
-## Solution: State Machine DP -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
+
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -112,11 +137,21 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- single pass
-**Space**: $O(1)$ -- three variables
+### Solution Explanation
 
+**Approach:** 1D DP (this problem)
+
+**Key idea:** ### State Machine DP
+
+**How the code works:**
+- **hold**: we own a stock (either bought today or carried from yesterday)
+- **rest**: we just sold (cooldown -- cannot buy tomorrow)
+- **sold**: we don't own a stock and are free to buy (either stayed idle or finished cooldown)
+
+**Walkthrough** — input `prices = [1,2,3,0,2]`, expected output `3`:
+
+buy→sell→cooldown→buy→sell = (2-1) + (2-0) = 3
 ## Why Save `pre_` Values?
 
 All three states depend on the **previous day's** values. If we update `hold` first, it would corrupt the computation of `rest` (which needs the old `hold`). Saving previous values ensures all transitions use day $i-1$ consistently.
@@ -146,9 +181,15 @@ All three states depend on the **previous day's** values. If we update `hold` fi
 
 ## Related Problems
 
-- [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) -- no cooldown version
-- [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/) -- fee instead of cooldown
-- [188. Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) -- at most k transactions
+- [122. Best Time to Buy and Sell Stock II](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) -- no cooldown version
+- [714. Best Time to Buy and Sell Stock with Transaction Fee](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/) -- fee instead of cooldown
+- [188. Best Time to Buy and Sell Stock IV](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) -- at most k transactions
+
+## References
+
+- [LC 309: Best Time to Buy and Sell Stock with Cooldown on LeetCode](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+- [LeetCode Discuss — LC 309: Best Time to Buy and Sell Stock with Cooldown](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/editorial/) *(may require premium)*
 
 ## Template Reference
 

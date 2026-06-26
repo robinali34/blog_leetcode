@@ -4,9 +4,6 @@ title: "[Medium] 2466. Count Ways To Build Good Strings"
 date: 2025-10-16 20:01:57 -0700
 categories: leetcode algorithm medium cpp dynamic-programming dp problem-solving
 ---
-
-# [Medium] 2466. Count Ways To Build Good Strings
-
 Given the integers `zero`, `one`, `low`, and `high`, we can construct a string by starting with an empty string, and then at each step perform either of the following:
 
 - Append the character `'0'` `zero` times.
@@ -42,62 +39,41 @@ Explanation: The good strings are "00", "11", "000", "110", and "011".
 - `1 <= low <= high <= 10^5`
 - `1 <= zero, one <= high`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **DP State:** `dp[i]` = number of ways to build string of length `i`
 
-1. **Good string definition**: What is a "good string"? (Assumption: Binary string that can be built by appending "0" zero times and "1" one times - length must be between low and high)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **String construction**: How are strings built? (Assumption: Start with empty string, append "0" zero times or "1" one times repeatedly)
 
-3. **Length requirement**: What length range should strings have? (Assumption: Length between low and high inclusive - [low, high])
 
-4. **Return value**: What should we return? (Assumption: Count of ways to build good strings - integer, modulo 10^9 + 7)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-5. **Empty string**: Is empty string considered? (Assumption: No - strings must have length >= low, so empty string not included)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to count ways to build strings. Let me try all possible string constructions."
+## Common Approaches
 
-**Naive Solution**: Recursively try all possible ways to build strings by appending "0" zero times or "1" one times, count valid strings.
+Typical techniques for this pattern:
 
-**Complexity**: O(2^high) time, O(high) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
-**Issues**:
-- Exponential time complexity
-- Tries many invalid strings
-- Very inefficient
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This has optimal substructure. Number of ways to build string of length n depends on ways to build shorter strings."
-
-**Improved Solution**: Use DP where dp[i] = number of ways to build string of length i. dp[i] = dp[i-zero] + dp[i-one] (if valid).
-
-**Complexity**: O(high) time, O(high) space
-
-**Improvements**:
-- Leverages optimal substructure
-- O(high) time instead of exponential
-- Correctly counts all ways
-- Can optimize space
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DP approach is optimal. Can use bottom-up or top-down with memoization."
-
-**Best Solution**: DP approach is optimal. Bottom-up builds from smaller lengths to larger. Sum dp[i] for i from low to high.
-
-**Complexity**: O(high) time, O(high) space
-
-**Key Realizations**:
-1. DP is natural approach - optimal substructure
-2. O(high) time is optimal
-3. Bottom-up or top-down both work
-4. Sum range [low, high] for final answer
-
-## Solution 1: Bottom-Up Dynamic Programming
+## Solution
 
 **Time Complexity:** O(high)  
 **Space Complexity:** O(high)
@@ -130,84 +106,28 @@ public:
 };
 ```
 
-## Solution 2: Top-Down Dynamic Programming (Memoization)
+### Solution Explanation
 
-**Time Complexity:** O(high)  
-**Space Complexity:** O(high)
+**Approach:** 1D DP (this problem)
 
-Use top-down DP with memoization to calculate the number of ways recursively.
+**Key idea:** 1. **DP State:** `dp[i]` = number of ways to build string of length `i`
 
-```cpp
-class Solution {
-private:
-    vector<int> dp;
-    const int MOD = 1e9 + 7;
+**How the code works:**
+1. **DP State:** `dp[i]` = number of ways to build string of length `i`
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-    int dfs(int zero, int one, int end) {
-        if(dp[end] != -1) return dp[end];
-        
-        int cnt = 0;
-        if(end >= one) cnt = (cnt + dfs(zero, one, end - one)) % MOD;
-        if(end >= zero) cnt = (cnt + dfs(zero, one, end - zero)) % MOD;
-        
-        dp[end] = cnt;
-        return dp[end];
-    }
-    
-public:
-    int countGoodStrings(int low, int high, int zero, int one) {
-        dp.resize(high + 1, -1);
-        dp[0] = 1;  // Base case: empty string
-        
-        int rtn = 0;
-        for(int len = low; len <= high; len++) {
-            rtn = (rtn + dfs(zero, one, len)) % MOD; 
-        }
-        
-        return rtn;
-    }
-};
-```
+**Walkthrough** — input `low = 3, high = 3, zero = 1, one = 1`, expected output `8`:
 
-## How the Algorithm Works
+One possible valid good string is "011".
+It can be constructed as follows: "" -> "0" -> "01" -> "011". 
+All binary strings from "000" to "111" are good strings in this example.
 
-### Key Insight: Dynamic Programming
-
-The problem can be solved using dynamic programming where `dp[i]` represents the number of ways to build a string of length `i`.
-
-**Recurrence Relation:**
-- `dp[i] = dp[i - zero] + dp[i - one]` (if both are valid)
-- Base case: `dp[0] = 1` (empty string)
-
-### Step-by-Step Example: `low = 2, high = 3, zero = 1, one = 2`
-
-**Bottom-Up Approach:**
-
-| Length | Ways to Build | Explanation |
-|--------|---------------|-------------|
-| 0 | 1 | Empty string (base case) |
-| 1 | 1 | "0" (from length 0 + zero=1) |
-| 2 | 2 | "00" (from length 1 + zero=1), "1" (from length 0 + one=2) |
-| 3 | 3 | "000" (from length 2 + zero=1), "01" (from length 1 + one=2) |
-
-**DP Table:**
-```
-dp = [1, 1, 2, 3]
-```
-
-**Answer:** Sum from length 2 to 3 = `dp[2] + dp[3] = 2 + 3 = 5`
-
-### Visual Representation
-
-```
-Length 0: "" (1 way)
-Length 1: "0" (1 way)
-Length 2: "00", "1" (2 ways)
-Length 3: "000", "01", "10" (3 ways)
-
-Good strings (length 2-3): "00", "1", "000", "01", "10" = 5 ways
-```
-
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Bottom-Up DP | O(high) | O(high) |
+| Top-Down DP | O(high) | O(high) |
 ## Algorithm Breakdown
 
 ### Solution 1: Bottom-Up DP
@@ -249,28 +169,18 @@ int dfs(int zero, int one, int end) {
 3. For each length, recursively calculate using memoization
 4. Sum all valid lengths from `low` to `high`
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Bottom-Up DP | O(high) | O(high) |
 | Top-Down DP | O(high) | O(high) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single length range:** `low = high = 1` → Check if `zero = 1` or `one = 1`
 2. **Large values:** `high = 10^5` → Use modulo arithmetic
 3. **Equal zero and one:** `zero = one = 1` → Standard binary strings
 4. **Different zero and one:** `zero = 1, one = 2` → Mixed length increments
-
-## Key Insights
-
-1. **DP State:** `dp[i]` = number of ways to build string of length `i`
-2. **Recurrence:** Add ways from previous valid lengths
-3. **Base Case:** Empty string has 1 way
-4. **Modulo:** Handle large numbers with `10^9 + 7`
-
-## Common Mistakes
 
 1. **Missing base case:** Forgetting `dp[0] = 1`
 2. **Wrong recurrence:** Not checking bounds `i - zero >= 0`
@@ -325,64 +235,12 @@ dfs(1, 2, 3):
 Sum = dp[2] + dp[3] = 2 + 3 = 5
 ```
 
-## Alternative Approaches
-
-### Approach 1: Brute Force (DFS)
-```cpp
-class Solution {
-public:
-    int countGoodStrings(int low, int high, int zero, int one) {
-        return dfs(0, low, high, zero, one);
-    }
-    
-private:
-    int dfs(int len, int low, int high, int zero, int one) {
-        if (len > high) return 0;
-        int count = (len >= low) ? 1 : 0;
-        count = (count + dfs(len + zero, low, high, zero, one)) % MOD;
-        count = (count + dfs(len + one, low, high, zero, one)) % MOD;
-        return count;
-    }
-    
-    const int MOD = 1e9 + 7;
-};
-```
-
-**Time Complexity:** O(2^high)  
-**Space Complexity:** O(high)
-
-### Approach 2: Mathematical Formula
-```cpp
-class Solution {
-public:
-    int countGoodStrings(int low, int high, int zero, int one) {
-        vector<int> dp(high + 1, 0);
-        dp[0] = 1;
-        
-        for (int i = 1; i <= high; i++) {
-            if (i >= zero) dp[i] = (dp[i] + dp[i - zero]) % MOD;
-            if (i >= one) dp[i] = (dp[i] + dp[i - one]) % MOD;
-        }
-        
-        int result = 0;
-        for (int i = low; i <= high; i++) {
-            result = (result + dp[i]) % MOD;
-        }
-        
-        return result;
-    }
-    
-private:
-    const int MOD = 1e9 + 7;
-};
-```
-
 ## Related Problems
 
-- [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
-- [322. Coin Change](https://leetcode.com/problems/coin-change/)
-- [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
-- [139. Word Break](https://leetcode.com/problems/word-break/)
+- [70. Climbing Stairs](https://www.leetcode.com/problems/climbing-stairs/)
+- [322. Coin Change](https://www.leetcode.com/problems/coin-change/)
+- [377. Combination Sum IV](https://www.leetcode.com/problems/combination-sum-iv/)
+- [139. Word Break](https://www.leetcode.com/problems/word-break/)
 
 ## Why These Solutions are Optimal
 
@@ -391,3 +249,16 @@ private:
 3. **Mathematical Insight:** Converts problem to counting paths
 4. **Modulo Handling:** Properly handles large numbers
 5. **Two Approaches:** Both bottom-up and top-down are valid
+
+## References
+
+- [LC 2466: Count Ways To Build Good Strings on LeetCode](https://www.leetcode.com/problems/count-ways-to-build-good-strings/)
+- [LeetCode Discuss — LC 2466: Count Ways To Build Good Strings](https://www.leetcode.com/problems/count-ways-to-build-good-strings/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/count-ways-to-build-good-strings/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **DP State:** `dp[i]` = number of ways to build string of length `i`
+2. **Recurrence:** Add ways from previous valid lengths
+3. **Base Case:** Empty string has 1 way
+4. **Modulo:** Handle large numbers with `10^9 + 7`

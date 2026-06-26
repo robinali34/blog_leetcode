@@ -4,9 +4,6 @@ title: "[Medium] 990. Satisfiability of Equality Equations"
 date: 2025-10-04 00:00:00 -0000
 categories: leetcode algorithm data-structures disjoint-set graph dfs medium cpp connected-components graph-coloring problem-solving
 ---
-
-# [Medium] 990. Satisfiability of Equality Equations
-
 You are given an array of strings `equations` that represent relationships between variables. Each string `equations[i]` is of length `4` and takes one of two different forms: `"xi==yi"` or `"xi!=yi"`. Here, `xi` and `yi` are lowercase letters (not necessarily different) representing one-letter variable names.
 
 Return `true` if it is possible to assign integers to variable names so as to satisfy all the given equations, or `false` otherwise.
@@ -51,62 +48,7 @@ Explanation: We cannot assign values to satisfy all equations.
 - `equations[i][2]` is `'='`
 - `equations[i][3]` is a lowercase letter
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Equation format**: What is the equation format? (Assumption: "a==b" means a equals b, "a!=b" means a not equals b)
-
-2. **Variable assignment**: What values can variables have? (Assumption: Any integer values - just need to satisfy all equations)
-
-3. **Transitivity**: Are equality relations transitive? (Assumption: Yes - if a==b and b==c, then a==c)
-
-4. **Contradiction**: What makes equations unsatisfiable? (Assumption: If we derive both a==b and a!=b from the equations)
-
-5. **Return value**: What should we return? (Assumption: Boolean - true if all equations can be satisfied, false otherwise)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to check if equations are satisfiable. Let me try assigning values to variables."
-
-**Naive Solution**: Try all possible value assignments to variables, check if all equations are satisfied.
-
-**Complexity**: O(26^n) time where n is number of variables, O(n) space
-
-**Issues**:
-- Exponential time - completely infeasible
-- Tries many invalid assignments
-- Very inefficient
-- Doesn't leverage equation structure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "Equality equations create equivalence classes. Variables connected by == must have same value."
-
-**Improved Solution**: Use Union-Find to group variables connected by equality. Then check if any inequality connects variables in same group.
-
-**Complexity**: O(n × α(n)) time where α is inverse Ackermann, O(n) space
-
-**Improvements**:
-- Union-Find efficiently groups variables
-- O(n × α(n)) is nearly linear
-- Correctly handles equivalence classes
-- Much more efficient than brute-force
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Union-Find is optimal. Can also use graph coloring/DFS as alternative."
-
-**Best Solution**: Union-Find is optimal approach. First process all equality equations to build groups, then check inequality equations for conflicts. Alternative: graph coloring with DFS.
-
-**Complexity**: O(n × α(n)) time, O(n) space
-
-**Key Realizations**:
-1. Union-Find is perfect for equivalence classes
-2. O(n × α(n)) is nearly linear - very efficient
-3. Two-phase approach: build groups, then check conflicts
-4. Graph coloring is alternative but Union-Find is cleaner
-
-## Approach
+## Thinking Process
 
 This problem can be solved using two main approaches:
 
@@ -115,7 +57,34 @@ This problem can be solved using two main approaches:
 
 The key insight is that variables connected by equality equations must have the same value, while variables connected by inequality equations must have different values.
 
-## Solution 1: Union-Find (Disjoint Set Union)
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
+
+## Solution
 
 ```cpp
 class UnionFind{
@@ -164,127 +133,20 @@ public:
 };
 ```
 
-**Time Complexity:** O(n * α(26)) where α is the inverse Ackermann function (practically constant)
-**Space Complexity:** O(26) = O(1) - constant space for 26 letters
+### Solution Explanation
 
-### How Union-Find Works:
+**Approach:** Recursive DFS (this problem)
 
-1. **Initialize**: Each letter is its own parent initially
-2. **Process Equality**: For each `"a==b"`, unite `a` and `b` into the same component
-3. **Check Inequality**: For each `"a!=b"`, verify that `a` and `b` are in different components
+**Key idea:** This problem can be solved using two main approaches:
 
-## Solution 2: Graph Coloring with DFS
+**How the code works:**
+1. **Union-Find (Disjoint Set Union)**: Process equality equations first to build connected components, then check inequality equations
+2. **Graph Coloring/DFS**: Build a graph from equality equations and use DFS to find connected components
 
-```cpp
-class Solution {
-public:
-    bool equationsPossible(vector<string>& equations) {
-        constexpr int SIZE = 26;
-        vector<vector<int>> graph(SIZE);
-        vector<int> color(SIZE, -1);
+**Walkthrough** — input `equations = ["a==b","b!=a"]`, expected output `false`:
 
-        for(string& eqn : equations) {
-            if(eqn[1] == '=') {
-                int x = eqn[0] - 'a';
-                int y = eqn[3] - 'a';
-                graph[x].push_back(y);
-                graph[y].push_back(x);
-            }
-        }
-        function<void(int,int)> dfs = [&](int node, int c) {
-            if(color[node] == -1) {
-                color[node] = c;
-                for(int nei: graph[node]) {
-                    dfs(nei, c);
-                }
-            }
-        };
-
-        for(int i =0; i < SIZE; i++) {
-            dfs(i, i);
-        }
-
-        for(string& eqn : equations) {
-            if(eqn[1] == '!') {
-                int x = eqn[0] - 'a';
-                int y = eqn[3] - 'a';
-                if(color[x] == color[y]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-};
-```
-
-**Time Complexity:** O(n + 26) = O(n) - process equations + DFS on graph
-**Space Complexity:** O(26) = O(1) - graph and color array
-
-### How Graph Coloring Works:
-
-1. **Build Graph**: Create adjacency list from equality equations
-2. **Color Components**: Use DFS to assign the same color to connected components
-3. **Check Conflicts**: Verify that inequality equations don't connect same-colored nodes
-
-## Solution 3: DFS with Component Tracking
-
-```cpp
-class Solution {
-private:
-    static constexpr int SIZE = 26;
-    void dfs(int node, int id, vector<vector<int>>& adjacency, vector<int>& component) {
-        component[node] = id;
-        for(int neighbor: adjacency[node]) {
-            if(component[neighbor] == -1) {
-                dfs(neighbor, id, adjacency, component);
-            }
-        }
-    }
-
-public:
-    bool equationsPossible(vector<string>& equations) {
-        vector<vector<int>> adjacency(SIZE);
-        vector<int> component(SIZE, -1);
-        for(const string& eq: equations) {
-            if(eq[1] == '=') {
-                int x = eq[0] - 'a';
-                int y = eq[3] - 'a';
-                adjacency[x].push_back(y);
-                adjacency[y].push_back(x);
-            }
-        }
-
-        int cur = 0;
-        for(int i = 0; i < SIZE; i++) {
-            if(component[i] == -1 && !adjacency[i].empty()) {
-                dfs(i, cur++, adjacency, component);
-            }
-        }
-
-        for(const string& eq: equations) {
-            if(eq[1] == '!') {
-                int x = eq[0] - 'a';
-                int y = eq[3] - 'a';
-                if(x == y || (component[x] != -1 && component[x] == component[y])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-};
-```
-
-**Time Complexity:** O(n + 26) = O(n)
-**Space Complexity:** O(26) = O(1)
-
-### Key Differences in Solution 3:
-
-1. **Component ID Tracking**: Assigns unique IDs to each connected component
-2. **Empty Component Handling**: Only processes nodes that have edges
-3. **Self-Reference Check**: Handles cases like `"a!=a"` explicitly
-
+If we assign say, a = 1 and b = 1, then the first equation is satisfied, but the second is not.
+There is no way to assign the variables to satisfy both equations.
 ## Step-by-Step Example (Union-Find)
 
 Let's trace through `["a==b","b!=c","c==a"]`:
@@ -336,29 +198,12 @@ parent = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
   - Requires building adjacency list
   - DFS overhead for each component
 
-## Key Insights
-
-1. **Two-Phase Processing**: Process equality equations first, then check inequality equations
-2. **Connected Components**: Variables connected by equality must have the same value
-3. **Conflict Detection**: Inequality equations create conflicts if variables are in the same component
-4. **Self-Reference**: Handle cases like `"a!=a"` which are always false
-
-## Edge Cases
+## Common Mistakes
 
 1. **Self-inequality**: `["a!=a"]` → `false`
 2. **Transitive equality**: `["a==b","b==c","a==c"]` → `true`
 3. **Circular conflict**: `["a==b","b!=c","c==a"]` → `false`
 4. **Single variable**: `["a==a"]` → `true`
-
-## Solution Comparison
-
-| Approach | Time Complexity | Space Complexity | Implementation | Intuition |
-|----------|----------------|-----------------|----------------|-----------|
-| Union-Find | O(n * α(26)) | O(1) | Moderate | Moderate |
-| Graph Coloring | O(n) | O(1) | Simple | High |
-| Component DFS | O(n) | O(1) | Simple | High |
-
-## Common Mistakes
 
 1. **Processing order**: Must process equality before inequality
 2. **Self-reference**: Forgetting to handle `"a!=a"` cases
@@ -367,14 +212,27 @@ parent = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
 ## Related Problems
 
-- [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)
-- [547. Number of Provinces](https://leetcode.com/problems/number-of-provinces/)
-- [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/)
-- [685. Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/)
-- [721. Accounts Merge](https://leetcode.com/problems/accounts-merge/)
+- [399. Evaluate Division](https://www.leetcode.com/problems/evaluate-division/)
+- [547. Number of Provinces](https://www.leetcode.com/problems/number-of-provinces/)
+- [684. Redundant Connection](https://www.leetcode.com/problems/redundant-connection/)
+- [685. Redundant Connection II](https://www.leetcode.com/problems/redundant-connection-ii/)
+- [721. Accounts Merge](https://www.leetcode.com/problems/accounts-merge/)
 
 ## Conclusion
 
 This problem demonstrates the power of Union-Find and graph algorithms for handling equality constraints. The key insight is recognizing that equality equations create equivalence classes (connected components), while inequality equations create conflicts between these classes.
 
 Both Union-Find and graph coloring approaches are valid, with Union-Find being more efficient for dynamic connectivity and graph coloring being more intuitive for static analysis.
+
+## References
+
+- [LC 990: Satisfiability of Equality Equations on LeetCode](https://www.leetcode.com/problems/satisfiability-of-equality-equations/)
+- [LeetCode Discuss — LC 990: Satisfiability of Equality Equations](https://www.leetcode.com/problems/satisfiability-of-equality-equations/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/satisfiability-of-equality-equations/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Two-Phase Processing**: Process equality equations first, then check inequality equations
+2. **Connected Components**: Variables connected by equality must have the same value
+3. **Conflict Detection**: Inequality equations create conflicts if variables are in the same component
+4. **Self-Reference**: Handle cases like `"a!=a"` which are always false

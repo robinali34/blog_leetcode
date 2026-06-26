@@ -6,10 +6,42 @@ categories: leetcode algorithm hard cpp string dynamic-programming stack problem
 permalink: /posts/2025-11-24-hard-32-longest-valid-parentheses/
 tags: [leetcode, hard, string, dynamic-programming, stack, two-pointers, greedy]
 ---
-
-# [Hard] 32. Longest Valid Parentheses
-
 Given a string containing just the characters `'('` and `')'`, find the length of the longest valid (well-formed) parentheses substring.
+
+## Thinking Process
+
+1. **DP State Definition**: `dp[i]` = longest valid substring ending at `i`
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Examples
 
@@ -45,61 +77,6 @@ Explanation: The entire string is a valid parentheses substring.
 
 - `0 <= s.length <= 3 * 10^4`
 - `s[i]` is `'('`, or `')'`.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Valid parentheses definition**: What makes a parentheses substring valid? (Assumption: Every opening '(' has a matching closing ')', properly nested)
-
-2. **Substring vs subsequence**: Do we need a contiguous substring or can it be a subsequence? (Assumption: Substring - must be contiguous characters)
-
-3. **Empty string**: What should we return for an empty string? (Assumption: Return 0 - no valid parentheses substring)
-
-4. **Character set**: What characters can appear? (Assumption: Only '(' and ')' - per constraints)
-
-5. **Return value**: Should we return length or the substring itself? (Assumption: Return length - integer representing longest valid parentheses substring)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to find longest valid substring. Let me check all possible substrings."
-
-**Naive Solution**: Check all possible substrings, for each check if valid parentheses, track maximum length.
-
-**Complexity**: O(n³) time, O(n) space
-
-**Issues**:
-- O(n³) time - very inefficient
-- Repeats validity checking for overlapping substrings
-- Doesn't leverage stack or DP
-- Can be optimized significantly
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can use stack to track valid parentheses, or use DP to track valid lengths."
-
-**Improved Solution**: Use stack to track unmatched opening parentheses. When encountering ')', if stack not empty, pop and calculate length. Track maximum length.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Stack naturally handles parentheses matching
-- O(n) time is much better
-- Handles all cases correctly
-- Can optimize further
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "Stack approach is optimal. Can also use DP with two passes."
-
-**Best Solution**: Stack approach is optimal. Use stack storing indices. When ')', pop and calculate length from stack top (or -1 if empty). Alternative: DP with two passes (left-to-right and right-to-left).
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Stack is perfect for parentheses matching
-2. O(n) time is optimal - single pass
-3. Index tracking enables length calculation
-4. DP alternative exists but stack is clearer
 
 ## Solution Approaches
 
@@ -139,6 +116,27 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** 1. **DP State Definition**: `dp[i]` = longest valid substring ending at `i`
+
+**How the code works:**
+1. **DP State Definition**: `dp[i]` = longest valid substring ending at `i`
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `s = "(()"`, expected output `2`:
+
+The longest valid parentheses substring is "()".
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Dynamic Programming** | O(n) | O(n) | Clear logic, handles all cases | Extra space |
+| **Two-Pass Greedy** | O(n) | O(1) | Optimal space, simple | Two passes needed |
 
 **How it works:**
 1. `dp[i]` represents the length of the longest valid parentheses substring ending at index `i`
@@ -197,7 +195,6 @@ public:
 1. **Left-to-right pass**: Count opening and closing parentheses. When counts are equal, we have a valid substring. If closing > opening, reset (invalid).
 2. **Right-to-left pass**: Same logic but reversed. Catches cases where left-to-right misses valid substrings (e.g., `"(()"`).
 3. The two passes together ensure we find all valid substrings.
-
 ## How the Algorithms Work
 
 ### Solution 1: Dynamic Programming Breakdown
@@ -366,14 +363,13 @@ for (int i = len - 1; i >= 0; i--) {
 - Right-to-left catches these cases
 - Together, they find all valid substrings
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Dynamic Programming** | O(n) | O(n) | Clear logic, handles all cases | Extra space |
 | **Two-Pass Greedy** | O(n) | O(1) | Optimal space, simple | Two passes needed |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Empty string**: Returns 0
 2. **No valid parentheses**: Returns 0 (e.g., `"))"` or `"(("`)
@@ -381,64 +377,17 @@ for (int i = len - 1; i >= 0; i--) {
 4. **Nested valid**: Returns string length (e.g., `"((()))"`)
 5. **Single character**: Returns 0 (no pair possible)
 
-## Key Insights
-
-1. **DP State Definition**: `dp[i]` = longest valid substring ending at `i`
-2. **Two Cases**: Simple match `"()"` and nested/consecutive `"))"`
-3. **Greedy Approach**: Count parentheses and reset when invalid
-4. **Two Passes**: Needed to catch all valid substrings
-
-## Common Mistakes
-
 1. **Missing Case 2 in DP**: Forgetting to handle nested/consecutive valid substrings
 2. **Index Out of Bounds**: Not checking `i - dp[i-1] > 0` before accessing
 3. **Single Pass Greedy**: Missing valid substrings that don't balance in one direction
 4. **Wrong Reset Condition**: Resetting at wrong times in greedy approach
 
-## Alternative Approaches
-
-### Approach 3: Stack-Based
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-```cpp
-class Solution {
-public:
-    int longestValidParentheses(string s) {
-        stack<int> stk;
-        stk.push(-1);  // Base for calculation
-        int maxLen = 0;
-        
-        for (int i = 0; i < s.length(); i++) {
-            if (s[i] == '(') {
-                stk.push(i);
-            } else {
-                stk.pop();
-                if (stk.empty()) {
-                    stk.push(i);  // New base
-                } else {
-                    maxLen = max(maxLen, i - stk.top());
-                }
-            }
-        }
-        
-        return maxLen;
-    }
-};
-```
-
-**How it works:**
-- Use stack to track indices of unmatched `'('`
-- When `')'` is found, pop and calculate length
-- If stack is empty after pop, push current index as new base
-
 ## Related Problems
 
-- [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) - Check if entire string is valid
-- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) - Generate all valid combinations
-- [301. Remove Invalid Parentheses](https://leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
-- [921. Minimum Add to Make Parentheses Valid](https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/) - Minimum additions needed
+- [20. Valid Parentheses](https://www.leetcode.com/problems/valid-parentheses/) - Check if entire string is valid
+- [22. Generate Parentheses](https://www.leetcode.com/problems/generate-parentheses/) - Generate all valid combinations
+- [301. Remove Invalid Parentheses](https://www.leetcode.com/problems/remove-invalid-parentheses/) - Remove minimum to make valid
+- [921. Minimum Add to Make Parentheses Valid](https://www.leetcode.com/problems/minimum-add-to-make-parentheses-valid/) - Minimum additions needed
 
 ## Pattern Recognition
 
@@ -467,7 +416,19 @@ This problem demonstrates:
 - Need O(1) space solution
 - Want simpler code (though requires two passes)
 
----
+## Key Takeaways
 
-*This problem demonstrates both dynamic programming and greedy approaches to solve the same problem, with different space-time trade-offs.*
+1. **DP State Definition**: `dp[i]` = longest valid substring ending at `i`
+2. **Two Cases**: Simple match `"()"` and nested/consecutive `"))"`
+3. **Greedy Approach**: Count parentheses and reset when invalid
+4. **Two Passes**: Needed to catch all valid substrings
 
+## References
+
+- [LC 32: Longest Valid Parentheses on LeetCode](https://www.leetcode.com/problems/longest-valid-parentheses/)
+- [LeetCode Discuss — LC 32: Longest Valid Parentheses](https://www.leetcode.com/problems/longest-valid-parentheses/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/longest-valid-parentheses/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

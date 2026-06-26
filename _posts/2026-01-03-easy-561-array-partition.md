@@ -5,11 +5,6 @@ date: 2026-01-03 07:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting]
 permalink: /2026/01/03/easy-561-array-partition/
 ---
-
-# 561. Array Partition
-
-## Problem Statement
-
 Given an integer array `nums` of `2n` integers, group these integers into `n` pairs `(a1, b1), (a2, b2), ..., (an, bn)` such that the sum of `min(ai, bi)` for all `i` is **maximized**. Return *the maximized sum*.
 
 ## Examples
@@ -38,78 +33,37 @@ Explanation: The optimal pairing is (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5
 - `nums.length == 2 * n`
 - `-10^4 <= nums[i] <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an integer array `nums` of `2n` integers, group these integers into `n` pairs `(a1, b1), (a2, b2), ..., (an, bn)` such that the sum of `min(ai, bi)` for all `i` is **maximized**. Return *the maximized sum*.
 
-1. **Pairing requirement**: Must we pair all elements? (Assumption: Yes - array length is 2n, so we form exactly n pairs)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-2. **Pair sum calculation**: How is the sum calculated? (Assumption: Sum of minimum values from each pair - min(pair1) + min(pair2) + ... + min(pairN))
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximize the sum of minimums from pairs)
 
-4. **Pairing strategy**: Can we choose which elements to pair? (Assumption: Yes - we can arrange pairs optimally to maximize the sum)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-5. **Element reuse**: Can an element be used in multiple pairs? (Assumption: No - each element appears exactly once)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to maximize sum of minimums. Let me try all possible pairings."
+## Common Approaches
 
-**Naive Solution**: Try all possible ways to pair 2n elements into n pairs, compute sum of minimums, find maximum.
+Typical techniques for this pattern:
 
-**Complexity**: O((2n)! / (2^n × n!)) time, O(n) space
-
-**Issues**:
-- Factorial time complexity
-- Tries many invalid pairings
-- Very inefficient
-- Doesn't leverage sorting property
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "To maximize sum of minimums, I should pair smallest elements together."
-
-**Improved Solution**: Sort array. Pair smallest two elements, next smallest two, etc. Sum minimums from each pair.
-
-**Complexity**: O(n log n) time, O(1) space
-
-**Improvements**:
-- Sorting enables optimal pairing
-- O(n log n) time is much better
-- Greedy approach is correct
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "Sorting and pairing adjacent elements is optimal."
-
-**Best Solution**: Sort array, pair elements at indices (0,1), (2,3), ..., (2n-2, 2n-1). Sum minimums (which are elements at even indices after sorting).
-
-**Complexity**: O(n log n) time, O(1) space
-
-**Key Realizations**:
-1. Sorting is key insight
-2. Pairing smallest elements maximizes sum of minimums
-3. O(n log n) time is optimal for sorting approach
-4. Greedy approach works perfectly
-
-## Solution Approach
-
-This is a **greedy algorithm** problem. The key insight is that to maximize the sum of minimums, we should pair the smallest numbers together, so that larger numbers are "saved" for other pairs.
-
-### Key Insights:
-
-1. **Sort First**: Sort the array to process numbers in order
-2. **Greedy Pairing**: Pair consecutive elements after sorting
-3. **Take Minimums**: Sum the smaller element in each pair (which is the first element after sorting)
-4. **Optimal**: This greedy strategy maximizes the sum
-
-### Algorithm:
-
-1. **Sort**: Sort the array in ascending order
-2. **Pair**: Group elements into pairs `(nums[0], nums[1]), (nums[2], nums[3]), ...`
-3. **Sum**: Sum the first element of each pair (the minimum in each pair)
-4. **Return**: The maximized sum
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -128,6 +82,27 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** Given an integer array `nums` of `2n` integers, group these integers into `n` pairs `(a1, b1), (a2, b2), ..., (an, bn)` such that the sum of `min(ai, bi)` for all `i` is **maximized**. Return *the maximized sum*.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `nums = [1,4,3,2]`, expected output `4`:
+
+All possible pairings (ignoring the ordering of elements) are:
+1. (1, 4), (2, 3) -> min(1,4) + min(2,3) = 1 + 2 = 3
+2. (1, 3), (2, 4) -> min(1,3) + min(2,4) = 1 + 2 = 3
+3. (1, 2), (3, 4) -> min(1,2) + min(3,4) = 1 + 3 = 4
+So the maximum possible sum is 4.
+
+**Time:** O(n log n) where n is the length of the array · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -206,7 +181,6 @@ i=4: nums[4]=6
 
 Result: 9
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -269,32 +243,13 @@ Pairing consecutive elements gives the maximum sum.
 4. **Optimal**: Greedy approach finds maximum sum
 5. **Simple**: Straightforward implementation after sorting
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with Sorting (Current Solution)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Try All Pairings**
-- **Time**: O((2n)! / (2^n × n!))
-- **Space**: O(n)
-- **Not practical**: Too slow for large inputs
-
-### **Approach 3: Dynamic Programming**
-- **Time**: O(n²)
-- **Space**: O(n²)
-- **Overkill**: Not needed, greedy is optimal
-
-## Edge Cases
+## Common Mistakes
 
 1. **All same values**: `[1,1,1,1]` → return 2 (1+1)
 2. **Negative numbers**: `[-1,-2,-3,-4]` → return -6 (-1 + -3)
 3. **Mixed signs**: `[-1,2,-3,4]` → return -1 (-3 + 2)
 4. **Two elements**: `[1,2]` → return 1
 5. **Large range**: `[1,100,2,99]` → return 3 (1+2)
-
-## Common Mistakes
 
 1. **Not sorting**: Trying to pair without sorting
 2. **Wrong pairing**: Not pairing consecutive elements
@@ -304,12 +259,27 @@ Pairing consecutive elements gives the maximum sum.
 
 ## Related Problems
 
-- [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/) - Greedy matching
-- [561. Array Partition](https://leetcode.com/problems/array-partition/) - Current problem
-- [628. Maximum Product of Three Numbers](https://leetcode.com/problems/maximum-product-of-three-numbers/) - Greedy with sorting
-- [462. Minimum Moves to Equal Array Elements II](https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/) - Median-based greedy
+- [455. Assign Cookies](https://www.leetcode.com/problems/assign-cookies/) - Greedy matching
+- [561. Array Partition](https://www.leetcode.com/problems/array-partition/) - Current problem
+- [628. Maximum Product of Three Numbers](https://www.leetcode.com/problems/maximum-product-of-three-numbers/) - Greedy with sorting
+- [462. Minimum Moves to Equal Array Elements II](https://www.leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/) - Median-based greedy
 
 ## Tags
 
 `Array`, `Greedy`, `Sorting`, `Easy`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 561: Array Partition on LeetCode](https://www.leetcode.com/problems/array-partition/)
+- [LeetCode Discuss — LC 561: Array Partition](https://www.leetcode.com/problems/array-partition/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/array-partition/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

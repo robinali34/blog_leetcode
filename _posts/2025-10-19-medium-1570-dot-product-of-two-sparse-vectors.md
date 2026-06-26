@@ -4,9 +4,6 @@ title: "[Medium] 1570. Dot Product of Two Sparse Vectors"
 date: 2025-10-19 20:05:38 -0700
 categories: leetcode algorithm medium cpp hash-map data-structure optimization problem-solving
 ---
-
-# [Medium] 1570. Dot Product of Two Sparse Vectors
-
 Given two sparse vectors, compute their dot product.
 
 Implement class `SparseVector`:
@@ -48,62 +45,41 @@ v1.dotProduct(v2) = 0*1 + 1*0 + 0*0 + 0*0 + 2*3 + 0*0 + 0*4 = 6
 - `1 <= n <= 10^5`
 - `0 <= nums1[i], nums2[i] <= 100`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Space efficiency:** Store only non-zero elements
+1. **Smaller iteration:** Always iterate through smaller hash map
 
-1. **Sparse vector definition**: What makes a vector "sparse"? (Assumption: Vector with many zeros - most elements are zero)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Dot product calculation**: How is dot product calculated? (Assumption: Sum of products of corresponding elements - sum(nums1[i] * nums2[i]))
 
-3. **Vector length**: Are vectors guaranteed to have same length? (Assumption: Yes - per constraints, n == nums1.length == nums2.length)
 
-4. **Optimization**: Should we optimize for sparse vectors? (Assumption: Yes - store only non-zero elements to save space and time)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Return value**: What should we return? (Assumption: Integer dot product of the two sparse vectors)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to compute dot product. Let me multiply corresponding elements and sum."
+## Common Approaches
 
-**Naive Solution**: Iterate through all indices, multiply nums1[i] × nums2[i], sum results.
+Typical techniques for this pattern:
 
-**Complexity**: O(n) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
-**Issues**:
-- O(n) time even when vectors are sparse
-- Processes many zero elements unnecessarily
-- Doesn't leverage sparsity
-- Can be optimized for sparse vectors
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "Vectors are sparse. I should only process non-zero elements."
-
-**Improved Solution**: Store non-zero elements with their indices in hash map. For dot product, iterate through one map, lookup corresponding index in other map.
-
-**Complexity**: O(k) time where k = number of non-zero elements, O(k) space
-
-**Improvements**:
-- Only processes non-zero elements
-- O(k) time is much better than O(n) for sparse vectors
-- Hash map enables efficient lookup
-- Handles sparsity correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Hash map approach is optimal. Can optimize by iterating through smaller map."
-
-**Best Solution**: Store non-zero elements in hash map (index → value). For dot product, iterate through one map, lookup in other map. Choose smaller map to iterate for efficiency.
-
-**Complexity**: O(min(k1, k2)) time, O(k1 + k2) space
-
-**Key Realizations**:
-1. Hash map is perfect for sparse vectors
-2. O(min(k1, k2)) time is optimal
-3. Only processes non-zero elements
-4. Much more efficient than O(n) for sparse vectors
-
-## Solution: Hash Map with Optimization
+## Solution
 
 **Time Complexity:** 
 - Constructor: O(n) where n is the length of the vector
@@ -148,8 +124,7 @@ public:
 // int ans = v1.dotProduct(v2);
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** Store only non-zero elements in a hash map, then optimize dot product by iterating through the smaller hash map.
 
 **Steps:**
@@ -227,8 +202,7 @@ int dotProduct(SparseVector& vec) {
 3. **Calculate product:** If match found, multiply values and add to result
 4. **Return sum:** Total dot product of matching elements
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | Constructor | O(n) | O(k) |
@@ -236,27 +210,6 @@ int dotProduct(SparseVector& vec) {
 | **Total** | **O(n + min(k1, k2))** | **O(k1 + k2)** |
 
 Where n is the length of the vector, k1 and k2 are the number of non-zero elements in each vector.
-
-## Edge Cases
-
-1. **All zeros:** `nums1 = [0,0,0]`, `nums2 = [0,0,0]` → `0`
-2. **Single non-zero:** `nums1 = [1,0,0]`, `nums2 = [0,0,1]` → `0`
-3. **No matches:** `nums1 = [1,0,0]`, `nums2 = [0,1,0]` → `0`
-4. **Perfect match:** `nums1 = [1,2,3]`, `nums2 = [1,2,3]` → `14`
-
-## Key Insights
-
-### Hash Map Optimization:
-1. **Space efficiency:** Store only non-zero elements
-2. **Fast lookup:** O(1) access to non-zero elements
-3. **Index preservation:** Maintain original indices for dot product
-4. **Memory trade-off:** Use extra space for faster operations
-
-### Dot Product Optimization:
-1. **Smaller iteration:** Always iterate through smaller hash map
-2. **Match checking:** Check if index exists in larger hash map
-3. **Product calculation:** Multiply matching values
-4. **Efficient computation:** Avoid unnecessary iterations
 
 ## Detailed Example Walkthrough
 
@@ -286,72 +239,12 @@ For each element in smaller:
 Result = 6
 ```
 
-## Alternative Approaches
-
-### Approach 1: Brute Force
-```cpp
-class SparseVector {
-private:
-    vector<int> nums;
-    
-public:
-    SparseVector(vector<int> &nums) {
-        this->nums = nums;
-    }
-    
-    int dotProduct(SparseVector& vec) {
-        int result = 0;
-        for(int i = 0; i < nums.size(); i++) {
-            result += nums[i] * vec.nums[i];
-        }
-        return result;
-    }
-};
-```
-
-**Time Complexity:** O(n) for dotProduct  
-**Space Complexity:** O(n)
-
-### Approach 2: List of Pairs
-```cpp
-class SparseVector {
-private:
-    vector<pair<int, int>> nonZeros;
-    
-public:
-    SparseVector(vector<int> &nums) {
-        for(int i = 0; i < nums.size(); i++) {
-            if(nums[i] != 0) {
-                nonZeros.push_back({i, nums[i]});
-            }
-        }
-    }
-    
-    int dotProduct(SparseVector& vec) {
-        int result = 0;
-        int i = 0, j = 0;
-        
-        while(i < nonZeros.size() && j < vec.nonZeros.size()) {
-            if(nonZeros[i].first == vec.nonZeros[j].first) {
-                result += nonZeros[i].second * vec.nonZeros[j].second;
-                i++;
-                j++;
-            } else if(nonZeros[i].first < vec.nonZeros[j].first) {
-                i++;
-            } else {
-                j++;
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-**Time Complexity:** O(k1 + k2) for dotProduct  
-**Space Complexity:** O(k1 + k2)
-
 ## Common Mistakes
+
+1. **All zeros:** `nums1 = [0,0,0]`, `nums2 = [0,0,0]` → `0`
+2. **Single non-zero:** `nums1 = [1,0,0]`, `nums2 = [0,0,1]` → `0`
+3. **No matches:** `nums1 = [1,0,0]`, `nums2 = [0,1,0]` → `0`
+4. **Perfect match:** `nums1 = [1,2,3]`, `nums2 = [1,2,3]` → `14`
 
 1. **Not optimizing iteration:** Always iterate through smaller hash map
 2. **Missing zero check:** Not checking if index exists in larger map
@@ -360,10 +253,10 @@ public:
 
 ## Related Problems
 
-- [311. Sparse Matrix Multiplication](https://leetcode.com/problems/sparse-matrix-multiplication/)
-- [1428. Leftmost Column with at Least a One](https://leetcode.com/problems/leftmost-column-with-at-least-a-one/)
-- [1588. Sum of All Odd Length Subarrays](https://leetcode.com/problems/sum-of-all-odd-length-subarrays/)
-- [1641. Count Sorted Vowel Strings](https://leetcode.com/problems/count-sorted-vowel-strings/)
+- [311. Sparse Matrix Multiplication](https://www.leetcode.com/problems/sparse-matrix-multiplication/)
+- [1428. Leftmost Column with at Least a One](https://www.leetcode.com/problems/leftmost-column-with-at-least-a-one/)
+- [1588. Sum of All Odd Length Subarrays](https://www.leetcode.com/problems/sum-of-all-odd-length-subarrays/)
+- [1641. Count Sorted Vowel Strings](https://www.leetcode.com/problems/count-sorted-vowel-strings/)
 
 ## Why This Solution Works
 
@@ -384,3 +277,23 @@ public:
 2. **Efficiency:** O(min(k1, k2)) dot product complexity
 3. **Space optimization:** Only stores non-zero elements
 4. **Simplicity:** Easy to understand and implement
+
+## References
+
+- [LC 1570: Dot Product of Two Sparse Vectors on LeetCode](https://www.leetcode.com/problems/dot-product-of-two-sparse-vectors/)
+- [LeetCode Discuss — LC 1570: Dot Product of Two Sparse Vectors](https://www.leetcode.com/problems/dot-product-of-two-sparse-vectors/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/dot-product-of-two-sparse-vectors/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Hash Map Optimization:
+1. **Space efficiency:** Store only non-zero elements
+2. **Fast lookup:** O(1) access to non-zero elements
+3. **Index preservation:** Maintain original indices for dot product
+4. **Memory trade-off:** Use extra space for faster operations
+
+### Dot Product Optimization:
+1. **Smaller iteration:** Always iterate through smaller hash map
+2. **Match checking:** Check if index exists in larger hash map
+3. **Product calculation:** Multiply matching values
+4. **Efficient computation:** Avoid unnecessary iterations

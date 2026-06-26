@@ -6,14 +6,10 @@ categories: leetcode medium design array
 permalink: /posts/2025-10-21-medium-348-design-tic-tac-toe/
 tags: [leetcode, medium, design, array, matrix, optimization]
 ---
-
-# LC 348: Design Tic-Tac-Toe
-
 **Difficulty:** Medium  
 **Category:** Design, Array, Matrix  
 **Companies:** Amazon, Google, Microsoft, Facebook
 
-## Problem Statement
 
 Design a Tic-tac-toe game that is played between two players on an `n x n` grid.
 
@@ -27,8 +23,7 @@ Implement the `TicTacToe` class:
   - `1` if player 1 wins
   - `2` if player 2 wins
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input:
@@ -76,40 +71,11 @@ ticTacToe.move(2, 1, 1); // return 1 (player 1 wins)
 |X|X|X|
 ```
 
-### Constraints
-
+## Constraints
 - `2 <= n <= 100`
 - player is `1` or `2`
 - `0 <= row, col < n`
 - At most `n^2` calls will be made to `move`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Game rules**: What are the Tic-Tac-Toe rules? (Assumption: n×n board, players alternate, win by filling row/column/diagonal)
-
-2. **Move operation**: What does move() do? (Assumption: Places player's mark at (row, col), returns winner if game ends, 0 otherwise)
-
-3. **Win condition**: When does a player win? (Assumption: Player fills entire row, column, or diagonal with their marks)
-
-4. **Return value**: What should move() return? (Assumption: Integer - player number if they win, 0 if no winner yet)
-
-5. **Valid moves**: Are moves guaranteed valid? (Assumption: Per constraints, moves are within bounds, but should check for already occupied cells)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-After each move, check all rows, columns, and diagonals to see if any are completely filled by one player. This requires checking O(n) rows, O(n) columns, and 2 diagonals after each move, giving O(n) time per move. This works but can be optimized.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Maintain counts for each row, column, and diagonal. For each move, increment the count for the corresponding row, column, and potentially diagonals. Check if any count equals n. However, need to handle both players: use positive counts for player 1 and negative counts for player 2, or maintain separate counts for each player.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Maintain arrays for row counts, column counts, and two diagonal counts. For player 1, increment counts; for player 2, decrement counts (or use separate arrays). After each move, check if the absolute value of any count equals n. This achieves O(1) time per move with O(n) space, which is optimal. The key insight is that we only need to check the row, column, and diagonals affected by the current move, and maintaining running counts allows O(1) checking instead of scanning entire rows/columns.
 
 ## Solution Approaches
 
@@ -185,63 +151,29 @@ private:
 };
 ```
 
-### Approach 2: Optimized with Counters (Recommended)
+### Solution Explanation
 
-**Key Insight:** Instead of checking the entire board, maintain counters for each row, column, and diagonal. Use `+1` for player 1 and `-1` for player 2.
+**Approach:** Row/column traversal (this problem)
 
-**Algorithm:**
-1. Maintain arrays for row counts, column counts, and diagonal counts
-2. For each move, update relevant counters
-3. Check if any counter reaches `±n` (absolute value equals n)
+**Key idea:** Difficulty:** Medium
 
-**Time Complexity:** O(1) per move  
-**Space Complexity:** O(n)
+**How the code works:**
+**Difficulty:** Medium
+**Category:** Design, Array, Matrix
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
 
-```cpp
-class TicTacToe {
-public:
-    TicTacToe(int n): rows(n), cols(n), diagonal(0), antiDiagonal(0) {
-    }
-    
-    int move(int row, int col, int player) {
-        int curr = player == 1 ? 1 : -1;
-        int n = rows.size();
+**Walkthrough** — input `["TicTacToe", "move", "move", "move", "move", "move", "move", "move"]`, expected output `[null, 0, 0, 0, 0, 0, 0, 1]`:
 
-        rows[row] += curr;
-        cols[col] += curr;
-        if(row == col) diagonal += curr;
-        if(row == n - col - 1) antiDiagonal += curr;
+TicTacToe ticTacToe = new TicTacToe(3);
+Assume that player 1 is "X" and player 2 is "O" in the board.
+ticTacToe.move(0, 0, 1); // return 0 (no one wins)
+|X| | |
+| | | |    // Player 1 makes a move at (0, 0).
+| | | |
 
-        if(abs(rows[row]) == n || abs(cols[col]) == n ||
-           abs(diagonal) == n || abs(antiDiagonal) == n)
-           return player;
-        return 0;
-    }
-    
-private:
-    vector<int> rows, cols;
-    int diagonal, antiDiagonal;
-};
-```
-
-## Algorithm Analysis
-
-### Naive vs Optimized Approach
-
-| Aspect | Naive | Optimized |
-|--------|-------|-----------|
-| Time per move | O(n) | O(1) |
-| Space | O(n²) | O(n) |
-| Implementation | Simple | Slightly complex |
-| Scalability | Poor | Excellent |
-
-### Key Optimizations
-
-1. **Counter-Based Tracking**: Instead of scanning the board, maintain running counts
-2. **Player Encoding**: Use `+1` and `-1` to distinguish players
-3. **Diagonal Detection**: Check if `row == col` (main diagonal) and `row == n - col - 1` (anti-diagonal)
-4. **Absolute Value Check**: `abs(count) == n` indicates a win
-
+**Time:** O(1) vs O(n) per move · **Space:** see analysis
 ## Implementation Details
 
 ### Counter Update Logic
@@ -274,11 +206,18 @@ if(abs(rows[row]) == n || abs(cols[col]) == n ||
 - What if you needed to detect draws?
 - How would you implement undo functionality?
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [LC 794: Valid Tic-Tac-Toe State](https://leetcode.com/problems/valid-tic-tac-toe-state/)
-- [LC 1275: Find Winner on a Tic Tac Toe Game](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/)
-- [LC 348: Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe/)
+- [LC 794: Valid Tic-Tac-Toe State](https://www.leetcode.com/problems/valid-tic-tac-toe-state/)
+- [LC 1275: Find Winner on a Tic Tac Toe Game](https://www.leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/)
+- [LC 348: Design Tic-Tac-Toe](https://www.leetcode.com/problems/design-tic-tac-toe/)
 
 ## Design Patterns
 
@@ -294,6 +233,52 @@ if(abs(rows[row]) == n || abs(cols[col]) == n ||
 - **Scalability**: Optimized approach handles large boards efficiently
 - **Cache Efficiency**: Linear arrays have better cache performance than 2D arrays
 
----
+## Key Takeaways
 
-*This problem demonstrates the importance of optimizing data structures and algorithms for repeated operations, showing how mathematical insights can lead to significant performance improvements.*
+- **Pattern:** Row/column traversal (this problem)
+- Difficulty:** Medium
+- Category:** Design, Array, Matrix
+
+## References
+
+- [LC 348: Design Tic-Tac-Toe on LeetCode](https://www.leetcode.com/problems/design-tic-tac-toe/)
+- [LeetCode Discuss — LC 348: Design Tic-Tac-Toe](https://www.leetcode.com/problems/design-tic-tac-toe/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/design-tic-tac-toe/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode/posts/2025-11-24-leetcode-templates-data-structure-design/)
+
+## Thinking Process
+
+**Difficulty:** Medium
+
+**Category:** Design, Array, Matrix
+
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
+
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Row/column traversal** *(this problem)* | $O(nm)$ | $O(1)$ | Simulation, spiral |
+| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
+| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
+| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |

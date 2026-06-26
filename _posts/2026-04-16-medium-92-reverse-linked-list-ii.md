@@ -6,7 +6,6 @@ categories: [leetcode, medium, linked-list]
 tags: [leetcode, medium, linked-list, reversal, pointer-manipulation]
 permalink: /2026/04/16/medium-92-reverse-linked-list-ii/
 ---
-
 Given the `head` of a singly linked list and two integers `left` and `right` where `left <= right`, reverse the nodes of the list from position `left` to position `right` (1-indexed), and return the reversed list.
 
 ## Examples
@@ -72,7 +71,36 @@ Each step does 3 pointer swaps and the sublist grows by one node at the front.
 | `left == right` (no-op) | Early return |
 | Single node | Early return |
 
-## Solution 1: Head Insertion -- $O(n)$ time, $O(1)$ space
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
+
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Iterative pointer walk** *(this problem)* | $O(n)$ | $O(1)$ | Traversal, insertion |
+| Dummy head node | $O(n)$ | $O(1)$ | Simplify head-edge cases |
+| Reversal (3-pointer) | $O(n)$ | $O(1)$ | Reverse sublist or full list |
+| Slow/fast pointers | $O(n)$ | $O(1)$ | Middle, cycle, merge lists |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -101,96 +129,23 @@ public:
     }
 };
 ```
-{% endraw %}
 
-### How the Inner Loop Works
+### Solution Explanation
 
-Each iteration moves `curr->next` to the front of the sublist:
+**Approach:** Iterative pointer walk (this problem)
 
-```
-Before iteration:   prev → [... → curr → tmp → rest]
-After iteration:    prev → [tmp → ... → curr → rest]
-```
+**Key idea:** ### Break It Into 3 Parts
 
-- `curr->next = tmp->next` -- detach `tmp` from its position
-- `tmp->next = prev->next` -- point `tmp` to the current front of the sublist
-- `prev->next = tmp` -- make `tmp` the new front
+**How the code works:**
+1. **Traverse** to the node before `left` -- call it `prev`
+2. **Reverse** the sublist `[left .. right]`
+3. **Reconnect**: `prev → new head of reversed sublist`, `tail of reversed sublist → node after right`
 
-Note that `curr` never moves -- it starts as the first node of the sublist and ends as the last.
+**Walkthrough** — input `head = [1,2,3,4,5], left = 2, right = 4`, expected output `[1,4,3,2,5]`:
 
-## Solution 2: Classic Reversal -- $O(n)$ time, $O(1)$ space
-
-{% raw %}
-```cpp
-class Solution {
-public:
-    ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if (!head || left == right) return head;
-
-        ListNode* cur = head;
-        ListNode* pre = nullptr;
-        while (left > 1) {
-            pre = cur;
-            cur = cur->next;
-            left--;
-            right--;
-        }
-
-        ListNode* con = pre;
-        ListNode* tail = cur;
-        ListNode* third = nullptr;
-        while (right > 0) {
-            third = cur->next;
-            cur->next = pre;
-            pre = cur;
-            cur = third;
-            right--;
-        }
-
-        if (con != nullptr) {
-            con->next = pre;
-        } else {
-            head = pre;
-        }
-        tail->next = cur;
-
-        return head;
-    }
-};
-```
-{% endraw %}
-
-### Walk-through
-
-```
-head = [1, 2, 3, 4, 5], left = 2, right = 4
-
-Phase 1: Advance to position left
-  pre = node(1), cur = node(2)   [left=1, right=3 after decrement]
-
-Phase 2: Reverse right nodes starting from cur
-  con = node(1)   (node before sublist)
-  tail = node(2)  (will become tail of reversed sublist)
-
-  Iteration 1: reverse 2→3  →  2←3   cur=node(3), pre=node(2)... wait
-  Actually: 2→1 (wrong link, but ok), pre=2, cur=3, right=2
-  Iteration 2: 3→2, pre=3, cur=4, right=1
-  Iteration 3: 4→3, pre=4, cur=5, right=0
-
-Phase 3: Reconnect
-  con.next = pre  →  node(1).next = node(4)
-  tail.next = cur →  node(2).next = node(5)
-
-Result: 1 → 4 → 3 → 2 → 5  ✓
-```
-
-| Pointer | Role |
-|---|---|
-| `con` | Node before the sublist (saved before reversal) |
-| `tail` | First node of original sublist = last node after reversal |
-| `pre` | Last node reversed = new head of sublist |
-| `cur` | First node after the reversed sublist |
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Aspect | Head Insertion | Classic Reversal |
@@ -214,10 +169,16 @@ Result: 1 → 4 → 3 → 2 → 5  ✓
 
 ## Related Problems
 
-- [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) -- full list reversal
-- [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) -- reverse segments of size k
-- [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) -- special case of k=2 reversal
-- [1669. Merge In Between Linked Lists](https://leetcode.com/problems/merge-in-between-linked-lists/) -- similar pointer surgery on a sublist range
+- [206. Reverse Linked List](https://www.leetcode.com/problems/reverse-linked-list/) -- full list reversal
+- [25. Reverse Nodes in k-Group](https://www.leetcode.com/problems/reverse-nodes-in-k-group/) -- reverse segments of size k
+- [24. Swap Nodes in Pairs](https://www.leetcode.com/problems/swap-nodes-in-pairs/) -- special case of k=2 reversal
+- [1669. Merge In Between Linked Lists](https://www.leetcode.com/problems/merge-in-between-linked-lists/) -- similar pointer surgery on a sublist range
+
+## References
+
+- [LC 92: Reverse Linked List II on LeetCode](https://www.leetcode.com/problems/reverse-linked-list-ii/)
+- [LeetCode Discuss — LC 92: Reverse Linked List II](https://www.leetcode.com/problems/reverse-linked-list-ii/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/reverse-linked-list-ii/editorial/) *(may require premium)*
 
 ## Template Reference
 

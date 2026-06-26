@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, easy, array, math, greedy]
 permalink: /2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/
 ---
-
-# 1217. Minimum Cost to Move Chips to The Same Position
-
-## Problem Statement
-
 We have `n` chips, where the position of the `i`-th chip is `position[i]`.
 
 We need to move all the chips to **the same position**. In one step, we can change the position of the `i`-th chip from `position[i]` to:
@@ -49,53 +44,39 @@ Explanation: Move chip at position 1000000000 to position 1 with cost = 1.
 - `1 <= position.length <= 100`
 - `1 <= position[i] <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+We have `n` chips, where the position of the `i`-th chip is `position[i]`.
 
-1. **Chip movement**: How do chips move? (Assumption: Move chip 2 positions costs 0, move chip 1 position costs 1 - parity-based movement)
+We need to move all the chips to **the same position**. In one step, we can change the position of the `i`-th chip from `position[i]` to:
 
-2. **Goal**: What are we trying to achieve? (Assumption: Move all chips to same position with minimum cost)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Return value**: What should we return? (Assumption: Integer - minimum cost to move all chips to same position)
 
-4. **Position range**: What is the range of positions? (Assumption: Per constraints, 1 <= position[i] <= 10^9 - very large range)
 
-5. **Cost calculation**: How is cost calculated? (Assumption: Moving even distance (2, 4, 6...) costs 0, moving odd distance (1, 3, 5...) costs 1)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (10 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+</svg>
 
-Try moving all chips to each possible position, calculate the cost for each target position, and return the minimum. For each target position, sum the costs: cost 0 for chips already at that position, cost 1 for chips at positions with same parity (even/odd), cost 1 for chips at positions with different parity (but need to move via intermediate position). This approach works but requires checking all positions, giving O(n × m) complexity where n is number of positions and m is number of chips.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+Typical techniques for this pattern:
 
-Recognize that moving chips between positions with same parity (both even or both odd) costs 0 (can move 2 positions at a time for free). Moving chips between different parities costs 1. So we only need to consider two target positions: all even positions or all odd positions. Count chips at even positions and odd positions, then choose the target with fewer chips (move those to the other parity).
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Count chips at even-indexed positions and odd-indexed positions. Since moving within same parity is free, we can consolidate all chips to one parity for free. Then we only need to move chips from the less populated parity to the more populated one, which costs 1 per chip. The answer is min(count_even, count_odd). This achieves O(n) time where n is number of chips, which is optimal. The key insight is that parity (even/odd) is the only factor that matters - chips at positions with same parity can be consolidated for free, and we only pay to move chips between parities.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is that moving chips by 2 positions costs 0, while moving by 1 position costs 1.
-
-### Key Insights:
-
-1. **Parity Matters**: Chips at even positions can be moved to any even position for free (cost 0)
-2. **Parity Matters**: Chips at odd positions can be moved to any odd position for free (cost 0)
-3. **Cross-Parity Cost**: Moving from even to odd (or vice versa) costs 1 per chip
-4. **Optimal Strategy**: 
-   - Move all chips to either all even positions or all odd positions (cost 0)
-   - Then move all chips from one parity to the other (cost 1 per chip)
-   - Choose the parity with fewer chips to minimize cost
-
-### Algorithm:
-
-1. **Count Chips by Parity**: Count chips at even positions and odd positions
-2. **Choose Minimum**: Return the minimum of the two counts
-   - This represents moving all chips from the minority parity to the majority parity
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -117,6 +98,25 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** We have `n` chips, where the position of the `i`-th chip is `position[i]`.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `position = [1,2,3]`, expected output `1`:
+
+First step: Move the chip at position 3 to position 1 with cost = 0.
+Second step: Move the chip at position 2 to position 1 with cost = 1.
+Total cost is 1.
+
+**Time:** O(n) where n is the length of `position` · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -269,7 +269,6 @@ odd = 1 (counts even positions)
 
 min(odd, even) = min(1, 1) = 1
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Parity Matters**
@@ -318,32 +317,13 @@ min(odd, even) = min(1, 1) = 1
 4. **Greedy Choice**: Always move chips from minority parity to majority parity
 5. **Simple Solution**: Just count and return minimum
 
-## Alternative Approaches
-
-### **Approach 1: Parity Counting (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Try All Positions**
-- **Time**: O(n × m) where m is the range of positions
-- **Space**: O(1)
-- **Not practical**: Too slow for large position values
-
-### **Approach 3: Dynamic Programming**
-- **Time**: O(n × m)
-- **Space**: O(m)
-- **Overkill**: Not needed, greedy is optimal
-
-## Edge Cases
+## Common Mistakes
 
 1. **All chips at same position**: `[1,1,1]` → return 0 (no moves needed)
 2. **All chips at even positions**: `[2,4,6]` → return 0 (all same parity)
 3. **All chips at odd positions**: `[1,3,5]` → return 0 (all same parity)
 4. **Equal counts**: `[1,2]` → return 1 (move one chip)
 5. **Large positions**: `[1,1000000000]` → return 1 (parity doesn't depend on magnitude)
-
-## Common Mistakes
 
 1. **Not understanding parity**: Trying to calculate actual distances
 2. **Wrong counting**: Counting positions instead of chips
@@ -353,10 +333,10 @@ min(odd, even) = min(1, 1) = 1
 
 ## Related Problems
 
-- [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/) - Greedy matching
-- [860. Lemonade Change](https://leetcode.com/problems/lemonade-change/) - Greedy change giving
-- [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Greedy profit maximization
-- [55. Jump Game](https://leetcode.com/problems/jump-game/) - Greedy reachability
+- [455. Assign Cookies](https://www.leetcode.com/problems/assign-cookies/) - Greedy matching
+- [860. Lemonade Change](https://www.leetcode.com/problems/lemonade-change/) - Greedy change giving
+- [122. Best Time to Buy and Sell Stock II](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Greedy profit maximization
+- [55. Jump Game](https://www.leetcode.com/problems/jump-game/) - Greedy reachability
 
 ## Follow-Up: Why Parity Works
 
@@ -380,3 +360,18 @@ min(odd, even) = min(1, 1) = 1
 
 `Array`, `Math`, `Greedy`, `Easy`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 1217: Minimum Cost to Move Chips to The Same Position on LeetCode](https://www.leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/)
+- [LeetCode Discuss — LC 1217: Minimum Cost to Move Chips to The Same Position](https://www.leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -5,11 +5,6 @@ date: 2026-01-01 00:00:00 -0700
 categories: [leetcode, easy, array, design, prefix-sum]
 permalink: /2026/01/01/easy-303-range-sum-query-immutable/
 ---
-
-# 303. Range Sum Query - Immutable
-
-## Problem Statement
-
 Given an integer array `nums`, handle multiple queries of the following type:
 
 1. Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left <= right`.
@@ -43,49 +38,39 @@ numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
 - `0 <= left <= right < nums.length`
 - At most `10^4` calls will be made to `sumRange`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given an integer array `nums`, handle multiple queries of the following type:
 
-1. **Range format**: How are ranges represented? (Assumption: [left, right] - inclusive on both ends, sum elements from index left to right)
+1. Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left <= right`.
 
-2. **Query operation**: What does sumRange do? (Assumption: Returns sum of elements in range [left, right] inclusive)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-3. **Return value**: What should sumRange return? (Assumption: Integer - sum of elements in specified range)
 
-4. **Array modification**: Can the array be modified? (Assumption: No - array is immutable, only queries are allowed)
 
-5. **Time complexity**: What time complexity is expected? (Assumption: O(1) per query using prefix sums, O(n) preprocessing)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-## Interview Deduction Process (10 minutes)
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
 
-**Step 1: Brute-Force Approach (2 minutes)**
+</svg>
 
-For each query, iterate through the range [left, right] and sum all elements. This approach has O(n) time per query where n is the range size, which is too slow for many queries. With up to 10^4 queries, this becomes O(10^4 × n), which is inefficient.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (3 minutes)**
+Typical techniques for this pattern:
 
-Precompute all possible range sums and store them in a 2D table. For each pair (i, j), store the sum of elements from i to j. This allows O(1) queries but requires O(n²) space and O(n²) preprocessing time, which is too expensive for large arrays.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use prefix sums: precompute prefix[i] = sum of elements from 0 to i-1. Then range sum from left to right is prefix[right+1] - prefix[left]. This achieves O(1) query time with O(n) preprocessing time and O(n) space, which is optimal. The key insight is that range sums can be computed from prefix sums using simple subtraction, eliminating the need to iterate through ranges for each query.
-
-## Solution Approach
-
-This problem requires efficiently answering multiple range sum queries on an immutable array. The key insight is to use **prefix sums** to answer each query in O(1) time.
-
-### Key Insights:
-
-1. **Prefix Sum Array**: Precompute cumulative sums during initialization
-2. **Range Query Formula**: `sumRange(left, right) = prefix[right + 1] - prefix[left]`
-3. **One-Based Indexing**: Use 1-based indexing in prefix array to handle edge cases
-4. **O(1) Queries**: Each query takes constant time after preprocessing
-
-### Algorithm:
-
-1. **Initialize**: Build prefix sum array where `prefix[i]` = sum of first `i` elements
-2. **Query**: Use prefix sums to compute range sum in O(1)
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | $O(n)$ | $O(n)$ | Range queries, subarray sum |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Intervals, meeting rooms |
+| Kadane's algorithm | $O(n)$ | $O(1)$ | Maximum subarray |
+| Hash map counting | $O(n)$ | $O(n)$ | Frequency, two-sum variants |
 
 ## Solution
 
@@ -115,6 +100,20 @@ private:
  * int param_1 = obj->sumRange(left,right);
  */
 ```
+
+### Solution Explanation
+
+**Approach:** Prefix sum (this problem)
+
+**Key idea:** Given an integer array `nums`, handle multiple queries of the following type:
+
+**How the code works:**
+1. Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left <= right`.
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
+
+**Time:** - **Initialization**: O(n) - build prefix sum array · **Space:** O(n) - store prefix sum array
 
 ### **Algorithm Explanation:**
 
@@ -167,7 +166,6 @@ nums[2] + nums[3] + nums[4] + nums[5] = 3 + (-5) + 2 + (-1) = -1 ✓
 sums[6] - sums[0] = (-3) - 0 = -3
 Sum of all elements = (-2) + 0 + 3 + (-5) + 2 + (-1) = -3 ✓
 ```
-
 ## Algorithm Breakdown
 
 ### **Prefix Sum Concept**
@@ -197,23 +195,6 @@ Using 1-based indexing in the prefix array simplifies the formula:
 3. **Immutable Array**: No updates, so prefix sums never change
 4. **Efficient**: Optimal for multiple queries on static data
 
-## Alternative Approaches
-
-### **Approach 1: Prefix Sum (Current Solution)**
-- **Time**: O(n) init, O(1) query
-- **Space**: O(n)
-- **Best for**: Multiple queries on immutable array
-
-### **Approach 2: Naive (Calculate Each Time)**
-- **Time**: O(1) init, O(n) query
-- **Space**: O(1)
-- **Use when**: Very few queries expected
-
-### **Approach 3: Segment Tree**
-- **Time**: O(n) init, O(log n) query
-- **Space**: O(n)
-- **Overkill**: Not needed for immutable array
-
 ## Edge Cases
 
 1. **Single element**: `nums = [5]`, `sumRange(0, 0)` = 5
@@ -222,14 +203,36 @@ Using 1-based indexing in the prefix array simplifies the formula:
 4. **Mixed signs**: `nums = [-2, 0, 3, -5, 2, -1]`
 5. **Large numbers**: Handle integer overflow (not an issue with constraints)
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [304. Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) - 2D version
-- [307. Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) - Mutable 1D version
-- [308. Range Sum Query 2D - Mutable](https://leetcode.com/problems/range-sum-query-2d-mutable/) - Mutable 2D version
-- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) - Uses prefix sums
+- [304. Range Sum Query 2D - Immutable](https://www.leetcode.com/problems/range-sum-query-2d-immutable/) - 2D version
+- [307. Range Sum Query - Mutable](https://www.leetcode.com/problems/range-sum-query-mutable/) - Mutable 1D version
+- [308. Range Sum Query 2D - Mutable](https://www.leetcode.com/problems/range-sum-query-2d-mutable/) - Mutable 2D version
+- [560. Subarray Sum Equals K](https://www.leetcode.com/problems/subarray-sum-equals-k/) - Uses prefix sums
 
 ## Tags
 
 `Array`, `Design`, `Prefix Sum`, `Easy`
 
+## Key Takeaways
+
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
+
+## References
+
+- [LC 303: Range Sum Query - Immutable on LeetCode](https://www.leetcode.com/problems/range-sum-query-immutable/)
+- [LeetCode Discuss — LC 303: Range Sum Query - Immutable](https://www.leetcode.com/problems/range-sum-query-immutable/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/range-sum-query-immutable/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -6,11 +6,6 @@ categories: [leetcode, hard, array, dynamic-programming, dfs, memoization]
 permalink: /2026/01/10/hard-1340-jump-game-v/
 tags: [leetcode, hard, array, dynamic-programming, dfs, memoization, recursion]
 ---
-
-# 1340. Jump Game V
-
-## Problem Statement
-
 Given an array of integers `arr` and an integer `d`. In one step you can jump from index `i` to index:
 
 - `i + x` where: `i + x < arr.length` and `0 < x <= d`.
@@ -52,58 +47,47 @@ Explanation: Start at index 0, you can visit all the indicies.
 - `1 <= arr[i] <= 10^5`
 - `1 <= d <= arr.length`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Memoization is Critical**: Without memoization, we'd recompute the same subproblems multiple times
 
-1. **Jump rules**: How do jumps work? (Assumption: From index i, can jump to indices in range [i-d, i+d] but only to indices with smaller values)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **Jump direction**: Can we jump in both directions? (Assumption: Yes - can jump left or right, but only to smaller values)
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximum number of indices we can visit starting from any index)
 
-4. **Return value**: What should we return? (Assumption: Integer - maximum number of indices we can visit)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-5. **Stopping condition**: When do we stop jumping? (Assumption: When no valid jumps remain - all reachable indices have larger values)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-## Interview Deduction Process (30 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (8 minutes)**
+## Common Approaches
 
-For each starting index, use DFS to explore all valid jumps. From each index, try jumping left and right up to distance `d`, but only to indices with smaller values. Recursively explore all paths and return the maximum path length. This approach has exponential time complexity O(2^n) in worst case, which is too slow for arrays up to 1000 elements.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use DFS with memoization: for each starting index, compute the maximum number of indices we can visit and cache the result. When we encounter the same index again, return the cached value. However, we need to be careful about the jump constraints: we can only jump to indices with smaller values, and we must jump over all intermediate indices (they must also be smaller). This reduces redundant calculations but still requires careful implementation of the jump constraints.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use DFS with memoization and proper constraint checking: for each index, recursively explore valid jumps. When jumping from index `i` to index `j`, ensure `arr[i] > arr[j]` and `arr[i] > arr[k]` for all `k` between `i` and `j`. Use memoization to cache results for each starting index. This achieves O(n²) time complexity: O(n) starting positions, each requiring O(n) to explore jumps. The key insight is that the problem has overlapping subproblems (multiple paths can reach the same index), so memoization significantly reduces computation.
-
-## Solution Approach
-
-This is a **dynamic programming with memoization** problem. The key insight is that we need to find the maximum path length starting from any index, where we can only jump to indices with smaller values and must jump over all intermediate indices that are also smaller.
-
-### Key Insights:
-
-1. **DFS with Memoization**: For each starting index, use DFS to explore all valid jumps
-2. **Memoization**: Cache results to avoid recomputing the same subproblems
-3. **Jump Constraints**: 
-   - Can jump left or right up to distance `d`
-   - Can only jump to indices with `arr[j] < arr[i]`
-   - Must jump over all intermediate indices (they must also be smaller)
-4. **Base Case**: Each index can visit at least itself (count = 1)
-
-### Algorithm:
-
-1. **Initialize**: `dp[i] = -1` for all indices (unvisited)
-2. **For each index `i`**: Call DFS to compute maximum visits starting from `i`
-3. **DFS Function**:
-   - If `dp[i]` is already computed, return it
-   - Initialize `dp[i] = 1` (at least visit itself)
-   - **Check left**: For each valid left jump, recursively compute and update maximum
-   - **Check right**: For each valid right jump, recursively compute and update maximum
-4. **Return**: Maximum value in `dp` array
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | $O(n)$ | $O(n)$ or $O(1)$ | Linear recurrence |
+| 2D DP | $O(nm)$ | $O(nm)$ or $O(n)$ | Grid or two-sequence problems |
+| State machine DP | $O(n)$ | $O(1)$ | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | $O(n)$ | Recursive + cache |
 
 ## Solution
 
@@ -142,6 +126,23 @@ private:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** 1. **Memoization is Critical**: Without memoization, we'd recompute the same subproblems multiple times
+
+**How the code works:**
+1. **Memoization is Critical**: Without memoization, we'd recompute the same subproblems multiple times
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `arr = [6,4,14,6,8,13,9,7,10,6,12], d = 2`, expected output `4`:
+
+You can start at index 10. You can jump 10 -> 8 -> 6 -> 7 as shown.
+Note that if you start at index 6, you can only jump to one more index (either index 1 or 9) before you stop.
 
 ### **Algorithm Explanation:**
 
@@ -283,22 +284,12 @@ for(int i = id - 1; i >= 0 && id - i <= d && arr[id] > arr[i]; i--)
 - `id - i <= d`: Within jump distance
 - `arr[id] > arr[i]`: Can only jump to smaller values
 - **Automatic intermediate check**: The loop stops when `arr[id] <= arr[i]`, which means we've encountered a value that's not smaller, so we can't jump over it
-
-## Key Insights
-
-1. **Memoization is Critical**: Without memoization, we'd recompute the same subproblems multiple times
-2. **DFS Exploration**: Need to explore all valid paths from each starting position
-3. **Constraint Satisfaction**: The loop conditions naturally enforce all jump constraints
-4. **Base Case**: Each index can visit at least itself (count = 1)
-
-## Edge Cases
+## Common Mistakes
 
 1. **All same values**: `arr = [3,3,3,3,3]` → return `1` (can't jump anywhere)
 2. **Strictly decreasing**: `arr = [7,6,5,4,3,2,1]` → can visit all indices
 3. **Single element**: `arr = [1]` → return `1`
 4. **Large d**: `d = arr.length` → can jump to any valid position
-
-## Common Mistakes
 
 1. **Missing memoization**: Forgetting to cache results leads to exponential time
 2. **Wrong base case**: Should initialize `dp[id] = 1`, not `0`
@@ -308,13 +299,25 @@ for(int i = id - 1; i >= 0 && id - i <= d && arr[id] > arr[i]; i--)
 
 ## Related Problems
 
-- [LC 55: Jump Game](https://leetcode.com/problems/jump-game/) - Can reach last index
-- [LC 45: Jump Game II](https://leetcode.com/problems/jump-game-ii/) - Minimum jumps
-- [LC 1306: Jump Game III](https://leetcode.com/problems/jump-game-iii/) - Can reach index with value 0
-- [LC 1345: Jump Game IV](https://leetcode.com/problems/jump-game-iv/) - Minimum jumps with same value
-- [LC 1696: Jump Game VI](https://leetcode.com/problems/jump-game-vi/) - Maximum score with sliding window
+- [LC 55: Jump Game](https://www.leetcode.com/problems/jump-game/) - Can reach last index
+- [LC 45: Jump Game II](https://www.leetcode.com/problems/jump-game-ii/) - Minimum jumps
+- [LC 1306: Jump Game III](https://www.leetcode.com/problems/jump-game-iii/) - Can reach index with value 0
+- [LC 1345: Jump Game IV](https://www.leetcode.com/problems/jump-game-iv/) - Minimum jumps with same value
+- [LC 1696: Jump Game VI](https://www.leetcode.com/problems/jump-game-vi/) - Maximum score with sliding window
 
----
+## Key Takeaways
 
-*This problem demonstrates DFS with memoization to find the longest path in a constrained graph. The key is understanding the jump constraints and using memoization to avoid redundant computations.*
+1. **Memoization is Critical**: Without memoization, we'd recompute the same subproblems multiple times
+2. **DFS Exploration**: Need to explore all valid paths from each starting position
+3. **Constraint Satisfaction**: The loop conditions naturally enforce all jump constraints
+4. **Base Case**: Each index can visit at least itself (count = 1)
 
+## References
+
+- [LC 1340: Jump Game V on LeetCode](https://www.leetcode.com/problems/jump-game-v/)
+- [LeetCode Discuss — LC 1340: Jump Game V](https://www.leetcode.com/problems/jump-game-v/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/jump-game-v/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

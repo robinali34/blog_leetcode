@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, array, greedy, sorting]
 permalink: /2026/01/04/medium-1029-two-city-scheduling/
 ---
-
-# 1029. Two City Scheduling
-
-## Problem Statement
-
 A company is planning to interview `2n` people. Given the array `costs` where `costs[i] = [aCosti, bCosti]`, the cost of flying the `i`-th person to city `a` is `aCosti`, and the cost of flying the `i`-th person to city `b` is `bCosti`.
 
 Return *the minimum cost to fly every person to a city such that exactly `n` people arrive in each city*.
@@ -47,58 +42,39 @@ Output: 3086
 - `costs.length` is even
 - `1 <= aCosti, bCosti <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+A company is planning to interview `2n` people. Given the array `costs` where `costs[i] = [aCosti, bCosti]`, the cost of flying the `i`-th person to city `a` is `aCosti`, and the cost of flying the `i`-th person to city `b` is `bCosti`.
 
-1. **Scheduling requirement**: What is the scheduling requirement? (Assumption: Send exactly n people to city A and n people to city B - equal distribution)
+Return *the minimum cost to fly every person to a city such that exactly `n` people arrive in each city*.
 
-2. **Cost format**: How are costs represented? (Assumption: costs[i] = [aCosti, bCosti] - cost to send person i to city A and city B)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Minimum total cost to send n people to each city)
 
-4. **Return value**: What should we return? (Assumption: Integer - minimum total cost)
 
-5. **Person assignment**: Can we choose which people go to which city? (Assumption: Yes - can assign any person to either city, but must have exactly n in each)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (20 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible ways to select n people for city A (and remaining n for city B). For each selection, calculate the total cost and find the minimum. This requires checking C(2n, n) combinations, which has exponential complexity and is infeasible for large n.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Use dynamic programming: dp[i][a_count] = minimum cost to assign first i people with a_count going to city A. For each person, decide to send to city A or B. This requires O(n²) time and space, which works but can be optimized further.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use greedy approach: calculate the "savings" for each person if sent to city A instead of B (costB - costA). Sort people by savings in descending order. Send the first n people (with highest savings) to city A, and the rest to city B. This works because we want to maximize savings by sending people with highest cost difference to the cheaper city. This achieves O(n log n) time for sorting plus O(n) for calculation, which is optimal. The key insight is that the problem reduces to: send n people to city A where sending them to A saves the most money compared to sending them to B.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is to sort people by the **difference** between their costs to the two cities, which indicates which city is cheaper for each person.
-
-### Key Insights:
-
-1. **Cost Difference**: For each person, calculate `cost[0] - cost[1]`
-   - **Negative difference**: Cheaper to send to city A (cost[0] < cost[1])
-   - **Positive difference**: Cheaper to send to city B (cost[0] > cost[1])
-   - **Zero difference**: Same cost to both cities
-
-2. **Sorting Strategy**: Sort by `cost[0] - cost[1]` in ascending order
-   - First `n` people (smallest differences) → send to city A
-   - Last `n` people (largest differences) → send to city B
-
-3. **Optimal**: This greedy strategy minimizes total cost
-
-### Algorithm:
-
-1. **Sort**: Sort `costs` by `cost[0] - cost[1]` in ascending order
-2. **Assign**: 
-   - First `n` people → city A (cost[0])
-   - Last `n` people → city B (cost[1])
-3. **Sum**: Return total cost
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -120,6 +96,27 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** A company is planning to interview `2n` people. Given the array `costs` where `costs[i] = [aCosti, bCosti]`, the cost of flying the `i`-th person to city `a` is `aCosti`, and the cost of flying the `i`-th person to city `b` is `bCosti`.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `costs = [[10,20],[30,200],[400,50],[30,20]]`, expected output `110`:
+
+The first person goes to city A for a cost of 10.
+The second person goes to city A for a cost of 30.
+The third person goes to city B for a cost of 50.
+The fourth person goes to city B for a cost of 20.
+The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interviewing in each city.
+
+**Time:** O(n log n) where n is the number of people · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -236,7 +233,6 @@ Last N (i=0,1,2): Send to city B
 
 Total = 259 + 184 + 577 + 667 + 54 + 118 = 1859
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Sorting by Difference Works**
@@ -289,32 +285,12 @@ Total = 259 + 184 + 577 + 667 + 54 + 118 = 1859
 4. **Simple**: Straightforward implementation after sorting
 5. **Efficient**: O(n log n) time complexity
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with Sorting (Current Solution)**
-- **Time**: O(n log n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Dynamic Programming**
-- **Time**: O(n²)
-- **Space**: O(n²)
-- **Use when**: Need to track state (not needed here)
-- **Overkill**: Greedy is optimal and simpler
-
-### **Approach 3: Try All Combinations**
-- **Time**: O(2^n)
-- **Space**: O(n)
-- **Not practical**: Too slow for large inputs
-
-## Edge Cases
+## Common Mistakes
 
 1. **All same cost**: `[[1,1],[2,2],[3,3],[4,4]]` → Any assignment works
 2. **All cheaper to A**: `[[1,100],[2,200],[3,300],[4,400]]` → Send first 2 to A, last 2 to A (but constraint: need 2 to B)
 3. **All cheaper to B**: `[[100,1],[200,2],[300,3],[400,4]]` → Send first 2 to A, last 2 to B
 4. **Mixed**: `[[10,20],[30,200],[400,50],[30,20]]` → Example 1
-
-## Common Mistakes
 
 1. **Wrong sorting order**: Sorting in descending instead of ascending
 2. **Wrong assignment**: Sending first N to B instead of A
@@ -324,10 +300,10 @@ Total = 259 + 184 + 577 + 667 + 54 + 118 = 1859
 
 ## Related Problems
 
-- [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) - Greedy with sorting
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
-- [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/) - Greedy matching
-- [1710. Maximum Units on a Truck](https://leetcode.com/problems/maximum-units-on-a-truck/) - Greedy with sorting
+- [406. Queue Reconstruction by Height](https://www.leetcode.com/problems/queue-reconstruction-by-height/) - Greedy with sorting
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
+- [455. Assign Cookies](https://www.leetcode.com/problems/assign-cookies/) - Greedy matching
+- [1710. Maximum Units on a Truck](https://www.leetcode.com/problems/maximum-units-on-a-truck/) - Greedy with sorting
 
 ## Follow-Up: Why Sort by Difference?
 
@@ -352,3 +328,18 @@ Total = 259 + 184 + 577 + 667 + 54 + 118 = 1859
 
 `Array`, `Greedy`, `Sorting`, `Medium`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 1029: Two City Scheduling on LeetCode](https://www.leetcode.com/problems/two-city-scheduling/)
+- [LeetCode Discuss — LC 1029: Two City Scheduling](https://www.leetcode.com/problems/two-city-scheduling/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/two-city-scheduling/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

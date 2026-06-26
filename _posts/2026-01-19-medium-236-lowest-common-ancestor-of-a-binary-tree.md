@@ -6,14 +6,54 @@ categories: [leetcode, medium, tree, dfs]
 permalink: /2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/
 tags: [leetcode, medium, tree, dfs, recursion, lca]
 ---
-
-# 236. Lowest Common Ancestor of a Binary Tree
-
-## Problem Statement
-
 Given a binary tree, find the **lowest common ancestor (LCA)** of two given nodes in the tree.
 
 According to the [definition of LCA on Wikipedia](https://en.wikipedia.org/wiki/Lowest_common_ancestor): "The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow **a node to be a descendant of itself**)."
+
+## Thinking Process
+
+1. **Post-order Traversal**: Process children before parent to find LCA bottom-up
+- Return node if it matches target
+- Return current node if both subtrees found targets
+- Otherwise, propagate the found result upward
+
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
+
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
 
 ## Examples
 
@@ -63,307 +103,13 @@ Output: 1
 - `p != q`
 - `p` and `q` will exist in the tree.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Tree type**: Is this a binary tree, BST, or general tree? (Assumption: Binary tree - not necessarily a BST, nodes can have any values)
-
-2. **Node existence**: Are we guaranteed that both p and q exist in the tree? (Assumption: Yes - constraints guarantee both nodes exist)
-
-3. **LCA definition**: Can a node be its own ancestor? (Assumption: Yes - if p is ancestor of q, then p is the LCA)
-
-4. **Duplicate values**: Can nodes have duplicate values? (Assumption: No - all node values are unique per constraints)
-
-5. **Return value**: Should we return the node itself or its value? (Assumption: Return the node (TreeNode*) - typical LCA problem requirement)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each node in the tree, check if both p and q are descendants of that node. The LCA is the deepest such node. To check if a node is a descendant, use DFS to search the subtree. This approach requires O(n) time per node to check descendants, giving O(n²) overall complexity, which is too slow.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Find paths from root to p and root to q. Compare the paths to find the last common node. This requires two DFS traversals to find paths (O(n) each), then comparing paths (O(h) where h is height). This works but requires storing paths, using O(h) space, and the path-finding logic can be complex.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use recursive DFS: for each node, recursively search left and right subtrees. If both subtrees return non-null (meaning p and q were found in different subtrees), current node is LCA. If one subtree returns non-null and current node is p or q, current node is LCA. Otherwise, return the non-null result (or null if both null). This achieves O(n) time with O(h) space for recursion stack, which is optimal. The key insight is that LCA is the node where p and q appear in different subtrees, or where one of them is the node itself and the other is in a subtree.
-
-## Solution Approach
-
-This problem requires finding the lowest common ancestor of two nodes in a binary tree. The LCA is the deepest node that has both `p` and `q` as descendants.
-
-### Key Insights:
-
-1. **Post-order Traversal**: Process children before parent to find LCA bottom-up
-2. **Return Strategy**: 
-   - Return the node if it matches `p` or `q`
-   - If both subtrees return non-null, current node is LCA
-   - Otherwise, return whichever subtree found a match
-3. **Self as Descendant**: A node can be its own descendant (if `p` or `q` is ancestor)
-
-## Solution: Recursive DFS (Post-order)
-
-```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return isCommonAncestor(root, p, q);
-    }
-private:
-    TreeNode* isCommonAncestor(TreeNode* node, TreeNode* p, TreeNode* q){
-        if(!node) return nullptr;
-        TreeNode* left = isCommonAncestor(node->left, p, q);
-        TreeNode* right = isCommonAncestor(node->right, p, q);
-        if(node == p || node == q) return node;
-        if(left && right) return node;
-        return left ? left : right;
-    }
-};
-```
-
-### Algorithm Explanation:
-
-1. **Base Case**: 
-   - If `node` is `nullptr`, return `nullptr` (not found)
-
-2. **Recursive Calls**:
-   - Recursively search left subtree: `isCommonAncestor(node->left, p, q)`
-   - Recursively search right subtree: `isCommonAncestor(node->right, p, q)`
-
-3. **Current Node Check**:
-   - If current node equals `p` or `q`, return `node` (found one target)
-
-4. **LCA Detection**:
-   - If **both** `left` and `right` are non-null → current node is LCA
-   - This means `p` and `q` are in different subtrees
-
-5. **Propagate Result**:
-   - If only one subtree found a match, return that result
-   - `return left ? left : right;` propagates the found node upward
-
-### Why This Works?
-
-The algorithm uses **post-order traversal**:
-- First, recursively search both subtrees
-- Then, check if current node is one of the targets
-- If both subtrees found targets, current node is the LCA
-- Otherwise, propagate whichever subtree found a target
-
-**Key Insight**: The LCA is the first node where both `p` and `q` appear in different subtrees (or one is the node itself).
-
-### Example Walkthrough:
-
-**Example 1:** `root = [3,5,1,6,2,0,8,null,null,7,4]`, `p = 5`, `q = 1`
-
-```
-Tree structure:
-        3
-       / \
-      5   1
-     / \ / \
-    6  2 0  8
-      / \
-     7   4
-
-isCommonAncestor(3, 5, 1):
-  node = 3, not null
-  
-  left = isCommonAncestor(5, 5, 1):
-    node = 5, matches p → return 5
-  
-  right = isCommonAncestor(1, 5, 1):
-    node = 1, matches q → return 1
-  
-  node != p && node != q
-  left = 5 (non-null), right = 1 (non-null)
-  Both non-null → return 3 (LCA) ✓
-```
-
-**Example 2:** `root = [3,5,1,6,2,0,8,null,null,7,4]`, `p = 5`, `q = 4`
-
-```
-Tree structure:
-        3
-       / \
-      5   1
-     / \ / \
-    6  2 0  8
-      / \
-     7   4
-
-isCommonAncestor(3, 5, 4):
-  node = 3, not null
-  
-  left = isCommonAncestor(5, 5, 4):
-    node = 5, matches p → return 5
-    
-    left = isCommonAncestor(6, 5, 4):
-      node = 6, not p or q
-      left = null, right = null
-      return null
-    
-    right = isCommonAncestor(2, 5, 4):
-      node = 2, not p or q
-      
-      left = isCommonAncestor(7, 5, 4):
-        return null
-      
-      right = isCommonAncestor(4, 5, 4):
-        node = 4, matches q → return 4
-      
-      left = null, right = 4
-      return 4
-    
-    left = null, right = 4
-    node = 5 (matches p)
-    return 5
-  
-  right = isCommonAncestor(1, 5, 4):
-    return null (not found in right subtree)
-  
-  left = 5 (non-null), right = null
-  return 5 (LCA) ✓
-```
-
-### Complexity Analysis:
-
-- **Time Complexity:** O(n)
-  - Visit each node at most once
-  - n = number of nodes in tree
-  - Early termination possible but worst case visits all nodes
-
-- **Space Complexity:** O(h)
-  - Recursion call stack depth = height of tree
-  - Best case (balanced): O(log n)
-  - Worst case (skewed): O(n)
-
-## Alternative Approaches
-
-### Solution 2: Path Tracking (Find Paths First)
-
-```cpp
-class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> pathP, pathQ;
-        findPath(root, p, pathP);
-        findPath(root, q, pathQ);
-        
-        TreeNode* lca = nullptr;
-        int i = 0;
-        while (i < pathP.size() && i < pathQ.size() && 
-               pathP[i] == pathQ[i]) {
-            lca = pathP[i];
-            i++;
-        }
-        return lca;
-    }
-    
-private:
-    bool findPath(TreeNode* root, TreeNode* target, vector<TreeNode*>& path) {
-        if (!root) return false;
-        
-        path.push_back(root);
-        if (root == target) return true;
-        
-        if (findPath(root->left, target, path) || 
-            findPath(root->right, target, path)) {
-            return true;
-        }
-        
-        path.pop_back();
-        return false;
-    }
-};
-```
-
-**Complexity**: 
-- Time: O(n) - two traversals
-- Space: O(h) - path storage + recursion
-
-### Solution 3: Iterative with Parent Map
-
-```cpp
-class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        unordered_map<TreeNode*, TreeNode*> parent;
-        stack<TreeNode*> st;
-        parent[root] = nullptr;
-        st.push(root);
-        
-        // Build parent map
-        while (!parent.count(p) || !parent.count(q)) {
-            TreeNode* node = st.top();
-            st.pop();
-            
-            if (node->left) {
-                parent[node->left] = node;
-                st.push(node->left);
-            }
-            if (node->right) {
-                parent[node->right] = node;
-                st.push(node->right);
-            }
-        }
-        
-        // Find path from p to root
-        set<TreeNode*> ancestors;
-        TreeNode* curr = p;
-        while (curr) {
-            ancestors.insert(curr);
-            curr = parent[curr];
-        }
-        
-        // Find first common ancestor from q
-        curr = q;
-        while (curr) {
-            if (ancestors.count(curr)) {
-                return curr;
-            }
-            curr = parent[curr];
-        }
-        
-        return nullptr;
-    }
-};
-```
-
-**Complexity**: 
-- Time: O(n)
-- Space: O(n) for parent map and set
-
-## Key Insights
-
-1. **Post-order Traversal**: Process children before parent to find LCA bottom-up
-2. **Return Strategy**: 
-   - Return node if it matches target
-   - Return current node if both subtrees found targets
-   - Otherwise, propagate the found result upward
-3. **Self as Descendant**: If `p` is ancestor of `q`, return `p` (and vice versa)
-4. **Single Pass**: Can find LCA in one traversal without storing paths
-
-## Edge Cases
+## Common Mistakes
 
 1. **One node is ancestor of other**: `p = 5`, `q = 4` → return `5`
 2. **Root is LCA**: `p` and `q` in different subtrees → return root
 3. **Both nodes in same subtree**: LCA is deeper in that subtree
 4. **Root equals one target**: Return root
 5. **Skewed tree**: Works correctly but O(n) space
-
-## Common Mistakes
 
 1. **Wrong traversal order**: Using pre-order instead of post-order
    ```cpp
@@ -383,25 +129,31 @@ public:
 4. **Comparing values instead of nodes**: Using `node->val` instead of `node == p`
 5. **Not propagating results**: Not returning the found node from subtrees
 
-## Comparison with Related Problems
-
-| Problem | Key Difference |
-|---------|----------------|
-| **LC 236: LCA of Binary Tree** | General binary tree, nodes may not exist |
-| **LC 235: LCA of BST** | Binary Search Tree, can use BST properties |
-| **LC 1650: LCA of Binary Tree III** | Nodes have parent pointers |
-| **LC 1644: LCA of Binary Tree II** | Nodes may not exist in tree |
-
 ## Related Problems
 
-- [LC 236: Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) - This problem
-- [LC 235: Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) - BST version (easier)
-- [LC 1644: Lowest Common Ancestor of a Binary Tree II](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/) - Nodes may not exist
-- [LC 1650: Lowest Common Ancestor of a Binary Tree III](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) - Nodes have parent pointers
-- [LC 1123: Lowest Common Ancestor of Deepest Leaves](https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/) - LCA of deepest leaves
-- [LC 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) - Level-order traversal
+- [LC 236: Lowest Common Ancestor of a Binary Tree](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) - This problem
+- [LC 235: Lowest Common Ancestor of a Binary Search Tree](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) - BST version (easier)
+- [LC 1644: Lowest Common Ancestor of a Binary Tree II](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/) - Nodes may not exist
+- [LC 1650: Lowest Common Ancestor of a Binary Tree III](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) - Nodes have parent pointers
+- [LC 1123: Lowest Common Ancestor of Deepest Leaves](https://www.leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/) - LCA of deepest leaves
+- [LC 102: Binary Tree Level Order Traversal](https://www.leetcode.com/problems/binary-tree-level-order-traversal/) - Level-order traversal
 
----
+## Key Takeaways
 
-*This problem demonstrates **post-order traversal** for finding the lowest common ancestor. The key insight is that the LCA is the first node where both targets appear in different subtrees (or one is the node itself). The elegant solution uses a single pass without storing paths, making it both time and space efficient.*
+1. **Post-order Traversal**: Process children before parent to find LCA bottom-up
+2. **Return Strategy**: 
+   - Return node if it matches target
+   - Return current node if both subtrees found targets
+   - Otherwise, propagate the found result upward
+3. **Self as Descendant**: If `p` is ancestor of `q`, return `p` (and vice versa)
+4. **Single Pass**: Can find LCA in one traversal without storing paths
 
+## References
+
+- [LC 236: Lowest Common Ancestor of a Binary Tree on LeetCode](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+- [LeetCode Discuss — LC 236: Lowest Common Ancestor of a Binary Tree](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode/posts/2025-10-29-leetcode-templates-trees/)

@@ -4,9 +4,6 @@ title: "[Medium] 593. Valid Square"
 date: 2025-12-02 00:00:00 -0800
 categories: leetcode algorithm medium cpp math geometry problem-solving
 ---
-
-# [Medium] 593. Valid Square
-
 Given the coordinates of four points in 2D space `p1`, `p2`, `p3`, and `p4`, return `true` if the four points construct a square.
 
 ## Examples
@@ -34,62 +31,40 @@ Output: true
 - `p1.length == p2.length == p3.length == p4.length == 2`
 - `-10^4 <= xi, yi <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given the coordinates of four points in 2D space `p1`, `p2`, `p3`, and `p4`, return `true` if the four points construct a square.
 
-1. **Square definition**: What makes a valid square? (Assumption: Four points forming a square - four equal sides, four right angles, two equal diagonals)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Point order**: Are points given in any specific order? (Assumption: No - points can be in any order, need to determine if they form a square)
 
-3. **Degenerate cases**: Can points be collinear or form other shapes? (Assumption: Need to check - points might form rectangle, rhombus, or other shapes)
 
-4. **Return value**: What should we return? (Assumption: Boolean - true if points form a valid square, false otherwise)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
 
-5. **Duplicate points**: Can there be duplicate points? (Assumption: Per problem, should check - duplicate points cannot form a square)
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to check if points form square. Let me try all possible orderings."
+## Common Approaches
 
-**Naive Solution**: Try all possible ways to order 4 points, check if they form square by verifying sides and angles.
+Typical techniques for this pattern:
 
-**Complexity**: O(4!) = O(24) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
 
-**Issues**:
-- Checks many invalid orderings
-- Complex geometric calculations
-- Doesn't leverage distance properties
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "Square has specific distance properties: 4 equal sides, 2 equal diagonals."
-
-**Improved Solution**: Calculate all 6 pairwise distances. Square should have: 4 equal side lengths, 2 equal diagonal lengths, sides != diagonals.
-
-**Complexity**: O(1) time, O(1) space
-
-**Improvements**:
-- Leverages distance properties
-- O(1) time - constant time check
-- Handles all geometric cases
-- Clean and efficient
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Distance-based validation is optimal. Check for exactly 2 unique distances (sides and diagonals)."
-
-**Best Solution**: Calculate all pairwise distances. Valid square has exactly 2 unique distances: 4 sides (equal) and 2 diagonals (equal), with diagonal > side.
-
-**Complexity**: O(1) time, O(1) space
-
-**Key Realizations**:
-1. Distance properties are key insight
-2. O(1) time is optimal - fixed 4 points
-3. Check for exactly 2 unique distances
-4. Handle edge cases (collinear points, etc.)
-
-## Solution: Distance-Based Validation
+## Solution
 
 **Time Complexity:** O(1) - Constant time since we only have 4 points  
 **Space Complexity:** O(1) - Using a set with at most 2 elements
@@ -128,83 +103,34 @@ public:
 };
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Square Properties
+**Approach:** Brute force (this problem)
 
-A square has specific distance properties:
-- **4 equal sides**: Each side has the same length
-- **2 equal diagonals**: Each diagonal has the same length
-- **Diagonal = side × √2**: By Pythagorean theorem
+**Key idea:** Given the coordinates of four points in 2D space `p1`, `p2`, `p3`, and `p4`, return `true` if the four points construct a square.
 
-### Algorithm Steps
+**How the code works:**
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-1. **Calculate all pairwise distances**: For 4 points, there are C(4,2) = 6 pairs
-2. **Check for duplicate points**: If any distance is 0, return false
-3. **Count unique distances**: A valid square has exactly 2 unique distances
-   - One distance appears 4 times (sides)
-   - Another distance appears 2 times (diagonals)
+**Walkthrough** — input `p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1]`, expected output `true`:
 
-### Why This Works
-
-For a valid square with 4 points:
-- **6 total distances**: 4 sides + 2 diagonals
-- **2 unique distances**: side² and diagonal²
-- **No zero distances**: All points are distinct
-
-The condition `distances.size() == 2` ensures:
-- All 4 sides are equal (same distance appears 4 times)
-- Both diagonals are equal (same distance appears 2 times)
-- The shape is a square (not a rectangle, which would have different side lengths)
-
-### Example Walkthrough
-
-**Example 1:** `p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1]`
-
-```
-Distances:
-- p1-p2: (0-1)² + (0-1)² = 1 + 1 = 2 (diagonal)
-- p1-p3: (0-1)² + (0-0)² = 1 + 0 = 1 (side)
-- p1-p4: (0-0)² + (0-1)² = 0 + 1 = 1 (side)
-- p2-p3: (1-1)² + (1-0)² = 0 + 1 = 1 (side)
-- p2-p4: (1-0)² + (1-1)² = 1 + 0 = 1 (side)
-- p3-p4: (1-0)² + (0-1)² = 1 + 1 = 2 (diagonal)
-
-Unique distances: {1, 2}
-Size: 2 ✓ (valid square)
-```
-
-**Example 2:** `p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,12]`
-
-```
-Distances:
-- p1-p2: 2
-- p1-p3: 1
-- p1-p4: 144
-- p2-p3: 1
-- p2-p4: 122
-- p3-p4: 145
-
-Unique distances: {1, 2, 122, 144, 145}
-Size: 5 ✗ (not a square)
-```
-
-## Complexity Analysis
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 | Operation | Time | Space |
 |-----------|------|-------|
 | Calculate distances | O(1) | O(1) |
 | Store in set | O(1) | O(1) |
 | **Overall** | **O(1)** | **O(1)** |
-
-## Edge Cases
+## Common Mistakes
 
 1. **Duplicate points**: If any two points are the same, return false
 2. **Rectangle**: Would have 3 unique distances (2 different sides + 1 diagonal)
 3. **Rhombus**: Would have 2 unique distances but diagonal ≠ side × √2 (but our solution still works)
 4. **Degenerate cases**: All points collinear or forming other shapes
-
-## Common Mistakes
 
 1. **Not checking for duplicate points**: Must return false if `distSq == 0`
 2. **Wrong distance count**: Expecting exactly 2 unique distances, not more or less
@@ -252,10 +178,21 @@ However, the simpler solution (checking `distances.size() == 2`) is sufficient b
 - And one appears 4 times (sides) and one appears 2 times (diagonals)
 - Then it must be a square (the geometric constraints are satisfied)
 
+## Key Takeaways
+
+- **Pattern:** Brute force (this problem)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+
+## References
+
+- [LC 593: Valid Square on LeetCode](https://www.leetcode.com/problems/valid-square/)
+- [LeetCode Discuss — LC 593: Valid Square](https://www.leetcode.com/problems/valid-square/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/valid-square/editorial/) *(may require premium)*
+
 ## Related Problems
 
-- [469. Convex Polygon](https://leetcode.com/problems/convex-polygon/) - Validate polygon shape
-- [335. Self Crossing](https://leetcode.com/problems/self-crossing/) - Geometric validation
-- [149. Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) - Point geometry
-- [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) - Distance calculations
-
+- [469. Convex Polygon](https://www.leetcode.com/problems/convex-polygon/) - Validate polygon shape
+- [335. Self Crossing](https://www.leetcode.com/problems/self-crossing/) - Geometric validation
+- [149. Max Points on a Line](https://www.leetcode.com/problems/max-points-on-a-line/) - Point geometry
+- [973. K Closest Points to Origin](https://www.leetcode.com/problems/k-closest-points-to-origin/) - Distance calculations

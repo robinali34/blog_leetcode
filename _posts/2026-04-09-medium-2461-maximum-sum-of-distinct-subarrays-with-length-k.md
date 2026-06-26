@@ -6,7 +6,6 @@ categories: [leetcode, medium, sliding-window, hash-map]
 tags: [leetcode, medium, sliding-window, hash-map, array]
 permalink: /2026/04/09/medium-2461-maximum-sum-of-distinct-subarrays-with-length-k/
 ---
-
 Given an integer array `nums` and an integer `k`, find the **maximum sum** among all subarrays of length `k` that have **all distinct** elements. Return `0` if no such subarray exists.
 
 ## Examples
@@ -72,7 +71,34 @@ end=6: 9 seen at idx=5, shrink past 5 → [9]  currSum=9, size=1
 Answer: 15 ✓
 ```
 
-## Solution: Sliding Window + Hash Map -- $O(n)$
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
+
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Fixed-size window** *(this problem)* | $O(n)$ | $O(1)$ | Window size known upfront |
+| Variable-size window | $O(n)$ | $O(1)$ | Expand/shrink until valid |
+| Window + hash map | $O(n)$ | $O(k)$ | Track character/count frequencies |
+| Deque window max | $O(n)$ | $O(k)$ | Monotonic deque for max/min in window |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -101,11 +127,27 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- each element enters and leaves the window at most once
-**Space**: $O(n)$ -- hash map
+### Solution Explanation
 
+**Approach:** Fixed-size window (this problem)
+
+**Key idea:** ### Two Constraints on the Window
+
+**How the code works:**
+1. **Length exactly `k`** -- standard fixed-size window
+2. **All distinct elements** -- no duplicates inside
+1. Look up the last occurrence of `nums[end]`
+2. Shrink `begin` past that occurrence (to remove the duplicate)
+3. Also shrink if window exceeds size `k`
+4. If window size equals `k`, update the answer
+
+**Walkthrough** — input `nums = [1,5,4,2,9,9,9], k = 3`, expected output `15`:
+
+Subarrays of length 3 with distinct elements:
+  [1,5,4] sum=10, [5,4,2] sum=11, [4,2,9] sum=15
+  [2,9,9] has duplicate, [9,9,9] has duplicate
+  Maximum = 15
 ## Key Details
 
 **Why `begin <= lastOccur` (not `<`)?** We need to move `begin` **past** the previous occurrence, so we shrink while `begin` is still at or before `lastOccur`.
@@ -130,10 +172,16 @@ public:
 
 ## Related Problems
 
-- [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) -- variable-size distinct window
-- [713. Subarray Product Less Than K](https://leetcode.com/problems/subarray-product-less-than-k/) -- sliding window counting
-- [219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/) -- duplicate within window of size k
-- [992. Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/) -- exact k distinct elements
+- [3. Longest Substring Without Repeating Characters](https://www.leetcode.com/problems/longest-substring-without-repeating-characters/) -- variable-size distinct window
+- [713. Subarray Product Less Than K](https://www.leetcode.com/problems/subarray-product-less-than-k/) -- sliding window counting
+- [219. Contains Duplicate II](https://www.leetcode.com/problems/contains-duplicate-ii/) -- duplicate within window of size k
+- [992. Subarrays with K Different Integers](https://www.leetcode.com/problems/subarrays-with-k-different-integers/) -- exact k distinct elements
+
+## References
+
+- [LC 2461: Maximum Sum of Distinct Subarrays With Length K on LeetCode](https://www.leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/)
+- [LeetCode Discuss — LC 2461: Maximum Sum of Distinct Subarrays With Length K](https://www.leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/editorial/) *(may require premium)*
 
 ## Template Reference
 

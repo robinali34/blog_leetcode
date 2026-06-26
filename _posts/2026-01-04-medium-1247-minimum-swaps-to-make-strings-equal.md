@@ -5,11 +5,6 @@ date: 2026-01-04 00:00:00 -0700
 categories: [leetcode, medium, string, math, greedy]
 permalink: /2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/
 ---
-
-# 1247. Minimum Swaps to Make Strings Equal
-
-## Problem Statement
-
 You are given two strings `s1` and `s2` of equal length consisting of only letters `'x'` and `'y'`.
 
 In one move, you can swap two characters belonging to **different strings** at the same position. In other words, swap `s1[i]` and `s2[i]`.
@@ -60,61 +55,39 @@ Explanation:
 - `s1.length == s2.length`
 - `s1[i], s2[i]` is `'x'` or `'y'`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+You are given two strings `s1` and `s2` of equal length consisting of only letters `'x'` and `'y'`.
 
-1. **Swap operation**: What does a swap do? (Assumption: Swap characters at same index in both strings - swap s1[i] with s2[i])
+In one move, you can swap two characters belonging to **different strings** at the same position. In other words, swap `s1[i]` and `s2[i]`.
 
-2. **Goal**: What are we trying to achieve? (Assumption: Make both strings equal using minimum number of swaps)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Return value**: What should we return? (Assumption: Integer - minimum swaps needed, or -1 if impossible)
 
-4. **Impossibility**: When is it impossible? (Assumption: If total count of 'x' or 'y' is odd - cannot make strings equal)
 
-5. **Swap efficiency**: Can one swap fix multiple mismatches? (Assumption: Yes - strategic swaps can fix multiple mismatches efficiently)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (20 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+</svg>
 
-Try all possible sequences of swaps to make strings equal. Use BFS or DFS to explore all swap sequences, tracking the minimum number of swaps needed. This approach has exponential complexity as we explore all possible swap sequences, which is infeasible for long strings.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+Typical techniques for this pattern:
 
-Identify positions where s1[i] != s2[i]. Count mismatches: positions where s1 has 'x' but s2 has 'y', and positions where s1 has 'y' but s2 has 'x'. If counts don't match, return -1. Otherwise, each swap fixes two mismatches. However, determining the minimum number of swaps requires careful pairing logic.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Count mismatches: positions where s1[i] != s2[i]. Among these, count how many have (s1[i], s2[i]) = ('x', 'y') and how many have ('y', 'x'). If counts don't match (not both even or both odd), return -1. Otherwise, each swap fixes one pair: swapping two ('x','y') positions or two ('y','x') positions fixes 2 mismatches. Swapping one ('x','y') and one ('y','x') fixes 2 mismatches. The minimum swaps is (count_xy + count_yx + 1) / 2. This achieves O(n) time with O(1) space, which is optimal.
-
-## Solution Approach
-
-This is a **greedy algorithm** problem with a key mathematical insight. The crucial observation is about pairing mismatches efficiently.
-
-### Key Insights:
-
-1. **Mismatch Types**: There are two types of mismatches:
-   - `(x,y)`: `s1[i] == 'x'` and `s2[i] == 'y'` → count as `xy`
-   - `(y,x)`: `s1[i] == 'y'` and `s2[i] == 'x'` → count as `yx`
-
-2. **Impossibility Check**: If total mismatches `(xy + yx)` is odd, it's impossible to make strings equal → return `-1`
-
-3. **Pairing Strategy**:
-   - Two `(x,y)` mismatches can be fixed with 1 swap (swap one to create a pair, then swap the pair)
-   - Two `(y,x)` mismatches can be fixed with 1 swap
-   - One `(x,y)` and one `(y,x)` require 2 swaps
-
-4. **Optimal Formula**: 
-   - `xy/2`: pairs of `(x,y)` mismatches (1 swap per pair)
-   - `yx/2`: pairs of `(y,x)` mismatches (1 swap per pair)
-   - `xy%2 + yx%2`: leftover mismatches (if both are 1, need 2 swaps)
-
-### Algorithm:
-
-1. **Count Mismatches**: Count `xy` and `yx` mismatches
-2. **Check Impossibility**: If `(xy + yx) % 2 == 1`, return `-1`
-3. **Calculate Swaps**: Return `xy/2 + yx/2 + xy%2 + yx%2`
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -139,6 +112,27 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** You are given two strings `s1` and `s2` of equal length consisting of only letters `'x'` and `'y'`.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `s1 = "xx", s2 = "yy"`, expected output `1`:
+
+We have 2 (x,y) mismatches at positions 0 and 1.
+- xy = 2, yx = 0
+- Total = 2 (even, possible)
+- Result = 2/2 + 0/2 + 2%2 + 0%2 = 1 + 0 + 0 + 0 = 1
+The algorithm indicates 1 swap is needed to make the strings equal.
+
+**Time:** O(n) where n is the length of `s1` and `s2` · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -244,7 +238,6 @@ Total = 1 (odd, impossible)
 Check: (xy + yx) % 2 = (1 + 0) % 2 = 1
 Return: -1 (impossible)
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Pairing Works**
@@ -304,32 +297,13 @@ Return: -1 (impossible)
 4. **Leftover Handling**: One of each type requires 2 swaps
 5. **Simple Formula**: `xy/2 + yx/2 + xy%2 + yx%2`
 
-## Alternative Approaches
-
-### **Approach 1: Mismatch Pairing (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, most efficient
-
-### **Approach 2: Greedy Simulation**
-- **Time**: O(n²) or worse
-- **Space**: O(n)
-- **Not practical**: Try all possible swap sequences
-
-### **Approach 3: Graph Theory**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Overkill**: Can model as graph, but current approach is simpler
-
-## Edge Cases
+## Common Mistakes
 
 1. **Strings already equal**: `s1 = "xx"`, `s2 = "xx"` → return 0 (no swaps needed)
 2. **All (x,y) mismatches**: `s1 = "xx"`, `s2 = "yy"` → return 1 (if even number)
 3. **All (y,x) mismatches**: `s1 = "yy"`, `s2 = "xx"` → return 1 (if even number)
 4. **Mixed mismatches**: `s1 = "xy"`, `s2 = "yx"` → return 2
 5. **Odd total**: `s1 = "xx"`, `s2 = "xy"` → return -1 (impossible)
-
-## Common Mistakes
 
 1. **Not checking odd total**: Forgetting to return -1 when total mismatches is odd
 2. **Wrong pairing logic**: Not understanding how to pair mismatches
@@ -339,9 +313,9 @@ Return: -1 (impossible)
 
 ## Related Problems
 
-- [1217. Minimum Cost to Move Chips to The Same Position](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) - Similar parity-based greedy
-- [1249. Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - String manipulation
-- [921. Minimum Add to Make Parentheses Valid](https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/) - Similar counting approach
+- [1217. Minimum Cost to Move Chips to The Same Position](https://www.leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) - Similar parity-based greedy
+- [1249. Minimum Remove to Make Valid Parentheses](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) - String manipulation
+- [921. Minimum Add to Make Parentheses Valid](https://www.leetcode.com/problems/minimum-add-to-make-parentheses-valid/) - Similar counting approach
 
 ## Follow-Up: Why the Formula Works
 
@@ -359,3 +333,18 @@ Return: -1 (impossible)
 
 `String`, `Math`, `Greedy`, `Medium`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 1247: Minimum Swaps to Make Strings Equal on LeetCode](https://www.leetcode.com/problems/minimum-swaps-to-make-strings-equal/)
+- [LeetCode Discuss — LC 1247: Minimum Swaps to Make Strings Equal](https://www.leetcode.com/problems/minimum-swaps-to-make-strings-equal/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-swaps-to-make-strings-equal/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)

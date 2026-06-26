@@ -6,7 +6,6 @@ categories: [leetcode, medium, concurrency]
 tags: [leetcode, medium, concurrency, mutex, condition-variable, multithreading]
 permalink: /2026/03/28/medium-1115-print-foobar-alternately/
 ---
-
 Two different threads will call `foo` and `bar` respectively. Design a mechanism so that `"foobar"` is printed `n` times by alternating between the two threads: `foo` always prints first, then `bar`, then `foo` again, and so on.
 
 ## Examples
@@ -63,7 +62,32 @@ This atomically:
 
 The predicate prevents **spurious wakeups** -- a thread only proceeds when the condition is actually met.
 
-## Solution: Mutex + Condition Variable
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often $O(n^2)$ or $O(2^n)$ | $O(n)$ | Baseline; clarifies the optimization target |
+| Sort + scan | $O(n \log n)$ | $O(1)$ | Pairs, intervals, greedy ordering |
+| Hash map / set | $O(n)$ | $O(n)$ | Frequency, membership, two-sum style |
+| Single-pass linear | $O(n)$ | $O(1)$ | Two pointers, sliding window, Kadane |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -104,63 +128,26 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time**: $O(n)$ per thread
-**Space**: $O(1)$
+### Solution Explanation
 
-## Solution 2: Binary Semaphores (C++20)
+**Approach:** Brute force (this problem)
 
-Two semaphores act as "tokens" passed back and forth. `foo_sem` starts at 1 (foo goes first), `bar_sem` starts at 0 (bar waits). Each thread acquires its own semaphore, prints, then releases the other's.
+**Key idea:** This is a classic **producer-consumer synchronization** problem. Two threads must take strict turns:
 
-{% raw %}
-```cpp
-class FooBar {
-private:
-    int n;
-    binary_semaphore foo_sem{1};
-    binary_semaphore bar_sem{0};
+**How the code works:**
+1. **Mutual exclusion** -- only one thread prints at a time
+2. **Ordering** -- foo always goes before bar in each round
+- `foo_turn = true` means it's foo's turn
+- Each thread waits until the flag matches its turn, prints, flips the flag, and notifies the other
+1. Checks `predicate()` -- if true, proceeds immediately
+2. If false, releases the lock and sleeps
 
-public:
-    FooBar(int n) {
-        this->n = n;
-    }
+**Walkthrough** — input `n = 1`, expected output `"foobar"`:
 
-    void foo(function<void()> printFoo) {
-        for (int i = 0; i < n; i++) {
-            foo_sem.acquire();
-            printFoo();
-            bar_sem.release();
-        }
-    }
-
-    void bar(function<void()> printBar) {
-        for (int i = 0; i < n; i++) {
-            bar_sem.acquire();
-            printBar();
-            foo_sem.release();
-        }
-    }
-};
-```
-{% endraw %}
-
-**Time**: $O(n)$ per thread
-**Space**: $O(1)$
-
-### Why This Works
-
-```
-foo_sem=1, bar_sem=0
-
-foo: acquire foo_sem(1→0) → print "foo" → release bar_sem(0→1)
-bar: acquire bar_sem(1→0) → print "bar" → release foo_sem(0→1)
-foo: acquire foo_sem(1→0) → print "foo" → release bar_sem(0→1)
-...
-```
-
-Each semaphore acts as a gate: `acquire` blocks until the count is > 0, `release` increments the count by 1. The two semaphores form a ping-pong -- each thread hands the turn to the other.
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Approach | Mechanism | Complexity | Notes |
@@ -197,6 +184,12 @@ Output: "foobarfoobar"
 - Forgetting the predicate in `cv.wait` -- without it, spurious wakeups can cause out-of-order printing
 - Using `lock_guard` instead of `unique_lock` -- `condition_variable::wait` requires `unique_lock` because it needs to temporarily release the lock
 
+## References
+
+- [LC 1115: Print FooBar Alternately on LeetCode](https://www.leetcode.com/problems/print-foobar-alternately/)
+- [LeetCode Discuss — LC 1115: Print FooBar Alternately](https://www.leetcode.com/problems/print-foobar-alternately/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/print-foobar-alternately/editorial/) *(may require premium)*
+
 ## Key Takeaways
 
 - **"Alternate between two threads"** = mutex + condition variable + boolean flag
@@ -205,7 +198,7 @@ Output: "foobarfoobar"
 
 ## Related Problems
 
-- [1114. Print in Order](https://leetcode.com/problems/print-in-order/) -- 3 threads, sequential ordering
-- [1116. Print Zero Even Odd](https://leetcode.com/problems/print-zero-even-odd/) -- 3 threads, alternating pattern
-- [1117. Building H2O](https://leetcode.com/problems/building-h2o/) -- barrier synchronization
-- [1188. Design Bounded Blocking Queue](https://leetcode.com/problems/design-bounded-blocking-queue/) -- producer-consumer with capacity
+- [1114. Print in Order](https://www.leetcode.com/problems/print-in-order/) -- 3 threads, sequential ordering
+- [1116. Print Zero Even Odd](https://www.leetcode.com/problems/print-zero-even-odd/) -- 3 threads, alternating pattern
+- [1117. Building H2O](https://www.leetcode.com/problems/building-h2o/) -- barrier synchronization
+- [1188. Design Bounded Blocking Queue](https://www.leetcode.com/problems/design-bounded-blocking-queue/) -- producer-consumer with capacity

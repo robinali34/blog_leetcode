@@ -5,11 +5,6 @@ date: 2025-12-31 21:30:00 -0700
 categories: [leetcode, hard, design, data-structures, prefix-sum, matrix]
 permalink: /2025/12/31/hard-308-range-sum-query-2d-mutable/
 ---
-
-# 308. Range Sum Query 2D - Mutable
-
-## Problem Statement
-
 Given a 2D matrix `matrix`, handle multiple queries of the following types:
 
 1. **Update** the value of a cell in `matrix`.
@@ -51,50 +46,39 @@ numMatrix.sumRegion(2, 1, 4, 3); // return 10 (i.e sum of the right red rectangl
 - `0 <= col1 <= col2 < n`
 - At most `10^4` calls will be made to `update` and `sumRegion`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Given a 2D matrix `matrix`, handle multiple queries of the following types:
 
-1. **Range format**: How are ranges represented? (Assumption: [row1, col1, row2, col2] - rectangle from (row1, col1) to (row2, col2) inclusive)
+1. **Update** the value of a cell in `matrix`.
 
-2. **Update operation**: What does update do? (Assumption: Updates matrix[row][col] to new value val)
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
 
-3. **Sum calculation**: How is sum calculated? (Assumption: Sum of all elements in the rectangle range)
 
-4. **Return value**: What should sumRegion return? (Assumption: Integer - sum of elements in specified rectangle)
 
-5. **Time complexity**: What time complexity is expected? (Assumption: O(log m * log n) for both operations using 2D Fenwick Tree or Segment Tree)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
-## Interview Deduction Process (30 minutes)
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
 
-**Step 1: Brute-Force Approach (8 minutes)**
+</svg>
 
-Store the matrix as-is. For `update`, simply modify `matrix[row][col] = val` in O(1) time. For `sumRegion`, iterate through all cells in the rectangle and sum them up, which takes O(rows × cols) time. This approach is simple but inefficient for queries, especially with many query operations.
+## Common Approaches
 
-**Step 2: Semi-Optimized Approach (10 minutes)**
+Typical techniques for this pattern:
 
-Use 2D prefix sums: precompute a 2D prefix sum array where `prefix[i][j]` represents the sum of the rectangle from (0,0) to (i,j). This allows O(1) range queries using inclusion-exclusion. However, each update requires recomputing all prefix sums from the updated cell to the end, which takes O(rows × cols) time. This is better for query-heavy scenarios but still slow for updates.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use row prefix sums: maintain a prefix sum array for each row separately. For `update`, only recompute the prefix sums for the affected row from the updated column onwards, taking O(cols) time. For `sumRegion`, sum up the row ranges using prefix sum differences, taking O(rows) time. This balances update and query costs. Alternatively, use a 2D Fenwick Tree or Segment Tree for O(log m × log n) for both operations, but the row prefix sum approach is simpler to implement and provides good performance for typical use cases.
-
-## Solution Approach
-
-This problem requires efficiently handling both **updates** and **range sum queries** on a 2D matrix. We can use **row prefix sums** to optimize range queries while allowing efficient updates.
-
-### Key Insights:
-
-1. **Row Prefix Sums**: For each row, maintain prefix sum array
-2. **Range Query**: Use prefix sums to compute row sums in O(1)
-3. **Update**: When a cell is updated, recompute prefix sums for that row from that column onwards
-4. **Efficient**: O(cols) update, O(rows) query
-
-### Algorithm:
-
-1. **Initialize**: Build row prefix sum arrays for all rows
-2. **Update**: Update matrix value, recompute prefix sums for affected row
-3. **Query**: Sum up row ranges using prefix sums
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Row/column traversal** *(this problem)* | $O(nm)$ | $O(1)$ | Simulation, spiral |
+| BFS/DFS on grid | $O(nm)$ | $O(nm)$ | Islands, shortest path |
+| Matrix as graph | $O(nm)$ | $O(nm)$ | 4/8-directional neighbors |
+| Transpose / rotate | $O(nm)$ | $O(1)$ | In-place rotation tricks |
 
 ## Solution
 
@@ -150,6 +134,18 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Row/column traversal (this problem)
+
+**Key idea:** Given a 2D matrix `matrix`, handle multiple queries of the following types:
+
+**How the code works:**
+1. **Update** the value of a cell in `matrix`.
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
 
 ### **Algorithm Explanation:**
 
@@ -225,7 +221,6 @@ Row 4: 4 - 1 = 3
 
 Sum = 3 + 4 + 3 = 10
 ```
-
 ## Algorithm Breakdown
 
 ### **Key Insight: Row Prefix Sums**
@@ -254,8 +249,7 @@ When updating `matrix[row][col]`:
 - Only need to recompute from column `col` to end
 - Time: O(cols - col) ≈ O(cols)
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:**
 - **Constructor**: O(rows × cols) - build all prefix sums
 - **Update**: O(cols) - recompute prefix sums for one row
@@ -274,30 +268,6 @@ When updating `matrix[row][col]`:
 3. **Range Query**: Use prefix sum difference for O(1) row sum
 4. **Trade-off**: O(cols) update vs O(rows) query
 5. **Simple Implementation**: Easier than 2D BIT/Fenwick Tree
-
-## Alternative Approaches
-
-### **Approach 1: Row Prefix Sums (Current Solution)**
-- **Update**: O(cols)
-- **Query**: O(rows)
-- **Best for**: Balanced update/query frequency
-
-### **Approach 2: 2D Binary Indexed Tree (Fenwick Tree)**
-- **Update**: O(log rows × log cols)
-- **Query**: O(log rows × log cols)
-- **Best for**: Many queries, fewer updates
-- **Complex**: More complex implementation
-
-### **Approach 3: 2D Segment Tree**
-- **Update**: O(log rows × log cols)
-- **Query**: O(log rows × log cols)
-- **Best for**: Many queries
-- **Complex**: More complex implementation
-
-### **Approach 4: Brute Force**
-- **Update**: O(1)
-- **Query**: O(rows × cols)
-- **Simple**: But inefficient for queries
 
 ## Detailed Example Walkthrough
 
@@ -349,14 +319,36 @@ The solution balances:
 
 For better performance with many queries, consider 2D BIT or Segment Tree.
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [304. Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) - Immutable version
-- [307. Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/) - 1D mutable version
-- [308. Range Sum Query 2D - Mutable](https://leetcode.com/problems/range-sum-query-2d-mutable/) - Current problem
-- [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/) - 1D immutable
+- [304. Range Sum Query 2D - Immutable](https://www.leetcode.com/problems/range-sum-query-2d-immutable/) - Immutable version
+- [307. Range Sum Query - Mutable](https://www.leetcode.com/problems/range-sum-query-mutable/) - 1D mutable version
+- [308. Range Sum Query 2D - Mutable](https://www.leetcode.com/problems/range-sum-query-2d-mutable/) - Current problem
+- [303. Range Sum Query - Immutable](https://www.leetcode.com/problems/range-sum-query-immutable/) - 1D immutable
 
 ## Tags
 
 `Design`, `Data Structures`, `Prefix Sum`, `Matrix`, `Hard`
 
+## Key Takeaways
+
+- Treat the grid as a graph with 4- or 8-directional neighbors.
+- Row-major vs column-major traversal affects cache and logic.
+- Boundary checks on every neighbor expansion.
+
+## References
+
+- [LC 308: Range Sum Query 2D - Mutable on LeetCode](https://www.leetcode.com/problems/range-sum-query-2d-mutable/)
+- [LeetCode Discuss — LC 308: Range Sum Query 2D - Mutable](https://www.leetcode.com/problems/range-sum-query-2d-mutable/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/range-sum-query-2d-mutable/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode/posts/2025-11-24-leetcode-templates-data-structure-design/)

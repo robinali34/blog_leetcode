@@ -5,11 +5,6 @@ date: 2026-01-03 00:00:00 -0700
 categories: [leetcode, easy, array, greedy, sorting, two-pointers]
 permalink: /2026/01/03/easy-455-assign-cookies/
 ---
-
-# 455. Assign Cookies
-
-## Problem Statement
-
 Assume you are an awesome parent and want to give your children some cookies. But, you should give each child **at most one cookie**.
 
 Each child `i` has a **greed factor** `g[i]`, which is the minimum size of a cookie that the child will be content with; and each cookie `j` has a size `s[j]`. If `s[j] >= g[i]`, we can assign the cookie `j` to the child `i`, and the child `i` will be content. Your goal is to **maximize the number of your content children** and output the maximum number.
@@ -40,74 +35,42 @@ You need to output 2.
 - `0 <= s.length <= 3 * 10^4`
 - `1 <= g[i], s[j] <= 2^31 - 1`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+Assume you are an awesome parent and want to give your children some cookies. But, you should give each child **at most one cookie**.
 
-1. **Assignment rule**: Can one cookie satisfy multiple children? (Assumption: No - one cookie can only satisfy one child)
+Each child `i` has a **greed factor** `g[i]`, which is the minimum size of a cookie that the child will be content with; and each cookie `j` has a size `s[j]`. If `s[j] >= g[i]`, we can assign the cookie `j` to the child `i`, and the child `i` will be content. Your goal is to **maximize the number of your content children** and output the maximum number.
 
-2. **Cookie size requirement**: What size cookie is needed for a child? (Assumption: Cookie size must be >= child's greed factor)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Maximize the number of satisfied children - greedy approach)
 
-4. **Cookie reuse**: Can we use the same cookie multiple times? (Assumption: No - each cookie can only be used once)
 
-5. **Ordering**: Does the order of children or cookies matter? (Assumption: No - we can assign in any order, but sorting helps optimize)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-## Interview Deduction Process (10 minutes)
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to assign cookies to children. Let me try all possible assignments."
+</svg>
 
-**Naive Solution**: Try all possible cookie-to-child assignments, count valid ones. Use nested loops or backtracking.
+## Common Approaches
 
-**Complexity**: O(n × m) or exponential time, O(1) space
+Typical techniques for this pattern:
 
-**Issues**:
-- Very inefficient for large inputs
-- Doesn't leverage greedy property
-- Overcomplicated for this problem
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I should match smallest cookie to smallest child first. This is a greedy approach."
-
-**Improved Solution**: Sort both arrays. Use two pointers to match smallest available cookie to smallest unsatisfied child greed factor.
-
-**Complexity**: O(n log n + m log m) time, O(1) space
-
-**Improvements**:
-- Greedy matching is optimal
-- Sorting enables efficient matching
-- Two-pointer technique is clean
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "The greedy two-pointer approach is already optimal. Sorting is necessary for correctness."
-
-**Best Solution**: Sort both arrays, use greedy matching with two pointers. This maximizes number of satisfied children.
-
-**Key Realizations**:
-1. Greedy approach is optimal for this problem
-2. Sorting enables efficient O(n + m) matching after sort
-3. Two-pointer technique is elegant
-4. O(n log n) sorting dominates time complexity
-
-## Solution Approach
-
-This is a classic **greedy algorithm** problem. The key insight is to use a greedy strategy: assign the smallest cookie that satisfies each child's greed factor, starting with the child with the smallest greed factor.
-
-### Key Insights:
-
-1. **Sorting**: Sort both arrays to process in order
-2. **Greedy Choice**: Always assign the smallest cookie that satisfies a child
-3. **Two Pointers**: Use two pointers to match children with cookies efficiently
-4. **Optimal**: This greedy approach maximizes the number of content children
-
-### Algorithm:
-
-1. **Sort**: Sort `g` (children's greed factors) and `s` (cookie sizes)
-2. **Match**: Use two pointers to match smallest cookie to smallest child
-3. **Count**: Count successful assignments
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Sort + greedy** *(this problem)* | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| Exchange argument | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -133,6 +96,25 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Sort + greedy (this problem)
+
+**Key idea:** Assume you are an awesome parent and want to give your children some cookies. But, you should give each child **at most one cookie**.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `g = [1,2,3], s = [1,1]`, expected output `1`:
+
+You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. 
+And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.
+You need to output 1.
+
+**Time:** - **Sorting**: O(g log g + s log s) where g = |g|, s = |s| · **Space:** O(1) - only using a few variables (excluding input arrays)
 
 ### **Solution 2: Two Pointers with While Loop for Cookie**
 
@@ -258,7 +240,6 @@ i=1: g[1]=2
 
 Result: count=2
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -310,23 +291,6 @@ Both solutions have the same time complexity and produce the same result.
 4. **Optimal**: Greedy strategy maximizes number of content children
 5. **Simple**: Straightforward implementation
 
-## Alternative Approaches
-
-### **Approach 1: Greedy with Sorting (Current Solutions)**
-- **Time**: O(g log g + s log s)
-- **Space**: O(1)
-- **Best for**: General case, optimal solution
-
-### **Approach 2: Brute Force (Check All Combinations)**
-- **Time**: O(g × s)
-- **Space**: O(1)
-- **Use when**: Arrays are very small (not practical)
-
-### **Approach 3: Binary Search (For Each Child)**
-- **Time**: O(g log s)
-- **Space**: O(1)
-- **Use when**: Cookies array is much larger than children array
-
 ## Edge Cases
 
 1. **No cookies**: `s = []` → return 0
@@ -335,14 +299,36 @@ Both solutions have the same time complexity and produce the same result.
 4. **All children satisfied**: `g = [1,2]`, `s = [3,4,5]` → return 2
 5. **Single child, single cookie**: `g = [1]`, `s = [1]` → return 1
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [135. Candy](https://leetcode.com/problems/candy/) - Greedy with constraints
-- [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) - Greedy with sorting
-- [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Interval greedy
-- [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
+- [135. Candy](https://www.leetcode.com/problems/candy/) - Greedy with constraints
+- [406. Queue Reconstruction by Height](https://www.leetcode.com/problems/queue-reconstruction-by-height/) - Greedy with sorting
+- [452. Minimum Number of Arrows to Burst Balloons](https://www.leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) - Interval greedy
+- [435. Non-overlapping Intervals](https://www.leetcode.com/problems/non-overlapping-intervals/) - Greedy interval selection
 
 ## Tags
 
 `Array`, `Greedy`, `Sorting`, `Two Pointers`, `Easy`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 455: Assign Cookies on LeetCode](https://www.leetcode.com/problems/assign-cookies/)
+- [LeetCode Discuss — LC 455: Assign Cookies](https://www.leetcode.com/problems/assign-cookies/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/assign-cookies/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

@@ -5,11 +5,6 @@ date: 2026-01-03 01:00:00 -0700
 categories: [leetcode, easy, array, greedy, simulation]
 permalink: /2026/01/03/easy-860-lemonade-change/
 ---
-
-# 860. Lemonade Change
-
-## Problem Statement
-
 At a lemonade stand, each lemonade costs `$5`. Customers are standing in a queue to buy from you and order one at a time (in the order specified by `bills`). Each customer will only buy one lemonade and pay with either a `$5`, `$10`, or `$20` bill. You must provide the correct change to each customer so that the net transaction is that the customer pays `$5`.
 
 Note that you don't have any change in hand at first.
@@ -45,77 +40,39 @@ Since not every customer received correct change, the answer is false.
 - `1 <= bills.length <= 10^5`
 - `bills[i]` is either `5`, `10`, or `20`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+At a lemonade stand, each lemonade costs `$5`. Customers are standing in a queue to buy from you and order one at a time (in the order specified by `bills`). Each customer will only buy one lemonade and pay with either a `$5`, `$10`, or `$20` bill. You must provide the correct change to each customer so that the net transaction is that the customer pays `$5`.
 
-1. **Change availability**: Do we start with any change? (Assumption: Start with no change - need to make change from collected bills)
+Note that you don't have any change in hand at first.
 
-2. **Change priority**: When giving change, which bills should we use first? (Assumption: Use larger bills first when possible - greedy approach, but $5 bills are most valuable for change)
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
 
-3. **Exact change**: Can we give exact change? (Assumption: Yes - must give exact change, cannot give more or less)
 
-4. **Bill denominations**: What bills are available? (Assumption: Only $5, $10, $20 bills - per constraints)
 
-5. **Customer order**: Are customers processed in the given order? (Assumption: Yes - process customers sequentially in the given order)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Greedy choice</text>
 
-## Interview Deduction Process (10 minutes)
+  <line x1="30" y1="55" x2="250" y2="55" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="60" y="43" width="40" height="22" rx="3" fill="#A8B5A2" stroke="#6B8B6B"/>
+  <rect x="130" y="43" width="55" height="22" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="200" y="43" width="35" height="22" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="90" text-anchor="middle" font-size="11" fill="#6B6560">pick locally best after sorting</text>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to give change. Let me track all bills and try different combinations."
+</svg>
 
-**Naive Solution**: Track all bills received, when giving change try all possible combinations of bills to make exact change.
+## Common Approaches
 
-**Complexity**: O(n × 2^k) time where k is number of bill types, O(n) space
+Typical techniques for this pattern:
 
-**Issues**:
-- Overcomplicated - tries unnecessary combinations
-- Doesn't leverage the fact that we prefer smaller bills
-- Inefficient for large inputs
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I should use greedy approach - prefer giving larger bills first, or track counts of each bill type."
-
-**Improved Solution**: Track count of $5 and $10 bills. When giving change for $10, use one $5. For $20, prefer one $10 and one $5 over three $5s.
-
-**Complexity**: O(n) time, O(1) space
-
-**Improvements**:
-- Greedy approach is optimal
-- Simple count tracking
-- O(1) space - only track two counts
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "The greedy count-based approach is already optimal. No further optimization needed."
-
-**Best Solution**: Track counts of $5 and $10 bills. Use greedy strategy for change: prefer $10+$5 for $20, otherwise use $5s.
-
-**Key Realizations**:
-1. Greedy approach works because we want to preserve smaller bills
-2. Only need to track $5 and $10 counts ($20 not needed for change)
-3. O(n) time is optimal - must process each customer
-4. O(1) space is optimal - only need two counters
-
-## Solution Approach
-
-This is a **greedy algorithm** problem where we need to give change optimally. The key insight is to **prioritize using larger bills** when giving change for $20, to preserve $5 bills for future $10 bills.
-
-### Key Insights:
-
-1. **Track Bills**: Keep count of $5 and $10 bills (don't need to track $20)
-2. **Greedy Strategy**: When giving change for $20, prefer $10+$5 over 3×$5
-3. **Preserve $5 Bills**: $5 bills are most valuable (needed for $10 change)
-4. **Simulation**: Process each customer in order and check if change can be given
-
-### Algorithm:
-
-1. **Initialize**: Counters for $5 and $10 bills
-2. **For each bill**:
-   - **$5**: Keep it (no change needed)
-   - **$10**: Give back $5 (need one $5 bill)
-   - **$20**: Give back $15 (prefer $10+$5, else 3×$5)
-3. **Return**: `true` if all customers get change, `false` otherwise
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Sort + greedy | $O(n \log n)$ | $O(1)$ | Interval scheduling, assignment |
+| Local greedy choice | $O(n)$ | $O(1)$ | Jump game, gas station |
+| Greedy + heap | $O(n \log n)$ | $O(n)$ | Merge streams, room allocation |
+| **Exchange argument** *(this problem)* | $O(n)$ | $O(1)$ | Prove greedy choice is safe |
 
 ## Solution
 
@@ -148,6 +105,26 @@ public:
     }
 };
 ```
+
+### Solution Explanation
+
+**Approach:** Exchange argument (this problem)
+
+**Key idea:** At a lemonade stand, each lemonade costs `$5`. Customers are standing in a queue to buy from you and order one at a time (in the order specified by `bills`). Each customer will only buy one lemonade and pay with either a `$5`, `$10`, or `$20` bill. You must provide the correct change to each customer so that the net transaction is that the customer pays `$5`.
+
+**How the code works:**
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+**Walkthrough** — input `bills = [5,5,5,10,20]`, expected output `true`:
+
+From the first 3 customers, we collect three $5 bills in order.
+From the fourth customer, we collect a $10 bill and give back a $5.
+From the fifth customer, we collect a $20 bill and give back a $10 and a $5.
+Since all customers got correct change, we output true.
+
+**Time:** O(n) where n is the number of customers · **Space:** O(1)
 
 ### **Algorithm Explanation:**
 
@@ -261,7 +238,6 @@ Customer 4: $20
 
 Result: true
 ```
-
 ## Algorithm Breakdown
 
 ### **Why Greedy Works**
@@ -311,24 +287,7 @@ The greedy strategy of preferring $10+$5 over 3×$5 for $20 change is optimal be
 4. **Optimal**: Greedy approach is optimal for this problem
 5. **Simple**: Straightforward simulation approach
 
-## Alternative Approaches
-
-### **Approach 1: Greedy (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Best for**: Optimal solution, simple and efficient
-
-### **Approach 2: Track All Bills**
-- **Time**: O(n)
-- **Space**: O(1)
-- **Use when**: Need to track $20 bills (not necessary here)
-
-### **Approach 3: Dynamic Programming**
-- **Time**: O(n × amount)
-- **Space**: O(amount)
-- **Overkill**: Not needed, greedy is optimal
-
-## Edge Cases
+## Common Mistakes
 
 1. **All $5 bills**: `[5,5,5,5,5]` → return `true`
 2. **All $10 bills**: `[10,10,10]` → return `false` (no $5 for first customer)
@@ -337,8 +296,6 @@ The greedy strategy of preferring $10+$5 over 3×$5 for $20 change is optimal be
 5. **Single customer**: `[5]` → return `true`
 6. **Single customer, $10**: `[10]` → return `false`
 
-## Common Mistakes
-
 1. **Wrong priority**: Using 3×$5 before $10+$5 for $20 change
 2. **Not checking**: Forgetting to check if change can be given
 3. **Wrong change amount**: Giving wrong change (e.g., $10 for $20)
@@ -346,12 +303,27 @@ The greedy strategy of preferring $10+$5 over 3×$5 for $20 change is optimal be
 
 ## Related Problems
 
-- [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/) - Greedy matching
-- [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Greedy trading
-- [322. Coin Change](https://leetcode.com/problems/coin-change/) - DP coin change
-- [518. Coin Change 2](https://leetcode.com/problems/coin-change-2/) - Count ways to make change
+- [455. Assign Cookies](https://www.leetcode.com/problems/assign-cookies/) - Greedy matching
+- [122. Best Time to Buy and Sell Stock II](https://www.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) - Greedy trading
+- [322. Coin Change](https://www.leetcode.com/problems/coin-change/) - DP coin change
+- [518. Coin Change 2](https://www.leetcode.com/problems/coin-change-2/) - Count ways to make change
 
 ## Tags
 
 `Array`, `Greedy`, `Simulation`, `Easy`
 
+## Key Takeaways
+
+- Greedy works when local optimal choices lead to global optimum.
+- Often sort first to make the greedy choice obvious.
+- Prove or sanity-check: would swapping two choices ever help?
+
+## References
+
+- [LC 860: Lemonade Change on LeetCode](https://www.leetcode.com/problems/lemonade-change/)
+- [LeetCode Discuss — LC 860: Lemonade Change](https://www.leetcode.com/problems/lemonade-change/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/lemonade-change/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

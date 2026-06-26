@@ -4,9 +4,6 @@ title: "[Easy] 67. Add Binary"
 date: 2025-12-11 00:00:00 -0800
 categories: leetcode algorithm easy cpp string math bit-manipulation problem-solving
 ---
-
-# [Easy] 67. Add Binary
-
 Given two binary strings `a` and `b`, return their sum as a binary string.
 
 ## Examples
@@ -29,62 +26,39 @@ Output: "10101"
 - `a` and `b` consist only of `'0'` or `'1'` characters.
 - Each string does not contain leading zeros except for the zero itself.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Binary addition rules**:
+- 0 + 0 = 0 (carry 0)
+- 0 + 1 = 1 (carry 0)
+- 1 + 1 = 0 (carry 1)
 
-1. **Binary addition**: What are the addition rules? (Assumption: Standard binary addition - 0+0=0, 0+1=1, 1+1=10 (carry 1))
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+- Stack helps with nested or repeated patterns.
 
-2. **Input format**: How are numbers represented? (Assumption: Binary strings - "101" represents 5 in decimal)
 
-3. **Return format**: What should we return? (Assumption: Binary string representing sum of two binary numbers)
 
-4. **Leading zeros**: Should we include leading zeros? (Assumption: No - per constraints, no leading zeros except for "0" itself)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
 
-5. **Carry handling**: How should we handle carry? (Assumption: Carry propagates from right to left - standard binary addition)
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
 
-## Interview Deduction Process (10 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to add binary numbers. Let me convert to decimal, add, convert back."
+## Common Approaches
 
-**Naive Solution**: Convert both binary strings to integers, add them, convert result back to binary string.
+Typical techniques for this pattern:
 
-**Complexity**: O(m + n) time, O(1) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
 
-**Issues**:
-- May overflow for large numbers
-- Doesn't work for very long strings
-- Not the intended approach
-- Loses binary manipulation practice
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I should add digit by digit from right to left, handling carry."
-
-**Improved Solution**: Process strings from right to left. Add corresponding digits along with carry. Build result string from right to left, reverse at end.
-
-**Complexity**: O(max(m, n)) time, O(max(m, n)) space
-
-**Improvements**:
-- Digit-by-digit addition is correct
-- Handles carry properly
-- Works with binary strings directly
-- O(max(m, n)) time is optimal
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "Digit-by-digit approach is optimal. Can optimize carry calculation."
-
-**Best Solution**: Process from right to left, add digits with carry. Use (a + b + carry) % 2 for result digit, (a + b + carry) / 2 for new carry. Build result efficiently.
-
-**Complexity**: O(max(m, n)) time, O(max(m, n)) space
-
-**Key Realizations**:
-1. Digit-by-digit addition is correct approach
-2. O(max(m, n)) time is optimal
-3. Carry propagation is straightforward
-4. Handle different string lengths naturally
-
-## Solution 1: Optimized Single Pass (Recommended)
+## Solution
 
 **Time Complexity:** O(max(m, n)) where m and n are lengths of a and b  
 **Space Complexity:** O(max(m, n)) for the result string
@@ -116,6 +90,33 @@ public:
 };
 ```
 
+### Solution Explanation
+
+**Approach:** Two pointers on string (this problem)
+
+**Key idea:** 1. **Binary addition rules**:
+
+**How the code works:**
+1. **Binary addition rules**:
+- 0 + 0 = 0 (carry 0)
+- 0 + 1 = 1 (carry 0)
+- 1 + 1 = 0 (carry 1)
+- Strings often need frequency maps or two-pointer scans.
+- Watch index bounds and empty-string edge cases.
+
+**Walkthrough** — input `a = "11", b = "1"`, expected output `"100"`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| Solution 1 (Optimized) | O(max(m,n)) | O(max(m,n)) | Ensures longer string processed first |
+| Solution 2 (Standard) | O(max(m,n)) | O(max(m,n)) | Traditional two-pointer approach |
+| Solution 3 (Built-in) | O(max(m,n)) | O(max(m,n)) | May overflow for large inputs |
+| Solution 4 (Bitwise) | O(max(m,n)) | O(max(m,n)) | Explicit bit operations |
+
 ### How Solution 1 Works
 
 1. **Ensure longer string first**: If `a` is shorter, swap to process longer string first
@@ -134,123 +135,6 @@ The carry variable accumulates both digits:
 - `carry` can be 0, 1, 2, or 3 (0+0, 0+1, 1+1, 1+1+carry)
 - `carry % 2` gives the result bit
 - `carry / 2` gives the new carry (always 0 or 1 for binary)
-
-## Solution 2: Standard Two-Pointer Approach
-
-**Time Complexity:** O(max(m, n))  
-**Space Complexity:** O(max(m, n))
-
-This is the more traditional approach that processes both strings simultaneously.
-
-```cpp
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        string result;
-        int i = a.length() - 1;
-        int j = b.length() - 1;
-        int carry = 0;
-        
-        while (i >= 0 || j >= 0 || carry) {
-            int sum = carry;
-            if (i >= 0) {
-                sum += a[i] - '0';
-                i--;
-            }
-            if (j >= 0) {
-                sum += b[j] - '0';
-                j--;
-            }
-            result.push_back((sum % 2) + '0');
-            carry = sum / 2;
-        }
-        
-        reverse(result.begin(), result.end());
-        return result;
-    }
-};
-```
-
-### How Solution 2 Works
-
-1. **Two pointers**: `i` for string `a`, `j` for string `b`
-2. **Process while either string has digits or carry exists**
-3. **Calculate sum**: Add carry + digit from `a` (if available) + digit from `b` (if available)
-4. **Append result**: `sum % 2` gives the bit, convert to character
-5. **Update carry**: `sum / 2` gives the new carry
-6. **Reverse result**: Built from right to left, so reverse at the end
-
-## Solution 3: Using Built-in Conversion (Not Recommended for Interviews)
-
-**Time Complexity:** O(max(m, n))  
-**Space Complexity:** O(max(m, n))
-
-This approach uses language built-ins to convert, add, and convert back. Not recommended for interviews but useful for quick solutions.
-
-```cpp
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        // Convert binary strings to integers
-        long long num1 = stoll(a, nullptr, 2);
-        long long num2 = stoll(b, nullptr, 2);
-        
-        // Add and convert back to binary
-        long long sum = num1 + num2;
-        if (sum == 0) return "0";
-        
-        string result;
-        while (sum > 0) {
-            result.push_back((sum % 2) + '0');
-            sum /= 2;
-        }
-        reverse(result.begin(), result.end());
-        return result;
-    }
-};
-```
-
-**Note:** This approach has limitations:
-- May overflow for very large binary strings (beyond `long long` range)
-- Not suitable for interview settings where manual bit manipulation is expected
-- Useful for quick prototyping or when constraints guarantee small inputs
-
-## Solution 4: Bit Manipulation Style
-
-**Time Complexity:** O(max(m, n))  
-**Space Complexity:** O(max(m, n))
-
-A variation that explicitly handles bit operations.
-
-```cpp
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        string result;
-        int i = a.size() - 1, j = b.size() - 1;
-        int carry = 0;
-        
-        while (i >= 0 || j >= 0 || carry) {
-            int bit1 = (i >= 0) ? (a[i--] - '0') : 0;
-            int bit2 = (j >= 0) ? (b[j--] - '0') : 0;
-            
-            int sum = bit1 + bit2 + carry;
-            result.push_back((sum & 1) + '0');  // sum % 2 using bitwise AND
-            carry = sum >> 1;  // sum / 2 using right shift
-        }
-        
-        reverse(result.begin(), result.end());
-        return result;
-    }
-};
-```
-
-### Key Differences
-
-- Uses bitwise AND (`& 1`) instead of modulo for getting the bit
-- Uses right shift (`>> 1`) instead of division for carry
-- More explicit about bit operations
-
 ## Example Walkthrough
 
 **Input:** `a = "1010"`, `b = "1011"`
@@ -283,8 +167,7 @@ Step 5: carry=1 → result='1'
 Reverse: "10101"
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | Solution 1 (Optimized) | O(max(m,n)) | O(max(m,n)) | Ensures longer string processed first |
@@ -292,7 +175,7 @@ Reverse: "10101"
 | Solution 3 (Built-in) | O(max(m,n)) | O(max(m,n)) | May overflow for large inputs |
 | Solution 4 (Bitwise) | O(max(m,n)) | O(max(m,n)) | Explicit bit operations |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Different lengths**: `"1" + "111"` → `"1000"`
 2. **Carry at end**: `"1" + "1"` → `"10"`
@@ -300,27 +183,11 @@ Reverse: "10101"
 4. **One empty**: Not possible per constraints, but handled by `j >= 0` check
 5. **Large strings**: Up to 10^4 characters each
 
-## Common Mistakes
-
 1. **Forgetting final carry**: Not adding carry if it remains after processing all bits
 2. **Wrong order**: Not reversing the result string
 3. **Index out of bounds**: Not checking if pointers are valid before accessing
 4. **Character conversion**: Forgetting to convert between char and int (`'0'` vs `0`)
 5. **Carry calculation**: Using wrong formula for carry (should be `sum / 2` not `sum - 2`)
-
-## Key Insights
-
-1. **Binary addition rules**:
-   - 0 + 0 = 0 (carry 0)
-   - 0 + 1 = 1 (carry 0)
-   - 1 + 1 = 0 (carry 1)
-   - 1 + 1 + 1 = 1 (carry 1)
-
-2. **Carry propagation**: Carry can only be 0 or 1 in binary addition
-
-3. **String processing**: Process from right to left (least significant to most significant)
-
-4. **Result building**: Build result backwards, then reverse
 
 ## Optimization Tips
 
@@ -330,11 +197,11 @@ Reverse: "10101"
 
 ## Related Problems
 
-- [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) - Add numbers represented as linked lists
-- [415. Add Strings](https://leetcode.com/problems/add-strings/) - Add decimal number strings
-- [43. Multiply Strings](https://leetcode.com/problems/multiply-strings/) - Multiply number strings
-- [66. Plus One](https://leetcode.com/problems/plus-one/) - Add one to number array
-- [989. Add to Array-Form of Integer](https://leetcode.com/problems/add-to-array-form-of-integer/) - Add number to array-form integer
+- [2. Add Two Numbers](https://www.leetcode.com/problems/add-two-numbers/) - Add numbers represented as linked lists
+- [415. Add Strings](https://www.leetcode.com/problems/add-strings/) - Add decimal number strings
+- [43. Multiply Strings](https://www.leetcode.com/problems/multiply-strings/) - Multiply number strings
+- [66. Plus One](https://www.leetcode.com/problems/plus-one/) - Add one to number array
+- [989. Add to Array-Form of Integer](https://www.leetcode.com/problems/add-to-array-form-of-integer/) - Add number to array-form integer
 
 ## Pattern Recognition
 
@@ -362,3 +229,22 @@ Similar problems:
 4. **Error Detection**: Parity bit calculations
 5. **Digital Circuits**: Hardware adder implementations
 
+## References
+
+- [LC 67: Add Binary on LeetCode](https://www.leetcode.com/problems/add-binary/)
+- [LeetCode Discuss — LC 67: Add Binary](https://www.leetcode.com/problems/add-binary/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/add-binary/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Binary addition rules**:
+   - 0 + 0 = 0 (carry 0)
+   - 0 + 1 = 1 (carry 0)
+   - 1 + 1 = 0 (carry 1)
+   - 1 + 1 + 1 = 1 (carry 1)
+
+2. **Carry propagation**: Carry can only be 0 or 1 in binary addition
+
+3. **String processing**: Process from right to left (least significant to most significant)
+
+4. **Result building**: Build result backwards, then reverse

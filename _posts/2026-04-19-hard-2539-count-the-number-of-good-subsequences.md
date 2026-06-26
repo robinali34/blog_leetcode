@@ -6,7 +6,6 @@ categories: [leetcode, hard, combinatorics]
 tags: [leetcode, hard, combinatorics, modular-arithmetic, math, string]
 permalink: /2026/04/19/hard-2539-count-the-number-of-good-subsequences/
 ---
-
 Given a string `s`, return the number of **non-empty good subsequences** of `s`. A subsequence is **good** if every character in it appears the **same number of times**. Answer modulo $10^9 + 7$.
 
 ## Examples
@@ -71,7 +70,34 @@ Instead, precompute factorials and use **Fermat's little theorem** for modular i
 
 $$\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} = n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \pmod{10^9+7}$$
 
-## Solution 1: Per-Character Loop -- $O(\text{maxFreq} \times 26)$ time
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | $O(n)$ | $O(1)$ | Palindrome, parsing |
+| Hash map / frequency | $O(n)$ | $O(k)$ | Anagram, character counts |
+| KMP / rolling hash | $O(n)$ | $O(n)$ | Pattern matching |
+| Stack parsing | $O(n)$ | $O(n)$ | Decode string, parentheses |
+
+## Solution
 
 {% raw %}
 ```cpp
@@ -124,98 +150,24 @@ public:
     }
 };
 ```
-{% endraw %}
 
-**Time:** $O(\text{maxFreq} \times |\Sigma|)$ where $|\Sigma| \le 26$
-**Space:** $O(\text{maxFreq})$ for factorial arrays
+### Solution Explanation
 
-## Solution 2: Frequency Grouping -- $O(\text{maxFreq} \times d)$ time
+**Approach:** Two pointers on string (this problem)
 
-When multiple characters share the same frequency, we can group them and use exponentiation instead of iterating each one individually.
+**Key idea:** ### Why Brute Force Fails
 
-{% raw %}
-```cpp
-class Solution {
-public:
-    static const int MOD = 1e9 + 7;
+**How the code works:**
+- For each character `c` with `freq[c] >= k`, we can either **include** it (choose exactly `k` of its `freq[c]` occurrences: $\binom{freq[c]}{k}$ ways) or **exclude** it entirely (1 way)
+- Characters with `freq[c] < k` must be excluded
 
-    long long modPow(long long a, long long b) {
-        long long res = 1;
-        while (b) {
-            if (b & 1) res = res * a % MOD;
-            a = a * a % MOD;
-            b >>= 1;
-        }
-        return res;
-    }
+**Walkthrough** — input `s = "aabb"`, expected output `11`:
 
-    int countGoodSubsequences(string s) {
-        unordered_map<char, int> freq;
-        for (char c : s) freq[c]++;
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
-        unordered_map<int, int> freqCount;
-        for (auto& [c, f] : freq) freqCount[f]++;
-
-        int max_f = 0;
-        for (auto& [f, cnt] : freqCount) max_f = max(max_f, f);
-
-        vector<long long> fact(max_f + 1, 1), invfact(max_f + 1, 1);
-        for (int i = 1; i <= max_f; i++) {
-            fact[i] = fact[i - 1] * i % MOD;
-        }
-        invfact[max_f] = modPow(fact[max_f], MOD - 2);
-        for (int i = max_f - 1; i >= 0; i--) {
-            invfact[i] = invfact[i + 1] * (i + 1) % MOD;
-        }
-
-        auto comb = [&](int n, int k) {
-            return fact[n] % MOD * invfact[k] % MOD * invfact[n - k] % MOD;
-        };
-
-        long long result = 0;
-        for (int k = 1; k <= max_f; k++) {
-            long long ways = 1;
-            for (auto& [f, count] : freqCount) {
-                if (f >= k) {
-                    long long val = (1 + comb(f, k)) % MOD;
-                    ways = ways * modPow(val, count) % MOD;
-                }
-            }
-            ways = (ways - 1 + MOD) % MOD;
-            result = (result + ways) % MOD;
-        }
-        return result;
-    }
-};
-```
-{% endraw %}
-
-**Time:** $O(\text{maxFreq} \times d)$ where $d$ = number of distinct frequencies ($d \le 26$)
-**Space:** $O(\text{maxFreq})$
-
-### Why Group by Frequency?
-
-If 10 characters all have frequency 5, Solution 1 multiplies `(1 + C(5, k))` ten separate times. Solution 2 computes `(1 + C(5, k))^10` in one `modPow` call. With at most 26 letters, $d \le 26$, so this doesn't change asymptotic complexity but reduces constant factor work, especially when many characters share frequencies (e.g., `"aabbccddee..."`).
-
-## Walk-through: `s = "aabb"`
-
-```
-freq: a=2, b=2
-max_f = 2
-
-k=1:
-  char a: 1 + C(2,1) = 1 + 2 = 3
-  char b: 1 + C(2,1) = 1 + 2 = 3
-  ways = 3 × 3 - 1 = 8
-
-k=2:
-  char a: 1 + C(2,2) = 1 + 1 = 2
-  char b: 1 + C(2,2) = 1 + 1 = 2
-  ways = 2 × 2 - 1 = 3
-
-result = 8 + 3 = 11  ✓
-```
-
+**Time:** $O(\text{maxFreq} \times |\Sigma|)$ where $|\Sigma| \le 26$ · **Space:** $O(\text{maxFreq})$ for factorial arrays## Walk-through: `s = "aabb"`
 ## Why Not Pascal's Triangle?
 
 For inputs like `"jjjjjj..."` (single character, frequency $10^4$), a Pascal table would need $O(n^2)$ space -- up to $10^8$ entries. The factorial + modular inverse approach uses only $O(n)$ space and computes each $\binom{n}{k}$ in $O(1)$.
@@ -241,10 +193,16 @@ For inputs like `"jjjjjj..."` (single character, frequency $10^4$), a Pascal tab
 
 ## Related Problems
 
-- [1569. Number of Ways to Reorder Array to Get Same BST](https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/) -- combinatorics with modular inverse
-- [62. Unique Paths](https://leetcode.com/problems/unique-paths/) -- basic combinatorics $\binom{m+n-2}{m-1}$
-- [1512. Number of Good Pairs](https://leetcode.com/problems/number-of-good-pairs/) -- frequency counting
-- [940. Distinct Subsequences II](https://leetcode.com/problems/distinct-subsequences-ii/) -- subsequence counting with DP
+- [1569. Number of Ways to Reorder Array to Get Same BST](https://www.leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/) -- combinatorics with modular inverse
+- [62. Unique Paths](https://www.leetcode.com/problems/unique-paths/) -- basic combinatorics $\binom{m+n-2}{m-1}$
+- [1512. Number of Good Pairs](https://www.leetcode.com/problems/number-of-good-pairs/) -- frequency counting
+- [940. Distinct Subsequences II](https://www.leetcode.com/problems/distinct-subsequences-ii/) -- subsequence counting with DP
+
+## References
+
+- [LC 2539: Count the Number of Good Subsequences on LeetCode](https://www.leetcode.com/problems/count-the-number-of-good-subsequences/)
+- [LeetCode Discuss — LC 2539: Count the Number of Good Subsequences](https://www.leetcode.com/problems/count-the-number-of-good-subsequences/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/count-the-number-of-good-subsequences/editorial/) *(may require premium)*
 
 ## Template Reference
 

@@ -6,11 +6,6 @@ categories: [leetcode, medium, array, stack, monotonic-stack]
 permalink: /2026/01/29/medium-739-daily-temperatures/
 tags: [leetcode, medium, array, stack, monotonic-stack]
 ---
-
-# 739. Daily Temperatures
-
-## Problem Statement
-
 Given an array of integers `temperatures` representing the daily temperatures, return *an array* `answer` *such that* `answer[i]` *is the number of days you have to wait after the* `i`-th *day to get a warmer temperature*. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
 
 ## Examples
@@ -52,45 +47,43 @@ Explanation: Day 0 waits 1 day, day 1 waits 1 day, day 2 has no warmer day.
 - `1 <= temperatures.length <= 10^5`
 - `30 <= temperatures[i] <= 100`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Monotonic Stack Pattern**: Classic pattern for "next greater element" problems - conceptually elegant
+- Better cache locality: sequential array access vs random stack operations
+- No stack overhead: avoids push/pop function calls
+- Direct memory access: simpler access patterns for CPU
 
-1. **Warmer temperature**: What does "warmer" mean? (Assumption: Temperature strictly greater than current day's temperature)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Wait days**: How are wait days counted? (Assumption: Number of days until next warmer temperature - if warmer on next day, answer is 1)
 
-3. **No warmer day**: What if there's no warmer day in the future? (Assumption: Return 0 for that day - no warmer temperature exists)
 
-4. **Return format**: What should we return? (Assumption: Array of integers - same length as input, each element is wait days)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Array modification**: Can we modify the input array? (Assumption: Typically no - should return a new array)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-**Step 1: Brute-Force Approach (5 minutes)**
+## Common Approaches
 
-For each day `i`, scan forward through the array starting from `i+1` to find the first day `j` where `temperatures[j] > temperatures[i]`. Set `answer[i] = j - i`. If no warmer day is found, set `answer[i] = 0`. This approach has O(n²) time complexity: O(n) days, each requiring O(n) to scan forward, which is too slow for arrays up to 10^5 elements.
+Typical techniques for this pattern:
 
-**Step 2: Semi-Optimized Approach (7 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-Process from right to left, maintaining information about warmer days seen so far. For each day, check if the next day is warmer. If not, use the answer from the next day to jump forward (if `temperatures[j] <= temperatures[i]` and `answer[j] > 0`, jump to `j + answer[j]`). This approach actually achieves O(n) time complexity because each day is visited at most once, and jumping forward reuses computed information efficiently. This is the optimized solution that performs better than the monotonic stack approach.
-
-**Step 3: Alternative Optimized Solution (8 minutes)**
-
-Use a monotonic stack: maintain a stack of indices where temperatures are in decreasing order. For each day, while the stack is not empty and current temperature is greater than the temperature at the top of the stack, pop the stack and set `answer[popped_index] = current_index - popped_index`. Then push the current index onto the stack. This achieves O(n) time complexity because each index is pushed and popped at most once. While this solution is conceptually elegant and easier to understand, the DP jumping approach from Step 2 is faster in practice due to better cache locality and no stack overhead.
-
-## Solution Approach
-
-This problem requires finding the next greater element for each position in the array. We can solve this efficiently using a **monotonic stack** (specifically, a decreasing stack) or by processing from right to left with smart jumping using dynamic programming.
-
-### Key Insights:
-
-1. **Monotonic Stack**: Use a stack to maintain indices of temperatures in decreasing order
-2. **Next Greater Element**: When we find a warmer temperature, resolve all colder days waiting for it
-3. **Right-to-Left Processing with DP**: Process backwards, using previously computed answers to jump forward efficiently - **this approach is faster in practice** due to better cache locality and no stack overhead
-
-## Solution 1: Monotonic Stack (Standard Approach)
+## Solution
 
 *Note: While this solution is conceptually elegant and easier to understand, Solution 2 is faster in practice due to better cache locality and avoiding stack overhead.*
 
@@ -115,90 +108,30 @@ public:
 };
 ```
 
-### Algorithm Explanation:
+### Solution Explanation
 
-1. **Initialize**: Create result array `rtn` filled with zeros, and an empty stack `s`
-2. **Process each day**: For each index `i`:
-   - **Resolve waiting days**: While stack is not empty and current temperature is greater than temperature at stack top:
-     - Pop the index from stack
-     - Set `rtn[popped_index] = i - popped_index` (wait days)
-   - **Add current day**: Push current index `i` onto stack
-3. **Result**: Return `rtn` array
+**Approach:** Monotonic stack (this problem)
 
-### Example Walkthrough:
+**Key idea:** 1. **Monotonic Stack Pattern**: Classic pattern for "next greater element" problems - conceptually elegant
 
-**Input:** `temperatures = [73,74,75,71,69,72,76,73]`
+**How the code works:**
+1. **Monotonic Stack Pattern**: Classic pattern for "next greater element" problems - conceptually elegant
+- Better cache locality: sequential array access vs random stack operations
+- No stack overhead: avoids push/pop function calls
+- Direct memory access: simpler access patterns for CPU
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
 
-```
-i=0: temp=73, stack=[], push 0 → stack=[0]
-i=1: temp=74, stack=[0], 74 > 73 → pop 0, rtn[0]=1, push 1 → stack=[1]
-i=2: temp=75, stack=[1], 75 > 74 → pop 1, rtn[1]=1, push 2 → stack=[2]
-i=3: temp=71, stack=[2], 71 <= 75 → push 3 → stack=[2,3]
-i=4: temp=69, stack=[2,3], 69 <= 71 → push 4 → stack=[2,3,4]
-i=5: temp=72, stack=[2,3,4], 72 > 69 → pop 4, rtn[4]=1
-                     72 > 71 → pop 3, rtn[3]=2, push 5 → stack=[2,5]
-i=6: temp=76, stack=[2,5], 76 > 72 → pop 5, rtn[5]=1
-                     76 > 75 → pop 2, rtn[2]=4, push 6 → stack=[6]
-i=7: temp=73, stack=[6], 73 <= 76 → push 7 → stack=[6,7]
+**Walkthrough** — input `temperatures = [73,74,75,71,69,72,76,73]`, expected output `[1,1,4,2,1,1,0,0]`:
 
-Result: [1,1,4,2,1,1,0,0]
-```
-
-## Solution 2: Right-to-Left with DP Jumping (Faster in Practice) ⚡
-
-*This approach is faster than the monotonic stack solution due to:*
-- *Better cache locality: sequential array access patterns*
-- *No stack overhead: avoids push/pop operations*
-- *O(1) extra space: only uses a few variables*
-- *Simpler memory access: direct array indexing*
-
-```cpp
-class Solution {
-public:
-    vector<int> dailyTemperatures(vector<int>& temperatures) {
-        const int N = temperatures.size();
-        vector<int> rtn(N, 0);
-        for(int i = N - 2; i >= 0; i--) {
-            int j = i + 1;
-            while(j < N && temperatures[j] <= temperatures[i]) {
-                if(rtn[j] == 0) j = N;
-                else j += rtn[j];
-            }
-            if(j < N) rtn[i] = j - i;
-        }
-        return rtn;
-    }
-};
-```
-
-### Algorithm Explanation:
-
-1. **Process backwards**: Start from the second-to-last day and move left
-2. **Jump forward**: For each day `i`:
-   - Start checking from `j = i + 1`
-   - If `temperatures[j] <= temperatures[i]`:
-     - If `rtn[j] == 0`: no warmer day exists, set `j = N` to stop
-     - Otherwise: jump forward by `rtn[j]` (use information from day `j`)
-   - If `j < N`: found warmer day, set `rtn[i] = j - i`
-3. **Result**: Return `rtn` array
-
-### Example Walkthrough:
-
-**Input:** `temperatures = [73,74,75,71,69,72,76,73]`
-
-```
-i=6: temp=76, last day → rtn[6]=0
-i=5: temp=72, j=6, 76 > 72 → rtn[5]=1
-i=4: temp=69, j=5, 72 > 69 → rtn[4]=1
-i=3: temp=71, j=4, 69 <= 71, rtn[4]=1 → j=5, 72 > 71 → rtn[3]=2
-i=2: temp=75, j=3, 71 <= 75, rtn[3]=2 → j=5, 72 <= 75, rtn[5]=1 → j=6, 76 > 75 → rtn[2]=4
-i=1: temp=74, j=2, 75 > 74 → rtn[1]=1
-i=0: temp=73, j=1, 74 > 73 → rtn[0]=1
-
-Result: [1,1,4,2,1,1,0,0]
-```
-
-## Complexity Analysis
+- Day 0: temperature 73, wait 1 day for warmer (74)
+- Day 1: temperature 74, wait 1 day for warmer (75)
+- Day 2: temperature 75, wait 4 days for warmer (76)
+- Day 3: temperature 71, wait 2 days for warmer (72)
+- Day 4: temperature 69, wait 1 day for warmer (72)
+- Day 5: temperature 72, wait 1 day for warmer (76)
+- Day 6: temperature 76, no warmer day (0)
+- Day 7: temperature 73, no warmer day (0)
 
 ### Solution 1: Monotonic Stack
 
@@ -225,8 +158,33 @@ Result: [1,1,4,2,1,1,0,0]
   - Only uses a few variables
   - Result array: O(n) required by problem
   - Total: O(1) extra space (vs O(n) for stack in Solution 1)
+## Common Mistakes
 
-## Key Insights
+1. **All increasing**: `[30,40,50,60]` → `[1,1,1,0]`
+2. **All decreasing**: `[60,50,40,30]` → `[0,0,0,0]`
+3. **Single element**: `[73]` → `[0]`
+4. **Same temperatures**: `[30,30,30]` → `[0,0,0]`
+5. **Mixed pattern**: `[73,74,75,71,69,72,76,73]` → `[1,1,4,2,1,1,0,0]`
+
+1. **Wrong comparison**: Using `>=` instead of `>` (should be strictly greater)
+2. **Index confusion**: Mixing up indices when calculating wait days
+3. **Stack order**: Maintaining increasing instead of decreasing stack
+4. **Not handling empty stack**: Forgetting to check if stack is empty before popping
+5. **Jump logic error**: In Solution 2, not checking `rtn[j] == 0` before jumping
+
+## Related Problems
+
+- [LC 496: Next Greater Element I](https://www.leetcode.com/problems/next-greater-element-i/) - Similar next greater element problem
+- [LC 503: Next Greater Element II](https://www.leetcode.com/problems/next-greater-element-ii/) - Circular array version
+- [LC 84: Largest Rectangle in Histogram](https://www.leetcode.com/problems/largest-rectangle-in-histogram/) - Uses monotonic stack
+- [LC 42: Trapping Rain Water](https://www.leetcode.com/problems/trapping-rain-water/) - Monotonic stack application
+- [LC 901: Online Stock Span](https://www.leetcode.com/problems/online-stock-span/) - Similar pattern with stack
+
+## Tags
+
+`Array`, `Stack`, `Monotonic Stack`, `Medium`
+
+## Key Takeaways
 
 1. **Monotonic Stack Pattern**: Classic pattern for "next greater element" problems - conceptually elegant
 2. **Decreasing Stack**: Stack maintains indices in decreasing temperature order
@@ -239,45 +197,12 @@ Result: [1,1,4,2,1,1,0,0]
    - O(1) extra space: more memory-efficient
 6. **Single Pass**: Both approaches achieve O(n) time with a single pass through the array
 
-## Edge Cases
+## References
 
-1. **All increasing**: `[30,40,50,60]` → `[1,1,1,0]`
-2. **All decreasing**: `[60,50,40,30]` → `[0,0,0,0]`
-3. **Single element**: `[73]` → `[0]`
-4. **Same temperatures**: `[30,30,30]` → `[0,0,0]`
-5. **Mixed pattern**: `[73,74,75,71,69,72,76,73]` → `[1,1,4,2,1,1,0,0]`
+- [LC 739: Daily Temperatures on LeetCode](https://www.leetcode.com/problems/daily-temperatures/)
+- [LeetCode Discuss — LC 739: Daily Temperatures](https://www.leetcode.com/problems/daily-temperatures/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/daily-temperatures/editorial/) *(may require premium)*
 
-## Comparison of Approaches
+## Template Reference
 
-| Approach | Time | Space | Performance | Best For |
-|----------|------|-------|-------------|----------|
-| **Monotonic Stack** | O(n) | O(n) | Slower (stack overhead) | Easier to understand, standard pattern |
-| **Right-to-Left DP Jumping** | O(n) | O(1) extra | **Faster** (better cache locality) | Production code, performance-critical scenarios |
-
-**Performance Analysis:**
-- **Solution 1 (Monotonic Stack)**: Requires stack operations (push/pop) which have function call overhead and less cache-friendly memory access patterns
-- **Solution 2 (DP Jumping)**: Uses direct array indexing with sequential access patterns, resulting in better CPU cache utilization and faster execution in practice
-
-## Common Mistakes
-
-1. **Wrong comparison**: Using `>=` instead of `>` (should be strictly greater)
-2. **Index confusion**: Mixing up indices when calculating wait days
-3. **Stack order**: Maintaining increasing instead of decreasing stack
-4. **Not handling empty stack**: Forgetting to check if stack is empty before popping
-5. **Jump logic error**: In Solution 2, not checking `rtn[j] == 0` before jumping
-
-## Related Problems
-
-- [LC 496: Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/) - Similar next greater element problem
-- [LC 503: Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) - Circular array version
-- [LC 84: Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) - Uses monotonic stack
-- [LC 42: Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) - Monotonic stack application
-- [LC 901: Online Stock Span](https://leetcode.com/problems/online-stock-span/) - Similar pattern with stack
-
-## Tags
-
-`Array`, `Stack`, `Monotonic Stack`, `Medium`
-
----
-
-*This problem demonstrates two efficient approaches for finding the next greater element: the **monotonic stack** pattern (conceptually elegant) and **DP jumping** (faster in practice). While both achieve O(n) time complexity, the DP jumping approach is faster due to better cache locality and avoiding stack overhead. The key insight in Solution 2 is reusing previously computed answers to jump forward efficiently, eliminating redundant comparisons.*
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)

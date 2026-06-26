@@ -6,14 +6,10 @@ categories: leetcode medium string stack
 permalink: /posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/
 tags: [leetcode, medium, string, stack, parentheses, validation]
 ---
-
-# LC 1249: Minimum Remove to Make Valid Parentheses
-
 **Difficulty:** Medium  
 **Category:** String, Stack  
 **Companies:** Amazon, Facebook, Microsoft, Google
 
-## Problem Statement
 
 Given a string `s` of `'('`, `')'` and lowercase English characters.
 
@@ -24,8 +20,7 @@ Formally, a parentheses string is valid if and only if:
 - It can be written as `AB` (`A` concatenated with `B`), where `A` and `B` are valid strings, or
 - It can be written as `(A)`, where `A` is a valid string.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: s = "lee(t(c)o)de)"
@@ -46,38 +41,9 @@ Output: ""
 Explanation: An empty string is also valid.
 ```
 
-### Constraints
-
+## Constraints
 - `1 <= s.length <= 10^5`
 - `s[i]` is either `'('`, `')'`, or lowercase English letter.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Valid parentheses**: What makes parentheses valid? (Assumption: Every opening '(' has matching closing ')', properly nested)
-
-2. **Optimization goal**: What are we optimizing for? (Assumption: Minimum number of removals to make parentheses valid)
-
-3. **Return format**: What should we return? (Assumption: String - valid parentheses string after minimum removals)
-
-4. **Multiple solutions**: Are there multiple valid solutions? (Assumption: Yes - can return any valid string with minimum removals)
-
-5. **Non-parentheses characters**: How should we handle letters? (Assumption: Keep all letters - only remove invalid parentheses)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Try removing different combinations of parentheses and check if the resulting string is valid. This requires trying all subsets of parentheses to remove, which has exponential complexity. For each combination, validate the parentheses string, which takes O(n) time. This is too slow for large strings.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use a stack to identify unmatched parentheses. First pass: mark all unmatched opening and closing parentheses. Second pass: build result string excluding marked characters. However, identifying which parentheses to remove requires careful tracking. Alternatively, count opening and closing parentheses, but handling the minimum removal constraint is tricky.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use two passes: First pass (left to right): track balance, mark excess closing parentheses for removal. Second pass (right to left): track balance, mark excess opening parentheses for removal. Then build result string excluding marked characters. This achieves O(n) time with O(n) space. Alternatively, use a single pass with a stack to track indices of problematic parentheses, then remove them. The key insight is that we can identify invalid parentheses in two passes: excess closing parentheses are identified going left-to-right, and excess opening parentheses going right-to-left.
 
 ## Solution Approaches
 
@@ -119,128 +85,22 @@ public:
 };
 ```
 
-### Approach 2: Two-Pass String Building
+### Solution Explanation
 
-**Algorithm:**
-1. First pass: Remove unmatched `')'` by tracking balance
-2. Second pass: Remove unmatched `'('` by tracking balance in reverse
-3. Build result string
+**Approach:** Parentheses matching (this problem)
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
+**Key idea:** Difficulty:** Medium
 
-```cpp
-class Solution {
-public:
-    string minRemoveToMakeValid(string s) {
-        // First pass: remove unmatched ')'
-        string result = "";
-        int balance = 0;
-        for(char c : s) {
-            if(c == '(') {
-                balance++;
-                result += c;
-            } else if(c == ')') {
-                if(balance > 0) {
-                    balance--;
-                    result += c;
-                }
-                // Skip unmatched ')'
-            } else {
-                result += c;
-            }
-        }
-        
-        // Second pass: remove unmatched '('
-        string final_result = "";
-        balance = 0;
-        for(int i = result.length() - 1; i >= 0; i--) {
-            char c = result[i];
-            if(c == ')') {
-                balance++;
-                final_result = c + final_result;
-            } else if(c == '(') {
-                if(balance > 0) {
-                    balance--;
-                    final_result = c + final_result;
-                }
-                // Skip unmatched '('
-            } else {
-                final_result = c + final_result;
-            }
-        }
-        
-        return final_result;
-    }
-};
-```
+**How the code works:**
+**Difficulty:** Medium
+**Category:** String, Stack
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-### Approach 3: Set-Based Tracking
+**Walkthrough** — input `s = "lee(t(c)o)de)"`, expected output `"lee(t(c)o)de"`:
 
-**Algorithm:**
-1. Use two passes to identify invalid parentheses
-2. Use a set to track indices to remove
-3. Build result string excluding tracked indices
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-```cpp
-class Solution {
-public:
-    string minRemoveToMakeValid(string s) {
-        unordered_set<int> to_remove;
-        stack<int> stk;
-        
-        // Find unmatched parentheses
-        for(int i = 0; i < s.length(); i++) {
-            if(s[i] == '(') {
-                stk.push(i);
-            } else if(s[i] == ')') {
-                if(stk.empty()) {
-                    to_remove.insert(i);
-                } else {
-                    stk.pop();
-                }
-            }
-        }
-        
-        // Add remaining unmatched '(' to removal set
-        while(!stk.empty()) {
-            to_remove.insert(stk.top());
-            stk.pop();
-        }
-        
-        // Build result string
-        string result = "";
-        for(int i = 0; i < s.length(); i++) {
-            if(to_remove.find(i) == to_remove.end()) {
-                result += s[i];
-            }
-        }
-        
-        return result;
-    }
-};
-```
-
-## Algorithm Analysis
-
-### Approach Comparison
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| Stack-Based | O(n) | O(n) | Simple, intuitive | String erasure overhead |
-| Two-Pass | O(n) | O(n) | No string modification | More complex logic |
-| Set-Based | O(n) | O(n) | Clear separation of concerns | Extra space for set |
-
-### Key Insights
-
-1. **Stack Validation**: Use stack to track parentheses matching
-2. **Index Tracking**: Store indices instead of characters for removal
-3. **Two-Pass Strategy**: Handle unmatched parentheses in both directions
-4. **Minimal Removal**: Remove only the minimum required parentheses
-
+"lee(t(co)de)" , "lee(t(c)ode)" would also be accepted.
 ## Implementation Details
 
 ### Stack-Based Approach
@@ -281,11 +141,18 @@ while(!stk.empty()) {
 - What if you needed to minimize the number of removals?
 - How would you optimize for very large strings?
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
 ## Related Problems
 
-- [LC 20: Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
-- [LC 22: Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
-- [LC 301: Remove Invalid Parentheses](https://leetcode.com/problems/remove-invalid-parentheses/)
+- [LC 20: Valid Parentheses](https://www.leetcode.com/problems/valid-parentheses/)
+- [LC 22: Generate Parentheses](https://www.leetcode.com/problems/generate-parentheses/)
+- [LC 301: Remove Invalid Parentheses](https://www.leetcode.com/problems/remove-invalid-parentheses/)
 
 ## Optimization Techniques
 
@@ -301,6 +168,53 @@ while(!stk.empty()) {
 3. **Space Efficiency**: O(n) space for stack/set storage
 4. **Robustness**: Handles all edge cases correctly
 
----
+## Key Takeaways
 
-*This problem demonstrates the power of stack-based validation for parentheses matching and shows how to efficiently remove invalid characters while preserving valid structure.*
+- **Pattern:** Parentheses matching (this problem)
+- Difficulty:** Medium
+- Category:** String, Stack
+
+## References
+
+- [LC 1249: Minimum Remove to Make Valid Parentheses on LeetCode](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/)
+- [LeetCode Discuss — LC 1249: Minimum Remove to Make Valid Parentheses](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/minimum-remove-to-make-valid-parentheses/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode/posts/2025-11-24-leetcode-templates-string-processing/)
+
+## Thinking Process
+
+**Difficulty:** Medium
+
+**Category:** String, Stack
+
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
+
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Monotonic stack | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| **Parentheses matching** *(this problem)* | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |

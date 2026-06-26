@@ -4,9 +4,6 @@ title: "[Medium] 394. Decode String"
 date: 2025-10-19 17:24:19 -0700
 categories: leetcode algorithm medium cpp stack string-processing problem-solving
 ---
-
-# [Medium] 394. Decode String
-
 Given an encoded string, return its decoded string.
 
 The encoding rule is: `k[encoded_string]`, where the `encoded_string` inside the square brackets is being repeated exactly `k` times. Note that `k` is guaranteed to be a positive integer.
@@ -55,62 +52,41 @@ Explanation:
 - `s` is a valid encoded string, that is always possible to decode.
 - All the integers in `s` are in the range `[1, 300]`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Two stacks:** One for counts, one for strings
+1. **Current string:** Maintains the string being built
 
-1. **Encoding format**: What is the encoding format? (Assumption: "k[encoded_string]" means repeat encoded_string k times - nested encoding possible)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in $O(n)$.
 
-2. **Nested encoding**: Can encodings be nested? (Assumption: Yes - "3[a2[c]]" is valid, decodes to "accaccacc")
 
-3. **Number format**: How are numbers represented? (Assumption: Positive integers - digits before '[' indicate repetition count)
 
-4. **String format**: What characters can appear in decoded string? (Assumption: Only lowercase English letters - per constraints)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-5. **Return format**: Should we return decoded string or count? (Assumption: Return decoded string - fully expanded string)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-## Interview Deduction Process (20 minutes)
+</svg>
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to decode string. Let me process manually from innermost brackets."
+## Common Approaches
 
-**Naive Solution**: Find innermost brackets, decode them, replace in string, repeat until no brackets remain.
+Typical techniques for this pattern:
 
-**Complexity**: O(n²) worst case, O(n) space
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | $O(n)$ | $O(n)$ | Next greater/smaller element |
+| Parentheses matching | $O(n)$ | $O(n)$ | Push open, pop on close |
+| Expression evaluation | $O(n)$ | $O(n)$ | Operand + operator stacks |
+| Stack simulation | $O(n)$ | $O(n)$ | Process in LIFO order |
 
-**Issues**:
-- Multiple passes through string
-- String manipulation is expensive
-- O(n²) worst case
-- Doesn't leverage stack structure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "Nested brackets form a stack structure. I can use stack to process brackets."
-
-**Improved Solution**: Use stack to track current string and repeat count. When encountering '[', push current string and count. When encountering ']', pop and repeat.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Stack naturally handles nesting
-- Single pass through string
-- O(n) time is much better
-- Handles all nesting levels correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Stack approach is optimal. Can optimize string building."
-
-**Best Solution**: Stack-based approach is optimal. Use stack to store [current_string, repeat_count] pairs. Process characters, build strings, handle nesting naturally.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Stack is perfect for nested structures
-2. O(n) time is optimal - single pass
-3. O(n) space for stack is necessary
-4. Handles arbitrary nesting depth
-
-## Solution: Stack-Based Decoding
+## Solution
 
 **Time Complexity:** O(n) where n is the length of the decoded string  
 **Space Complexity:** O(n) for the stack and result string
@@ -150,8 +126,7 @@ public:
 };
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** Use two stacks to handle nested encoded strings and maintain the current string being built.
 
 **Steps:**
@@ -230,8 +205,7 @@ counts.pop();
 curr = decode;
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time Complexity | Space Complexity |
 |-----------|----------------|------------------|
 | Character processing | O(n) | O(n) |
@@ -240,27 +214,6 @@ curr = decode;
 | **Total** | **O(n + m)** | **O(n + m)** |
 
 Where n is the input length and m is the decoded string length.
-
-## Edge Cases
-
-1. **Single letter:** `s = "a"` → `"a"`
-2. **Single repetition:** `s = "2[a]"` → `"aa"`
-3. **No nesting:** `s = "3[a]2[b]"` → `"aaabb"`
-4. **Deep nesting:** `s = "2[3[4[a]]]"` → `"aaaaaaaaaaaaaaaaaaaaaaaa"`
-
-## Key Insights
-
-### Stack-Based Approach:
-1. **Two stacks:** One for counts, one for strings
-2. **State preservation:** Save current state when entering nested brackets
-3. **State restoration:** Restore state when exiting nested brackets
-4. **Efficient processing:** Handle arbitrary nesting levels
-
-### String Building:
-1. **Current string:** Maintains the string being built
-2. **Repetition:** Repeat current string by count
-3. **Concatenation:** Build final result incrementally
-4. **Memory efficient:** Process character by character
 
 ## Detailed Example Walkthrough
 
@@ -284,80 +237,12 @@ Where n is the input length and m is the decoded string length.
 
 **Final result:** `"abcabccdcdcdef"`
 
-## Alternative Approaches
-
-### Approach 1: Recursive Solution
-```cpp
-class Solution {
-private:
-    string decodeString(string& s, int& i) {
-        string result;
-        while(i < s.length() && s[i] != ']') {
-            if(isdigit(s[i])) {
-                int k = 0;
-                while(i < s.length() && isdigit(s[i])) {
-                    k = k * 10 + s[i++] - '0';
-                }
-                i++; // skip '['
-                string decoded = decodeString(s, i);
-                i++; // skip ']'
-                while(k--) result += decoded;
-            } else {
-                result += s[i++];
-            }
-        }
-        return result;
-    }
-    
-public:
-    string decodeString(string s) {
-        int i = 0;
-        return decodeString(s, i);
-    }
-};
-```
-
-**Time Complexity:** O(n + m)  
-**Space Complexity:** O(n) for recursion stack
-
-### Approach 2: Iterative with Single Stack
-```cpp
-class Solution {
-public:
-    string decodeString(string s) {
-        stack<string> st;
-        string curr = "";
-        int k = 0;
-        
-        for(char c : s) {
-            if(isdigit(c)) {
-                k = k * 10 + c - '0';
-            } else if(c == '[') {
-                st.push(to_string(k));
-                st.push(curr);
-                curr = "";
-                k = 0;
-            } else if(c == ']') {
-                string prev = st.top(); st.pop();
-                int count = stoi(st.top()); st.pop();
-                string temp = "";
-                for(int i = 0; i < count; i++) {
-                    temp += curr;
-                }
-                curr = prev + temp;
-            } else {
-                curr += c;
-            }
-        }
-        return curr;
-    }
-};
-```
-
-**Time Complexity:** O(n + m)  
-**Space Complexity:** O(n)
-
 ## Common Mistakes
+
+1. **Single letter:** `s = "a"` → `"a"`
+2. **Single repetition:** `s = "2[a]"` → `"aa"`
+3. **No nesting:** `s = "3[a]2[b]"` → `"aaabb"`
+4. **Deep nesting:** `s = "2[3[4[a]]]"` → `"aaaaaaaaaaaaaaaaaaaaaaaa"`
 
 1. **Wrong count handling:** Not building multi-digit numbers correctly
 2. **Stack order:** Pushing/popping in wrong order
@@ -366,10 +251,10 @@ public:
 
 ## Related Problems
 
-- [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
-- [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
-- [224. Basic Calculator](https://leetcode.com/problems/basic-calculator/)
-- [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/)
+- [71. Simplify Path](https://www.leetcode.com/problems/simplify-path/)
+- [150. Evaluate Reverse Polish Notation](https://www.leetcode.com/problems/evaluate-reverse-polish-notation/)
+- [224. Basic Calculator](https://www.leetcode.com/problems/basic-calculator/)
+- [227. Basic Calculator II](https://www.leetcode.com/problems/basic-calculator-ii/)
 
 ## Why This Solution Works
 
@@ -390,3 +275,23 @@ public:
 2. **Efficiency:** O(n + m) time complexity
 3. **Simplicity:** Easy to understand and implement
 4. **Scalability:** Handles arbitrary nesting levels
+
+## References
+
+- [LC 394: Decode String on LeetCode](https://www.leetcode.com/problems/decode-string/)
+- [LeetCode Discuss — LC 394: Decode String](https://www.leetcode.com/problems/decode-string/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/decode-string/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Stack-Based Approach:
+1. **Two stacks:** One for counts, one for strings
+2. **State preservation:** Save current state when entering nested brackets
+3. **State restoration:** Restore state when exiting nested brackets
+4. **Efficient processing:** Handle arbitrary nesting levels
+
+### String Building:
+1. **Current string:** Maintains the string being built
+2. **Repetition:** Repeat current string by count
+3. **Concatenation:** Build final result incrementally
+4. **Memory efficient:** Process character by character

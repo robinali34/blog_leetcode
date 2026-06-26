@@ -6,21 +6,16 @@ categories: leetcode medium array matrix
 permalink: /posts/2025-10-21-medium-419-battleships-in-a-board/
 tags: [leetcode, medium, array, matrix, dfs, battleship]
 ---
-
-# LC 419: Battleships in a Board
-
 **Difficulty:** Medium  
 **Category:** Array, Matrix, DFS  
 **Companies:** Amazon, Google, Microsoft
 
-## Problem Statement
 
 Given an `m x n` matrix `board` where each cell is either a battleship `'X'` or empty `'.'`, return the number of the battleships on `board`.
 
 Battleships can only be placed horizontally or vertically on `board`. In other words, they can only be made of the shape `1 x k` (1 row, k columns) or `k x 1` (k rows, 1 column), where `k` can be of any size. At least one horizontal or vertical cell separates between two battleships (i.e., there are no adjacent battleships).
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: board = [["X",".",".","X"],[".",".",".","X"],[".",".",".","X"]]
@@ -33,40 +28,11 @@ Input: board = [["."]]
 Output: 0
 ```
 
-### Constraints
-
+## Constraints
 - `m == board.length`
 - `n == board[i].length`
 - `1 <= m, n <= 200`
 - `board[i][j]` is either `'.'` or `'X'`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Battleship definition**: What is a battleship? (Assumption: Group of 'X' cells - horizontally or vertically adjacent, not diagonally)
-
-2. **Battleship rules**: What are the rules? (Assumption: Battleships don't touch each other - no adjacent battleships horizontally or vertically)
-
-3. **Return value**: What should we return? (Assumption: Integer - count of battleships on the board)
-
-4. **Single cell**: Can a single 'X' be a battleship? (Assumption: Yes - battleship can be 1×1)
-
-5. **Board modification**: Can we modify the board? (Assumption: Typically yes for marking visited, but should clarify)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Use DFS or BFS to find all connected components of 'X' cells. Count each connected component as one battleship. This approach works but requires O(m × n) extra space for visited tracking and O(m × n) time.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use DFS with in-place marking: mark visited cells by changing 'X' to another character. This eliminates the need for a separate visited array. However, we still need to traverse all cells and perform DFS for each battleship.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Count only the top-left cell of each battleship: since battleships don't touch each other, we can identify a battleship by its top-left cell (the cell that has no 'X' above it and no 'X' to its left). Iterate through the board, and for each 'X' cell, check if it's a top-left cell. If yes, increment battleship count. This achieves O(m × n) time with O(1) space, which is optimal. The key insight is that we don't need to traverse entire battleships - we can identify them by their top-left corners, which is more efficient.
 
 ## Solution Approaches
 
@@ -99,152 +65,23 @@ public:
 };
 ```
 
-### Approach 2: DFS with Visited Tracking
+### Solution Explanation
 
-**Algorithm:**
-1. Mark visited battleships to avoid double counting
-2. Use DFS to explore each battleship completely
-3. Count each battleship only once
+**Approach:** Recursive DFS (this problem)
 
-**Time Complexity:** O(m × n)  
-**Space Complexity:** O(m × n) for visited array
+**Key idea:** 1. **Battleship Structure**: Each battleship is a connected component of `'X'` cells
 
-```cpp
-class Solution {
-public:
-    int countBattleships(vector<vector<char>>& board) {
-        int m = board.size(), n = board[0].size();
-        vector<vector<bool>> visited(m, vector<bool>(n, false));
-        int count = 0;
-        
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X' && !visited[i][j]) {
-                    dfs(board, visited, i, j);
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-    
-private:
-    void dfs(vector<vector<char>>& board, vector<vector<bool>>& visited, int i, int j) {
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || 
-           board[i][j] != 'X' || visited[i][j]) return;
-        
-        visited[i][j] = true;
-        
-        // Explore in all four directions
-        dfs(board, visited, i + 1, j);
-        dfs(board, visited, i - 1, j);
-        dfs(board, visited, i, j + 1);
-        dfs(board, visited, i, j - 1);
-    }
-};
-```
-
-### Approach 3: Union Find
-
-**Algorithm:**
-1. Use Union Find to group connected `'X'` cells
-2. Count the number of distinct groups
-
-**Time Complexity:** O(m × n × α(m × n)) where α is inverse Ackermann function  
-**Space Complexity:** O(m × n)
-
-```cpp
-class Solution {
-public:
-    int countBattleships(vector<vector<char>>& board) {
-        int m = board.size(), n = board[0].size();
-        UnionFind uf(m * n);
-        int count = 0;
-        
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X') {
-                    int curr = i * n + j;
-                    if(i > 0 && board[i - 1][j] == 'X') {
-                        uf.unionSets(curr, (i - 1) * n + j);
-                    }
-                    if(j > 0 && board[i][j - 1] == 'X') {
-                        uf.unionSets(curr, i * n + (j - 1));
-                    }
-                }
-            }
-        }
-        
-        unordered_set<int> roots;
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X') {
-                    roots.insert(uf.find(i * n + j));
-                }
-            }
-        }
-        
-        return roots.size();
-    }
-    
-private:
-    class UnionFind {
-        vector<int> parent, rank;
-        
-    public:
-        UnionFind(int n) : parent(n), rank(n, 0) {
-            iota(parent.begin(), parent.end(), 0);
-        }
-        
-        int find(int x) {
-            if(parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-        
-        void unionSets(int x, int y) {
-            int px = find(x), py = find(y);
-            if(px != py) {
-                if(rank[px] < rank[py]) swap(px, py);
-                parent[py] = px;
-                if(rank[px] == rank[py]) rank[px]++;
-            }
-        }
-    };
-};
-```
-
-## Algorithm Analysis
-
-### Top-Left Corner Approach (Recommended)
-
-**Why it works:**
-- Each battleship has exactly one top-left corner
-- By checking only top and left neighbors, we avoid double counting
-- No extra space needed
-
-**Key Conditions:**
-```cpp
-if(i > 0 && board[i - 1][j] == 'X') continue;  // Not top-left
-if(j > 0 && board[i][j - 1] == 'X') continue;  // Not top-left
-```
-
-### Complexity Comparison
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| Top-Left Corner | O(m×n) | O(1) | Optimal, simple | None |
-| DFS | O(m×n) | O(m×n) | Clear logic | Extra space |
-| Union Find | O(m×n×α) | O(m×n) | Handles complex shapes | Overkill for this problem |
-
-## Key Insights
-
+**How the code works:**
 1. **Battleship Structure**: Each battleship is a connected component of `'X'` cells
-2. **No Adjacent Ships**: Ships are separated by at least one empty cell
-3. **Top-Left Corner**: Each battleship has exactly one top-left corner
-4. **Single Pass**: Can count ships in one pass without modification
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
 
+**Walkthrough** — input `board = [["X",".",".","X"],[".",".",".","X"],[".",".",".","X"]]`, expected output `2`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Edge Cases
 
 1. **Empty Board**: Return 0
@@ -260,9 +97,9 @@ if(j > 0 && board[i][j - 1] == 'X') continue;  // Not top-left
 
 ## Related Problems
 
-- [LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
-- [LC 695: Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
-- [LC 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+- [LC 200: Number of Islands](https://www.leetcode.com/problems/number-of-islands/)
+- [LC 695: Max Area of Island](https://www.leetcode.com/problems/max-area-of-island/)
+- [LC 130: Surrounded Regions](https://www.leetcode.com/problems/surrounded-regions/)
 
 ## Implementation Notes
 
@@ -271,6 +108,68 @@ if(j > 0 && board[i][j - 1] == 'X') continue;  // Not top-left
 3. **Early Continue**: Use `continue` to skip non-top-left corners
 4. **Single Pass**: No need to modify the original board
 
----
+## Common Mistakes
 
-*This problem demonstrates the power of identifying unique characteristics (top-left corners) to solve problems efficiently without extra space.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+
+## Key Takeaways
+
+1. **Battleship Structure**: Each battleship is a connected component of `'X'` cells
+2. **No Adjacent Ships**: Ships are separated by at least one empty cell
+3. **Top-Left Corner**: Each battleship has exactly one top-left corner
+4. **Single Pass**: Can count ships in one pass without modification
+
+## References
+
+- [LC 419: Battleships in a Board on LeetCode](https://www.leetcode.com/problems/battleships-in-a-board/)
+- [LeetCode Discuss — LC 419: Battleships in a Board](https://www.leetcode.com/problems/battleships-in-a-board/discuss/)
+- [LeetCode Editorial](https://www.leetcode.com/problems/battleships-in-a-board/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode/posts/2025-11-24-leetcode-templates-array-matrix/)
+
+## Thinking Process
+
+1. **Battleship Structure**: Each battleship is a connected component of `'X'` cells
+
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
+
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | $O(n)$ | $O(h)$ stack | Natural for trees and graphs |
+| Iterative DFS (stack) | $O(n)$ | $O(n)$ | Avoid recursion depth limits |
+| DFS with memoization | $O(n)$ | $O(n)$ | Overlapping subproblems on graphs |
+| Backtracking DFS | $O(2^n)$ typical | $O(n)$ | Enumerate choices with pruning |
