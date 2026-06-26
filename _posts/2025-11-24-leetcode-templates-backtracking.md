@@ -8,7 +8,98 @@ tags: [leetcode, templates, backtracking, dfs]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for permutations, combinations, subsets, combination sum, grid pathfinding, and constraint satisfaction (N-Queens, Sudoku).
+Welcome to the backtracking templates! Backtracking is one of the most versatile problem-solving techniques in competitive programming—once you learn the core pattern, you can tackle a huge family of problems from permutations to Sudoku. This page gives you battle-tested C++ templates for every major backtracking pattern, ready to adapt and submit.
+
+> **New to Backtracking?** Backtracking = DFS + undo. You try a choice, recurse deeper, and if it doesn't work out, you undo the choice and try the next one. It's how you systematically explore all possibilities without missing any.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" style="max-width:720px;width:100%;height:auto;display:block;margin:1.5em auto;">
+  <style>
+    .node { rx: 18; ry: 18; stroke-width: 2; }
+    .label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #4a4a4a; text-anchor: middle; dominant-baseline: central; }
+    .title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; fill: #5b5b5b; font-weight: 600; text-anchor: middle; }
+    .edge-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #7a8a7a; text-anchor: middle; }
+    .edge { stroke-width: 1.8; fill: none; }
+    .legend { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #6b6b6b; }
+  </style>
+  <text x="360" y="22" class="title">Subsets of [1, 2, 3] — Backtracking Decision Tree</text>
+  <!-- Level 0: root {} -->
+  <rect x="325" y="40" width="70" height="32" class="node" fill="#d4c5b0" stroke="#b8a994"/>
+  <text x="360" y="56" class="label">{ }</text>
+  <!-- Level 1 branches -->
+  <line x1="345" y1="72" x2="180" y2="130" class="edge" stroke="#a3b5a0"/>
+  <text x="255" y="95" class="edge-label">+1</text>
+  <line x1="375" y1="72" x2="540" y2="130" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="465" y="95" class="edge-label">skip 1</text>
+  <!-- Level 1 nodes -->
+  <rect x="145" y="130" width="70" height="32" class="node" fill="#a3b5a0" stroke="#8a9f88"/>
+  <text x="180" y="146" class="label">{1}</text>
+  <rect x="505" y="130" width="70" height="32" class="node" fill="#d4c5b0" stroke="#b8a994"/>
+  <text x="540" y="146" class="label">{ }</text>
+  <!-- Level 2 from {1} -->
+  <line x1="160" y1="162" x2="90" y2="220" class="edge" stroke="#a3b5a0"/>
+  <text x="118" y="185" class="edge-label">+2</text>
+  <line x1="200" y1="162" x2="270" y2="220" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="242" y="185" class="edge-label">skip 2</text>
+  <!-- Level 2 from skip-1 side -->
+  <line x1="525" y1="162" x2="460" y2="220" class="edge" stroke="#a3b5a0"/>
+  <text x="485" y="185" class="edge-label">+2</text>
+  <line x1="555" y1="162" x2="630" y2="220" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="600" y="185" class="edge-label">skip 2</text>
+  <!-- Level 2 nodes -->
+  <rect x="55" y="220" width="70" height="32" class="node" fill="#a3b5a0" stroke="#8a9f88"/>
+  <text x="90" y="236" class="label">{1,2}</text>
+  <rect x="235" y="220" width="70" height="32" class="node" fill="#d4c5b0" stroke="#b8a994"/>
+  <text x="270" y="236" class="label">{1}</text>
+  <rect x="425" y="220" width="70" height="32" class="node" fill="#a3b5a0" stroke="#8a9f88"/>
+  <text x="460" y="236" class="label">{2}</text>
+  <rect x="595" y="220" width="70" height="32" class="node" fill="#d4c5b0" stroke="#b8a994"/>
+  <text x="630" y="236" class="label">{ }</text>
+  <!-- Level 3 from {1,2} -->
+  <line x1="75" y1="252" x2="35" y2="310" class="edge" stroke="#a3b5a0"/>
+  <text x="48" y="275" class="edge-label">+3</text>
+  <line x1="105" y1="252" x2="145" y2="310" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="132" y="275" class="edge-label">skip 3</text>
+  <!-- Level 3 from {1} skip-2 -->
+  <line x1="255" y1="252" x2="220" y2="310" class="edge" stroke="#a3b5a0"/>
+  <text x="230" y="275" class="edge-label">+3</text>
+  <line x1="285" y1="252" x2="320" y2="310" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="310" y="275" class="edge-label">skip 3</text>
+  <!-- Level 3 from {2} -->
+  <line x1="445" y1="252" x2="405" y2="310" class="edge" stroke="#a3b5a0"/>
+  <text x="418" y="275" class="edge-label">+3</text>
+  <line x1="475" y1="252" x2="515" y2="310" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="502" y="275" class="edge-label">skip 3</text>
+  <!-- Level 3 from {} skip-all -->
+  <line x1="630" y1="252" x2="630" y2="310" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="645" y="275" class="edge-label">+3</text>
+  <line x1="655" y1="252" x2="700" y2="310" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="690" y="275" class="edge-label">skip 3</text>
+  <!-- Level 3 leaf nodes -->
+  <rect x="5" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="40" y="326" class="label">{1,2,3}</text>
+  <rect x="115" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="150" y="326" class="label">{1,2}</text>
+  <rect x="190" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="225" y="326" class="label">{1,3}</text>
+  <rect x="290" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="325" y="326" class="label">{1}</text>
+  <rect x="375" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="410" y="326" class="label">{2,3}</text>
+  <rect x="485" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="520" y="326" class="label">{2}</text>
+  <rect x="600" y="310" width="70" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="635" y="326" class="label">{3}</text>
+  <rect x="675" y="310" width="45" height="32" class="node" fill="#b0c4b0" stroke="#8aaa8a"/>
+  <text x="697" y="326" class="label">{ }</text>
+  <!-- Legend -->
+  <line x1="200" y1="380" x2="240" y2="380" class="edge" stroke="#a3b5a0"/>
+  <text x="300" y="383" class="legend">Include element</text>
+  <line x1="380" y1="380" x2="420" y2="380" class="edge" stroke="#c4a7a0" stroke-dasharray="6,3"/>
+  <text x="476" y="383" class="legend">Skip element</text>
+  <rect x="236" y="400" width="16" height="16" rx="4" fill="#b0c4b0" stroke="#8aaa8a" stroke-width="1.5"/>
+  <text x="310" y="411" class="legend">Leaf = final subset</text>
+  <text x="360" y="445" class="legend" text-anchor="middle">Each root-to-leaf path is one subset · 2³ = 8 subsets total</text>
+</svg>
 
 ## Contents
 
@@ -31,7 +122,23 @@ Backtracking is a systematic way to explore all possible solutions by building c
 - Uses recursion to explore the solution space
 - Restores state after recursive calls (backtracking step)
 
+**The Backtracking Template** — nearly every problem on this page follows this skeleton:
+
+```
+backtrack(current_state):
+    if is_solution(current_state):
+        record solution
+        return
+    for each choice in available_choices:
+        if is_valid(choice):        ← pruning
+            make_choice()
+            backtrack(next_state)    ← recurse
+            undo_choice()            ← backtrack
+```
+
 ## Permutations (All Arrangements)
+
+**When to use:** The problem asks for "all arrangements", "all orderings", "every possible order", or "rearrange".
 
 Generate all permutations of distinct elements.
 
@@ -95,6 +202,8 @@ vector<vector<int>> permuteUnique(vector<int>& nums) {
 
 ## Combinations (Choose k from n)
 
+**When to use:** The problem says "choose k from n", "select k items", or "all groups of size k" where order doesn't matter.
+
 Generate all combinations of k elements from n elements. Order doesn't matter, so we use `start` index to avoid duplicates.
 
 ```cpp
@@ -121,6 +230,8 @@ void backtrack(int start, int n, int k, vector<int>& cur, vector<vector<int>>& r
 | 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
 
 ## Subsets (All Subsets)
+
+**When to use:** The problem asks for "all subsets", "power set", "all subsequences", or "every possible selection".
 
 Generate all subsets (power set) of an array. This includes the empty set and the set itself.
 
@@ -171,6 +282,8 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 | 90 | Subsets II | [Link](https://leetcode.com/problems/subsets-ii/) | - |
 
 ## Combination Sum (Unbounded/Reuse Elements)
+
+**When to use:** The problem asks for "all combinations that sum to target", "target sum with reuse allowed", or "find numbers adding to k".
 
 Find all combinations that sum to target. Elements can be reused or used once depending on the problem.
 
@@ -252,6 +365,8 @@ void backtrack(int start, int k, int n, vector<int>& cur, vector<vector<int>>& r
 
 ## Grid Backtracking (Word Search, Path Finding)
 
+**When to use:** The problem says "find a path in a grid", "word search", "explore all directions", or involves marking/unmarking visited cells.
+
 Backtrack on 2D grid with constraints. Mark cells as visited during exploration, then restore them.
 
 ### Word Search
@@ -299,6 +414,8 @@ bool exist(vector<vector<char>>& board, string word) {
 | 489 | Robot Room Cleaner | [Link](https://leetcode.com/problems/robot-room-cleaner/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/) |
 
 ## Constraint Satisfaction (N-Queens, Sudoku)
+
+**When to use:** The problem involves "placing items with constraints", "N-Queens", "Sudoku", or "valid placement" where each choice must satisfy multiple rules.
 
 Backtracking with complex constraints. Validate each move before placing.
 
@@ -379,6 +496,8 @@ bool isValid(vector<vector<char>>& board, int row, int col, char c){
 | 37 | Sudoku Solver | [Link](https://leetcode.com/problems/sudoku-solver/) | - |
 
 ## Palindrome Partitioning
+
+**When to use:** The problem asks to "partition a string into palindromes", "split into palindromic substrings", or "all ways to cut a string".
 
 Partition string into palindromic substrings. Check if substring is palindrome before partitioning.
 
@@ -508,8 +627,20 @@ void backtrack(state, constraints, current_solution, results){
 **Time Complexity:** Typically exponential O(2^n) or O(n!) depending on problem
 **Space Complexity:** O(depth) for recursion stack + O(solution_size) for current solution
 
+## Quick Reference
+
+| Pattern | Signal | # Solutions | Time |
+|---|---|---|---|
+| Permutations | "all arrangements", "ordering" | n! | O(n × n!) |
+| Combinations | "choose k from n" | C(n,k) | O(C(n,k)) |
+| Subsets | "all subsets", "power set" | 2^n | O(n × 2^n) |
+| Combination Sum | "target sum with reuse" | varies | O(2^n) |
+| Grid | "find path in grid" | varies | O(4^(m×n)) |
+| Constraint | "N-Queens", "Sudoku" | varies | O(n!) |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

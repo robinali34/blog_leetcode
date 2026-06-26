@@ -7,7 +7,45 @@ permalink: /posts/2025-10-29-leetcode-templates-trees/
 tags: [leetcode, templates, trees]
 ---
 
-Minimal, copy-paste C++ for tree traversals, LCA (binary lifting), segment tree, Fenwick tree, and HLD skeleton.
+Trees are one of the most frequently tested data structures in coding interviews. This page collects ready-to-use C++ templates for every major tree pattern — from basic traversals to advanced structures like segment trees and heavy-light decomposition. Each section includes the core template, guidance on when to reach for it, and curated practice problems.
+
+> **New to Trees?** A tree is a connected graph with no cycles. Binary trees (each node has at most 2 children) are the most common in interviews. The key insight: most tree problems are solved with recursion — process the current node, then recurse on left and right.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" style="max-width:520px;margin:1em auto;display:block">
+  <style>
+    .nd{fill:#C9B1BD;stroke:#8E9AAF;stroke-width:2}
+    .eg{stroke:#8E9AAF;stroke-width:2}
+    .vl{font:bold 16px sans-serif;fill:#3D3535;text-anchor:middle;dominant-baseline:central}
+    .lb{font:13px sans-serif;fill:#6B5B6B;text-anchor:middle}
+    .tv{font:12px monospace;fill:#3D3535}
+    .tl{font:bold 12px sans-serif;fill:#8E7E6E}
+  </style>
+  <line class="eg" x1="260" y1="50" x2="140" y2="130"/>
+  <line class="eg" x1="260" y1="50" x2="380" y2="130"/>
+  <line class="eg" x1="140" y1="130" x2="80" y2="210"/>
+  <line class="eg" x1="380" y1="130" x2="440" y2="210"/>
+  <circle class="nd" cx="260" cy="50" r="24"/>
+  <text class="vl" x="260" y="50">1</text>
+  <circle class="nd" cx="140" cy="130" r="24"/>
+  <text class="vl" x="140" y="130">2</text>
+  <circle class="nd" cx="380" cy="130" r="24"/>
+  <text class="vl" x="380" y="130">3</text>
+  <circle class="nd" cx="80" cy="210" r="24" style="fill:#A8B5A2"/>
+  <text class="vl" x="80" y="210">4</text>
+  <circle class="nd" cx="440" cy="210" r="24" style="fill:#A8B5A2"/>
+  <text class="vl" x="440" y="210">5</text>
+  <text class="lb" x="260" y="16" style="fill:#C4956A;font-weight:bold">root</text>
+  <text class="lb" x="88" y="128">left child</text>
+  <text class="lb" x="440" y="105">right child</text>
+  <text class="lb" x="80" y="246">leaf</text>
+  <text class="lb" x="440" y="246">leaf</text>
+  <text class="tl" x="40" y="280">Preorder:</text>
+  <text class="tv" x="120" y="280">1 → 2 → 4 → 3 → 5  (root, left, right)</text>
+  <text class="tl" x="40" y="300">Inorder:</text>
+  <text class="tv" x="120" y="300">4 → 2 → 1 → 3 → 5  (left, root, right)</text>
+  <text class="tl" x="40" y="320">Postorder:</text>
+  <text class="tv" x="120" y="320">4 → 2 → 5 → 3 → 1  (left, right, root)</text>
+</svg>
 
 ## Contents
 
@@ -28,6 +66,8 @@ Minimal, copy-paste C++ for tree traversals, LCA (binary lifting), segment tree,
 - [HLD (Heavy-Light Decomposition)](#hld-heavy-light-decomposition-skeleton)
 
 ## Traversals (iterative)
+
+**When to use:** You need to visit every node in a specific order — inorder for sorted BST output, level-order for layer-by-layer processing.
 
 ```cpp
 vector<int> inorder(TreeNode* root){
@@ -71,6 +111,8 @@ Recognizing the right tree pattern quickly is key. Below are the 7 core patterns
 
 ### Pattern 1: Basic Tree Traversal (DFS)
 
+**When to use:** Simple traversal, count nodes, check a property on every node.
+
 Traverse the tree using DFS. Most problems reduce to choosing **when** to process the node.
 
 ```
@@ -101,6 +143,8 @@ void dfs(TreeNode* node) {
 
 ### Pattern 2: DFS with Return Value (Bottom-Up)
 
+**When to use:** Height, diameter, balanced check — any problem where the answer depends on information from both subtrees.
+
 Each recursive call returns information about its subtree. Process children first, then combine results and return upward. Used for: height, balance, diameter, subtree properties.
 
 ```cpp
@@ -123,6 +167,8 @@ int dfs(TreeNode* node) {
 ---
 
 ### Pattern 3: DFS with Global Result
+
+**When to use:** Max path sum, longest path — the optimal answer may span across left and right subtrees, but each recursive call can only return one branch upward.
 
 While traversing, update a **global variable** tracking the best result. The recursive function returns a per-node value, but the answer lives outside the recursion.
 
@@ -147,6 +193,8 @@ int dfs(TreeNode* node) {
 ---
 
 ### Pattern 4: Root-to-Leaf Path Tracking
+
+**When to use:** Root-to-leaf paths, path sum collection — any problem that needs the full path from root to the current node.
 
 Maintain a path from root to the current node. **Push → recurse → pop** (backtracking). Used for returning paths, validating sequences, and path sum collection.
 
@@ -173,6 +221,8 @@ void dfs(TreeNode* node, vector<int>& path, vector<vector<int>>& result) {
 ---
 
 ### Pattern 5: BFS / Level Order Traversal
+
+**When to use:** Level-order, right-side view, zigzag traversal — any problem that processes nodes layer by layer.
 
 Traverse the tree **level by level** using a queue. Used for level processing, shortest depth, and breadth exploration.
 
@@ -208,6 +258,8 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 
 ### Pattern 6: Lowest Common Ancestor (LCA)
 
+**When to use:** Lowest common ancestor — find the deepest node that is an ancestor of both target nodes.
+
 Postorder DFS: if both subtrees contain a target, the current node is the LCA.
 
 ```cpp
@@ -228,6 +280,8 @@ TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q) {
 ---
 
 ### Pattern 7: Binary Search Tree (BST) Pattern
+
+**When to use:** Validate BST, search, insert, delete — any problem that leverages the BST property (`left < root < right`) for pruning or ordered processing.
 
 BST property: `left < root < right`. Inorder traversal produces sorted order. This enables pruning and ordered processing.
 
@@ -269,6 +323,8 @@ Most tree interview problems are medium difficulty, DFS recursion, postorder rea
 
 ## LCA (Binary Lifting)
 
+**When to use:** Multiple LCA queries on a static tree, or when you also need to find the k-th ancestor of a node. Preprocess in O(N log N), answer each query in O(log N).
+
 ```cpp
 const int K = 17; vector<int> depth; vector<array<int,K+1>> up;
 void dfsLift(int u,int p,const vector<vector<int>>& g){ up[u][0]=p; for(int k=1;k<=K;++k) up[u][k]= up[u][k-1]<0?-1: up[up[u][k-1]][k-1];
@@ -303,6 +359,8 @@ int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[
 | 1443 | Minimum Time to Collect All Apples in a Tree | [Link](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) |
 
 ## Segment Tree
+
+**When to use:** Range queries (sum, min, max) with interleaved point or range updates — whenever a prefix-sum array would be too slow because of frequent modifications.
 
 Segment Tree is a data structure that allows efficient range queries and range updates on an array. It's particularly useful for problems involving range sum, range minimum/maximum, and range updates.
 
@@ -579,6 +637,8 @@ int findFirst(Node* node, int l, int r, int x) {
 
 ## Fenwick Tree (Binary Indexed Tree)
 
+**When to use:** Prefix sums with point updates, especially when you want simpler code and lower memory than a segment tree. Not suitable for min/max queries or range updates.
+
 Fenwick Tree (also known as Binary Indexed Tree or BIT) is a data structure that provides efficient methods for calculating prefix sums and updating array elements. It's more space-efficient than Segment Tree but less flexible.
 
 ### Basic Fenwick Tree (1-Indexed)
@@ -763,6 +823,8 @@ private:
 
 ## HLD (Heavy-Light Decomposition) skeleton
 
+**When to use:** Path queries or path updates on a tree (e.g., sum/max along a path between two nodes). Decomposes the tree into chains so you can use a segment tree on each chain. Rarely needed on LeetCode, but essential for competitive programming.
+
 ```cpp
 const int N = 200000; vector<int> gH[N]; int szH[N], parH[N], depH[N], heavyH[N], headH[N], inH[N], curT=0;
 int dfs1(int u,int p){ parH[u]=p; depH[u]=(p==-1?0:depH[p]+1); szH[u]=1; heavyH[u]=-1; int best=0; for(int v:gH[u]) if(v!=p){ int s=dfs1(v,u); szH[u]+=s; if(s>best){best=s; heavyH[u]=v;} } return szH[u]; }
@@ -771,8 +833,21 @@ void dfs2(int u,int h){ headH[u]=h; inH[u]=curT++; if(heavyH[u]!=-1){ dfs2(heavy
 
 > Note: HLD is rarely required on LeetCode.
 
+## Pattern Summary
+
+| Pattern | Signal Phrases | Approach |
+|---|---|---|
+| Inorder Traversal | "sorted order of BST" | Left → Root → Right |
+| Bottom-Up DFS | "height", "diameter", "balanced" | Return value from children |
+| Global Result | "max path sum" | Track global max during DFS |
+| Path Tracking | "root-to-leaf", "path sum" | Pass path down recursively |
+| Level-order BFS | "level by level", "right side view" | Queue, process by level |
+| LCA | "lowest common ancestor" | Recursive or binary lifting |
+| BST | "validate", "search", "insert" | Use BST property (left < root < right) |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures (segment tree, Fenwick, DSU):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Search (binary search, 2D):** [Search](/posts/2026-01-20-leetcode-templates-search/)

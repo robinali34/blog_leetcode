@@ -8,7 +8,9 @@ tags: [leetcode, templates, string, algorithms]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for sliding window, two pointers, string matching, manipulation, and parsing. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
+Welcome to the String Processing template collection! These are ready-to-use C++ snippets for the core string patterns: sliding window, two pointers, string matching, manipulation, and parsing. If you already know the array templates, you're most of the way there — strings use the same ideas with character-level twists. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
+
+> **String problems are array problems in disguise.** Most string patterns — sliding window, two pointers, prefix computation — work identically to their array counterparts. The main difference is that you operate on characters and often track frequencies with a hash map or fixed-size array.
 
 ## Contents
 
@@ -19,6 +21,8 @@ Minimal, copy-paste C++ for sliding window, two pointers, string matching, manip
 - [Parsing](#parsing)
 
 ## Sliding Window
+
+**When to use:** The problem asks for "longest substring without repeating characters", "minimum window containing all characters", or any contiguous substring optimization with a frequency constraint.
 
 ### Longest Substring Without Repeating Characters
 
@@ -85,6 +89,8 @@ string minWindow(string s, string t) {
 
 ## Two Pointers
 
+**When to use:** The problem mentions "palindrome", "reverse string", or requires comparing characters from both ends of a string moving inward.
+
 ### Valid Palindrome
 
 ```cpp
@@ -126,6 +132,8 @@ void reverseString(vector<char>& s) {
 | 151 | Reverse Words in a String | [Link](https://leetcode.com/problems/reverse-words-in-a-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/medium-151-reverse-words-in-a-string/) |
 
 ## String Matching
+
+**When to use:** The problem asks to "find a pattern in text", mentions "KMP", or requires efficient O(n+m) substring search instead of brute-force O(n·m).
 
 ### KMP Algorithm
 
@@ -181,6 +189,8 @@ int kmpSearch(string text, string pattern) {
 | 28 | Find the Index of the First Occurrence in a String | [Link](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | - |
 
 ## String Manipulation
+
+**When to use:** The problem says "anagram", "group anagrams", "remove duplicates", or requires rearranging or classifying strings by their character composition.
 
 ### Group Anagrams
 
@@ -277,6 +287,8 @@ string runLengthEncode(const string& s) {
 
 ## Parsing
 
+**When to use:** The problem says "decode string", "valid abbreviation", "nested brackets", or requires interpreting a string according to grammar rules.
+
 ### Valid Word Abbreviation
 
 ```cpp
@@ -344,8 +356,19 @@ string decodeString(string s) {
 | 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
 | 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
 
+## Summary
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| Sliding Window | "longest substring", "minimum window" | Track char frequencies in window |
+| Two Pointers | "palindrome", "reverse" | Compare from both ends |
+| String Matching | "pattern in text", "KMP" | Failure function for O(n+m) |
+| Manipulation | "anagram", "group anagrams" | Sort or frequency count |
+| Parsing | "decode string", "nested brackets" | Stack-based recursion |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
 - **Stack (decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

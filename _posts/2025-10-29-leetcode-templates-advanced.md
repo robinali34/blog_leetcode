@@ -7,7 +7,11 @@ permalink: /posts/2025-10-29-leetcode-templates-advanced/
 tags: [leetcode, templates, advanced]
 ---
 
-Minimal, copy-paste C++ for coordinate compression, meet-in-the-middle, Manacher, Z-algorithm, and bitwise trie (max XOR).
+This page covers specialized algorithmic techniques that appear in Hard-level LeetCode problems and competitive programming. These are not everyday patterns — most interviews won't require them — but when a problem does call for one of these techniques, knowing the template can turn an impossible problem into a straightforward implementation.
+
+> **These are specialized techniques for hard problems.** You won't need them for most interviews, but they appear in competitive programming and occasional Hard-level LeetCode problems.
+
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
 ## Contents
 
@@ -18,6 +22,8 @@ Minimal, copy-paste C++ for coordinate compression, meet-in-the-middle, Manacher
 - [Bitwise Trie (Max XOR Pair)](#bitwise-trie-max-xor-pair)
 
 ## Coordinate Compression
+
+**When to use:** values are too large for direct array indexing (e.g., values up to 10^9 but only n ≤ 10^5 distinct values), or you need to map sparse values into a dense range.
 
 ```cpp
 template<class T>
@@ -35,6 +41,8 @@ struct Compressor{
 
 ## Meet-in-the-Middle (subset sums)
 
+**When to use:** "subset sum" with n ≤ 40 (too large for 2^n but feasible as 2^(n/2)), or when brute-force is exponential but splitting the input in half makes it tractable.
+
 ```cpp
 long long countSubsets(vector<int>& a, long long T){
     int n=a.size(), m=n/2; vector<long long> L,R; L.reserve(1<<m); R.reserve(1<<(n-m));
@@ -50,6 +58,8 @@ long long countSubsets(vector<int>& a, long long T){
 
 ## Manacher (Longest Palindromic Substring, O(n))
 
+**When to use:** "longest palindromic substring" when O(n) is required, or when you need all palindrome radii in linear time.
+
 ```cpp
 string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t.push_back('|'); }
     int n=t.size(); vector<int> p(n); int c=0,r=0, best=0, center=0;
@@ -64,6 +74,8 @@ string manacher(const string& s){ string t="|"; for(char c:s){ t.push_back(c); t
 
 ## Z-Algorithm (Pattern occurrences)
 
+**When to use:** "find all occurrences of pattern in string", or when you need the longest prefix match at each position (alternative to KMP).
+
 ```cpp
 vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=0; for(int i=1;i<n;++i){ if(i<=r) z[i]=min(r-i+1, z[i-l]); while(i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i]; if(i+z[i]-1>r){ l=i; r=i+z[i]-1; } } return z; }
 ```
@@ -73,6 +85,8 @@ vector<int> zfunc(const string& s){ int n=s.size(); vector<int> z(n); int l=0,r=
 | 1392 | Longest Happy Prefix | [Link](https://leetcode.com/problems/longest-happy-prefix/) | - |
 
 ## Bitwise Trie (Max XOR Pair)
+
+**When to use:** "maximum XOR of two numbers", or when you need to greedily pick bits to maximize/minimize a bitwise operation.
 
 ```cpp
 struct BitTrie{ struct Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; vector<Node> t{Node()};
@@ -84,6 +98,16 @@ struct BitTrie{ struct Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; vector<Node> t{
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 421 | Maximum XOR of Two Numbers in an Array | [Link](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | - |
+
+## Summary
+
+| Technique | When to Use | Time |
+|---|---|---|
+| Coordinate Compression | Values too large for array indexing | O(n log n) |
+| Meet-in-the-Middle | Subset sum with n ≤ 40 | O(2^(n/2)) |
+| Manacher | Longest palindromic substring in O(n) | O(n) |
+| Z-Algorithm | Pattern matching | O(n + m) |
+| Bitwise Trie | Maximum XOR pair | O(n × 32) |
 
 ## More templates
 

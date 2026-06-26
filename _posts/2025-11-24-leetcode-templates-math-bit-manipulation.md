@@ -8,7 +8,9 @@ tags: [leetcode, templates, math, bit-manipulation]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for bit operations, fast exponentiation, GCD/LCM, primes, and number theory. See also [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
+This page collects ready-to-use C++ templates for bit manipulation, fast exponentiation, GCD/LCM, prime sieves, and basic number theory. Each snippet is self-contained — copy it into your solution and adapt as needed. If you're looking for geometry-related math, see [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
+
+> **New to Bit Manipulation?** Computers store everything in binary. Bit manipulation lets you perform operations on individual bits — it's incredibly fast and often turns complex problems into elegant one-liners. The most common trick: XOR (`a ^ b`) cancels matching bits, which is why it solves "single number" problems.
 
 ## Contents
 
@@ -20,6 +22,8 @@ Minimal, copy-paste C++ for bit operations, fast exponentiation, GCD/LCM, primes
 - [Number Theory](#number-theory)
 
 ## Bit Operations
+
+**When to use:** You need to inspect, set, clear, or toggle individual bits in a number — common in bitmask DP, permission flags, and encoding state compactly.
 
 ### Basic Operations
 
@@ -117,6 +121,8 @@ void swap(int& a, int& b) {
 
 ## Common Bit Tricks
 
+**When to use:** The problem mentions "single number", "missing number", "find the duplicate", or any scenario where XOR's self-cancelling property (`x ^ x = 0`) can isolate an answer.
+
 ### Single Number
 
 ```cpp
@@ -163,6 +169,8 @@ vector<int> grayCode(int n) {
 
 ## Fast Exponentiation
 
+**When to use:** You need to compute `x^n` (or modular exponentiation) efficiently — e.g. "pow(x, n)", matrix exponentiation for DP, or any problem requiring O(log n) power computation.
+
 ### Power Function
 
 ```cpp
@@ -195,6 +203,8 @@ double myPow(double x, int n) {
 
 ## GCD and LCM
 
+**When to use:** Problems ask for "greatest common divisor", "least common multiple", reducing fractions, or checking divisibility relationships between numbers.
+
 ```cpp
 // Greatest Common Divisor (Euclidean algorithm)
 int gcd(int a, int b) {
@@ -218,6 +228,8 @@ int lcm(int a, int b) {
 ```
 
 ## Prime Numbers
+
+**When to use:** Problems involve "count primes", prime factorization, or need to quickly test whether numbers are prime. The sieve is ideal when you need all primes up to N.
 
 ### Check Prime
 
@@ -255,6 +267,8 @@ vector<bool> sieveOfEratosthenes(int n) {
 ```
 
 ## Number Theory
+
+**When to use:** Problems involve digit manipulation (reverse, palindrome), trailing zeroes in factorials, modular arithmetic, or large number operations.
 
 ### Factorial Trailing Zeroes
 
@@ -294,8 +308,22 @@ int reverse(int x) {
 | 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/17/medium-43-multiply-strings/) |
 | 2539 | Count the Number of Good Subsequences | [Link](https://leetcode.com/problems/count-the-number-of-good-subsequences/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/19/hard-2539-count-the-number-of-good-subsequences/) |
 
+---
+
+## Quick Reference
+
+| Topic | Signal Phrases | Key Trick |
+|---|---|---|
+| XOR | "single number", "missing number" | x ^ x = 0, x ^ 0 = x |
+| Bit counting | "number of 1 bits", "counting bits" | n & (n-1) removes lowest set bit |
+| Power of 2 | "is power of 2" | n & (n-1) == 0 |
+| Fast Exponent | "pow(x,n)", "modular exponent" | Square-and-multiply |
+| GCD/LCM | "greatest common divisor" | Euclidean algorithm |
+| Sieve | "count primes" | Sieve of Eratosthenes |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
 - **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

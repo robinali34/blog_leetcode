@@ -8,7 +8,13 @@ tags: [leetcode, templates, queue, data-structures]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for BFS queue, monotonic queue, priority queue, circular queue, and deque. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
+Queues are one of the most versatile data structures in algorithm problems. This page collects ready-to-use C++ templates for every queue variant you'll encounter on LeetCode — from the basic FIFO queue used in BFS to monotonic queues, priority queues, and deques. Each section includes the template code and a curated problem list so you can practice immediately.
+
+See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
+
+> **Queue = First-In-First-Out (FIFO).** Use a queue whenever you need to process elements in the order they arrived — most commonly in BFS. A deque (double-ended queue) lets you push/pop from both ends.
+
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
 ## Contents
 
@@ -20,6 +26,8 @@ Minimal, copy-paste C++ for BFS queue, monotonic queue, priority queue, circular
 - [Double-ended Queue (Deque)](#double-ended-queue-deque)
 
 ## Basic Queue Operations
+
+**When to use:** any problem requiring FIFO ordering, or when implementing a queue from scratch (e.g., using two stacks).
 
 ```cpp
 #include <queue>
@@ -72,6 +80,8 @@ public:
 | 232 | Implement Queue using Stacks | [Link](https://leetcode.com/problems/implement-queue-using-stacks/) | - |
 
 ## BFS with Queue
+
+**When to use:** "shortest path in unweighted graph", "level order traversal", "minimum steps", or any problem that explores neighbors layer by layer.
 
 Queue is essential for Breadth-First Search (level-order traversal).
 
@@ -132,6 +142,8 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 
 ## Monotonic Queue
 
+**When to use:** "sliding window maximum/minimum", or when you need the max/min of every window of size k in O(n) total.
+
 Maintain queue with monotonic property (increasing or decreasing).
 
 ```cpp
@@ -183,6 +195,8 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 | 1438 | Longest Continuous Subarray With Absolute Diff <= Limit | [Link](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/) | - |
 
 ## Priority Queue
+
+**When to use:** "k-th largest/smallest", "merge k sorted lists", "top k elements", "schedule tasks by priority", or any problem needing efficient access to the current extreme value.
 
 Priority queue (heap) for maintaining order.
 
@@ -288,6 +302,8 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 
 ## Circular Queue
 
+**When to use:** "design a circular buffer", "design a queue with fixed capacity", or when you need wrap-around behavior with modulo arithmetic.
+
 ```cpp
 class MyCircularQueue {
     vector<int> data;
@@ -333,6 +349,8 @@ public:
 | 622 | Design Circular Queue | [Link](https://leetcode.com/problems/design-circular-queue/) | - |
 
 ## Double-ended Queue (Deque)
+
+**When to use:** "sliding window" problems where you need to push/pop from both front and back, or when maintaining sorted order in a window by index.
 
 ```cpp
 #include <deque>
@@ -428,6 +446,16 @@ public:
 |---|---|---|---|
 | 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
 | 1670 | Design Front Middle Back Queue | [Link](https://leetcode.com/problems/design-front-middle-back-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/13/medium-1670-design-front-middle-back-queue/) |
+
+## Summary
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| BFS Queue | "shortest path", "level order" | Process nodes level by level |
+| Monotonic Queue | "sliding window max/min" | Maintain decreasing/increasing order |
+| Priority Queue | "k-th largest", "merge k sorted" | Auto-sorted by priority |
+| Circular Queue | "circular buffer", "design queue" | Wrap-around with modulo |
+| Deque | "sliding window", "both ends" | Push/pop from front and back |
 
 ## More templates
 

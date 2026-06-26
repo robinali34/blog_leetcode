@@ -8,7 +8,42 @@ tags: [leetcode, templates, greedy, algorithms]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for interval scheduling, activity selection, and greedy on arrays/strings with sorting.
+Greedy algorithms are among the most elegant tools in competitive programming — when they work, they're simpler and faster than dynamic programming. This guide covers the core greedy patterns you'll encounter on LeetCode, with ready-to-use C++ templates for interval scheduling, activity selection, fractional knapsack, and greedy strategies on arrays and strings. Each section includes the key intuition so you know *why* the greedy choice is correct, not just *how* to code it.
+
+> **New to Greedy?** Greedy algorithms make the locally best choice at each step. Unlike DP, you never reconsider previous choices. The challenge is proving that local optimality leads to global optimality — if you can, greedy is simpler and faster than DP.
+
+<div style="text-align:center; margin: 1.5em 0;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6e6a"/>
+    </marker>
+  </defs>
+  <rect width="520" height="320" rx="12" fill="#f4f0ec"/>
+  <text x="260" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#5b4f4a">Greedy vs DP — Which one?</text>
+  <rect x="140" y="50" width="240" height="48" rx="8" fill="#c5b4a7" stroke="#7a6e6a" stroke-width="1.5"/>
+  <text x="260" y="70" text-anchor="middle" fill="#3b302b" font-size="13">Can I prove local choice</text>
+  <text x="260" y="87" text-anchor="middle" fill="#3b302b" font-size="13">is globally optimal?</text>
+  <line x1="200" y1="98" x2="130" y2="145" stroke="#7a6e6a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="145" y="125" text-anchor="middle" fill="#6b8e6b" font-weight="bold" font-size="13">Yes</text>
+  <line x1="320" y1="98" x2="390" y2="145" stroke="#7a6e6a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="375" y="125" text-anchor="middle" fill="#b07070" font-weight="bold" font-size="13">No</text>
+  <rect x="50" y="148" width="160" height="44" rx="8" fill="#a8c3a8" stroke="#6b8e6b" stroke-width="1.5"/>
+  <text x="130" y="175" text-anchor="middle" fill="#2d4a2d" font-weight="bold" font-size="14">Use Greedy</text>
+  <rect x="310" y="148" width="160" height="44" rx="8" fill="#c3a8a8" stroke="#b07070" stroke-width="1.5"/>
+  <text x="390" y="175" text-anchor="middle" fill="#4a2d2d" font-weight="bold" font-size="14">Try DP</text>
+  <rect x="20" y="210" width="220" height="95" rx="8" fill="#d6ccc4" stroke="#b0a49a" stroke-width="1"/>
+  <text x="130" y="232" text-anchor="middle" fill="#5b4f4a" font-size="12" font-weight="bold">Greedy is great when:</text>
+  <text x="130" y="252" text-anchor="middle" fill="#5b4f4a" font-size="11">- Optimal substructure exists</text>
+  <text x="130" y="269" text-anchor="middle" fill="#5b4f4a" font-size="11">- Greedy choice property holds</text>
+  <text x="130" y="286" text-anchor="middle" fill="#5b4f4a" font-size="11">- O(n log n) or O(n) typical</text>
+  <rect x="280" y="210" width="220" height="95" rx="8" fill="#d6ccc4" stroke="#b0a49a" stroke-width="1"/>
+  <text x="390" y="232" text-anchor="middle" fill="#5b4f4a" font-size="12" font-weight="bold">DP is needed when:</text>
+  <text x="390" y="252" text-anchor="middle" fill="#5b4f4a" font-size="11">- Overlapping subproblems</text>
+  <text x="390" y="269" text-anchor="middle" fill="#5b4f4a" font-size="11">- Must explore all choices</text>
+  <text x="390" y="286" text-anchor="middle" fill="#5b4f4a" font-size="11">- O(n²) or O(n·W) typical</text>
+</svg>
+</div>
 
 ## Contents
 
@@ -29,11 +64,14 @@ Greedy algorithms make locally optimal choices at each step, hoping to find a gl
 
 ### Key Principles
 
-1. **Greedy Choice Property**: A global optimum can be reached by making locally optimal choices
-2. **Optimal Substructure**: Optimal solution contains optimal solutions to subproblems
-3. **No Backtracking**: Once a choice is made, it's never reconsidered
+1. **Greedy Choice Property**: A global optimum can be reached by making locally optimal choices. At every step, you pick what looks best *right now* and trust that this leads to the best overall answer.
+2. **Optimal Substructure**: An optimal solution to the problem contains optimal solutions to its subproblems. After making a greedy choice, the remaining problem is a smaller instance of the same type.
+3. **No Backtracking**: Once a choice is made, it's never reconsidered. This is what makes greedy algorithms fast — but it also means you need to *prove* the greedy strategy is correct before relying on it.
+4. **Exchange Argument**: The standard proof technique — assume an optimal solution differs from the greedy one, then show you can "exchange" a choice to match the greedy solution without making it worse.
 
 ## Interval Scheduling
+
+**When to use:** The problem mentions "non-overlapping intervals", "minimum rooms", "merge intervals", or asks you to maximize/minimize a count of intervals that don't conflict.
 
 Greedy approach: Sort by end time, always pick the interval that ends earliest.
 
@@ -62,6 +100,8 @@ int eraseOverlapIntervals(vector<vector<int>>& intervals) {
 
 ## Activity Selection
 
+**When to use:** The problem says "maximum activities", "schedule as many as possible", or "select non-conflicting events" — essentially interval scheduling phrased as a selection problem.
+
 Similar to interval scheduling, select maximum number of non-overlapping activities.
 
 ```cpp
@@ -88,6 +128,8 @@ int maxNonOverlappingIntervals(vector<vector<int>>& intervals) {
 ```
 
 ## Fractional Knapsack
+
+**When to use:** You can take *fractions* of items (unlike 0/1 knapsack which needs DP). Look for "maximize value with limited capacity" where partial selections are allowed.
 
 Greedy approach: Sort items by value/weight ratio, take items with highest ratio first.
 
@@ -121,6 +163,8 @@ double fractionalKnapsack(int W, vector<Item>& items) {
 ```
 
 ## Greedy on Arrays
+
+**When to use:** Look for "jump game", "maximum subarray", "best time to buy/sell", or any problem where you scan an array and maintain a running best/state — local decisions at each index build up to the global answer.
 
 Greedy choices on array elements, often with two pointers or sliding window.
 
@@ -192,6 +236,8 @@ int wiggleMaxLength(vector<int>& nums) {
 
 ## Greedy on Strings
 
+**When to use:** The problem says "smallest subsequence", "remove duplicate letters", "minimum swaps", or involves character frequency / ordering decisions — often solved with a stack-based greedy approach.
+
 Greedy choices when processing strings, often with character frequency or ordering.
 
 ```cpp
@@ -242,6 +288,8 @@ bool canConstruct(string s, int k) {
 ```
 
 ## Greedy with Sorting
+
+**When to use:** The problem says "assign cookies", "queue reconstruction", "two city scheduling", or any scenario where sorting by one dimension (size, cost difference, height) unlocks a simple greedy scan.
 
 Many greedy problems require sorting first to make optimal choices.
 
@@ -453,8 +501,19 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 
 - [Mastering Greedy Algorithms with LeetCode](https://leetcode.com/discuss/post/5330283/mastering-greedy-algorithms-with-leetcod-d0dq/) - Comprehensive guide to greedy algorithms with LeetCode problems
 
+## Pattern Summary
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| Interval Scheduling | "non-overlapping", "minimum rooms" | Sort by end time, pick earliest |
+| Activity Selection | "maximum activities", "schedule" | Sort by end, greedily select |
+| Greedy on Arrays | "jump game", "max subarray" | Local decisions, running state |
+| Greedy on Strings | "smallest subsequence", "remove duplicates" | Stack-based greedy |
+| Greedy + Sorting | "assign cookies", "queue reconstruction" | Sort first, then greedily assign |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **DP (when greedy doesn't apply):** [Dynamic Programming](/posts/2025-10-29-leetcode-templates-dp/)
 - **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

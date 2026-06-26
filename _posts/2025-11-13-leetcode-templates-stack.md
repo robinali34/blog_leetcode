@@ -7,7 +7,9 @@ permalink: /posts/2025-11-13-leetcode-templates-stack/
 tags: [leetcode, templates, stack, data-structures]
 ---
 
-Minimal, copy-paste C++ for parentheses matching, expression evaluation, nested structures, and monotonic stack.
+The stack is one of the most versatile data structures in coding interviews. Whether you're matching parentheses, evaluating expressions, or finding the next greater element in an array, a stack gives you an elegant O(n) solution. This guide collects the essential C++ templates you'll need, organized by pattern so you can quickly find the right approach for any stack problem.
+
+> **New to Stack problems?** A stack is Last-In-First-Out (LIFO). The key insight: whenever a problem asks you to match, nest, or find the "next greater/smaller" element, think stack.
 
 ## Contents
 
@@ -28,6 +30,8 @@ Minimal, copy-paste C++ for parentheses matching, expression evaluation, nested 
 - [Stack Design](#stack-design-minmax-stack)
 
 ## Parentheses Matching
+
+> **When to use:** matching brackets, nested structures
 
 Use stack's LIFO property to match opening and closing brackets in reverse order.
 
@@ -57,6 +61,8 @@ bool isValid(string s) {
 | 1249 | Minimum Remove to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) |
 
 ## Expression Evaluation
+
+> **When to use:** calculate expression, operator precedence
 
 Use stack to handle operator precedence and parentheses in mathematical expressions.
 
@@ -135,7 +141,47 @@ string decodeString(string s) {
 
 ## Monotonic Stack & Deque Patterns
 
+> **When to use:** next greater/smaller element, histogram problems
+
 Eight common patterns that cover nearly all monotonic stack / deque problems. Recognize the pattern by this clue: *"find the next/previous smaller/greater element, or determine how far an element can extend."*
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" style="max-width:720px;font-family:monospace">
+  <text x="360" y="22" text-anchor="middle" fill="#5A5752" font-size="14" font-weight="bold">Monotonic Stack — Next Greater Element for [2, 1, 4, 3]</text>
+  <rect x="230" y="32" width="56" height="28" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/>
+  <text x="258" y="51" text-anchor="middle" fill="#5A5752" font-size="13">2</text>
+  <rect x="290" y="32" width="56" height="28" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/>
+  <text x="318" y="51" text-anchor="middle" fill="#5A5752" font-size="13">1</text>
+  <rect x="350" y="32" width="56" height="28" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/>
+  <text x="378" y="51" text-anchor="middle" fill="#5A5752" font-size="13">4</text>
+  <rect x="410" y="32" width="56" height="28" rx="4" fill="#D4D8D0" stroke="#B8B5B0"/>
+  <text x="438" y="51" text-anchor="middle" fill="#5A5752" font-size="13">3</text>
+  <text x="90" y="86" text-anchor="middle" fill="#5A5752" font-size="11" font-weight="bold">Step 1: push 2</text>
+  <rect x="65" y="94" width="50" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/>
+  <text x="90" y="113" text-anchor="middle" fill="#5A5752" font-size="12">2</text>
+  <text x="90" y="138" text-anchor="middle" fill="#5A5752" font-size="10">stack: [2]</text>
+  <text x="270" y="86" text-anchor="middle" fill="#5A5752" font-size="11" font-weight="bold">Step 2: push 1</text>
+  <text x="270" y="100" text-anchor="middle" fill="#5A5752" font-size="10">(1 &lt; 2, no pop)</text>
+  <rect x="245" y="108" width="50" height="28" rx="3" fill="#D4D8E0" stroke="#B8B5B0"/>
+  <text x="270" y="127" text-anchor="middle" fill="#5A5752" font-size="12">1</text>
+  <rect x="245" y="136" width="50" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/>
+  <text x="270" y="155" text-anchor="middle" fill="#5A5752" font-size="12">2</text>
+  <text x="270" y="180" text-anchor="middle" fill="#5A5752" font-size="10">stack: [2, 1]</text>
+  <text x="450" y="86" text-anchor="middle" fill="#5A5752" font-size="11" font-weight="bold">Step 3: push 4</text>
+  <text x="450" y="100" text-anchor="middle" fill="#5A5752" font-size="10">4 &gt; 1 → pop, ans[1]=4</text>
+  <text x="450" y="113" text-anchor="middle" fill="#5A5752" font-size="10">4 &gt; 2 → pop, ans[0]=4</text>
+  <rect x="425" y="122" width="50" height="28" rx="3" fill="#D4D8E0" stroke="#B8B5B0"/>
+  <text x="450" y="141" text-anchor="middle" fill="#5A5752" font-size="12">4</text>
+  <text x="450" y="166" text-anchor="middle" fill="#5A5752" font-size="10">stack: [4]</text>
+  <text x="630" y="86" text-anchor="middle" fill="#5A5752" font-size="11" font-weight="bold">Step 4: push 3</text>
+  <text x="630" y="100" text-anchor="middle" fill="#5A5752" font-size="10">(3 &lt; 4, no pop)</text>
+  <rect x="605" y="108" width="50" height="28" rx="3" fill="#D4D8E0" stroke="#B8B5B0"/>
+  <text x="630" y="127" text-anchor="middle" fill="#5A5752" font-size="12">3</text>
+  <rect x="605" y="136" width="50" height="28" rx="3" fill="#E8D5D0" stroke="#B8B5B0"/>
+  <text x="630" y="155" text-anchor="middle" fill="#5A5752" font-size="12">4</text>
+  <text x="630" y="180" text-anchor="middle" fill="#5A5752" font-size="10">stack: [4, 3]</text>
+  <text x="360" y="210" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Result: [4, 4, -1, -1]</text>
+  <text x="360" y="228" text-anchor="middle" fill="#5A5752" font-size="11">Elements left on the stack have no next greater element → -1</text>
+</svg>
 
 ---
 
@@ -286,6 +332,8 @@ int maximalRectangle(vector<vector<char>>& matrix) {
 
 ### Pattern 6: Monotonic Deque (Sliding Window Max/Min)
 
+> **When to use:** sliding window maximum/minimum
+
 Maintain a **monotonic decreasing deque** of indices for sliding window maximum. Remove smaller elements from back, remove out-of-window elements from front.
 
 ```cpp
@@ -311,6 +359,8 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 ---
 
 ### Pattern 7: Greedy Stack (Remove Digits / Lexicographic Optimization)
+
+> **When to use:** remove digits, lexicographic optimization
 
 Use the stack to maintain an optimal ordering. While the stack top is worse than the current element and we still have removals left, pop it.
 
@@ -466,8 +516,20 @@ public:
 3. **Not resetting state** after processing elements
 4. **Index vs value** confusion in monotonic stack problems
 
+## Quick Reference
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| Parentheses | "valid brackets", "minimum remove" | Match open/close pairs |
+| Expression | "calculate", "evaluate" | Operator precedence via stack |
+| Next Greater | "next greater", "next warmer day" | Monotonic decreasing stack |
+| Next Smaller | "next smaller", "stock span" | Monotonic increasing stack |
+| Histogram | "largest rectangle", "maximal rectangle" | Expand left/right using stack |
+| Sliding Window Max | "maximum in window" | Monotonic deque |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures (monotonic stack/queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

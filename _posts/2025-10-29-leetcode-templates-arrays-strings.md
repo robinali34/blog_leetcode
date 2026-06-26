@@ -8,7 +8,11 @@ tags: [leetcode, templates, arrays, strings]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for sliding window, two pointers, prefix sum, KMP, Manacher, and rolling hash.
+Arrays and strings are the foundation of coding interviews — you'll encounter them in nearly every problem set. This page provides battle-tested C++ templates for the most important patterns: sliding window, two pointers, binary search on answer, prefix sum, hash maps, and string algorithms like KMP and Manacher. Master these and you'll have the tools to solve a huge fraction of Medium-level problems.
+
+> **This template covers the fundamental patterns for array and string problems.** Sliding window, two pointers, and prefix sum together solve a huge fraction of Medium problems.
+
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
 ## Contents
 
@@ -23,6 +27,8 @@ Minimal, copy-paste C++ for sliding window, two pointers, prefix sum, KMP, Manac
 - [String Rolling Hash](#string-rolling-hash-rabin–karp)
 
 ## Sliding Window (fixed/variable)
+
+**When to use:** "longest substring", "shortest subarray", "at most k distinct", or any problem asking for a contiguous subrange that satisfies a constraint.
 
 ```cpp
 // Variable-size window (e.g., longest substring without repeating)
@@ -53,6 +59,8 @@ int longestNoRepeat(const string& s){
 
 ## Two Pointers (sorted arrays/strings)
 
+**When to use:** "pair with target sum in sorted array", "container with most water", "valid palindrome", or when the array is sorted and you can shrink the search space from both ends.
+
 ```cpp
 bool twoSumSorted(const vector<int>& a, int target){
     int l = 0, r = (int)a.size() - 1;
@@ -74,6 +82,8 @@ bool twoSumSorted(const vector<int>& a, int target){
 
 ## Binary Search on Answer (monotonic predicate)
 
+**When to use:** "minimize the maximum", "feasibility check", "minimum speed/capacity", or when the answer has a monotonic property (if x works, then x+1 also works).
+
 ```cpp
 long long binsearch(long long lo, long long hi){ // [lo, hi]
     auto good = [&](long long x){ /* check feasibility */ return true; };
@@ -94,6 +104,8 @@ long long binsearch(long long lo, long long hi){ // [lo, hi]
 | 1870 | Minimum Speed to Arrive on Time | [Link](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/30/medium-1870-minimum-speed-to-arrive-on-time/) |
 
 ## Prefix Sum / Difference Array
+
+**When to use:** "range sum query", "subarray sum equals k", "number of subarrays with sum", or when you need O(1) range queries after O(n) preprocessing.
 
 ```cpp
 vector<int> prefix(const vector<int>& a){
@@ -117,6 +129,8 @@ vector<int> prefix(const vector<int>& a){
 
 ## Hash Map Frequencies
 
+**When to use:** "two sum", "group anagrams", "frequency count", "contains duplicate", or any problem where you need O(1) lookups by value.
+
 ```cpp
 unordered_map<int,int> freq;
 for (int x: nums) ++freq[x];
@@ -136,6 +150,9 @@ for (int x: nums) ++freq[x];
 | 2342 | Max Sum of a Pair With Equal Sum of Digits | [Link](https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/11/medium-2342-max-sum-of-a-pair-with-equal-sum-of-digits/) |
 
 ## KMP (Substring Search)
+
+**When to use:** "find pattern in string", "shortest palindrome by prepending", "repeated string match", or when you need O(n + m) exact pattern matching.
+
 KMP is a pattern matching algorithm that finds occurrences of a pattern string P within a text string T efficiently — without re-checking characters that are already known to match.
 
 While a naive substring search checks character-by-character and backtracks when a mismatch occurs (worst case O(n * m)),
@@ -177,6 +194,8 @@ vector<int> kmpPi(const string& s) {
 
 ## Manacher (Longest Palindromic Substring, O(n))
 
+**When to use:** "longest palindromic substring" when O(n) time is required, or counting all palindromic substrings efficiently.
+
 ```cpp
 string manacher(const string& s) {
     string t = "|";
@@ -202,6 +221,8 @@ string manacher(const string& s) {
 
 ## Z-Algorithm (Pattern occurrences)
 
+**When to use:** "find all pattern occurrences", "longest happy prefix", or as an alternative to KMP for pattern matching.
+
 ```cpp
 vector<int> zfunc(const string& s) {
     int n = s.size();
@@ -221,6 +242,8 @@ vector<int> zfunc(const string& s) {
 | 1392 | Longest Happy Prefix | [Link](https://leetcode.com/problems/longest-happy-prefix/) | - |
 
 ## String Rolling Hash (Rabin–Karp)
+
+**When to use:** "repeated DNA sequences", "longest duplicate substring", or when you need to compare many substrings in O(1) each after O(n) preprocessing.
 
 ```cpp
 struct RH {
@@ -246,6 +269,17 @@ struct RH {
 | 187 | Repeated DNA Sequences | [Link](https://leetcode.com/problems/repeated-dna-sequences/) | - |
 | 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-686-repeated-string-match/) |
 | 1044 | Longest Duplicate Substring | [Link](https://leetcode.com/problems/longest-duplicate-substring/) | - |
+
+## Summary
+
+| Pattern | Signal Phrases | Time |
+|---|---|---|
+| Sliding Window | "substring", "subarray", "at most k" | O(n) |
+| Two Pointers | "sorted", "pair", "container" | O(n) |
+| Binary Search on Answer | "minimize max", "feasibility" | O(n log range) |
+| Prefix Sum | "range sum", "subarray sum" | O(n) build, O(1) query |
+| Hash Map | "frequency", "group", "two sum" | O(n) |
+| KMP | "pattern in string" | O(n + m) |
 
 ## More templates
 

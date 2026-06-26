@@ -8,7 +8,60 @@ tags: [leetcode, templates, graph]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for graph traversal, shortest paths, and topological sort. 0-indexed unless noted.
+Graph algorithms are among the most versatile tools in competitive programming and coding interviews. A graph is simply a collection of nodes (vertices) connected by edges, and nearly every "network," "grid," or "relationship" problem maps onto one. This page provides production-ready C++ templates for the most common graph patterns — from basic traversal to advanced connectivity — so you can focus on modeling the problem rather than re-deriving algorithms from scratch. All templates are 0-indexed unless noted.
+
+> **New to Graphs?** A graph consists of **nodes** (things) connected by **edges** (relationships between things). Most graph problems on LeetCode reduce to one of three categories: **traversal** (BFS/DFS — explore or find shortest paths), **shortest paths** with weights (Dijkstra, Bellman-Ford), or **connectivity / ordering** (Union-Find, Topological Sort). If you can identify which category your problem falls into, you're halfway to the solution.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 370" style="max-width:720px;width:100%;height:auto;display:block;margin:1.5em auto;">
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#B8B5B0"/>
+    </marker>
+  </defs>
+  <!-- Start node -->
+  <rect x="260" y="10" width="200" height="44" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="360" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#5A5752" font-weight="bold">Graph Problem?</text>
+  <!-- Level 1 branches -->
+  <line x1="300" y1="54" x2="160" y2="100" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="360" y1="54" x2="360" y2="100" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="420" y1="54" x2="520" y2="100" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- Question nodes -->
+  <rect x="50" y="100" width="220" height="40" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="160" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5A5752">Unweighted edges?</text>
+  <rect x="260" y="100" width="200" height="40" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="360" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5A5752">Ordering with dependencies?</text>
+  <rect x="470" y="100" width="200" height="40" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="570" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5A5752">Connected components?</text>
+  <!-- Arrows to answers -->
+  <line x1="160" y1="140" x2="160" y2="186" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="320" y1="140" x2="280" y2="186" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="400" y1="140" x2="440" y2="186" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="570" y1="140" x2="570" y2="186" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- Answer nodes row 1 -->
+  <rect x="80" y="190" width="160" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="160" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5A5752" font-weight="bold">BFS</text>
+  <rect x="200" y="190" width="160" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="280" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5A5752" font-weight="bold">Topological Sort</text>
+  <rect x="490" y="190" width="160" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="570" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5A5752" font-weight="bold">DSU or DFS</text>
+  <!-- Weighted branch from start -->
+  <line x1="360" y1="140" x2="360" y2="252" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="260" y="256" width="200" height="40" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="360" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5A5752">Weighted edges?</text>
+  <!-- Weighted sub-branches -->
+  <line x1="310" y1="296" x2="220" y2="326" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="410" y1="296" x2="500" y2="326" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="100" y="320" width="240" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="220" y="345" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5A5752" font-weight="bold">Dijkstra</text>
+  <text x="220" y="355" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#5A5752">(non-negative)</text>
+  <rect x="380" y="320" width="240" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="500" y="345" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5A5752" font-weight="bold">Bellman-Ford</text>
+  <text x="500" y="355" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#5A5752">(negative allowed)</text>
+  <!-- Answer node for topo -->
+  <rect x="360" y="190" width="120" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="420" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#5A5752">↓ weighted?</text>
+  <text x="420" y="224" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#5A5752">see below</text>
+</svg>
 
 ## Contents
 
@@ -26,6 +79,8 @@ Minimal, copy-paste C++ for graph traversal, shortest paths, and topological sor
 ---
 
 ## BFS (unweighted)
+
+**When to use:** "shortest path" or "minimum steps" on a grid or unweighted graph; "nearest exit"; "level-order traversal."
 
 Grid: 4-directional. Use for shortest path when all edges have weight 1.
 
@@ -61,6 +116,8 @@ int bfs_grid(const vector<string>& g, int si, int sj, int ti, int tj) {
 ---
 
 ## Multi-source BFS
+
+**When to use:** "distance from nearest X"; "spread from multiple starting points simultaneously"; "rotting oranges" or "fire spreading" patterns.
 
 Start from multiple nodes (distance 0). Same as BFS with initial queue containing all sources.
 
@@ -100,6 +157,8 @@ int multi_bfs(const vector<string>& g, const vector<pair<int,int>>& sources) {
 
 ## BFS with state (bitmask)
 
+**When to use:** "visit all nodes/keys"; "shortest path visiting a subset"; state changes at each step (e.g., collecting keys unlocks doors).
+
 State = (node, mask). Use when “visit all keys” or “visit all nodes” is part of the goal.
 
 ```cpp
@@ -137,6 +196,8 @@ int bfs_mask(int n, const vector<vector<int>>& g, int start) {
 
 ## Topological sort (Kahn)
 
+**When to use:** "course prerequisites"; "build order"; "can I finish all tasks?"; finding a valid ordering of a DAG; cycle detection in directed graphs.
+
 Indegree-based. Edge (u, v) means u before v. Returns order or empty if cycle.
 
 ```cpp
@@ -169,6 +230,8 @@ vector<int> topo_kahn(int n, const vector<vector<int>>& g) {
 
 ## Topological sort (DFS)
 
+**When to use:** Same as Kahn's, but preferred when you also need cycle detection via back-edges; "find all safe states"; problems where DFS post-order gives useful structure.
+
 Three colors: 0 unvisited, 1 visiting, 2 done. Push to order when finishing. Reverse = topo order. Back edge (neighbor color 1) = cycle.
 
 ```cpp
@@ -199,6 +262,8 @@ vector<int> topo_dfs(int n, const vector<vector<int>>& g) {
 ---
 
 ## Dijkstra
+
+**When to use:** "shortest path" with non-negative weights; "minimum cost to reach destination"; "network delay time"; any weighted graph where all weights ≥ 0.
 
 Nonnegative weights. Adjacency list: g[u] = [(v, w), ...]. Returns distances from source s.
 
@@ -297,6 +362,8 @@ long long dijkstra_grid_open(const vector<vector<int>>& open) {
 
 ## 0-1 BFS
 
+**When to use:** Edge weights are only 0 or 1; "minimum flips/changes to reach target"; grid problems where some moves are free and others cost 1.
+
 Weights 0 or 1. Deque: push front for 0, back for 1. O(V + E).
 
 ```cpp
@@ -325,6 +392,8 @@ vector<int> bfs01(int n, const vector<vector<pair<int,int>>>& g, int s) {
 
 ## Bellman-Ford (k edges)
 
+**When to use:** "cheapest flight within K stops"; shortest path with a constraint on number of edges; negative edge weights allowed; detecting negative cycles.
+
 Relax all edges up to k times. Use when path length (number of edges) is limited.
 
 ```cpp
@@ -352,6 +421,8 @@ vector<long long> bellman_ford_k(int n, const vector<array<int,3>>& edges, int s
 ---
 
 ## Tarjan (SCC / bridges)
+
+**When to use:** "critical connections"; "articulation points"; "strongly connected components"; finding bridges whose removal disconnects the graph.
 
 SCC: same low-link = same component. Bridges: edge (u,v) is bridge iff low[v] > tin[u].
 
@@ -425,6 +496,8 @@ vector<pair<int,int>> bridges(int n, const vector<vector<int>>& g) {
 
 ## DSU
 
+**When to use:** "number of connected components"; "are two nodes in the same group?"; "redundant connection" (cycle detection in undirected graph); dynamic connectivity as edges are added.
+
 Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
 
 | ID | Title | Link | Solution |
@@ -440,8 +513,22 @@ Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-
 
 ---
 
+## Algorithm Summary
+
+| Algorithm | When to Use | Time | Space |
+|---|---|---|---|
+| BFS | Shortest path, unweighted | O(V+E) | O(V) |
+| Dijkstra | Shortest path, non-negative weights | O((V+E) log V) | O(V) |
+| Bellman-Ford | Shortest path, negative weights, k edges | O(VE) | O(V) |
+| Topological Sort | DAG ordering, prerequisites | O(V+E) | O(V) |
+| DSU (Union-Find) | Connected components, cycle detection | O(α(n)) per op | O(V) |
+| Tarjan | SCC, bridges, articulation points | O(V+E) | O(V) |
+
+---
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures (DSU, segment tree, etc.):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Binary search, rotated array, 2D:** [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

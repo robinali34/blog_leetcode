@@ -8,7 +8,9 @@ tags: [leetcode, templates, array, matrix]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for two pointers, sliding window, prefix sum, binary search, and matrix operations. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/posts/2026-01-20-leetcode-templates-search/).
+Welcome to the Array & Matrix template collection! These are ready-to-use C++ snippets for the most common array patterns: two pointers, sliding window, prefix sum, binary search, and matrix operations. Each template is minimal enough to memorize yet complete enough to paste into a solution and adapt. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/posts/2026-01-20-leetcode-templates-search/).
+
+> **Arrays are the most common data structure in interviews.** Most problems start with an array or can be reduced to one. Learning these patterns well — two pointers, sliding window, prefix sum, and binary search — covers roughly 40% of all LeetCode problems.
 
 ## Contents
 
@@ -20,6 +22,8 @@ Minimal, copy-paste C++ for two pointers, sliding window, prefix sum, binary sea
 - [Array Manipulation](#array-manipulation)
 
 ## Two Pointers
+
+**When to use:** The problem says "sorted array", asks for a "pair with target sum", mentions "container with most water", or requires comparing elements from both ends.
 
 ### Two Sum on Sorted Array
 
@@ -81,6 +85,65 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 
 ## Sliding Window
 
+**When to use:** The problem asks for a "subarray of size k", "longest/shortest subarray with property X", or any contiguous subarray optimization.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 170" style="max-width:520px;width:100%">
+  <style>
+    text { font-family: ui-monospace, monospace; fill: #5A5752; }
+    .label { font-size: 13px; }
+    .idx { font-size: 11px; }
+    .arrow-label { font-size: 11px; font-style: italic; }
+  </style>
+  <!-- array boxes -->
+  <g transform="translate(30,50)">
+    <rect x="0"   y="0" width="50" height="40" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="25"  y="26" text-anchor="middle" class="label">3</text>
+    <text x="25"  y="55" text-anchor="middle" class="idx">0</text>
+    <rect x="60"  y="0" width="50" height="40" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="85"  y="26" text-anchor="middle" class="label">1</text>
+    <text x="85"  y="55" text-anchor="middle" class="idx">1</text>
+    <rect x="120" y="0" width="50" height="40" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="145" y="26" text-anchor="middle" class="label">7</text>
+    <text x="145" y="55" text-anchor="middle" class="idx">2</text>
+    <rect x="180" y="0" width="50" height="40" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="205" y="26" text-anchor="middle" class="label">2</text>
+    <text x="205" y="55" text-anchor="middle" class="idx">3</text>
+    <rect x="240" y="0" width="50" height="40" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="265" y="26" text-anchor="middle" class="label">5</text>
+    <text x="265" y="55" text-anchor="middle" class="idx">4</text>
+    <rect x="300" y="0" width="50" height="40" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="325" y="26" text-anchor="middle" class="label">9</text>
+    <text x="325" y="55" text-anchor="middle" class="idx">5</text>
+    <rect x="360" y="0" width="50" height="40" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="385" y="26" text-anchor="middle" class="label">4</text>
+    <text x="385" y="55" text-anchor="middle" class="idx">6</text>
+    <rect x="420" y="0" width="50" height="40" rx="4" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="445" y="26" text-anchor="middle" class="label">8</text>
+    <text x="445" y="55" text-anchor="middle" class="idx">7</text>
+  </g>
+  <!-- window bracket -->
+  <rect x="148" y="42" width="194" height="52" rx="6" fill="none" stroke="#D4D8E0" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <!-- left pointer -->
+  <line x1="175" y1="38" x2="175" y2="18" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#arrowUp)"/>
+  <text x="175" y="12" text-anchor="middle" class="arrow-label" fill="#5A5752">left</text>
+  <!-- right pointer -->
+  <line x1="325" y1="38" x2="325" y2="18" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#arrowUp)"/>
+  <text x="325" y="12" text-anchor="middle" class="arrow-label" fill="#5A5752">right</text>
+  <!-- shrink-left arrow -->
+  <line x1="165" y1="130" x2="210" y2="130" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#arrowRight)"/>
+  <text x="188" y="148" text-anchor="middle" class="arrow-label">shrink left</text>
+  <!-- expand-right arrow -->
+  <line x1="380" y1="130" x2="335" y2="130" stroke="#B8B5B0" stroke-width="1.5" marker-end="url(#arrowLeft)"/>
+  <text x="358" y="148" text-anchor="middle" class="arrow-label">expand right</text>
+  <!-- window label -->
+  <text x="245" y="130" text-anchor="middle" class="label" fill="#5A5752">window [left, right]</text>
+  <defs>
+    <marker id="arrowUp" markerWidth="8" markerHeight="6" refX="4" refY="6" orient="auto"><path d="M0,6 L4,0 L8,6" fill="none" stroke="#B8B5B0" stroke-width="1.2"/></marker>
+    <marker id="arrowRight" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#B8B5B0" stroke-width="1.2"/></marker>
+    <marker id="arrowLeft" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="none" stroke="#B8B5B0" stroke-width="1.2"/></marker>
+  </defs>
+</svg>
+
 ### Fixed Size Window
 
 ```cpp
@@ -134,6 +197,8 @@ int longestSubarray(vector<int>& nums, int k) {
 
 ## Prefix Sum
 
+**When to use:** The problem involves "range sum queries", "subarray sum equals k", or asks you to compute cumulative totals over a range efficiently.
+
 ### Basic Prefix Sum
 
 ```cpp
@@ -185,6 +250,8 @@ vector<int> getModifiedArray(int length, vector<vector<int>>& updates) {
 | 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) |
 
 ## Binary Search
+
+**When to use:** The input is sorted, the problem says "find position", "search", or you need to minimize/maximize a value where the answer is monotonic.
 
 ### Search in Sorted Array
 
@@ -241,6 +308,8 @@ int searchRotated(vector<int>& nums, int target) {
 | 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
 
 ## Matrix Operations
+
+**When to use:** The problem says "rotate image", "spiral order", "transpose matrix", or involves traversing a 2D grid in a specific pattern.
 
 ### Rotate Matrix
 
@@ -320,6 +389,8 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
 
 ## Array Manipulation
 
+**When to use:** The problem involves "merge intervals", "jump game", "overlapping ranges", or requires rearranging array elements in-place.
+
 ### Merge Intervals
 
 ```cpp
@@ -366,8 +437,19 @@ int jump(vector<int>& nums) {
 | 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
 | 969 | Pancake Sorting | [Link](https://leetcode.com/problems/pancake-sorting/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/) |
 
+## Summary
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| Two Pointers | "sorted array", "pair sum", "container" | Start/end pointers moving inward |
+| Sliding Window | "substring", "subarray of size k" | Expand right, shrink left |
+| Prefix Sum | "range sum", "subarray sum equals k" | Precompute cumulative sums |
+| Binary Search | "sorted", "find position" | Halve search space |
+| Matrix | "rotate", "spiral", "transpose" | Index mapping |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Arrays & Strings, Search:** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Data structures, Graph:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

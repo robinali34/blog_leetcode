@@ -8,7 +8,11 @@ tags: [leetcode, templates, design, data-structures]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for LRU/LFU cache, Trie, time-based key-value store, and common design patterns.
+Data structure design problems are among the most popular interview questions at top tech companies. This page provides complete, tested C++ implementations for LRU/LFU cache, Trie, time-based key-value store, and other classic design patterns. The key insight for most of these problems is combining two or more simple structures to achieve the required time complexity.
+
+> **Design problems test your ability to compose data structures.** The trick is almost always combining a hash map with another structure (linked list, heap, array) to get O(1) for multiple operations.
+
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 
 ## Contents
 
@@ -20,6 +24,8 @@ Minimal, copy-paste C++ for LRU/LFU cache, Trie, time-based key-value store, and
 - [Design Patterns](#design-patterns)
 
 ## Stack-based Design
+
+**When to use:** "get min/max in O(1)", "design a stack with extra operations", or when you need to track additional state alongside the primary data.
 
 ### Min Stack
 Maintain a primary stack for data and an auxiliary stack to track the minimum value at each state.
@@ -44,6 +50,8 @@ public:
 | 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-155-min-stack/) |
 
 ## LRU Cache
+
+**When to use:** "least recently used", "design a cache with O(1) get and put", or any eviction policy based on access recency.
 
 Least Recently Used cache using hash map + doubly linked list.
 
@@ -171,6 +179,8 @@ public:
 
 ## LFU Cache
 
+**When to use:** "least frequently used", "evict the element used fewest times", or cache designs where frequency matters more than recency.
+
 Least Frequently Used cache.
 
 ```cpp
@@ -232,6 +242,8 @@ public:
 
 ## Trie
 
+**When to use:** "prefix search", "autocomplete", "word dictionary with wildcards", or any problem requiring efficient prefix lookups over a set of strings.
+
 Prefix tree for efficient string operations.
 
 ```cpp
@@ -290,6 +302,8 @@ public:
 
 ## Time-based Key-Value Store
 
+**When to use:** "get value at timestamp", "versioned storage", or when you need to retrieve the most recent value at or before a given time.
+
 ```cpp
 class TimeMap {
     unordered_map<string, vector<pair<int, string>>> store;
@@ -330,6 +344,8 @@ public:
 | 1146 | Snapshot Array | [Link](https://leetcode.com/problems/snapshot-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/19/medium-1146-snapshot-array/) |
 
 ## Design Patterns
+
+**When to use:** "random with weight", "design tic-tac-toe", "iterator", or other custom data structure problems that combine multiple techniques.
 
 ### Random Pick with Weight
 
@@ -393,6 +409,16 @@ public:
 | 341 | Flatten Nested List Iterator | [Link](https://leetcode.com/problems/flatten-nested-list-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/24/medium-341-flatten-nested-list-iterator/) |
 | 1115 | Print FooBar Alternately | [Link](https://leetcode.com/problems/print-foobar-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/28/medium-1115-print-foobar-alternately/) |
 | 1188 | Design Bounded Blocking Queue | [Link](https://leetcode.com/problems/design-bounded-blocking-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/29/medium-1188-design-bounded-blocking-queue/) |
+
+## Summary
+
+| Pattern | Signal Phrases | Structures Used |
+|---|---|---|
+| Min Stack | "min in O(1)" | Two stacks |
+| LRU Cache | "least recently used" | Hash map + doubly linked list |
+| LFU Cache | "least frequently used" | Hash map + frequency buckets |
+| Trie | "prefix search", "autocomplete" | Tree of character nodes |
+| Time-based KV | "get value at timestamp" | Hash map + binary search |
 
 ## More templates
 

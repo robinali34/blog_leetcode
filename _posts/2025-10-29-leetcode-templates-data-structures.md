@@ -7,7 +7,9 @@ permalink: /posts/2025-10-29-leetcode-templates-data-structures/
 tags: [leetcode, templates, data-structures, algorithms]
 ---
 
-Minimal, copy-paste C++ templates for common structures and patterns. Each snippet is self-contained and uses standard indexing.
+This page is your toolbox of essential data structures for LeetCode. Each template is self-contained C++ you can copy directly into your solution. They range from beginner-friendly (binary search, prefix sum) to advanced (segment tree, sparse table) — start with what you need and come back for more as you level up.
+
+> **This is the foundation.** These data structures are the building blocks that other templates (DFS, BFS, DP) build on. Master binary search and prefix sums first, then work outward — you'll see them appear inside graph, tree, and dynamic programming solutions.
 
 ## Contents
 
@@ -25,6 +27,8 @@ Minimal, copy-paste C++ templates for common structures and patterns. Each snipp
 ---
 
 ## Binary Search (Bounds)
+
+**When to use:** The input is sorted (or the answer space is monotonic) and you need to find a boundary — first element ≥ x, last element ≤ x, or the minimum/maximum value satisfying a condition.
 
 Half-open range `[lo, hi)`. Use when you need first ≥ x (lower_bound) or first > x (upper_bound).
 
@@ -73,6 +77,8 @@ int bsearch_ans(int lo, int hi, F ok) {
 
 ## Prefix Sum & Difference Array
 
+**When to use:** You need to answer many "sum of subarray [l, r]" queries, or apply the same increment to many ranges efficiently.
+
 Prefix sum: range sum in O(1). Difference array: range add in O(1), then one prefix sum to recover.
 
 ```cpp
@@ -100,6 +106,8 @@ void range_add(vector<long long>& diff, int l, int r, long long d) {
 ---
 
 ## Monotonic Stack
+
+**When to use:** You need "next greater element", "next smaller element", "largest rectangle in histogram", or any problem where each element is compared to its neighbors in one direction.
 
 Maintain indices with strictly increasing (or decreasing) values. Use for next greater/smaller, or histogram rectangle.
 
@@ -148,6 +156,8 @@ vector<int> next_greater_circular(const vector<int>& a) {
 
 ## Monotonic Queue
 
+**When to use:** You need the maximum or minimum within a sliding window of fixed size, or need to maintain a monotonic property as elements enter and leave a window.
+
 Deque of indices with values in monotonic order. Sliding window max/min.
 
 ```cpp
@@ -173,6 +183,8 @@ vector<int> max_sliding_window(const vector<int>& a, int k) {
 ---
 
 ## Heap / Priority Queue
+
+**When to use:** You repeatedly need the smallest (or largest) element — merging k sorted lists, scheduling, median maintenance, or any "top K" problem.
 
 Min-heap: `priority_queue<T, vector<T>, greater<T>>`. K-way merge: push heads, pop min, push next from same list.
 
@@ -203,6 +215,8 @@ vector<int> merge_k_sorted(const vector<vector<int>>& lists) {
 
 ## Union-Find (DSU)
 
+**When to use:** You need to track connected components, determine if two nodes are in the same group, or merge groups — common in graph connectivity, redundant edge detection, and "accounts merge" problems.
+
 Path compression + rank merge. `find(x)`, `unite(a,b)`.
 
 ```cpp
@@ -230,6 +244,8 @@ struct DSU {
 ---
 
 ## Trie
+
+**When to use:** Problems involve prefix matching, autocomplete, word search in a dictionary, or "find all words with prefix X". Also useful for XOR-maximization with a bitwise trie.
 
 Fixed alphabet (e.g. 26). Insert and search in O(|s|).
 
@@ -271,6 +287,8 @@ struct Trie {
 
 ## Segment Tree
 
+**When to use:** You need both range queries (sum, min, max) AND point or range updates on the same array. More powerful than Fenwick tree when you need lazy propagation or non-commutative operations.
+
 0-indexed range [0, n-1]. Point update, range sum (or min/max). Recursive implementation.
 
 ```cpp
@@ -305,6 +323,8 @@ struct SegTree {
 
 ## Fenwick Tree (BIT)
 
+**When to use:** You need prefix sums with point updates — simpler and faster constant than segment tree when you don't need lazy propagation. Great for counting inversions or "count of smaller numbers after self".
+
 1-indexed. Point add, prefix sum. Range sum [l, r] = sum(r) - sum(l-1).
 
 ```cpp
@@ -333,6 +353,8 @@ struct BIT {
 ---
 
 ## Sparse Table (Range Min/Max)
+
+**When to use:** You need O(1) range min/max/gcd queries with NO updates. Perfect for static arrays where you precompute once and query many times.
 
 O(n log n) build, O(1) range min/max. Idempotent only (min, max, gcd). 0-indexed.
 
@@ -365,8 +387,23 @@ struct SparseTable {
 
 ---
 
+---
+
+## Quick Reference
+
+| Structure | When to Use | Operations | Time |
+|---|---|---|---|
+| Binary Search | Sorted data, find boundary | lower/upper bound | O(log n) |
+| Prefix Sum | Range sum queries | build + query | O(n) + O(1) |
+| Monotonic Stack | Next greater/smaller | push/pop | O(n) |
+| DSU | Connected components, union | find/union | O(α(n)) |
+| Trie | Prefix search, autocomplete | insert/search | O(L) |
+| Segment Tree | Range query + update | build/query/update | O(n) + O(log n) |
+| Fenwick Tree | Prefix sums + point update | update/query | O(log n) |
+
 ## More Templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Graph (BFS, Dijkstra, Topo, DSU):** [Graph Templates](/posts/2025-10-29-leetcode-templates-graph/)
 - **Binary search (rotated, 2D, answer space):** [Search Templates](/posts/2026-01-20-leetcode-templates-search/)
 - **DP, Backtracking, Greedy, Stack:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

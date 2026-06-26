@@ -8,7 +8,61 @@ tags: [leetcode, templates, linked-list]
 ---
 
 {% raw %}
-Minimal, copy-paste C++ for traversal, two pointers, dummy node, reversal, merge, cycle detection, and circular list.
+This page collects battle-tested C++ templates for every major linked-list pattern you'll see on LeetCode. Each section includes ready-to-use code, the signal phrases that tell you which pattern to reach for, and a quick explanation of the core idea. Bookmark it, copy what you need, and focus your energy on the actual problem logic.
+
+> **New to Linked Lists?** A linked list is a chain of nodes where each node points to the next. Unlike arrays, you can't jump to index *i* — you must walk from the head. The tradeoff: O(1) insert/delete at known positions, but O(n) access.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" style="max-width:680px;width:100%;height:auto;display:block;margin:1.5em auto">
+  <style>
+    .ll-node { fill: #A8B5A2; stroke: #6B7D65; stroke-width: 1.5; rx: 8; }
+    .ll-dummy { fill: #C4A882; stroke: #9A7E5A; stroke-width: 1.5; rx: 8; }
+    .ll-null { fill: #D4A5A5; stroke: #B07878; stroke-width: 1.5; rx: 8; }
+    .ll-text { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; fill: #3A3A3A; text-anchor: middle; dominant-baseline: central; }
+    .ll-label { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #6B6B6B; text-anchor: middle; }
+    .ll-title { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #555; font-weight: 600; }
+    .ll-arrow { stroke: #7A7A7A; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#7A7A7A"/>
+    </marker>
+  </defs>
+  <!-- Row 1: Basic linked list -->
+  <text x="30" y="18" class="ll-title">Basic linked list</text>
+  <text x="55" y="45" class="ll-label">head</text>
+  <line x1="55" y1="52" x2="55" y2="62" stroke="#999" stroke-width="1" marker-end="url(#arrowhead)"/>
+  <rect x="20" y="65" width="70" height="35" class="ll-node"/>
+  <text x="55" y="82" class="ll-text">1</text>
+  <line x1="90" y1="82" x2="130" y2="82" class="ll-arrow"/>
+  <rect x="130" y="65" width="70" height="35" class="ll-node"/>
+  <text x="165" y="82" class="ll-text">2</text>
+  <line x1="200" y1="82" x2="240" y2="82" class="ll-arrow"/>
+  <rect x="240" y="65" width="70" height="35" class="ll-node"/>
+  <text x="275" y="82" class="ll-text">3</text>
+  <line x1="310" y1="82" x2="350" y2="82" class="ll-arrow"/>
+  <rect x="350" y="65" width="70" height="35" class="ll-null"/>
+  <text x="385" y="82" class="ll-text">null</text>
+  <!-- Row 2: Dummy node pattern -->
+  <text x="30" y="142" class="ll-title">Dummy node pattern</text>
+  <text x="55" y="162" class="ll-label">dummy</text>
+  <line x1="55" y1="169" x2="55" y2="177" stroke="#999" stroke-width="1" marker-end="url(#arrowhead)"/>
+  <rect x="20" y="180" width="70" height="35" class="ll-dummy"/>
+  <text x="55" y="197" class="ll-text">0</text>
+  <line x1="90" y1="197" x2="130" y2="197" class="ll-arrow"/>
+  <text x="165" y="162" class="ll-label">head</text>
+  <line x1="165" y1="169" x2="165" y2="177" stroke="#999" stroke-width="1" marker-end="url(#arrowhead)"/>
+  <rect x="130" y="180" width="70" height="35" class="ll-node"/>
+  <text x="165" y="197" class="ll-text">1</text>
+  <line x1="200" y1="197" x2="240" y2="197" class="ll-arrow"/>
+  <rect x="240" y="180" width="70" height="35" class="ll-node"/>
+  <text x="275" y="197" class="ll-text">2</text>
+  <line x1="310" y1="197" x2="350" y2="197" class="ll-arrow"/>
+  <rect x="350" y="180" width="70" height="35" class="ll-node"/>
+  <text x="385" y="197" class="ll-text">3</text>
+  <line x1="420" y1="197" x2="460" y2="197" class="ll-arrow"/>
+  <rect x="460" y="180" width="70" height="35" class="ll-null"/>
+  <text x="495" y="197" class="ll-text">null</text>
+</svg>
 
 ## Contents
 
@@ -22,6 +76,8 @@ Minimal, copy-paste C++ for traversal, two pointers, dummy node, reversal, merge
 - [Circular Linked List](#circular-linked-list)
 
 ## ListNode Definition
+
+**When to use:** Every linked-list problem — this is the building block. Know the struct by heart so you never waste time on boilerplate.
 
 ### Standard Definition
 
@@ -177,6 +233,8 @@ deleteList(head);
 
 ## Basic Operations
 
+**When to use:** You need to "visit every node", "count nodes", "find a value", or "collect values into an array". Also the foundation for insert/delete at arbitrary positions.
+
 ### Traversal
 
 ```cpp
@@ -248,6 +306,8 @@ ListNode* deleteNode(ListNode* head, int val) {
 
 ## Two Pointers
 
+**When to use:** The problem says "middle of list", "kth from end", "intersection of two lists", or "split list into halves". Use fast/slow pointers to solve in one pass without knowing the length.
+
 ### Fast and Slow Pointers
 
 ```cpp
@@ -312,7 +372,7 @@ ListNode* partition(ListNode* head, int x) {
 
 ## Dummy Node Pattern
 
-Use dummy node to simplify edge cases (empty list, head deletion).
+**When to use:** The problem involves "delete head", "merge lists", "insert at front", or any operation where the head might change. A dummy node in front of head eliminates null-check edge cases.
 
 ```cpp
 // Remove elements with dummy node
@@ -343,6 +403,8 @@ ListNode* removeElements(ListNode* head, int val) {
 | 203 | Remove Linked List Elements | [Link](https://leetcode.com/problems/remove-linked-list-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) |
 
 ## Reversal
+
+**When to use:** The problem says "reverse linked list", "reverse between positions", "reverse in groups of k", or "palindrome linked list". The core trick is rewiring `next` pointers as you walk.
 
 ### Reverse Entire List
 
@@ -432,6 +494,8 @@ ListNode* reverseKGroup(ListNode* head, int k) {
 
 ## Merge
 
+**When to use:** The problem says "merge two sorted lists", "merge k sorted lists", or "add two numbers represented as lists". Compare heads, advance the smaller, and use a dummy node to collect the result.
+
 ### Merge Two Sorted Lists
 
 ```cpp
@@ -482,6 +546,8 @@ ListNode* mergeKListsHelper(vector<ListNode*>& lists, int left, int right) {
 | 1669 | Merge In Between Linked Lists | [Link](https://leetcode.com/problems/merge-in-between-linked-lists/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/15/medium-1669-merge-in-between-linked-lists/) |
 
 ## Cycle Detection
+
+**When to use:** The problem asks "has cycle", "find cycle start", or "find the duplicate number" (which reduces to cycle detection). Floyd's algorithm: if fast and slow meet, there's a cycle.
 
 ### Detect Cycle (Floyd's Algorithm)
 
@@ -534,6 +600,8 @@ ListNode* detectCycle(ListNode* head) {
 
 ## Circular Linked List
 
+**When to use:** The problem mentions "circular linked list", "sorted circular list", or "rotate list". The key difference from normal lists: the tail's `next` points back to the head instead of `nullptr`.
+
 ### Insert into Sorted Circular List
 
 ```cpp
@@ -572,8 +640,19 @@ ListNode* insert(ListNode* head, int insertVal) {
 | 708 | Insert into a Sorted Circular Linked List | [Link](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) |
 | 382 | Linked List Random Node | [Link](https://leetcode.com/problems/linked-list-random-node/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/08/medium-382-linked-list-random-node/) |
 
+## Quick-Reference Summary
+
+| Pattern | Signal Phrases | Key Idea |
+|---|---|---|
+| Two Pointers | "middle", "kth from end", "intersection" | Fast moves 2x, slow moves 1x |
+| Dummy Node | "delete head", "merge", "insert at front" | Avoids null-check edge cases |
+| Reversal | "reverse list", "reverse between" | Rewire next pointers |
+| Merge | "merge sorted", "merge k lists" | Compare heads, advance smaller |
+| Cycle Detection | "has cycle", "cycle start" | Floyd's: fast meets slow = cycle |
+
 ## More templates
 
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 - **Data structures (pointers, recursion):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
