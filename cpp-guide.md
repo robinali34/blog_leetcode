@@ -541,6 +541,7 @@ Before C++20, you'd write `__builtin_popcount(n)` (GCC-specific). The `<bit>` he
 
 No more `.count()` or `.find() != .end()`:
 
+{% raw %}
 ```cpp
 unordered_map<string, int> freq = {{"apple", 3}, {"banana", 1}};
 unordered_set<int> seen = {1, 2, 3};
@@ -551,6 +552,7 @@ if (seen.contains(42)) { /* ... */ }         // cleaner than seen.find(42) != se
 // Works on all associative containers:
 // set, map, unordered_set, unordered_map, multiset, multimap
 ```
+{% endraw %}
 
 ### String `starts_with()` / `ends_with()` (C++20)
 
